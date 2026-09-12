@@ -29,13 +29,15 @@ itself.
    `to_be_removed/` is `README.md` at the root of a given project. For this
    repository, that is this file. For a sample project, that is
    `sample_projects/<project>/README.md`.
-3. **All other documentation is pending removal.** Any existing documentation
-   for this repository that does not follow the `canon` layout goes into
-   `to_be_removed/`. Nothing in that directory is authoritative. Its contents
-   are to be folded into the `canon` structure and then deleted.
-4. **Do not add new documentation to `to_be_removed/`.** It is a holding area
-   for legacy material only. New documentation goes into the project's
-   `README.md` or, for release history, its `CHANGELOG.md`.
+3. **Anything without a canonical place goes in `to_be_removed/`.** Any
+   documentation, decision, or record that does not yet have a canonical home
+   under these rules lives in `to_be_removed/`, whether it predates `canon` or
+   was written yesterday. Nothing in that directory is authoritative. Each item
+   is folded into canonical form once a place for it exists, and then deleted.
+4. **Nothing outside the repository is trusted.** If a fact about this project
+   is not written down in canonical form, or in `to_be_removed/` pending a
+   canonical place, it cannot be trusted. Tool memory, chat history, and
+   recollection do not count.
 
 ## What documentation must answer
 
@@ -93,7 +95,7 @@ canon/
 │       ├── <grammar files>
 │       └── canonically_commented/
 │           └── <grammar files>
-├── to_be_removed/         # legacy documentation awaiting migration, then deletion
+├── to_be_removed/         # records without a canonical place yet, then deletion
 └── sample_projects/       # sample projects, each with its own README.md
     └── <project>/
         └── README.md      # the only markdown file in that project
@@ -121,10 +123,11 @@ with no grammar files in it.
 
 ### `to_be_removed/`
 
-Holds every piece of pre-existing documentation about this repository that has
-not yet been rewritten according to `canon`. It is currently empty because the
-repository has no legacy documentation. When the migration is complete, this
-directory is deleted.
+Holds every record about this repository that does not yet have a canonical
+place: legacy documentation, decisions and their reasoning, and raw source
+material such as interview answers. Each file names what it is waiting for.
+When every item has been folded into canonical form, this directory is
+deleted.
 
 ### `sample_projects/`
 
