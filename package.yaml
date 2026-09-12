@@ -1,0 +1,52 @@
+name:                canon
+version:             0.1.0.0
+github:              "brain-fuel/canon"
+license:             MIT
+license-file:        LICENSE
+author:              "brain-fuel"
+maintainer:          "matthew.i.laine@gmail.com"
+copyright:           "2026 brain-fuel"
+synopsis:            Command line tool for canonical project documentation
+description:         Please see the README on GitHub at <https://github.com/brain-fuel/canon#readme>
+
+extra-source-files:
+- README.md
+
+dependencies:
+- base >= 4.7 && < 5
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+
+executables:
+  canon:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - canon
+
+tests:
+  canon-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - canon

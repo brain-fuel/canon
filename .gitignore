@@ -1,0 +1,4 @@
+.stack-work/
+canon.cabal
+stack.yaml.lock
+*~

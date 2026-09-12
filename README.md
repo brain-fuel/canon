@@ -22,7 +22,17 @@ This repository is the reference implementation of those rules, applied to itsel
 ```
 canon/
 ├── README.md              # this file; the only markdown file at the root
+├── LICENSE
 ├── install_toolchain.sh   # installs the build toolchain
+├── package.yaml           # hpack package definition; generates canon.cabal
+├── stack.yaml             # stack snapshot and package list
+├── Setup.hs
+├── app/
+│   └── Main.hs            # executable entry point
+├── src/
+│   └── Canon.hs           # library; argument dispatch and usage text
+├── test/
+│   └── Spec.hs            # test suite
 ├── to_be_removed/         # legacy documentation awaiting migration, then deletion
 └── sample_projects/       # sample projects, each with its own README.md
     └── <project>/
@@ -49,3 +59,13 @@ files. This directory is currently a husk with no sample projects in it.
 ```
 
 Installs the Xcode command-line tools and Haskell Stack.
+
+## Building and running
+
+```
+stack build
+stack test
+stack exec canon -- version
+```
+
+`canon` is a command line tool. Running it with no arguments prints usage.
