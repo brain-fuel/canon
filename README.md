@@ -23,6 +23,21 @@ This repository is the reference implementation of those rules, applied to itsel
    for legacy material only. New documentation goes into the project's
    `README.md` or, for release history, its `CHANGELOG.md`.
 
+## What documentation must answer
+
+Canon treats a codebase as having to answer six questions. Each has one
+designated home, and `canon` exists to extract meaning from code and check
+that the code and its documentation agree.
+
+| Question | Answered by |
+|----------|-------------|
+| Why?     | Comments. A comment gives a reason or points at resource material such as an article or reference paper. |
+| Who?     | Git. |
+| What?    | Names in the code or architecture, following the CALM architecture. |
+| When?    | Git together with increasing version numbers. |
+| How?     | Bodies in the code or architecture. |
+| Where?   | Package, namespace, file, and similar location markers. |
+
 ## Directory layout
 
 ```
@@ -40,11 +55,28 @@ canon/
 │   └── Canon.hs           # library; argument dispatch and usage text
 ├── test/
 │   └── Spec.hs            # test suite
+├── grammars/              # language grammars canon uses to extract meaning from code
+│   └── <lang>/
+│       ├── <grammar files>
+│       └── commented/
+│           └── <grammar files>
 ├── to_be_removed/         # legacy documentation awaiting migration, then deletion
 └── sample_projects/       # sample projects, each with its own README.md
     └── <project>/
         └── README.md      # the only markdown file in that project
 ```
+
+### `grammars/`
+
+Holds one subdirectory per language that `canon` can read. Each language
+directory contains the grammar files for that language, and a `commented/`
+subdirectory containing the same grammar files annotated with comments that
+explain why the grammar is shaped as it is. The uncommented files are what
+`canon` consumes. The commented files are the human reference and are the one
+place in this repository where comments are expected.
+
+The first language directory is `grammars/haskell/`. It is currently a husk
+with no grammar files in it.
 
 ### `to_be_removed/`
 

@@ -8,6 +8,10 @@ and this project adheres to the
 
 ## Unreleased
 
+### Added
+- `grammars/` directory with the `grammars/<lang>/commented/` structure, seeded with an empty `haskell` language directory
+- README section stating the six questions a codebase must answer and where each is answered
+
 ## 0.1.0.0 - 2026-09-12
 
 ### Added
