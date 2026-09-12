@@ -5,23 +5,30 @@ This repository is the reference implementation of those rules, applied to itsel
 
 ## Documentation rules
 
-1. **One markdown file per project.** The only markdown file allowed outside
-   `to_be_removed/` is `README.md`, located at the root of a given project.
-   For this repository, that is this file. For a sample project, that is
+1. **`CHANGELOG.md` is required for any project that can be published to
+   Hackage.** It lives at the root of the project, follows the
+   [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format, and
+   uses the [Haskell Package Versioning Policy](https://pvp.haskell.org/).
+   It is listed under `extra-source-files` so Hackage renders it.
+2. **One `README.md` per project, at its root.** Apart from `CHANGELOG.md`
+   where rule 1 applies, the only markdown file allowed outside
+   `to_be_removed/` is `README.md` at the root of a given project. For this
+   repository, that is this file. For a sample project, that is
    `sample_projects/<project>/README.md`.
-2. **All other documentation is pending removal.** Any existing documentation
+3. **All other documentation is pending removal.** Any existing documentation
    for this repository that does not follow the `canon` layout goes into
    `to_be_removed/`. Nothing in that directory is authoritative. Its contents
    are to be folded into the `canon` structure and then deleted.
-3. **Do not add new documentation to `to_be_removed/`.** It is a holding area
+4. **Do not add new documentation to `to_be_removed/`.** It is a holding area
    for legacy material only. New documentation goes into the project's
-   `README.md`.
+   `README.md` or, for release history, its `CHANGELOG.md`.
 
 ## Directory layout
 
 ```
 canon/
-├── README.md              # this file; the only markdown file at the root
+├── README.md              # this file
+├── CHANGELOG.md           # release history; required for Hackage-publishable projects
 ├── LICENSE
 ├── install_toolchain.sh   # installs the build toolchain
 ├── package.yaml           # hpack package definition; generates canon.cabal
@@ -49,8 +56,8 @@ directory is deleted.
 ### `sample_projects/`
 
 Holds sample projects that demonstrate the `canon` layout. Each sample project
-is a subdirectory with its own `README.md` at its root, and no other markdown
-files. This directory is currently a husk with no sample projects in it.
+is a subdirectory with its own `README.md` at its root, plus a `CHANGELOG.md`
+if it can be published to Hackage, and no other markdown files. This directory is currently a husk with no sample projects in it.
 
 ## Toolchain
 
