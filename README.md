@@ -1,7 +1,21 @@
 # canon
 
-`canon` defines how a project's documentation is structured and where it lives.
-This repository is the reference implementation of those rules, applied to itself.
+`canon` exists so that humans and LLMs can keep every decision in a codebase
+evergreen: the who, what, when, where, why, and how of each decision has a
+single canonical source that does not drift from its intended meaning. A
+decision is a comment plus the code it attaches to, in the same way an
+architecture decision record pairs with the architecture it describes.
+
+No liar's comments and no liar's architecture are allowed. The compiler,
+property-based testing, mutation testing, and decision coverage verify what
+they can. Everything they cannot decide, which by Rice's theorem is every
+non-trivial semantic property, must be explained by a human, and `canon` makes
+it tractable for humans to review that explanation. A typical example is a
+comment recording that a function exists because of a particular business
+requirement.
+
+This repository is the reference implementation of these rules, applied to
+itself.
 
 ## Documentation rules
 
@@ -26,8 +40,9 @@ This repository is the reference implementation of those rules, applied to itsel
 ## What documentation must answer
 
 Canon treats a codebase as having to answer six questions. Each has one
-designated home, and `canon` exists to extract meaning from code and check
-that the code and its documentation agree.
+designated home. `canon` extracts the answers from code, emits them as a
+structured machine-readable model, generates documentation from that model,
+checks that code and documentation agree, and enforces the standard.
 
 | Question | Answered by |
 |----------|-------------|
@@ -37,6 +52,24 @@ that the code and its documentation agree.
 | When?    | Git together with increasing version numbers. |
 | How?     | Bodies in the code or architecture. |
 | Where?   | Package, namespace, file, and similar location markers. |
+
+## Canonical comments
+
+A canonical comment is a comment whose structure a grammar recognises, so that
+`canon` can parse out the "Why?" and its references from the comment, the
+"What?" from the name of the code it attaches to, and the "How?" from the body.
+
+- A canonical comment is required on every public API, on anything used across
+  modules, and on any non-trivial semantic property of the code that becomes
+  part of the domain language. Elsewhere it is optional.
+- References are pointers into a registry, so that each reference has a single
+  canonical source. The comment carries a key and the registry maps the key to
+  the article, paper, ticket, or requirement.
+- Where a comment may attach, and at what granularity, is defined by the
+  canonically commented grammar of each language.
+
+Until the canonical comment grammar exists for Haskell, this repository's own
+code carries no comments at all.
 
 ## Directory layout
 
@@ -69,14 +102,19 @@ canon/
 ### `grammars/`
 
 Holds one subdirectory per language that `canon` can read. Each language
-directory contains the grammar files for that language, and a
-`canonically_commented/` subdirectory containing the same grammar files with
-canonical comments. The uncommented files are what `canon` consumes to parse
-code. The canonically commented files are the reference for how a piece of
-code and its comment are extracted together, so that `canon` can parse out the
-"Why?" and its references from the comment, the "What?" from the name, and the
-"How?" from the body. They are the one place in this repository where comments
-are expected.
+directory contains two grammars:
+
+- The grammar files at the top of the directory are the official ANTLR4
+  grammar for the language, taken from
+  [grammars-v4](https://github.com/antlr/grammars-v4) and kept as upstream
+  publishes it.
+- `canonically_commented/` contains the grammar of the canonically commented
+  dialect of that language. It is derived from the upstream grammar and
+  modified to add canonical comment structure and attachment rules. Code that
+  is valid in the language may not be valid canonically commented code.
+
+`canon` consumes the canonically commented grammar. The upstream grammar is
+kept beside it as the source it is derived from.
 
 The first language directory is `grammars/haskell/`. It is currently a husk
 with no grammar files in it.
