@@ -58,7 +58,7 @@ canon/
 ├── grammars/              # language grammars canon uses to extract meaning from code
 │   └── <lang>/
 │       ├── <grammar files>
-│       └── commented/
+│       └── canonically_commented/
 │           └── <grammar files>
 ├── to_be_removed/         # legacy documentation awaiting migration, then deletion
 └── sample_projects/       # sample projects, each with its own README.md
@@ -69,11 +69,14 @@ canon/
 ### `grammars/`
 
 Holds one subdirectory per language that `canon` can read. Each language
-directory contains the grammar files for that language, and a `commented/`
-subdirectory containing the same grammar files annotated with comments that
-explain why the grammar is shaped as it is. The uncommented files are what
-`canon` consumes. The commented files are the human reference and are the one
-place in this repository where comments are expected.
+directory contains the grammar files for that language, and a
+`canonically_commented/` subdirectory containing the same grammar files with
+canonical comments. The uncommented files are what `canon` consumes to parse
+code. The canonically commented files are the reference for how a piece of
+code and its comment are extracted together, so that `canon` can parse out the
+"Why?" and its references from the comment, the "What?" from the name, and the
+"How?" from the body. They are the one place in this repository where comments
+are expected.
 
 The first language directory is `grammars/haskell/`. It is currently a husk
 with no grammar files in it.
