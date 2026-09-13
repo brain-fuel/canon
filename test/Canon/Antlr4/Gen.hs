@@ -45,10 +45,11 @@ import qualified Hedgehog.Range as Range
 data GenEnv = GenEnv
   { envRuleNames :: [Name]
   , envTokenNames :: [Name]
+  , envLexerRuleNames :: [Name]
   }
 
 openEnv :: GenEnv
-openEnv = GenEnv [] []
+openEnv = GenEnv [] [] []
 
 avoidedNames :: Set.Set Text
 avoidedNames = Set.union reservedWords (Set.fromList ["options", "tokens", "channels"])
@@ -76,6 +77,11 @@ envRuleName env = case envRuleNames env of
 
 envTokenName :: GenEnv -> Gen Name
 envTokenName env = case envTokenNames env of
+  [] -> genTokenName
+  names -> Gen.element names
+
+envLexerRuleName :: GenEnv -> Gen Name
+envLexerRuleName env = case envLexerRuleNames env of
   [] -> genTokenName
   names -> Gen.element names
 
@@ -169,12 +175,14 @@ genClosedGrammar = do
   kind <- Gen.enumBounded
   ruleNames <- Set.toList <$> Gen.set (Range.linear 1 5) genRuleName
   lexerNames <- Set.toList <$> Gen.set (Range.linear 1 5) genTokenName
+  fragmentFlags <- traverse (const Gen.bool) lexerNames
   declared <- Set.toList <$> Gen.set (Range.linear 0 3) genTokenName
   let parserNames = if kind == LexerGrammar then [] else ruleNames
-      lexerRuleNames = if kind == ParserGrammar then [] else lexerNames
-      env = GenEnv parserNames (Set.toList (Set.fromList (lexerRuleNames ++ declared ++ [Name "EOF"])))
+      lexerRuleNames = if kind == ParserGrammar then [] else zip lexerNames fragmentFlags
+      tokenNames = [n | (n, isFragment) <- lexerRuleNames, not isFragment] ++ declared ++ [Name "EOF"]
+      env = GenEnv parserNames (Set.toList (Set.fromList tokenNames)) (map fst lexerRuleNames ++ [Name "EOF"])
   parserRules <- traverse (\n -> RuleParser <$> genParserRuleNamed env n) parserNames
-  lexerRules <- traverse (\n -> RuleLexer <$> genLexerRuleNamed env n) lexerRuleNames
+  lexerRules <- traverse (\(n, isFragment) -> RuleLexer <$> genLexerRuleNamedWith env n isFragment) lexerRuleNames
   rules <- Gen.shuffle (parserRules ++ lexerRules)
   name <- genAnyName
   pure (Grammar kind name [PrequelTokens declared | not (null declared)] rules [])
@@ -306,11 +314,14 @@ genLexerRule :: GenEnv -> Gen (LexerRule ())
 genLexerRule env = genTokenName >>= genLexerRuleNamed env
 
 genLexerRuleNamed :: GenEnv -> Name -> Gen (LexerRule ())
-genLexerRuleNamed env name =
+genLexerRuleNamed env name = Gen.bool >>= genLexerRuleNamedWith env name
+
+genLexerRuleNamedWith :: GenEnv -> Name -> Bool -> Gen (LexerRule ())
+genLexerRuleNamedWith env name isFragment =
   LexerRule ()
     name
-    <$> Gen.bool
-    <*> Gen.list (Range.linear 0 2) genOption
+    isFragment
+    <$> Gen.list (Range.linear 0 2) genOption
     <*> nonEmptyList (Range.linear 1 4) (genLexerAlternative env)
 
 genLexerAlternative :: GenEnv -> Gen (LexerAlternative ())
@@ -331,7 +342,7 @@ genLexerElement env =
 genLexerAtom :: GenEnv -> Gen LexerAtom
 genLexerAtom env =
   Gen.choice
-    [ LexerAtomTerminal <$> genTerminal env
+    [ LexerAtomTerminal <$> genLexerTerminal env
     , LexerAtomRange <$> genCharRange
     , LexerAtomCharSet <$> genCharSet
     , LexerAtomNotSet . NotSet <$> nonEmptyList (Range.linear 1 3) (genLexerSetElement env)
@@ -341,10 +352,17 @@ genLexerAtom env =
 genCharRange :: Gen CharRange
 genCharRange = CharRange <$> genStringLiteral <*> genStringLiteral
 
+genLexerTerminal :: GenEnv -> Gen Terminal
+genLexerTerminal env =
+  Gen.choice
+    [ TerminalToken <$> envLexerRuleName env <*> Gen.list (Range.linear 0 2) genElementOption
+    , TerminalLiteral <$> genStringLiteral <*> Gen.list (Range.linear 0 2) genElementOption
+    ]
+
 genLexerSetElement :: GenEnv -> Gen SetElement
 genLexerSetElement env =
   Gen.choice
-    [ SetTerminal <$> genTerminal env
+    [ SetTerminal <$> genLexerTerminal env
     , SetRange <$> genCharRange
     , SetCharSet <$> genCharSet
     ]

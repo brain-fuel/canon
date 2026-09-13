@@ -87,10 +87,22 @@ canon/
 ├── app/
 │   └── Main.hs            # executable entry point
 ├── src/
-│   └── Canon.hs           # library; argument dispatch and usage text
+│   ├── Canon.hs           # argument dispatch and usage text
+│   └── Canon/Antlr4/      # reads .g4 grammars into a queryable representation
+│       ├── Syntax.hs      # the grammar representation
+│       ├── Lexical.hs     # scanners for literals, actions, arguments, char sets, comments
+│       ├── Escape.hs      # decoding and encoding of literal escapes
+│       ├── Grammar.hs     # the scannerless grammar record on grammatical-parsers
+│       ├── Comment.hs     # comments with their spans
+│       ├── Read.hs        # reads a file into a grammar plus its comments
+│       ├── Pretty.hs      # prints a grammar back to .g4 text
+│       ├── Query.hs       # rules, tokens, modes, references, and well-formedness
+│       └── RuleGraph.hs   # reference graph, nullability, left recursion, reachability
 ├── test/
-│   └── Spec.hs            # test suite
+│   ├── Spec.hs            # tasty entry point
+│   └── Canon/Antlr4/      # hedgehog generators and properties per module
 ├── grammars/              # language grammars canon uses to extract meaning from code
+│   ├── antlr4/            # ANTLR's own meta-grammar, which canon reads first
 │   └── <lang>/
 │       ├── <grammar files>
 │       └── canonically_commented/
@@ -118,7 +130,13 @@ directory contains two grammars:
 `canon` consumes the canonically commented grammar. The upstream grammar is
 kept beside it as the source it is derived from.
 
-The first language directory is `grammars/haskell/`. It is currently a husk
+`grammars/antlr4/` holds ANTLR's own meta-grammar, `ANTLRv4Lexer.g4` and
+`ANTLRv4Parser.g4`, vendored unmodified from grammars-v4. The `Canon.Antlr4`
+modules read any `.g4` file into a grammar value, and the test suite checks
+that both of these files read with their known structure. Its
+`canonically_commented/` directory is still a husk.
+
+`grammars/haskell/` is the first language directory. It is currently a husk
 with no grammar files in it.
 
 ### `to_be_removed/`
@@ -148,7 +166,13 @@ Installs the Xcode command-line tools and Haskell Stack.
 ```
 stack build
 stack test
+stack test --ta '-p property'
 stack exec canon -- version
 ```
 
 `canon` is a command line tool. Running it with no arguments prints usage.
+The `Canon.Antlr4` library is not reachable from the command line yet.
+
+Tests use tasty with hedgehog. Property-based tests are the primary tests and
+live under the `property` group. Fixture checks against the vendored grammars
+live under the `unit` group.

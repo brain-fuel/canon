@@ -77,7 +77,7 @@ scanAction t = case T.uncons t of
         '}' -> Just (n + 1)
         '{' -> continueWith (scanAction s)
         '\'' -> continueWith (scanStringLiteral s)
-        '"' -> continueWith (scanTripleQuoteLiteral s <|> scanDoubleQuoteLiteral s)
+        '"' -> shortest (continueWith (scanTripleQuoteLiteral s)) (continueWith (scanDoubleQuoteLiteral s))
         '`' -> continueWith (scanBacktickLiteral s)
         '/'
           | "/*" `T.isPrefixOf` s, Just k <- scanTerminatedBlockComment s -> go (n + k) (T.drop k s)
@@ -89,6 +89,9 @@ scanAction t = case T.uncons t of
         _ -> go (n + 1) rest
       where
         continueWith m = m >>= \k -> go (n + k) (T.drop k s)
+    shortest a b = case (a, b) of
+      (Just x, Just y) -> Just (min x y)
+      _ -> a <|> b
 
 scanTerminatedBlockComment :: Text -> Maybe Int
 scanTerminatedBlockComment t

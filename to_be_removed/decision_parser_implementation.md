@@ -39,24 +39,47 @@ and semicolons. Any Haskell runtime must reimplement it.
 
 ## Consequences
 
-Planned stages for the interpreter:
+Amended 2026-09-12 after the reader was built.
 
-1. A `.g4` reader, built from ANTLR's own meta-grammar
-   (`ANTLRv4Lexer.g4` and `ANTLRv4Parser.g4` in grammars-v4). This is the
-   first grammar `canon` needs and belongs under `grammars/antlr4/`.
-2. An interpreter over the loaded grammar: build the augmented transition
-   network and simulate it with ALL(*), so that ordered alternatives and left
-   recursion mean what ANTLR intends.
-3. Per-language base lexers in Haskell, reached through a hook interface that
+The parser combinator foundation is
+[grammatical-parsers](https://hackage.haskell.org/package/grammatical-parsers)
+0.7.2.1. It was chosen over two alternatives:
+
+- Earley, which is in the Stackage snapshot but has had no release since 2019.
+- A hand-written packrat combinator core with Warth-style left recursion
+  support, which would give full control and a Parsec feel but has to be
+  built and tested before anything else can be.
+
+grammatical-parsers is actively maintained (June 2026), is tested on GHC
+9.10, represents a grammar as a first-class Rank2 record, and offers a
+left-recursive backend. It is not in LTS 24.58 and is pinned as an extra-dep.
+
+The `.g4` reader is a single scannerless grammar record on the PEG packrat
+backend. Because the grammar knows whether it is inside a parser rule or a
+lexer rule, ANTLR's `LexerAdaptor`, whose only job is deciding whether `[`
+opens an argument block or a character set, is not needed and is not ported.
+Action, argument, character set, and string literal bodies are consumed by
+pure scanners that mirror the upstream lexer rules, including taking the
+shortest action body when triple-quoted and double-quoted strings could be
+read either way.
+
+Remaining stages:
+
+1. Interpret a `Grammar` value into a grammatical-parsers record on the
+   left-recursive backend, so that a grammars-v4 grammar becomes a running
+   parser without code generation. Open question: ANTLR resolves
+   left-recursive alternatives by precedence climbing with ordered
+   alternatives, while grammatical-parsers' context-free backends return all
+   parses. The interpretation must pick one meaning and record it.
+2. Per-language base lexers in Haskell, reached through a hook interface that
    resolves `superClass` and lexer actions. The Haskell layout lexer is the
    first port.
 
-The alternative considered was generating a Java parser with the official
-ANTLR tool and having it dump parse trees for `canon` to read. It was rejected
-because it makes a Haskell tool depend on a JVM.
-
 ## References
 
+- https://hackage.haskell.org/package/grammatical-parsers
+- Blažević and Milić, "Grampa: a packrat parser combinator library with left recursion and grammar composition", Haskell Symposium 2017
+- Warth, Douglass, and Millstein, "Packrat Parsers Can Support Left Recursion", PEPM 2008
 - https://hackage.haskell.org/package/antlr-haskell
 - https://github.com/cronburg/antlr-haskell
 - https://github.com/antlr/grammars-v4/blob/master/haskell/HaskellParser.g4
