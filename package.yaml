@@ -12,9 +12,22 @@ description:         Please see the README on GitHub at <https://github.com/brai
 extra-source-files:
 - README.md
 - CHANGELOG.md
+- grammars/antlr4/*.g4
+
+default-extensions:
+- DeriveTraversable
+- OverloadedStrings
+- TemplateHaskell
+- RankNTypes
+- FlexibleContexts
+- RecordWildCards
+- LambdaCase
+- TupleSections
 
 dependencies:
 - base >= 4.7 && < 5
+- text
+- containers
 
 ghc-options:
 - -Wall
@@ -51,3 +64,6 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - canon
+    - tasty
+    - tasty-hedgehog
+    - hedgehog
