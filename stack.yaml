@@ -3,3 +3,6 @@ snapshot:
 
 packages:
 - .
+
+extra-deps:
+- grammatical-parsers-0.7.2.1

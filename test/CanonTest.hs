@@ -8,7 +8,7 @@ import Test.Tasty.Hedgehog (testProperty)
 tests :: TestTree
 tests =
   testGroup
-    "unit"
+    "cli"
     [ testProperty "version subcommand prints the version" $
         withTests 1 $ property (dispatch ["version"] === "canon 0.1.0.0")
     , testProperty "unknown arguments print usage" $

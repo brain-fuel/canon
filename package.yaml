@@ -29,6 +29,7 @@ dependencies:
 - text
 - containers
 
+
 ghc-options:
 - -Wall
 - -Wcompat
@@ -42,6 +43,10 @@ ghc-options:
 
 library:
   source-dirs: src
+  dependencies:
+  - grammatical-parsers
+  - rank2classes
+  - input-parsers
 
 executables:
   canon:

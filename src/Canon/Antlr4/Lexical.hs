@@ -19,6 +19,7 @@ module Canon.Antlr4.Lexical
   ) where
 
 import Canon.Antlr4.Syntax (Position (..), Span (..), isNameChar, isNameStartChar)
+import Control.Applicative ((<|>))
 import Data.Char (isDigit, isHexDigit)
 import qualified Data.IntMap.Strict as IntMap
 import Data.Text (Text)
@@ -76,9 +77,7 @@ scanAction t = case T.uncons t of
         '}' -> Just (n + 1)
         '{' -> continueWith (scanAction s)
         '\'' -> continueWith (scanStringLiteral s)
-        '"'
-          | "\"\"\"" `T.isPrefixOf` s -> continueWith (scanTripleQuoteLiteral s)
-          | otherwise -> continueWith (scanDoubleQuoteLiteral s)
+        '"' -> continueWith (scanTripleQuoteLiteral s <|> scanDoubleQuoteLiteral s)
         '`' -> continueWith (scanBacktickLiteral s)
         '/'
           | "/*" `T.isPrefixOf` s, Just k <- scanTerminatedBlockComment s -> go (n + k) (T.drop k s)

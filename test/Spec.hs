@@ -2,6 +2,8 @@ module Main (main) where
 
 import qualified Canon.Antlr4.CommentTest
 import qualified Canon.Antlr4.EscapeTest
+import qualified Canon.Antlr4.RoundTripTest
+import qualified Canon.Antlr4.VendoredTest
 import qualified CanonTest
 import Test.Tasty (defaultMain, testGroup)
 
@@ -10,7 +12,12 @@ main =
   defaultMain
     ( testGroup
         "canon"
-        [ CanonTest.tests
-        , testGroup "property" [Canon.Antlr4.EscapeTest.tests, Canon.Antlr4.CommentTest.tests]
+        [ testGroup "unit" [CanonTest.tests, Canon.Antlr4.VendoredTest.tests]
+        , testGroup
+            "property"
+            [ Canon.Antlr4.EscapeTest.tests
+            , Canon.Antlr4.CommentTest.tests
+            , Canon.Antlr4.RoundTripTest.tests
+            ]
         ]
     )
