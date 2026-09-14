@@ -18,3 +18,7 @@ canon-provisional-syntax:
   kind: discussion
   title: Provisional canonical comment syntax for ANTLR grammar files
   locator: to_be_removed/provisional_canonical_comment_syntax.md
+semver-2:
+  kind: article
+  title: Semantic Versioning 2.0.0
+  locator: https://semver.org/spec/v2.0.0.html

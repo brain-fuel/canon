@@ -16,6 +16,7 @@ import Canon.Antlr4.Syntax (Name (..))
 import Canon.Antlr4.Token (tokenPosition)
 import Canon.Config (CanonicalGrammar (..), Config (..), defaultDecisionsFileName, defaultRegistryFileName, loadConfig, renderConfigError)
 import Canon.Decisions
+import Canon.Version (renderVersion)
 import Canon.Extract.Antlr4 (Extraction (..), extractGrammarModel, renderExtractError)
 import Canon.Git.Shell (shellGitProvider)
 import Canon.Model.Check (checkAll)
@@ -26,6 +27,7 @@ import Canon.Registry (Registry, emptyRegistry, readRegistryFile, renderRegistry
 import Canon.Span (Position (..))
 import qualified Data.ByteString as BS
 import Data.List (sortOn)
+import Data.Ord (Down (..))
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -46,7 +48,7 @@ data Command
   deriving (Eq, Show)
 
 version :: String
-version = "canon 0.1.0.0"
+version = "canon 0.1.0"
 
 parseCommand :: [String] -> Command
 parseCommand arguments = case arguments of
@@ -119,8 +121,7 @@ renderLedger ledger = T.concat (concatMap section [Open, Decided, Superseded])
     entries status = [(k, e) | (k, e) <- Map.toList (ledgerEntries ledger), entryStatus e == status]
     ordered status = case status of
       Open -> sortOn (entryRevisit . snd) (entries status)
-      _ -> sortOn (fmap negateVersion . entryDecided . snd) (entries status)
-    negateVersion (Version parts) = Version (map negate parts)
+      _ -> sortOn (fmap Down . entryDecided . snd) (entries status)
     section status = case ordered status of
       [] -> []
       items -> (statusText status <> "\n") : map renderEntry items ++ ["\n"]

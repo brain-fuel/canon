@@ -4,6 +4,7 @@ import Canon.Model
 import Canon.Model.Check
 import Canon.Model.Finding
 import Canon.Decisions
+import Canon.Version (Version (..), renderVersion)
 import Canon.Model.Gen (genDecisionEntry, genModel, genReference, genUnitId, genVersion)
 import Canon.Registry
 import qualified Data.List.NonEmpty as NonEmpty
@@ -123,7 +124,7 @@ citedWhileOpenInformational = property $ do
       let key = ReferenceKey "DEC-x"
           why = answerValue (decisionWhy d)
           altered = m {modelDecisions = d {decisionWhy = (decisionWhy d) {answerValue = why {whyReferences = key : whyReferences why}}} : rest}
-          ledger = ledgerOf [(key, e {entryStatus = Open, entryRevisit = Just (Version [9])})]
+          ledger = ledgerOf [(key, e {entryStatus = Open, entryRevisit = Just (Version 9 0 0 [] [])})]
           findings = checkLedger Nothing emptyRegistry ledger altered
       assert (any (\f -> case f of DecisionCitedWhileOpen _ _ k -> k == key; _ -> False) findings)
       assert (all ((== Informational) . findingSeverity) [f | f@DecisionCitedWhileOpen {} <- findings])

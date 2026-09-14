@@ -46,4 +46,4 @@ repositoryConfigLoads = withTests 1 $ property $ do
     Left err -> fail (show err)
     Right config -> do
       configRegistry config === defaultRegistryFileName
-      configVersion config === Just "0.1.0.0"
+      configVersion config === Just "0.1.0"

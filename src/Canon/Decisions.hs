@@ -3,32 +3,26 @@ module Canon.Decisions
   , DecisionEntry (..)
   , Ledger (..)
   , LedgerError (..)
-  , Version (..)
   , emptyLedger
   , lookupDecision
   , readLedgerFile
   , renderLedgerError
-  , parseVersion
-  , renderVersion
   , defaultLedgerFileName
   , statusText
   ) where
 
 import Canon.Model.Id (ReferenceKey (..), UnitId)
+import Canon.Version (Version)
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, withText, (.:), (.:?), (.=))
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
 import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
-import qualified Data.Text.Read as TR
 import qualified Data.Yaml as Yaml
 
 data DecisionStatus = Open | Decided | Superseded
   deriving (Eq, Ord, Show, Enum, Bounded)
-
-newtype Version = Version {versionParts :: [Int]}
-  deriving (Eq, Ord, Show)
 
 data DecisionEntry = DecisionEntry
   { entryStatus :: DecisionStatus
@@ -66,16 +60,6 @@ readLedgerFile path = do
 renderLedgerError :: LedgerError -> Text
 renderLedgerError (LedgerUnreadable path message) = T.concat [T.pack path, ": ", message]
 
-parseVersion :: Text -> Maybe Version
-parseVersion t = Version <$> traverse part (T.splitOn "." (T.strip t))
-  where
-    part piece = case TR.decimal piece of
-      Right (n, rest) | T.null rest, n >= 0 -> Just n
-      _ -> Nothing
-
-renderVersion :: Version -> Text
-renderVersion (Version parts) = T.intercalate "." (map (T.pack . show) parts)
-
 statusText :: DecisionStatus -> Text
 statusText s = case s of
   Open -> "open"
@@ -89,12 +73,6 @@ instance FromJSON DecisionStatus where
   parseJSON = withText "DecisionStatus" $ \t -> case [s | s <- [minBound .. maxBound], statusText s == t] of
     (s : _) -> pure s
     [] -> fail ("unknown decision status: " ++ T.unpack t)
-
-instance ToJSON Version where
-  toJSON = toJSON . renderVersion
-
-instance FromJSON Version where
-  parseJSON = withText "Version" $ \t -> maybe (fail ("invalid version: " ++ T.unpack t)) pure (parseVersion t)
 
 instance ToJSON DecisionEntry where
   toJSON e =

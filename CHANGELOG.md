@@ -3,10 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to the
-[Haskell Package Versioning Policy](https://pvp.haskell.org/).
+and this project adheres to
+[Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+### Changed
+- Versions follow Semantic Versioning 2.0.0 rather than the Haskell Package Versioning Policy; the released version is 0.1.0, decision entries and `canon.yaml` use three-part versions, and pre-release labels order as the specification says
 
 ### Added
 - `canonical_decisions.yaml`, the decision ledger, with rule 6; `canon decisions` to list it; and checks that fail on an open decision past its revisit version, a superseded decision without a decided successor, a key shared with the registry, or a missing named unit, and inform on an uncited decided decision or a comment citing an open one
@@ -24,7 +27,7 @@ and this project adheres to the
 - `grammars/` directory with the `grammars/<lang>/canonically_commented/` structure, seeded with an empty `haskell` language directory
 - README section stating the six questions a codebase must answer and where each is answered
 
-## 0.1.0.0 - 2026-09-12
+## 0.1.0 - 2026-09-12
 
 ### Added
 - `canon` executable with a `version` subcommand

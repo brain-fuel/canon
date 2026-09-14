@@ -5,6 +5,7 @@ module Canon.Model.Check
   ) where
 
 import Canon.Decisions
+import Canon.Version (parseVersion, renderVersion)
 import Canon.Model
 import Canon.Model.Finding
 import Canon.Registry (Registry (..), lookupReference)

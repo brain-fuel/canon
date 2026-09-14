@@ -22,7 +22,10 @@ itself.
 1. **`CHANGELOG.md` is required for any project that can be published to
    Hackage.** It lives at the root of the project, follows the
    [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format, and
-   uses the [Haskell Package Versioning Policy](https://pvp.haskell.org/).
+   versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html):
+   major, minor, and patch numbers, with optional pre-release and build
+   metadata. Cabal accepts only the numeric part, so `package.yaml` carries
+   the numbers and any pre-release label lives in `canon.yaml`.
    It is listed under `extra-source-files` so Hackage renders it.
 2. **One `README.md` per project, at its root.** Apart from `CHANGELOG.md`
    where rule 1 applies, the only markdown file allowed outside
@@ -167,6 +170,7 @@ canon/
 │   ├── Canon/Git/         # commits, log and blame parsing, the git provider and its shell implementation
 │   ├── Canon/Registry.hs  # canonical_refs.yaml
 │   ├── Canon/Decisions.hs # canonical_decisions.yaml
+│   ├── Canon/Version.hs   # semantic versions and their precedence
 │   ├── Canon/Config.hs    # canon.yaml
 │   ├── Canon/Attach.hs    # binds a comment to the unit directly below it
 │   ├── Canon/CanonicalComment.hs  # provisional canonical comment syntax

@@ -28,7 +28,8 @@ module Canon.Model.Gen
   ) where
 
 import Canon.Config (CanonicalGrammar (..), Config (..))
-import Canon.Decisions (DecisionEntry (..), DecisionStatus (..), Ledger (..), Version (..))
+import Canon.Decisions (DecisionEntry (..), DecisionStatus (..), Ledger (..))
+import Canon.Version (PreReleaseIdentifier (..), Version (..))
 import Canon.Git.Gen (genCommitHash, genPerson)
 import Canon.Model
 import Canon.Registry (Reference (..), Registry (..))
@@ -175,7 +176,21 @@ genConfig =
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> (CanonicalGrammar <$> genPath <*> genPath <*> genIdSegment)))
 
 genVersion :: Gen Version
-genVersion = Version <$> Gen.list (Range.linear 1 4) (Gen.int (Range.linear 0 20))
+genVersion =
+  Version
+    <$> genNumber
+    <*> genNumber
+    <*> genNumber
+    <*> Gen.list (Range.linear 0 3) genPreReleaseIdentifier
+    <*> Gen.list (Range.linear 0 2) genIdentifierText
+  where
+    genNumber = Gen.integral (Range.linear 0 20)
+    genPreReleaseIdentifier =
+      Gen.choice
+        [ NumericIdentifier <$> genNumber
+        , AlphanumericIdentifier <$> Gen.filter (not . T.all (`elem` ['0' .. '9'])) genIdentifierText
+        ]
+    genIdentifierText = Gen.text (Range.linear 1 6) (Gen.frequency [(8, Gen.alphaNum), (1, pure '-')])
 
 genDecisionEntry :: Gen DecisionEntry
 genDecisionEntry = do
