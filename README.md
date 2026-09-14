@@ -44,6 +44,14 @@ itself.
    canonical source for every article, paper, ticket, requirement, package, or
    discussion that a comment cites. Each entry maps a key to a kind, a title,
    and a locator. Comments cite keys only. Neither file carries comments.
+6. **Decisions live in `canonical_decisions.yaml` at the project root.** Every
+   decision, open or closed, is an entry keyed like a reference, so a comment
+   cites it with the same `ref:KEY` form. An entry is never deleted; its
+   status moves from `open` to `decided`, or to `superseded` by another key.
+   An open entry names the version by which it must be revisited, and
+   `canon check` fails once the project version reaches it. A decided entry
+   that no canonical comment cites is reported. Git supplies who opened and
+   closed each decision and when.
 
 ## What documentation must answer
 
@@ -111,6 +119,26 @@ decision naming a unit that no longer exists, a required unit with no
 canonical comment, a doc comment attached to nothing, and git being
 unavailable.
 
+## Decisions
+
+`canonical_decisions.yaml` is the ledger of decisions. Each entry has a
+`status`, a `question`, the version it was `opened` in, and then either a
+`revisit` version while open, an `answer` and a `decided` version once
+decided, or the key it is superseded `by`. It may cite registry `refs` and
+name the code `units` it concerns. `canon decisions` prints the ledger with
+open entries first, ordered by revisit version, so the next review is always
+at the top.
+
+`canon check` cannot decide whether a question is still open, so it checks
+what it can and forces the review at the right moment: an open decision at or
+past its revisit version fails the check; a superseded decision whose
+successor is not decided fails; a decision key that is also a registry key
+fails; a unit named by a decision that the model does not contain fails. Two
+findings are informational and do not fail the check: a decided decision that
+no comment cites, which stays informational until Haskell code units exist,
+and a comment citing a decision that is still open, which is how code is tied
+to the ambiguity it depends on.
+
 ANTLR grammar files are the first language `canon` models. Each grammar is a
 unit, each rule is a child unit, and each mode groups its rules. Every parser
 rule and every non-fragment lexer rule requires a canonical comment.
@@ -123,6 +151,7 @@ canon/
 ├── CHANGELOG.md           # release history; required for Hackage-publishable projects
 ├── canon.yaml             # canon configuration
 ├── canonical_refs.yaml    # the reference registry
+├── canonical_decisions.yaml  # the decision ledger
 ├── LICENSE
 ├── install_toolchain.sh   # installs the build toolchain
 ├── package.yaml           # hpack package definition; generates canon.cabal
@@ -137,6 +166,7 @@ canon/
 │   ├── Canon/Model/       # ids, evidence, answers, units, decisions, YAML, findings, checks
 │   ├── Canon/Git/         # commits, log and blame parsing, the git provider and its shell implementation
 │   ├── Canon/Registry.hs  # canonical_refs.yaml
+│   ├── Canon/Decisions.hs # canonical_decisions.yaml
 │   ├── Canon/Config.hs    # canon.yaml
 │   ├── Canon/Attach.hs    # binds a comment to the unit directly below it
 │   ├── Canon/CanonicalComment.hs  # provisional canonical comment syntax
@@ -250,7 +280,9 @@ answers empty and one finding saying so. `canon parse` interprets a lexer and
 parser grammar pair, or one combined grammar, and prints the parse tree of a
 file or the position where parsing fails.
 
-`canon.yaml` may name canonical dialect grammars under `canonical`, keyed by
+`canon.yaml` names the registry under `registry` and the decision ledger
+under `decisions`, both defaulting to the files at the project root. It may
+name canonical dialect grammars under `canonical`, keyed by
 language, each with a `lexer`, a `parser`, and a `start` rule. `canon check`
 parses the checked file with the dialect named for its language and reports a
 finding at the first token the dialect refuses.

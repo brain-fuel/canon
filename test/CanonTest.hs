@@ -20,5 +20,6 @@ tests =
           parseCommand ["check"] === CommandUsage
           parseCommand ["parse", "l.g4", "p.g4", "start", "f"] === CommandParse "l.g4" "p.g4" "start" "f"
           parseCommand ["parse", "g.g4", "start", "f"] === CommandParseCombined "g.g4" "start" "f"
+          parseCommand ["decisions"] === CommandDecisions
           parseCommand ["version"] === CommandVersion
     ]

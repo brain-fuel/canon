@@ -5,6 +5,7 @@ module Canon.Config
   , defaultConfig
   , configFileName
   , defaultRegistryFileName
+  , defaultDecisionsFileName
   , readConfigFile
   , loadConfig
   , renderConfigError
@@ -29,6 +30,7 @@ data CanonicalGrammar = CanonicalGrammar
 data Config = Config
   { configVersion :: Maybe Text
   , configRegistry :: FilePath
+  , configDecisions :: FilePath
   , configCanonical :: Map Text CanonicalGrammar
   }
   deriving (Eq, Show)
@@ -42,8 +44,11 @@ configFileName = "canon.yaml"
 defaultRegistryFileName :: FilePath
 defaultRegistryFileName = "canonical_refs.yaml"
 
+defaultDecisionsFileName :: FilePath
+defaultDecisionsFileName = "canonical_decisions.yaml"
+
 defaultConfig :: Config
-defaultConfig = Config Nothing defaultRegistryFileName Map.empty
+defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName Map.empty
 
 readConfigFile :: FilePath -> IO (Either ConfigError Config)
 readConfigFile path = do
@@ -65,12 +70,13 @@ instance FromJSON CanonicalGrammar where
   parseJSON = withObject "CanonicalGrammar" $ \o -> CanonicalGrammar <$> o .: "lexer" <*> o .: "parser" <*> o .: "start"
 
 instance ToJSON Config where
-  toJSON (Config version registry canonical) =
-    object ["canonical" .= canonical, "registry" .= registry, "version" .= version]
+  toJSON (Config version registry decisions canonical) =
+    object ["canonical" .= canonical, "decisions" .= decisions, "registry" .= registry, "version" .= version]
 
 instance FromJSON Config where
   parseJSON = withObject "Config" $ \o ->
     Config
       <$> o .:? "version"
       <*> (fromMaybe defaultRegistryFileName <$> o .:? "registry")
+      <*> (fromMaybe defaultDecisionsFileName <$> o .:? "decisions")
       <*> (fromMaybe Map.empty <$> o .:? "canonical")

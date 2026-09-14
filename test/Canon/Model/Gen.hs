@@ -22,9 +22,13 @@ module Canon.Model.Gen
   , genReference
   , genRegistry
   , genConfig
+  , genVersion
+  , genDecisionEntry
+  , genLedger
   ) where
 
 import Canon.Config (CanonicalGrammar (..), Config (..))
+import Canon.Decisions (DecisionEntry (..), DecisionStatus (..), Ledger (..), Version (..))
 import Canon.Git.Gen (genCommitHash, genPerson)
 import Canon.Model
 import Canon.Registry (Reference (..), Registry (..))
@@ -167,4 +171,24 @@ genConfig =
   Config
     <$> Gen.maybe genIdSegment
     <*> genPath
+    <*> genPath
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> (CanonicalGrammar <$> genPath <*> genPath <*> genIdSegment)))
+
+genVersion :: Gen Version
+genVersion = Version <$> Gen.list (Range.linear 1 4) (Gen.int (Range.linear 0 20))
+
+genDecisionEntry :: Gen DecisionEntry
+genDecisionEntry = do
+  status <- Gen.enumBounded
+  question <- genPlainText
+  answer <- if status == Open then Gen.maybe genPlainText else Just <$> genPlainText
+  opened <- genVersion
+  revisit <- if status == Open then Just <$> genVersion else Gen.maybe genVersion
+  decided <- if status == Open then Gen.maybe genVersion else Just <$> genVersion
+  by <- if status == Superseded then Just <$> genReferenceKey else pure Nothing
+  refs <- Gen.list (Range.linear 0 3) genReferenceKey
+  units <- Gen.list (Range.linear 0 2) genUnitId
+  pure (DecisionEntry status question answer opened revisit decided by refs units)
+
+genLedger :: Gen Ledger
+genLedger = Ledger . Map.fromList <$> Gen.list (Range.linear 0 4) ((,) <$> genReferenceKey <*> genDecisionEntry)

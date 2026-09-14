@@ -7,6 +7,7 @@ import Canon.Git.Provider (staticGitProvider)
 import Canon.Model
 import Canon.Model.Check (checkModel)
 import Canon.Model.Finding
+import Canon.Decisions (emptyLedger)
 import Canon.Registry (emptyRegistry)
 import Data.Foldable (toList)
 import qualified Data.List.NonEmpty as NonEmpty
@@ -77,7 +78,7 @@ parserDecision = withTests 1 $ property $ do
       whyReferences (answerValue (decisionWhy d)) === []
       assert (case answerEvidence (decisionWhy d) of Asserted _ -> True; _ -> False)
     other -> annotate (show (length other)) >> failure
-  length (checkModel emptyRegistry model) === 66
+  length (checkModel emptyRegistry emptyLedger model) === 66
 
 gitEvidence :: Property
 gitEvidence = withTests 1 $ property $ do
@@ -106,8 +107,8 @@ unresolvedKey = withTests 1 $ property $ do
     Left err -> annotate (T.unpack (renderExtractError err)) >> failure
     Right (Extraction model findings) -> do
       findings === []
-      [k | UnresolvedReference _ _ k <- checkModel emptyRegistry model] === [ReferenceKey "missing"]
-      [u | MissingCanonicalComment u _ <- checkModel emptyRegistry model] === []
+      [k | UnresolvedReference _ _ k <- checkModel emptyRegistry emptyLedger model] === [ReferenceKey "missing"]
+      [u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
 
 lexerOrphan :: Property
 lexerOrphan = withTests 1 $ property $ do

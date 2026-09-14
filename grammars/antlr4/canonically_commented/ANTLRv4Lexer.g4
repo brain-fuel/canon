@@ -99,7 +99,7 @@ channels {
 // -------------------------
 // Comments
 
-/** A comment opened with a slash and two stars. The canonical dialect keeps it on the default channel so the parser can require one before a rule. ref:canon-provisional-syntax */
+/** A comment opened with a slash and two stars. The canonical dialect keeps it on the default channel so the parser can require one before a rule. ref:canon-provisional-syntax ref:DEC-canonical-antlr4-dialect */
 DOC_COMMENT
     : '/**' .*? ('*/' | EOF)
     ;

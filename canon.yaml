@@ -1,5 +1,6 @@
 version: 0.1.0.0
 registry: canonical_refs.yaml
+decisions: canonical_decisions.yaml
 canonical:
   antlr4:
     lexer: grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4

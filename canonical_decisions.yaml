@@ -1,0 +1,63 @@
+DEC-parser-foundation:
+  status: decided
+  question: Which parsing foundation should canon use to read and interpret ANTLR4 grammars, given that antlr-haskell was the obvious candidate?
+  answer: |
+    grammatical-parsers for the hand-written .g4 reader, and a direct interpreter for grammars loaded at run time.
+
+    antlr-haskell 0.1.0.2 was evaluated on 2026-09-12 against Stackage LTS 24.58 with GHC 9.10.3 and rejected: it does not build there, it supplies grammars only through a quasiquoter rather than from .g4 files, its own test for the grammars-v4 C grammar is commented out, and open issues cover the skip command, grouping, and left recursion elimination. Earley is in the snapshot but unreleased since 2019. A hand-written packrat core would have had to be built and tested before anything else.
+
+    grammatical-parsers is actively maintained, tested on GHC 9.10, and represents a grammar as a first-class Rank2 record. The .g4 reader is a single scannerless grammar record on its PEG packrat backend, which makes ANTLR's LexerAdaptor unnecessary because the grammar always knows whether it is inside a parser rule or a lexer rule.
+
+    Loaded grammars are interpreted directly instead, because a Rank2 record's field set is fixed at compile time and an interpreted grammar's rule set is known only at run time. The lexer takes the longest match with ANTLR's tie-breaking and exits non-greedy loops at the first iteration count that lets the rest match; the parser is a memoised all-parses parser whose first complete parse by alternative order wins, with left recursion handled by iterating each cyclic rule group at a position to a fixpoint. Semantic predicates are assumed true. Lexer actions go through a hook interface keyed by superClass. The memo tables must be lazy maps.
+  opened: 0.1.0.0
+  decided: 0.1.0.0
+  refs: [grampa-2017, warth-2008, antlr-haskell, grammars-v4]
+
+DEC-canonical-antlr4-dialect:
+  status: decided
+  question: What does the canonically commented dialect of the ANTLR meta-grammar look like?
+  answer: |
+    Three changes to the upstream meta-grammar: doc comments stay on the default channel, a parser rule must be preceded by a doc comment, and a non-fragment lexer rule must be preceded by one while a fragment may be. Every rule in both dialect files carries a doc comment, so the dialect parses its own grammars and rejects the upstream file.
+  opened: 0.1.0.0
+  decided: 0.1.0.0
+  refs: [canon-provisional-syntax]
+
+DEC-decision-ledger:
+  status: decided
+  question: How are decisions tracked so that the list of open ones cannot go stale?
+  answer: |
+    Decisions live in canonical_decisions.yaml, keyed like registry references so a comment cites one with ref:KEY. Entries are never deleted; status moves from open to decided or superseded. An open decision names the version by which it must be revisited, and canon check fails once the project version reaches it. A decided decision that no canonical comment cites is reported, informationally until Haskell code units exist. Prose decision records in to_be_removed were migrated into this ledger.
+  opened: 0.1.0.0
+  decided: 0.1.0.0
+
+DEC-precedence-climbing:
+  status: open
+  question: Should the interpreter rewrite directly left-recursive rules into precedence levels as ANTLR does, so that expression grammars from grammars-v4 give ANTLR's trees rather than the first parse by alternative order?
+  opened: 0.1.0.0
+  revisit: 0.2.0.0
+  refs: [grammars-v4]
+
+DEC-comment-attachment:
+  status: open
+  question: The extractor binds a doc comment to the rule on the line directly below it, while the canonical dialect grammar binds it to the next rule regardless of blank lines because whitespace is off channel. Which notion is canonical, and does the same rule hold for Haskell and other languages?
+  opened: 0.1.0.0
+  revisit: 0.2.0.0
+  refs: [canon-provisional-syntax]
+
+DEC-version-duplication:
+  status: open
+  question: canon.yaml carries the project version that package.yaml also carries. Should canon read it from package.yaml, or check the two agree?
+  opened: 0.1.0.0
+  revisit: 0.2.0.0
+
+DEC-cabal-file:
+  status: open
+  question: canon.cabal is ignored and regenerated from package.yaml by stack. Should it be committed so plain cabal users can build without hpack?
+  opened: 0.1.0.0
+  revisit: 0.2.0.0
+
+DEC-sample-project-readme:
+  status: open
+  question: Rule 2 treats each directory under sample_projects as its own project with its own README.md. That reading was an assumption, not an instruction. Is it right?
+  opened: 0.1.0.0
+  revisit: 0.2.0.0

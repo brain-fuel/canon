@@ -174,7 +174,7 @@ ruleSpec
     | lexerRuleSpec
     ;
 
-/** A parser rule: modifiers, name, arguments, returns, throws, locals, prequels, the alternatives, and exception handlers. The canonical dialect requires a doc comment before every parser rule. ref:canon-provisional-syntax */
+/** A parser rule: modifiers, name, arguments, returns, throws, locals, prequels, the alternatives, and exception handlers. The canonical dialect requires a doc comment before every parser rule. ref:canon-provisional-syntax ref:DEC-canonical-antlr4-dialect */
 parserRuleSpec
     : DOC_COMMENT ruleModifiers? RULE_REF argActionBlock? ruleReturns? throwsSpec? localsSpec? rulePrequel* COLON ruleBlock SEMI
         exceptionGroup
@@ -261,7 +261,7 @@ labeledAlt
 // --------------------
 // Lexer rules
 
-/** A lexer rule: an optional fragment marker, the name, options, and the alternatives. The canonical dialect requires a doc comment before every non-fragment lexer rule and allows one before a fragment. ref:canon-provisional-syntax */
+/** A lexer rule: an optional fragment marker, the name, options, and the alternatives. The canonical dialect requires a doc comment before every non-fragment lexer rule and allows one before a fragment. ref:canon-provisional-syntax ref:DEC-canonical-antlr4-dialect */
 lexerRuleSpec
     : DOC_COMMENT? FRAGMENT TOKEN_REF optionsSpec? COLON lexerRuleBlock SEMI
     | DOC_COMMENT TOKEN_REF optionsSpec? COLON lexerRuleBlock SEMI
