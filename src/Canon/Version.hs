@@ -4,6 +4,7 @@ module Canon.Version
   , parseVersion
   , renderVersion
   , precedence
+  , canonVersion
   ) where
 
 import Data.Aeson (FromJSON (..), ToJSON (..), withText)
@@ -83,3 +84,6 @@ instance ToJSON Version where
 
 instance FromJSON Version where
   parseJSON = withText "Version" $ \t -> maybe (fail ("not a semantic version: " ++ T.unpack t)) pure (parseVersion t)
+
+canonVersion :: String
+canonVersion = "0.1.0"

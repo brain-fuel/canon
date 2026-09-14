@@ -20,7 +20,7 @@ import Canon.Model.Finding (Finding, Severity (..), findingSeverity, renderFindi
 import Canon.Model.Id (ReferenceKey (..), renderUnitId)
 import Canon.Model.Yaml (encodeModel)
 import Canon.Project
-import Canon.Version (renderVersion)
+import Canon.Version (canonVersion, renderVersion)
 import Canon.Walk (Walked (..))
 import qualified Data.ByteString as BS
 import Data.List (sortOn)
@@ -46,7 +46,7 @@ data Command
   deriving (Eq, Show)
 
 version :: String
-version = "canon 0.1.0"
+version = "canon " ++ canonVersion
 
 parseCommand :: [String] -> Command
 parseCommand arguments = case arguments of

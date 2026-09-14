@@ -90,7 +90,7 @@ DEC-extraction-cache:
   status: decided
   question: How does canon check avoid re-parsing files that have not changed?
   answer: |
-    Each file's extraction is cached under .canon-cache/ in the project directory as YAML, keyed by a SHA-256 of the file content, the grammar sources and profile it was parsed with, the git revision, and the path. Who and When come from git blame, which the revision and content together determine, so a cache hit is exact. The directory is ignored by the walk and by git and can be deleted at any time; a miss simply parses.
+    Each file's extraction is cached under .canon-cache/ in the project directory as YAML, keyed by a SHA-256 of the file content, the grammar sources and profile it was parsed with, the git revision, the file's dirty state, the project's git describe output and full tag list, the version in canon.yaml, and canon's own version, and the path. Every input that reaches the model is in the key, so a cache hit is exact; the tag list is included because a tag added on an older commit changes the version a unit was introduced in without changing HEAD or describe. The directory is ignored by the walk and by git and can be deleted at any time; a miss simply parses.
   opened: 0.1.0
   decided: 0.1.0
 

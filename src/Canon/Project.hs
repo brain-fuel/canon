@@ -15,6 +15,7 @@ import Canon.Antlr4.Parse (ParseError (..), ParseFailure (..))
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Antlr4.Token (tokenPosition)
 import Canon.Config
+import Canon.Version (canonVersion)
 import Canon.Decisions
 import Canon.Extract.Antlr4 (Extraction (..), extractGrammarModel, renderExtractError)
 import Canon.Extract.Grammar
@@ -97,7 +98,8 @@ checkProject project target = do
   canonical <- loadCanonical project
   interpreters <- mapM (\(lang, profile) -> (,) lang <$> loadProfileInterpreter (resolveProfile project profile)) (Map.toList (configLanguages config))
   grammarBytes <- Map.fromList <$> mapM (\(lang, profile) -> (,) lang <$> profileBytes (resolveProfile project profile)) (Map.toList (configLanguages config))
-  own <- concat <$> mapConcurrently (checkFile project canonical (Map.fromList interpreters) grammarBytes) (walkedFiles walked)
+  projectParts <- projectCacheParts project
+  own <- concat <$> mapConcurrently (checkFile project canonical (Map.fromList interpreters) grammarBytes projectParts) (walkedFiles walked)
   nested <- concat <$> mapM checkNested (walkedProjects walked)
   pure (nub own ++ nested)
   where
@@ -126,13 +128,38 @@ profileBytes profile = do
       present <- doesFileExist path
       if present then LBS.readFile path else pure LBS.empty
 
-checkFile :: Project -> Maybe (Text, Either InterpretError Interpreter) -> Map.Map Text (Either InterpretError Interpreter) -> Map.Map Text LBS.ByteString -> FilePath -> IO [Finding]
-checkFile project canonical interpreters grammarBytes path = do
+projectCacheParts :: Project -> IO [LBS.ByteString]
+projectCacheParts project = do
+  let root = resolvePath project (configRoot (projectConfig project))
+  described <- either (const "") id <$> runGit root ["describe", "--tags", "--always", "--dirty"]
+  tags <- either (const "") id <$> runGit root ["tag", "--list"]
+  pure
+    ( map
+        (LBS.fromStrict . TE.encodeUtf8)
+        [ T.pack canonVersion
+        , maybe "" id (configVersion (projectConfig project))
+        , described
+        , tags
+        ]
+    )
+
+checkFile :: Project -> Maybe (Text, Either InterpretError Interpreter) -> Map.Map Text (Either InterpretError Interpreter) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> FilePath -> IO [Finding]
+checkFile project canonical interpreters grammarBytes projectParts path = do
   let config = projectConfig project
       profileFor = profileForPath (configLanguages config) path
   content <- LBS.readFile path
   revision <- either (const "") id <$> runGit (takeDirectory path) ["rev-parse", "HEAD"]
-  let key = cacheKey [content, LBS.fromStrict (TE.encodeUtf8 revision), maybe LBS.empty (\(lang, _) -> Map.findWithDefault LBS.empty lang grammarBytes) profileFor, LBS.fromStrict (TE.encodeUtf8 (T.pack path))]
+  dirty <- either (const "") id <$> runGit (takeDirectory path) ["status", "--porcelain", "--", path]
+  let key =
+        cacheKey
+          ( projectParts
+              ++ [ content
+                 , LBS.fromStrict (TE.encodeUtf8 revision)
+                 , LBS.fromStrict (TE.encodeUtf8 dirty)
+                 , maybe LBS.empty (\(lang, _) -> Map.findWithDefault LBS.empty lang grammarBytes) profileFor
+                 , LBS.fromStrict (TE.encodeUtf8 (T.pack path))
+                 ]
+          )
   cached <- lookupCached (projectDirectory project) key
   extraction <- case cached of
     Just hit -> pure (Right hit)

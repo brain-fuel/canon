@@ -371,8 +371,10 @@ canonically commented dialect is checked.
 
 `canon check` parses files concurrently, and caches each file's extraction
 under `.canon-cache/` in the project directory, keyed by the file's content,
-the grammar and profile it was parsed with, and the git revision, so a second
-run re-reads only what changed. The directory is ignored by the walk and by
+the grammar and profile it was parsed with, the git revision, the file's
+own dirty state, the project's `git describe` output and tag list, the
+version in `canon.yaml`, and canon's own version, so a second run re-reads
+only what changed and nothing that reaches the model is left out of the key. The directory is ignored by the walk and by
 git, and can be deleted at any time. Who and When come from one `git blame`
 per file rather than one `git log` per unit.
 
