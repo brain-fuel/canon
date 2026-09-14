@@ -59,12 +59,12 @@ parseDecisionId :: Text -> Maybe DecisionId
 parseDecisionId t = T.stripPrefix decisionPrefix t >>= fmap DecisionId . parseUnitId
 
 isReferenceKey :: Text -> Bool
-isReferenceKey t = case T.uncons t of
-  Just (c, rest) -> isKeyStart c && T.all isKeyChar rest
-  Nothing -> False
+isReferenceKey t = case (T.uncons t, T.unsnoc t) of
+  (Just (first, _), Just (_, final)) -> isKeyEnd first && isKeyEnd final && T.all isKeyChar t
+  _ -> False
   where
-    isKeyStart c = isAscii c && isAlphaNum c
-    isKeyChar c = isKeyStart c || c == '.' || c == '_' || c == '-'
+    isKeyEnd c = isAscii c && isAlphaNum c
+    isKeyChar c = isKeyEnd c || c == '.' || c == '_' || c == '-'
 
 instance ToJSON UnitId where
   toJSON = toJSON . renderUnitId

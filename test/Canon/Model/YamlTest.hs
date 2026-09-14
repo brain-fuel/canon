@@ -64,3 +64,4 @@ referenceKeyRejects = property $ do
   assert (not (isReferenceKey (k <> "/x")))
   assert (not (isReferenceKey (k <> " x")))
   assert (not (isReferenceKey ""))
+  assert (not (isReferenceKey (k <> ".")))

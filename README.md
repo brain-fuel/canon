@@ -38,6 +38,12 @@ itself.
    is not written down in canonical form, or in `to_be_removed/` pending a
    canonical place, it cannot be trusted. Tool memory, chat history, and
    recollection do not count.
+5. **`canon.yaml` and `canonical_refs.yaml` live at the project root.**
+   `canon.yaml` is canon's configuration: the project version and the path of
+   the registry. `canonical_refs.yaml` is the reference registry, the single
+   canonical source for every article, paper, ticket, requirement, package, or
+   discussion that a comment cites. Each entry maps a key to a kind, a title,
+   and a locator. Comments cite keys only. Neither file carries comments.
 
 ## What documentation must answer
 
@@ -71,7 +77,43 @@ A canonical comment is a comment whose structure a grammar recognises, so that
   canonically commented grammar of each language.
 
 Until the canonical comment grammar exists for Haskell, this repository's own
-code carries no comments at all.
+code carries no comments at all. A provisional syntax, recorded in
+`to_be_removed/provisional_canonical_comment_syntax.md`, is used for ANTLR
+grammar files in the meantime: a doc comment on the line directly above a rule
+is its canonical comment, its body is the "Why?", and tokens of the form
+`ref:KEY` cite the registry.
+
+## The model
+
+`canon` emits a model of a codebase as YAML with alphabetically ordered keys
+and a `schemaVersion`. The model has two kinds of entity, linked by identity:
+
+- A **code unit** is a node in a tree of facts derived from the code. It has a
+  stable, path-based id such as `grammar/ANTLRv4Parser/rule/grammarSpec`, and
+  answers What (name and kind), How (body), and Where (path, span, and the
+  chain of enclosing units). When git is available it also answers Who
+  (authors and committers with their commits) and When (first and last change,
+  and the version that introduced it). Each unit records whether the language
+  requires a canonical comment on it.
+- A **decision** is a Why bound to one or more code units by id. Its text and
+  cited reference keys come from the canonical comment, and its Where is the
+  comment's own location. One Why can cover several units, and one unit can
+  serve several decisions. A decision is to code what an architecture decision
+  record is to architecture.
+
+Every answer carries **evidence** of how it is known: derived from git,
+derived from the parse, verified by a named property, test, mutation run, or
+decision coverage, or asserted by a human in a comment. Checks compare what is
+asserted against what is derived.
+
+`canon check` reports findings: a cited key missing from the registry, a
+decision naming a unit that no longer exists, a required unit with no
+canonical comment, a doc comment attached to nothing, and git being
+unavailable.
+
+ANTLR grammar files are the first language `canon` models. Each grammar is a
+unit, each rule is a child unit, and each mode groups its rules. Every parser
+rule and every non-fragment lexer rule requires a canonical comment.
 
 ## Directory layout
 
@@ -79,6 +121,8 @@ code carries no comments at all.
 canon/
 ├── README.md              # this file
 ├── CHANGELOG.md           # release history; required for Hackage-publishable projects
+├── canon.yaml             # canon configuration
+├── canonical_refs.yaml    # the reference registry
 ├── LICENSE
 ├── install_toolchain.sh   # installs the build toolchain
 ├── package.yaml           # hpack package definition; generates canon.cabal
@@ -87,7 +131,16 @@ canon/
 ├── app/
 │   └── Main.hs            # executable entry point
 ├── src/
-│   ├── Canon.hs           # argument dispatch and usage text
+│   ├── Canon.hs           # command line: version, model, check
+│   ├── Canon/Span.hs      # positions and spans shared by every language
+│   ├── Canon/Model.hs     # the canonical model root and its parts under Canon/Model/
+│   ├── Canon/Model/       # ids, evidence, answers, units, decisions, YAML, findings, checks
+│   ├── Canon/Git/         # commits, log and blame parsing, the git provider and its shell implementation
+│   ├── Canon/Registry.hs  # canonical_refs.yaml
+│   ├── Canon/Config.hs    # canon.yaml
+│   ├── Canon/Attach.hs    # binds a comment to the unit directly below it
+│   ├── Canon/CanonicalComment.hs  # provisional canonical comment syntax
+│   ├── Canon/Extract/Antlr4.hs    # builds the model of a grammar file
 │   └── Canon/Antlr4/      # reads .g4 grammars into a queryable representation
 │       ├── Syntax.hs      # the grammar representation
 │       ├── Lexical.hs     # scanners for literals, actions, arguments, char sets, comments
@@ -168,10 +221,17 @@ stack build
 stack test
 stack test --ta '-p property'
 stack exec canon -- version
+stack exec canon -- model grammars/antlr4/ANTLRv4Parser.g4
+stack exec canon -- check grammars/antlr4/ANTLRv4Parser.g4
 ```
 
 `canon` is a command line tool. Running it with no arguments prints usage.
-The `Canon.Antlr4` library is not reachable from the command line yet.
+`canon model` writes the model of a grammar file to standard output as YAML
+and any extraction findings to standard error. `canon check` prints every
+finding, one per line, and exits with status 1 if there are any. Both read
+`canon.yaml` from the current directory when it exists. Who and When come from
+`git` on the path; without a repository the model is still emitted, with those
+answers empty and one finding saying so.
 
 Tests use tasty with hedgehog. Property-based tests are the primary tests and
 live under the `property` group. Fixture checks against the vendored grammars

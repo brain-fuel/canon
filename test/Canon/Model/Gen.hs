@@ -65,7 +65,13 @@ genDecisionId = DecisionId <$> genUnitId
 genReferenceKey :: Gen ReferenceKey
 genReferenceKey =
   ReferenceKey
-    <$> (T.cons <$> Gen.alphaNum <*> Gen.text (Range.linear 0 10) (Gen.frequency [(8, Gen.alphaNum), (1, Gen.element ("._-" :: String))]))
+    <$> Gen.choice
+      [ T.singleton <$> Gen.alphaNum
+      , (\first middle final -> T.concat [T.singleton first, middle, T.singleton final])
+          <$> Gen.alphaNum
+          <*> Gen.text (Range.linear 0 8) (Gen.frequency [(8, Gen.alphaNum), (1, Gen.element ("._-" :: String))])
+          <*> Gen.alphaNum
+      ]
 
 genPath :: Gen FilePath
 genPath = T.unpack <$> Gen.text (Range.linear 1 20) (Gen.frequency [(5, Gen.alphaNum), (1, Gen.element ("/._-" :: String))])

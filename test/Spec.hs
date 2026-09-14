@@ -6,6 +6,10 @@ import qualified Canon.Antlr4.QueryTest
 import qualified Canon.Antlr4.RuleGraphTest
 import qualified Canon.Antlr4.RoundTripTest
 import qualified Canon.Antlr4.VendoredTest
+import qualified Canon.AttachTest
+import qualified Canon.CanonicalCommentTest
+import qualified Canon.Extract.Antlr4Test
+import qualified Canon.Model.CheckTest
 import qualified Canon.Git.ParseTest
 import qualified Canon.Model.YamlTest
 import qualified Canon.RegistryTest
@@ -17,7 +21,7 @@ main =
   defaultMain
     ( testGroup
         "canon"
-        [ testGroup "unit" [CanonTest.tests, Canon.Antlr4.VendoredTest.tests]
+        [ testGroup "unit" [CanonTest.tests, Canon.Antlr4.VendoredTest.tests, Canon.Extract.Antlr4Test.tests]
         , testGroup
             "property"
             [ Canon.Antlr4.EscapeTest.tests
@@ -28,6 +32,9 @@ main =
             , Canon.Model.YamlTest.tests
             , Canon.RegistryTest.tests
             , Canon.Git.ParseTest.tests
+            , Canon.CanonicalCommentTest.tests
+            , Canon.AttachTest.tests
+            , Canon.Model.CheckTest.tests
             ]
         ]
     )

@@ -4,24 +4,25 @@ Waiting for: each item to be decided and recorded in its canonical place.
 
 Date opened: 2026-09-12
 
-- **Reference registry.** Canonical comments cite references by key into a
-  registry. The registry has no home, file format, or rule yet. It is a
-  canonical source alongside README.md and CHANGELOG.md and will need its own
-  numbered rule.
 - **Content of `grammars/antlr4/canonically_commented/`.** The meta-grammar is
   vendored and read. What its canonically commented derivative looks like
   depends on the canonical comment format, which is undefined.
-- **Attaching comments to rules.** `Canon.Antlr4.Read` returns comments with
-  spans beside the grammar. The rule for binding a doc comment to the rule it
-  precedes is not defined and is needed before canonical comments can be
-  extracted from grammars.
 - **Meaning of left recursion when interpreting grammars.** ANTLR resolves
   left-recursive alternatives by precedence climbing over ordered
   alternatives; grammatical-parsers' context-free backends return every
   parse. The interpretation stage must choose.
-- **Decision record format.** Decisions such as the parser choice currently
-  sit in this directory as prose. The canonical form of a decision, and how it
-  binds to code as a comment does, is undefined.
+- **Migrating prose decision records.** The canonical form of a decision now
+  exists as the `Decision` type: a Why with cited registry keys, bound to unit
+  ids. The prose records in this directory can become registry entries plus
+  doc comments on the code they explain once the Haskell canonically commented
+  grammar exists.
+- **Comment attachment for other languages.** Grammars bind a doc comment to
+  the rule on the line directly below it, with no blank line between. Whether
+  the same rule holds for Haskell and other languages is for their
+  canonically commented grammars to say.
+- **Version duplication.** `canon.yaml` carries the project version that
+  `package.yaml` also carries. A parity finding between the two is natural
+  later work.
 - **`canon.cabal` in version control.** It is currently ignored and
   regenerated from `package.yaml` by stack. Committing it would let plain
   cabal users build without hpack. Undecided.
