@@ -127,7 +127,7 @@ unitsFromTree language profile path source tree =
       TokenNode _ -> []
     accepts rule node = case unitRuleFirstToken rule of
       Nothing -> True
-      Just (tokenName, allowed) -> case [t | t <- treeTokens node, tokenType t == tokenName] of
+      Just (restriction, allowed) -> case [t | t <- treeTokens node, maybe True (== tokenType t) restriction] of
         (t : _) -> tokenText t `elem` allowed
         [] -> False
     nameOf rule node = case unitRuleNameSource rule of

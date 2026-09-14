@@ -32,7 +32,7 @@ data UnitRule = UnitRule
   , unitRuleKind :: Text
   , unitRuleNameSource :: UnitName
   , unitRuleRequired :: Bool
-  , unitRuleFirstToken :: Maybe (Name, [Text])
+  , unitRuleFirstToken :: Maybe (Maybe Name, [Text])
   }
   deriving (Eq, Show)
 
@@ -80,7 +80,7 @@ instance FromJSON UnitName where
 instance ToJSON UnitRule where
   toJSON (UnitRule (Name rule) kind name required firstToken) =
     object
-      [ "firstToken" .= fmap (\(Name t, texts) -> object ["token" .= t, "oneOf" .= texts]) firstToken
+      [ "firstToken" .= fmap (\(token, texts) -> object ["token" .= fmap nameText token, "oneOf" .= texts]) firstToken
       , "kind" .= kind
       , "name" .= name
       , "required" .= required
@@ -92,7 +92,7 @@ instance FromJSON UnitRule where
     firstToken <- o .:? "firstToken"
     constraint <- case firstToken of
       Nothing -> pure Nothing
-      Just inner -> flip (withObject "firstToken") inner $ \f -> Just <$> ((,) <$> (Name <$> f .: "token") <*> f .: "oneOf")
+      Just inner -> flip (withObject "firstToken") inner $ \f -> Just <$> ((,) <$> (fmap Name <$> f .:? "token") <*> f .: "oneOf")
     UnitRule
       <$> (Name <$> o .: "rule")
       <*> o .: "kind"

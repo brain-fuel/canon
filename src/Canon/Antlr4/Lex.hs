@@ -1,6 +1,7 @@
 module Canon.Antlr4.Lex
   ( HookEffect (..)
   , LexerHooks (..)
+  , SomeHooks (..)
   , noHooks
   , LexError (..)
   , renderLexError
@@ -40,12 +41,14 @@ data HookEffect
 
 data LexerHooks s = LexerHooks
   { hooksInitial :: s
-  , hooksOnAction :: Name -> ActionText -> s -> (s, [HookEffect])
-  , hooksOnEmit :: Token -> s -> (Token, s)
+  , hooksOnAction :: Name -> ActionText -> Text -> s -> (s, [HookEffect])
+  , hooksOnEmit :: Token -> s -> ([Token], s)
   }
 
+data SomeHooks = forall s. SomeHooks (LexerHooks s)
+
 noHooks :: LexerHooks ()
-noHooks = LexerHooks () (\_ _ s -> (s, [])) (\t s -> (t, s))
+noHooks = LexerHooks () (\_ _ _ s -> (s, [])) (\t s -> ([t], s))
 
 data LexError
   = LexNoMatch Position Name
@@ -246,8 +249,8 @@ tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksIni
 
     go st
       | stateOffset st >= n =
-          let (eof, _) = hooksOnEmit hooks (mkToken lines' input eofTokenName n n defaultChannelName) (stateHooks st)
-           in Right [eof]
+          let (emitted, _) = hooksOnEmit hooks (mkToken lines' input eofTokenName n n defaultChannelName) (stateHooks st)
+           in Right emitted
       | otherwise = do
           mode <- currentMode st
           rules <- maybe (Left (LexUnknownMode (positionAt lines' (stateOffset st)) mode)) Right (Map.lookup mode (tableModes table))
@@ -270,10 +273,11 @@ tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksIni
     emit st rule altIndex end = do
       let alternative = toList (lexerRuleAlternatives rule) !! altIndex
           actions = [t | LexerElementAction _ _ t <- alternativeElementsDeep alternative]
+          start = fromMaybe (stateOffset st) (stateMoreStart st)
+          matched = T.pack (V.toList (V.slice start (end - start) input))
           (hookState, actionEffects) = foldl' runAction (stateHooks st, []) actions
-          runAction (s, effects) text = let (s', more) = hooksOnAction hooks (lexerRuleName rule) text s in (s', effects ++ more)
+          runAction (s, effects) text = let (s', more) = hooksOnAction hooks (lexerRuleName rule) text matched s in (s', effects ++ more)
       commandEffects <- mapM (commandEffect (lexerRuleName rule)) (lexerAlternativeCommands alternative)
-      let start = fromMaybe (stateOffset st) (stateMoreStart st)
       applied <- applyEffects (positionAt lines' (stateOffset st)) (actionEffects ++ commandEffects) (Applied (lexerRuleName rule) defaultChannelName False False (stateModes st))
       let text = T.pack (V.toList (V.slice start (end - start) input))
           token = mkToken lines' input (appliedType applied) start end (appliedChannel applied)
@@ -284,9 +288,9 @@ tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksIni
           if appliedMore applied
             then go (next (Just start) hookState)
             else do
-              let (token', hookState') = hooksOnEmit hooks token {tokenText = text} hookState
+              let (emitted, hookState') = hooksOnEmit hooks token {tokenText = text} hookState
               rest <- go (next Nothing hookState')
-              Right (token' : rest)
+              Right (emitted ++ rest)
 
     commandEffect rule command = case knownLexerCommand command of
       Just LexerSkip -> Right EffectSkip

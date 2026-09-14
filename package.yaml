@@ -24,6 +24,7 @@ default-extensions:
 - LambdaCase
 - TupleSections
 - ScopedTypeVariables
+- ExistentialQuantification
 
 dependencies:
 - base >= 4.7 && < 5
@@ -56,6 +57,7 @@ library:
   - filepath
   - directory
   - vector
+  - mtl
 
 executables:
   canon:

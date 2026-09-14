@@ -1,6 +1,7 @@
 module Canon.Antlr4.InterpretTest (tests) where
 
 import Canon.Antlr4.Grammar (parseGrammarText)
+import Canon.Antlr4.Interpret (interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Lex
 import Canon.Antlr4.Lex.Adaptor (antlrLexerHooks)
 import Canon.Antlr4.Parse
@@ -35,6 +36,7 @@ tests =
     , testProperty "the canonical dialect rejects the upstream parser grammar" canonicalRejectsUpstream
     , testProperty "precedence climbing gives ANTLR's tree for expressions" precedenceClimbing
     , testProperty "case-insensitive grammars match either case" caseInsensitive
+    , testProperty "the Haskell grammar parses a layout-sensitive module through the ported base lexer" haskellLayout
     ]
 
 grammarOrFail :: Text -> PropertyT IO (Grammar Span)
@@ -203,3 +205,36 @@ caseInsensitive = withTests 1 $ property $ do
   g <- grammarOrFail (T.unlines ["lexer grammar CI;", "options { caseInsensitive = true; }", "BEGIN : 'begin' ;", "ID : [a-z]+ ;", "WS : ' '+ -> skip ;"])
   toks <- lexOrFail g "Begin BEGIN xyz XYZ"
   map (nameText . tokenType) toks === ["BEGIN", "BEGIN", "ID", "ID", "EOF"]
+
+haskellLayout :: Property
+haskellLayout = withTests 1 $ property $ do
+  loaded <- evalIO (loadInterpreter "grammars/haskell/HaskellLexer.g4" "grammars/haskell/HaskellParser.g4")
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "module Sample (double, Shape (..)) where"
+          , ""
+          , "import Data.List (sort)"
+          , ""
+          , "-- | A shape."
+          , "data Shape = Circle Int | Square Int"
+          , ""
+          , "double :: Int -> Int"
+          , "double x = let y = x in y + y"
+          , ""
+          , "area :: Shape -> Int"
+          , "area s = case s of"
+          , "  Circle r -> 3 * r * r"
+          , "  Square w -> w * w"
+          , ""
+          , "main :: IO ()"
+          , "main = do"
+          , "  print (double 2)"
+          , "  print (sort [3, 1, 2])"
+          ]
+  case interpretText interpreter (Name "module") "Sample.hs" source of
+    Left err -> annotate (T.unpack (renderInterpretError err)) >> failure
+    Right tree -> do
+      length (treeRuleNodes (Name "sigdecl") tree) === 3
+      length (treeRuleNodes (Name "ty_decl") tree) === 1
+      assert (not (null (treeRuleNodes (Name "impdecl") tree)))

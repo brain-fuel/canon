@@ -1,0 +1,4 @@
+tetris-upstream:
+  kind: package
+  title: tetris, a terminal Tetris in Haskell by Sam Tay
+  locator: https://github.com/samtay/tetris

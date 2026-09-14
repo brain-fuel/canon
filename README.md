@@ -178,6 +178,14 @@ and every file the upstream grammar cannot parse is one too. Run
 | `lang_samples/erlang-recon` | Erlang | `grammars/erlang/Erlang.g4` |
 | `lang_samples/clojure-hiccup` | Clojure | `grammars/clojure/Clojure.g4` |
 | `lang_samples/prolog-marelle` | Prolog | `grammars/prolog/prolog.g4` |
+| `lang_samples/haskell-tetris` | Haskell | `grammars/haskell/HaskellLexer.g4` and `HaskellParser.g4` |
+
+The Haskell grammar needs the layout rule, which upstream implements in a
+Java base lexer that injects virtual braces and semicolons into the token
+stream. `Canon.Antlr4.Lex.Haskell` is that base lexer ported to a lexer hook,
+selected by the grammar's `superClass` option like the meta-grammar's own
+adaptor. Where the upstream base lexer gets layout wrong, the port does too,
+and the file is reported as unparsable rather than parsed differently.
 
 ANTLR grammar files are the first language `canon` models. Each grammar is a
 unit, each rule is a child unit, and each mode groups its rules. Every parser

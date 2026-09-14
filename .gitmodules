@@ -7,3 +7,6 @@
 [submodule "lang_samples/prolog-marelle/source"]
 	path = lang_samples/prolog-marelle/source
 	url = https://github.com/larsyencken/marelle.git
+[submodule "lang_samples/haskell-tetris/source"]
+	path = lang_samples/haskell-tetris/source
+	url = https://github.com/samtay/tetris.git

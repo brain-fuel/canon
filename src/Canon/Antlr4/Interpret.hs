@@ -58,8 +58,7 @@ build :: FilePath -> Grammar Span -> Grammar Span -> Either InterpretError Inter
 build lexerPath lexerGrammar parserGrammar = do
   table <- either (Left . InterpretLexError lexerPath) Right (buildLexerTable lexerGrammar)
   let tokenizer = case hooksForGrammar lexerGrammar of
-        Left hooks -> tokenizeWith hooks table
-        Right hooks -> tokenizeWith hooks table
+        SomeHooks hooks -> tokenizeWith hooks table
   Right (Interpreter lexerGrammar parserGrammar table tokenizer)
 
 interpretText :: Interpreter -> Name -> FilePath -> Text -> Either InterpretError ParseTree

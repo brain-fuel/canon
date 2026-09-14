@@ -19,6 +19,7 @@ import Data.Foldable (toList)
 import qualified Data.List.NonEmpty as NonEmpty
 import Data.Map.Lazy (Map)
 import qualified Data.Map.Lazy as Map
+import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Vector as BV
@@ -171,14 +172,14 @@ parseVisibleTokens grammar start visible
             | (i, sh, pr) <- shapes
             , Just step <- [baseStep r sh pr]
             ]
-          base = [(RuleNode r i children, q) | (i, (rs, _)) <- baseEvals, (children, q) <- rs]
+          base = oneTreePerEnd [(RuleNode r i children, q) | (i, (rs, _)) <- baseEvals, (children, q) <- rs]
           climbed = map climb base
           climb (tree, q) =
             let attempts = [(i, extensionStep r sh pr q) | (i, sh, pr) <- shapes, pr >= prec, isExtension sh]
-                extended = [(RuleNode r i (tree : children), q') | (i, (rs, _)) <- attempts, (children, q') <- rs, q' > q]
+                extended = oneTreePerEnd [(RuleNode r i (tree : children), q') | (i, (rs, _)) <- attempts, (children, q') <- rs, q' > q]
                 deeper = map climb extended
-             in (concatMap fst deeper ++ [(tree, q)], maximum (q : [f | (_, (_, f)) <- attempts] ++ map snd deeper))
-       in (concatMap fst climbed, maximum (pos : [f | (_, (_, f)) <- baseEvals] ++ map snd climbed))
+             in (oneTreePerEnd (concatMap fst deeper ++ [(tree, q)]), maximum (q : [f | (_, (_, f)) <- attempts] ++ map snd deeper))
+       in (oneTreePerEnd (concatMap fst climbed), maximum (pos : [f | (_, (_, f)) <- baseEvals] ++ map snd climbed))
 
     baseStep r sh pr = case sh of
       Primary es -> Just (evalElements lookupEntry es)
@@ -204,7 +205,7 @@ parseVisibleTokens grammar start visible
       Nothing -> ([], p)
       Just rule ->
         let evals = [(i, evalElements look (alternativeElements (labeledAlternativeBody alt)) p) | (i, alt) <- zip [0 ..] (toList (parserRuleAlternatives rule))]
-         in ( [(RuleNode r i children, e) | (i, (results, _)) <- evals, (children, e) <- results]
+         in ( oneTreePerEnd [(RuleNode r i children, e) | (i, (results, _)) <- evals, (children, e) <- results]
             , maximum (p : [f | (_, (_, f)) <- evals])
             )
 
@@ -237,6 +238,15 @@ parseVisibleTokens grammar start visible
 
     furthest = snd (lookupEntry start 0)
 
+oneTreePerEnd :: [(a, Int)] -> [(a, Int)]
+oneTreePerEnd = go Set.empty
+  where
+    go seen results = case results of
+      [] -> []
+      (r@(_, e) : rest)
+        | Set.member e seen -> go seen rest
+        | otherwise -> r : go (Set.insert e seen) rest
+
 emptyStep :: Step
 emptyStep p = ([([], p)], p)
 
@@ -244,14 +254,14 @@ seqStep :: Step -> Step -> Step
 seqStep a b p =
   let (rs, f) = a p
       continuations = [(b mid, c) | (c, mid) <- rs]
-   in ( [(c ++ cs, e) | ((crs, _), c) <- continuations, (cs, e) <- crs]
+   in ( oneTreePerEnd [(c ++ cs, e) | ((crs, _), c) <- continuations, (cs, e) <- crs]
       , maximum (f : [cf | ((_, cf), _) <- continuations])
       )
 
 altStep :: [Step] -> Step
 altStep steps p =
   let evals = map ($ p) steps
-   in (concatMap fst evals, maximum (p : map snd evals))
+   in (oneTreePerEnd (concatMap fst evals), maximum (p : map snd evals))
 
 guarded :: Step -> Step
 guarded m p = let (rs, f) = m p in ([r | r@(_, q) <- rs, q /= p], f)

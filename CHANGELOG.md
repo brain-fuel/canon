@@ -12,6 +12,8 @@ and this project adheres to
 - Versions follow Semantic Versioning 2.0.0 rather than the Haskell Package Versioning Policy; the released version is 0.1.0, decision entries and `canon.yaml` use three-part versions, and pre-release labels order as the specification says
 
 ### Added
+- A Haskell sample project, with the Haskell grammar vendored and its layout base lexer ported to a lexer hook that injects the virtual braces and semicolons the grammar expects
+- The parser keeps one tree per rule and span, chosen in preference order, so large ambiguous grammars parse in polynomial time and memory instead of enumerating every derivation
 - Language profiles in `canon.yaml`: any interpretable grammar becomes a modelled language, with units taken from named parse-tree rules and comments scanned by the profile's syntax
 - Nested projects: a directory with its own `canon.yaml` is checked with its own configuration, and `root` points a project at sources kept elsewhere, such as a submodule
 - `lang_samples/` with Erlang, Clojure, and Prolog projects as submodules, and their grammars vendored under `grammars/`

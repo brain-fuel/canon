@@ -77,3 +77,11 @@ DEC-grammar-coverage-findings:
   opened: 0.1.0
   revisit: 0.2.0
   refs: [grammars-v4]
+
+DEC-one-tree-per-span:
+  status: decided
+  question: The parser enumerated every derivation of every span, which is exponential on ambiguous grammars and exhausted memory on the Haskell grammar. What does the parser keep?
+  answer: |
+    One tree per rule, start position, and end position, the first in preference order: alternatives in grammar order, greedy loops longest first, precedence climbing for left recursion. Recognition is unchanged because every reachable end position is kept, so no parse is lost; only alternative derivations of the same span are dropped. A 10 KB Haskell module parses in about ten seconds within half a gigabyte where it previously ran out of memory.
+  opened: 0.1.0
+  decided: 0.1.0

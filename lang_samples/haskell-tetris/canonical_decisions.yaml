@@ -1,0 +1,6 @@
+DEC-sample-haddock:
+  status: open
+  question: Haskell already has Haddock comments with a defined attachment rule. Should canon's Haskell canonical comment be a Haddock comment, and should the canonically commented Haskell grammar require one before every exported declaration?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [tetris-upstream]

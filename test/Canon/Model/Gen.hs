@@ -229,4 +229,4 @@ genProfile =
         <*> genIdSegment
         <*> Gen.choice [NameFromToken <$> (Name <$> genIdSegment) <*> Gen.int (Range.linear 1 3), NameFromRule . Name <$> genIdSegment]
         <*> Gen.bool
-        <*> Gen.maybe ((,) <$> (Name <$> genIdSegment) <*> Gen.list (Range.linear 1 3) genIdSegment)
+        <*> Gen.maybe ((,) <$> Gen.maybe (Name <$> genIdSegment) <*> Gen.list (Range.linear 1 3) genIdSegment)
