@@ -31,10 +31,12 @@ DEC-decision-ledger:
   decided: 0.1.0
 
 DEC-precedence-climbing:
-  status: open
+  status: decided
   question: Should the interpreter rewrite directly left-recursive rules into precedence levels as ANTLR does, so that expression grammars from grammars-v4 give ANTLR's trees rather than the first parse by alternative order?
+  answer: |
+    Yes. A directly left-recursive rule is interpreted with ANTLR's precedence climbing: alternatives are classified as primary, prefix, binary, or suffix; earlier alternatives bind tighter; a binary alternative's right operand is parsed at the next higher precedence unless the alternative carries assoc=right; a prefix operand is parsed at the alternative's own precedence. This removed an exponential blow-up on the R grammar's expression rule, which timed out before and parses in under a second after. Indirect left recursion, which ANTLR rejects, still goes through the fixpoint path.
   opened: 0.1.0
-  revisit: 0.2.0
+  decided: 0.1.0
   refs: [grammars-v4]
 
 DEC-comment-attachment:
@@ -62,3 +64,16 @@ DEC-sample-project-readme:
   question: Rule 2 treats each directory under sample_projects as its own project with its own README.md. That reading was an assumption, not an instruction. Is it right?
   opened: 0.1.0
   revisit: 0.2.0
+
+DEC-nested-root-check:
+  status: open
+  question: canon check at the repository root includes the sample projects, which are upstream code that is not canonically commented, so the root check always fails. Should nested projects be included by default, reported separately, or opted into?
+  opened: 0.1.0
+  revisit: 0.2.0
+
+DEC-grammar-coverage-findings:
+  status: open
+  question: Files that an upstream grammar cannot lex or parse are reported as failed extractions alongside missing comments. Should grammar coverage gaps be a separate, informational finding so that canonical-comment findings stay clean?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [grammars-v4]

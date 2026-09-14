@@ -12,7 +12,8 @@ module Canon.Antlr4.Lex
 
 import Canon.Antlr4.Escape (CharSetItem (..), decodeCharSet, decodeStringLiteral)
 import Canon.Antlr4.Lexical (LineTable, lineTable, positionAt)
-import Canon.Antlr4.Query (KnownLexerCommand (..), allRules, implicitLiteralTokens, knownLexerCommand, lexerRuleElements)
+import Canon.Antlr4.Query (KnownLexerCommand (..), allRules, grammarOptions, implicitLiteralTokens, knownLexerCommand, lexerRuleElements)
+import Data.Char (toLower, toUpper)
 import Data.List.NonEmpty (NonEmpty (..))
 import Canon.Antlr4.RuleGraph (leftRecursiveRules)
 import Canon.Antlr4.Syntax
@@ -71,6 +72,7 @@ renderLexError e = case e of
 data LexerTable = LexerTable
   { tableModes :: Map Name [LexerRule ()]
   , tableRules :: Map Name (LexerRule ())
+  , tableCaseInsensitive :: Bool
   }
 
 defaultMode :: Name
@@ -89,7 +91,7 @@ buildLexerTable grammar = do
       recursive = [n | n <- Set.toList (leftRecursiveRules stripped), Map.member n rules]
   if null recursive then Right () else Left (LexLeftRecursive recursive)
   mapM_ validateRule (Map.elems rules)
-  Right (LexerTable modes rules)
+  Right (LexerTable modes rules (caseInsensitiveOption (grammarOptions stripped)))
   where
     validateRule l = mapM_ (validateElement (lexerRuleName l)) (lexerRuleElements l)
     validateElement rule e = case e of
@@ -112,6 +114,7 @@ buildLexerTable grammar = do
 data Env = Env
   { envInput :: V.Vector Char
   , envRules :: Map Name (LexerRule ())
+  , envCaseInsensitive :: Bool
   }
 
 type Match = Int -> (Int -> [Int]) -> [Int]
@@ -153,6 +156,22 @@ withSuffix suffix m = case suffix of
 charAt :: Env -> Int -> Maybe Char
 charAt env p = envInput env V.!? p
 
+caseInsensitiveOption :: [Option] -> Bool
+caseInsensitiveOption opts =
+  case [v | Option (Name "caseInsensitive") (OptionValueName (QualifiedName (Name v :| []))) <- opts] of
+    (v : _) -> v == "true"
+    [] -> False
+
+sameChar :: Env -> Char -> Char -> Bool
+sameChar env a b
+  | envCaseInsensitive env = a == b || toLower a == toLower b
+  | otherwise = a == b
+
+charPredicate :: Env -> (Char -> Bool) -> Char -> Bool
+charPredicate env predicate c
+  | envCaseInsensitive env = predicate c || predicate (toLower c) || predicate (toUpper c)
+  | otherwise = predicate c
+
 matchAtom :: Env -> LexerAtom -> Match
 matchAtom env atom p k = case atom of
   LexerAtomTerminal (TerminalLiteral lit _) -> case decodeStringLiteral lit of
@@ -161,8 +180,8 @@ matchAtom env atom p k = case atom of
   LexerAtomTerminal (TerminalToken name _)
     | name == eofTokenName -> if p == V.length (envInput env) then k p else []
     | otherwise -> matchRuleReference env name p k
-  LexerAtomRange range -> singleChar (rangeMatches range)
-  LexerAtomCharSet cs -> singleChar (charSetMatches cs)
+  LexerAtomRange range -> singleChar (charPredicate env (rangeMatches range))
+  LexerAtomCharSet cs -> singleChar (charPredicate env (charSetMatches cs))
   LexerAtomNotSet (NotSet elements) -> singleChar (\c -> not (any (setElementMatches env p c) (toList elements)))
   LexerAtomWildcard _ -> singleChar (const True)
   where
@@ -176,7 +195,7 @@ matchRuleReference env name p k = case Map.lookup name (envRules env) of
   Nothing -> []
 
 matchesText :: Env -> Text -> Int -> Bool
-matchesText env text p = all (\(i, c) -> charAt env (p + i) == Just c) (zip [0 ..] (T.unpack text))
+matchesText env text p = all (\(i, c) -> maybe False (sameChar env c) (charAt env (p + i))) (zip [0 ..] (T.unpack text))
 
 rangeMatches :: CharRange -> Char -> Bool
 rangeMatches (CharRange lo hi) c = case (decodedChar lo, decodedChar hi) of
@@ -200,10 +219,10 @@ charSetMatches cs c = case decodeCharSet cs of
 
 setElementMatches :: Env -> Int -> Char -> SetElement -> Bool
 setElementMatches env p c s = case s of
-  SetTerminal (TerminalLiteral lit _) -> decodedChar lit == Just c
+  SetTerminal (TerminalLiteral lit _) -> maybe False (sameChar env c) (decodedChar lit)
   SetTerminal (TerminalToken name _) -> not (null [e | e <- matchRuleReference env name p (\e -> [e]), e == p + 1])
-  SetRange range -> rangeMatches range c
-  SetCharSet cs -> charSetMatches cs c
+  SetRange range -> charPredicate env (rangeMatches range) c
+  SetCharSet cs -> charPredicate env (charSetMatches cs) c
 
 data LexState s = LexState
   { stateOffset :: Int
@@ -221,7 +240,7 @@ tokenizeWith :: LexerHooks s -> LexerTable -> Text -> Either LexError [Token]
 tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksInitial hooks))
   where
     input = V.fromList (T.unpack source)
-    env = Env input (tableRules table)
+    env = Env input (tableRules table) (tableCaseInsensitive table)
     lines' = lineTable source
     n = V.length input
 

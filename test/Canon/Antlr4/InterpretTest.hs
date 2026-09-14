@@ -33,6 +33,8 @@ tests =
     , testProperty "the interpreted meta-grammar parses the lexer meta-grammar" bootstrapLexerGrammar
     , testProperty "the canonical dialect parses its own grammars" canonicalSelfHosting
     , testProperty "the canonical dialect rejects the upstream parser grammar" canonicalRejectsUpstream
+    , testProperty "precedence climbing gives ANTLR's tree for expressions" precedenceClimbing
+    , testProperty "case-insensitive grammars match either case" caseInsensitive
     ]
 
 grammarOrFail :: Text -> PropertyT IO (Grammar Span)
@@ -177,3 +179,27 @@ bootstrapLexerGrammar = withTests 1 $ property $ do
   let names = [tokenText t | spec <- treeRuleNodes (Name "lexerRuleSpec") tree, (t : _) <- [[tok | tok <- treeTokens spec, nameText (tokenType tok) == "TOKEN_REF"]]]
   names === map nameText (ruleNames expected)
   assert (isLeft (parseTokens expected (Name "grammarSpec") []))
+
+precedenceClimbing :: Property
+precedenceClimbing = withTests 1 $ property $ do
+  g <- grammarOrFail (T.unlines ["grammar P;", "start : expr EOF ;", "expr : <assoc=right> expr '^' expr | expr '*' expr | expr '+' expr | '-' expr | INT ;", "INT : [0-9]+ ;"])
+  let shapeOf source = do
+        toks <- either (const Nothing) Just (tokenize g source)
+        tree <- either (const Nothing) Just (parseTokens g (Name "start") toks)
+        pure (render tree)
+      render tree = case tree of
+        RuleNode (Name "start") _ (e : _) -> render e
+        RuleNode _ _ [single] -> render single
+        RuleNode _ _ children -> T.concat ["(", T.unwords (map render children), ")"]
+        TokenNode t -> tokenText t
+  shapeOf "1*2+3" === Just "((1 * 2) + 3)"
+  shapeOf "1+2*3" === Just "(1 + (2 * 3))"
+  shapeOf "1+2+3" === Just "((1 + 2) + 3)"
+  shapeOf "2^3^4" === Just "(2 ^ (3 ^ 4))"
+  shapeOf "-1+2" === Just "(- (1 + 2))"
+
+caseInsensitive :: Property
+caseInsensitive = withTests 1 $ property $ do
+  g <- grammarOrFail (T.unlines ["lexer grammar CI;", "options { caseInsensitive = true; }", "BEGIN : 'begin' ;", "ID : [a-z]+ ;", "WS : ' '+ -> skip ;"])
+  toks <- lexOrFail g "Begin BEGIN xyz XYZ"
+  map (nameText . tokenType) toks === ["BEGIN", "BEGIN", "ID", "ID", "EOF"]

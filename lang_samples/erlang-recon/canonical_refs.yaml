@@ -1,0 +1,4 @@
+recon-upstream:
+  kind: package
+  title: recon, Ferd Hébert's Erlang diagnostic library
+  locator: https://github.com/ferd/recon

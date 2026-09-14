@@ -12,6 +12,10 @@ and this project adheres to
 - Versions follow Semantic Versioning 2.0.0 rather than the Haskell Package Versioning Policy; the released version is 0.1.0, decision entries and `canon.yaml` use three-part versions, and pre-release labels order as the specification says
 
 ### Added
+- Language profiles in `canon.yaml`: any interpretable grammar becomes a modelled language, with units taken from named parse-tree rules and comments scanned by the profile's syntax
+- Nested projects: a directory with its own `canon.yaml` is checked with its own configuration, and `root` points a project at sources kept elsewhere, such as a submodule
+- `lang_samples/` with Erlang, Clojure, and Prolog projects as submodules, and their grammars vendored under `grammars/`
+- Precedence climbing for directly left-recursive rules, giving ANTLR's trees for expression grammars, and the `caseInsensitive` grammar option
 - `canon check` with no path, or with a directory, checks every supported file under it, skipping version control, dependency, build, and editor directories by default and whatever `canon.yaml` lists under `ignore` in gitignore syntax; `canon files` lists what the walk visits
 - `canonical_decisions.yaml`, the decision ledger, with rule 6; `canon decisions` to list it; and checks that fail on an open decision past its revisit version, a superseded decision without a decided successor, a key shared with the registry, or a missing named unit, and inform on an uncited decided decision or a comment citing an open one
 - A lexer and parser interpreter that turns any grammar value into a running lexer and parser: longest match with non-greedy loops, modes, channels and commands, implicit literal tokens, a hook interface for target-language lexer actions, and an all-parses parser with left recursion

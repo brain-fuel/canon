@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Which of recon's functions are public API in canon's sense, given that Erlang exports are declared by attribute rather than by the function itself?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [recon-upstream]

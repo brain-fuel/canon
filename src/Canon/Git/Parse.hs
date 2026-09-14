@@ -40,9 +40,12 @@ parseGitLog output = traverse parseRecord (filter (not . T.null . T.strip) (T.sp
       fields -> Left (GitParseError (T.concat ["log record has ", T.pack (show (length fields)), " fields"]))
 
 parseIsoTime :: Text -> Either GitParseError UTCTime
-parseIsoTime t = case iso8601ParseM (T.unpack (T.strip t)) of
-  Just zoned -> Right (zonedTimeToUTC zoned)
-  Nothing -> Left (GitParseError ("unparsable time: " <> t))
+parseIsoTime t = case (iso8601ParseM trimmed, iso8601ParseM trimmed) of
+  (Just zoned, _) -> Right (zonedTimeToUTC zoned)
+  (Nothing, Just utcTime) -> Right utcTime
+  _ -> Left (GitParseError ("unparsable time: " <> t))
+  where
+    trimmed = T.unpack (T.strip t)
 
 parseEpochTime :: Text -> Either GitParseError UTCTime
 parseEpochTime t = case TR.decimal (T.strip t) of

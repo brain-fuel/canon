@@ -1,0 +1,19 @@
+version: 0.1.0
+root: source
+languages:
+  erlang:
+    extensions: [.erl, .hrl]
+    grammar: ../../grammars/erlang/Erlang.g4
+    start: forms
+    comments:
+      line: "%"
+      strings: ["\""]
+    units:
+      - rule: function_
+        kind: function
+        name: {token: TokAtom, index: 1}
+        required: true
+      - rule: attribute
+        kind: attribute
+        name: {token: TokAtom, index: 1}
+        required: false

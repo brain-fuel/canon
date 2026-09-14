@@ -11,6 +11,7 @@ module Canon.Config
   , renderConfigError
   ) where
 
+import Canon.Profile (Profile)
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
@@ -33,6 +34,8 @@ data Config = Config
   , configDecisions :: FilePath
   , configCanonical :: Map Text CanonicalGrammar
   , configIgnore :: [Text]
+  , configRoot :: FilePath
+  , configLanguages :: Map Text Profile
   }
   deriving (Eq, Show)
 
@@ -49,7 +52,7 @@ defaultDecisionsFileName :: FilePath
 defaultDecisionsFileName = "canonical_decisions.yaml"
 
 defaultConfig :: Config
-defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName Map.empty []
+defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName Map.empty [] "." Map.empty
 
 readConfigFile :: FilePath -> IO (Either ConfigError Config)
 readConfigFile path = do
@@ -71,12 +74,14 @@ instance FromJSON CanonicalGrammar where
   parseJSON = withObject "CanonicalGrammar" $ \o -> CanonicalGrammar <$> o .: "lexer" <*> o .: "parser" <*> o .: "start"
 
 instance ToJSON Config where
-  toJSON (Config version registry decisions canonical ignore) =
+  toJSON (Config version registry decisions canonical ignore root languages) =
     object
       [ "canonical" .= canonical
       , "decisions" .= decisions
       , "ignore" .= ignore
+      , "languages" .= languages
       , "registry" .= registry
+      , "root" .= root
       , "version" .= version
       ]
 
@@ -88,3 +93,5 @@ instance FromJSON Config where
       <*> (fromMaybe defaultDecisionsFileName <$> o .:? "decisions")
       <*> (fromMaybe Map.empty <$> o .:? "canonical")
       <*> (fromMaybe [] <$> o .:? "ignore")
+      <*> (fromMaybe "." <$> o .:? "root")
+      <*> (fromMaybe Map.empty <$> o .:? "languages")

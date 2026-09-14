@@ -66,7 +66,7 @@ renderGitLog = T.concat . map renderRecord
             ]
         , "\x1f\n\ndiff --git a/x b/x\n--- a/x\n+++ b/x\n@@ -1,2 +1,2 @@\n-old\n+new\n"
         ]
-    isoTime = T.pack . iso8601Show . utcToZonedTime utc
+    isoTime t = T.pack (if even (round (utcTimeToPOSIXSeconds t) :: Integer) then iso8601Show t else iso8601Show (utcToZonedTime utc t))
 
 renderBlamePorcelain :: [BlameLine] -> Text
 renderBlamePorcelain = T.concat . map renderEntry

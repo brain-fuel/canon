@@ -22,6 +22,7 @@ module Canon.Model.Gen
   , genReference
   , genRegistry
   , genConfig
+  , genProfile
   , genVersion
   , genDecisionEntry
   , genLedger
@@ -29,6 +30,8 @@ module Canon.Model.Gen
 
 import Canon.Config (CanonicalGrammar (..), Config (..))
 import Canon.Decisions (DecisionEntry (..), DecisionStatus (..), Ledger (..))
+import Canon.Profile
+import Canon.Antlr4.Syntax (Name (..))
 import Canon.Version (PreReleaseIdentifier (..), Version (..))
 import Canon.Git.Gen (genCommitHash, genPerson)
 import Canon.Model
@@ -175,6 +178,8 @@ genConfig =
     <*> genPath
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> (CanonicalGrammar <$> genPath <*> genPath <*> genIdSegment)))
     <*> Gen.list (Range.linear 0 3) (T.pack <$> genPath)
+    <*> genPath
+    <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> genProfile))
 
 genVersion :: Gen Version
 genVersion =
@@ -208,3 +213,20 @@ genDecisionEntry = do
 
 genLedger :: Gen Ledger
 genLedger = Ledger . Map.fromList <$> Gen.list (Range.linear 0 4) ((,) <$> genReferenceKey <*> genDecisionEntry)
+
+genProfile :: Gen Profile
+genProfile =
+  Profile
+    <$> Gen.list (Range.linear 1 2) (T.cons '.' <$> genIdSegment)
+    <*> Gen.choice [CombinedGrammarFile <$> genPath, SplitGrammarFiles <$> genPath <*> genPath]
+    <*> (Name <$> genIdSegment)
+    <*> Gen.list (Range.linear 0 3) genUnitRule
+    <*> (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment)
+  where
+    genUnitRule =
+      UnitRule
+        <$> (Name <$> genIdSegment)
+        <*> genIdSegment
+        <*> Gen.choice [NameFromToken <$> (Name <$> genIdSegment) <*> Gen.int (Range.linear 1 3), NameFromRule . Name <$> genIdSegment]
+        <*> Gen.bool
+        <*> Gen.maybe ((,) <$> (Name <$> genIdSegment) <*> Gen.list (Range.linear 1 3) genIdSegment)

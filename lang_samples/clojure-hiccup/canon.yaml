@@ -1,0 +1,18 @@
+version: 0.1.0
+root: source
+languages:
+  clojure:
+    extensions: [.clj, .cljc, .cljs]
+    grammar: ../../grammars/clojure/Clojure.g4
+    start: file_
+    comments:
+      line: ";"
+      strings: ["\""]
+    units:
+      - rule: list_
+        kind: definition
+        name: {token: SYMBOL, index: 2}
+        required: true
+        firstToken:
+          token: SYMBOL
+          oneOf: [defn, defn-, defmacro, def, defprotocol, defrecord, deftype, defmulti, defmethod, ns]

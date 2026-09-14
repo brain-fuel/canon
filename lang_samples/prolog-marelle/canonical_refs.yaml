@@ -1,0 +1,4 @@
+marelle-upstream:
+  kind: package
+  title: marelle, test-driven system administration in Prolog
+  locator: https://github.com/larsyencken/marelle

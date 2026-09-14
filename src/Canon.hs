@@ -10,31 +10,26 @@ module Canon
   ) where
 
 import Canon.Antlr4.Interpret
-import Canon.Antlr4.Lex (LexError (..))
-import Canon.Antlr4.Parse (ParseError (..), ParseFailure (..), renderParseTree)
+import Canon.Antlr4.Parse (renderParseTree)
 import Canon.Antlr4.Syntax (Name (..))
-import Canon.Antlr4.Token (tokenPosition)
-import Canon.Config (CanonicalGrammar (..), Config (..), defaultDecisionsFileName, defaultRegistryFileName, loadConfig, renderConfigError)
+import Canon.Config (Config (..), defaultDecisionsFileName, loadConfig, renderConfigError)
 import Canon.Decisions
-import Canon.Version (renderVersion)
 import Canon.Extract.Antlr4 (Extraction (..), extractGrammarModel, renderExtractError)
 import Canon.Git.Shell (shellGitProvider)
-import Canon.Ignore (defaultIgnorePatterns, parseIgnorePatterns)
-import Canon.Walk (findSupportedFiles)
-import Canon.Model.Check (checkAll)
-import Canon.Model.Finding (Finding (..), Severity (..), findingSeverity, renderFinding)
+import Canon.Model.Finding (Finding, Severity (..), findingSeverity, renderFinding)
 import Canon.Model.Id (ReferenceKey (..), renderUnitId)
 import Canon.Model.Yaml (encodeModel)
-import Canon.Registry (Registry, emptyRegistry, readRegistryFile, renderRegistryError)
-import Canon.Span (Position (..))
+import Canon.Project
+import Canon.Version (renderVersion)
+import Canon.Walk (Walked (..))
 import qualified Data.ByteString as BS
-import Data.List (nub, sortOn)
+import Data.List (sortOn)
 import Data.Ord (Down (..))
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
-import System.Directory (doesDirectoryExist, doesFileExist)
+import System.Directory (doesFileExist)
 import System.Environment (getArgs)
 import System.Exit (ExitCode (..), exitWith)
 import System.IO (stderr)
@@ -97,20 +92,14 @@ runCommand command = case command of
     mapM_ (report . renderFinding) (extractionFindings extraction)
     BS.putStr (encodeModel (extractionModel extraction))
     pure ExitSuccess
-  CommandCheck target -> withConfig $ \config -> do
-    paths <- targetFiles config target
-    sources <- loadSources config
-    case sources of
-      Left err -> report err >> pure (ExitFailure 1)
-      Right (registry, ledger) -> do
-        canonical <- loadCanonical config
-        results <- mapM (checkOne config registry ledger canonical) paths
-        let findings = nub (concat results)
-        mapM_ (TIO.putStrLn . renderWithSeverity) findings
-        pure (if any ((== Failing) . findingSeverity) findings then ExitFailure 1 else ExitSuccess)
-  CommandFiles target -> withConfig $ \config -> do
-    paths <- targetFiles config target
-    mapM_ putStrLn paths
+  CommandCheck target -> withProject $ \project -> do
+    findings <- checkProject project target
+    mapM_ (TIO.putStrLn . renderWithSeverity) findings
+    pure (if any ((== Failing) . findingSeverity) findings then ExitFailure 1 else ExitSuccess)
+  CommandFiles target -> withProject $ \project -> do
+    walked <- projectFiles project target
+    mapM_ putStrLn (walkedFiles walked)
+    mapM_ (\d -> putStrLn (d ++ "  (nested project)")) (walkedProjects walked)
     pure ExitSuccess
   CommandParse lexer parser start path -> loadInterpreter lexer parser >>= runParse start path
   CommandParseCombined grammar start path -> loadCombinedInterpreter grammar >>= runParse start path
@@ -155,52 +144,6 @@ runParse start path loaded = case loaded of
       Left err -> report (renderInterpretError err) >> pure (ExitFailure 1)
       Right tree -> TIO.putStrLn (renderParseTree tree) >> pure ExitSuccess
 
-targetFiles :: Config -> Maybe FilePath -> IO [FilePath]
-targetFiles config target = do
-  let patterns = defaultIgnorePatterns ++ parseIgnorePatterns (configIgnore config)
-      root = maybe "." id target
-  isDirectory <- doesDirectoryExist root
-  if isDirectory
-    then map normalise <$> findSupportedFiles patterns root
-    else pure [root]
-  where
-    normalise path = maybe path id (stripPrefix "./" path)
-    stripPrefix prefix path = if take (length prefix) path == prefix then Just (drop (length prefix) path) else Nothing
-
-checkOne :: Config -> Registry -> Ledger -> Maybe (Text, Either InterpretError Interpreter) -> FilePath -> IO [Finding]
-checkOne config registry ledger canonical path = do
-  extracted <- extractGrammarModel shellGitProvider config path
-  case extracted of
-    Left err -> pure [ExtractionFailed path (renderExtractError err)]
-    Right extraction -> do
-      dialect <- canonicalFindings canonical path
-      pure
-        ( extractionFindings extraction
-            ++ checkAll (configVersion config) registry ledger (extractionModel extraction)
-            ++ dialect
-        )
-
-loadCanonical :: Config -> IO (Maybe (Text, Either InterpretError Interpreter))
-loadCanonical config = case Map.lookup "antlr4" (configCanonical config) of
-  Nothing -> pure Nothing
-  Just (CanonicalGrammar lexer parser start) -> Just . (,) start <$> loadInterpreter lexer parser
-
-canonicalFindings :: Maybe (Text, Either InterpretError Interpreter) -> FilePath -> IO [Finding]
-canonicalFindings canonical path = case canonical of
-  Nothing -> pure []
-  Just (_, Left err) -> pure [CanonicalGrammarUnusable path (renderInterpretError err)]
-  Just (start, Right interpreter) -> do
-    result <- interpretFile interpreter (Name start) path
-    pure $ case result of
-      Right _ -> []
-      Left (InterpretParseError _ (ParseNoParse (ParseFailure _ (Just tok)))) ->
-        [NotCanonical path (tokenPosition tok) "the canonical dialect does not accept this token"]
-      Left (InterpretParseError _ (ParseNoParse (ParseFailure _ Nothing))) ->
-        [NotCanonical path (Position 1 1) "the canonical dialect does not accept this file"]
-      Left (InterpretLexError _ (LexNoMatch pos _)) ->
-        [NotCanonical path pos "the canonical dialect cannot tokenize this input"]
-      Left err -> [CanonicalGrammarUnusable path (renderInterpretError err)]
-
 withConfig :: (Config -> IO ExitCode) -> IO ExitCode
 withConfig continue = do
   configResult <- loadConfig
@@ -208,26 +151,19 @@ withConfig continue = do
     Left err -> report (renderConfigError err) >> pure (ExitFailure 1)
     Right config -> continue config
 
+withProject :: (Project -> IO ExitCode) -> IO ExitCode
+withProject continue = do
+  loaded <- loadProject "."
+  case loaded of
+    Left err -> report (renderProjectError err) >> pure (ExitFailure 1)
+    Right project -> continue project
+
 withExtraction :: FilePath -> (Config -> Extraction -> IO ExitCode) -> IO ExitCode
 withExtraction path continue = withConfig $ \config -> do
   extracted <- extractGrammarModel shellGitProvider config path
   case extracted of
     Left err -> report (renderExtractError err) >> pure (ExitFailure 1)
     Right extraction -> continue config extraction
-
-loadSources :: Config -> IO (Either Text (Registry, Ledger))
-loadSources config = do
-  registry <- loadRegistry config
-  ledger <- loadLedger config
-  pure ((,) <$> registry <*> ledger)
-
-loadRegistry :: Config -> IO (Either Text Registry)
-loadRegistry config = do
-  let path = configRegistry config
-  present <- doesFileExist path
-  if not present && path == defaultRegistryFileName
-    then pure (Right emptyRegistry)
-    else either (Left . renderRegistryError) Right <$> readRegistryFile path
 
 loadLedger :: Config -> IO (Either Text Ledger)
 loadLedger config = do

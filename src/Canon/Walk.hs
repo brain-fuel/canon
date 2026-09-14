@@ -1,48 +1,55 @@
 module Canon.Walk
-  ( Language (..)
-  , supportedLanguages
-  , languageOfPath
+  ( Walked (..)
   , findSupportedFiles
+  , walkProject
+  , grammarExtension
   ) where
 
 import Canon.Ignore (IgnorePattern, isIgnored)
 import Data.List (sort)
-import Data.Text (Text)
 import qualified Data.Text as T
-import System.Directory (doesDirectoryExist, listDirectory)
+import System.Directory (doesDirectoryExist, doesFileExist, listDirectory)
 import System.FilePath (splitDirectories, takeExtension, (</>))
 
-data Language = Language
-  { languageName :: Text
-  , languageExtensions :: [String]
+data Walked = Walked
+  { walkedFiles :: [FilePath]
+  , walkedProjects :: [FilePath]
   }
   deriving (Eq, Show)
 
-supportedLanguages :: [Language]
-supportedLanguages = [Language "antlr4" [".g4"]]
-
-languageOfPath :: FilePath -> Maybe Language
-languageOfPath path = case [l | l <- supportedLanguages, takeExtension path `elem` languageExtensions l] of
-  (l : _) -> Just l
-  [] -> Nothing
+grammarExtension :: String
+grammarExtension = ".g4"
 
 findSupportedFiles :: [IgnorePattern] -> FilePath -> IO [FilePath]
-findSupportedFiles patterns root = go []
+findSupportedFiles patterns root = walkedFiles <$> walkProject patterns [grammarExtension] "canon.yaml" root
+
+walkProject :: [IgnorePattern] -> [String] -> FilePath -> FilePath -> IO Walked
+walkProject patterns extensions marker root = go []
   where
     go relative = do
-      let directory = if null relative then root else root </> foldr1 (</>) relative
+      let directory = joined relative
       entries <- sort <$> listDirectory directory
-      concat <$> mapM (visit relative) entries
+      results <- mapM (visit relative) entries
+      pure (Walked (concatMap walkedFiles results) (concatMap walkedProjects results))
     visit relative entry = do
       let relative' = relative ++ [entry]
           segments = map T.pack (concatMap splitDirectories relative')
-          path = root </> foldr1 (</>) relative'
+          path = joined relative'
       isDirectory <- doesDirectoryExist path
       if isDirectory
-        then if isIgnored patterns True segments then pure [] else go relative'
+        then
+          if isIgnored patterns True segments
+            then pure (Walked [] [])
+            else do
+              nested <- doesFileExist (path </> marker)
+              if nested then pure (Walked [] [path]) else go relative'
         else
           pure
-            [ path
-            | languageOfPath entry /= Nothing
-            , not (isIgnored patterns False segments)
-            ]
+            ( Walked
+                [ path
+                | takeExtension entry `elem` extensions
+                , not (isIgnored patterns False segments)
+                ]
+                []
+            )
+    joined relative = if null relative then root else root </> foldr1 (</>) relative

@@ -1,0 +1,6 @@
+DEC-sample-docstrings:
+  status: open
+  question: Clojure carries a docstring inside the definition form rather than a comment above it. Should canon read the docstring as the canonical comment for Clojure?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [hiccup-upstream]

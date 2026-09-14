@@ -1,0 +1,4 @@
+hiccup-upstream:
+  kind: package
+  title: hiccup, a Clojure library for rendering HTML
+  locator: https://github.com/weavejester/hiccup

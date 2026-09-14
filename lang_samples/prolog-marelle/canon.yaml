@@ -1,0 +1,21 @@
+version: 0.1.0
+root: source
+languages:
+  prolog:
+    extensions: [.pl]
+    grammar: ../../grammars/prolog/prolog.g4
+    start: p_text
+    comments:
+      line: "%"
+      blockOpen: "/*"
+      blockClose: "*/"
+      strings: ["\"", "'"]
+    units:
+      - rule: clause
+        kind: clause
+        name: {rule: atom}
+        required: true
+      - rule: directive
+        kind: directive
+        name: {rule: atom}
+        required: false

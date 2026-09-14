@@ -70,6 +70,18 @@ treeTokens tree = case tree of
 
 type Results = [(ParseTree, Int)]
 
+data AltShape
+  = Primary [Element ()]
+  | Prefix [Element ()]
+  | Binary Bool [Element ()]
+  | Suffix [Element ()]
+
+isExtension :: AltShape -> Bool
+isExtension sh = case sh of
+  Binary _ _ -> True
+  Suffix _ -> True
+  _ -> False
+
 type Step = Int -> ([([ParseTree], Int)], Int)
 
 parseTokens :: Grammar ann -> Name -> [Token] -> Either ParseError ParseTree
@@ -90,24 +102,93 @@ parseVisibleTokens grammar start visible
     n = BV.length toks
 
     groups = [g | g <- stronglyConnectedRuleGroups (leftCornerGraph stripped), all (`Map.member` rules) (toList g)]
-    groupOf = Map.fromList [(m, NonEmpty.toList g) | g <- groups, m <- NonEmpty.toList g]
+    groupOf = Map.fromList [(m, NonEmpty.toList g) | g <- groups, m <- NonEmpty.toList g, not (Map.member m directLR)]
+
+    directLR :: Map Name [(Int, AltShape, Int)]
+    directLR = Map.fromList [(r, shapes) | (r, rule) <- Map.toList rules, let shapes = classify r rule, any (isExtension . shapeOf) shapes]
+    shapeOf (_, sh, _) = sh
 
     table :: Map (Name, Int) (Results, Int)
     table = Map.fromList [((r, p), compute r p) | r <- Map.keys rules, p <- [0 .. n]]
 
+    precTable :: Map (Name, Int, Int) (Results, Int)
+    precTable =
+      Map.fromList
+        [ ((r, prec, p), evalLR r shapes prec p)
+        | (r, shapes) <- Map.toList directLR
+        , prec <- [0 .. length shapes + 1]
+        , p <- [0 .. n]
+        ]
+
     fixTable :: Map (Name, Int) (Map Name (Results, Int))
-    fixTable = Map.fromList [((NonEmpty.head g, p), fixpoint (NonEmpty.toList g) p) | g <- groups, p <- [0 .. n]]
+    fixTable = Map.fromList [((NonEmpty.head g, p), fixpoint (NonEmpty.toList g) p) | g <- groups, p <- [0 .. n], not (Map.member (NonEmpty.head g) directLR)]
 
     lookupTable r p = fst (lookupEntry r p)
     lookupEntry r p = Map.findWithDefault ([], p) (r, p) table
+    precEntry r prec p = Map.findWithDefault ([], p) (r, prec, p) precTable
 
-    compute r p = case Map.lookup r groupOf of
-      Just members -> Map.findWithDefault ([], p) r (fixTable Map.! (head' members, p))
-      Nothing -> evalRule lookupEntry r p
+    compute r p
+      | Map.member r directLR = precEntry r 0 p
+      | otherwise = case Map.lookup r groupOf of
+          Just members -> Map.findWithDefault ([], p) r (fixTable Map.! (head' members, p))
+          Nothing -> evalRule lookupEntry r p
 
     head' xs = case xs of
       (x : _) -> x
       [] -> error "empty group"
+
+    classify self rule =
+      let alts = toList (parserRuleAlternatives rule)
+          total = length alts
+       in [(i, shape self alt, total - i) | (i, alt) <- zip [0 ..] alts]
+    shape self alt =
+      let es = alternativeElements (labeledAlternativeBody alt)
+          isSelf e = case e of
+            ElementAtom _ _ (AtomRuleRef name _ _) Nothing -> name == self
+            _ -> False
+          firstIsSelf = case es of
+            (e : _) -> isSelf e
+            [] -> False
+          lastIsSelf = case reverse es of
+            (e : _) -> isSelf e
+            [] -> False
+          rightAssoc = any isRightAssoc (alternativeOptions (labeledAlternativeBody alt))
+       in if firstIsSelf && lastIsSelf && length es >= 2
+            then Binary rightAssoc (init (drop 1 es))
+            else
+              if firstIsSelf
+                then Suffix (drop 1 es)
+                else if lastIsSelf then Prefix (init es) else Primary es
+    isRightAssoc o = case o of
+      ElementOptionAssign (Name "assoc") (OptionValueName (QualifiedName (Name "right" NonEmpty.:| []))) -> True
+      _ -> False
+
+    refStep r prec q = let (rs, f) = precEntry r prec q in ([([t], e) | (t, e) <- rs], f)
+
+    evalLR r shapes prec pos =
+      let baseEvals =
+            [ (i, step pos)
+            | (i, sh, pr) <- shapes
+            , Just step <- [baseStep r sh pr]
+            ]
+          base = [(RuleNode r i children, q) | (i, (rs, _)) <- baseEvals, (children, q) <- rs]
+          climbed = map climb base
+          climb (tree, q) =
+            let attempts = [(i, extensionStep r sh pr q) | (i, sh, pr) <- shapes, pr >= prec, isExtension sh]
+                extended = [(RuleNode r i (tree : children), q') | (i, (rs, _)) <- attempts, (children, q') <- rs, q' > q]
+                deeper = map climb extended
+             in (concatMap fst deeper ++ [(tree, q)], maximum (q : [f | (_, (_, f)) <- attempts] ++ map snd deeper))
+       in (concatMap fst climbed, maximum (pos : [f | (_, (_, f)) <- baseEvals] ++ map snd climbed))
+
+    baseStep r sh pr = case sh of
+      Primary es -> Just (evalElements lookupEntry es)
+      Prefix es -> Just (seqStep (evalElements lookupEntry es) (refStep r pr))
+      _ -> Nothing
+
+    extensionStep r sh pr q = case sh of
+      Binary rightAssoc middle -> seqStep (evalElements lookupEntry middle) (refStep r (if rightAssoc then pr else pr + 1)) q
+      Suffix rest -> evalElements lookupEntry rest q
+      _ -> ([], q)
 
     fixpoint members p = go (Map.fromList [(m, ([], p)) | m <- members]) (0 :: Int)
       where

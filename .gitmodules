@@ -1,0 +1,9 @@
+[submodule "lang_samples/erlang-recon/source"]
+	path = lang_samples/erlang-recon/source
+	url = https://github.com/ferd/recon.git
+[submodule "lang_samples/clojure-hiccup/source"]
+	path = lang_samples/clojure-hiccup/source
+	url = https://github.com/weavejester/hiccup.git
+[submodule "lang_samples/prolog-marelle/source"]
+	path = lang_samples/prolog-marelle/source
+	url = https://github.com/larsyencken/marelle.git

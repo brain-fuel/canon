@@ -142,6 +142,43 @@ no comment cites, which stays informational until Haskell code units exist,
 and a comment citing a decision that is still open, which is how code is tied
 to the ambiguity it depends on.
 
+## Languages and sample projects
+
+Any language with a grammar `canon` can interpret becomes a language `canon`
+models. A project's `canon.yaml` declares one under `languages`, keyed by
+name, with the file `extensions` it owns, the `grammar` file or the `lexer`
+and `parser` pair, the `start` rule, the comment syntax (`line`, `blockOpen`,
+`blockClose`, and the `strings` whose contents are not comments), and the
+`units`: which parse-tree rules are code units, their `kind`, where their
+`name` comes from (the nth token of a type, or the text of a child rule),
+whether a canonical comment is `required`, and optionally a `firstToken`
+constraint so that, for example, only Clojure lists beginning with `defn`
+count. Unit ids are the language, the file path, and then kind and name at
+each level of nesting; a repeated name in one scope gets an ordinal suffix.
+
+A directory containing its own `canon.yaml` is a nested project. The walk
+stops there, and `canon check` runs it with its own configuration, registry,
+ledger, and ignore list, so one repository can hold many projects. A project
+whose sources live elsewhere, such as a git submodule, sets `root` to that
+directory.
+
+`lang_samples/` holds real projects in other languages, each a nested project
+whose sources are a submodule under `source` and whose canon files sit
+beside it. Their grammars are vendored under `grammars/<lang>/` from
+grammars-v4, unmodified, with an empty `canonically_commented/` husk. Running
+`canon check` from a sample's directory checks that project; running it from
+the repository root includes every sample. The samples are upstream code that
+is not canonically commented, so those checks fail, and that is the truth
+they exist to show: every function without a canonical comment is a finding,
+and every file the upstream grammar cannot parse is one too. Run
+`git submodule update --init` after cloning to fetch them.
+
+| Sample | Language | Grammar |
+|--------|----------|---------|
+| `lang_samples/erlang-recon` | Erlang | `grammars/erlang/Erlang.g4` |
+| `lang_samples/clojure-hiccup` | Clojure | `grammars/clojure/Clojure.g4` |
+| `lang_samples/prolog-marelle` | Prolog | `grammars/prolog/prolog.g4` |
+
 ANTLR grammar files are the first language `canon` models. Each grammar is a
 unit, each rule is a child unit, and each mode groups its rules. Every parser
 rule and every non-fragment lexer rule requires a canonical comment.
@@ -172,7 +209,11 @@ canon/
 │   ├── Canon/Decisions.hs # canonical_decisions.yaml
 │   ├── Canon/Version.hs   # semantic versions and their precedence
 │   ├── Canon/Ignore.hs    # gitignore-style patterns
-│   ├── Canon/Walk.hs      # finds supported files under a directory
+│   ├── Canon/Walk.hs      # finds supported files and nested projects under a directory
+│   ├── Canon/Project.hs   # a project: its config, registry, ledger, files, and checks
+│   ├── Canon/Profile.hs   # language profiles declared in canon.yaml
+│   ├── Canon/CommentScan.hs  # comments by a profile's syntax
+│   ├── Canon/Extract/Grammar.hs  # builds the model of any file through its language profile
 │   ├── Canon/Config.hs    # canon.yaml
 │   ├── Canon/Attach.hs    # binds a comment to the unit directly below it
 │   ├── Canon/CanonicalComment.hs  # provisional canonical comment syntax
@@ -190,6 +231,12 @@ canon/
 ├── test/
 │   ├── Spec.hs            # tasty entry point
 │   └── Canon/Antlr4/      # hedgehog generators and properties per module
+├── lang_samples/          # nested sample projects in other languages, sources as submodules
+│   └── <sample>/
+│       ├── canon.yaml     # root: source, plus the language profile
+│       ├── canonical_refs.yaml
+│       ├── canonical_decisions.yaml
+│       └── source/        # the upstream project, a git submodule
 ├── grammars/              # language grammars canon uses to extract meaning from code
 │   ├── antlr4/            # ANTLR's own meta-grammar, which canon reads first
 │   └── <lang>/

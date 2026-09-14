@@ -1,0 +1,6 @@
+DEC-sample-clauses:
+  status: open
+  question: A Prolog predicate is many clauses with the same name and arity. Should canon treat the predicate or the clause as the unit that requires a canonical comment?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [marelle-upstream]
