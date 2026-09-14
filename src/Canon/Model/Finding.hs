@@ -16,6 +16,8 @@ data Finding
   | MissingCanonicalComment UnitId Where
   | OrphanDocComment FilePath Span
   | GitUnavailable FilePath GitError
+  | NotCanonical FilePath Position Text
+  | CanonicalGrammarUnusable FilePath Text
   deriving (Eq, Show)
 
 renderFinding :: Finding -> Text
@@ -28,6 +30,8 @@ renderFinding f = case f of
     at (wherePath w) (whereSpan w) ("missing canonical comment on " <> renderUnitId u)
   OrphanDocComment path sp -> at path sp "doc comment is not attached to any unit"
   GitUnavailable path err -> T.concat [T.pack path, ": ", renderGitError err]
+  NotCanonical path pos message -> at path (Span pos pos) ("not canonically commented: " <> message)
+  CanonicalGrammarUnusable path message -> T.concat [T.pack path, ": canonical grammar unusable: ", message]
   where
     at path (Span (Position line column) _) message =
       T.concat [T.pack path, ":", T.pack (show line), ":", T.pack (show column), ": ", message]

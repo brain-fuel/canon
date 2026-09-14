@@ -9,6 +9,9 @@ and this project adheres to the
 ## Unreleased
 
 ### Added
+- A lexer and parser interpreter that turns any grammar value into a running lexer and parser: longest match with non-greedy loops, modes, channels and commands, implicit literal tokens, a hook interface for target-language lexer actions, and an all-parses parser with left recursion
+- `grammars/antlr4/canonically_commented/`, the canonically commented dialect of the meta-grammar, with a doc comment on every rule so it parses itself
+- `canon parse` for parsing a file with an interpreted grammar, and `canonical` grammar entries in `canon.yaml` that `canon check` uses to report the first token a dialect refuses
 - The canonical model: code units with stable path-based ids answering What, How, Where, Who, and When; decisions binding a Why to units; evidence on every answer; emitted as YAML with alphabetical keys and a schema version
 - `canonical_refs.yaml`, the reference registry, and `canon.yaml`, the configuration file, with their readers
 - A git provider that fills Who and When from `git log`, with a static implementation for tests and pure parsers for log and blame output

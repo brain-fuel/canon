@@ -7,10 +7,16 @@ Date opened: 2026-09-12
 - **Content of `grammars/antlr4/canonically_commented/`.** The meta-grammar is
   vendored and read. What its canonically commented derivative looks like
   depends on the canonical comment format, which is undefined.
-- **Meaning of left recursion when interpreting grammars.** ANTLR resolves
-  left-recursive alternatives by precedence climbing over ordered
-  alternatives; grammatical-parsers' context-free backends return every
-  parse. The interpretation stage must choose.
+- **Precedence climbing.** The interpreter returns the first complete parse
+  by alternative order. ANTLR rewrites a directly left-recursive rule into
+  precedence levels, so `1*2+3` under `expr: expr '*' expr | expr '+' expr |
+  INT` has `+` at the top for ANTLR and `*` at the top here. Implementing the
+  rewrite is needed before expression grammars from grammars-v4 give ANTLR's
+  trees.
+- **Two notions of comment attachment.** The extractor binds a doc comment to
+  the rule on the line directly below it; the canonical dialect grammar binds
+  it to the next rule regardless of blank lines, because whitespace is off
+  channel. One of them has to give.
 - **Migrating prose decision records.** The canonical form of a decision now
   exists as the `Decision` type: a Why with cited registry keys, bound to unit
   ids. The prose records in this directory can become registry entries plus

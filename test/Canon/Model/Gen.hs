@@ -24,7 +24,7 @@ module Canon.Model.Gen
   , genConfig
   ) where
 
-import Canon.Config (Config (..))
+import Canon.Config (CanonicalGrammar (..), Config (..))
 import Canon.Git.Gen (genCommitHash, genPerson)
 import Canon.Model
 import Canon.Registry (Reference (..), Registry (..))
@@ -163,4 +163,8 @@ genRegistry :: Gen Registry
 genRegistry = Registry . Map.fromList <$> Gen.list (Range.linear 0 5) ((,) <$> genReferenceKey <*> genReference)
 
 genConfig :: Gen Config
-genConfig = Config <$> Gen.maybe genIdSegment <*> genPath
+genConfig =
+  Config
+    <$> Gen.maybe genIdSegment
+    <*> genPath
+    <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> (CanonicalGrammar <$> genPath <*> genPath <*> genIdSegment)))

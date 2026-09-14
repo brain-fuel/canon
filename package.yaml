@@ -55,6 +55,7 @@ library:
   - time
   - filepath
   - directory
+  - vector
 
 executables:
   canon:

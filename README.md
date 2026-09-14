@@ -180,14 +180,28 @@ directory contains two grammars:
   modified to add canonical comment structure and attachment rules. Code that
   is valid in the language may not be valid canonically commented code.
 
-`canon` consumes the canonically commented grammar. The upstream grammar is
-kept beside it as the source it is derived from.
+`canon` consumes the canonically commented grammar by interpreting it: the
+`Canon.Antlr4.Lex` and `Canon.Antlr4.Parse` modules turn any grammar value
+into a running lexer and parser, so a `.g4` file under `grammars/` becomes a
+parser without code generation. The upstream grammar is kept beside it as the
+source it is derived from. Lexer actions that upstream grammars delegate to a
+target-language base class are resolved through a hook interface keyed by the
+grammar's `superClass` option; the ANTLR meta-grammar's own adaptor is the
+first hook implementation.
 
 `grammars/antlr4/` holds ANTLR's own meta-grammar, `ANTLRv4Lexer.g4` and
 `ANTLRv4Parser.g4`, vendored unmodified from grammars-v4. The `Canon.Antlr4`
 modules read any `.g4` file into a grammar value, and the test suite checks
-that both of these files read with their known structure. Its
-`canonically_commented/` directory is still a husk.
+that both of these files read with their known structure.
+
+`grammars/antlr4/canonically_commented/` holds the canonically commented
+dialect of the meta-grammar. It differs from upstream in three ways: doc
+comments stay on the default channel, a parser rule must be preceded by a doc
+comment, and a non-fragment lexer rule must be preceded by one while a
+fragment may be. Every rule in both files carries its own doc comment, so the
+dialect parses its own grammars, and the test suite checks that it does and
+that it rejects the upstream file. `canon check` runs this dialect over every
+grammar it checks and reports the first token the dialect refuses.
 
 `grammars/haskell/` is the first language directory. It is currently a husk
 with no grammar files in it.
@@ -223,6 +237,7 @@ stack test --ta '-p property'
 stack exec canon -- version
 stack exec canon -- model grammars/antlr4/ANTLRv4Parser.g4
 stack exec canon -- check grammars/antlr4/ANTLRv4Parser.g4
+stack exec canon -- parse grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4 grammars/antlr4/canonically_commented/ANTLRv4Parser.g4 grammarSpec grammars/antlr4/canonically_commented/ANTLRv4Parser.g4
 ```
 
 `canon` is a command line tool. Running it with no arguments prints usage.
@@ -231,7 +246,14 @@ and any extraction findings to standard error. `canon check` prints every
 finding, one per line, and exits with status 1 if there are any. Both read
 `canon.yaml` from the current directory when it exists. Who and When come from
 `git` on the path; without a repository the model is still emitted, with those
-answers empty and one finding saying so.
+answers empty and one finding saying so. `canon parse` interprets a lexer and
+parser grammar pair, or one combined grammar, and prints the parse tree of a
+file or the position where parsing fails.
+
+`canon.yaml` may name canonical dialect grammars under `canonical`, keyed by
+language, each with a `lexer`, a `parser`, and a `start` rule. `canon check`
+parses the checked file with the dialect named for its language and reports a
+finding at the first token the dialect refuses.
 
 Tests use tasty with hedgehog. Property-based tests are the primary tests and
 live under the `property` group. Fixture checks against the vendored grammars

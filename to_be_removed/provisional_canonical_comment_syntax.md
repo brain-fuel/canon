@@ -26,6 +26,14 @@ Date: 2026-09-14
   generated parser and token rules are the vocabulary another grammar imports,
   which are the "public API" and "used across modules" cases of the README.
 
+## The dialect grammar
+
+`grammars/antlr4/canonically_commented/` expresses the required-comment rule
+as grammar: `parserRuleSpec` starts with `DOC_COMMENT`, `lexerRuleSpec`
+requires one before a non-fragment rule and allows one before a fragment, and
+`DOC_COMMENT` stays on the default channel. The line adjacency rule above is
+not expressible at the token level and is an open decision.
+
 ## Example
 
 ```

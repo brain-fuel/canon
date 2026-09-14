@@ -1,5 +1,6 @@
 module Canon.Config
   ( Config (..)
+  , CanonicalGrammar (..)
   , ConfigError (..)
   , defaultConfig
   , configFileName
@@ -9,16 +10,26 @@ module Canon.Config
   , renderConfigError
   ) where
 
-import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:?), (.=))
+import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
+import Data.Map.Strict (Map)
+import qualified Data.Map.Strict as Map
 import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Yaml as Yaml
 import System.Directory (doesFileExist)
 
+data CanonicalGrammar = CanonicalGrammar
+  { canonicalLexer :: FilePath
+  , canonicalParser :: FilePath
+  , canonicalStartRule :: Text
+  }
+  deriving (Eq, Show)
+
 data Config = Config
   { configVersion :: Maybe Text
   , configRegistry :: FilePath
+  , configCanonical :: Map Text CanonicalGrammar
   }
   deriving (Eq, Show)
 
@@ -32,7 +43,7 @@ defaultRegistryFileName :: FilePath
 defaultRegistryFileName = "canonical_refs.yaml"
 
 defaultConfig :: Config
-defaultConfig = Config Nothing defaultRegistryFileName
+defaultConfig = Config Nothing defaultRegistryFileName Map.empty
 
 readConfigFile :: FilePath -> IO (Either ConfigError Config)
 readConfigFile path = do
@@ -47,9 +58,19 @@ loadConfig = do
 renderConfigError :: ConfigError -> Text
 renderConfigError (ConfigUnreadable path message) = T.concat [T.pack path, ": ", message]
 
+instance ToJSON CanonicalGrammar where
+  toJSON (CanonicalGrammar lexer parser start) = object ["lexer" .= lexer, "parser" .= parser, "start" .= start]
+
+instance FromJSON CanonicalGrammar where
+  parseJSON = withObject "CanonicalGrammar" $ \o -> CanonicalGrammar <$> o .: "lexer" <*> o .: "parser" <*> o .: "start"
+
 instance ToJSON Config where
-  toJSON (Config version registry) = object ["registry" .= registry, "version" .= version]
+  toJSON (Config version registry canonical) =
+    object ["canonical" .= canonical, "registry" .= registry, "version" .= version]
 
 instance FromJSON Config where
   parseJSON = withObject "Config" $ \o ->
-    Config <$> o .:? "version" <*> (fromMaybe defaultRegistryFileName <$> o .:? "registry")
+    Config
+      <$> o .:? "version"
+      <*> (fromMaybe defaultRegistryFileName <$> o .:? "registry")
+      <*> (fromMaybe Map.empty <$> o .:? "canonical")

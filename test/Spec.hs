@@ -2,6 +2,7 @@ module Main (main) where
 
 import qualified Canon.Antlr4.CommentTest
 import qualified Canon.Antlr4.EscapeTest
+import qualified Canon.Antlr4.InterpretTest
 import qualified Canon.Antlr4.QueryTest
 import qualified Canon.Antlr4.RuleGraphTest
 import qualified Canon.Antlr4.RoundTripTest
@@ -35,6 +36,7 @@ main =
             , Canon.CanonicalCommentTest.tests
             , Canon.AttachTest.tests
             , Canon.Model.CheckTest.tests
+            , Canon.Antlr4.InterpretTest.tests
             ]
         ]
     )

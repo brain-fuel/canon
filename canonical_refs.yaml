@@ -14,3 +14,7 @@ grammars-v4:
   kind: article
   title: The ANTLR grammars-v4 repository
   locator: https://github.com/antlr/grammars-v4
+canon-provisional-syntax:
+  kind: discussion
+  title: Provisional canonical comment syntax for ANTLR grammar files
+  locator: to_be_removed/provisional_canonical_comment_syntax.md
