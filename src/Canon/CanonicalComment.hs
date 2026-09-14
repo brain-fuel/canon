@@ -62,4 +62,5 @@ toWhy :: CanonicalComment -> Why
 toWhy (CanonicalComment body references licenses) = Why body references licenses
 
 mentionsLicense :: Text -> Bool
-mentionsLicense body = any (`T.isInfixOf` T.toLower body) ["copyright", "license", "licence"]
+mentionsLicense body =
+  any (`T.isInfixOf` T.toLower body) ["copyright", "all rights reserved", "licensed under", "spdx-license-identifier", "the \"bsd license\"", "mit license", "apache license", "gnu general public license"]

@@ -48,3 +48,5 @@ licenseKeys = withTests 1 $ property $ do
   canonicalReferences parsed === [ReferenceKey "grammars-v4"]
   mentionsLicense (canonicalWhy parsed) === True
   mentionsLicense "exists because of the parser" === False
+  mentionsLicense "The file-level comment is where a license lives." === False
+  mentionsLicense "Licensed under the Apache License, Version 2.0" === True
