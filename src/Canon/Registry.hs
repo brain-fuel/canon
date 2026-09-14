@@ -17,7 +17,7 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Yaml as Yaml
 
-data ReferenceKind = Article | Paper | Ticket | Requirement | Package | Discussion
+data ReferenceKind = Article | Paper | Ticket | Requirement | Package | Discussion | License
   deriving (Eq, Ord, Show, Enum, Bounded)
 
 data Reference = Reference
@@ -55,6 +55,7 @@ referenceKindText k = case k of
   Requirement -> "requirement"
   Package -> "package"
   Discussion -> "discussion"
+  License -> "license"
 
 instance ToJSON ReferenceKind where
   toJSON = toJSON . referenceKindText

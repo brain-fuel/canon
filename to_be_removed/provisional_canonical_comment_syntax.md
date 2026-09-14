@@ -17,8 +17,12 @@ Date: 2026-09-14
   comment that binds to nothing is reported as an orphan.
 - The comment body, with the delimiters and leading stars removed, is the
   "Why?".
-- A reference is cited as a token `ref:KEY` anywhere in the body. `KEY` must
-  exist in `canonical_refs.yaml`. Keys start and end with an ASCII letter or
+- A reference is cited as a token `ref:KEY` anywhere in the body, and a
+  license as `license:KEY`, whose registry entry must be of kind `license`.
+  `KEY` must exist in `canonical_refs.yaml`.
+- A doc comment starting on the file's first non-blank line is the file-level
+  comment and binds to the file unit, which for a grammar is the grammar
+  itself. It is not considered for line adjacency to the first rule. Keys start and end with an ASCII letter or
   digit and may contain `.`, `_`, and `-` in between, so sentence punctuation
   after a key is not part of it.
 - Every parser rule and every non-fragment lexer rule requires a canonical

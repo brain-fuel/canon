@@ -113,7 +113,7 @@ genWhere :: Gen Where
 genWhere = Where <$> genPath <*> genSpan <*> Gen.list (Range.linear 0 3) genIdSegment <*> Gen.maybe (Gen.int (Range.linear 0 100))
 
 genWhy :: Gen Why
-genWhy = Why <$> genPlainText <*> Gen.list (Range.linear 0 3) genReferenceKey
+genWhy = Why <$> genPlainText <*> Gen.list (Range.linear 0 3) genReferenceKey <*> Gen.list (Range.linear 0 2) genReferenceKey
 
 genAttribution :: Gen Attribution
 genAttribution = Attribution <$> genPerson <*> Gen.list (Range.linear 1 3) genCommitHash
@@ -253,4 +253,6 @@ genFinding =
     , DecisionUnitMissing <$> genReferenceKey <*> genUnitId
     , ExtractionFailed <$> genPath <*> genPlainText
     , ProjectUnusable <$> genPath <*> genPlainText
+    , LicenseKeyNotLicense <$> genDecisionId <*> genWhere <*> genReferenceKey
+    , LicenseTextWithoutKey <$> genDecisionId <*> genWhere
     ]

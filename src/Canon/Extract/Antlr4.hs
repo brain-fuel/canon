@@ -16,7 +16,7 @@ import Canon.Antlr4.Pretty (prettyPrequel, prettyRule)
 import Canon.Antlr4.Query (allRules, ruleAnn, ruleName)
 import Canon.Antlr4.Read (ReadError, ReadResult (..), readGrammar, renderReadError)
 import Canon.Antlr4.Syntax hiding (Optional)
-import Canon.Attach (attachPreceding)
+import Canon.Attach (attachPreceding, firstContentLine, topOfFileComment)
 import Canon.CanonicalComment (parseCanonicalComment, toWhy)
 import Canon.Config (Config (..))
 import Canon.Git.Fill (fillGitFromBlame)
@@ -71,7 +71,7 @@ extractGrammarText provider config path source =
     Right (ReadResult grammar comments) -> case extractGrammarUnits path grammar of
       Left err -> pure (Left err)
       Right root -> do
-        let (decisions, orphans) = extractDecisions path grammar comments
+        let (decisions, orphans) = extractDecisions path source grammar comments
         (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root
         described <- either (const Nothing) id <$> describeVersion provider
         let model = Model languageName (configVersion config) described [unitsWithGit] decisions
@@ -132,11 +132,18 @@ extractGrammarUnits path grammar =
       RuleLexer l | lexerRuleIsFragment l -> Optional
       _ -> Required
 
-extractDecisions :: FilePath -> Grammar Span -> [Located Comment] -> ([Decision Evidence], [Located Comment])
-extractDecisions path grammar comments = (map toDecision pairs, orphans)
+extractDecisions :: FilePath -> Text -> Grammar Span -> [Located Comment] -> ([Decision Evidence], [Located Comment])
+extractDecisions path source grammar comments = (maybe [] (\c -> [fileDecision c]) header ++ map toDecision pairs, orphans)
   where
     g = grammarName grammar
-    docComments = [c | c <- comments, commentKind (locatedValue c) == DocComment]
+    (header, docComments) = topOfFileComment (firstContentLine source) [c | c <- comments, commentKind (locatedValue c) == DocComment]
+    fileDecision comment =
+      Decision
+        { decisionId = decisionIdFor (grammarUnitId g)
+        , decisionUnits = grammarUnitId g :| []
+        , decisionWhy = Answer (toWhy (parseCanonicalComment (commentText (locatedValue comment)))) (Asserted (Assertion path (locatedSpan comment)))
+        , decisionWhere = Where path (locatedSpan comment) [] Nothing
+        }
     targets =
       [Located (ruleAnn r) (Target (ruleUnitId g Nothing (ruleName r)) [nameText g]) | r <- grammarRules grammar]
         ++ [ Located (lexerRuleAnn l) (Target (ruleUnitId g (Just (modeName m)) (lexerRuleName l)) [nameText g, nameText (modeName m)])

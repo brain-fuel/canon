@@ -12,7 +12,7 @@ import Canon.Antlr4.Interpret
 import Canon.Antlr4.Lexical (lineTable, positionAt)
 import Canon.Antlr4.Parse (ParseTree (..), treeTokens)
 import Canon.Antlr4.Token (Token (..), isEofToken)
-import Canon.Attach (attachPreceding)
+import Canon.Attach (attachPreceding, firstContentLine, topOfFileComment)
 import Canon.CanonicalComment (parseCanonicalComment, toWhy)
 import Canon.CommentScan (scanCommentsWith)
 import Canon.Config (Config (..))
@@ -62,7 +62,7 @@ extractWithProfileText provider config language profile interpreter path source 
       Left err -> pure (Left err)
       Right root -> do
         let comments = scanCommentsWith (profileComments profile) source
-            (decisions, orphans) = extractDecisionsFor path root comments
+            (decisions, orphans) = extractDecisionsFor path source root comments
         (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root
         described <- either (const Nothing) id <$> describeVersion provider
         let model = Model language (configVersion config) described [unitsWithGit] decisions
@@ -150,11 +150,12 @@ offsetFromPosition source (Position line column) =
   let linesBefore = take (line - 1) (T.splitOn "\n" source)
    in sum (map ((+ 1) . T.length) linesBefore) + column - 1
 
-extractDecisionsFor :: FilePath -> CodeUnit Evidence -> [Located Comment] -> ([Decision Evidence], [Located Comment])
-extractDecisionsFor path root comments = (map toDecision pairs, orphans)
+extractDecisionsFor :: FilePath -> Text -> CodeUnit Evidence -> [Located Comment] -> ([Decision Evidence], [Located Comment])
+extractDecisionsFor path source root comments = (maybe [] (\c -> [toDecision (c, Located (whereSpan (answerValue (unitWhere root))) root)]) header ++ map toDecision pairs, orphans)
   where
     targets = [Located (whereSpan (answerValue (unitWhere u))) u | u <- drop 1 (allUnits root)]
-    (pairs, orphans) = attachPreceding comments targets
+    (header, rest) = topOfFileComment (firstContentLine source) comments
+    (pairs, orphans) = attachPreceding rest targets
     toDecision (comment, target) =
       let u = locatedValue target
           sp = locatedSpan comment

@@ -8,7 +8,8 @@ import Canon.Decisions
 import Canon.Version (parseVersion, renderVersion)
 import Canon.Model
 import Canon.Model.Finding
-import Canon.Registry (Registry (..), lookupReference)
+import Canon.CanonicalComment (mentionsLicense)
+import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), lookupReference)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Maybe (isNothing)
@@ -19,7 +20,7 @@ checkAll :: Maybe Text -> Registry -> Ledger -> Model ev -> [Finding]
 checkAll version registry ledger m = checkModel registry ledger m ++ checkLedger version registry ledger m
 
 checkModel :: Registry -> Ledger -> Model ev -> [Finding]
-checkModel registry ledger m = unresolved ++ dangling ++ missing
+checkModel registry ledger m = unresolved ++ licenseKinds ++ licenseText ++ dangling ++ missing
   where
     units = modelAllUnits m
     knownIds = Set.fromList (map unitId units)
@@ -27,8 +28,22 @@ checkModel registry ledger m = unresolved ++ dangling ++ missing
     unresolved =
       [ UnresolvedReference (decisionId d) (decisionWhere d) key
       | d <- modelDecisions m
-      , key <- whyReferences (answerValue (decisionWhy d))
+      , key <- whyReferences (answerValue (decisionWhy d)) ++ whyLicenses (answerValue (decisionWhy d))
       , not (resolves key)
+      ]
+    licenseKinds =
+      [ LicenseKeyNotLicense (decisionId d) (decisionWhere d) key
+      | d <- modelDecisions m
+      , key <- whyLicenses (answerValue (decisionWhy d))
+      , Just entry <- [lookupReference key registry]
+      , referenceKind entry /= License
+      ]
+    licenseText =
+      [ LicenseTextWithoutKey (decisionId d) (decisionWhere d)
+      | d <- modelDecisions m
+      , let why = answerValue (decisionWhy d)
+      , null (whyLicenses why)
+      , mentionsLicense (whyText why)
       ]
     dangling =
       [ DanglingDecision (decisionId d) (decisionWhere d) u

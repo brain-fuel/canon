@@ -1,4 +1,4 @@
-/*
+/**
  * [The "BSD license"]
  *  Copyright (c) 2012-2015 Terence Parr
  *  Copyright (c) 2012-2015 Sam Harwell
@@ -27,6 +27,8 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  *  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *  license:BSD-3-Clause
  */
 /*
  *	A grammar for ANTLR v4 implemented using v4 syntax

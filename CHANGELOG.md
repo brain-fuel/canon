@@ -16,6 +16,8 @@ and this project adheres to
 - `canon check` parses files concurrently, caches extractions under `.canon-cache/` keyed by content, grammar, profile, and git revision, and derives Who and When from one `git blame` per file; the Haskell sample check went from 26 seconds to 1.4 cold and 0.2 warm with identical findings
 
 ### Added
+- License as the third reason for a canonical comment, cited as `license:KEY` against registry entries of kind `license`; a comment that reads like a license notice without a key is reported informationally, and a key that is not a license fails
+- A doc comment on a file's first non-blank line binds to the file unit; the canonically commented meta-grammar allows one before the grammar declaration and carries its BSD notice there
 - A Haskell sample project, with the Haskell grammar vendored and its layout base lexer ported to a lexer hook that injects the virtual braces and semicolons the grammar expects
 - The parser keeps one tree per rule and span, chosen in preference order, so large ambiguous grammars parse in polynomial time and memory instead of enumerating every derivation
 - Language profiles in `canon.yaml`: any interpretable grammar becomes a modelled language, with units taken from named parse-tree rules and comments scanned by the profile's syntax

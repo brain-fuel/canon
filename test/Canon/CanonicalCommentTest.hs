@@ -18,6 +18,7 @@ tests =
     [ testProperty "reference tokens are extracted in order without duplicates" tokensExtracted
     , testProperty "doc comment delimiters and leading stars are stripped" bodyStripped
     , testProperty "trailing punctuation after a key is ignored" trailingPunctuation
+    , testProperty "license keys are extracted separately from references" licenseKeys
     ]
 
 tokensExtracted :: Property
@@ -39,3 +40,11 @@ trailingPunctuation :: Property
 trailingPunctuation = withTests 1 $ property $ do
   referenceTokens "see ref:REQ-42, then ref:warth-2008." === [ReferenceKey "REQ-42", ReferenceKey "warth-2008"]
   referenceTokens "ref: nothing ref:bad/key ref:" === []
+
+licenseKeys :: Property
+licenseKeys = withTests 1 $ property $ do
+  let parsed = parseCanonicalComment "/** Copyright 2026 someone. license:MIT, see ref:grammars-v4 */"
+  canonicalLicenses parsed === [ReferenceKey "MIT"]
+  canonicalReferences parsed === [ReferenceKey "grammars-v4"]
+  mentionsLicense (canonicalWhy parsed) === True
+  mentionsLicense "exists because of the parser" === False

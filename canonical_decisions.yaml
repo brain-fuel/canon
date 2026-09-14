@@ -101,3 +101,11 @@ DEC-parser-generation:
     Generated. Both the lexer and the parser are compiled once from the grammar value with no per-language code: decoded literals, character predicates, and first-character filters for the lexer; FIRST sets, nullability, precedence shapes, and vector memo tables for the parser. The only per-language code is a lexer hook for grammars whose upstream base lexer runs target-language actions, selected by the grammar's superClass option. Profiling the largest Haskell sample after these changes puts the parser under one percent of the time and the lexer's matching functions at nearly all of it, so further speed comes from a lexer DFA, not from the parser.
   opened: 0.1.0
   decided: 0.1.0
+
+DEC-comment-reasons:
+  status: decided
+  question: What are the reasons a canonical comment exists, and where does a file-level comment such as a license notice attach?
+  answer: |
+    Three reasons: Why, a reason in prose; Ref, a pointer into the registry written ref:KEY; and License, a pointer to a registry entry of kind license written license:KEY. A doc comment at the top of a file, on its first non-blank line, is the file-level canonical comment and binds to the file unit, which for a grammar is the grammar itself. A comment that reads like a license or copyright notice but cites no license key is reported informationally, and a license key that resolves to a non-license registry entry fails the check. The canonically commented meta-grammar allows a doc comment before the grammar declaration for this purpose, and its own files carry their BSD notice there.
+  opened: 0.1.0
+  decided: 0.1.0

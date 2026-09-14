@@ -28,10 +28,11 @@ tests =
     , testProperty "a superseded decision needs a decided successor" successorReported
     , testProperty "citing an open decision is informational" citedWhileOpenInformational
     , testProperty "a key in both registry and ledger collides" collisionReported
+    , testProperty "license keys must resolve to license entries" licenseKindChecked
     ]
 
 citedKeys :: Model ev -> [ReferenceKey]
-citedKeys m = concatMap (whyReferences . answerValue . decisionWhy) (modelDecisions m)
+citedKeys m = concatMap (\d -> let why = answerValue (decisionWhy d) in whyReferences why ++ whyLicenses why) (modelDecisions m)
 
 fullRegistry :: Model ev -> Reference -> Registry
 fullRegistry m r = Registry (Map.fromList [(k, r) | k <- citedKeys m])
@@ -138,3 +139,13 @@ collisionReported = property $ do
   let key = ReferenceKey "DEC-x"
       registry = Registry (Map.fromList [(key, r)])
   [k | DecisionKeyCollision k <- checkLedger Nothing registry (ledgerOf [(key, e)]) m] === [key]
+
+licenseKindChecked :: Property
+licenseKindChecked = property $ do
+  m <- forAll genModel
+  r <- forAll genReference
+  let licensed = [(decisionId d, k) | d <- modelDecisions m, k <- whyLicenses (answerValue (decisionWhy d))]
+      asLicense = Registry (Map.map (\e -> e {referenceKind = License}) (registryEntries (fullRegistry m r)))
+      findings = checkModel (fullRegistry m r) emptyLedger m
+  [(d, k) | LicenseKeyNotLicense d _ k <- findings] === (if referenceKind r == License then [] else licensed)
+  [(d, k) | LicenseKeyNotLicense d _ k <- checkModel asLicense emptyLedger m] === []

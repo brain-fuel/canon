@@ -2,6 +2,8 @@ module Canon.CanonicalComment
   ( CanonicalComment (..)
   , docCommentBody
   , referenceTokens
+  , licenseTokens
+  , mentionsLicense
   , parseCanonicalComment
   , toWhy
   ) where
@@ -16,6 +18,7 @@ import qualified Data.Text as T
 data CanonicalComment = CanonicalComment
   { canonicalWhy :: Text
   , canonicalReferences :: [ReferenceKey]
+  , canonicalLicenses :: [ReferenceKey]
   }
   deriving (Eq, Show)
 
@@ -33,18 +36,30 @@ docCommentBody raw =
 referencePrefix :: Text
 referencePrefix = "ref:"
 
-referenceTokens :: Text -> [ReferenceKey]
-referenceTokens = nub . mapMaybe keyOf . T.words
+licensePrefix :: Text
+licensePrefix = "license:"
+
+keyedTokens :: Text -> Text -> [ReferenceKey]
+keyedTokens prefix = nub . mapMaybe keyOf . T.words
   where
     keyOf token = do
-      rest <- T.stripPrefix referencePrefix token
+      rest <- T.stripPrefix prefix token
       let key = T.dropWhileEnd (`elem` (".,;:)!?" :: String)) rest
       if isReferenceKey key then Just (ReferenceKey key) else Nothing
+
+referenceTokens :: Text -> [ReferenceKey]
+referenceTokens = keyedTokens referencePrefix
+
+licenseTokens :: Text -> [ReferenceKey]
+licenseTokens = keyedTokens licensePrefix
 
 parseCanonicalComment :: Text -> CanonicalComment
 parseCanonicalComment raw =
   let body = docCommentBody raw
-   in CanonicalComment body (referenceTokens body)
+   in CanonicalComment body (referenceTokens body) (licenseTokens body)
 
 toWhy :: CanonicalComment -> Why
-toWhy (CanonicalComment body references) = Why body references
+toWhy (CanonicalComment body references licenses) = Why body references licenses
+
+mentionsLicense :: Text -> Bool
+mentionsLicense body = any (`T.isInfixOf` T.toLower body) ["copyright", "license", "licence"]

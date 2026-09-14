@@ -75,7 +75,7 @@ profileExtraction = withTests 1 $ property $ do
     Left err -> annotate (show err) >> failure
     Right loaded -> do
       let profile = Profile [".tiny"] (CombinedGrammarFile "Tiny.g4") (Name "file_") [UnitRule (Name "definition") "function" (NameFromToken (Name "NAME") 1) True Nothing] (CommentSyntax (Just "#") Nothing Nothing ["\""])
-          source = "# why alpha ref:REQ-1\ndef alpha() { def inner() {} }\n\ndef beta() {}\ndef beta() {}\n"
+          source = "# tiny module license:MIT\n\n# why alpha ref:REQ-1\ndef alpha() { def inner() {} }\n\ndef beta() {}\ndef beta() {}\n"
       result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "tiny" profile loaded "src/x.tiny" source)
       case result of
         Left err -> annotate (T.unpack (renderGrammarExtractError err)) >> failure
@@ -83,9 +83,10 @@ profileExtraction = withTests 1 $ property $ do
           findings === []
           map (renderUnitId . unitId) (modelAllUnits model) === ["tiny/src/x.tiny", "tiny/src/x.tiny/function/alpha", "tiny/src/x.tiny/function/alpha/function/inner", "tiny/src/x.tiny/function/beta", "tiny/src/x.tiny/function/beta#2"]
           [whatName (answerValue (unitWhat u)) | u <- modelAllUnits model, renderUnitId (unitId u) == "tiny/src/x.tiny/function/beta#2"] === ["beta"]
-          map (renderDecisionId . decisionId) (modelDecisions model) === ["decision/tiny/src/x.tiny/function/alpha"]
-          map (whyReferences . answerValue . decisionWhy) (modelDecisions model) === [[ReferenceKey "REQ-1"]]
-          map (whyText . answerValue . decisionWhy) (modelDecisions model) === ["why alpha ref:REQ-1"]
+          map (renderDecisionId . decisionId) (modelDecisions model) === ["decision/tiny/src/x.tiny", "decision/tiny/src/x.tiny/function/alpha"]
+          map (whyReferences . answerValue . decisionWhy) (modelDecisions model) === [[], [ReferenceKey "REQ-1"]]
+          map (whyLicenses . answerValue . decisionWhy) (modelDecisions model) === [[ReferenceKey "MIT"], []]
+          map (whyText . answerValue . decisionWhy) (modelDecisions model) === ["tiny module license:MIT", "why alpha ref:REQ-1"]
           [howText u | u <- modelAllUnits model, renderUnitId (unitId u) == "tiny/src/x.tiny/function/beta"] === ["def beta() {}"]
   where
     howText u = case answerValue (unitHow u) of

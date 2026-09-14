@@ -2,12 +2,27 @@ module Canon.Attach
   ( precedesImmediately
   , attachPreceding
   , attachPrecedingBruteForce
+  , firstContentLine
+  , topOfFileComment
   ) where
 
 import Canon.Span (Located (..), Position (..), Span (..))
 import Data.List (sortOn)
 import qualified Data.Map.Strict as Map
 import Data.Ord (Down (..))
+import Data.Text (Text)
+import qualified Data.Text as T
+
+firstContentLine :: Text -> Int
+firstContentLine source = case [n | (n, line) <- zip [1 ..] (T.lines source), not (T.null (T.strip line))] of
+  (n : _) -> n
+  [] -> 1
+
+topOfFileComment :: Int -> [Located a] -> (Maybe (Located a), [Located a])
+topOfFileComment line comments =
+  case [c | c <- comments, spanStart (locatedSpan c) == Position line 1] of
+    (c : _) -> (Just c, filter ((/= locatedSpan c) . locatedSpan) comments)
+    [] -> (Nothing, comments)
 
 precedesImmediately :: Span -> Span -> Bool
 precedesImmediately comment target =

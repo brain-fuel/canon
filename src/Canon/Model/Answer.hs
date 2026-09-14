@@ -15,6 +15,7 @@ import Canon.Git.Commit (CommitHash, Person)
 import Canon.Model.Id (ReferenceKey)
 import Canon.Span (Span)
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
+import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import Data.Time (UTCTime)
 
@@ -49,6 +50,7 @@ data Where = Where
 data Why = Why
   { whyText :: Text
   , whyReferences :: [ReferenceKey]
+  , whyLicenses :: [ReferenceKey]
   }
   deriving (Eq, Show)
 
@@ -118,10 +120,10 @@ instance FromJSON Where where
     Where <$> o .: "path" <*> o .: "span" <*> o .: "chain" <*> o .:? "index"
 
 instance ToJSON Why where
-  toJSON (Why text references) = object ["references" .= references, "text" .= text]
+  toJSON (Why text references licenses) = object ["licenses" .= licenses, "references" .= references, "text" .= text]
 
 instance FromJSON Why where
-  parseJSON = withObject "Why" $ \o -> Why <$> o .: "text" <*> o .: "references"
+  parseJSON = withObject "Why" $ \o -> Why <$> o .: "text" <*> o .: "references" <*> (fromMaybe [] <$> o .:? "licenses")
 
 instance ToJSON Attribution where
   toJSON (Attribution person commits) = object ["commits" .= commits, "person" .= person]

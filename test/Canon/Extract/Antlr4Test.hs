@@ -27,6 +27,7 @@ tests =
     , testProperty "a static git provider fills Who and When with git evidence" gitEvidence
     , testProperty "an unresolved reference key is reported" unresolvedKey
     , testProperty "the lexer meta-grammar has one orphan doc comment" lexerOrphan
+    , testProperty "the canonical grammar's license header binds to the grammar unit" fileLevelLicense
     ]
 
 parserPath :: FilePath
@@ -120,3 +121,14 @@ lexerOrphan = withTests 1 $ property $ do
       length (modelAllUnits model) === 71
       map (unitKindText . whatKind . answerValue . unitWhat) (drop 50 (unitChildren root)) === ["mode", "mode"]
     _ -> failure
+
+fileLevelLicense :: Property
+fileLevelLicense = withTests 1 $ property $ do
+  Extraction model findings <- extractOrFail [] "grammars/antlr4/canonically_commented/ANTLRv4Parser.g4"
+  findings === []
+  length (modelDecisions model) === 68
+  case [d | d <- modelDecisions model, decisionUnits d == NonEmpty.fromList [UnitId (NonEmpty.fromList ["grammar", "ANTLRv4Parser"])]] of
+    [d] -> do
+      whyLicenses (answerValue (decisionWhy d)) === [ReferenceKey "BSD-3-Clause"]
+      assert (T.isInfixOf "BSD license" (whyText (answerValue (decisionWhy d))))
+    other -> annotate (show (length other)) >> failure

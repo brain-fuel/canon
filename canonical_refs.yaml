@@ -22,3 +22,11 @@ semver-2:
   kind: article
   title: Semantic Versioning 2.0.0
   locator: https://semver.org/spec/v2.0.0.html
+BSD-3-Clause:
+  kind: license
+  title: BSD 3-Clause "New" or "Revised" License
+  locator: https://spdx.org/licenses/BSD-3-Clause.html
+MIT:
+  kind: license
+  title: MIT License
+  locator: https://spdx.org/licenses/MIT.html

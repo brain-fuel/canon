@@ -78,12 +78,22 @@ A canonical comment is a comment whose structure a grammar recognises, so that
 `canon` can parse out the "Why?" and its references from the comment, the
 "What?" from the name of the code it attaches to, and the "How?" from the body.
 
+There are three reasons for a canonical comment to exist, and a comment may
+serve any of them at once:
+
+- **Why.** A reason, in prose.
+- **Ref.** A pointer into the registry, written `ref:KEY`, so that each
+  article, paper, ticket, or requirement has a single canonical source.
+- **License.** A pointer to a registry entry of kind `license`, written
+  `license:KEY`. A comment that reads like a license or copyright notice but
+  cites no license key is reported.
+
 - A canonical comment is required on every public API, on anything used across
   modules, and on any non-trivial semantic property of the code that becomes
   part of the domain language. Elsewhere it is optional.
-- References are pointers into a registry, so that each reference has a single
-  canonical source. The comment carries a key and the registry maps the key to
-  the article, paper, ticket, or requirement.
+- A doc comment at the top of a file, on its first non-blank line, is the
+  file's canonical comment and binds to the file unit. That is where a
+  license notice lives.
 - Where a comment may attach, and at what granularity, is defined by the
   canonically commented grammar of each language.
 
@@ -92,7 +102,7 @@ code carries no comments at all. A provisional syntax, recorded in
 `to_be_removed/provisional_canonical_comment_syntax.md`, is used for ANTLR
 grammar files in the meantime: a doc comment on the line directly above a rule
 is its canonical comment, its body is the "Why?", and tokens of the form
-`ref:KEY` cite the registry.
+`ref:KEY` and `license:KEY` cite the registry.
 
 ## The model
 
@@ -288,9 +298,10 @@ modules read any `.g4` file into a grammar value, and the test suite checks
 that both of these files read with their known structure.
 
 `grammars/antlr4/canonically_commented/` holds the canonically commented
-dialect of the meta-grammar. It differs from upstream in three ways: doc
-comments stay on the default channel, a parser rule must be preceded by a doc
-comment, and a non-fragment lexer rule must be preceded by one while a
+dialect of the meta-grammar. It differs from upstream in four ways: doc
+comments stay on the default channel, a doc comment may precede the grammar
+declaration as the file's canonical comment, a parser rule must be preceded by
+a doc comment, and a non-fragment lexer rule must be preceded by one while a
 fragment may be. Every rule in both files carries its own doc comment, so the
 dialect parses its own grammars, and the test suite checks that it does and
 that it rejects the upstream file. `canon check` runs this dialect over every

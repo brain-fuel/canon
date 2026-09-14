@@ -1,4 +1,4 @@
-/*
+/**
  * [The "BSD license"]
  *  Copyright (c) 2012-2014 Terence Parr
  *  Copyright (c) 2012-2014 Sam Harwell
@@ -27,6 +27,8 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  *  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *  license:BSD-3-Clause
  */
 
 /*	A grammar for ANTLR v4 written in ANTLR v4.
@@ -49,9 +51,9 @@ options {
 }
 
 // The main entry point for parsing a v4 grammar.
-/** A grammar file is one declaration, any prequel constructs, the rules, then any lexer modes, up to end of input, so a single parse covers the whole file. ref:grammars-v4 */
+/** A grammar file is an optional file-level doc comment, one declaration, any prequel constructs, the rules, then any lexer modes, up to end of input, so a single parse covers the whole file. The file-level comment is where a license lives. ref:grammars-v4 ref:DEC-comment-reasons */
 grammarSpec
-    : grammarDecl prequelConstruct* rules modeSpec* EOF
+    : DOC_COMMENT? grammarDecl prequelConstruct* rules modeSpec* EOF
     ;
 
 /** Names the grammar and says whether it is a lexer, parser, or combined grammar, which decides which rule kinds are allowed in it. */
