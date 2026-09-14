@@ -6,6 +6,9 @@ import qualified Canon.Antlr4.QueryTest
 import qualified Canon.Antlr4.RuleGraphTest
 import qualified Canon.Antlr4.RoundTripTest
 import qualified Canon.Antlr4.VendoredTest
+import qualified Canon.Git.ParseTest
+import qualified Canon.Model.YamlTest
+import qualified Canon.RegistryTest
 import qualified CanonTest
 import Test.Tasty (defaultMain, testGroup)
 
@@ -22,6 +25,9 @@ main =
             , Canon.Antlr4.RoundTripTest.tests
             , Canon.Antlr4.QueryTest.tests
             , Canon.Antlr4.RuleGraphTest.tests
+            , Canon.Model.YamlTest.tests
+            , Canon.RegistryTest.tests
+            , Canon.Git.ParseTest.tests
             ]
         ]
     )

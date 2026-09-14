@@ -50,6 +50,7 @@ module Canon.Antlr4.Syntax
   , reservedWords
   ) where
 
+import Canon.Span (Located (..), Position (..), Span (..))
 import Data.Char (isDigit, isUpper)
 import Data.List.NonEmpty (NonEmpty)
 import Data.Set (Set)
@@ -74,24 +75,6 @@ newtype ActionText = ActionText {actionTextRaw :: Text}
 
 newtype ArgumentText = ArgumentText {argumentTextRaw :: Text}
   deriving (Eq, Ord, Show)
-
-data Position = Position
-  { positionLine :: Int
-  , positionColumn :: Int
-  }
-  deriving (Eq, Ord, Show)
-
-data Span = Span
-  { spanStart :: Position
-  , spanEnd :: Position
-  }
-  deriving (Eq, Ord, Show)
-
-data Located a = Located
-  { locatedSpan :: Span
-  , locatedValue :: a
-  }
-  deriving (Eq, Ord, Show, Functor, Foldable, Traversable)
 
 data Grammar ann = Grammar
   { grammarKind :: GrammarKind

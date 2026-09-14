@@ -1,0 +1,16 @@
+grampa-2017:
+  kind: paper
+  title: "Grampa: a packrat parser combinator library with left recursion and grammar composition"
+  locator: https://hackage.haskell.org/package/grammatical-parsers
+warth-2008:
+  kind: paper
+  title: Packrat Parsers Can Support Left Recursion
+  locator: https://doi.org/10.1145/1328408.1328424
+antlr-haskell:
+  kind: package
+  title: antlr-haskell on Hackage
+  locator: https://hackage.haskell.org/package/antlr-haskell
+grammars-v4:
+  kind: article
+  title: The ANTLR grammars-v4 repository
+  locator: https://github.com/antlr/grammars-v4

@@ -23,6 +23,7 @@ default-extensions:
 - RecordWildCards
 - LambdaCase
 - TupleSections
+- ScopedTypeVariables
 
 dependencies:
 - base >= 4.7 && < 5
@@ -47,6 +48,13 @@ library:
   - grammatical-parsers
   - rank2classes
   - input-parsers
+  - aeson
+  - yaml
+  - typed-process
+  - bytestring
+  - time
+  - filepath
+  - directory
 
 executables:
   canon:
@@ -72,3 +80,7 @@ tests:
     - tasty
     - tasty-hedgehog
     - hedgehog
+    - aeson
+    - yaml
+    - bytestring
+    - time
