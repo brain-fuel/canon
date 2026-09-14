@@ -19,6 +19,8 @@ import Canon.Decisions
 import Canon.Version (renderVersion)
 import Canon.Extract.Antlr4 (Extraction (..), extractGrammarModel, renderExtractError)
 import Canon.Git.Shell (shellGitProvider)
+import Canon.Ignore (defaultIgnorePatterns, parseIgnorePatterns)
+import Canon.Walk (findSupportedFiles)
 import Canon.Model.Check (checkAll)
 import Canon.Model.Finding (Finding (..), Severity (..), findingSeverity, renderFinding)
 import Canon.Model.Id (ReferenceKey (..), renderUnitId)
@@ -26,13 +28,13 @@ import Canon.Model.Yaml (encodeModel)
 import Canon.Registry (Registry, emptyRegistry, readRegistryFile, renderRegistryError)
 import Canon.Span (Position (..))
 import qualified Data.ByteString as BS
-import Data.List (sortOn)
+import Data.List (nub, sortOn)
 import Data.Ord (Down (..))
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
-import System.Directory (doesFileExist)
+import System.Directory (doesDirectoryExist, doesFileExist)
 import System.Environment (getArgs)
 import System.Exit (ExitCode (..), exitWith)
 import System.IO (stderr)
@@ -40,7 +42,8 @@ import System.IO (stderr)
 data Command
   = CommandVersion
   | CommandModel FilePath
-  | CommandCheck FilePath
+  | CommandCheck (Maybe FilePath)
+  | CommandFiles (Maybe FilePath)
   | CommandParse FilePath FilePath Text FilePath
   | CommandParseCombined FilePath Text FilePath
   | CommandDecisions
@@ -54,7 +57,10 @@ parseCommand :: [String] -> Command
 parseCommand arguments = case arguments of
   ["version"] -> CommandVersion
   ["model", path] -> CommandModel path
-  ["check", path] -> CommandCheck path
+  ["check"] -> CommandCheck Nothing
+  ["check", path] -> CommandCheck (Just path)
+  ["files"] -> CommandFiles Nothing
+  ["files", path] -> CommandFiles (Just path)
   ["parse", lexer, parser, start, path] -> CommandParse lexer parser (T.pack start) path
   ["parse", grammar, start, path] -> CommandParseCombined grammar (T.pack start) path
   ["decisions"] -> CommandDecisions
@@ -73,7 +79,8 @@ usage =
     , "Usage:"
     , "  canon version"
     , "  canon model <grammar.g4>                              emit the canonical model as YAML"
-    , "  canon check <grammar.g4>                              report findings and fail if any is failing"
+    , "  canon check [<file or directory>]                     report findings for the file, or every supported file under the directory or the current one, and fail if any is failing"
+    , "  canon files [<directory>]                             list the supported files check would visit"
     , "  canon parse <lexer.g4> <parser.g4> <rule> <file>      parse a file with an interpreted grammar pair"
     , "  canon parse <grammar.g4> <rule> <file>                parse a file with an interpreted combined grammar"
     , "  canon decisions                                       list the decision ledger, open decisions first"
@@ -90,18 +97,21 @@ runCommand command = case command of
     mapM_ (report . renderFinding) (extractionFindings extraction)
     BS.putStr (encodeModel (extractionModel extraction))
     pure ExitSuccess
-  CommandCheck path -> withExtraction path $ \config extraction -> do
+  CommandCheck target -> withConfig $ \config -> do
+    paths <- targetFiles config target
     sources <- loadSources config
     case sources of
       Left err -> report err >> pure (ExitFailure 1)
       Right (registry, ledger) -> do
-        canonical <- canonicalFindings config path
-        let findings =
-              extractionFindings extraction
-                ++ checkAll (configVersion config) registry ledger (extractionModel extraction)
-                ++ canonical
+        canonical <- loadCanonical config
+        results <- mapM (checkOne config registry ledger canonical) paths
+        let findings = nub (concat results)
         mapM_ (TIO.putStrLn . renderWithSeverity) findings
         pure (if any ((== Failing) . findingSeverity) findings then ExitFailure 1 else ExitSuccess)
+  CommandFiles target -> withConfig $ \config -> do
+    paths <- targetFiles config target
+    mapM_ putStrLn paths
+    pure ExitSuccess
   CommandParse lexer parser start path -> loadInterpreter lexer parser >>= runParse start path
   CommandParseCombined grammar start path -> loadCombinedInterpreter grammar >>= runParse start path
   CommandDecisions -> withConfig $ \config -> do
@@ -145,24 +155,51 @@ runParse start path loaded = case loaded of
       Left err -> report (renderInterpretError err) >> pure (ExitFailure 1)
       Right tree -> TIO.putStrLn (renderParseTree tree) >> pure ExitSuccess
 
-canonicalFindings :: Config -> FilePath -> IO [Finding]
-canonicalFindings config path = case Map.lookup "antlr4" (configCanonical config) of
+targetFiles :: Config -> Maybe FilePath -> IO [FilePath]
+targetFiles config target = do
+  let patterns = defaultIgnorePatterns ++ parseIgnorePatterns (configIgnore config)
+      root = maybe "." id target
+  isDirectory <- doesDirectoryExist root
+  if isDirectory
+    then map normalise <$> findSupportedFiles patterns root
+    else pure [root]
+  where
+    normalise path = maybe path id (stripPrefix "./" path)
+    stripPrefix prefix path = if take (length prefix) path == prefix then Just (drop (length prefix) path) else Nothing
+
+checkOne :: Config -> Registry -> Ledger -> Maybe (Text, Either InterpretError Interpreter) -> FilePath -> IO [Finding]
+checkOne config registry ledger canonical path = do
+  extracted <- extractGrammarModel shellGitProvider config path
+  case extracted of
+    Left err -> pure [ExtractionFailed path (renderExtractError err)]
+    Right extraction -> do
+      dialect <- canonicalFindings canonical path
+      pure
+        ( extractionFindings extraction
+            ++ checkAll (configVersion config) registry ledger (extractionModel extraction)
+            ++ dialect
+        )
+
+loadCanonical :: Config -> IO (Maybe (Text, Either InterpretError Interpreter))
+loadCanonical config = case Map.lookup "antlr4" (configCanonical config) of
+  Nothing -> pure Nothing
+  Just (CanonicalGrammar lexer parser start) -> Just . (,) start <$> loadInterpreter lexer parser
+
+canonicalFindings :: Maybe (Text, Either InterpretError Interpreter) -> FilePath -> IO [Finding]
+canonicalFindings canonical path = case canonical of
   Nothing -> pure []
-  Just (CanonicalGrammar lexer parser start) -> do
-    loaded <- loadInterpreter lexer parser
-    case loaded of
-      Left err -> pure [CanonicalGrammarUnusable path (renderInterpretError err)]
-      Right interpreter -> do
-        result <- interpretFile interpreter (Name start) path
-        pure $ case result of
-          Right _ -> []
-          Left (InterpretParseError _ (ParseNoParse (ParseFailure _ (Just tok)))) ->
-            [NotCanonical path (tokenPosition tok) "the canonical dialect does not accept this token"]
-          Left (InterpretParseError _ (ParseNoParse (ParseFailure _ Nothing))) ->
-            [NotCanonical path (Position 1 1) "the canonical dialect does not accept this file"]
-          Left (InterpretLexError _ (LexNoMatch pos _)) ->
-            [NotCanonical path pos "the canonical dialect cannot tokenize this input"]
-          Left err -> [CanonicalGrammarUnusable path (renderInterpretError err)]
+  Just (_, Left err) -> pure [CanonicalGrammarUnusable path (renderInterpretError err)]
+  Just (start, Right interpreter) -> do
+    result <- interpretFile interpreter (Name start) path
+    pure $ case result of
+      Right _ -> []
+      Left (InterpretParseError _ (ParseNoParse (ParseFailure _ (Just tok)))) ->
+        [NotCanonical path (tokenPosition tok) "the canonical dialect does not accept this token"]
+      Left (InterpretParseError _ (ParseNoParse (ParseFailure _ Nothing))) ->
+        [NotCanonical path (Position 1 1) "the canonical dialect does not accept this file"]
+      Left (InterpretLexError _ (LexNoMatch pos _)) ->
+        [NotCanonical path pos "the canonical dialect cannot tokenize this input"]
+      Left err -> [CanonicalGrammarUnusable path (renderInterpretError err)]
 
 withConfig :: (Config -> IO ExitCode) -> IO ExitCode
 withConfig continue = do

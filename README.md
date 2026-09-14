@@ -171,6 +171,8 @@ canon/
 │   ├── Canon/Registry.hs  # canonical_refs.yaml
 │   ├── Canon/Decisions.hs # canonical_decisions.yaml
 │   ├── Canon/Version.hs   # semantic versions and their precedence
+│   ├── Canon/Ignore.hs    # gitignore-style patterns
+│   ├── Canon/Walk.hs      # finds supported files under a directory
 │   ├── Canon/Config.hs    # canon.yaml
 │   ├── Canon/Attach.hs    # binds a comment to the unit directly below it
 │   ├── Canon/CanonicalComment.hs  # provisional canonical comment syntax
@@ -283,6 +285,21 @@ finding, one per line, and exits with status 1 if there are any. Both read
 answers empty and one finding saying so. `canon parse` interprets a lexer and
 parser grammar pair, or one combined grammar, and prints the parse tree of a
 file or the position where parsing fails.
+
+Run with no path, or with a directory, `canon check` walks the tree and checks
+every file of a supported type it finds, and `canon files` lists what that
+walk would visit. Directories that never hold a project's own sources are
+skipped by default: version control metadata, `node_modules`,
+`bower_components`, `vendor`, `third_party`, build outputs such as
+`.stack-work`, `dist`, `dist-newstyle`, `target`, `build`, and `out`, Python
+environments, and editor folders. `canon.yaml` adds patterns under `ignore`
+in gitignore syntax: a bare name matches at any depth, a pattern containing a
+slash is anchored at the project root, a trailing slash matches directories
+only, `*` stays within one path segment, `**` spans segments, `?` and `[...]`
+match single characters, and a later `!` pattern re-includes what an earlier
+pattern excluded, unless a parent directory is excluded. This repository
+ignores `grammars/*/*.g4`, the vendored upstream grammars, so that only the
+canonically commented dialect is checked.
 
 `canon.yaml` names the registry under `registry` and the decision ledger
 under `decisions`, both defaulting to the files at the project root. It may

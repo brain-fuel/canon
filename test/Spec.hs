@@ -10,6 +10,7 @@ import qualified Canon.Antlr4.VendoredTest
 import qualified Canon.AttachTest
 import qualified Canon.CanonicalCommentTest
 import qualified Canon.DecisionsTest
+import qualified Canon.IgnoreTest
 import qualified Canon.Extract.Antlr4Test
 import qualified Canon.Model.CheckTest
 import qualified Canon.Git.ParseTest
@@ -39,6 +40,7 @@ main =
             , Canon.Model.CheckTest.tests
             , Canon.Antlr4.InterpretTest.tests
             , Canon.DecisionsTest.tests
+            , Canon.IgnoreTest.tests
             ]
         ]
     )

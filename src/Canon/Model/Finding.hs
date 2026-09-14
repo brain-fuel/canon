@@ -26,6 +26,7 @@ data Finding
   | DecisionCitedWhileOpen DecisionId Where ReferenceKey
   | DecisionKeyCollision ReferenceKey
   | DecisionUnitMissing ReferenceKey UnitId
+  | ExtractionFailed FilePath Text
   deriving (Eq, Show)
 
 data Severity = Failing | Informational
@@ -58,6 +59,7 @@ renderFinding f = case f of
     at (wherePath w) (whereSpan w) (T.concat [renderDecisionId d, " cites open decision ", referenceKeyText k])
   DecisionKeyCollision k -> T.concat ["key ", referenceKeyText k, " is both a reference and a decision"]
   DecisionUnitMissing k u -> T.concat ["decision ", referenceKeyText k, " names missing unit ", renderUnitId u]
+  ExtractionFailed path message -> T.concat [T.pack path, ": ", message]
   where
     at path (Span (Position line column) _) message =
       T.concat [T.pack path, ":", T.pack (show line), ":", T.pack (show column), ": ", message]

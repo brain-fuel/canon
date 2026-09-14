@@ -6,3 +6,5 @@ canonical:
     lexer: grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4
     parser: grammars/antlr4/canonically_commented/ANTLRv4Parser.g4
     start: grammarSpec
+ignore:
+  - grammars/*/*.g4

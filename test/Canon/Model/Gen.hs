@@ -174,6 +174,7 @@ genConfig =
     <*> genPath
     <*> genPath
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> (CanonicalGrammar <$> genPath <*> genPath <*> genIdSegment)))
+    <*> Gen.list (Range.linear 0 3) (T.pack <$> genPath)
 
 genVersion :: Gen Version
 genVersion =

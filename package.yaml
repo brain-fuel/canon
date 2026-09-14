@@ -85,3 +85,5 @@ tests:
     - yaml
     - bytestring
     - time
+    - directory
+    - filepath

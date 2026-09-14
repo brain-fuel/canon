@@ -16,8 +16,9 @@ tests =
     , testProperty "model and check take a path" $
         withTests 1 $ property $ do
           parseCommand ["model", "x.g4"] === CommandModel "x.g4"
-          parseCommand ["check", "x.g4"] === CommandCheck "x.g4"
-          parseCommand ["check"] === CommandUsage
+          parseCommand ["check", "x.g4"] === CommandCheck (Just "x.g4")
+          parseCommand ["check"] === CommandCheck Nothing
+          parseCommand ["files", "src"] === CommandFiles (Just "src")
           parseCommand ["parse", "l.g4", "p.g4", "start", "f"] === CommandParse "l.g4" "p.g4" "start" "f"
           parseCommand ["parse", "g.g4", "start", "f"] === CommandParseCombined "g.g4" "start" "f"
           parseCommand ["decisions"] === CommandDecisions

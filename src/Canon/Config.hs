@@ -32,6 +32,7 @@ data Config = Config
   , configRegistry :: FilePath
   , configDecisions :: FilePath
   , configCanonical :: Map Text CanonicalGrammar
+  , configIgnore :: [Text]
   }
   deriving (Eq, Show)
 
@@ -48,7 +49,7 @@ defaultDecisionsFileName :: FilePath
 defaultDecisionsFileName = "canonical_decisions.yaml"
 
 defaultConfig :: Config
-defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName Map.empty
+defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName Map.empty []
 
 readConfigFile :: FilePath -> IO (Either ConfigError Config)
 readConfigFile path = do
@@ -70,8 +71,14 @@ instance FromJSON CanonicalGrammar where
   parseJSON = withObject "CanonicalGrammar" $ \o -> CanonicalGrammar <$> o .: "lexer" <*> o .: "parser" <*> o .: "start"
 
 instance ToJSON Config where
-  toJSON (Config version registry decisions canonical) =
-    object ["canonical" .= canonical, "decisions" .= decisions, "registry" .= registry, "version" .= version]
+  toJSON (Config version registry decisions canonical ignore) =
+    object
+      [ "canonical" .= canonical
+      , "decisions" .= decisions
+      , "ignore" .= ignore
+      , "registry" .= registry
+      , "version" .= version
+      ]
 
 instance FromJSON Config where
   parseJSON = withObject "Config" $ \o ->
@@ -80,3 +87,4 @@ instance FromJSON Config where
       <*> (fromMaybe defaultRegistryFileName <$> o .:? "registry")
       <*> (fromMaybe defaultDecisionsFileName <$> o .:? "decisions")
       <*> (fromMaybe Map.empty <$> o .:? "canonical")
+      <*> (fromMaybe [] <$> o .:? "ignore")
