@@ -9,6 +9,7 @@ import Canon.Git.Provider (GitError, renderGitError)
 import Canon.Model.Answer (Where (..))
 import Canon.Model.Id
 import Canon.Span (Position (..), Span (..))
+import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.=))
 import Data.Text (Text)
 import qualified Data.Text as T
 
@@ -65,3 +66,42 @@ renderFinding f = case f of
   where
     at path (Span (Position line column) _) message =
       T.concat [T.pack path, ":", T.pack (show line), ":", T.pack (show column), ": ", message]
+
+instance ToJSON Finding where
+  toJSON f = case f of
+    UnresolvedReference d w k -> object ["decision" .= d, "key" .= k, "kind" .= ("unresolvedReference" :: Text), "where" .= w]
+    DanglingDecision d w u -> object ["decision" .= d, "kind" .= ("danglingDecision" :: Text), "unit" .= u, "where" .= w]
+    MissingCanonicalComment u w -> object ["kind" .= ("missingCanonicalComment" :: Text), "unit" .= u, "where" .= w]
+    OrphanDocComment path sp -> object ["kind" .= ("orphanDocComment" :: Text), "path" .= path, "span" .= sp]
+    GitUnavailable path err -> object ["error" .= err, "kind" .= ("gitUnavailable" :: Text), "path" .= path]
+    NotCanonical path pos message -> object ["kind" .= ("notCanonical" :: Text), "message" .= message, "path" .= path, "position" .= pos]
+    CanonicalGrammarUnusable path message -> object ["kind" .= ("canonicalGrammarUnusable" :: Text), "message" .= message, "path" .= path]
+    DecisionPastRevisit k revisit current -> object ["current" .= current, "key" .= k, "kind" .= ("decisionPastRevisit" :: Text), "revisit" .= revisit]
+    DecisionUncited k -> object ["key" .= k, "kind" .= ("decisionUncited" :: Text)]
+    DecisionSuccessorNotDecided k by -> object ["by" .= by, "key" .= k, "kind" .= ("decisionSuccessorNotDecided" :: Text)]
+    DecisionCitedWhileOpen d w k -> object ["decision" .= d, "key" .= k, "kind" .= ("decisionCitedWhileOpen" :: Text), "where" .= w]
+    DecisionKeyCollision k -> object ["key" .= k, "kind" .= ("decisionKeyCollision" :: Text)]
+    DecisionUnitMissing k u -> object ["key" .= k, "kind" .= ("decisionUnitMissing" :: Text), "unit" .= u]
+    ExtractionFailed path message -> object ["kind" .= ("extractionFailed" :: Text), "message" .= message, "path" .= path]
+    ProjectUnusable path message -> object ["kind" .= ("projectUnusable" :: Text), "message" .= message, "path" .= path]
+
+instance FromJSON Finding where
+  parseJSON = withObject "Finding" $ \o -> do
+    kind <- o .: "kind"
+    case (kind :: Text) of
+      "unresolvedReference" -> UnresolvedReference <$> o .: "decision" <*> o .: "where" <*> o .: "key"
+      "danglingDecision" -> DanglingDecision <$> o .: "decision" <*> o .: "where" <*> o .: "unit"
+      "missingCanonicalComment" -> MissingCanonicalComment <$> o .: "unit" <*> o .: "where"
+      "orphanDocComment" -> OrphanDocComment <$> o .: "path" <*> o .: "span"
+      "gitUnavailable" -> GitUnavailable <$> o .: "path" <*> o .: "error"
+      "notCanonical" -> NotCanonical <$> o .: "path" <*> o .: "position" <*> o .: "message"
+      "canonicalGrammarUnusable" -> CanonicalGrammarUnusable <$> o .: "path" <*> o .: "message"
+      "decisionPastRevisit" -> DecisionPastRevisit <$> o .: "key" <*> o .: "revisit" <*> o .: "current"
+      "decisionUncited" -> DecisionUncited <$> o .: "key"
+      "decisionSuccessorNotDecided" -> DecisionSuccessorNotDecided <$> o .: "key" <*> o .: "by"
+      "decisionCitedWhileOpen" -> DecisionCitedWhileOpen <$> o .: "decision" <*> o .: "where" <*> o .: "key"
+      "decisionKeyCollision" -> DecisionKeyCollision <$> o .: "key"
+      "decisionUnitMissing" -> DecisionUnitMissing <$> o .: "key" <*> o .: "unit"
+      "extractionFailed" -> ExtractionFailed <$> o .: "path" <*> o .: "message"
+      "projectUnusable" -> ProjectUnusable <$> o .: "path" <*> o .: "message"
+      _ -> fail ("unknown finding kind: " ++ T.unpack kind)

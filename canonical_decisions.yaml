@@ -85,3 +85,19 @@ DEC-one-tree-per-span:
     One tree per rule, start position, and end position, the first in preference order: alternatives in grammar order, greedy loops longest first, precedence climbing for left recursion. Recognition is unchanged because every reachable end position is kept, so no parse is lost; only alternative derivations of the same span are dropped. A 10 KB Haskell module parses in about ten seconds within half a gigabyte where it previously ran out of memory.
   opened: 0.1.0
   decided: 0.1.0
+
+DEC-extraction-cache:
+  status: decided
+  question: How does canon check avoid re-parsing files that have not changed?
+  answer: |
+    Each file's extraction is cached under .canon-cache/ in the project directory as YAML, keyed by a SHA-256 of the file content, the grammar sources and profile it was parsed with, the git revision, and the path. Who and When come from git blame, which the revision and content together determine, so a cache hit is exact. The directory is ignored by the walk and by git and can be deleted at any time; a miss simply parses.
+  opened: 0.1.0
+  decided: 0.1.0
+
+DEC-parser-generation:
+  status: decided
+  question: Is the parser hand-tuned per language, or generated from the grammar?
+  answer: |
+    Generated. Both the lexer and the parser are compiled once from the grammar value with no per-language code: decoded literals, character predicates, and first-character filters for the lexer; FIRST sets, nullability, precedence shapes, and vector memo tables for the parser. The only per-language code is a lexer hook for grammars whose upstream base lexer runs target-language actions, selected by the grammar's superClass option. Profiling the largest Haskell sample after these changes puts the parser under one percent of the time and the lexer's matching functions at nearly all of it, so further speed comes from a lexer DFA, not from the parser.
+  opened: 0.1.0
+  decided: 0.1.0

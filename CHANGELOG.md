@@ -11,6 +11,10 @@ and this project adheres to
 ### Changed
 - Versions follow Semantic Versioning 2.0.0 rather than the Haskell Package Versioning Policy; the released version is 0.1.0, decision entries and `canon.yaml` use three-part versions, and pre-release labels order as the specification says
 
+### Changed
+- The lexer compiles a grammar once into decoded literals, character predicates, and first-character filters, and the parser compiles a grammar once into FIRST sets that prune alternatives, vector memo tables, and difference-list children; the largest Haskell sample module went from 10.6 seconds to 1.3, and profiling shows the parser at under one percent of the remaining time
+- `canon check` parses files concurrently, caches extractions under `.canon-cache/` keyed by content, grammar, profile, and git revision, and derives Who and When from one `git blame` per file; the Haskell sample check went from 26 seconds to 1.4 cold and 0.2 warm with identical findings
+
 ### Added
 - A Haskell sample project, with the Haskell grammar vendored and its layout base lexer ported to a lexer hook that injects the virtual braces and semicolons the grammar expects
 - The parser keeps one tree per rule and span, chosen in preference order, so large ambiguous grammars parse in polynomial time and memory instead of enumerating every derivation

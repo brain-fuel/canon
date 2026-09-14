@@ -2,3 +2,5 @@
 canon.cabal
 stack.yaml.lock
 *~
+.canon-cache/
+.stack-work-profile/

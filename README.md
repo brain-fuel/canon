@@ -219,6 +219,8 @@ canon/
 │   ├── Canon/Ignore.hs    # gitignore-style patterns
 │   ├── Canon/Walk.hs      # finds supported files and nested projects under a directory
 │   ├── Canon/Project.hs   # a project: its config, registry, ledger, files, and checks
+│   ├── Canon/Cache.hs     # content-addressed cache of extractions under .canon-cache/
+│   ├── Canon/Git/Fill.hs  # Who and When from one git blame per file
 │   ├── Canon/Profile.hs   # language profiles declared in canon.yaml
 │   ├── Canon/CommentScan.hs  # comments by a profile's syntax
 │   ├── Canon/Extract/Grammar.hs  # builds the model of any file through its language profile
@@ -355,6 +357,13 @@ match single characters, and a later `!` pattern re-includes what an earlier
 pattern excluded, unless a parent directory is excluded. This repository
 ignores `grammars/*/*.g4`, the vendored upstream grammars, so that only the
 canonically commented dialect is checked.
+
+`canon check` parses files concurrently, and caches each file's extraction
+under `.canon-cache/` in the project directory, keyed by the file's content,
+the grammar and profile it was parsed with, and the git revision, so a second
+run re-reads only what changed. The directory is ignored by the walk and by
+git, and can be deleted at any time. Who and When come from one `git blame`
+per file rather than one `git log` per unit.
 
 `canon.yaml` names the registry under `registry` and the decision ledger
 under `decisions`, both defaulting to the files at the project root. It may

@@ -17,7 +17,7 @@ import Canon.CanonicalComment (parseCanonicalComment, toWhy)
 import Canon.CommentScan (scanCommentsWith)
 import Canon.Config (Config (..))
 import Canon.Extract.Antlr4 (Extraction (..))
-import Canon.Git.Derive (whenFromHistory, whoFromHistory)
+import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider
 import Canon.Model
 import Canon.Model.Finding (Finding (..))
@@ -63,10 +63,7 @@ extractWithProfileText provider config language profile interpreter path source 
       Right root -> do
         let comments = scanCommentsWith (profileComments profile) source
             (decisions, orphans) = extractDecisionsFor path root comments
-        rootHistory <- historyOf provider path (whereSpan (answerValue (unitWhere root)))
-        (unitsWithGit, gitFindings) <- case rootHistory of
-          Left err -> pure (root, [GitUnavailable path err])
-          Right _ -> (\u -> (u, [])) <$> fillGit provider path root
+        (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root
         described <- either (const Nothing) id <$> describeVersion provider
         let model = Model language (configVersion config) described [unitsWithGit] decisions
         pure (Right (Extraction model ([OrphanDocComment path (locatedSpan c) | c <- orphans] ++ gitFindings)))
@@ -174,17 +171,3 @@ commentBody c = T.strip (T.unlines (map stripMarker (T.lines (commentText c))))
     stripMarker line =
       let trimmed = T.stripStart line
        in T.strip (T.dropWhile (\ch -> not (isAlphaNum ch) && ch /= '(' && ch /= '[' && ch /= '\'' && ch /= '"' && ch /= '`' && ch /= '<') trimmed)
-
-fillGit :: GitProvider -> FilePath -> CodeUnit Evidence -> IO (CodeUnit Evidence)
-fillGit provider path unit = do
-  history <- historyOf provider path (whereSpan (answerValue (unitWhere unit)))
-  (who, when) <- case history of
-    Right commits@(_ : _) -> do
-      tags <- case whenFromHistory Nothing commits of
-        Just w -> either (const []) id <$> tagsContaining provider (changeCommit (whenFirst w))
-        Nothing -> pure []
-      let evidence = DerivedFromGit GitLog
-      pure ((`Answer` evidence) <$> whoFromHistory commits, (`Answer` evidence) <$> whenFromHistory (listToMaybe tags) commits)
-    _ -> pure (Nothing, Nothing)
-  children <- mapM (fillGit provider path) (unitChildren unit)
-  pure unit {unitWho = who, unitWhen = when, unitChildren = children}

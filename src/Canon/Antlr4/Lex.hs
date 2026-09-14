@@ -13,7 +13,7 @@ module Canon.Antlr4.Lex
 
 import Canon.Antlr4.Escape (CharSetItem (..), decodeCharSet, decodeStringLiteral)
 import Canon.Antlr4.Lexical (LineTable, lineTable, positionAt)
-import Canon.Antlr4.Query (KnownLexerCommand (..), allRules, grammarOptions, implicitLiteralTokens, knownLexerCommand, lexerRuleElements)
+import Canon.Antlr4.Query (KnownLexerCommand (..), grammarOptions, implicitLiteralTokens, knownLexerCommand, lexerRuleElements)
 import Data.Char (toLower, toUpper)
 import Data.List.NonEmpty (NonEmpty (..))
 import Canon.Antlr4.RuleGraph (leftRecursiveRules)
@@ -26,6 +26,7 @@ import Data.Maybe (fromMaybe, listToMaybe)
 import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
+import qualified Data.Vector as BV
 import qualified Data.Vector.Unboxed as V
 
 data HookEffect
@@ -73,9 +74,35 @@ renderLexError e = case e of
     at (Position line column) message = T.concat [T.pack (show line), ":", T.pack (show column), ": ", message]
 
 data LexerTable = LexerTable
-  { tableModes :: Map Name [LexerRule ()]
-  , tableRules :: Map Name (LexerRule ())
+  { tableModes :: Map Name [Int]
+  , tableRules :: BV.Vector CompiledRule
   , tableCaseInsensitive :: Bool
+  }
+
+data CompiledAtom
+  = CompiledLiteral (V.Vector Char)
+  | CompiledRef Int
+  | CompiledEof
+  | CompiledChar (Char -> Bool)
+  | CompiledNotSet [Either (Char -> Bool) Int]
+  | CompiledFail
+
+data CompiledElement
+  = CompiledAtomElement CompiledAtom (Maybe EbnfSuffix)
+  | CompiledBlock [[CompiledElement]] (Maybe EbnfSuffix)
+  | CompiledAction
+
+data CompiledAlternative = CompiledAlternative
+  { compiledElements :: [CompiledElement]
+  , compiledCommands :: [LexerCommand]
+  , compiledActions :: [ActionText]
+  }
+
+data CompiledRule = CompiledRule
+  { compiledName :: Name
+  , compiledFragment :: Bool
+  , compiledAlternatives :: [CompiledAlternative]
+  , compiledCanStart :: Char -> Bool
   }
 
 defaultMode :: Name
@@ -89,12 +116,17 @@ buildLexerTable grammar = do
         | (i, lit) <- zip [0 :: Int ..] (implicitLiteralTokens stripped)
         ]
       topLevel = implicit ++ [l | RuleLexer l <- grammarRules stripped]
-      modes = Map.fromList ((defaultMode, topLevel) : [(modeName m, modeRules m) | m <- grammarModes stripped])
-      rules = Map.fromList [(lexerRuleName l, l) | RuleLexer l <- allRules stripped]
-      recursive = [n | n <- Set.toList (leftRecursiveRules stripped), Map.member n rules]
+      modeGroups = (defaultMode, topLevel) : [(modeName m, modeRules m) | m <- grammarModes stripped]
+      allLexerRules = topLevel ++ concatMap modeRules (grammarModes stripped)
+      indexOf = Map.fromList (zip (map lexerRuleName allLexerRules) [0 ..])
+      recursive = [n | n <- Set.toList (leftRecursiveRules stripped), Map.member n indexOf]
+      ci = caseInsensitiveOption (grammarOptions stripped)
   if null recursive then Right () else Left (LexLeftRecursive recursive)
-  mapM_ validateRule (Map.elems rules)
-  Right (LexerTable modes rules (caseInsensitiveOption (grammarOptions stripped)))
+  mapM_ validateRule allLexerRules
+  let compiled = BV.fromList (map (compileRule ci indexOf) allLexerRules)
+      withStart = BV.imap (\i r -> r {compiledCanStart = startPredicate compiled i}) compiled
+      modes = Map.fromList [(m, [indexOf Map.! lexerRuleName l | l <- rs]) | (m, rs) <- modeGroups]
+  Right (LexerTable modes withStart ci)
   where
     validateRule l = mapM_ (validateElement (lexerRuleName l)) (lexerRuleElements l)
     validateElement rule e = case e of
@@ -114,31 +146,118 @@ buildLexerTable grammar = do
       SetTerminal (TerminalToken _ _) -> Right ()
     validateLiteral rule s = either (const (Left (LexInvalidLiteral rule (stringLiteralRaw s)))) (const (Right ())) (decodeStringLiteral s)
 
+compileRule :: Bool -> Map Name Int -> LexerRule () -> CompiledRule
+compileRule ci indexOf rule =
+  CompiledRule (lexerRuleName rule) (lexerRuleIsFragment rule) (map compileAlternative (toList (lexerRuleAlternatives rule))) (const True)
+  where
+    compileAlternative alt =
+      CompiledAlternative
+        (map compileElement (lexerAlternativeElements alt))
+        (lexerAlternativeCommands alt)
+        [t | LexerElementAction _ _ t <- alternativeElementsDeep alt]
+    compileElement e = case e of
+      LexerElementAtom _ atom suffix -> CompiledAtomElement (compileAtom atom) suffix
+      LexerElementBlock _ alts suffix -> CompiledBlock [map compileElement (lexerAlternativeElements a) | a <- toList alts] suffix
+      LexerElementAction {} -> CompiledAction
+    compileAtom atom = case atom of
+      LexerAtomTerminal (TerminalLiteral lit _) -> CompiledLiteral (V.fromList (T.unpack (decodedText lit)))
+      LexerAtomTerminal (TerminalToken name _)
+        | name == eofTokenName -> CompiledEof
+        | otherwise -> maybe CompiledFail CompiledRef (Map.lookup name indexOf)
+      LexerAtomRange range -> CompiledChar (insensitive (rangePredicate range))
+      LexerAtomCharSet cs -> CompiledChar (insensitive (charSetPredicate cs))
+      LexerAtomNotSet (NotSet elements) -> CompiledNotSet (map compileSetElement (toList elements))
+      LexerAtomWildcard _ -> CompiledChar (const True)
+    compileSetElement s = case s of
+      SetTerminal (TerminalLiteral lit _) -> Left (insensitive (\c -> decodedChar lit == Just c))
+      SetTerminal (TerminalToken name _) -> maybe (Left (const False)) Right (Map.lookup name indexOf)
+      SetRange range -> Left (insensitive (rangePredicate range))
+      SetCharSet cs -> Left (insensitive (charSetPredicate cs))
+    insensitive predicate c
+      | ci = predicate c || predicate (toLower c) || predicate (toUpper c)
+      | otherwise = predicate c
+
+decodedText :: StringLiteral -> Text
+decodedText = either (const T.empty) id . decodeStringLiteral
+
+decodedChar :: StringLiteral -> Maybe Char
+decodedChar lit = case decodeStringLiteral lit of
+  Right t | T.length t == 1 -> Just (T.head t)
+  _ -> Nothing
+
+rangePredicate :: CharRange -> Char -> Bool
+rangePredicate (CharRange lo hi) = case (decodedChar lo, decodedChar hi) of
+  (Just l, Just h) -> \c -> c >= l && c <= h
+  _ -> const False
+
+charSetPredicate :: CharSet -> Char -> Bool
+charSetPredicate cs = case decodeCharSet cs of
+  Right items -> \c -> any (itemMatches c) items
+  Left _ -> const False
+  where
+    itemMatches c item = case item of
+      CharSetSingle x -> c == x
+      CharSetRange lo hi -> c >= lo && c <= hi
+      CharSetProperty _ _ -> False
+
+startPredicate :: BV.Vector CompiledRule -> Int -> Char -> Bool
+startPredicate rules index = case startOfRule Set.empty index of
+  Nothing -> const True
+  Just (chars, nullable) -> if nullable then const True else \c -> Set.member c chars || Set.member (toLower c) chars || Set.member (toUpper c) chars
+  where
+    startOfRule visited i
+      | Set.member i visited = Nothing
+      | otherwise = unionAlternatives (map (startOfElements (Set.insert i visited) . compiledElements) (compiledAlternatives (rules BV.! i)))
+    unionAlternatives = foldr combine (Just (Set.empty, False))
+    combine a b = case (a, b) of
+      (Just (x, nx), Just (y, ny)) -> Just (Set.union x y, nx || ny)
+      _ -> Nothing
+    startOfElements visited elements = case elements of
+      [] -> Just (Set.empty, True)
+      (e : rest) -> case startOfElement visited e of
+        Nothing -> Nothing
+        Just (chars, nullable)
+          | nullable || suffixNullable e -> combine (Just (chars, False)) (startOfElements visited rest)
+          | otherwise -> Just (chars, False)
+    suffixNullable e = case e of
+      CompiledAtomElement _ (Just (EbnfSuffix q _)) -> q /= OneOrMore
+      CompiledBlock _ (Just (EbnfSuffix q _)) -> q /= OneOrMore
+      _ -> False
+    startOfElement visited e = case e of
+      CompiledAction -> Just (Set.empty, True)
+      CompiledBlock alts _ -> unionAlternatives (map (startOfElements visited) alts)
+      CompiledAtomElement atom _ -> case atom of
+        CompiledLiteral t -> case V.toList (V.take 1 t) of
+          (c : _) -> Just (Set.fromList [c, toLower c, toUpper c], False)
+          [] -> Just (Set.empty, True)
+        CompiledRef i -> startOfRule visited i
+        CompiledEof -> Just (Set.empty, True)
+        CompiledChar _ -> Nothing
+        CompiledNotSet _ -> Nothing
+        CompiledFail -> Just (Set.empty, False)
+
 data Env = Env
   { envInput :: V.Vector Char
-  , envRules :: Map Name (LexerRule ())
+  , envRules :: BV.Vector CompiledRule
   , envCaseInsensitive :: Bool
   }
 
 type Match = Int -> (Int -> [Int]) -> [Int]
 
-matchRuleAlternatives :: Env -> LexerRule () -> Int -> [(Int, Int)]
+matchRuleAlternatives :: Env -> CompiledRule -> Int -> [(Int, Int)]
 matchRuleAlternatives env rule p =
-  [(e, i) | (i, alt) <- zip [0 ..] (toList (lexerRuleAlternatives rule)), e <- matchAlternative env alt p (\e -> [e])]
+  [(e, i) | (i, alt) <- zip [0 ..] (compiledAlternatives rule), e <- matchElements env (compiledElements alt) p (\e -> [e])]
 
-matchAlternative :: Env -> LexerAlternative () -> Match
-matchAlternative env alt = matchElements env (lexerAlternativeElements alt)
-
-matchElements :: Env -> [LexerElement ()] -> Match
+matchElements :: Env -> [CompiledElement] -> Match
 matchElements env elements p k = case elements of
   [] -> k p
   (e : rest) -> matchElement env e p (\p' -> matchElements env rest p' k)
 
-matchElement :: Env -> LexerElement () -> Match
+matchElement :: Env -> CompiledElement -> Match
 matchElement env e = case e of
-  LexerElementAtom _ atom suffix -> withSuffix suffix (matchAtom env atom)
-  LexerElementBlock _ alts suffix -> withSuffix suffix (\p k -> concat [matchAlternative env a p k | a <- toList alts])
-  LexerElementAction {} -> \p k -> k p
+  CompiledAtomElement atom suffix -> withSuffix suffix (matchAtom env atom)
+  CompiledBlock alts suffix -> withSuffix suffix (\p k -> concat [matchElements env a p k | a <- alts])
+  CompiledAction -> \p k -> k p
 
 withSuffix :: Maybe EbnfSuffix -> Match -> Match
 withSuffix suffix m = case suffix of
@@ -170,62 +289,36 @@ sameChar env a b
   | envCaseInsensitive env = a == b || toLower a == toLower b
   | otherwise = a == b
 
-charPredicate :: Env -> (Char -> Bool) -> Char -> Bool
-charPredicate env predicate c
-  | envCaseInsensitive env = predicate c || predicate (toLower c) || predicate (toUpper c)
-  | otherwise = predicate c
-
-matchAtom :: Env -> LexerAtom -> Match
+matchAtom :: Env -> CompiledAtom -> Match
 matchAtom env atom p k = case atom of
-  LexerAtomTerminal (TerminalLiteral lit _) -> case decodeStringLiteral lit of
-    Right text | matchesText env text p -> k (p + T.length text)
-    _ -> []
-  LexerAtomTerminal (TerminalToken name _)
-    | name == eofTokenName -> if p == V.length (envInput env) then k p else []
-    | otherwise -> matchRuleReference env name p k
-  LexerAtomRange range -> singleChar (charPredicate env (rangeMatches range))
-  LexerAtomCharSet cs -> singleChar (charPredicate env (charSetMatches cs))
-  LexerAtomNotSet (NotSet elements) -> singleChar (\c -> not (any (setElementMatches env p c) (toList elements)))
-  LexerAtomWildcard _ -> singleChar (const True)
+  CompiledLiteral text
+    | matchesText env text p -> k (p + V.length text)
+    | otherwise -> []
+  CompiledRef i -> matchRuleReference env i p k
+  CompiledEof -> if p == V.length (envInput env) then k p else []
+  CompiledChar predicate -> singleChar predicate
+  CompiledNotSet elements -> singleChar (\c -> not (any (setElementMatches env p c) elements))
+  CompiledFail -> []
   where
     singleChar predicate = case charAt env p of
       Just c | predicate c -> k (p + 1)
       _ -> []
 
-matchRuleReference :: Env -> Name -> Match
-matchRuleReference env name p k = case Map.lookup name (envRules env) of
-  Just rule -> concat [matchAlternative env alt p k | alt <- toList (lexerRuleAlternatives rule)]
-  Nothing -> []
+matchRuleReference :: Env -> Int -> Match
+matchRuleReference env i p k = concat [matchElements env (compiledElements alt) p k | alt <- compiledAlternatives (envRules env BV.! i)]
 
-matchesText :: Env -> Text -> Int -> Bool
-matchesText env text p = all (\(i, c) -> maybe False (sameChar env c) (charAt env (p + i))) (zip [0 ..] (T.unpack text))
-
-rangeMatches :: CharRange -> Char -> Bool
-rangeMatches (CharRange lo hi) c = case (decodedChar lo, decodedChar hi) of
-  (Just l, Just h) -> c >= l && c <= h
-  _ -> False
-
-decodedChar :: StringLiteral -> Maybe Char
-decodedChar lit = case decodeStringLiteral lit of
-  Right t | T.length t == 1 -> Just (T.head t)
-  _ -> Nothing
-
-charSetMatches :: CharSet -> Char -> Bool
-charSetMatches cs c = case decodeCharSet cs of
-  Right items -> any itemMatches items
-  Left _ -> False
+matchesText :: Env -> V.Vector Char -> Int -> Bool
+matchesText env text p =
+  p + len <= V.length input && go 0
   where
-    itemMatches item = case item of
-      CharSetSingle x -> c == x
-      CharSetRange lo hi -> c >= lo && c <= hi
-      CharSetProperty _ _ -> False
+    input = envInput env
+    len = V.length text
+    go i = i >= len || (sameChar env (V.unsafeIndex text i) (V.unsafeIndex input (p + i)) && go (i + 1))
 
-setElementMatches :: Env -> Int -> Char -> SetElement -> Bool
-setElementMatches env p c s = case s of
-  SetTerminal (TerminalLiteral lit _) -> maybe False (sameChar env c) (decodedChar lit)
-  SetTerminal (TerminalToken name _) -> not (null [e | e <- matchRuleReference env name p (\e -> [e]), e == p + 1])
-  SetRange range -> charPredicate env (rangeMatches range) c
-  SetCharSet cs -> charPredicate env (charSetMatches cs) c
+setElementMatches :: Env -> Int -> Char -> Either (Char -> Bool) Int -> Bool
+setElementMatches env p c element = case element of
+  Left predicate -> predicate c
+  Right i -> not (null [e | e <- matchRuleReference env i p (\e -> [e]), e == p + 1])
 
 data LexState s = LexState
   { stateOffset :: Int
@@ -255,11 +348,19 @@ tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksIni
           mode <- currentMode st
           rules <- maybe (Left (LexUnknownMode (positionAt lines' (stateOffset st)) mode)) Right (Map.lookup mode (tableModes table))
           let p = stateOffset st
-              candidates = [(e, i, rule) | rule <- rules, not (lexerRuleIsFragment rule), (e, i) <- matchRuleAlternatives env rule p]
+              current = input V.! p
+              candidates =
+                [ (e, i, rule)
+                | index <- rules
+                , let rule = tableRules table BV.! index
+                , not (compiledFragment rule)
+                , compiledCanStart rule current
+                , (e, i) <- matchRuleAlternatives env rule p
+                ]
           case longest candidates of
             Nothing -> Left (LexNoMatch (positionAt lines' p) mode)
             Just (e, altIndex, rule)
-              | e == p -> Left (LexEmptyMatch (positionAt lines' p) (lexerRuleName rule))
+              | e == p -> Left (LexEmptyMatch (positionAt lines' p) (compiledName rule))
               | otherwise -> emit st rule altIndex e
 
     longest candidates = foldl' better Nothing candidates
@@ -271,14 +372,13 @@ tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksIni
     currentMode st = maybe (Left (LexEmptyModeStack (positionAt lines' (stateOffset st)))) Right (listToMaybe (stateModes st))
 
     emit st rule altIndex end = do
-      let alternative = toList (lexerRuleAlternatives rule) !! altIndex
-          actions = [t | LexerElementAction _ _ t <- alternativeElementsDeep alternative]
+      let alternative = compiledAlternatives rule !! altIndex
           start = fromMaybe (stateOffset st) (stateMoreStart st)
           matched = T.pack (V.toList (V.slice start (end - start) input))
-          (hookState, actionEffects) = foldl' runAction (stateHooks st, []) actions
-          runAction (s, effects) text = let (s', more) = hooksOnAction hooks (lexerRuleName rule) text matched s in (s', effects ++ more)
-      commandEffects <- mapM (commandEffect (lexerRuleName rule)) (lexerAlternativeCommands alternative)
-      applied <- applyEffects (positionAt lines' (stateOffset st)) (actionEffects ++ commandEffects) (Applied (lexerRuleName rule) defaultChannelName False False (stateModes st))
+          (hookState, actionEffects) = foldl' runAction (stateHooks st, []) (compiledActions alternative)
+          runAction (s, effects) text = let (s', more) = hooksOnAction hooks (compiledName rule) text matched s in (s', effects ++ more)
+      commandEffects <- mapM (commandEffect (compiledName rule)) (compiledCommands alternative)
+      applied <- applyEffects (positionAt lines' (stateOffset st)) (actionEffects ++ commandEffects) (Applied (compiledName rule) defaultChannelName False False (stateModes st))
       let text = T.pack (V.toList (V.slice start (end - start) input))
           token = mkToken lines' input (appliedType applied) start end (appliedChannel applied)
           next more = LexState end (appliedModes applied) more

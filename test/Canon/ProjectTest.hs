@@ -9,16 +9,20 @@ import Canon.Extract.Antlr4 (Extraction (..))
 import Canon.Extract.Grammar
 import Canon.Git.Provider (staticGitProvider)
 import Canon.Model
-import Canon.Model.Gen (genProfile)
+import Canon.Model.Gen (genFinding, genModel, genProfile)
+import Canon.Cache
 import Canon.Model.Yaml (decodeSorted, encodeSorted)
 import Canon.Profile
 import Canon.Project
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.Walk (Walked (..))
 import Control.Exception (bracket)
+import qualified Data.ByteString.Lazy as LBS
+import qualified Hedgehog.Gen as Gen
+import qualified Hedgehog.Range as Range
 import Data.List (sort)
 import qualified Data.Text as T
-import Hedgehog (Property, annotate, evalIO, failure, forAll, property, withTests, (===))
+import Hedgehog (Property, annotate, assert, evalIO, failure, forAll, property, withTests, (===))
 import System.Directory (createDirectoryIfMissing, getTemporaryDirectory, removeDirectoryRecursive)
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, testGroup)
@@ -32,6 +36,8 @@ tests =
     , testProperty "comment scanning follows the profile's syntax" commentScanning
     , testProperty "a profile turns a parse tree into units and decisions" profileExtraction
     , testProperty "the walk stops at nested projects and the root is honoured" nestedProjects
+    , testProperty "findings survive a yaml round trip" findingRoundTrip
+    , testProperty "an extraction stored in the cache is found again by its key" cacheRoundTrip
     ]
 
 profileRoundTrip :: Property
@@ -110,3 +116,22 @@ withScratch name action = do
   base <- getTemporaryDirectory
   let root = base </> ("canon-test-" ++ name)
   bracket (createDirectoryIfMissing True root >> pure root) removeDirectoryRecursive action
+
+findingRoundTrip :: Property
+findingRoundTrip = property $ do
+  f <- forAll genFinding
+  decodeSorted (encodeSorted f) === Right f
+
+cacheRoundTrip :: Property
+cacheRoundTrip = property $ do
+  model <- forAll genModel
+  findings <- forAll (Gen.list (Range.linear 0 3) genFinding)
+  parts <- forAll (Gen.list (Range.linear 1 3) (Gen.bytes (Range.linear 0 20)))
+  let extraction = Extraction model findings
+      key = cacheKey (map LBS.fromStrict parts)
+  found <- evalIO $ withScratch "cache" $ \root -> do
+    storeCached root key extraction
+    lookupCached root key
+  found === Just extraction
+  other <- forAll (Gen.bytes (Range.linear 21 30))
+  assert (cacheKey [LBS.fromStrict other] /= key)

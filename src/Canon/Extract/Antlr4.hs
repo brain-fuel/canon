@@ -19,7 +19,7 @@ import Canon.Antlr4.Syntax hiding (Optional)
 import Canon.Attach (attachPreceding)
 import Canon.CanonicalComment (parseCanonicalComment, toWhy)
 import Canon.Config (Config (..))
-import Canon.Git.Derive (whenFromHistory, whoFromHistory)
+import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider
 import Canon.Model
 import Canon.Model.Finding (Finding (..))
@@ -72,10 +72,7 @@ extractGrammarText provider config path source =
       Left err -> pure (Left err)
       Right root -> do
         let (decisions, orphans) = extractDecisions path grammar comments
-        rootHistory <- historyOf provider path (whereSpan (answerValue (unitWhere root)))
-        (unitsWithGit, gitFindings) <- case rootHistory of
-          Left err -> pure (root, [GitUnavailable path err])
-          Right _ -> (\u -> (u, [])) <$> fillGit provider path root
+        (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root
         described <- either (const Nothing) id <$> describeVersion provider
         let model = Model languageName (configVersion config) described [unitsWithGit] decisions
             findings = [OrphanDocComment path (locatedSpan c) | c <- orphans] ++ gitFindings
@@ -156,23 +153,6 @@ extractDecisions path grammar comments = (map toDecision pairs, orphans)
             , decisionWhy = Answer (toWhy (parseCanonicalComment (commentText (locatedValue comment)))) (Asserted (Assertion path sp))
             , decisionWhere = Where path sp (targetChain (locatedValue target)) Nothing
             }
-
-fillGit :: GitProvider -> FilePath -> CodeUnit Evidence -> IO (CodeUnit Evidence)
-fillGit provider path unit = do
-  history <- historyOf provider path (whereSpan (answerValue (unitWhere unit)))
-  (who, when) <- case history of
-    Right commits@(_ : _) -> do
-      tags <- case whenFromHistory Nothing commits of
-        Just w -> either (const []) id <$> tagsContaining provider (changeCommit (whenFirst w))
-        Nothing -> pure []
-      let evidence = DerivedFromGit GitLog
-      pure
-        ( (`Answer` evidence) <$> whoFromHistory commits
-        , (`Answer` evidence) <$> whenFromHistory (listToMaybe tags) commits
-        )
-    _ -> pure (Nothing, Nothing)
-  children <- mapM (fillGit provider path) (unitChildren unit)
-  pure unit {unitWho = who, unitWhen = when, unitChildren = children}
 
 renderExtractError :: ExtractError -> Text
 renderExtractError e = case e of

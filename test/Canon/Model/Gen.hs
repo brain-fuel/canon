@@ -23,6 +23,7 @@ module Canon.Model.Gen
   , genRegistry
   , genConfig
   , genProfile
+  , genFinding
   , genVersion
   , genDecisionEntry
   , genLedger
@@ -31,6 +32,9 @@ module Canon.Model.Gen
 import Canon.Config (CanonicalGrammar (..), Config (..))
 import Canon.Decisions (DecisionEntry (..), DecisionStatus (..), Ledger (..))
 import Canon.Profile
+import Canon.Model.Finding (Finding (..))
+import Canon.Git.Provider (GitError (..))
+import Canon.Git.Parse (GitParseError (..))
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Version (PreReleaseIdentifier (..), Version (..))
 import Canon.Git.Gen (genCommitHash, genPerson)
@@ -230,3 +234,23 @@ genProfile =
         <*> Gen.choice [NameFromToken <$> (Name <$> genIdSegment) <*> Gen.int (Range.linear 1 3), NameFromRule . Name <$> genIdSegment]
         <*> Gen.bool
         <*> Gen.maybe ((,) <$> Gen.maybe (Name <$> genIdSegment) <*> Gen.list (Range.linear 1 3) genIdSegment)
+
+genFinding :: Gen Finding
+genFinding =
+  Gen.choice
+    [ UnresolvedReference <$> genDecisionId <*> genWhere <*> genReferenceKey
+    , DanglingDecision <$> genDecisionId <*> genWhere <*> genUnitId
+    , MissingCanonicalComment <$> genUnitId <*> genWhere
+    , OrphanDocComment <$> genPath <*> genSpan
+    , GitUnavailable <$> genPath <*> Gen.choice [pure GitNotFound, GitFailed <$> Gen.int (Range.linear 1 255) <*> genPlainText, GitUnparsable . GitParseError <$> genPlainText]
+    , NotCanonical <$> genPath <*> genPosition <*> genPlainText
+    , CanonicalGrammarUnusable <$> genPath <*> genPlainText
+    , DecisionPastRevisit <$> genReferenceKey <*> genIdSegment <*> genIdSegment
+    , DecisionUncited <$> genReferenceKey
+    , DecisionSuccessorNotDecided <$> genReferenceKey <*> genReferenceKey
+    , DecisionCitedWhileOpen <$> genDecisionId <*> genWhere <*> genReferenceKey
+    , DecisionKeyCollision <$> genReferenceKey
+    , DecisionUnitMissing <$> genReferenceKey <*> genUnitId
+    , ExtractionFailed <$> genPath <*> genPlainText
+    , ProjectUnusable <$> genPath <*> genPlainText
+    ]

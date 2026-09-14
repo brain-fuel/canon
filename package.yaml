@@ -58,6 +58,9 @@ library:
   - directory
   - vector
   - mtl
+  - async
+  - cryptohash-sha256
+  - base16-bytestring
 
 executables:
   canon:

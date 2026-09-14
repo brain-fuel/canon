@@ -57,6 +57,7 @@ defaultIgnorePatterns :: [IgnorePattern]
 defaultIgnorePatterns =
   parseIgnorePatterns
     [ ".git/"
+    , ".canon-cache/"
     , ".hg/"
     , ".svn/"
     , "node_modules/"
