@@ -62,7 +62,7 @@ tinyGrammar =
 
 profileExtraction :: Property
 profileExtraction = withTests 1 $ property $ do
-  interpreter <- evalIO $ withScratch $ \root -> do
+  interpreter <- evalIO $ withScratch "profile" $ \root -> do
     writeFile (root </> "Tiny.g4") (T.unpack tinyGrammar)
     loadCombinedInterpreter (root </> "Tiny.g4")
   case interpreter of
@@ -88,7 +88,7 @@ profileExtraction = withTests 1 $ property $ do
 
 nestedProjects :: Property
 nestedProjects = withTests 1 $ property $ do
-  found <- evalIO $ withScratch $ \root -> do
+  found <- evalIO $ withScratch "nested" $ \root -> do
     mapM_ (\d -> createDirectoryIfMissing True (root </> d)) ["a", "inner/src", "inner/source/deep"]
     writeFile (root </> "canon.yaml") "ignore: []\n"
     writeFile (root </> "a/x.g4") "grammar X;\n"
@@ -105,8 +105,8 @@ nestedProjects = withTests 1 $ property $ do
       _ -> pure ([], [], [])
   found === (["a/x.g4"], ["inner"], ["inner/source/deep/z.g4"])
 
-withScratch :: (FilePath -> IO a) -> IO a
-withScratch action = do
+withScratch :: String -> (FilePath -> IO a) -> IO a
+withScratch name action = do
   base <- getTemporaryDirectory
-  let root = base </> "canon-project-test"
+  let root = base </> ("canon-test-" ++ name)
   bracket (createDirectoryIfMissing True root >> pure root) removeDirectoryRecursive action

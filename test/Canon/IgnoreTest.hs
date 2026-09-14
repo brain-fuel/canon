@@ -96,5 +96,5 @@ walkTree = withTests 1 $ property $ do
 withScratch :: (FilePath -> IO a) -> IO a
 withScratch action = do
   base <- getTemporaryDirectory
-  let root = base </> "canon-ignore-test"
+  let root = base </> "canon-test-walk"
   bracket (createDirectoryIfMissing True root >> pure root) removeDirectoryRecursive action

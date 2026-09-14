@@ -4,7 +4,7 @@ import Canon.Antlr4.Gen (genClosedGrammar, genGrammar)
 import Canon.Antlr4.Query
 import Canon.Antlr4.Read
 import Canon.Antlr4.Syntax
-import Data.List (nub)
+import Data.List (elemIndex, nub)
 import qualified Data.Map.Strict as Map
 import qualified Data.Set as Set
 import qualified Data.Text as T
@@ -36,7 +36,7 @@ ruleNamesPreserveOrder :: Property
 ruleNamesPreserveOrder = property $ do
   g <- forAll genGrammar
   ruleNames g === map ruleName (grammarRules g) ++ concatMap (map lexerRuleName . modeRules) (grammarModes g)
-  mapM_ (\(i, n) -> ruleIndex n g === Just i) (zip [0 ..] (nub (ruleNames g)))
+  mapM_ (\n -> ruleIndex n g === elemIndex n (ruleNames g)) (ruleNames g)
 
 tokenNamesShape :: Property
 tokenNamesShape = property $ do
