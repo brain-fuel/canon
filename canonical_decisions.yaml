@@ -129,7 +129,8 @@ DEC-comment-vetting:
   decided: 0.1.0
 
 DEC-required-orphan-labels:
-  status: decided
+  status: superseded
+  by: DEC-marker-label
   question: How does a canonically commented grammar say that a comment is required only under some condition, such as Java's public modifier, and how does it accept a doc comment it does not bind?
   answer: |
     Two more element labels. A match containing an element labeled required has a required comment, so the Java dialect writes required = PUBLIC among a member's modifiers and required = interfaceMethodDeclaration for interface members. An element labeled orphan is a comment the grammar accepts but binds to nothing; the extractor reports it as an orphan doc comment. An alternative is a unit alternative only when its label comes with a why element, so upstream labels such as Java's expression alternatives are inert; without that rule the extractor treated every expression as a possible unit and was exponential in nesting depth.
@@ -155,7 +156,18 @@ DEC-tests-not-exempt:
   decided: 0.1.0
 
 DEC-test-requirement-check:
-  status: open
+  status: decided
   question: A test's canonical comment must cite the requirement it verifies; how does canon recognise a test unit in each language, given that a grammar cannot match an annotation by name, so that it can report a test whose comment cites no requirement?
+  answer: |
+    The grammar says where markers sit and canon says which markers mean test. A canonically commented grammar labels annotations among a unit's modifiers with marker, and canon carries a fixed table per language name. For java: the JUnit 4 and 5 markers @Test, @org.junit.Test, @org.junit.jupiter.api.Test, @ParameterizedTest, @RepeatedTest, @TestFactory, and @TestTemplate, and the jqwik markers @Property, @Example, @net.jqwik.api.Property, and @net.jqwik.api.Example, each on a method, plus a method named test* under any src/test directory for JUnit 3; jetCheck has no annotations of its own, its property checks run inside JUnit test methods, so those are recognised by the JUnit markers. For erlang: a function named *_test or *_test_. For clojure: a deftest unit, or a definition named *-test. For prolog: a clause named test. For haskell: a function named prop_* or test_*. A marker matches when it equals the entry or is the entry followed by an argument list. A test unit carries test: true in the model and always requires a canonical comment. Two checks fail canon check: a commented test that cites no registry entry of kind requirement, and a requirement that no test in the project cites. The table is canon's knowledge as of 2026-09-15 and grows by decision.
   opened: 0.1.0
-  revisit: 0.2.0
+  decided: 0.1.0
+
+DEC-marker-label:
+  status: decided
+  question: Which element labels does a canonically commented grammar use beyond why, what, and how, and what makes an alternative a unit?
+  answer: |
+    Four things. An alternative labeled with a hash is a unit alternative only when it contains a why element, so upstream labels such as Java's expression alternatives are inert. An element labeled required makes the comment required when it is present, which is how public makes a Java member's comment required and how interface members are required outright. An element labeled orphan is a comment the grammar accepts but binds to nothing, reported as an orphan doc comment. An element labeled marker is an annotation or similar mark on the unit, whose text canon reads to recognise tests. This supersedes DEC-required-orphan-labels by adding marker.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [grammars-v4]

@@ -116,11 +116,34 @@ comment is required when every `why` element of the alternative is
 mandatory, or when the match contains an element labeled `required`, which
 is how `public` makes a Java member's comment required. An element labeled
 `orphan` is a comment the grammar accepts but binds to nothing, such as a
-Javadoc comment after an annotation, and is reported. Alternative labels
-without a `why`, such as the Java grammar's own expression labels, are
-inert. `canon` generates the extraction parser from that grammar, so nothing
+Javadoc comment after an annotation, and is reported. An element labeled
+`marker` is an annotation or similar mark on the unit, whose text `canon`
+reads to recognise tests. Alternative labels without a `why`, such as the
+Java grammar's own expression labels, are inert. `canon` generates the extraction parser from that grammar, so nothing
 about a language's comment placement is written in Haskell. The ANTLR
 meta-grammar and Java are the languages done this way.
+
+### Tests
+
+A test exists because of a requirement, so its Why is that requirement:
+the canonical comment on a test cites it with `ref:KEY` against a registry
+entry of kind `requirement`. `canon` recognises test units from the grammar's
+`marker` labels together with a fixed table per language name, and marks them
+`test: true` in the model. A test unit always requires a canonical comment,
+whatever its visibility.
+
+| Language | Recognised as a test |
+|----------|----------------------|
+| `java` | a method marked `@Test`, `@org.junit.Test`, `@org.junit.jupiter.api.Test`, `@ParameterizedTest`, `@RepeatedTest`, `@TestFactory`, or `@TestTemplate` (JUnit 4 and 5), or `@Property`, `@Example`, `@net.jqwik.api.Property`, or `@net.jqwik.api.Example` (jqwik), with or without arguments; or a method named `test*` under a `src/test` directory (JUnit 3). jetCheck has no annotations of its own, so its checks are recognised through the JUnit method they run in. |
+| `erlang` | a function named `*_test` or `*_test_` (EUnit) |
+| `clojure` | a `deftest` unit, or a definition named `*-test` |
+| `prolog` | a clause named `test` (plunit) |
+| `haskell` | a function named `prop_*` or `test_*` |
+
+Two findings fail `canon check`: a commented test whose comment cites no
+requirement, and a requirement in the registry that no test in the project
+cites. A test with no comment at all is reported as a missing canonical
+comment, not twice.
 
 ### Vetting
 
@@ -173,7 +196,7 @@ and a `schemaVersion`. The model has two kinds of entity, linked by identity:
   chain of enclosing units). When git is available it also answers Who
   (authors and committers with their commits) and When (first and last change,
   and the version that introduced it). Each unit records whether the language
-  requires a canonical comment on it.
+  requires a canonical comment on it and whether it is a test.
 - A **decision** is a Why bound to one or more code units by id. Its text and
   cited reference keys come from the canonical comment, and its Where is the
   comment's own location. One Why can cover several units, and one unit can
@@ -401,7 +424,7 @@ that it does and that it rejects a grammar without canonical comments.
 comment required, interface members are `required` outright, and the
 `orphan` label accepts a doc comment after an annotation, before an
 initializer, before a local declaration, or one of two in a row, and reports
-it. The plain Java grammar carries a canonical comment on every parser rule
+it, and the `marker` label on annotations lets `canon` recognise tests. The plain Java grammar carries a canonical comment on every parser rule
 and non-fragment lexer rule and cites its BSD license in the header, the
 dialect carries the same comments extended where a rule gained unit labels,
 and both are checked at the root like the meta-grammar.

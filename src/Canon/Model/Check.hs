@@ -1,7 +1,9 @@
 module Canon.Model.Check
   ( checkModel
   , checkLedger
+  , checkTests
   , checkAll
+  , requirementsCitedByTests
   ) where
 
 import Canon.Decisions
@@ -17,7 +19,37 @@ import qualified Data.Set as Set
 import Data.Text (Text)
 
 checkAll :: Maybe Text -> Registry -> Ledger -> Model ev -> [Finding]
-checkAll version registry ledger m = checkModel registry ledger m ++ checkLedger version registry ledger m
+checkAll version registry ledger m = checkModel registry ledger m ++ checkLedger version registry ledger m ++ checkTests registry m
+
+requirementsCitedByTests :: Registry -> Model ev -> Set.Set ReferenceKey
+requirementsCitedByTests registry m =
+  Set.fromList
+    [ key
+    | u <- modelAllUnits m
+    , unitTest u
+    , d <- decisionsFor (unitId u) m
+    , key <- whyReferences (answerValue (decisionWhy d))
+    , fmap referenceKind (lookupReference key registry) == Just Requirement
+    ]
+
+checkTests :: Registry -> Model ev -> [Finding]
+checkTests registry m = withoutRequirement ++ untested
+  where
+    cited = requirementsCitedByTests registry m
+    withoutRequirement =
+      [ TestWithoutRequirement (unitId u) (answerValue (unitWhere u))
+      | u <- modelAllUnits m
+      , unitTest u
+      , let ds = decisionsFor (unitId u) m
+      , not (null ds)
+      , not (any (\d -> any (\k -> fmap referenceKind (lookupReference k registry) == Just Requirement) (whyReferences (answerValue (decisionWhy d)))) ds)
+      ]
+    untested =
+      [ RequirementUntested k
+      | (k, r) <- Map.toList (registryEntries registry)
+      , referenceKind r == Requirement
+      , not (Set.member k cited)
+      ]
 
 checkModel :: Registry -> Ledger -> Model ev -> [Finding]
 checkModel registry ledger m = unresolved ++ licenseKinds ++ licenseText ++ dangling ++ missing

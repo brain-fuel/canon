@@ -152,6 +152,7 @@ genCodeUnitWith genChildren =
     <*> Gen.maybe (genAnswer genWho)
     <*> Gen.maybe (genAnswer genWhen)
     <*> Gen.enumBounded
+    <*> Gen.bool
     <*> genChildren
 
 genDecisionOver :: [UnitId] -> Gen (Decision Evidence)
@@ -266,6 +267,8 @@ genFinding =
     , VerdictWithoutRevisit <$> genDecisionId <*> genWhere
     , VerdictOrphan <$> genDecisionId
     , VerdictUncommitted <$> genDecisionId
+    , TestWithoutRequirement <$> genUnitId <*> genWhere
+    , RequirementUntested <$> genReferenceKey
     , MissingCanonicalComment <$> genUnitId <*> genWhere
     , OrphanDocComment <$> genPath <*> genSpan
     , GitUnavailable <$> genPath <*> Gen.choice [pure GitNotFound, GitFailed <$> Gen.int (Range.linear 1 255) <*> genPlainText, GitUnparsable . GitParseError <$> genPlainText]

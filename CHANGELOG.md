@@ -9,6 +9,7 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- Test recognition: the `marker` element label on annotations in the Java dialect, a built-in table per language of test markers and name patterns (JUnit 3, 4, and 5, jqwik, EUnit, plunit, and naming conventions for Clojure and Haskell), `test` on every unit in the model, a required comment on every test, and two failing checks: a commented test that cites no `requirement` and a requirement no test in the project cites
 - Canonical comments on every rule of the plain Java grammar and its dialect, with the BSD header citing its license, so both are checked at the root; test sources are not exempt from canonical comments, since a test's Why is the requirement it verifies
 - Java as a language: the grammars-v4 Java grammar under `grammars/java/` and its canonically commented dialect, with `required = PUBLIC` making a public member's comment required, interface members required outright, and misplaced Javadoc comments accepted as `orphan` and reported
 - Three Java sample projects as submodules, Apache Commons Lang, Joda-Time, and Gson, each ingested with every Javadoc comment pending

@@ -8,6 +8,7 @@ import Canon.Config (defaultConfig)
 import Canon.Extract.Grammar
 import Canon.Git.Provider (staticGitProvider)
 import Canon.Model
+import Canon.Model.Finding (Finding (..))
 import Canon.Model.Gen (genFinding, genModel, genProfile)
 import Canon.Cache
 import Canon.Model.Yaml (decodeSorted, encodeSorted)
@@ -22,7 +23,7 @@ import qualified Hedgehog.Range as Range
 import Data.List (sort)
 import qualified Data.Text as T
 import Hedgehog (Property, annotate, assert, evalIO, failure, forAll, property, withTests, (===))
-import System.Directory (createDirectoryIfMissing, getTemporaryDirectory, removeDirectoryRecursive)
+import System.Directory (createDirectoryIfMissing, getCurrentDirectory, getTemporaryDirectory, removeDirectoryRecursive)
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
@@ -37,6 +38,7 @@ tests =
     , testProperty "the walk stops at nested projects and the root is honoured" nestedProjects
     , testProperty "findings survive a yaml round trip" findingRoundTrip
     , testProperty "an extraction stored in the cache is found again by its key" cacheRoundTrip
+    , testProperty "a requirement cited by a test in any file of the project is tested" requirementAcrossFiles
     ]
 
 profileRoundTrip :: Property
@@ -135,3 +137,20 @@ cacheRoundTrip = property $ do
   found === Just extraction
   other <- forAll (Gen.bytes (Range.linear 21 30))
   assert (cacheKey [LBS.fromStrict other] /= key)
+
+requirementAcrossFiles :: Property
+requirementAcrossFiles = withTests 1 $ property $ do
+  here <- evalIO getCurrentDirectory
+  let grammar name = here </> "grammars/java/canonically_commented" </> name
+  found <- evalIO $ withScratch "requirement" $ \root -> do
+    createDirectoryIfMissing True (root </> "src/test")
+    writeFile (root </> "canon.yaml") (unlines ["languages:", "  java:", "    extensions: [.java]", "    lexer: " ++ grammar "JavaLexer.g4", "    parser: " ++ grammar "JavaParser.g4", "    start: compilationUnit"])
+    writeFile (root </> "canonical_refs.yaml") (unlines ["REQ-1:", "  kind: requirement", "  title: one", "  locator: here", "REQ-2:", "  kind: requirement", "  title: two", "  locator: here"])
+    writeFile (root </> "src/test/A.java") (unlines ["package p;", "public class A {", "  /** Verifies one. ref:REQ-1 */", "  @Test void a() {}", "}"])
+    writeFile (root </> "src/test/B.java") (unlines ["package p;", "public class B {", "  /** Verifies nothing in particular. */", "  @Test void b() {}", "}"])
+    loaded <- loadProject root
+    case loaded of
+      Left _ -> pure []
+      Right project -> checkProject project Nothing
+  [k | RequirementUntested k <- found] === [ReferenceKey "REQ-2"]
+  length [() | TestWithoutRequirement _ _ <- found] === 1

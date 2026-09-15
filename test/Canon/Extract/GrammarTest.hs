@@ -8,10 +8,10 @@ import Canon.Extract.Grammar
 import Canon.Git.Commit
 import Canon.Git.Provider (staticGitProvider)
 import Canon.Model
-import Canon.Model.Check (checkModel)
+import Canon.Model.Check (checkModel, checkTests)
 import Canon.Model.Finding
 import Canon.Profile
-import Canon.Registry (emptyRegistry)
+import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
 import Data.Foldable (toList)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
@@ -202,6 +202,10 @@ javaDialect = withTests 1 $ property $ do
           , "  @Deprecated /** Misplaced. */ public void n() {}"
           , "  /** Init. */"
           , "  static { }"
+          , "  /** Checks t. ref:REQ-1 */"
+          , "  @Test void t() {}"
+          , "  @Test(timeout = 5) public void u() {}"
+          , "  @Deprecated void v() {}"
           , "}"
           , "interface I { /** Constant. */ int C = 1; void k(); }"
           ]
@@ -211,7 +215,12 @@ javaDialect = withTests 1 $ property $ do
       byName n = [u | u <- units, whatName (answerValue (unitWhat u)) == n]
       requirementOf n = map unitRequirement (byName n)
       whyOf n = [whyText (answerValue (decisionWhy d)) | u <- byName n, d <- decisionsFor (unitId u) model]
-  map kindOf (filter ((/= "file") . kindOf) units) === ["package", "class", "field", "field", "method", "method", "interface", "constant", "method"]
+  map kindOf (filter ((/= "file") . kindOf) units) === ["package", "class", "field", "field", "method", "method", "method", "method", "method", "interface", "constant", "method"]
+  map (\n -> map unitTest (byName n)) ["t", "u", "v", "m"] === [[True], [True], [False], [False]]
+  requirementOf "t" === [Required]
+  requirementOf "u" === [Required]
+  requirementOf "v" === [Optional]
+  whyOf "t" === ["Checks t. ref:REQ-1"]
   requirementOf "A" === [Required]
   requirementOf "f" === [Required]
   requirementOf "g" === [Optional]
@@ -225,4 +234,6 @@ javaDialect = withTests 1 $ property $ do
   whyOf "C" === ["Constant."]
   map (whyReferences . answerValue . decisionWhy) [d | u <- byName "A", d <- decisionsFor (unitId u) model] === [[ReferenceKey "some-key"]]
   length [() | OrphanDocComment _ _ <- findings] === 3
-  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["java/A.java/package/p/class/A/method/n", "java/A.java/package/p/interface/I/method/k"]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["java/A.java/package/p/class/A/method/n", "java/A.java/package/p/class/A/method/u", "java/A.java/package/p/interface/I/method/k"]
+  [renderUnitId u | TestWithoutRequirement u _ <- checkTests emptyRegistry model] === ["java/A.java/package/p/class/A/method/t"]
+  [renderUnitId u | TestWithoutRequirement u _ <- checkTests (Registry (Map.singleton (ReferenceKey "REQ-1") (Reference Requirement "t" "here"))) model] === []

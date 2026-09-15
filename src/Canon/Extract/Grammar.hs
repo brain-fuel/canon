@@ -26,6 +26,7 @@ import Canon.Model
 import Canon.Model.Finding (Finding (..))
 import Canon.Profile
 import Canon.Span (Located (..), Position (..), Span (..))
+import Canon.Testing (isTestUnit)
 import Data.Char (isAlphaNum)
 import Data.Foldable (toList)
 import Data.List (group, sort)
@@ -138,6 +139,7 @@ unitsFromTree language profile plans idPath path source tree =
         , unitWho = Nothing
         , unitWhen = Nothing
         , unitRequirement = Optional
+        , unitTest = False
         , unitChildren = children
         }
     collect parent chain node = collectAll parent chain [node]
@@ -160,7 +162,8 @@ unitsFromTree language profile plans idPath path source tree =
     isUnitNode node = case node of
       RuleNode name alternative _ -> isJust (planFor name alternative) || Map.member name rulesByName
       _ -> False
-    labeledSubtree wanted node = listToMaybe (labeledIn node)
+    labeledSubtree wanted node = listToMaybe (labeledSubtrees wanted node)
+    labeledSubtrees wanted node = labeledIn node
       where
         labeledIn n = case n of
           Labeled l inner | l == wanted -> [inner]
@@ -183,6 +186,8 @@ unitsFromTree language profile plans idPath path source tree =
           sp = treeSpan node
           howSpan = maybe sp treeSpan (candidateHow c)
           (nested, nestedDecisions) = collectAll uid (chain ++ [candidateName c]) (childrenOf node)
+          markers = [T.concat (T.words (tokensText m)) | m <- labeledSubtrees "marker" node]
+          test = isTestUnit language (candidateKind c) (candidateName c) idPath markers
           own = case candidateWhy c of
             Nothing -> []
             Just whyNode ->
@@ -202,7 +207,8 @@ unitsFromTree language profile plans idPath path source tree =
               , unitWhere = Answer (Where path sp chain Nothing) evidence
               , unitWho = Nothing
               , unitWhen = Nothing
-              , unitRequirement = candidateRequirement c
+              , unitRequirement = if test then Required else candidateRequirement c
+              , unitTest = test
               , unitChildren = nested
               }
           , own ++ nestedDecisions

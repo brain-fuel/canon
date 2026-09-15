@@ -29,7 +29,28 @@ tests =
     , testProperty "citing an open decision is informational" citedWhileOpenInformational
     , testProperty "a key in both registry and ledger collides" collisionReported
     , testProperty "license keys must resolve to license entries" licenseKindChecked
+    , testProperty "a commented test must cite a requirement and every requirement needs a test" testsChecked
     ]
+
+testsChecked :: Property
+testsChecked = property $ do
+  model <- forAll genModel
+  requirement <- forAll genReference
+  paper <- forAll genReference
+  let keyReq = ReferenceKey "REQ-1"
+      keyPaper = ReferenceKey "paper-1"
+      registry = Registry (Map.fromList [(keyReq, requirement {referenceKind = Requirement}), (keyPaper, paper {referenceKind = Paper})])
+      tested = model {modelUnits = map (markTests True) (modelUnits model)}
+      untested = model {modelUnits = map (markTests False) (modelUnits model)}
+      citing key m = m {modelDecisions = map (\d -> d {decisionWhy = (decisionWhy d) {answerValue = (answerValue (decisionWhy d)) {whyReferences = [key]}}}) (modelDecisions m)}
+      commentedTests m = [u | u <- modelAllUnits m, unitTest u, not (null (decisionsFor (unitId u) m))]
+  [u | TestWithoutRequirement u _ <- checkTests registry (citing keyReq tested)] === []
+  [u | TestWithoutRequirement u _ <- checkTests registry (citing keyPaper tested)] === map unitId (commentedTests tested)
+  [k | RequirementUntested k <- checkTests registry (citing keyReq tested)] === (if null (commentedTests tested) then [keyReq] else [])
+  [k | RequirementUntested k <- checkTests registry (citing keyReq untested)] === [keyReq]
+  [u | TestWithoutRequirement u _ <- checkTests registry (citing keyPaper untested)] === []
+  where
+    markTests flag u = u {unitTest = flag, unitChildren = map (markTests flag) (unitChildren u)}
 
 citedKeys :: Model ev -> [ReferenceKey]
 citedKeys m = concatMap (\d -> let why = answerValue (decisionWhy d) in whyReferences why ++ whyLicenses why) (modelDecisions m)

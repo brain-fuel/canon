@@ -8,6 +8,7 @@ module Canon.Model.Unit
 import Canon.Model.Answer (Answer, How, What, When, Where, Who)
 import Canon.Model.Id (UnitId)
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, withText, (.:), (.:?), (.=))
+import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
 
@@ -22,6 +23,7 @@ data CodeUnit ev = CodeUnit
   , unitWho :: Maybe (Answer Who ev)
   , unitWhen :: Maybe (Answer When ev)
   , unitRequirement :: CommentRequirement
+  , unitTest :: Bool
   , unitChildren :: [CodeUnit ev]
   }
   deriving (Eq, Show, Functor, Foldable, Traversable)
@@ -55,6 +57,7 @@ instance ToJSON ev => ToJSON (CodeUnit ev) where
       , "how" .= unitHow u
       , "id" .= unitId u
       , "requirement" .= unitRequirement u
+      , "test" .= unitTest u
       , "what" .= unitWhat u
       , "when" .= unitWhen u
       , "where" .= unitWhere u
@@ -71,4 +74,5 @@ instance FromJSON ev => FromJSON (CodeUnit ev) where
       <*> o .:? "who"
       <*> o .:? "when"
       <*> o .: "requirement"
+      <*> (fromMaybe False <$> o .:? "test")
       <*> o .: "children"

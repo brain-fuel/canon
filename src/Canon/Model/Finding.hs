@@ -37,6 +37,8 @@ data Finding
   | VerdictWithoutRevisit DecisionId Where
   | VerdictOrphan DecisionId
   | VerdictUncommitted DecisionId
+  | TestWithoutRequirement UnitId Where
+  | RequirementUntested ReferenceKey
   deriving (Eq, Show)
 
 data Severity = Failing | Informational
@@ -85,6 +87,8 @@ renderFinding f = case f of
   VerdictWithoutRevisit d w -> at (wherePath w) (whereSpan w) (renderDecisionId d <> " is deferred without a revisit version")
   VerdictOrphan d -> T.concat ["verdict for ", renderDecisionId d, " names a canonical comment that no longer exists"]
   VerdictUncommitted d -> T.concat ["verdict for ", renderDecisionId d, " is not committed, so its assessor is unknown"]
+  TestWithoutRequirement u w -> at (wherePath w) (whereSpan w) ("test " <> renderUnitId u <> " cites no requirement")
+  RequirementUntested k -> T.concat ["requirement ", referenceKeyText k, " is cited by no test"]
   where
     at path (Span (Position line column) _) message =
       T.concat [T.pack path, ":", T.pack (show line), ":", T.pack (show column), ": ", message]
@@ -114,6 +118,8 @@ instance ToJSON Finding where
     VerdictWithoutRevisit d w -> object ["decision" .= d, "kind" .= ("verdictWithoutRevisit" :: Text), "where" .= w]
     VerdictOrphan d -> object ["decision" .= d, "kind" .= ("verdictOrphan" :: Text)]
     VerdictUncommitted d -> object ["decision" .= d, "kind" .= ("verdictUncommitted" :: Text)]
+    TestWithoutRequirement u w -> object ["kind" .= ("testWithoutRequirement" :: Text), "unit" .= u, "where" .= w]
+    RequirementUntested k -> object ["key" .= k, "kind" .= ("requirementUntested" :: Text)]
 
 instance FromJSON Finding where
   parseJSON = withObject "Finding" $ \o -> do
@@ -142,4 +148,6 @@ instance FromJSON Finding where
       "verdictWithoutRevisit" -> VerdictWithoutRevisit <$> o .: "decision" <*> o .: "where"
       "verdictOrphan" -> VerdictOrphan <$> o .: "decision"
       "verdictUncommitted" -> VerdictUncommitted <$> o .: "decision"
+      "testWithoutRequirement" -> TestWithoutRequirement <$> o .: "unit" <*> o .: "where"
+      "requirementUntested" -> RequirementUntested <$> o .: "key"
       _ -> fail ("unknown finding kind: " ++ T.unpack kind)

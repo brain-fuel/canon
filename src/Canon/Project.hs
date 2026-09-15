@@ -27,7 +27,7 @@ import qualified Data.ByteString.Lazy as LBS
 import qualified Data.Text.Encoding as TE
 import System.FilePath (takeDirectory)
 import Canon.Ignore (defaultIgnorePatterns, parseIgnorePatterns)
-import Canon.Model.Check (checkAll)
+import Canon.Model.Check (checkAll, requirementsCitedByTests)
 import Canon.Model
 import Canon.Model.Finding (Finding (..))
 import qualified Data.Set as Set
@@ -122,9 +122,18 @@ checkProject project target = do
   extracted <- extractAll project walked
   nested <- concat <$> mapM checkNested (walkedProjects walked)
   let checked = map (checkExtraction project assessments) extracted
-      citedSomewhere = Set.unions [c | (_, c, _) <- checked]
-      seen = Set.unions [s | (_, _, s) <- checked]
-      own = [f | (fs, _, _) <- checked, f <- fs, case f of DecisionUncited k -> not (Set.member k citedSomewhere); _ -> True]
+      citedSomewhere = Set.unions [c | (_, c, _, _) <- checked]
+      seen = Set.unions [s | (_, _, s, _) <- checked]
+      tested = Set.unions [t | (_, _, _, t) <- checked]
+      own =
+        [ f
+        | (fs, _, _, _) <- checked
+        , f <- fs
+        , case f of
+            DecisionUncited k -> not (Set.member k citedSomewhere)
+            RequirementUntested k -> not (Set.member k tested)
+            _ -> True
+        ]
       orphans = maybe [] (`orphanVerdictFindings` seen) (projectVetting project)
   pure (nub own ++ orphans ++ nested)
   where
@@ -197,7 +206,7 @@ vetProject project = do
   assessments <- projectAssessments project
   extracted <- extractAll project walked
   let decisions = Map.fromList [(decisionId d, d) | (_, Right e) <- extracted, d <- modelDecisions (extractionModel e)]
-      findings = concat [fs | (fs, _, _) <- map (checkExtraction project assessments) extracted] ++ maybe [] (`orphanVerdictFindings` Map.keysSet decisions) (projectVetting project)
+      findings = concat [fs | (fs, _, _, _) <- map (checkExtraction project assessments) extracted] ++ maybe [] (`orphanVerdictFindings` Map.keysSet decisions) (projectVetting project)
   pure [(f, decisionOf f >>= (`Map.lookup` decisions)) | f <- findings, attention f]
   where
     decisionOf f = case f of
@@ -254,15 +263,16 @@ extractCached project interpreters grammarBytes projectParts path = do
       either (const (pure ())) (storeCached (projectDirectory project) key) fresh
       pure fresh
 
-checkExtraction :: Project -> Map.Map DecisionId (Answer Assessment Evidence) -> (FilePath, Either Text Extraction) -> ([Finding], Set.Set ReferenceKey, Set.Set DecisionId)
+checkExtraction :: Project -> Map.Map DecisionId (Answer Assessment Evidence) -> (FilePath, Either Text Extraction) -> ([Finding], Set.Set ReferenceKey, Set.Set DecisionId, Set.Set ReferenceKey)
 checkExtraction project assessments (path, extraction) = case extraction of
-  Left message -> ([ExtractionFailed path message], Set.empty, Set.empty)
+  Left message -> ([ExtractionFailed path message], Set.empty, Set.empty, Set.empty)
   Right (Extraction model findings) ->
     ( findings
         ++ checkAll (configVersion config) (projectRegistry project) (projectLedger project) model
         ++ maybe [] (\v -> vettingFindings (configVersion config) v assessments model) (projectVetting project)
     , Set.fromList (concatMap (whyReferences . answerValue . decisionWhy) (modelDecisions model))
     , Set.fromList (map decisionId (modelDecisions model))
+    , requirementsCitedByTests (projectRegistry project) model
     )
   where
     config = projectConfig project

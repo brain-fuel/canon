@@ -63,13 +63,13 @@ importDeclaration
     : IMPORT STATIC? qualifiedName ('.' '*')? ';'
     ;
 
-/** A top-level class, enum, interface, annotation type, or record, with the modifiers that apply to types. Each alternative is a unit of its kind: a canonical comment before the modifiers is its Why, public among the modifiers makes that comment required, and of two comments in a row the last one binds. ref:DEC-required-orphan-labels */
+/** A top-level class, enum, interface, annotation type, or record, with the modifiers that apply to types. Each alternative is a unit of its kind: a canonical comment before the modifiers is its Why, public among the modifiers makes that comment required, and of two comments in a row the last one binds. ref:DEC-marker-label An annotation among the modifiers is a marker, which canon reads to recognise tests. ref:DEC-marker-label */
 typeDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | classOrInterfaceModifier | orphan = canonicalComment)* classDeclaration # class
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | classOrInterfaceModifier | orphan = canonicalComment)* enumDeclaration # enum
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | classOrInterfaceModifier | orphan = canonicalComment)* interfaceDeclaration # interface
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | classOrInterfaceModifier | orphan = canonicalComment)* annotationTypeDeclaration # annotationType
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | classOrInterfaceModifier | orphan = canonicalComment)* recordDeclaration # record
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | classOrInterfaceModifier | orphan = canonicalComment)* classDeclaration # class
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | classOrInterfaceModifier | orphan = canonicalComment)* enumDeclaration # enum
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | classOrInterfaceModifier | orphan = canonicalComment)* interfaceDeclaration # interface
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | classOrInterfaceModifier | orphan = canonicalComment)* annotationTypeDeclaration # annotationType
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | classOrInterfaceModifier | orphan = canonicalComment)* recordDeclaration # record
     ;
 
 /** Any modifier a member may carry: the type modifiers plus native, synchronized, transient, and volatile, which apply only to methods and fields. */
@@ -159,20 +159,20 @@ interfaceBody
     : '{' interfaceBodyDeclaration* '}'
     ;
 
-/** One member of a class body: an empty declaration, an initializer block, or a modified member declaration. Each member alternative is a unit of its kind: a comment before the modifiers is the Why, public makes it required, a comment after an annotation or before an initializer is an orphan, and of two comments in a row the last one binds. ref:DEC-required-orphan-labels */
+/** One member of a class body: an empty declaration, an initializer block, or a modified member declaration. Each member alternative is a unit of its kind: a comment before the modifiers is the Why, public makes it required, a comment after an annotation or before an initializer is an orphan, and of two comments in a row the last one binds. ref:DEC-marker-label An annotation among the modifiers is a marker, which canon reads to recognise tests. ref:DEC-marker-label */
 classBodyDeclaration
     : ';' # emptyMember
     | (orphan = canonicalComment)* STATIC? block # initializer
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* recordDeclaration # record
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* methodDeclaration # method
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* genericMethodDeclaration # method
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* fieldDeclaration # field
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* constructorDeclaration # constructor
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* genericConstructorDeclaration # constructor
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* interfaceDeclaration # interface
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* annotationTypeDeclaration # annotationType
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* classDeclaration # class
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* enumDeclaration # enum
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* recordDeclaration # record
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* methodDeclaration # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* genericMethodDeclaration # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* fieldDeclaration # field
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* constructorDeclaration # constructor
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* genericConstructorDeclaration # constructor
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* interfaceDeclaration # interface
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* annotationTypeDeclaration # annotationType
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* classDeclaration # class
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* enumDeclaration # enum
     ;
 
 /** The kinds of member a class body may hold: records, methods, fields, constructors, and nested types. */
@@ -226,9 +226,9 @@ constructorDeclaration
     : what = identifier formalParameters (THROWS qualifiedNameList)? how = block
     ;
 
-/** The compact canonical constructor of a record, which has no parameter list because the record header supplies it. It is a unit whose comment is required when it is public. */
+/** The compact canonical constructor of a record, which has no parameter list because the record header supplies it. It is a unit whose comment is required when it is public. An annotation among the modifiers is a marker, which canon reads to recognise tests. ref:DEC-marker-label */
 compactConstructorDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | modifier | orphan = canonicalComment)* what = identifier how = block # compactConstructor
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = PUBLIC | marker = annotation | modifier | orphan = canonicalComment)* what = identifier how = block # compactConstructor
     ;
 
 /** A field declaration: a type followed by one or more declarators. */
@@ -236,16 +236,16 @@ fieldDeclaration
     : typeType variableDeclarators ';'
     ;
 
-/** One member of an interface body: a modified member declaration or an empty declaration. Every member alternative is a unit whose comment is required, because interface members are public. ref:DEC-required-orphan-labels */
+/** One member of an interface body: a modified member declaration or an empty declaration. Every member alternative is a unit whose comment is required, because interface members are public. ref:DEC-marker-label An annotation among the modifiers is a marker, which canon reads to recognise tests. ref:DEC-marker-label */
 interfaceBodyDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (modifier | orphan = canonicalComment)* required = recordDeclaration # record
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (modifier | orphan = canonicalComment)* required = constDeclaration # constant
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (modifier | orphan = canonicalComment)* required = interfaceMethodDeclaration # method
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (modifier | orphan = canonicalComment)* required = genericInterfaceMethodDeclaration # method
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (modifier | orphan = canonicalComment)* required = interfaceDeclaration # interface
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (modifier | orphan = canonicalComment)* required = annotationTypeDeclaration # annotationType
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (modifier | orphan = canonicalComment)* required = classDeclaration # class
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (modifier | orphan = canonicalComment)* required = enumDeclaration # enum
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (marker = annotation | modifier | orphan = canonicalComment)* required = recordDeclaration # record
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (marker = annotation | modifier | orphan = canonicalComment)* required = constDeclaration # constant
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (marker = annotation | modifier | orphan = canonicalComment)* required = interfaceMethodDeclaration # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (marker = annotation | modifier | orphan = canonicalComment)* required = genericInterfaceMethodDeclaration # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (marker = annotation | modifier | orphan = canonicalComment)* required = interfaceDeclaration # interface
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (marker = annotation | modifier | orphan = canonicalComment)* required = annotationTypeDeclaration # annotationType
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (marker = annotation | modifier | orphan = canonicalComment)* required = classDeclaration # class
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (marker = annotation | modifier | orphan = canonicalComment)* required = enumDeclaration # enum
     | ';' # emptyMember
     ;
 
@@ -475,9 +475,9 @@ annotationTypeBody
     : '{' annotationTypeElementDeclaration* '}'
     ;
 
-/** One element of an annotation type, or an empty declaration, which the compiler accepts although the specification does not. An element is a unit whose comment is required. */
+/** One element of an annotation type, or an empty declaration, which the compiler accepts although the specification does not. An element is a unit whose comment is required. An annotation among the modifiers is a marker, which canon reads to recognise tests. ref:DEC-marker-label */
 annotationTypeElementDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (modifier | orphan = canonicalComment)* required = annotationTypeElementRest # annotationElement
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (marker = annotation | modifier | orphan = canonicalComment)* required = annotationTypeElementRest # annotationElement
     | ';' # emptyElement // this is not allowed by the grammar, but apparently allowed by the actual compiler
     ;
 
