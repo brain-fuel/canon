@@ -1,0 +1,165 @@
+decision/prolog/source/00-util.pl:
+  comment: sha256:7c64daf5d7167622
+  verdict: pending
+decision/prolog/source/00-util.pl/clause/sformat:
+  comment: sha256:e276210d462344d0
+  verdict: pending
+decision/prolog/source/01-python.pl:
+  comment: sha256:7de98a2671a348c0
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/depends:
+  comment: sha256:7bfaa742ace8624c
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/depends#2:
+  comment: sha256:b871cecb2cbfa200
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/install_pip:
+  comment: sha256:7a82abb8f1232919
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/installs_with_pip:
+  comment: sha256:860e1266eb89407f
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/meet:
+  comment: sha256:0a01e04602ed3542
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/met:
+  comment: sha256:89359a4eebde67d0
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/pkg:
+  comment: sha256:3db9a76622c57713
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/pkg#2:
+  comment: sha256:d16a82437d12ea6b
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/python_import:
+  comment: sha256:6077e40760c2bd0b
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/installs_with_pip:
+  comment: sha256:f22bccfe8a2277fc
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/pip_pkg:
+  comment: sha256:7182a4d9e8f71904
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/pip_pkg#2:
+  comment: sha256:9994bd66851bf357
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/pip_pkg#3:
+  comment: sha256:5cd037d4bc7d08dc
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/python_pkg:
+  comment: sha256:235b580010665db0
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/python_pkg#2:
+  comment: sha256:a91e6446515228c1
+  verdict: pending
+decision/prolog/source/02-fs.pl:
+  comment: sha256:c09c8d7be46f4cd3
+  verdict: pending
+decision/prolog/source/02-fs.pl/clause/is_symlinked:
+  comment: sha256:77e9bfc781bb9026
+  verdict: pending
+decision/prolog/source/02-fs.pl/clause/symlink:
+  comment: sha256:5578f9e0bc987fa1
+  verdict: pending
+decision/prolog/source/03-homebrew.pl:
+  comment: sha256:b3b425f084fd18a6
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/clause/pkg#2:
+  comment: sha256:9667fa6099d36feb
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/brew_tap:
+  comment: sha256:8cc00b92225c7f90
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew:
+  comment: sha256:58267ce827c2644a
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew#2:
+  comment: sha256:38d478951a4b6df9
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew#3:
+  comment: sha256:9f600f6710fa22da
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew_cask:
+  comment: sha256:c10c50fcf6cd58b7
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew_cask#2:
+  comment: sha256:cba0c999c2000c61
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew_cask#3:
+  comment: sha256:ad87eb99766e8c0c
+  verdict: pending
+decision/prolog/source/04-apt.pl:
+  comment: sha256:c084cf0588d158c3
+  verdict: pending
+decision/prolog/source/04-apt.pl/directive/installs_with_apt:
+  comment: sha256:a715afb091a10486
+  verdict: pending
+decision/prolog/source/04-apt.pl/directive/installs_with_apt#2:
+  comment: sha256:8afbbc91539aaa68
+  verdict: pending
+decision/prolog/source/04-apt.pl/directive/installs_with_apt#3:
+  comment: sha256:af41c92d025863c4
+  verdict: pending
+decision/prolog/source/05-git.pl:
+  comment: sha256:84f9be9d5a3d7a78
+  verdict: pending
+decision/prolog/source/06-meta.pl:
+  comment: sha256:c5dafb31cb6998f0
+  verdict: pending
+decision/prolog/source/06-meta.pl/directive/meta_pkg:
+  comment: sha256:a7f92bfa56055b39
+  verdict: pending
+decision/prolog/source/06-meta.pl/directive/meta_pkg#2:
+  comment: sha256:0d4b041b3807f5b1
+  verdict: pending
+decision/prolog/source/07-managed.pl:
+  comment: sha256:6683969e04a5fb1b
+  verdict: pending
+decision/prolog/source/08-pacman.pl:
+  comment: sha256:053e570b7ccc624a
+  verdict: pending
+decision/prolog/source/08-pacman.pl/clause/check_pacman:
+  comment: sha256:a46db19b0f0c4720
+  verdict: pending
+decision/prolog/source/08-pacman.pl/clause/install_pacman:
+  comment: sha256:b56f6e43eac55bb5
+  verdict: pending
+decision/prolog/source/08-pacman.pl/directive/installs_with_pacman:
+  comment: sha256:44120a22ecc410a4
+  verdict: pending
+decision/prolog/source/08-pacman.pl/directive/installs_with_pacman#2:
+  comment: sha256:0d6998df019a2725
+  verdict: pending
+decision/prolog/source/09-freebsd.pl:
+  comment: sha256:8ebd1e6ea86e7be5
+  verdict: pending
+decision/prolog/source/09-freebsd.pl/directive/installs_with_pkgng:
+  comment: sha256:8f44d348d7cd66a8
+  verdict: pending
+decision/prolog/source/09-freebsd.pl/directive/installs_with_pkgng#2:
+  comment: sha256:269dc6d7bd476dc9
+  verdict: pending
+decision/prolog/source/09-freebsd.pl/directive/installs_with_ports:
+  comment: sha256:8fa9f37087b1cd53
+  verdict: pending
+decision/prolog/source/09-freebsd.pl/directive/installs_with_ports#2:
+  comment: sha256:1e8cd3a55d839fb3
+  verdict: pending
+decision/prolog/source/sudo.pl:
+  comment: sha256:c5e735b8d3685e9e
+  verdict: pending
+decision/prolog/source/sudo.pl/clause/sudo_or_empty:
+  comment: sha256:829064cde9d35418
+  verdict: pending
+decision/prolog/source/sudo.pl/clause/sudo_tell:
+  comment: sha256:50fcf5b6990be0f8
+  verdict: pending
+decision/prolog/source/test_marelle.pl:
+  comment: sha256:6fa57c97289cc5cf
+  verdict: pending
+ledger/DEC-sample-clauses:
+  comment: sha256:ac6b6116939f949e
+  verdict: pending
+registry/marelle-upstream:
+  comment: sha256:30a2ca0aa024afbf
+  verdict: pending

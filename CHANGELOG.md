@@ -9,6 +9,7 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- Rule 9: every piece of canonical material is signed off by whoever did it. Ledger entries and registry entries join comments in `canonical_vetting.yaml`, keyed `ledger/KEY` and `registry/KEY`, pending until a verdict is set and stale when edited; the sign-off records the verdict line's committer and the commit's co-authors, and `canon decisions` shows it after each entry
 - Haskell as a dialect language: `grammars/haskell/canonically_commented/` tokenizes Haddock `-- |` and `{-| -}` comments, labels unit alternatives and export-list entries, and the layout port holds doc tokens until the next code token; the root `canon.yaml` checks canon's own `src`, `app`, and `test` through it
 - The export rule: a dialect that labels export entries requires a comment on exactly the exported units, or on every named unit when a module has no export list
 - Canonical comments on every rule of the plain Haskell grammar and on every exported unit and module of canon's own source, ingested as pending for a human to vet

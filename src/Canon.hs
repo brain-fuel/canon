@@ -14,11 +14,12 @@ module Canon
 import Canon.Antlr4.Interpret
 import Canon.Antlr4.Parse (renderParseTree)
 import Canon.Antlr4.Syntax (Name (..))
-import Canon.Config (Config (..), defaultDecisionsFileName, loadConfig, renderConfigError)
 import Canon.Decisions
 import Canon.Extract.Grammar (Extraction (..))
+import Canon.Config (Config (..))
+import Canon.Git.Commit (CommitHash (..), Person (..))
 import Canon.Model
-import Canon.Vetting (applyAssessments)
+import Canon.Vetting (applyAssessments, materialFindings)
 import Canon.Model.Finding (Finding (..), Severity (..), findingSeverity, renderFinding)
 import Canon.Model.Yaml (encodeModel)
 import Canon.Project
@@ -28,10 +29,10 @@ import qualified Data.ByteString as BS
 import Data.List (sortOn)
 import Data.Ord (Down (..))
 import qualified Data.Map.Strict as Map
+import Data.Maybe (mapMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
-import System.Directory (doesFileExist)
 import System.Environment (getArgs)
 import System.Exit (ExitCode (..), exitWith)
 import System.IO (stderr)
@@ -121,19 +122,17 @@ runCommand command = case command of
     findings <- checkProject project target
     mapM_ (TIO.putStrLn . renderWithSeverity) findings
     let pending = length [() | f <- findings, isPending f]
-    if pending > 0 then TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " canonical comments pending vetting"]) else pure ()
+    if pending > 0 then TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " pieces of canonical material pending sign-off"]) else pure ()
     pure (if any ((== Failing) . findingSeverity) findings then ExitFailure 1 else ExitSuccess)
   CommandIngest -> withProject $ \project -> do
-    result <- ingestProject project
-    case result of
-      Left err -> report err >> pure (ExitFailure 1)
-      Right (path, total, fresh) -> do
-        putStrLn (path ++ ": " ++ show (length fresh) ++ " canonical comments recorded as pending, " ++ show total ++ " entries in total")
-        pure ExitSuccess
+    (path, total, fresh, failures) <- ingestProject project
+    putStrLn (path ++ ": " ++ show (length fresh) ++ " pieces of canonical material recorded as pending, " ++ show total ++ " entries in total")
+    mapM_ (report . ("not read, so its comments are not recorded: " <>)) failures
+    pure (if null failures then ExitSuccess else ExitFailure 1)
   CommandVet -> withProject $ \project -> do
     items <- vetProject project
     mapM_ (TIO.putStr . renderAttention) items
-    TIO.putStrLn (T.pack (show (length items)) <> " canonical comments need a verdict")
+    TIO.putStrLn (T.pack (show (length items)) <> " pieces of canonical material need a verdict")
     pure (if null items then ExitSuccess else ExitFailure 1)
   CommandFiles target -> withProject $ \project -> do
     walked <- projectFiles project target
@@ -142,23 +141,43 @@ runCommand command = case command of
     pure ExitSuccess
   CommandParse lexer parser start path -> loadInterpreter lexer parser >>= runParse start path
   CommandParseCombined grammar start path -> loadCombinedInterpreter grammar >>= runParse start path
-  CommandDecisions -> withConfig $ \config -> do
-    loaded <- loadLedger config
-    case loaded of
-      Left err -> report err >> pure (ExitFailure 1)
-      Right ledger -> TIO.putStr (renderLedger ledger) >> pure ExitSuccess
+  CommandDecisions -> withProject $ \project -> do
+    assessments <- projectAssessments project
+    let config = projectConfig project
+        states = case projectVetting project of
+          Nothing -> Map.empty
+          Just vetting -> Map.fromList (mapMaybe materialState (materialFindings (configVersion config) vetting assessments (projectLedger project) (projectRegistry project)))
+        signed = Map.mapMaybe signOffText (Map.fromList [(k, a) | (LedgerKey k, a) <- Map.toList assessments])
+    TIO.putStr (renderLedger (projectLedger project) (Map.union states signed))
+    pure ExitSuccess
 
 isPending :: Finding -> Bool
 isPending f = case f of
   CommentPending {} -> True
   CommentStale {} -> True
+  MaterialPending _ -> True
+  MaterialStale _ -> True
   _ -> False
 
-renderAttention :: (Finding, Maybe (Decision Evidence)) -> Text
-renderAttention (f, decision) =
+materialState :: Finding -> Maybe (ReferenceKey, Text)
+materialState f = case f of
+  MaterialPending (LedgerKey k) -> Just (k, "pending")
+  MaterialStale (LedgerKey k) -> Just (k, "stale")
+  MaterialBad (LedgerKey k) _ -> Just (k, "bad")
+  _ -> Nothing
+
+signOffText :: Answer Assessment Evidence -> Maybe Text
+signOffText (Answer a _) = case (assessmentVerdict a, assessmentBy a, assessmentCommit a) of
+  (Pending, _, _) -> Just "pending"
+  (verdict, Just person, Just (CommitHash hash)) ->
+    Just (T.concat [verdictText verdict, " by ", personName person, " in ", T.take 7 hash, if null (assessmentCoAuthors a) then "" else " with " <> T.intercalate ", " (map personName (assessmentCoAuthors a))])
+  (verdict, _, _) -> Just (verdictText verdict <> ", not committed")
+
+renderAttention :: (Finding, Maybe Text) -> Text
+renderAttention (f, text) =
   T.concat
     ( [renderFinding f, "\n"]
-        ++ maybe [] (\d -> ["    " <> T.intercalate "\n    " (T.lines (whyText (answerValue (decisionWhy d)))), "\n"]) decision
+        ++ maybe [] (\t -> ["    " <> T.intercalate "\n    " (T.lines t), "\n"]) text
     )
 
 renderWithSeverity :: Finding -> Text
@@ -168,8 +187,8 @@ renderWithSeverity f = case findingSeverity f of
 
 -- | Renders the decision ledger open-first because open decisions are the ones a reader must act on.
 -- ref:DEC-decision-ledger
-renderLedger :: Ledger -> Text
-renderLedger ledger = T.concat (concatMap section [Open, Decided, Superseded])
+renderLedger :: Ledger -> Map.Map ReferenceKey Text -> Text
+renderLedger ledger signOffs = T.concat (concatMap section [Open, Decided, Superseded])
   where
     entries status = [(k, e) | (k, e) <- Map.toList (ledgerEntries ledger), entryStatus e == status]
     ordered status = case status of
@@ -184,6 +203,7 @@ renderLedger ledger = T.concat (concatMap section [Open, Decided, Superseded])
         , maybe "" (\v -> "  revisit " <> renderVersion v) (entryRevisit e)
         , maybe "" (\v -> "  decided " <> renderVersion v) (entryDecided e)
         , maybe "" (\(ReferenceKey b) -> "  by " <> b) (entryBy e)
+        , "  [", Map.findWithDefault "unsigned" (ReferenceKey k) signOffs, "]"
         , "\n    ", entryQuestion e, "\n"
         , maybe "" (\a -> "    " <> T.intercalate "\n    " (T.lines a) <> "\n") (entryAnswer e)
         , if null (entryUnits e) then "" else "    units: " <> T.intercalate ", " (map renderUnitId (entryUnits e)) <> "\n"
@@ -198,27 +218,12 @@ runParse start path loaded = case loaded of
       Left err -> report (renderInterpretError err) >> pure (ExitFailure 1)
       Right tree -> TIO.putStrLn (renderParseTree tree) >> pure ExitSuccess
 
-withConfig :: (Config -> IO ExitCode) -> IO ExitCode
-withConfig continue = do
-  configResult <- loadConfig
-  case configResult of
-    Left err -> report (renderConfigError err) >> pure (ExitFailure 1)
-    Right config -> continue config
-
 withProject :: (Project -> IO ExitCode) -> IO ExitCode
 withProject continue = do
   loaded <- loadProject "."
   case loaded of
     Left err -> report (renderProjectError err) >> pure (ExitFailure 1)
     Right project -> continue project
-
-loadLedger :: Config -> IO (Either Text Ledger)
-loadLedger config = do
-  let path = configDecisions config
-  present <- doesFileExist path
-  if not present && path == defaultDecisionsFileName
-    then pure (Right emptyLedger)
-    else either (Left . renderLedgerError) Right <$> readLedgerFile path
 
 report :: Text -> IO ()
 report = TIO.hPutStrLn stderr

@@ -99,7 +99,7 @@ loadVetting path isDefault = do
 
 -- | The assessor of every verdict, read once per project from a blame of the vetting file.
 -- ref:DEC-comment-vetting
-projectAssessments :: Project -> IO (Map.Map DecisionId (Answer Assessment Evidence))
+projectAssessments :: Project -> IO (Map.Map VettingKey (Answer Assessment Evidence))
 projectAssessments project = case projectVetting project of
   Nothing -> pure Map.empty
   Just vetting -> do
@@ -145,8 +145,11 @@ checkProject project target = do
             RequirementUntested k -> not (Set.member k tested)
             _ -> True
         ]
-      orphans = maybe [] (`orphanVerdictFindings` seen) (projectVetting project)
-  pure (nub own ++ orphans)
+      live = Set.unions [Set.map CommentKey seen, Set.map LedgerKey (Map.keysSet (ledgerEntries (projectLedger project))), Set.map RegistryKey (Map.keysSet (registryEntries (projectRegistry project)))]
+      signOff = case projectVetting project of
+        Nothing -> []
+        Just vetting -> materialFindings (configVersion (projectConfig project)) vetting assessments (projectLedger project) (projectRegistry project) ++ orphanVerdictFindings vetting live
+  pure (nub own ++ signOff)
 
 resolveProfile :: Project -> Profile -> Profile
 resolveProfile project profile =
@@ -192,36 +195,47 @@ extractAll project walked = do
   slots <- newQSem (max 1 workers)
   mapConcurrently (\path -> (,) path <$> bracket_ (waitQSem slots) (signalQSem slots) (extractCached project (Map.fromList interpreters) grammarBytes projectParts path)) (walkedFiles walked)
 
--- | Records every canonical comment without a verdict as pending. ref:DEC-comment-vetting
-ingestProject :: Project -> IO (Either Text (FilePath, Int, [DecisionId]))
+-- | Records every piece of canonical material without a verdict as pending, and names the files
+-- it could not read, whose comments stay pending by their absence. ref:DEC-comment-vetting
+-- ref:DEC-human-sign-off
+ingestProject :: Project -> IO (FilePath, Int, [VettingKey], [Text])
 ingestProject project = do
   walked <- projectFiles project Nothing
   extracted <- extractAll project walked
   let decisions = concat [modelDecisions (extractionModel e) | (_, Right e) <- extracted]
       failures = [T.concat [T.pack failed, ": ", message] | (failed, Left message) <- extracted]
       existing = maybe emptyVetting id (projectVetting project)
-      (updated, fresh) = ingest existing decisions
+      (updated, fresh) = ingest existing (materials decisions (projectLedger project) (projectRegistry project))
       path = resolvePath project (configVetting (projectConfig project))
-  case failures of
-    [] -> writeVettingFile path updated >> pure (Right (path, Map.size (vettingEntries updated), fresh))
-    _ -> pure (Left (T.intercalate "\n" ("ingest refused because some files could not be extracted:" : failures)))
+  writeVettingFile path updated
+  pure (path, Map.size (vettingEntries updated), fresh, failures)
 
--- | The comments that need a human verdict, with their text.
-vetProject :: Project -> IO [(Finding, Maybe (Decision Evidence))]
+-- | The canonical material that needs a human verdict, each finding with the text to read.
+vetProject :: Project -> IO [(Finding, Maybe Text)]
 vetProject project = do
   walked <- projectFiles project Nothing
   assessments <- projectAssessments project
   extracted <- extractAll project walked
-  let decisions = Map.fromList [(decisionId d, d) | (_, Right e) <- extracted, d <- modelDecisions (extractionModel e)]
-      findings = concat [fs | (fs, _, _, _) <- map (checkExtraction project assessments) extracted] ++ maybe [] (`orphanVerdictFindings` Map.keysSet decisions) (projectVetting project)
-  pure [(f, decisionOf f >>= (`Map.lookup` decisions)) | f <- findings, attention f]
+  let decisions = concat [modelDecisions (extractionModel e) | (_, Right e) <- extracted]
+      texts = Map.fromList [(materialKey m, materialText m) | m <- materials decisions (projectLedger project) (projectRegistry project)]
+      signOff = case projectVetting project of
+        Nothing -> []
+        Just vetting ->
+          materialFindings (configVersion (projectConfig project)) vetting assessments (projectLedger project) (projectRegistry project)
+            ++ orphanVerdictFindings vetting (Map.keysSet texts)
+      findings = concat [fs | (fs, _, _, _) <- map (checkExtraction project assessments) extracted] ++ signOff
+  pure [(f, keyOf f >>= (`Map.lookup` texts)) | f <- findings, attention f]
   where
-    decisionOf f = case f of
-      CommentPending d _ -> Just d
-      CommentStale d _ -> Just d
-      CommentDeferredPastRevisit d _ _ _ -> Just d
-      VerdictWithoutRevisit d _ -> Just d
-      VerdictOrphan d -> Just d
+    keyOf f = case f of
+      CommentPending d _ -> Just (CommentKey d)
+      CommentStale d _ -> Just (CommentKey d)
+      CommentDeferredPastRevisit d _ _ _ -> Just (CommentKey d)
+      VerdictWithoutRevisit d _ -> Just (CommentKey d)
+      VerdictOrphan k -> Just k
+      MaterialPending k -> Just k
+      MaterialStale k -> Just k
+      MaterialDeferredPastRevisit k _ _ -> Just k
+      MaterialWithoutRevisit k -> Just k
       _ -> Nothing
 
 idPathOf :: Project -> FilePath -> FilePath
@@ -271,7 +285,7 @@ extractCached project interpreters grammarBytes projectParts path = do
       either (const (pure ())) (storeCached (projectDirectory project) key) fresh
       pure fresh
 
-checkExtraction :: Project -> Map.Map DecisionId (Answer Assessment Evidence) -> (FilePath, Either Text Extraction) -> ([Finding], Set.Set ReferenceKey, Set.Set DecisionId, Set.Set ReferenceKey)
+checkExtraction :: Project -> Map.Map VettingKey (Answer Assessment Evidence) -> (FilePath, Either Text Extraction) -> ([Finding], Set.Set ReferenceKey, Set.Set DecisionId, Set.Set ReferenceKey)
 checkExtraction project assessments (path, extraction) = case extraction of
   Left message -> ([ExtractionFailed path message], Set.empty, Set.empty, Set.empty)
   Right (Extraction model findings) ->

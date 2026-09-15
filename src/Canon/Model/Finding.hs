@@ -37,8 +37,14 @@ data Finding
   | CommentDeferred DecisionId Where Text
   | CommentDeferredPastRevisit DecisionId Where Text Text
   | VerdictWithoutRevisit DecisionId Where
-  | VerdictOrphan DecisionId
-  | VerdictUncommitted DecisionId
+  | VerdictOrphan VettingKey
+  | VerdictUncommitted VettingKey
+  | MaterialPending VettingKey
+  | MaterialStale VettingKey
+  | MaterialBad VettingKey (Maybe Text)
+  | MaterialDeferred VettingKey Text
+  | MaterialDeferredPastRevisit VettingKey Text Text
+  | MaterialWithoutRevisit VettingKey
   | TestWithoutRequirement UnitId Where
   | RequirementUntested ReferenceKey
   deriving (Eq, Show)
@@ -54,6 +60,7 @@ findingSeverity f = case f of
   DecisionCitedWhileOpen {} -> Informational
   LicenseTextWithoutKey {} -> Informational
   CommentDeferred {} -> Informational
+  MaterialDeferred {} -> Informational
   VerdictUncommitted _ -> Informational
   _ -> Failing
 
@@ -89,11 +96,21 @@ renderFinding f = case f of
   CommentDeferredPastRevisit d w revisit current ->
     at (wherePath w) (whereSpan w) (T.concat [renderDecisionId d, " is deferred past its revisit version ", revisit, " at version ", current])
   VerdictWithoutRevisit d w -> at (wherePath w) (whereSpan w) (renderDecisionId d <> " is deferred without a revisit version")
-  VerdictOrphan d -> T.concat ["verdict for ", renderDecisionId d, " names a canonical comment that no longer exists"]
-  VerdictUncommitted d -> T.concat ["verdict for ", renderDecisionId d, " is not committed, so its assessor is unknown"]
+  VerdictOrphan k -> T.concat ["verdict for ", renderVettingKey k, " names canonical material that no longer exists"]
+  VerdictUncommitted k -> T.concat ["verdict for ", renderVettingKey k, " is not committed, so its signer is unknown"]
+  MaterialPending k -> materialName k <> " is pending sign-off"
+  MaterialStale k -> materialName k <> " changed since its verdict and is pending sign-off again"
+  MaterialBad k note -> T.concat [materialName k, " was vetted bad", maybe "" (": " <>) note]
+  MaterialDeferred k revisit -> T.concat [materialName k, " is deferred until ", revisit]
+  MaterialDeferredPastRevisit k revisit current -> T.concat [materialName k, " is deferred past its revisit version ", revisit, " at version ", current]
+  MaterialWithoutRevisit k -> materialName k <> " is deferred without a revisit version"
   TestWithoutRequirement u w -> at (wherePath w) (whereSpan w) ("test " <> renderUnitId u <> " cites no requirement")
   RequirementUntested k -> T.concat ["requirement ", referenceKeyText k, " is cited by no test"]
   where
+    materialName k = case k of
+      CommentKey d -> "comment " <> renderDecisionId d
+      LedgerKey r -> "decision " <> referenceKeyText r
+      RegistryKey r -> "reference " <> referenceKeyText r
     at path (Span (Position line column) _) message =
       T.concat [T.pack path, ":", T.pack (show line), ":", T.pack (show column), ": ", message]
 
@@ -119,8 +136,14 @@ instance ToJSON Finding where
     CommentDeferred d w revisit -> object ["decision" .= d, "kind" .= ("commentDeferred" :: Text), "revisit" .= revisit, "where" .= w]
     CommentDeferredPastRevisit d w revisit current -> object ["current" .= current, "decision" .= d, "kind" .= ("commentDeferredPastRevisit" :: Text), "revisit" .= revisit, "where" .= w]
     VerdictWithoutRevisit d w -> object ["decision" .= d, "kind" .= ("verdictWithoutRevisit" :: Text), "where" .= w]
-    VerdictOrphan d -> object ["decision" .= d, "kind" .= ("verdictOrphan" :: Text)]
-    VerdictUncommitted d -> object ["decision" .= d, "kind" .= ("verdictUncommitted" :: Text)]
+    VerdictOrphan k -> object ["key" .= k, "kind" .= ("verdictOrphan" :: Text)]
+    VerdictUncommitted k -> object ["key" .= k, "kind" .= ("verdictUncommitted" :: Text)]
+    MaterialPending k -> object ["key" .= k, "kind" .= ("materialPending" :: Text)]
+    MaterialStale k -> object ["key" .= k, "kind" .= ("materialStale" :: Text)]
+    MaterialBad k note -> object ["key" .= k, "kind" .= ("materialBad" :: Text), "note" .= note]
+    MaterialDeferred k revisit -> object ["key" .= k, "kind" .= ("materialDeferred" :: Text), "revisit" .= revisit]
+    MaterialDeferredPastRevisit k revisit current -> object ["current" .= current, "key" .= k, "kind" .= ("materialDeferredPastRevisit" :: Text), "revisit" .= revisit]
+    MaterialWithoutRevisit k -> object ["key" .= k, "kind" .= ("materialWithoutRevisit" :: Text)]
     TestWithoutRequirement u w -> object ["kind" .= ("testWithoutRequirement" :: Text), "unit" .= u, "where" .= w]
     RequirementUntested k -> object ["key" .= k, "kind" .= ("requirementUntested" :: Text)]
 
@@ -148,8 +171,14 @@ instance FromJSON Finding where
       "commentDeferred" -> CommentDeferred <$> o .: "decision" <*> o .: "where" <*> o .: "revisit"
       "commentDeferredPastRevisit" -> CommentDeferredPastRevisit <$> o .: "decision" <*> o .: "where" <*> o .: "revisit" <*> o .: "current"
       "verdictWithoutRevisit" -> VerdictWithoutRevisit <$> o .: "decision" <*> o .: "where"
-      "verdictOrphan" -> VerdictOrphan <$> o .: "decision"
-      "verdictUncommitted" -> VerdictUncommitted <$> o .: "decision"
+      "verdictOrphan" -> VerdictOrphan <$> o .: "key"
+      "verdictUncommitted" -> VerdictUncommitted <$> o .: "key"
+      "materialPending" -> MaterialPending <$> o .: "key"
+      "materialStale" -> MaterialStale <$> o .: "key"
+      "materialBad" -> MaterialBad <$> o .: "key" <*> o .:? "note"
+      "materialDeferred" -> MaterialDeferred <$> o .: "key" <*> o .: "revisit"
+      "materialDeferredPastRevisit" -> MaterialDeferredPastRevisit <$> o .: "key" <*> o .: "revisit" <*> o .: "current"
+      "materialWithoutRevisit" -> MaterialWithoutRevisit <$> o .: "key"
       "testWithoutRequirement" -> TestWithoutRequirement <$> o .: "unit" <*> o .: "where"
       "requirementUntested" -> RequirementUntested <$> o .: "key"
       _ -> fail ("unknown finding kind: " ++ T.unpack kind)

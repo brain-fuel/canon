@@ -25,12 +25,14 @@ data GitError
   | GitUnparsable GitParseError
   deriving (Eq, Show)
 
--- | The four questions canon asks git.
+-- | The questions canon asks git: history, blame, tags, the described version, and a commit's
+-- message. ref:DEC-human-sign-off
 data GitProvider = GitProvider
   { historyOf :: FilePath -> Span -> IO (Either GitError [Commit])
   , blameOf :: FilePath -> Span -> IO (Either GitError [BlameLine])
   , tagsContaining :: CommitHash -> IO (Either GitError [Text])
   , describeVersion :: IO (Either GitError (Maybe Text))
+  , messageOf :: CommitHash -> IO (Either GitError Text)
   }
 
 -- | The data a static provider answers from.
@@ -38,11 +40,12 @@ data StaticGit = StaticGit
   { staticCommits :: [Commit]
   , staticTags :: Map CommitHash [Text]
   , staticDescribe :: Maybe Text
+  , staticMessages :: Map CommitHash Text
   }
 
 -- | A provider that answers from a fixed commit list.
 staticGitProvider :: [Commit] -> GitProvider
-staticGitProvider commits = staticGitProviderWith (StaticGit commits Map.empty Nothing)
+staticGitProvider commits = staticGitProviderWith (StaticGit commits Map.empty Nothing Map.empty)
 
 -- | A static provider with tags and a describe value too.
 staticGitProviderWith :: StaticGit -> GitProvider
@@ -53,6 +56,7 @@ staticGitProviderWith static =
         pure (Right [blameLine line c | (line, c) <- zip [from .. max from to] (cycle' (staticCommits static))])
     , tagsContaining = \hash -> pure (Right (Map.findWithDefault [] hash (staticTags static)))
     , describeVersion = pure (Right (staticDescribe static))
+    , messageOf = \hash -> pure (Right (Map.findWithDefault "" hash (staticMessages static)))
     }
 
 cycle' :: [a] -> [a]

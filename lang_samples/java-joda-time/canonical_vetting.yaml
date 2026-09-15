@@ -13210,3 +13210,9 @@ decision/java/source/src/test/java/org/joda/time/tz/TestUTCProvider.java/package
 decision/java/source/src/test/java/org/joda/time/tz/TestZoneInfoCompiler.java/package/org.joda.time.tz/class/TestZoneInfoCompiler:
   comment: sha256:9734a2e1d7e3eadc
   verdict: pending
+ledger/DEC-sample-scope:
+  comment: sha256:a48ced967b3ecbd8
+  verdict: pending
+registry/joda-time:
+  comment: sha256:ec40f28f6a2119f9
+  verdict: pending

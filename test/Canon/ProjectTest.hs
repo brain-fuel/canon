@@ -22,6 +22,7 @@ import qualified Data.ByteString.Lazy as LBS
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 import Data.List (sort)
+import qualified Data.Set as Set
 import qualified Data.Text as T
 import Hedgehog (Property, annotate, assert, evalIO, failure, forAll, property, withTests, (===))
 import System.Directory (createDirectoryIfMissing, getCurrentDirectory, getTemporaryDirectory, removeDirectoryRecursive)
@@ -41,6 +42,7 @@ tests =
     , testProperty "findings survive a yaml round trip" findingRoundTrip
     , testProperty "an extraction stored in the cache is found again by its key" cacheRoundTrip
     , testProperty "a requirement cited by a test in any file of the project is tested" requirementAcrossFiles
+    , testProperty "ledger and registry entries are pending sign-off once a vetting file exists" materialPending
     ]
 
 profileRoundTrip :: Property
@@ -156,3 +158,24 @@ requirementAcrossFiles = withTests 1 $ property $ do
       Right project -> checkProject project Nothing
   [k | RequirementUntested k <- found] === [ReferenceKey "REQ-2"]
   length [() | TestWithoutRequirement _ _ <- found] === 1
+
+materialPending :: Property
+materialPending = withTests 1 $ property $ do
+  found <- evalIO $ withScratch "material" $ \root -> do
+    writeFile (root </> "canon.yaml") "version: 0.1.0\n"
+    writeFile (root </> "canonical_refs.yaml") (unlines ["paper-1:", "  kind: paper", "  title: A paper", "  locator: here"])
+    writeFile (root </> "canonical_decisions.yaml") (unlines ["DEC-x:", "  status: decided", "  question: Why?", "  answer: Because.", "  opened: 0.1.0", "  decided: 0.1.0"])
+    before <- either (const []) id <$> (loadProject root >>= either (const (pure (Right []))) (\p -> Right <$> checkProject p Nothing))
+    ingested <- loadProject root >>= either (const (pure ("", 0, [], ["load"]))) ingestProject
+    afterIngest <- loadProject root >>= either (const (pure [])) (\p -> checkProject p Nothing)
+    signedFile <- readFile (root </> "canonical_vetting.yaml")
+    let signed = concatMap (\l -> if l == "  verdict: pending" then "  verdict: good\n" else l ++ "\n") (lines signedFile)
+    length signed `seq` writeFile (root </> "canonical_vetting.yaml") signed
+    afterSigning <- loadProject root >>= either (const (pure [])) (\p -> checkProject p Nothing)
+    pure ([k | MaterialPending k <- before], (\(_, _, fresh, _) -> fresh) ingested, [k | MaterialPending k <- afterIngest], [k | MaterialPending k <- afterSigning], [k | VerdictUncommitted k <- afterSigning])
+  let (before, fresh, pending, signedPending, uncommitted) = found
+  before === []
+  Set.fromList fresh === Set.fromList [LedgerKey (ReferenceKey "DEC-x"), RegistryKey (ReferenceKey "paper-1")]
+  Set.fromList pending === Set.fromList [LedgerKey (ReferenceKey "DEC-x"), RegistryKey (ReferenceKey "paper-1")]
+  signedPending === []
+  Set.fromList uncommitted === Set.fromList [LedgerKey (ReferenceKey "DEC-x"), RegistryKey (ReferenceKey "paper-1")]

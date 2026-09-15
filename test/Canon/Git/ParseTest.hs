@@ -8,6 +8,7 @@ import Canon.Git.Parse
 import Canon.Model.Answer (Attribution (..), Change (..), When (..), Who (..))
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Set as Set
+import qualified Data.Text as T
 import Hedgehog (Property, assert, forAll, property, (===))
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
@@ -24,6 +25,7 @@ tests =
     , testProperty "empty output parses to no commits" emptyLog
     , testProperty "who lists exactly the commit authors and committers" whoMatchesCommits
     , testProperty "when is ordered and independent of input order" whenOrdered
+    , testProperty "co-author trailers are read from a commit message" trailersRead
     ]
 
 logRoundTrip :: Property
@@ -62,3 +64,11 @@ whenOrdered = property $ do
       assert (changeAt (whenFirst a) <= changeAt (whenLast a))
       changeAt (whenFirst a) === minimum (NonEmpty.fromList (map commitAuthoredAt commits))
     _ -> fail "no when for non-empty history"
+
+trailersRead :: Property
+trailersRead = property $ do
+  people <- forAll (Gen.list (Range.linear 0 3) genPerson)
+  subject <- forAll (personName <$> genPerson)
+  let message = T.unlines ([subject, ""] ++ ["co-authored-by: " <> personName p <> " <" <> personEmail p <> ">" | p <- people] ++ ["Signed-off-by: someone <s@example>"])
+  trailerPersons message === people
+  trailerPersons subject === []

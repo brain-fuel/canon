@@ -74,6 +74,16 @@ itself.
    the reason. A comment that restates the name, such as "Verifies that X"
    above a unit that verifies X, fulfils no purpose the name does not, and is
    vetted `bad`. `canon` cannot judge this; the vetting human does.
+9. **Canonical material is signed off by whoever did it.** A canonical
+   comment, a decision in the ledger, and a reference in the registry each
+   have an entry in `canonical_vetting.yaml`, and none of them counts until
+   its verdict is set. Whether the material says something true is not a
+   question a program can decide, which is Rice's theorem applied to
+   documentation, so the sign-off is the evidence. `canon` does not test who
+   signed; it records it: the author of the commit that last touched the
+   verdict line, from `git blame`, and the co-authors that commit names in
+   its trailers. An edit to signed material makes its verdict stale, and the
+   report is invalid while anything is pending.
 
 ## What documentation must answer
 
@@ -161,9 +171,12 @@ without `canon` and may or may not answer Why. Rule 7 says none of them
 counts until a human has read it. The flow is:
 
 1. `canon ingest` extracts the project and writes `canonical_vetting.yaml`,
-   one entry per canonical comment, keyed by decision id, with the verdict
-   `pending` and a digest of the comment's text. Running it again adds only
-   comments that have no entry yet.
+   one entry per piece of canonical material, with the verdict `pending` and
+   a digest of what it says: a comment is keyed by its decision id and
+   digests its text, a ledger entry is keyed `ledger/KEY` and digests
+   everything it says, and a registry entry is keyed `registry/KEY` and
+   digests its kind, title, and locator. Running it again adds only entries
+   that are missing.
 2. `canon vet` lists every comment that needs a verdict, with its location
    and its text, so a reviewer can work through them. It also lists verdicts
    that have gone stale because the comment changed, deferrals past their
@@ -172,13 +185,16 @@ counts until a human has read it. The flow is:
    adds a `revisit` version to a deferral and optionally a `note`, and
    commits. Nothing in the file names the reviewer: `canon` reads the author
    of the commit that last touched the `verdict` line with `git blame`, and
-   the model records that person, the time, and the commit as the decision's
-   `vetting` answer with git evidence. An uncommitted verdict has no assessor
-   yet, and `canon check` says so informationally.
-4. `canon check` fails on every pending, stale, or bad comment and on a
-   deferral without a revisit version or past it, reports a deferral within
-   its window informationally, and ends with `report invalid: N canonical
-   comments pending vetting` while any are pending.
+   the model records that person, the time, the commit, and the commit's
+   co-authors as the decision's `vetting` answer with git evidence.
+   `canon decisions` shows the same sign-off after each ledger entry. An
+   uncommitted verdict has no signer yet, and `canon check` says so
+   informationally.
+4. `canon check` fails on every pending, stale, or bad comment, decision, or
+   reference and on a deferral without a revisit version or past it, reports
+   a deferral within its window informationally, and ends with `report
+   invalid: N pieces of canonical material pending sign-off` while any are
+   pending.
 
 A `bad` comment is a liar's comment: the fix is to rewrite it, which changes
 its digest and makes it pending, so the rewrite is vetted in turn. Once the

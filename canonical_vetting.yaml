@@ -5662,6 +5662,9 @@ decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/function/parseGit
 decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/function/parseIsoTime:
   comment: sha256:42f538d7c9e09c86
   verdict: pending
+decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/function/trailerPersons:
+  comment: sha256:4a75c58b84a99b78
+  verdict: pending
 decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/newtype/GitParseError:
   comment: sha256:272fdc31680e1ebf
   verdict: pending
@@ -5830,6 +5833,9 @@ decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/function/
 decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id:
   comment: sha256:65894ed67919e82b
   verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/data/VettingKey:
+  comment: sha256:2f251139b268ce57
+  verdict: pending
 decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/decisionIdFor:
   comment: sha256:45660413005e9db5
   verdict: pending
@@ -5845,11 +5851,17 @@ decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/parseDecis
 decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/parseUnitId:
   comment: sha256:00dee01d3418b4b7
   verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/parseVettingKey:
+  comment: sha256:f0353ca6f91b3bce
+  verdict: pending
 decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/renderDecisionId:
   comment: sha256:2116062065081b80
   verdict: pending
 decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/renderUnitId:
   comment: sha256:33cd6f9854c6ba58
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/renderVettingKey:
+  comment: sha256:e8275d964250d58d
   verdict: pending
 decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/newtype/DecisionId:
   comment: sha256:c28b6c30820318e1
@@ -6049,6 +6061,9 @@ decision/haskell/src/Canon/Version.hs/module/Canon.Version/function/renderVersio
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting:
   comment: sha256:bd5b2b704769cda1
   verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/data/Material:
+  comment: sha256:00358279c4a15942
+  verdict: pending
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/data/VettingEntry:
   comment: sha256:aeb2bc7a963a4334
   verdict: pending
@@ -6067,17 +6082,32 @@ decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/attention:
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/commentDigest:
   comment: sha256:144a9c3a67eee3f7
   verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/digestOf:
+  comment: sha256:5d1a0fb8d1d1d7be
+  verdict: pending
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/emptyVetting:
   comment: sha256:df7ee56099ae17ec
   verdict: pending
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/ingest:
   comment: sha256:083f0136b3ed5123
   verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/ledgerDigest:
+  comment: sha256:8f2fb9b9edb2da39
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/materialFindings:
+  comment: sha256:159404907be7ddb3
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/materials:
+  comment: sha256:e5217fcc13ca68b4
+  verdict: pending
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/orphanVerdictFindings:
   comment: sha256:5a73d745413d48e0
   verdict: pending
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/readVettingFile:
   comment: sha256:14fcb8b5f47a133d
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/registryDigest:
+  comment: sha256:25c8eb47d4ae8649
   verdict: pending
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/renderVetting:
   comment: sha256:e1030c8018ca2732
@@ -6421,6 +6451,9 @@ decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genVett
 decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genVettingEntry:
   comment: sha256:a1a2a3199c937023
   verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genVettingKey:
+  comment: sha256:0fe81fc2a99687d8
+  verdict: pending
 decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genWhat:
   comment: sha256:a86727ffb0075ea2
   verdict: pending
@@ -6477,4 +6510,112 @@ decision/haskell/test/Spec.hs/module/Main:
   verdict: pending
 decision/haskell/test/Spec.hs/module/Main/function/main:
   comment: sha256:1f80db519f5ebbd0
+  verdict: pending
+ledger/DEC-cabal-file:
+  comment: sha256:dfd2b88294658470
+  verdict: pending
+ledger/DEC-canon-comment-standard:
+  comment: sha256:2b41ba120231d330
+  verdict: pending
+ledger/DEC-canonical-antlr4-dialect:
+  comment: sha256:f580cad5d3ca5295
+  verdict: pending
+ledger/DEC-comment-attachment:
+  comment: sha256:26e7ca4bf2dd0016
+  verdict: pending
+ledger/DEC-comment-reasons:
+  comment: sha256:26e7bd93f899c8f7
+  verdict: pending
+ledger/DEC-comment-vetting:
+  comment: sha256:4eabd539af66900a
+  verdict: pending
+ledger/DEC-decision-ledger:
+  comment: sha256:dd2281a0692cc38c
+  verdict: pending
+ledger/DEC-export-rule:
+  comment: sha256:c2bddd1afced483a
+  verdict: pending
+ledger/DEC-extraction-cache:
+  comment: sha256:3c3094c5edefbd90
+  verdict: pending
+ledger/DEC-grammar-carries-extraction-rules:
+  comment: sha256:4f625b2d8bdd2462
+  verdict: pending
+ledger/DEC-grammar-coverage-findings:
+  comment: sha256:cedc66bc858f2c9d
+  verdict: pending
+ledger/DEC-haskell-dialect:
+  comment: sha256:134905b7a23ddf33
+  verdict: pending
+ledger/DEC-haskell-grammar-comments:
+  comment: sha256:82fa5b48eeb405b9
+  verdict: pending
+ledger/DEC-haskell-grammar-fixes:
+  comment: sha256:e99ca4edc60407e6
+  verdict: pending
+ledger/DEC-human-sign-off:
+  comment: sha256:32f9d9a0ab3fc0db
+  verdict: pending
+ledger/DEC-java-grammar-comments:
+  comment: sha256:fb71c3ba073a3ac8
+  verdict: pending
+ledger/DEC-marker-label:
+  comment: sha256:7a98330e37874066
+  verdict: pending
+ledger/DEC-name-what-comment-why:
+  comment: sha256:af111c8c22ddfe6a
+  verdict: pending
+ledger/DEC-nested-root-check:
+  comment: sha256:e5a51206490147a1
+  verdict: pending
+ledger/DEC-one-tree-per-span:
+  comment: sha256:764cd11edc7ed896
+  verdict: pending
+ledger/DEC-parser-foundation:
+  comment: sha256:a3e72cdb7a91a23c
+  verdict: pending
+ledger/DEC-parser-generation:
+  comment: sha256:11195fb0353d0e17
+  verdict: pending
+ledger/DEC-precedence-climbing:
+  comment: sha256:0a49bcdd56ffadc0
+  verdict: pending
+ledger/DEC-required-orphan-labels:
+  comment: sha256:bf2b6c07605a617e
+  verdict: pending
+ledger/DEC-sample-project-readme:
+  comment: sha256:cd4a6a344f0bfce6
+  verdict: pending
+ledger/DEC-test-requirement-check:
+  comment: sha256:56f3c5e9c108597d
+  verdict: pending
+ledger/DEC-tests-not-exempt:
+  comment: sha256:ae2c6a410cfc6640
+  verdict: pending
+ledger/DEC-version-duplication:
+  comment: sha256:7b46ef3c04180933
+  verdict: pending
+registry/BSD-3-Clause:
+  comment: sha256:6980d34c11bc3baf
+  verdict: pending
+registry/MIT:
+  comment: sha256:ed6c0abb656b1c69
+  verdict: pending
+registry/antlr-haskell:
+  comment: sha256:2b6ed033549bd2f1
+  verdict: pending
+registry/canon-provisional-syntax:
+  comment: sha256:7dcc69f6c42c0111
+  verdict: pending
+registry/grammars-v4:
+  comment: sha256:f55b2f8ddcedba30
+  verdict: pending
+registry/grampa-2017:
+  comment: sha256:0990a639309c9f81
+  verdict: pending
+registry/semver-2:
+  comment: sha256:7ef7fa24c6809d32
+  verdict: pending
+registry/warth-2008:
+  comment: sha256:68507085ad4dcaee
   verdict: pending

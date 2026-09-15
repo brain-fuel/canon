@@ -2827,3 +2827,12 @@ decision/java/source/test-shrinker/src/test/java/com/google/gson/it/ShrinkingIT.
 decision/java/source/test-shrinker/src/test/java/com/google/gson/it/ShrinkingIT.java/package/com.google.gson.it/class/ShrinkingIT/method/isTestingProGuard:
   comment: sha256:744a4fd7bf38b520
   verdict: pending
+ledger/DEC-sample-scope:
+  comment: sha256:a48ced967b3ecbd8
+  verdict: pending
+registry/REQ-module-not-opened:
+  comment: sha256:61851e6a86761f9d
+  verdict: pending
+registry/gson:
+  comment: sha256:b868ef4b67110875
+  verdict: pending

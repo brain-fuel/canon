@@ -251,5 +251,7 @@ haskellDialectParsesCanon = withTests 1 $ property $ do
   interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
   result <- evalIO (interpretFile interpreter (Name "module") "src/Canon/Vetting.hs")
   tree <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure result
-  length (treeRuleNodes (Name "canonicalComment") tree) === 17
-  length [() | n <- treeRuleNodes (Name "topdecl") tree, _ <- treeRuleNodes (Name "canonicalComment") n] === 16
+  source <- evalIO (TIO.readFile "src/Canon/Vetting.hs")
+  let openers = length (filter (T.isPrefixOf "-- |") (T.lines source))
+  length (treeRuleNodes (Name "canonicalComment") tree) === openers
+  length [() | n <- treeRuleNodes (Name "topdecl") tree, _ <- treeRuleNodes (Name "canonicalComment") n] === openers - 1

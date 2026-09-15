@@ -56,6 +56,7 @@ shellGitProvider =
           Right out -> Right (nonEmptyText (T.strip out))
           Left GitNotFound -> Left GitNotFound
           Left _ -> Right Nothing
+    , messageOf = \(CommitHash hash) -> runGit "." ["log", "-1", "--format=%B", T.unpack hash]
     }
   where
     parseWith parser = either (Left . GitUnparsable) Right . parser

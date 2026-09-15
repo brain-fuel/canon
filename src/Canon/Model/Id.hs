@@ -3,6 +3,9 @@ module Canon.Model.Id
   ( UnitId (..)
   , DecisionId (..)
   , ReferenceKey (..)
+  , VettingKey (..)
+  , renderVettingKey
+  , parseVettingKey
   , renderUnitId
   , parseUnitId
   , decisionIdFor
@@ -96,6 +99,40 @@ instance ToJSON ReferenceKey where
 
 instance FromJSON ReferenceKey where
   parseJSON = withText "ReferenceKey" parseKey
+
+-- | What a verdict is about: a canonical comment, a ledger entry, or a registry entry, so one
+-- vetting file signs off every kind of canonical material. ref:DEC-human-sign-off
+data VettingKey
+  = CommentKey DecisionId
+  | LedgerKey ReferenceKey
+  | RegistryKey ReferenceKey
+  deriving (Eq, Ord, Show)
+
+-- | Renders a vetting key; a comment key is its decision id, the others carry a prefix.
+renderVettingKey :: VettingKey -> Text
+renderVettingKey k = case k of
+  CommentKey d -> renderDecisionId d
+  LedgerKey (ReferenceKey r) -> "ledger/" <> r
+  RegistryKey (ReferenceKey r) -> "registry/" <> r
+
+-- | Parses a vetting key by its prefix.
+parseVettingKey :: Text -> Maybe VettingKey
+parseVettingKey t
+  | Just r <- T.stripPrefix "ledger/" t, isReferenceKey r = Just (LedgerKey (ReferenceKey r))
+  | Just r <- T.stripPrefix "registry/" t, isReferenceKey r = Just (RegistryKey (ReferenceKey r))
+  | otherwise = CommentKey <$> parseDecisionId t
+
+instance ToJSON VettingKey where
+  toJSON = toJSON . renderVettingKey
+
+instance FromJSON VettingKey where
+  parseJSON = withText "VettingKey" $ \t -> maybe (fail ("invalid vetting key: " ++ T.unpack t)) pure (parseVettingKey t)
+
+instance ToJSONKey VettingKey where
+  toJSONKey = toJSONKeyText renderVettingKey
+
+instance FromJSONKey VettingKey where
+  fromJSONKey = FromJSONKeyTextParser (\t -> maybe (fail ("invalid vetting key: " ++ T.unpack t)) pure (parseVettingKey t))
 
 instance ToJSONKey DecisionId where
   toJSONKey = toJSONKeyText renderDecisionId

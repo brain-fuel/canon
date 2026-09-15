@@ -224,3 +224,11 @@ DEC-canon-comment-standard:
     Canonical comments in Haddock form, on exported units and module headers, and nothing else. Every module has a doc comment before the module keyword saying why the module exists and citing the decisions it embodies. Every exported unit has a doc comment that says why under rule 8, since the name says what; a type cites the decision that shaped it and a function states the reason or invariant. Non-exported units may have one. Every one of these comments is recorded as pending in the root vetting file, because they were written by an AI and a human vets them.
   opened: 0.1.0
   decided: 0.1.0
+
+DEC-human-sign-off:
+  status: decided
+  question: Comments are vetted under rule 7, but an AI wrote most of the ledger and the registry and marked decisions decided itself; what does it take for any canonical material to count?
+  answer: |
+    Rule 9. Every canonical comment, ledger entry, and registry entry has an entry in the vetting file, keyed by decision id, ledger/KEY, or registry/KEY, holding a verdict and a digest of what the material says, so an edit makes the verdict stale. Nothing counts until its verdict is set, and the report is invalid while anything is pending. Whether the material says something true is not decidable by a program, which is Rice's theorem applied to documentation, so the human sign-off is the evidence. canon does not test who signed; it records whoever did: the author of the commit that last touched the verdict line, from git blame, and the co-authors that commit names in its trailers, so an assisted sign-off is visible as such. This extends DEC-comment-vetting to all canonical material.
+  opened: 0.1.0
+  decided: 0.1.0

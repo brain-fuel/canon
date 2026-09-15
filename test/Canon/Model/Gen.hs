@@ -32,6 +32,7 @@ module Canon.Model.Gen
   , genAssessment
   , genVettingEntry
   , genVetting
+  , genVettingKey
   ) where
 
 import Canon.Config (Config (..))
@@ -190,7 +191,11 @@ genVerdict = Gen.enumBounded
 
 -- | An assessment.
 genAssessment :: Gen Assessment
-genAssessment = Assessment <$> genVerdict <*> Gen.maybe genPerson <*> Gen.maybe genUTCTime <*> Gen.maybe genCommitHash
+genAssessment = Assessment <$> genVerdict <*> Gen.maybe genPerson <*> Gen.maybe genUTCTime <*> Gen.maybe genCommitHash <*> Gen.list (Range.linear 0 2) genPerson
+
+-- | A vetting key of any kind.
+genVettingKey :: Gen VettingKey
+genVettingKey = Gen.choice [CommentKey <$> genDecisionId, LedgerKey <$> genReferenceKey, RegistryKey <$> genReferenceKey]
 
 -- | A vetting entry.
 genVettingEntry :: Gen VettingEntry
@@ -198,7 +203,7 @@ genVettingEntry = VettingEntry <$> genVerdict <*> (("sha256:" <>) <$> Gen.text (
 
 -- | A vetting file.
 genVetting :: Gen Vetting
-genVetting = Vetting . Map.fromList <$> Gen.list (Range.linear 0 4) ((,) <$> genDecisionId <*> genVettingEntry)
+genVetting = Vetting . Map.fromList <$> Gen.list (Range.linear 0 4) ((,) <$> genVettingKey <*> genVettingEntry)
 
 -- | A model whose decisions mostly name its own units.
 genModel :: Gen (Model Evidence)
@@ -298,8 +303,14 @@ genFinding =
     , CommentDeferred <$> genDecisionId <*> genWhere <*> (renderVersion <$> genVersion)
     , CommentDeferredPastRevisit <$> genDecisionId <*> genWhere <*> (renderVersion <$> genVersion) <*> (renderVersion <$> genVersion)
     , VerdictWithoutRevisit <$> genDecisionId <*> genWhere
-    , VerdictOrphan <$> genDecisionId
-    , VerdictUncommitted <$> genDecisionId
+    , VerdictOrphan <$> genVettingKey
+    , VerdictUncommitted <$> genVettingKey
+    , MaterialPending <$> genVettingKey
+    , MaterialStale <$> genVettingKey
+    , MaterialBad <$> genVettingKey <*> Gen.maybe genPlainText
+    , MaterialDeferred <$> genVettingKey <*> (renderVersion <$> genVersion)
+    , MaterialDeferredPastRevisit <$> genVettingKey <*> (renderVersion <$> genVersion) <*> (renderVersion <$> genVersion)
+    , MaterialWithoutRevisit <$> genVettingKey
     , TestWithoutRequirement <$> genUnitId <*> genWhere
     , RequirementUntested <$> genReferenceKey
     , MissingCanonicalComment <$> genUnitId <*> genWhere

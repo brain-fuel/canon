@@ -113,12 +113,14 @@ parseVerdict t = case [v | v <- [minBound .. maxBound], verdictText v == t] of
   (v : _) -> Just v
   [] -> Nothing
 
--- | A verdict with the person, time, and commit that made it, read from git. ref:DEC-comment-vetting
+-- | A verdict with the person, time, and commit that made it, read from git, and the co-authors
+-- the commit names, so an assisted sign-off is visible as such. ref:DEC-comment-vetting ref:DEC-human-sign-off
 data Assessment = Assessment
   { assessmentVerdict :: Verdict
   , assessmentBy :: Maybe Person
   , assessmentAt :: Maybe UTCTime
   , assessmentCommit :: Maybe CommitHash
+  , assessmentCoAuthors :: [Person]
   }
   deriving (Eq, Show)
 
@@ -129,10 +131,10 @@ instance FromJSON Verdict where
   parseJSON = withText "Verdict" $ \t -> maybe (fail ("unknown verdict: " ++ show t)) pure (parseVerdict t)
 
 instance ToJSON Assessment where
-  toJSON (Assessment verdict by at commit) = object ["at" .= at, "by" .= by, "commit" .= commit, "verdict" .= verdict]
+  toJSON (Assessment verdict by at commit coAuthors) = object ["at" .= at, "by" .= by, "coAuthors" .= coAuthors, "commit" .= commit, "verdict" .= verdict]
 
 instance FromJSON Assessment where
-  parseJSON = withObject "Assessment" $ \o -> Assessment <$> o .: "verdict" <*> o .:? "by" <*> o .:? "at" <*> o .:? "commit"
+  parseJSON = withObject "Assessment" $ \o -> Assessment <$> o .: "verdict" <*> o .:? "by" <*> o .:? "at" <*> o .:? "commit" <*> (fromMaybe [] <$> o .:? "coAuthors")
 
 instance (ToJSON a, ToJSON ev) => ToJSON (Answer a ev) where
   toJSON (Answer value evidence) = object ["evidence" .= evidence, "value" .= value]

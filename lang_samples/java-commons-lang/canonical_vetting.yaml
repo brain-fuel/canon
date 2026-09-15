@@ -20692,3 +20692,9 @@ decision/java/source/src/test/java/org/apache/commons/lang3/util/IterableStringT
 decision/java/source/src/test/resources/org/apache/commons/lang3/reflect/testbed9/PrivateInterfaceLabels.java/package/org.apache.commons.lang3.reflect.testbed9/interface/PrivateInterfaceLabels:
   comment: sha256:c342785af45b1b8c
   verdict: pending
+ledger/DEC-sample-scope:
+  comment: sha256:a48ced967b3ecbd8
+  verdict: pending
+registry/commons-lang:
+  comment: sha256:4ca31a3f1fbaa9aa
+  verdict: pending

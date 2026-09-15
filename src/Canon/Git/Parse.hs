@@ -7,6 +7,7 @@ module Canon.Git.Parse
   , parseBlamePorcelain
   , parseIsoTime
   , parseEpochTime
+  , trailerPersons
   ) where
 
 import Canon.Git.Commit
@@ -133,3 +134,16 @@ parseBlamePorcelain output = go (T.lines output)
         )
 
     required name = maybe (Left (GitParseError ("blame entry missing " <> name))) Right
+
+-- | The people a commit message names in Co-Authored-By trailers, so a sign-off records who
+-- assisted it. ref:DEC-human-sign-off
+trailerPersons :: Text -> [Person]
+trailerPersons message = [p | line <- T.lines message, Just p <- [trailer line]]
+  where
+    trailer line = case T.breakOn ":" line of
+      (key, rest)
+        | T.toLower (T.strip key) == "co-authored-by", not (T.null rest) -> Just (person (T.strip (T.drop 1 rest)))
+      _ -> Nothing
+    person value = case T.breakOn "<" value of
+      (name, rest) | not (T.null rest) -> Person (T.strip name) (T.strip (T.takeWhile (/= '>') (T.drop 1 rest)))
+      _ -> Person (T.strip value) ""
