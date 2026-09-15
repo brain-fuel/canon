@@ -259,8 +259,10 @@ and the first ingested under rule 7: each carries a `canonical_vetting.yaml`
 in which every Javadoc comment is `pending`, so their reports are invalid
 until a human has vetted them. Public members of classes and all members of
 interfaces require a comment; non-public members may have one. Test methods
-are public, so they count, which is recorded as an open decision in each
-sample's ledger.
+are public, so they count, and each sample's ledger records why they are
+not exempt: a test exists because of a requirement, and its canonical
+comment cites that requirement with `ref:KEY` against a registry entry of
+kind `requirement`.
 
 The Haskell grammar needs the layout rule, which upstream implements in a
 Java base lexer that injects virtual braces and semicolons into the token
@@ -399,8 +401,10 @@ that it does and that it rejects a grammar without canonical comments.
 comment required, interface members are `required` outright, and the
 `orphan` label accepts a doc comment after an annotation, before an
 initializer, before a local declaration, or one of two in a row, and reports
-it. The plain Java grammar does not yet carry a canonical comment on each of
-its own rules, which is an open decision, so the root `canon.yaml` ignores it.
+it. The plain Java grammar carries a canonical comment on every parser rule
+and non-fragment lexer rule and cites its BSD license in the header, the
+dialect carries the same comments extended where a rule gained unit labels,
+and both are checked at the root like the meta-grammar.
 
 The other language directories hold their upstream grammars with an empty
 `canonically_commented/` husk, and their samples use the line-adjacency
@@ -465,9 +469,8 @@ slash is anchored at the project root, a trailing slash matches directories
 only, `*` stays within one path segment, `**` spans segments, `?` and `[...]`
 match single characters, and a later `!` pattern re-includes what an earlier
 pattern excluded, unless a parent directory is excluded. This repository
-ignores `grammars/*/*.g4` except the ANTLR meta-grammar, and the Java dialect
-whose rules are not yet commented, so that only grammars carrying canonical
-comments are checked.
+ignores `grammars/*/*.g4` except the ANTLR meta-grammar and the Java grammar,
+so that only grammars carrying canonical comments are checked.
 
 `canon check` parses files concurrently, and caches each file's extraction
 under `.canon-cache/` in the project directory, keyed by the file's content,

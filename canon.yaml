@@ -4,7 +4,7 @@ decisions: canonical_decisions.yaml
 ignore:
   - grammars/*/*.g4
   - "!grammars/antlr4/*.g4"
-  - grammars/java/canonically_commented/
+  - "!grammars/java/*.g4"
 languages:
   antlr4:
     extensions: [.g4]

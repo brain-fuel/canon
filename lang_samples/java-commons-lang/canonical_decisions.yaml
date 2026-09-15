@@ -1,5 +1,7 @@
 DEC-sample-scope:
-  status: open
+  status: decided
   question: Public test methods are public members and so require a canonical comment under the Java dialect; is a test method public API in canon's sense, or should the dialect exempt test sources?
+  answer: |
+    Test sources are not exempt. A test's Why is the requirement it verifies, so its canonical comment cites that requirement with ref:KEY against an entry of kind requirement in this sample's registry.
   opened: 0.1.0
-  revisit: 0.2.0
+  decided: 0.1.0

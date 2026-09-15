@@ -9,6 +9,7 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- Canonical comments on every rule of the plain Java grammar and its dialect, with the BSD header citing its license, so both are checked at the root; test sources are not exempt from canonical comments, since a test's Why is the requirement it verifies
 - Java as a language: the grammars-v4 Java grammar under `grammars/java/` and its canonically commented dialect, with `required = PUBLIC` making a public member's comment required, interface members required outright, and misplaced Javadoc comments accepted as `orphan` and reported
 - Three Java sample projects as submodules, Apache Commons Lang, Joda-Time, and Gson, each ingested with every Javadoc comment pending
 - Rule 7 and `canonical_vetting.yaml`: `canon ingest` records every canonical comment as pending with a digest of its text, `canon vet` lists what needs a verdict with its text, a human sets `good`, `bad`, or `deferred` with a revisit version and commits, the assessor is the author of that commit from `git blame`, the model carries the verdict, assessor, time, and commit on each decision, and `canon check` fails on pending, stale, bad, and overdue comments and ends with `report invalid` while any are pending

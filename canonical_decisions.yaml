@@ -138,7 +138,24 @@ DEC-required-orphan-labels:
   refs: [grammars-v4]
 
 DEC-java-grammar-comments:
-  status: open
+  status: decided
   question: The plain Java grammar under grammars/java/ carries no canonical comment on its own rules, unlike the ANTLR meta-grammar; who writes those comments, and until then is it right to ignore the Java dialect at the root?
+  answer: |
+    Written on 2026-09-15: every parser rule and every non-fragment lexer rule of the plain Java grammar carries a canonical comment, and the BSD header is its file-level comment with a license citation. The dialect is generated from the plain grammar and carries the same comments, extended on the rules that gained unit labels to say what they bind. Both are checked at the root like the ANTLR meta-grammar. Fragment rules stay uncommented, as in the meta-grammar.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [grammars-v4]
+
+DEC-tests-not-exempt:
+  status: decided
+  question: Public test methods require a canonical comment under the Java dialect; should test sources be exempt?
+  answer: |
+    No. A test exists because of a particular requirement, and that requirement is its Why: the canonical comment on a test cites the requirement it verifies with ref:KEY against a registry entry of kind requirement. The samples record the same decision in their own ledgers. How canon recognises a test unit so that it can insist on a requirement citation is a separate open decision.
+  opened: 0.1.0
+  decided: 0.1.0
+
+DEC-test-requirement-check:
+  status: open
+  question: A test's canonical comment must cite the requirement it verifies; how does canon recognise a test unit in each language, given that a grammar cannot match an annotation by name, so that it can report a test whose comment cites no requirement?
   opened: 0.1.0
   revisit: 0.2.0
