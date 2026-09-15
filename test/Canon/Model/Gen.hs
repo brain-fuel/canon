@@ -279,7 +279,6 @@ genFinding =
     , DecisionKeyCollision <$> genReferenceKey
     , DecisionUnitMissing <$> genReferenceKey <*> genUnitId
     , ExtractionFailed <$> genPath <*> genPlainText
-    , ProjectUnusable <$> genPath <*> genPlainText
     , LicenseKeyNotLicense <$> genDecisionId <*> genWhere <*> genReferenceKey
     , LicenseTextWithoutKey <$> genDecisionId <*> genWhere
     ]

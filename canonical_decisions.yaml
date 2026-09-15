@@ -67,10 +67,12 @@ DEC-sample-project-readme:
   revisit: 0.2.0
 
 DEC-nested-root-check:
-  status: open
+  status: decided
   question: canon check at the repository root includes the sample projects, which are upstream code that is not canonically commented, so the root check always fails. Should nested projects be included by default, reported separately, or opted into?
+  answer: |
+    Excluded. A nested project is a boundary: the enclosing project's check stops at it, canon files lists it, and checking it is a separate run from its own directory with its own configuration, registry, ledger, and vetting file. A project answers for itself and nothing else, so the root check reports canon's own state and each sample reports its own.
   opened: 0.1.0
-  revisit: 0.2.0
+  decided: 0.1.0
 
 DEC-grammar-coverage-findings:
   status: open

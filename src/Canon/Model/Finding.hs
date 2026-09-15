@@ -26,7 +26,6 @@ data Finding
   | DecisionKeyCollision ReferenceKey
   | DecisionUnitMissing ReferenceKey UnitId
   | ExtractionFailed FilePath Text
-  | ProjectUnusable FilePath Text
   | LicenseKeyNotLicense DecisionId Where ReferenceKey
   | LicenseTextWithoutKey DecisionId Where
   | CommentPending DecisionId Where
@@ -73,7 +72,6 @@ renderFinding f = case f of
   DecisionKeyCollision k -> T.concat ["key ", referenceKeyText k, " is both a reference and a decision"]
   DecisionUnitMissing k u -> T.concat ["decision ", referenceKeyText k, " names missing unit ", renderUnitId u]
   ExtractionFailed path message -> T.concat [T.pack path, ": ", message]
-  ProjectUnusable path message -> T.concat [T.pack path, ": nested project unusable: ", message]
   LicenseKeyNotLicense d w k ->
     at (wherePath w) (whereSpan w) (T.concat [renderDecisionId d, " cites ", referenceKeyText k, " as a license but the registry entry is not a license"])
   LicenseTextWithoutKey d w ->
@@ -107,7 +105,6 @@ instance ToJSON Finding where
     DecisionKeyCollision k -> object ["key" .= k, "kind" .= ("decisionKeyCollision" :: Text)]
     DecisionUnitMissing k u -> object ["key" .= k, "kind" .= ("decisionUnitMissing" :: Text), "unit" .= u]
     ExtractionFailed path message -> object ["kind" .= ("extractionFailed" :: Text), "message" .= message, "path" .= path]
-    ProjectUnusable path message -> object ["kind" .= ("projectUnusable" :: Text), "message" .= message, "path" .= path]
     LicenseKeyNotLicense d w k -> object ["decision" .= d, "key" .= k, "kind" .= ("licenseKeyNotLicense" :: Text), "where" .= w]
     LicenseTextWithoutKey d w -> object ["decision" .= d, "kind" .= ("licenseTextWithoutKey" :: Text), "where" .= w]
     CommentPending d w -> object ["decision" .= d, "kind" .= ("commentPending" :: Text), "where" .= w]
@@ -137,7 +134,6 @@ instance FromJSON Finding where
       "decisionKeyCollision" -> DecisionKeyCollision <$> o .: "key"
       "decisionUnitMissing" -> DecisionUnitMissing <$> o .: "key" <*> o .: "unit"
       "extractionFailed" -> ExtractionFailed <$> o .: "path" <*> o .: "message"
-      "projectUnusable" -> ProjectUnusable <$> o .: "path" <*> o .: "message"
       "licenseKeyNotLicense" -> LicenseKeyNotLicense <$> o .: "decision" <*> o .: "where" <*> o .: "key"
       "licenseTextWithoutKey" -> LicenseTextWithoutKey <$> o .: "decision" <*> o .: "where"
       "commentPending" -> CommentPending <$> o .: "decision" <*> o .: "where"

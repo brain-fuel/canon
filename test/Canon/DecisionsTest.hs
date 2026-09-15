@@ -49,7 +49,7 @@ repositoryLedgerLoads = withTests 1 $ property $ do
     Right ledger -> do
       fmap entryStatus (lookupDecision (ReferenceKey "DEC-parser-foundation") ledger) === Just Decided
       fmap entryStatus (lookupDecision (ReferenceKey "DEC-precedence-climbing") ledger) === Just Decided
-      fmap entryStatus (lookupDecision (ReferenceKey "DEC-nested-root-check") ledger) === Just Open
+      fmap entryStatus (lookupDecision (ReferenceKey "DEC-comment-attachment") ledger) === Just Open
       assert (Map.size (ledgerEntries ledger) >= 8)
 
 semverPrecedence :: Property

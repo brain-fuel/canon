@@ -257,22 +257,25 @@ count. Unit ids are the language, the file path, and then kind and name at
 each level of nesting; a repeated name in one scope gets an ordinal suffix.
 
 A directory containing its own `canon.yaml` is a nested project. The walk
-stops there, and `canon check` runs it with its own configuration, registry,
-ledger, and ignore list, so one repository can hold many projects. A project
-whose sources live elsewhere, such as a git submodule, sets `root` to that
-directory.
+stops there: `canon check` in the enclosing project does not look inside it,
+and `canon files` lists it as a nested project. Checking it is a separate
+run from its own directory, with its own configuration, registry, ledger,
+vetting file, and ignore list, so one repository can hold many projects and
+each answers for itself. A project whose sources live elsewhere, such as a
+git submodule, sets `root` to that directory.
 
 `lang_samples/` holds real projects in other languages, each a nested project
 whose sources are a submodule under `source` and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
 grammars-v4, with a `canonically_commented/` dialect where one exists and an
-empty husk where it does not. Running
-`canon check` from a sample's directory checks that project; running it from
-the repository root includes every sample. The samples are upstream code that
-is not canonically commented, so those checks fail, and that is the truth
-they exist to show: every function without a canonical comment is a finding,
-and every file the upstream grammar cannot parse is one too. Run
-`git submodule update --init` after cloning to fetch them.
+empty husk where it does not. `canon check` at the repository root checks
+canon itself and leaves the samples alone; checking a sample is its own run,
+from its directory, or with `stack exec --cwd lang_samples/<sample> canon --
+check` from the root. The samples are upstream code that is not canonically
+commented, so those checks fail, and that is the truth they exist to show:
+every function without a canonical comment is a finding, and every file the
+upstream grammar cannot parse is one too. Run `git submodule update --init`
+after cloning to fetch them.
 
 | Sample | Language | Grammar |
 |--------|----------|---------|

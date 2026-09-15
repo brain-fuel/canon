@@ -120,7 +120,6 @@ checkProject project target = do
   walked <- projectFiles project target
   assessments <- projectAssessments project
   extracted <- extractAll project walked
-  nested <- concat <$> mapM checkNested (walkedProjects walked)
   let checked = map (checkExtraction project assessments) extracted
       citedSomewhere = Set.unions [c | (_, c, _, _) <- checked]
       seen = Set.unions [s | (_, _, s, _) <- checked]
@@ -135,13 +134,7 @@ checkProject project target = do
             _ -> True
         ]
       orphans = maybe [] (`orphanVerdictFindings` seen) (projectVetting project)
-  pure (nub own ++ orphans ++ nested)
-  where
-    checkNested directory = do
-      loaded <- loadProject directory
-      case loaded of
-        Left err -> pure [ProjectUnusable directory (renderProjectError err)]
-        Right nestedProject -> checkProject nestedProject Nothing
+  pure (nub own ++ orphans)
 
 resolveProfile :: Project -> Profile -> Profile
 resolveProfile project profile =
