@@ -65,6 +65,15 @@ itself.
    from the file itself. While any comment is pending, the report is invalid
    and `canon check` says so. A comment whose text changes after its verdict
    is pending again.
+8. **The name says what; the comment says why.** A unit's name is its What
+   and states the fact it establishes or the thing it does, in full words:
+   a test is named for the property it verifies, such as
+   `verifyThatGsonPackagesAreOnlyExportedButNotOpenedForReflection`, not
+   `testReflectionInternalField`. Its canonical comment is its Why and says
+   why that fact must hold, citing the requirement or decision that records
+   the reason. A comment that restates the name, such as "Verifies that X"
+   above a unit that verifies X, fulfils no purpose the name does not, and is
+   vetted `bad`. `canon` cannot judge this; the vetting human does.
 
 ## What documentation must answer
 

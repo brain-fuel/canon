@@ -2752,12 +2752,12 @@ decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedP
 decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest/method/testReflectPackage:
   comment: sha256:feceff0f4402fd6a
   verdict: pending
-decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest/method/testReflectionInternalField:
-  comment: sha256:c6cdd8a3bf539538
-  verdict: pending
 decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest/method/testStreamPackage:
   comment: sha256:c00c9fa2e288aa93
   verdict: pending
+decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest/method/verifyThatGsonPackagesAreOnlyExportedButNotOpenedForReflection:
+  comment: sha256:185a84c85e249a68
+  verdict: good
 decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ModuleTest.java/package/com.google.gson.jpms_test/class/ModuleTest:
   comment: sha256:e30f496e226a79d4
   verdict: pending

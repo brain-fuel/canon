@@ -2,3 +2,7 @@ gson:
   kind: package
   title: Gson
   locator: https://github.com/google/gson
+REQ-module-not-opened:
+  kind: requirement
+  title: Gson packages are exported but not opened, so consumers cannot reach internals through reflection on the module path
+  locator: gson/src/main/java/module-info.java

@@ -171,3 +171,11 @@ DEC-marker-label:
   opened: 0.1.0
   decided: 0.1.0
   refs: [grammars-v4]
+
+DEC-name-what-comment-why:
+  status: decided
+  question: When a test's Javadoc says what it verifies, where does the What belong and what is left for the comment?
+  answer: |
+    Rule 8. The name is the What and states the fact the unit establishes in full words, so a test is named for the property it verifies. The comment is the Why and says why that fact must hold, citing the requirement or decision that records the reason. A comment that restates the name fulfils no purpose the name does not and is vetted bad. canon cannot judge this by Rice's theorem; the vetting human does. Worked example: Gson's testReflectionInternalField became verifyThatGsonPackagesAreOnlyExportedButNotOpenedForReflection with a comment giving the reason and citing REQ-module-not-opened in the sample's registry.
+  opened: 0.1.0
+  decided: 0.1.0
