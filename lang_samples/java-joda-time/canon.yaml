@@ -1,0 +1,10 @@
+version: 0.1.0
+registry: canonical_refs.yaml
+decisions: canonical_decisions.yaml
+root: source
+languages:
+  java:
+    extensions: [.java]
+    lexer: ../../grammars/java/canonically_commented/JavaLexer.g4
+    parser: ../../grammars/java/canonically_commented/JavaParser.g4
+    start: compilationUnit

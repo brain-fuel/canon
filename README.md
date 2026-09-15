@@ -55,6 +55,16 @@ itself.
    `canon check` fails once the project version reaches it. A decided entry
    that no canonical comment cites is reported. Git supplies who opened and
    closed each decision and when.
+7. **Existing comments are vetted before they count, in `canonical_vetting.yaml`.**
+   A comment that predates `canon`, or that nobody has yet judged, is not
+   known to fulfil its purpose. `canon ingest` records every canonical comment
+   of a project as `pending`, keyed by its decision id together with a digest
+   of its text. A human reads each one and sets its verdict to `good`, `bad`,
+   or `deferred` with a `revisit` version, then commits. The assessor is the
+   author of the commit that wrote the verdict, taken from `git blame`, never
+   from the file itself. While any comment is pending, the report is invalid
+   and `canon check` says so. A comment whose text changes after its verdict
+   is pending again.
 
 ## What documentation must answer
 
@@ -99,13 +109,50 @@ serve any of them at once:
 
 A canonically commented grammar says all of this in grammar form. A lexer
 mode tokenizes the inside of a canonical comment into prose, `ref:KEY`, and
-`license:KEY`; a parser rule alternative labeled `# kind` makes each match of
-it a unit of that kind; and element labels `why`, `what`, and `how` mark the
-comment, the name, and the body. The comment is required exactly when the
-`why` element carries no optional suffix. `canon` generates the extraction
-parser from that grammar, so nothing about a language's comment placement is
-written in Haskell. The ANTLR meta-grammar is the first language done this
-way.
+`license:KEY`; a parser rule alternative labeled `# kind` that contains a
+`why` element makes each match of it a unit of that kind; and element labels
+`why`, `what`, and `how` mark the comment, the name, and the body. The
+comment is required when every `why` element of the alternative is
+mandatory, or when the match contains an element labeled `required`, which
+is how `public` makes a Java member's comment required. An element labeled
+`orphan` is a comment the grammar accepts but binds to nothing, such as a
+Javadoc comment after an annotation, and is reported. Alternative labels
+without a `why`, such as the Java grammar's own expression labels, are
+inert. `canon` generates the extraction parser from that grammar, so nothing
+about a language's comment placement is written in Haskell. The ANTLR
+meta-grammar and Java are the languages done this way.
+
+### Vetting
+
+When `canon` is introduced to an existing codebase, its comments were written
+without `canon` and may or may not answer Why. Rule 7 says none of them
+counts until a human has read it. The flow is:
+
+1. `canon ingest` extracts the project and writes `canonical_vetting.yaml`,
+   one entry per canonical comment, keyed by decision id, with the verdict
+   `pending` and a digest of the comment's text. Running it again adds only
+   comments that have no entry yet.
+2. `canon vet` lists every comment that needs a verdict, with its location
+   and its text, so a reviewer can work through them. It also lists verdicts
+   that have gone stale because the comment changed, deferrals past their
+   revisit version, and verdicts whose comment no longer exists.
+3. The reviewer edits the entry's `verdict` to `good`, `bad`, or `deferred`,
+   adds a `revisit` version to a deferral and optionally a `note`, and
+   commits. Nothing in the file names the reviewer: `canon` reads the author
+   of the commit that last touched the `verdict` line with `git blame`, and
+   the model records that person, the time, and the commit as the decision's
+   `vetting` answer with git evidence. An uncommitted verdict has no assessor
+   yet, and `canon check` says so informationally.
+4. `canon check` fails on every pending, stale, or bad comment and on a
+   deferral without a revisit version or past it, reports a deferral within
+   its window informationally, and ends with `report invalid: N canonical
+   comments pending vetting` while any are pending.
+
+A `bad` comment is a liar's comment: the fix is to rewrite it, which changes
+its digest and makes it pending, so the rewrite is vetted in turn. Once the
+file exists, a new comment without an entry is pending too, so the author of
+a new comment adds its `good` entry in the same commit and is thereby its
+assessor.
 
 Until the canonical comment grammar exists for Haskell, this repository's own
 code carries no comments at all. Languages whose dialect grammars do not exist
@@ -186,7 +233,8 @@ directory.
 `lang_samples/` holds real projects in other languages, each a nested project
 whose sources are a submodule under `source` and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
-grammars-v4, unmodified, with an empty `canonically_commented/` husk. Running
+grammars-v4, with a `canonically_commented/` dialect where one exists and an
+empty husk where it does not. Running
 `canon check` from a sample's directory checks that project; running it from
 the repository root includes every sample. The samples are upstream code that
 is not canonically commented, so those checks fail, and that is the truth
@@ -200,6 +248,19 @@ and every file the upstream grammar cannot parse is one too. Run
 | `lang_samples/clojure-hiccup` | Clojure | `grammars/clojure/Clojure.g4` |
 | `lang_samples/prolog-marelle` | Prolog | `grammars/prolog/prolog.g4` |
 | `lang_samples/haskell-tetris` | Haskell | `grammars/haskell/HaskellLexer.g4` and `HaskellParser.g4` |
+| `lang_samples/java-commons-lang` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
+| `lang_samples/java-joda-time` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
+| `lang_samples/java-gson` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
+
+The three Java samples are projects with a reputation for thorough Javadoc:
+Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked
+through a canonically commented dialect rather than a profile with `units`,
+and the first ingested under rule 7: each carries a `canonical_vetting.yaml`
+in which every Javadoc comment is `pending`, so their reports are invalid
+until a human has vetted them. Public members of classes and all members of
+interfaces require a comment; non-public members may have one. Test methods
+are public, so they count, which is recorded as an open decision in each
+sample's ledger.
 
 The Haskell grammar needs the layout rule, which upstream implements in a
 Java base lexer that injects virtual braces and semicolons into the token
@@ -238,6 +299,7 @@ canon/
 │   ├── Canon/Git/         # commits, log and blame parsing, the git provider and its shell implementation
 │   ├── Canon/Registry.hs  # canonical_refs.yaml
 │   ├── Canon/Decisions.hs # canonical_decisions.yaml
+│   ├── Canon/Vetting.hs   # canonical_vetting.yaml: verdicts, digests, assessors from git blame
 │   ├── Canon/Version.hs   # semantic versions and their precedence
 │   ├── Canon/Ignore.hs    # gitignore-style patterns
 │   ├── Canon/Walk.hs      # finds supported files and nested projects under a directory
@@ -327,6 +389,19 @@ the comment; the others allow it. Every rule in both files carries its own
 comment, so the dialect parses its own grammars, and the test suite checks
 that it does and that it rejects a grammar without canonical comments.
 
+`grammars/java/` holds the Java grammar from grammars-v4 and, under
+`canonically_commented/`, its dialect: the same `DocComment` lexer mode,
+`canonicalComment` and `docPart` rules, and labeled alternatives on
+`compilationUnit` (`# package`), `typeDeclaration`, `classBodyDeclaration`,
+`interfaceBodyDeclaration`, `annotationTypeElementDeclaration`,
+`enumConstant`, and `compactConstructorDeclaration` with `why`, `what`, and
+`how` elements. `required = PUBLIC` among a member's modifiers makes its
+comment required, interface members are `required` outright, and the
+`orphan` label accepts a doc comment after an annotation, before an
+initializer, before a local declaration, or one of two in a row, and reports
+it. The plain Java grammar does not yet carry a canonical comment on each of
+its own rules, which is an open decision, so the root `canon.yaml` ignores it.
+
 The other language directories hold their upstream grammars with an empty
 `canonically_commented/` husk, and their samples use the line-adjacency
 profile path until a dialect exists.
@@ -363,11 +438,14 @@ stack exec canon -- version
 stack exec canon -- model grammars/antlr4/ANTLRv4Parser.g4
 stack exec canon -- check grammars/antlr4/ANTLRv4Parser.g4
 stack exec canon -- parse grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4 grammars/antlr4/canonically_commented/ANTLRv4Parser.g4 grammarSpec grammars/antlr4/canonically_commented/ANTLRv4Parser.g4
+stack exec --cwd lang_samples/java-gson canon -- ingest
+stack exec --cwd lang_samples/java-gson canon -- vet
 ```
 
 `canon` is a command line tool. Running it with no arguments prints usage.
-`canon model` writes the model of a grammar file to standard output as YAML
-and any extraction findings to standard error. `canon check` prints every
+`canon model` writes the model of a file to standard output as YAML
+and any extraction findings to standard error, using the language profile
+that owns the file's extension and the project's vetting verdicts. `canon check` prints every
 finding, one per line, and exits with status 1 if there are any. Both read
 `canon.yaml` from the current directory when it exists. Who and When come from
 `git` on the path; without a repository the model is still emitted, with those
@@ -387,8 +465,9 @@ slash is anchored at the project root, a trailing slash matches directories
 only, `*` stays within one path segment, `**` spans segments, `?` and `[...]`
 match single characters, and a later `!` pattern re-includes what an earlier
 pattern excluded, unless a parent directory is excluded. This repository
-ignores `grammars/*/*.g4`, the vendored upstream grammars, so that only the
-canonically commented dialect is checked.
+ignores `grammars/*/*.g4` except the ANTLR meta-grammar, and the Java dialect
+whose rules are not yet commented, so that only grammars carrying canonical
+comments are checked.
 
 `canon check` parses files concurrently, and caches each file's extraction
 under `.canon-cache/` in the project directory, keyed by the file's content,

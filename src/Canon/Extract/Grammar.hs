@@ -14,7 +14,7 @@ import Canon.Antlr4.Comment (Comment (..))
 import Canon.Antlr4.Interpret
 import Canon.Antlr4.Lexical (lineTable, positionAt)
 import Canon.Antlr4.Parse (ParseTree (..), treeTokens)
-import Canon.Antlr4.Syntax (Alternative (..), EbnfSuffix (..), Element (..), Grammar (..), Label (..), LabeledAlternative (..), Name (..), ParserRule (..), Quantifier (OneOrMore), Rule (..))
+import Canon.Antlr4.Syntax (Alternative (..), Block (..), EbnfSuffix (..), Element (..), Grammar (..), Label (..), LabeledAlternative (..), Name (..), ParserRule (..), Quantifier (OneOrMore), Rule (..))
 import Canon.Antlr4.Token (Token (..), isEofToken)
 import Canon.Attach (attachPreceding, firstContentLine, topOfFileComment)
 import Canon.CanonicalComment (docCommentBody, parseCanonicalComment, toWhy)
@@ -32,7 +32,7 @@ import Data.List (group, sort)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
-import Data.Maybe (listToMaybe, mapMaybe)
+import Data.Maybe (isJust, listToMaybe, mapMaybe)
 import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -67,52 +67,68 @@ loadProfileInterpreter profile = case profileGrammar profile of
   CombinedGrammarFile path -> loadCombinedInterpreter path
   SplitGrammarFiles lexer parser -> loadInterpreter lexer parser
 
-extractWithProfile :: GitProvider -> Config -> Text -> Profile -> Interpreter -> FilePath -> IO (Either GrammarExtractError Extraction)
-extractWithProfile provider config language profile interpreter path =
-  TIO.readFile path >>= extractWithProfileText provider config language profile interpreter path
+extractWithProfile :: GitProvider -> Config -> Text -> Profile -> Interpreter -> FilePath -> FilePath -> IO (Either GrammarExtractError Extraction)
+extractWithProfile provider config language profile interpreter idPath path =
+  TIO.readFile path >>= extractWithProfileText provider config language profile interpreter idPath path
 
-extractWithProfileText :: GitProvider -> Config -> Text -> Profile -> Interpreter -> FilePath -> Text -> IO (Either GrammarExtractError Extraction)
-extractWithProfileText provider config language profile interpreter path source =
+extractWithProfileText :: GitProvider -> Config -> Text -> Profile -> Interpreter -> FilePath -> FilePath -> Text -> IO (Either GrammarExtractError Extraction)
+extractWithProfileText provider config language profile interpreter idPath path source =
   case interpretText interpreter (profileStart profile) path source of
     Left err -> pure (Left (GrammarInterpretError err))
-    Right tree -> case unitsFromTree language profile (alternativePlans (interpreterParser interpreter)) path source tree of
+    Right tree -> case unitsFromTree language profile (alternativePlans (interpreterParser interpreter)) idPath path source tree of
       Left err -> pure (Left err)
-      Right (root, labeled) -> do
+      Right (root, labeled, unbound) -> do
         let comments = scanCommentsWith (profileComments profile) source
             (attached, orphans) = extractDecisionsFor path source root (Set.fromList (map decisionId labeled)) comments
         (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root
         described <- either (const Nothing) id <$> describeVersion provider
         let model = Model language (configVersion config) described [unitsWithGit] (labeled ++ attached)
-        pure (Right (Extraction model ([OrphanDocComment path (locatedSpan c) | c <- orphans] ++ gitFindings)))
+        pure (Right (Extraction model (map (OrphanDocComment path) unbound ++ [OrphanDocComment path (locatedSpan c) | c <- orphans] ++ gitFindings)))
 
 alternativePlans :: Grammar Span -> Map.Map Name [Maybe AlternativePlan]
 alternativePlans grammar = Map.fromList [(parserRuleName r, map plan (toList (parserRuleAlternatives r))) | RuleParser r <- grammarRules grammar]
   where
     plan la = case labeledAlternativeLabel la of
-      Nothing -> Nothing
-      Just (Name kind) -> Just (AlternativePlan kind (any whyRequired (alternativeElements (labeledAlternativeBody la))))
-    whyRequired e = case e of
-      ElementAtom _ (Just (Label (Name "why") _)) _ suffix -> mandatory suffix
-      ElementBlock _ (Just (Label (Name "why") _)) _ suffix -> mandatory suffix
-      _ -> False
+      Just (Name kind) | whys@(_ : _) <- concatMap whyElements (alternativeElements (labeledAlternativeBody la)) -> Just (AlternativePlan kind (and whys))
+      _ -> Nothing
+    whyElements e = case e of
+      ElementAtom _ (Just (Label (Name "why") _)) _ suffix -> [mandatory suffix]
+      ElementBlock _ (Just (Label (Name "why") _)) _ suffix -> [mandatory suffix]
+      ElementBlock _ _ block _ -> concatMap (concatMap whyElements . alternativeElements) (toList (blockAlternatives block))
+      _ -> []
     mandatory suffix = case suffix of
       Nothing -> True
       Just (EbnfSuffix OneOrMore _) -> True
       Just _ -> False
 
-unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence])
-unitsFromTree language profile plans path source tree =
+unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
+unitsFromTree language profile plans idPath path source tree =
   case [i | i@(_ : _ : _) <- group (sort (map unitId (allUnits root)))] of
-    [] -> Right (root, decisions)
+    [] -> Right (root, decisions, unbound)
     duplicates -> Left (GrammarDuplicateUnitIds (map NonEmpty.head (map NonEmpty.fromList duplicates)))
   where
     evidence = DerivedFromParse path
     chars = V.fromList (T.unpack source)
     table = lineTable source
-    fileSegments = [T.pack d | d <- splitDirectories path, d /= "."]
+    fileSegments = [T.pack d | d <- splitDirectories idPath, d /= "."]
     fileId = UnitId (language :| fileSegments)
     rulesByName = Map.fromList [(unitRuleName r, r) | r <- profileUnits profile]
     (children, decisions) = collect fileId [] tree
+    unbound = map treeSpan (unboundWhys tree ++ orphansIn tree)
+    orphansIn node = case node of
+      TokenNode _ -> []
+      Labeled "orphan" inner -> [inner]
+      Labeled _ inner -> orphansIn inner
+      RuleNode _ _ ns -> concatMap orphansIn ns
+    unboundWhys node = case node of
+      TokenNode _ -> []
+      Labeled _ inner -> unboundWhys inner
+      RuleNode _ _ ns
+        | isUnitNode node && isJust (labeledText "what" node) -> concatMap unboundWhys (filter (not . isWhy) ns)
+        | otherwise -> [inner | Labeled "why" inner <- ns] ++ concatMap unboundWhys ns
+    isWhy node = case node of
+      Labeled "why" _ -> True
+      _ -> False
     root =
       CodeUnit
         { unitId = fileId
@@ -136,13 +152,13 @@ unitsFromTree language profile plans path source tree =
       TokenNode _ -> []
       Labeled _ inner -> found inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just unitName <- labeledText "what" node -> [Candidate (planKind plan) unitName (if planWhyRequired plan then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node]
+        Just plan | Just unitName <- labeledText "what" node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node]
         _ -> case Map.lookup name rulesByName of
           Just rule | accepts rule node, Just unitName <- nameOf rule node -> [Candidate (unitRuleKind rule) unitName (if unitRuleRequired rule then Required else Optional) Nothing Nothing node]
           _ -> concatMap found nodeChildren
     planFor name alternative = Map.lookup name plans >>= \alts -> listToMaybe (drop alternative alts) >>= id
     isUnitNode node = case node of
-      RuleNode name alternative _ -> maybe False (const True) (planFor name alternative) || Map.member name rulesByName
+      RuleNode name alternative _ -> isJust (planFor name alternative) || Map.member name rulesByName
       _ -> False
     labeledSubtree wanted node = listToMaybe (labeledIn node)
       where
@@ -176,6 +192,7 @@ unitsFromTree language profile plans path source tree =
                       , decisionUnits = uid :| []
                       , decisionWhy = Answer (whyFrom whyNode (slice whySpan)) (Asserted (Assertion path whySpan))
                       , decisionWhere = Where path whySpan chain Nothing
+                      , decisionVetting = Nothing
                       }
                   ]
        in ( CodeUnit
@@ -255,6 +272,7 @@ extractDecisionsFor path source root decided comments = (maybe [] (\c -> [toDeci
             , decisionUnits = unitId u :| []
             , decisionWhy = Answer (toWhy (parseCanonicalComment (commentBody (locatedValue comment)))) (Asserted (Assertion path sp))
             , decisionWhere = Where path sp (whereChain (answerValue (unitWhere u))) Nothing
+            , decisionVetting = Nothing
             }
 
 commentBody :: Comment -> Text

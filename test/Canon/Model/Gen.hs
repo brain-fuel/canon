@@ -27,6 +27,10 @@ module Canon.Model.Gen
   , genVersion
   , genDecisionEntry
   , genLedger
+  , genVerdict
+  , genAssessment
+  , genVettingEntry
+  , genVetting
   ) where
 
 import Canon.Config (Config (..))
@@ -36,8 +40,9 @@ import Canon.Model.Finding (Finding (..))
 import Canon.Git.Provider (GitError (..))
 import Canon.Git.Parse (GitParseError (..))
 import Canon.Antlr4.Syntax (Name (..))
-import Canon.Version (PreReleaseIdentifier (..), Version (..))
+import Canon.Version (PreReleaseIdentifier (..), Version (..), renderVersion)
 import Canon.Git.Gen (genCommitHash, genPerson)
+import Canon.Vetting (Vetting (..), VettingEntry (..))
 import Canon.Model
 import Canon.Registry (Reference (..), Registry (..))
 import Canon.Span
@@ -156,6 +161,19 @@ genDecisionOver known =
     <*> nonEmptyOf (Range.linear 1 2) (if null known then genUnitId else Gen.frequency [(9, Gen.element known), (1, genUnitId)])
     <*> genAnswer genWhy
     <*> genWhere
+    <*> Gen.maybe (genAnswer genAssessment)
+
+genVerdict :: Gen Verdict
+genVerdict = Gen.enumBounded
+
+genAssessment :: Gen Assessment
+genAssessment = Assessment <$> genVerdict <*> Gen.maybe genPerson <*> Gen.maybe genUTCTime <*> Gen.maybe genCommitHash
+
+genVettingEntry :: Gen VettingEntry
+genVettingEntry = VettingEntry <$> genVerdict <*> (("sha256:" <>) <$> Gen.text (Range.singleton 16) Gen.hexit) <*> Gen.maybe genVersion <*> Gen.maybe genPlainText
+
+genVetting :: Gen Vetting
+genVetting = Vetting . Map.fromList <$> Gen.list (Range.linear 0 4) ((,) <$> genDecisionId <*> genVettingEntry)
 
 genModel :: Gen (Model Evidence)
 genModel = do
@@ -178,6 +196,7 @@ genConfig :: Gen Config
 genConfig =
   Config
     <$> Gen.maybe genIdSegment
+    <*> genPath
     <*> genPath
     <*> genPath
     <*> Gen.list (Range.linear 0 3) (T.pack <$> genPath)
@@ -239,6 +258,14 @@ genFinding =
   Gen.choice
     [ UnresolvedReference <$> genDecisionId <*> genWhere <*> genReferenceKey
     , DanglingDecision <$> genDecisionId <*> genWhere <*> genUnitId
+    , CommentPending <$> genDecisionId <*> genWhere
+    , CommentStale <$> genDecisionId <*> genWhere
+    , CommentBad <$> genDecisionId <*> genWhere <*> Gen.maybe genPlainText
+    , CommentDeferred <$> genDecisionId <*> genWhere <*> (renderVersion <$> genVersion)
+    , CommentDeferredPastRevisit <$> genDecisionId <*> genWhere <*> (renderVersion <$> genVersion) <*> (renderVersion <$> genVersion)
+    , VerdictWithoutRevisit <$> genDecisionId <*> genWhere
+    , VerdictOrphan <$> genDecisionId
+    , VerdictUncommitted <$> genDecisionId
     , MissingCanonicalComment <$> genUnitId <*> genWhere
     , OrphanDocComment <$> genPath <*> genSpan
     , GitUnavailable <$> genPath <*> Gen.choice [pure GitNotFound, GitFailed <$> Gen.int (Range.linear 1 255) <*> genPlainText, GitUnparsable . GitParseError <$> genPlainText]

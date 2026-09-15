@@ -8,7 +8,16 @@ and this project adheres to
 
 ## Unreleased
 
+### Added
+- Java as a language: the grammars-v4 Java grammar under `grammars/java/` and its canonically commented dialect, with `required = PUBLIC` making a public member's comment required, interface members required outright, and misplaced Javadoc comments accepted as `orphan` and reported
+- Three Java sample projects as submodules, Apache Commons Lang, Joda-Time, and Gson, each ingested with every Javadoc comment pending
+- Rule 7 and `canonical_vetting.yaml`: `canon ingest` records every canonical comment as pending with a digest of its text, `canon vet` lists what needs a verdict with its text, a human sets `good`, `bad`, or `deferred` with a revisit version and commits, the assessor is the author of that commit from `git blame`, the model carries the verdict, assessor, time, and commit on each decision, and `canon check` fails on pending, stale, bad, and overdue comments and ends with `report invalid` while any are pending
+- The `required` and `orphan` element labels in canonically commented grammars, and the rule that only a labeled alternative containing a `why` element is a unit, so upstream alternative labels stay inert
+
 ### Fixed
+- Extraction was exponential in expression depth on the Java grammar because every labeled expression alternative was scanned as a possible unit; the check of one 170-line test file took minutes and now takes a fraction of a second
+- `canon check` bounds the number of files extracted at once to the core count instead of starting every file concurrently
+- Unit ids are relative to the project directory rather than the working directory, so verdicts and ledger unit names mean the same thing wherever `canon` is run
 - An uncited decided decision is reported once per project, when no file in the project cites it, instead of per file that happens not to
 
 ### Changed

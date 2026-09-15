@@ -5,6 +5,7 @@ module Canon.Config
   , configFileName
   , defaultRegistryFileName
   , defaultDecisionsFileName
+  , defaultVettingFileName
   , readConfigFile
   , loadConfig
   , renderConfigError
@@ -24,6 +25,7 @@ data Config = Config
   { configVersion :: Maybe Text
   , configRegistry :: FilePath
   , configDecisions :: FilePath
+  , configVetting :: FilePath
   , configIgnore :: [Text]
   , configRoot :: FilePath
   , configLanguages :: Map Text Profile
@@ -42,8 +44,11 @@ defaultRegistryFileName = "canonical_refs.yaml"
 defaultDecisionsFileName :: FilePath
 defaultDecisionsFileName = "canonical_decisions.yaml"
 
+defaultVettingFileName :: FilePath
+defaultVettingFileName = "canonical_vetting.yaml"
+
 defaultConfig :: Config
-defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName [] "." Map.empty
+defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName defaultVettingFileName [] "." Map.empty
 
 readConfigFile :: FilePath -> IO (Either ConfigError Config)
 readConfigFile path = do
@@ -59,9 +64,10 @@ renderConfigError :: ConfigError -> Text
 renderConfigError (ConfigUnreadable path message) = T.concat [T.pack path, ": ", message]
 
 instance ToJSON Config where
-  toJSON (Config version registry decisions ignore root languages) =
+  toJSON (Config version registry decisions vetting ignore root languages) =
     object
       [ "decisions" .= decisions
+      , "vetting" .= vetting
       , "ignore" .= ignore
       , "languages" .= languages
       , "registry" .= registry
@@ -75,6 +81,7 @@ instance FromJSON Config where
       <$> o .:? "version"
       <*> (fromMaybe defaultRegistryFileName <$> o .:? "registry")
       <*> (fromMaybe defaultDecisionsFileName <$> o .:? "decisions")
+      <*> (fromMaybe defaultVettingFileName <$> o .:? "vetting")
       <*> (fromMaybe [] <$> o .:? "ignore")
       <*> (fromMaybe "." <$> o .:? "root")
       <*> (fromMaybe Map.empty <$> o .:? "languages")

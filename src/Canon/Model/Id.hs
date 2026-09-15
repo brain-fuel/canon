@@ -84,6 +84,12 @@ instance ToJSON ReferenceKey where
 instance FromJSON ReferenceKey where
   parseJSON = withText "ReferenceKey" parseKey
 
+instance ToJSONKey DecisionId where
+  toJSONKey = toJSONKeyText renderDecisionId
+
+instance FromJSONKey DecisionId where
+  fromJSONKey = FromJSONKeyTextParser (\t -> maybe (fail ("invalid decision id: " ++ T.unpack t)) pure (parseDecisionId t))
+
 instance ToJSONKey ReferenceKey where
   toJSONKey = toJSONKeyText referenceKeyText
 

@@ -1,0 +1,4 @@
+gson:
+  kind: package
+  title: Gson
+  locator: https://github.com/google/gson

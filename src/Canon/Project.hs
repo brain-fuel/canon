@@ -5,6 +5,9 @@ module Canon.Project
   , projectFiles
   , checkProject
   , extractFile
+  , projectAssessments
+  , ingestProject
+  , vetProject
   , renderProjectError
   , resolvePath
   ) where
@@ -16,7 +19,10 @@ import Canon.Version (canonVersion)
 import Canon.Decisions
 import Canon.Extract.Grammar
 import Canon.Git.Shell (runGit, shellGitProvider)
+import Control.Concurrent (getNumCapabilities)
 import Control.Concurrent.Async (mapConcurrently)
+import Control.Concurrent.QSem (newQSem, signalQSem, waitQSem)
+import Control.Exception (bracket_)
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.Text.Encoding as TE
 import System.FilePath (takeDirectory)
@@ -28,25 +34,29 @@ import qualified Data.Set as Set
 import Canon.Model.Yaml (encodeSorted)
 import Canon.Profile
 import Canon.Registry
+import Canon.Vetting
+import qualified Data.Text.IO as TIO
 import Canon.Walk
 import Data.List (nub)
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
 import System.Directory (doesDirectoryExist, doesFileExist)
-import System.FilePath (normalise, (</>))
+import System.FilePath (makeRelative, normalise, (</>))
 
 data Project = Project
   { projectDirectory :: FilePath
   , projectConfig :: Config
   , projectRegistry :: Registry
   , projectLedger :: Ledger
+  , projectVetting :: Maybe Vetting
   }
 
 data ProjectError
   = ProjectConfigError ConfigError
   | ProjectRegistryError RegistryError
   | ProjectLedgerError LedgerError
+  | ProjectVettingError VettingError
   deriving (Eq, Show)
 
 renderProjectError :: ProjectError -> Text
@@ -54,6 +64,7 @@ renderProjectError e = case e of
   ProjectConfigError err -> renderConfigError err
   ProjectRegistryError err -> renderRegistryError err
   ProjectLedgerError err -> renderLedgerError err
+  ProjectVettingError err -> renderVettingError err
 
 resolvePath :: Project -> FilePath -> FilePath
 resolvePath project path = normalise (projectDirectory project </> path)
@@ -68,7 +79,23 @@ loadProject directory = do
     Right config -> do
       registry <- loadOptional (directory </> configRegistry config) (configRegistry config == defaultRegistryFileName) emptyRegistry readRegistryFile ProjectRegistryError
       ledger <- loadOptional (directory </> configDecisions config) (configDecisions config == defaultDecisionsFileName) emptyLedger readLedgerFile ProjectLedgerError
-      pure (Project directory config <$> registry <*> ledger)
+      vetting <- loadVetting (directory </> configVetting config) (configVetting config == defaultVettingFileName)
+      pure (Project directory config <$> registry <*> ledger <*> vetting)
+
+loadVetting :: FilePath -> Bool -> IO (Either ProjectError (Maybe Vetting))
+loadVetting path isDefault = do
+  present <- doesFileExist path
+  if present
+    then either (Left . ProjectVettingError) (Right . Just) <$> readVettingFile path
+    else pure (if isDefault then Right Nothing else Left (ProjectVettingError (VettingUnreadable path "file not found")))
+
+projectAssessments :: Project -> IO (Map.Map DecisionId (Answer Assessment Evidence))
+projectAssessments project = case projectVetting project of
+  Nothing -> pure Map.empty
+  Just vetting -> do
+    let path = resolvePath project (configVetting (projectConfig project))
+    source <- TIO.readFile path
+    assess shellGitProvider path source vetting
 
 loadOptional :: FilePath -> Bool -> a -> (FilePath -> IO (Either e a)) -> (e -> ProjectError) -> IO (Either ProjectError a)
 loadOptional path isDefault empty reader wrap = do
@@ -91,15 +118,15 @@ projectFiles project target = do
 checkProject :: Project -> Maybe FilePath -> IO [Finding]
 checkProject project target = do
   walked <- projectFiles project target
-  let config = projectConfig project
-  interpreters <- mapM (\(lang, profile) -> (,) lang <$> loadProfileInterpreter (resolveProfile project profile)) (Map.toList (configLanguages config))
-  grammarBytes <- Map.fromList <$> mapM (\(lang, profile) -> (,) lang <$> profileBytes (resolveProfile project profile)) (Map.toList (configLanguages config))
-  projectParts <- projectCacheParts project
-  checked <- mapConcurrently (checkFile project (Map.fromList interpreters) grammarBytes projectParts) (walkedFiles walked)
+  assessments <- projectAssessments project
+  extracted <- extractAll project walked
   nested <- concat <$> mapM checkNested (walkedProjects walked)
-  let citedSomewhere = Set.unions (map snd checked)
-      own = [f | f <- concatMap fst checked, case f of DecisionUncited k -> not (Set.member k citedSomewhere); _ -> True]
-  pure (nub own ++ nested)
+  let checked = map (checkExtraction project assessments) extracted
+      citedSomewhere = Set.unions [c | (_, c, _) <- checked]
+      seen = Set.unions [s | (_, _, s) <- checked]
+      own = [f | (fs, _, _) <- checked, f <- fs, case f of DecisionUncited k -> not (Set.member k citedSomewhere); _ -> True]
+      orphans = maybe [] (`orphanVerdictFindings` seen) (projectVetting project)
+  pure (nub own ++ orphans ++ nested)
   where
     checkNested directory = do
       loaded <- loadProject directory
@@ -141,6 +168,49 @@ projectCacheParts project = do
         ]
     )
 
+extractAll :: Project -> Walked -> IO [(FilePath, Either Text Extraction)]
+extractAll project walked = do
+  let config = projectConfig project
+  interpreters <- mapM (\(lang, profile) -> (,) lang <$> loadProfileInterpreter (resolveProfile project profile)) (Map.toList (configLanguages config))
+  grammarBytes <- Map.fromList <$> mapM (\(lang, profile) -> (,) lang <$> profileBytes (resolveProfile project profile)) (Map.toList (configLanguages config))
+  projectParts <- projectCacheParts project
+  workers <- getNumCapabilities
+  slots <- newQSem (max 1 workers)
+  mapConcurrently (\path -> (,) path <$> bracket_ (waitQSem slots) (signalQSem slots) (extractCached project (Map.fromList interpreters) grammarBytes projectParts path)) (walkedFiles walked)
+
+ingestProject :: Project -> IO (Either Text (FilePath, Int, [DecisionId]))
+ingestProject project = do
+  walked <- projectFiles project Nothing
+  extracted <- extractAll project walked
+  let decisions = concat [modelDecisions (extractionModel e) | (_, Right e) <- extracted]
+      failures = [T.concat [T.pack failed, ": ", message] | (failed, Left message) <- extracted]
+      existing = maybe emptyVetting id (projectVetting project)
+      (updated, fresh) = ingest existing decisions
+      path = resolvePath project (configVetting (projectConfig project))
+  case failures of
+    [] -> writeVettingFile path updated >> pure (Right (path, Map.size (vettingEntries updated), fresh))
+    _ -> pure (Left (T.intercalate "\n" ("ingest refused because some files could not be extracted:" : failures)))
+
+vetProject :: Project -> IO [(Finding, Maybe (Decision Evidence))]
+vetProject project = do
+  walked <- projectFiles project Nothing
+  assessments <- projectAssessments project
+  extracted <- extractAll project walked
+  let decisions = Map.fromList [(decisionId d, d) | (_, Right e) <- extracted, d <- modelDecisions (extractionModel e)]
+      findings = concat [fs | (fs, _, _) <- map (checkExtraction project assessments) extracted] ++ maybe [] (`orphanVerdictFindings` Map.keysSet decisions) (projectVetting project)
+  pure [(f, decisionOf f >>= (`Map.lookup` decisions)) | f <- findings, attention f]
+  where
+    decisionOf f = case f of
+      CommentPending d _ -> Just d
+      CommentStale d _ -> Just d
+      CommentDeferredPastRevisit d _ _ _ -> Just d
+      VerdictWithoutRevisit d _ -> Just d
+      VerdictOrphan d -> Just d
+      _ -> Nothing
+
+idPathOf :: Project -> FilePath -> FilePath
+idPathOf project path = makeRelative (normalise (projectDirectory project)) (normalise path)
+
 extractFile :: Project -> FilePath -> IO (Either Text Extraction)
 extractFile project path = do
   let config = projectConfig project
@@ -150,10 +220,10 @@ extractFile project path = do
       loaded <- loadProfileInterpreter (resolveProfile project profile)
       case loaded of
         Left err -> pure (Left (renderInterpretError err))
-        Right interpreter -> either (Left . renderGrammarExtractError) Right <$> extractWithProfile shellGitProvider config lang profile interpreter path
+        Right interpreter -> either (Left . renderGrammarExtractError) Right <$> extractWithProfile shellGitProvider config lang profile interpreter (idPathOf project path) path
 
-checkFile :: Project -> Map.Map Text (Either InterpretError Interpreter) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> FilePath -> IO ([Finding], Set.Set ReferenceKey)
-checkFile project interpreters grammarBytes projectParts path = do
+extractCached :: Project -> Map.Map Text (Either InterpretError Interpreter) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> FilePath -> IO (Either Text Extraction)
+extractCached project interpreters grammarBytes projectParts path = do
   let config = projectConfig project
       profileFor = profileForPath (configLanguages config) path
   content <- LBS.readFile path
@@ -170,23 +240,29 @@ checkFile project interpreters grammarBytes projectParts path = do
                  ]
           )
   cached <- lookupCached (projectDirectory project) key
-  extraction <- case cached of
+  case cached of
     Just hit -> pure (Right hit)
     Nothing -> do
       fresh <- case profileFor of
         Just (lang, profile) -> case Map.lookup lang interpreters of
           Just (Right interpreter) ->
             either (Left . renderGrammarExtractError) Right
-              <$> extractWithProfile shellGitProvider config lang profile interpreter path
+              <$> extractWithProfile shellGitProvider config lang profile interpreter (idPathOf project path) path
           Just (Left err) -> pure (Left (renderInterpretError err))
           Nothing -> pure (Left "no interpreter for language")
         Nothing -> pure (Left "no language profile matches this path")
       either (const (pure ())) (storeCached (projectDirectory project) key) fresh
       pure fresh
-  case extraction of
-    Left message -> pure ([ExtractionFailed path message], Set.empty)
-    Right (Extraction model findings) ->
-      pure
-        ( findings ++ checkAll (configVersion config) (projectRegistry project) (projectLedger project) model
-        , Set.fromList (concatMap (whyReferences . answerValue . decisionWhy) (modelDecisions model))
-        )
+
+checkExtraction :: Project -> Map.Map DecisionId (Answer Assessment Evidence) -> (FilePath, Either Text Extraction) -> ([Finding], Set.Set ReferenceKey, Set.Set DecisionId)
+checkExtraction project assessments (path, extraction) = case extraction of
+  Left message -> ([ExtractionFailed path message], Set.empty, Set.empty)
+  Right (Extraction model findings) ->
+    ( findings
+        ++ checkAll (configVersion config) (projectRegistry project) (projectLedger project) model
+        ++ maybe [] (\v -> vettingFindings (configVersion config) v assessments model) (projectVetting project)
+    , Set.fromList (concatMap (whyReferences . answerValue . decisionWhy) (modelDecisions model))
+    , Set.fromList (map decisionId (modelDecisions model))
+    )
+  where
+    config = projectConfig project

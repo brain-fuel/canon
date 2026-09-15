@@ -1,0 +1,5 @@
+DEC-sample-scope:
+  status: open
+  question: Public test methods are public members and so require a canonical comment under the Java dialect; is a test method public API in canon's sense, or should the dialect exempt test sources?
+  opened: 0.1.0
+  revisit: 0.2.0

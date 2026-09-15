@@ -9,12 +9,16 @@ module Canon.Model.Answer
   , Who (..)
   , Change (..)
   , When (..)
+  , Verdict (..)
+  , Assessment (..)
+  , verdictText
+  , parseVerdict
   ) where
 
 import Canon.Git.Commit (CommitHash, Person)
 import Canon.Model.Id (ReferenceKey)
 import Canon.Span (Span)
-import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
+import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, withText, (.:), (.:?), (.=))
 import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import Data.Time (UTCTime)
@@ -78,6 +82,41 @@ data When = When
   , whenIntroducedIn :: Maybe Text
   }
   deriving (Eq, Show)
+
+data Verdict = Pending | Good | Bad | Deferred
+  deriving (Eq, Ord, Show, Enum, Bounded)
+
+verdictText :: Verdict -> Text
+verdictText v = case v of
+  Pending -> "pending"
+  Good -> "good"
+  Bad -> "bad"
+  Deferred -> "deferred"
+
+parseVerdict :: Text -> Maybe Verdict
+parseVerdict t = case [v | v <- [minBound .. maxBound], verdictText v == t] of
+  (v : _) -> Just v
+  [] -> Nothing
+
+data Assessment = Assessment
+  { assessmentVerdict :: Verdict
+  , assessmentBy :: Maybe Person
+  , assessmentAt :: Maybe UTCTime
+  , assessmentCommit :: Maybe CommitHash
+  }
+  deriving (Eq, Show)
+
+instance ToJSON Verdict where
+  toJSON = toJSON . verdictText
+
+instance FromJSON Verdict where
+  parseJSON = withText "Verdict" $ \t -> maybe (fail ("unknown verdict: " ++ show t)) pure (parseVerdict t)
+
+instance ToJSON Assessment where
+  toJSON (Assessment verdict by at commit) = object ["at" .= at, "by" .= by, "commit" .= commit, "verdict" .= verdict]
+
+instance FromJSON Assessment where
+  parseJSON = withObject "Assessment" $ \o -> Assessment <$> o .: "verdict" <*> o .:? "by" <*> o .:? "at" <*> o .:? "commit"
 
 instance (ToJSON a, ToJSON ev) => ToJSON (Answer a ev) where
   toJSON (Answer value evidence) = object ["evidence" .= evidence, "value" .= value]

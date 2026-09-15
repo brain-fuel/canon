@@ -17,6 +17,7 @@ import qualified Canon.Model.CheckTest
 import qualified Canon.Git.ParseTest
 import qualified Canon.Model.YamlTest
 import qualified Canon.RegistryTest
+import qualified Canon.VettingTest
 import qualified CanonTest
 import Test.Tasty (defaultMain, testGroup)
 
@@ -34,7 +35,7 @@ main =
             , Canon.Antlr4.QueryTest.tests
             , Canon.Antlr4.RuleGraphTest.tests
             , Canon.Model.YamlTest.tests
-            , Canon.RegistryTest.tests
+            , Canon.RegistryTest.tests, Canon.VettingTest.tests
             , Canon.Git.ParseTest.tests
             , Canon.CanonicalCommentTest.tests
             , Canon.AttachTest.tests

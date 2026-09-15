@@ -15,8 +15,9 @@ import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (Config (..), defaultDecisionsFileName, loadConfig, renderConfigError)
 import Canon.Decisions
 import Canon.Extract.Grammar (Extraction (..))
-import Canon.Model.Finding (Finding, Severity (..), findingSeverity, renderFinding)
-import Canon.Model.Id (ReferenceKey (..), renderUnitId)
+import Canon.Model
+import Canon.Vetting (applyAssessments)
+import Canon.Model.Finding (Finding (..), Severity (..), findingSeverity, renderFinding)
 import Canon.Model.Yaml (encodeModel)
 import Canon.Project
 import Canon.Version (canonVersion, renderVersion)
@@ -41,6 +42,8 @@ data Command
   | CommandParse FilePath FilePath Text FilePath
   | CommandParseCombined FilePath Text FilePath
   | CommandDecisions
+  | CommandIngest
+  | CommandVet
   | CommandUsage
   deriving (Eq, Show)
 
@@ -58,6 +61,8 @@ parseCommand arguments = case arguments of
   ["parse", lexer, parser, start, path] -> CommandParse lexer parser (T.pack start) path
   ["parse", grammar, start, path] -> CommandParseCombined grammar (T.pack start) path
   ["decisions"] -> CommandDecisions
+  ["ingest"] -> CommandIngest
+  ["vet"] -> CommandVet
   _ -> CommandUsage
 
 dispatch :: [String] -> String
@@ -72,12 +77,14 @@ usage =
     , ""
     , "Usage:"
     , "  canon version"
-    , "  canon model <grammar.g4>                              emit the canonical model as YAML"
+    , "  canon model <file>                                    emit the canonical model of a file as YAML"
     , "  canon check [<file or directory>]                     report findings for the file, or every supported file under the directory or the current one, and fail if any is failing"
     , "  canon files [<directory>]                             list the supported files check would visit"
     , "  canon parse <lexer.g4> <parser.g4> <rule> <file>      parse a file with an interpreted grammar pair"
     , "  canon parse <grammar.g4> <rule> <file>                parse a file with an interpreted combined grammar"
     , "  canon decisions                                       list the decision ledger, open decisions first"
+    , "  canon ingest                                          record every canonical comment of the project as pending in the vetting file"
+    , "  canon vet                                             list the canonical comments that need a human verdict, with their text"
     ]
 
 runCanon :: IO ()
@@ -92,13 +99,28 @@ runCommand command = case command of
     case extracted of
       Left err -> report err >> pure (ExitFailure 1)
       Right extraction -> do
+        assessments <- projectAssessments project
         mapM_ (report . renderFinding) (extractionFindings extraction)
-        BS.putStr (encodeModel (extractionModel extraction))
+        BS.putStr (encodeModel (applyAssessments assessments (extractionModel extraction)))
         pure ExitSuccess
   CommandCheck target -> withProject $ \project -> do
     findings <- checkProject project target
     mapM_ (TIO.putStrLn . renderWithSeverity) findings
+    let pending = length [() | f <- findings, isPending f]
+    if pending > 0 then TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " canonical comments pending vetting"]) else pure ()
     pure (if any ((== Failing) . findingSeverity) findings then ExitFailure 1 else ExitSuccess)
+  CommandIngest -> withProject $ \project -> do
+    result <- ingestProject project
+    case result of
+      Left err -> report err >> pure (ExitFailure 1)
+      Right (path, total, fresh) -> do
+        putStrLn (path ++ ": " ++ show (length fresh) ++ " canonical comments recorded as pending, " ++ show total ++ " entries in total")
+        pure ExitSuccess
+  CommandVet -> withProject $ \project -> do
+    items <- vetProject project
+    mapM_ (TIO.putStr . renderAttention) items
+    TIO.putStrLn (T.pack (show (length items)) <> " canonical comments need a verdict")
+    pure (if null items then ExitSuccess else ExitFailure 1)
   CommandFiles target -> withProject $ \project -> do
     walked <- projectFiles project target
     mapM_ putStrLn (walkedFiles walked)
@@ -111,6 +133,19 @@ runCommand command = case command of
     case loaded of
       Left err -> report err >> pure (ExitFailure 1)
       Right ledger -> TIO.putStr (renderLedger ledger) >> pure ExitSuccess
+
+isPending :: Finding -> Bool
+isPending f = case f of
+  CommentPending {} -> True
+  CommentStale {} -> True
+  _ -> False
+
+renderAttention :: (Finding, Maybe (Decision Evidence)) -> Text
+renderAttention (f, decision) =
+  T.concat
+    ( [renderFinding f, "\n"]
+        ++ maybe [] (\d -> ["    " <> T.intercalate "\n    " (T.lines (whyText (answerValue (decisionWhy d)))), "\n"]) decision
+    )
 
 renderWithSeverity :: Finding -> Text
 renderWithSeverity f = case findingSeverity f of

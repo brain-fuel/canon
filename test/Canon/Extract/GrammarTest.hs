@@ -34,6 +34,7 @@ tests =
     , testProperty "the lexer meta-grammar yields modes with nested rules and optional fragments" lexerUnits
     , testProperty "the license header binds to the grammar unit" fileLevelLicense
     , testProperty "the dialect grammar's extraction rules are labeled alternatives" dialectPlans
+    , testProperty "the java dialect marks public members required and misplaced comments orphan" javaDialect
     ]
 
 dialectDir :: FilePath
@@ -67,7 +68,7 @@ interpreterOrFail = do
 extractOrFail :: [Commit] -> FilePath -> PropertyT IO Extraction
 extractOrFail commits path = do
   interpreter <- interpreterOrFail
-  result <- evalIO (extractWithProfile (staticGitProvider commits) defaultConfig "antlr4" antlrProfile interpreter path)
+  result <- evalIO (extractWithProfile (staticGitProvider commits) defaultConfig "antlr4" antlrProfile interpreter path path)
   case result of
     Left err -> annotate (T.unpack (renderGrammarExtractError err)) >> failure
     Right extraction -> pure extraction
@@ -75,7 +76,7 @@ extractOrFail commits path = do
 extractTextOrFail :: FilePath -> Text -> PropertyT IO Extraction
 extractTextOrFail path source = do
   interpreter <- interpreterOrFail
-  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "antlr4" antlrProfile interpreter path source)
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "antlr4" antlrProfile interpreter path path source)
   case result of
     Left err -> annotate (T.unpack (renderGrammarExtractError err)) >> failure
     Right extraction -> pure extraction
@@ -179,3 +180,49 @@ dialectPlans = withTests 1 $ property $ do
   Map.lookup (Name "lexerRuleSpec") plans === Just [Just (AlternativePlan "fragmentRule" False), Just (AlternativePlan "lexerRule" True)]
   Map.lookup (Name "modeSpec") plans === Just [Just (AlternativePlan "lexerMode" False)]
   Map.lookup (Name "ruleSpec") plans === Just [Nothing, Nothing]
+
+javaProfile :: Profile
+javaProfile = Profile [".java"] (SplitGrammarFiles "grammars/java/canonically_commented/JavaLexer.g4" "grammars/java/canonically_commented/JavaParser.g4") (Name "compilationUnit") [] defaultCommentSyntax
+
+javaDialect :: Property
+javaDialect = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter javaProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "package p;"
+          , "/** Doc for A. ref:some-key */"
+          , "public class A {"
+          , "  /** Field. */"
+          , "  public int f;"
+          , "  private int g;"
+          , "  /** Extra. */"
+          , "  /** Method. */"
+          , "  public void m() { int local = 1; }"
+          , "  @Deprecated /** Misplaced. */ public void n() {}"
+          , "  /** Init. */"
+          , "  static { }"
+          , "}"
+          , "interface I { /** Constant. */ int C = 1; void k(); }"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "java" javaProfile interpreter "A.java" "A.java" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  let units = modelAllUnits model
+      byName n = [u | u <- units, whatName (answerValue (unitWhat u)) == n]
+      requirementOf n = map unitRequirement (byName n)
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- byName n, d <- decisionsFor (unitId u) model]
+  map kindOf (filter ((/= "file") . kindOf) units) === ["package", "class", "field", "field", "method", "method", "interface", "constant", "method"]
+  requirementOf "A" === [Required]
+  requirementOf "f" === [Required]
+  requirementOf "g" === [Optional]
+  requirementOf "n" === [Required]
+  requirementOf "C" === [Required]
+  requirementOf "k" === [Required]
+  requirementOf "I" === [Optional]
+  whyOf "A" === ["Doc for A. ref:some-key"]
+  whyOf "m" === ["Method."]
+  whyOf "n" === []
+  whyOf "C" === ["Constant."]
+  map (whyReferences . answerValue . decisionWhy) [d | u <- byName "A", d <- decisionsFor (unitId u) model] === [[ReferenceKey "some-key"]]
+  length [() | OrphanDocComment _ _ <- findings] === 3
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["java/A.java/package/p/class/A/method/n", "java/A.java/package/p/interface/I/method/k"]

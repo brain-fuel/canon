@@ -10,3 +10,12 @@
 [submodule "lang_samples/haskell-tetris/source"]
 	path = lang_samples/haskell-tetris/source
 	url = https://github.com/samtay/tetris.git
+[submodule "lang_samples/java-commons-lang/source"]
+	path = lang_samples/java-commons-lang/source
+	url = https://github.com/apache/commons-lang.git
+[submodule "lang_samples/java-joda-time/source"]
+	path = lang_samples/java-joda-time/source
+	url = https://github.com/JodaOrg/joda-time.git
+[submodule "lang_samples/java-gson/source"]
+	path = lang_samples/java-gson/source
+	url = https://github.com/google/gson.git

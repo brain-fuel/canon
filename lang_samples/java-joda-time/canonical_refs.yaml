@@ -1,0 +1,4 @@
+joda-time:
+  kind: package
+  title: Joda-Time
+  locator: https://github.com/JodaOrg/joda-time

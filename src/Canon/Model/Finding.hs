@@ -9,7 +9,7 @@ import Canon.Git.Provider (GitError, renderGitError)
 import Canon.Model.Answer (Where (..))
 import Canon.Model.Id
 import Canon.Span (Position (..), Span (..))
-import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.=))
+import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
 import Data.Text (Text)
 import qualified Data.Text as T
 
@@ -29,6 +29,14 @@ data Finding
   | ProjectUnusable FilePath Text
   | LicenseKeyNotLicense DecisionId Where ReferenceKey
   | LicenseTextWithoutKey DecisionId Where
+  | CommentPending DecisionId Where
+  | CommentStale DecisionId Where
+  | CommentBad DecisionId Where (Maybe Text)
+  | CommentDeferred DecisionId Where Text
+  | CommentDeferredPastRevisit DecisionId Where Text Text
+  | VerdictWithoutRevisit DecisionId Where
+  | VerdictOrphan DecisionId
+  | VerdictUncommitted DecisionId
   deriving (Eq, Show)
 
 data Severity = Failing | Informational
@@ -39,6 +47,8 @@ findingSeverity f = case f of
   DecisionUncited _ -> Informational
   DecisionCitedWhileOpen {} -> Informational
   LicenseTextWithoutKey {} -> Informational
+  CommentDeferred {} -> Informational
+  VerdictUncommitted _ -> Informational
   _ -> Failing
 
 renderFinding :: Finding -> Text
@@ -66,6 +76,15 @@ renderFinding f = case f of
     at (wherePath w) (whereSpan w) (T.concat [renderDecisionId d, " cites ", referenceKeyText k, " as a license but the registry entry is not a license"])
   LicenseTextWithoutKey d w ->
     at (wherePath w) (whereSpan w) (renderDecisionId d <> " reads like a license or copyright notice but cites no license key")
+  CommentPending d w -> at (wherePath w) (whereSpan w) (renderDecisionId d <> " is pending vetting")
+  CommentStale d w -> at (wherePath w) (whereSpan w) (renderDecisionId d <> " changed since its verdict and is pending vetting again")
+  CommentBad d w note -> at (wherePath w) (whereSpan w) (T.concat [renderDecisionId d, " was vetted bad", maybe "" (": " <>) note])
+  CommentDeferred d w revisit -> at (wherePath w) (whereSpan w) (T.concat [renderDecisionId d, " is deferred until ", revisit])
+  CommentDeferredPastRevisit d w revisit current ->
+    at (wherePath w) (whereSpan w) (T.concat [renderDecisionId d, " is deferred past its revisit version ", revisit, " at version ", current])
+  VerdictWithoutRevisit d w -> at (wherePath w) (whereSpan w) (renderDecisionId d <> " is deferred without a revisit version")
+  VerdictOrphan d -> T.concat ["verdict for ", renderDecisionId d, " names a canonical comment that no longer exists"]
+  VerdictUncommitted d -> T.concat ["verdict for ", renderDecisionId d, " is not committed, so its assessor is unknown"]
   where
     at path (Span (Position line column) _) message =
       T.concat [T.pack path, ":", T.pack (show line), ":", T.pack (show column), ": ", message]
@@ -87,6 +106,14 @@ instance ToJSON Finding where
     ProjectUnusable path message -> object ["kind" .= ("projectUnusable" :: Text), "message" .= message, "path" .= path]
     LicenseKeyNotLicense d w k -> object ["decision" .= d, "key" .= k, "kind" .= ("licenseKeyNotLicense" :: Text), "where" .= w]
     LicenseTextWithoutKey d w -> object ["decision" .= d, "kind" .= ("licenseTextWithoutKey" :: Text), "where" .= w]
+    CommentPending d w -> object ["decision" .= d, "kind" .= ("commentPending" :: Text), "where" .= w]
+    CommentStale d w -> object ["decision" .= d, "kind" .= ("commentStale" :: Text), "where" .= w]
+    CommentBad d w note -> object ["decision" .= d, "kind" .= ("commentBad" :: Text), "note" .= note, "where" .= w]
+    CommentDeferred d w revisit -> object ["decision" .= d, "kind" .= ("commentDeferred" :: Text), "revisit" .= revisit, "where" .= w]
+    CommentDeferredPastRevisit d w revisit current -> object ["current" .= current, "decision" .= d, "kind" .= ("commentDeferredPastRevisit" :: Text), "revisit" .= revisit, "where" .= w]
+    VerdictWithoutRevisit d w -> object ["decision" .= d, "kind" .= ("verdictWithoutRevisit" :: Text), "where" .= w]
+    VerdictOrphan d -> object ["decision" .= d, "kind" .= ("verdictOrphan" :: Text)]
+    VerdictUncommitted d -> object ["decision" .= d, "kind" .= ("verdictUncommitted" :: Text)]
 
 instance FromJSON Finding where
   parseJSON = withObject "Finding" $ \o -> do
@@ -107,4 +134,12 @@ instance FromJSON Finding where
       "projectUnusable" -> ProjectUnusable <$> o .: "path" <*> o .: "message"
       "licenseKeyNotLicense" -> LicenseKeyNotLicense <$> o .: "decision" <*> o .: "where" <*> o .: "key"
       "licenseTextWithoutKey" -> LicenseTextWithoutKey <$> o .: "decision" <*> o .: "where"
+      "commentPending" -> CommentPending <$> o .: "decision" <*> o .: "where"
+      "commentStale" -> CommentStale <$> o .: "decision" <*> o .: "where"
+      "commentBad" -> CommentBad <$> o .: "decision" <*> o .: "where" <*> o .:? "note"
+      "commentDeferred" -> CommentDeferred <$> o .: "decision" <*> o .: "where" <*> o .: "revisit"
+      "commentDeferredPastRevisit" -> CommentDeferredPastRevisit <$> o .: "decision" <*> o .: "where" <*> o .: "revisit" <*> o .: "current"
+      "verdictWithoutRevisit" -> VerdictWithoutRevisit <$> o .: "decision" <*> o .: "where"
+      "verdictOrphan" -> VerdictOrphan <$> o .: "decision"
+      "verdictUncommitted" -> VerdictUncommitted <$> o .: "decision"
       _ -> fail ("unknown finding kind: " ++ T.unpack kind)

@@ -119,3 +119,26 @@ DEC-grammar-carries-extraction-rules:
   opened: 0.1.0
   decided: 0.1.0
   refs: [grammars-v4]
+
+DEC-comment-vetting:
+  status: decided
+  question: When canon is introduced to an existing codebase, how does an existing comment become trusted, who judges it, and what happens while it is unjudged?
+  answer: |
+    Rule 7. Every canonical comment gets an entry in canonical_vetting.yaml keyed by its decision id, holding a verdict and a digest of the comment text. canon ingest writes pending entries for every comment without one. A human sets good, bad, or deferred with a revisit version, and commits; the assessor is the author of the commit that last touched the verdict line, read with git blame, so the file never names a person and cannot lie about one. Pending is a state, but an invalid one for the report: canon check fails every pending, stale, bad, or overdue comment and prints that the report is invalid while any comment is pending. A verdict applies to the digested text only, so a rewritten comment is pending again, and a comment without an entry is pending once the file exists, which makes the author of a new comment its first assessor.
+  opened: 0.1.0
+  decided: 0.1.0
+
+DEC-required-orphan-labels:
+  status: decided
+  question: How does a canonically commented grammar say that a comment is required only under some condition, such as Java's public modifier, and how does it accept a doc comment it does not bind?
+  answer: |
+    Two more element labels. A match containing an element labeled required has a required comment, so the Java dialect writes required = PUBLIC among a member's modifiers and required = interfaceMethodDeclaration for interface members. An element labeled orphan is a comment the grammar accepts but binds to nothing; the extractor reports it as an orphan doc comment. An alternative is a unit alternative only when its label comes with a why element, so upstream labels such as Java's expression alternatives are inert; without that rule the extractor treated every expression as a possible unit and was exponential in nesting depth.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [grammars-v4]
+
+DEC-java-grammar-comments:
+  status: open
+  question: The plain Java grammar under grammars/java/ carries no canonical comment on its own rules, unlike the ANTLR meta-grammar; who writes those comments, and until then is it right to ignore the Java dialect at the root?
+  opened: 0.1.0
+  revisit: 0.2.0
