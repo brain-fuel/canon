@@ -1,4 +1,4 @@
-/*
+/**
  * [The "BSD license"]
  *  Copyright (c) 2012-2015 Terence Parr
  *  Copyright (c) 2012-2015 Sam Harwell
@@ -27,8 +27,10 @@
  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  *  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *  license:BSD-3-Clause
  */
-/**
+/*
  *	A grammar for ANTLR v4 implemented using v4 syntax
  *
  *	Modified 2015.06.16 gbr
@@ -99,14 +101,17 @@ channels {
 // -------------------------
 // Comments
 
+/** A comment opened with a slash and two stars, on the comment channel like every other comment. The canonically commented dialect tokenizes its contents instead. ref:DEC-grammar-carries-extraction-rules */
 DOC_COMMENT
     : '/**' .*? ('*/' | EOF) -> channel (COMMENT)
     ;
 
+/** A comment opened with a slash and one star. It ends at the closer or at end of input, and goes to the comment channel. */
 BLOCK_COMMENT
     : '/*' .*? ('*/' | EOF) -> channel (COMMENT)
     ;
 
+/** A comment from two slashes to the end of the line, on the comment channel. */
 LINE_COMMENT
     : '//' ~ [\r\n]* -> channel (COMMENT)
     ;
@@ -114,6 +119,7 @@ LINE_COMMENT
 // -------------------------
 // Integer
 
+/** A decimal integer without leading zeros, used in options and element options. */
 INT
     : '0'
     | [1-9] [0-9]*
@@ -126,10 +132,12 @@ INT
 // multi-character string. All literals are single quote delimited and
 // may contain unicode escape sequences of the form \uxxxx, where x
 // is a valid hexadecimal number (per Unicode standard).
+/** A single-quoted literal with escapes, closed on the same line. */
 STRING_LITERAL
     : '\'' (ESC_SEQUENCE | ~ ['\r\n\\])* '\''
     ;
 
+/** A single-quoted literal that reaches the end of its line unclosed, kept as its own token so the error is reported precisely. */
 UNTERMINATED_STRING_LITERAL
     : '\'' (ESC_SEQUENCE | ~ ['\r\n\\])*
     ;
@@ -140,6 +148,7 @@ UNTERMINATED_STRING_LITERAL
 // Certain argument lists, such as those specifying call parameters
 // to a rule invocation, or input parameters to a rule specification
 // are contained within square brackets.
+/** An opening square bracket. Its action asks the adaptor whether this begins an argument block or a lexer character set, which depends on the enclosing rule kind. */
 BEGIN_ARGUMENT
     : '[' { this.handleBeginArgument(); }
     ;
@@ -150,6 +159,7 @@ BEGIN_ARGUMENT
 // literal string representation in the target language. We assume
 // that they are delimited by ' or " and so consume these
 // in their own alts so as not to inadvertently match {}.
+/** A brace-delimited block of target code with nested braces, strings, and comments balanced. */
 ACTION
     : NESTED_ACTION
     ;
@@ -182,70 +192,87 @@ fragment NESTED_ACTION
 // but only when followed by '{', and considered as a single token.
 // Otherwise, the symbols are tokenized as RULE_REF and allowed as
 // an identifier in a labeledElement.
+/** The options keyword together with its opening brace, so that options alone remains an ordinary identifier. */
 OPTIONS
     : 'options' WS* '{'
     ;
 
+/** The tokens keyword together with its opening brace, so that tokens alone remains an ordinary identifier. */
 TOKENS
     : 'tokens' WS* '{'
     ;
 
+/** The channels keyword together with its opening brace, so that channels alone remains an ordinary identifier. */
 CHANNELS
     : 'channels' WS* '{'
     ;
 
+/** The import keyword. */
 IMPORT
     : 'import'
     ;
 
+/** The fragment keyword, which marks a helper lexer rule. */
 FRAGMENT
     : 'fragment'
     ;
 
+/** The lexer keyword. */
 LEXER
     : 'lexer'
     ;
 
+/** The parser keyword. */
 PARSER
     : 'parser'
     ;
 
+/** The grammar keyword. */
 GRAMMAR
     : 'grammar'
     ;
 
+/** The protected modifier. */
 PROTECTED
     : 'protected'
     ;
 
+/** The public modifier. */
 PUBLIC
     : 'public'
     ;
 
+/** The private modifier. */
 PRIVATE
     : 'private'
     ;
 
+/** The returns keyword. */
 RETURNS
     : 'returns'
     ;
 
+/** The locals keyword. */
 LOCALS
     : 'locals'
     ;
 
+/** The throws keyword. */
 THROWS
     : 'throws'
     ;
 
+/** The catch keyword. */
 CATCH
     : 'catch'
     ;
 
+/** The finally keyword. */
 FINALLY
     : 'finally'
     ;
 
+/** The mode keyword. */
 MODE
     : 'mode'
     ;
@@ -253,90 +280,112 @@ MODE
 // -------------------------
 // Punctuation
 
+/** Separates a rule's header from its body. */
 COLON
     : ':'
     ;
 
+/** Separates a named action's scope from its name. */
 COLONCOLON
     : '::'
     ;
 
+/** Separates list items. */
 COMMA
     : ','
     ;
 
+/** Ends a rule, an option, an import list, or a mode declaration. */
 SEMI
     : ';'
     ;
 
+/** Opens a block. */
 LPAREN
     : '('
     ;
 
+/** Closes a block. */
 RPAREN
     : ')'
     ;
 
+/** Closes an options, tokens, or channels block. The opening brace is part of the keyword token. */
 RBRACE
     : '}'
     ;
 
+/** Introduces lexer commands. */
 RARROW
     : '->'
     ;
 
+/** Opens element options. */
 LT
     : '<'
     ;
 
+/** Closes element options. */
 GT
     : '>'
     ;
 
+/** Assigns a value to an option or binds a label. */
 ASSIGN
     : '='
     ;
 
+/** Marks an element optional, a loop non-greedy, or an action as a predicate. */
 QUESTION
     : '?'
     ;
 
+/** Marks zero or more repetitions. */
 STAR
     : '*'
     ;
 
+/** Binds a list label. */
 PLUS_ASSIGN
     : '+='
     ;
 
+/** Marks one or more repetitions. */
 PLUS
     : '+'
     ;
 
+/** Separates alternatives. */
 OR
     : '|'
     ;
 
+/** Reserved by ANTLR for attribute references inside actions. */
 DOLLAR
     : '$'
     ;
 
+/** Joins the two ends of a character range. */
 RANGE
     : '..'
     ;
 
+/** The wildcard, and the separator in dotted names. */
 DOT
     : '.'
     ;
 
+/** Introduces a named action or a rule action. */
 AT
     : '@'
     ;
 
+/** Introduces an alternative label. */
 POUND
     : '#'
     ;
 
+/** Negates a set. */
 NOT
     : '~'
     ;
@@ -344,6 +393,7 @@ NOT
 // -------------------------
 // Identifiers - allows unicode rule/token names
 
+/** An identifier. The adaptor retypes it to a token reference or a rule reference by the case of its first letter. */
 ID
     : NameStartChar NameChar*
     ;
@@ -351,6 +401,7 @@ ID
 // -------------------------
 // Whitespace
 
+/** Whitespace, sent off channel. */
 WS
     : [ \t\r\n\f]+ -> channel (OFF_CHANNEL)
     ;
@@ -362,31 +413,38 @@ WS
 mode Argument;
 
 // E.g., [int x, List<String> a[]]
+/** An opening bracket inside an argument block, which nests one level deeper. */
 NESTED_ARGUMENT
     : '[' -> type (ARGUMENT_CONTENT), pushMode (Argument)
     ;
 
+/** A backslash escape inside an argument block. */
 ARGUMENT_ESCAPE
     : '\\' . -> type (ARGUMENT_CONTENT)
     ;
 
+/** A double-quoted string inside an argument block, kept whole so a bracket inside it does not close the block. */
 ARGUMENT_STRING_LITERAL
     : DoubleQuoteLiteral -> type (ARGUMENT_CONTENT)
     ;
 
+/** A single-quoted literal inside an argument block, kept whole for the same reason as strings. */
 ARGUMENT_CHAR_LITERAL
     : STRING_LITERAL -> type (ARGUMENT_CONTENT)
     ;
 
+/** A closing bracket. Its action pops the mode and, if still nested, keeps the token as argument content. */
 END_ARGUMENT
     : ']' { this.handleEndArgument(); }
     ;
 
 // added this to return non-EOF token type here. EOF does something weird
+/** End of input inside an argument block, which pops the mode so lexing can finish. */
 UNTERMINATED_ARGUMENT
     : EOF -> popMode
     ;
 
+/** Any other character inside an argument block. */
 ARGUMENT_CONTENT
     : .
     ;
@@ -394,14 +452,17 @@ ARGUMENT_CONTENT
 // -------------------------
 mode LexerCharSet;
 
+/** The characters of a character set, accumulated with more until the closing bracket. */
 LEXER_CHAR_SET_BODY
     : (~ [\]\\] | '\\' .)+ -> more
     ;
 
+/** The closing bracket of a character set, which emits the whole set as one token. */
 LEXER_CHAR_SET
     : ']' -> popMode
     ;
 
+/** End of input inside a character set, which pops the mode so lexing can finish. */
 UNTERMINATED_CHAR_SET
     : EOF -> popMode
     ;

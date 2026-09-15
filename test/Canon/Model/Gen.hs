@@ -29,7 +29,7 @@ module Canon.Model.Gen
   , genLedger
   ) where
 
-import Canon.Config (CanonicalGrammar (..), Config (..))
+import Canon.Config (Config (..))
 import Canon.Decisions (DecisionEntry (..), DecisionStatus (..), Ledger (..))
 import Canon.Profile
 import Canon.Model.Finding (Finding (..))
@@ -180,7 +180,6 @@ genConfig =
     <$> Gen.maybe genIdSegment
     <*> genPath
     <*> genPath
-    <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> (CanonicalGrammar <$> genPath <*> genPath <*> genIdSegment)))
     <*> Gen.list (Range.linear 0 3) (T.pack <$> genPath)
     <*> genPath
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> genProfile))
@@ -243,8 +242,6 @@ genFinding =
     , MissingCanonicalComment <$> genUnitId <*> genWhere
     , OrphanDocComment <$> genPath <*> genSpan
     , GitUnavailable <$> genPath <*> Gen.choice [pure GitNotFound, GitFailed <$> Gen.int (Range.linear 1 255) <*> genPlainText, GitUnparsable . GitParseError <$> genPlainText]
-    , NotCanonical <$> genPath <*> genPosition <*> genPlainText
-    , CanonicalGrammarUnusable <$> genPath <*> genPlainText
     , DecisionPastRevisit <$> genReferenceKey <*> genIdSegment <*> genIdSegment
     , DecisionUncited <$> genReferenceKey
     , DecisionSuccessorNotDecided <$> genReferenceKey <*> genReferenceKey

@@ -1,10 +1,12 @@
 version: 0.1.0
 registry: canonical_refs.yaml
 decisions: canonical_decisions.yaml
-canonical:
+ignore:
+  - grammars/*/*.g4
+  - "!grammars/antlr4/*.g4"
+languages:
   antlr4:
+    extensions: [.g4]
     lexer: grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4
     parser: grammars/antlr4/canonically_commented/ANTLRv4Parser.g4
     start: grammarSpec
-ignore:
-  - grammars/*/*.g4

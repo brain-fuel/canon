@@ -19,8 +19,6 @@ data Finding
   | MissingCanonicalComment UnitId Where
   | OrphanDocComment FilePath Span
   | GitUnavailable FilePath GitError
-  | NotCanonical FilePath Position Text
-  | CanonicalGrammarUnusable FilePath Text
   | DecisionPastRevisit ReferenceKey Text Text
   | DecisionUncited ReferenceKey
   | DecisionSuccessorNotDecided ReferenceKey ReferenceKey
@@ -53,8 +51,6 @@ renderFinding f = case f of
     at (wherePath w) (whereSpan w) ("missing canonical comment on " <> renderUnitId u)
   OrphanDocComment path sp -> at path sp "doc comment is not attached to any unit"
   GitUnavailable path err -> T.concat [T.pack path, ": ", renderGitError err]
-  NotCanonical path pos message -> at path (Span pos pos) ("not canonically commented: " <> message)
-  CanonicalGrammarUnusable path message -> T.concat [T.pack path, ": canonical grammar unusable: ", message]
   DecisionPastRevisit k revisit current ->
     T.concat ["decision ", referenceKeyText k, " is open past its revisit version ", revisit, " at version ", current]
   DecisionUncited k -> T.concat ["decision ", referenceKeyText k, " is decided but no canonical comment cites it"]
@@ -81,8 +77,6 @@ instance ToJSON Finding where
     MissingCanonicalComment u w -> object ["kind" .= ("missingCanonicalComment" :: Text), "unit" .= u, "where" .= w]
     OrphanDocComment path sp -> object ["kind" .= ("orphanDocComment" :: Text), "path" .= path, "span" .= sp]
     GitUnavailable path err -> object ["error" .= err, "kind" .= ("gitUnavailable" :: Text), "path" .= path]
-    NotCanonical path pos message -> object ["kind" .= ("notCanonical" :: Text), "message" .= message, "path" .= path, "position" .= pos]
-    CanonicalGrammarUnusable path message -> object ["kind" .= ("canonicalGrammarUnusable" :: Text), "message" .= message, "path" .= path]
     DecisionPastRevisit k revisit current -> object ["current" .= current, "key" .= k, "kind" .= ("decisionPastRevisit" :: Text), "revisit" .= revisit]
     DecisionUncited k -> object ["key" .= k, "kind" .= ("decisionUncited" :: Text)]
     DecisionSuccessorNotDecided k by -> object ["by" .= by, "key" .= k, "kind" .= ("decisionSuccessorNotDecided" :: Text)]
@@ -103,8 +97,6 @@ instance FromJSON Finding where
       "missingCanonicalComment" -> MissingCanonicalComment <$> o .: "unit" <*> o .: "where"
       "orphanDocComment" -> OrphanDocComment <$> o .: "path" <*> o .: "span"
       "gitUnavailable" -> GitUnavailable <$> o .: "path" <*> o .: "error"
-      "notCanonical" -> NotCanonical <$> o .: "path" <*> o .: "position" <*> o .: "message"
-      "canonicalGrammarUnusable" -> CanonicalGrammarUnusable <$> o .: "path" <*> o .: "message"
       "decisionPastRevisit" -> DecisionPastRevisit <$> o .: "key" <*> o .: "revisit" <*> o .: "current"
       "decisionUncited" -> DecisionUncited <$> o .: "key"
       "decisionSuccessorNotDecided" -> DecisionSuccessorNotDecided <$> o .: "key" <*> o .: "by"

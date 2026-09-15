@@ -51,14 +51,14 @@ options {
 }
 
 // The main entry point for parsing a v4 grammar.
-/** A grammar file is an optional file-level doc comment, one declaration, any prequel constructs, the rules, then any lexer modes, up to end of input, so a single parse covers the whole file. The file-level comment is where a license lives. ref:grammars-v4 ref:DEC-comment-reasons */
+/** A grammar file is an optional file-level canonical comment, one declaration, any prequel constructs, the rules, then any lexer modes, up to end of input. The grammar is a unit whose What is its name and whose Why is the file-level comment, where a license lives. ref:grammars-v4 ref:DEC-grammar-carries-extraction-rules */
 grammarSpec
-    : DOC_COMMENT? grammarDecl prequelConstruct* rules modeSpec* EOF
+    : why = canonicalComment? grammarDecl prequelConstruct* rules modeSpec* EOF # grammarDefinition
     ;
 
 /** Names the grammar and says whether it is a lexer, parser, or combined grammar, which decides which rule kinds are allowed in it. */
 grammarDecl
-    : grammarType identifier SEMI
+    : grammarType what = identifier SEMI
     ;
 
 /** The three grammar kinds ANTLR distinguishes: lexer only, parser only, or combined. */
@@ -162,7 +162,7 @@ argActionBlock
 
 /** A lexer mode: a name followed by the lexer rules that are active only in that mode. */
 modeSpec
-    : MODE identifier SEMI lexerRuleSpec*
+    : why = canonicalComment? MODE what = identifier SEMI lexerRuleSpec* # lexerMode
     ;
 
 /** The rule section, which may be empty. */
@@ -176,10 +176,10 @@ ruleSpec
     | lexerRuleSpec
     ;
 
-/** A parser rule: modifiers, name, arguments, returns, throws, locals, prequels, the alternatives, and exception handlers. The canonical dialect requires a doc comment before every parser rule. ref:canon-provisional-syntax ref:DEC-canonical-antlr4-dialect */
+/** A parser rule: modifiers, name, arguments, returns, throws, locals, prequels, the alternatives, and exception handlers. The canonically commented dialect requires a canonical comment before every parser rule. ref:DEC-grammar-carries-extraction-rules */
 parserRuleSpec
-    : DOC_COMMENT ruleModifiers? RULE_REF argActionBlock? ruleReturns? throwsSpec? localsSpec? rulePrequel* COLON ruleBlock SEMI
-        exceptionGroup
+    : why = canonicalComment ruleModifiers? what = RULE_REF argActionBlock? ruleReturns? throwsSpec? localsSpec? rulePrequel* COLON how = ruleBlock SEMI
+        exceptionGroup # parserRule
     ;
 
 /** Optional catch handlers and a finally clause after a parser rule, mirroring the target language's exception handling. */
@@ -263,10 +263,10 @@ labeledAlt
 // --------------------
 // Lexer rules
 
-/** A lexer rule: an optional fragment marker, the name, options, and the alternatives. The canonical dialect requires a doc comment before every non-fragment lexer rule and allows one before a fragment. ref:canon-provisional-syntax ref:DEC-canonical-antlr4-dialect */
+/** A lexer rule: an optional fragment marker, the name, options, and the alternatives. The canonically commented dialect requires a canonical comment before every non-fragment lexer rule and allows one before a fragment. ref:DEC-grammar-carries-extraction-rules */
 lexerRuleSpec
-    : DOC_COMMENT? FRAGMENT TOKEN_REF optionsSpec? COLON lexerRuleBlock SEMI
-    | DOC_COMMENT TOKEN_REF optionsSpec? COLON lexerRuleBlock SEMI
+    : why = canonicalComment? FRAGMENT what = TOKEN_REF optionsSpec? COLON how = lexerRuleBlock SEMI # fragmentRule
+    | why = canonicalComment what = TOKEN_REF optionsSpec? COLON how = lexerRuleBlock SEMI # lexerRule
     ;
 
 /** The body of a lexer rule. */
@@ -482,4 +482,17 @@ identifier
 /** A dotted name, used in options and in imports. */
 qualifiedIdentifier
     : identifier (DOT identifier)*
+    ;
+
+/** A canonical comment: the Why of the unit it precedes, holding prose, reference citations, and license citations between its delimiters. ref:DEC-comment-reasons ref:DEC-grammar-carries-extraction-rules */
+canonicalComment
+    : DocOpen docPart* DocClose
+    ;
+
+/** One piece of a canonical comment: a reference citation, a license citation, or prose. ref:DEC-grammar-carries-extraction-rules */
+docPart
+    : ref = DocRef
+    | license = DocLicense
+    | DocWord
+    | DocPunct
     ;

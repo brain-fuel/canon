@@ -14,8 +14,7 @@ import Canon.Antlr4.Parse (renderParseTree)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (Config (..), defaultDecisionsFileName, loadConfig, renderConfigError)
 import Canon.Decisions
-import Canon.Extract.Antlr4 (Extraction (..), extractGrammarModel, renderExtractError)
-import Canon.Git.Shell (shellGitProvider)
+import Canon.Extract.Grammar (Extraction (..))
 import Canon.Model.Finding (Finding, Severity (..), findingSeverity, renderFinding)
 import Canon.Model.Id (ReferenceKey (..), renderUnitId)
 import Canon.Model.Yaml (encodeModel)
@@ -88,10 +87,14 @@ runCommand :: Command -> IO ExitCode
 runCommand command = case command of
   CommandVersion -> putStrLn version >> pure ExitSuccess
   CommandUsage -> putStr usage >> pure ExitSuccess
-  CommandModel path -> withExtraction path $ \_ extraction -> do
-    mapM_ (report . renderFinding) (extractionFindings extraction)
-    BS.putStr (encodeModel (extractionModel extraction))
-    pure ExitSuccess
+  CommandModel path -> withProject $ \project -> do
+    extracted <- extractFile project path
+    case extracted of
+      Left err -> report err >> pure (ExitFailure 1)
+      Right extraction -> do
+        mapM_ (report . renderFinding) (extractionFindings extraction)
+        BS.putStr (encodeModel (extractionModel extraction))
+        pure ExitSuccess
   CommandCheck target -> withProject $ \project -> do
     findings <- checkProject project target
     mapM_ (TIO.putStrLn . renderWithSeverity) findings
@@ -157,13 +160,6 @@ withProject continue = do
   case loaded of
     Left err -> report (renderProjectError err) >> pure (ExitFailure 1)
     Right project -> continue project
-
-withExtraction :: FilePath -> (Config -> Extraction -> IO ExitCode) -> IO ExitCode
-withExtraction path continue = withConfig $ \config -> do
-  extracted <- extractGrammarModel shellGitProvider config path
-  case extracted of
-    Left err -> report (renderExtractError err) >> pure (ExitFailure 1)
-    Right extraction -> continue config extraction
 
 loadLedger :: Config -> IO (Either Text Ledger)
 loadLedger config = do

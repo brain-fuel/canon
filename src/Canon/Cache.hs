@@ -6,7 +6,7 @@ module Canon.Cache
   , storeCached
   ) where
 
-import Canon.Extract.Antlr4 (Extraction (..))
+import Canon.Extract.Grammar (Extraction (..))
 import Canon.Model (schemaVersion)
 import Canon.Model.Yaml (decodeSorted, encodeSorted)
 import Control.Exception (IOException, try)

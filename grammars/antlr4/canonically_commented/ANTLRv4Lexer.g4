@@ -101,14 +101,14 @@ channels {
 // -------------------------
 // Comments
 
-/** A comment opened with a slash and two stars. The canonical dialect keeps it on the default channel so the parser can require one before a rule. ref:canon-provisional-syntax ref:DEC-canonical-antlr4-dialect */
-DOC_COMMENT
-    : '/**' .*? ('*/' | EOF)
+/** A comment opened with a slash and two stars is a canonical comment. Its contents are tokenized in the DocComment mode so the parser can read the Why, the references, and the licenses. ref:DEC-grammar-carries-extraction-rules */
+DocOpen
+    : '/**' -> pushMode (DocComment)
     ;
 
 /** A comment opened with a slash and one star. It ends at the closer or at end of input, and goes to the comment channel. */
 BLOCK_COMMENT
-    : '/*' .*? ('*/' | EOF) -> channel (COMMENT)
+    : '/*' ~ [*] .*? ('*/' | EOF) -> channel (COMMENT)
     ;
 
 /** A comment from two slashes to the end of the line, on the comment channel. */
@@ -521,4 +521,45 @@ fragment NameStartChar
     | '\uF900' .. '\uFDCF'
     | '\uFDF0' .. '\uFFFD'
     // ignores | ['\u10000-'\uEFFFF]
+    ;
+
+mode DocComment;
+
+/** Closes a canonical comment and returns to the enclosing mode. ref:DEC-grammar-carries-extraction-rules */
+DocClose
+    : '*/' -> popMode
+    ;
+
+/** A citation of a registry reference inside a canonical comment. ref:DEC-grammar-carries-extraction-rules */
+DocRef
+    : 'ref:' DocKey
+    ;
+
+/** A citation of a registry license inside a canonical comment. ref:DEC-grammar-carries-extraction-rules */
+DocLicense
+    : 'license:' DocKey
+    ;
+
+/** A decorative star at the start of a comment line, dropped from the prose. ref:DEC-grammar-carries-extraction-rules */
+DocStar
+    : '*' -> skip
+    ;
+
+/** Whitespace inside a canonical comment. ref:DEC-grammar-carries-extraction-rules */
+DocWs
+    : [ \t\r\n]+ -> skip
+    ;
+
+/** Punctuation inside a canonical comment, kept separate so a citation followed by a comma is still a citation. ref:DEC-grammar-carries-extraction-rules */
+DocPunct
+    : [,.;:()!?[\]{}"'`<>=+]
+    ;
+
+/** A word of prose inside a canonical comment. ref:DEC-grammar-carries-extraction-rules */
+DocWord
+    : ~ [ \t\r\n*,.;:()!?[\]{}"'`<>=+]+
+    ;
+
+fragment DocKey
+    : [A-Za-z0-9] ([A-Za-z0-9._-]* [A-Za-z0-9])?
     ;

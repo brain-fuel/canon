@@ -5,7 +5,6 @@ import Canon.Antlr4.Interpret (loadCombinedInterpreter)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.CommentScan (scanCommentsWith)
 import Canon.Config (defaultConfig)
-import Canon.Extract.Antlr4 (Extraction (..))
 import Canon.Extract.Grammar
 import Canon.Git.Provider (staticGitProvider)
 import Canon.Model

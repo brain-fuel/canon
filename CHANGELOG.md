@@ -8,7 +8,11 @@ and this project adheres to
 
 ## Unreleased
 
+### Fixed
+- An uncited decided decision is reported once per project, when no file in the project cites it, instead of per file that happens not to
+
 ### Changed
+- The canonically commented grammar carries the extraction rules: a `DocComment` lexer mode tokenizes canonical comments, and labeled alternatives with `why`, `what`, and `how` elements name unit kinds and locate the answers, so `canon` generates the parser that slurps the five W's and the H from the grammar instead of a hand-written extractor; the plain meta-grammar files are now the language's own grammar with canonical comments on every unit, the `canonical` entry in `canon.yaml` and the hand-written ANTLR extractor are gone, `canon model` goes through the language profile, and unit ids for grammars are file-path based like every other language
 - Versions follow Semantic Versioning 2.0.0 rather than the Haskell Package Versioning Policy; the released version is 0.1.0, decision entries and `canon.yaml` use three-part versions, and pre-release labels order as the specification says
 
 ### Changed

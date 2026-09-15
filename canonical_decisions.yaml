@@ -14,7 +14,8 @@ DEC-parser-foundation:
   refs: [grampa-2017, warth-2008, antlr-haskell, grammars-v4]
 
 DEC-canonical-antlr4-dialect:
-  status: decided
+  status: superseded
+  by: DEC-grammar-carries-extraction-rules
   question: What does the canonically commented dialect of the ANTLR meta-grammar look like?
   answer: |
     Three changes to the upstream meta-grammar: doc comments stay on the default channel, a parser rule must be preceded by a doc comment, and a non-fragment lexer rule must be preceded by one while a fragment may be. Every rule in both dialect files carries a doc comment, so the dialect parses its own grammars and rejects the upstream file.
@@ -109,3 +110,12 @@ DEC-comment-reasons:
     Three reasons: Why, a reason in prose; Ref, a pointer into the registry written ref:KEY; and License, a pointer to a registry entry of kind license written license:KEY. A doc comment at the top of a file, on its first non-blank line, is the file-level canonical comment and binds to the file unit, which for a grammar is the grammar itself. A comment that reads like a license or copyright notice but cites no license key is reported informationally, and a license key that resolves to a non-license registry entry fails the check. The canonically commented meta-grammar allows a doc comment before the grammar declaration for this purpose, and its own files carry their BSD notice there.
   opened: 0.1.0
   decided: 0.1.0
+
+DEC-grammar-carries-extraction-rules:
+  status: decided
+  question: Where do the rules for slurping the five W's and the H out of a canonically commented file live, and what is the difference between a language's plain grammar and its canonically commented grammar?
+  answer: |
+    In the canonically commented grammar. The plain files under grammars/<lang>/ are the language's own grammar, with its rules as upstream publishes them, carrying a canonical comment on every unit the language requires one on. The files under grammars/<lang>/canonically_commented/ are the plain grammar plus the rules that define canonical comments and locate the answers: a canonical comment is tokenized in its own lexer mode into prose, ref:KEY citations, and license:KEY citations, and a parser rule alternative labeled with a hash names a unit kind, with element labels why, what, and how marking the comment, the name, and the body. canon generates the extraction parser from that grammar, so a unit is any node whose alternative is labeled, its What is the what-labeled text, its Why is the why-labeled comment, its How is the how-labeled span or the whole node, and the comment is required exactly when the why element has no optional suffix. The ANTLR meta-grammar is the first language done this way: grammarDefinition, parserRule, lexerRule, fragmentRule, and lexerMode are its unit kinds. The hand-written ANTLR extractor and the separate canonical grammar entry in canon.yaml were removed; the line-adjacency profile path remains for languages whose dialect grammars do not exist yet.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [grammars-v4]

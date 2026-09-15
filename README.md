@@ -97,12 +97,22 @@ serve any of them at once:
 - Where a comment may attach, and at what granularity, is defined by the
   canonically commented grammar of each language.
 
+A canonically commented grammar says all of this in grammar form. A lexer
+mode tokenizes the inside of a canonical comment into prose, `ref:KEY`, and
+`license:KEY`; a parser rule alternative labeled `# kind` makes each match of
+it a unit of that kind; and element labels `why`, `what`, and `how` mark the
+comment, the name, and the body. The comment is required exactly when the
+`why` element carries no optional suffix. `canon` generates the extraction
+parser from that grammar, so nothing about a language's comment placement is
+written in Haskell. The ANTLR meta-grammar is the first language done this
+way.
+
 Until the canonical comment grammar exists for Haskell, this repository's own
-code carries no comments at all. A provisional syntax, recorded in
-`to_be_removed/provisional_canonical_comment_syntax.md`, is used for ANTLR
-grammar files in the meantime: a doc comment on the line directly above a rule
-is its canonical comment, its body is the "Why?", and tokens of the form
-`ref:KEY` and `license:KEY` cite the registry.
+code carries no comments at all. Languages whose dialect grammars do not exist
+yet fall back to the provisional line-adjacency rule recorded in
+`to_be_removed/provisional_canonical_comment_syntax.md`: a doc comment on the
+line directly above a unit named by the language profile is its canonical
+comment.
 
 ## The model
 
@@ -110,7 +120,8 @@ is its canonical comment, its body is the "Why?", and tokens of the form
 and a `schemaVersion`. The model has two kinds of entity, linked by identity:
 
 - A **code unit** is a node in a tree of facts derived from the code. It has a
-  stable, path-based id such as `grammar/ANTLRv4Parser/rule/grammarSpec`, and
+  stable, path-based id such as
+  `antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/grammarSpec`, and
   answers What (name and kind), How (body), and Where (path, span, and the
   chain of enclosing units). When git is available it also answers Who
   (authors and committers with their commits) and When (first and last change,
@@ -197,9 +208,11 @@ selected by the grammar's `superClass` option like the meta-grammar's own
 adaptor. Where the upstream base lexer gets layout wrong, the port does too,
 and the file is reported as unparsable rather than parsed differently.
 
-ANTLR grammar files are the first language `canon` models. Each grammar is a
-unit, each rule is a child unit, and each mode groups its rules. Every parser
-rule and every non-fragment lexer rule requires a canonical comment.
+ANTLR grammar files are the first language `canon` models, through the
+`antlr4` profile in this repository's `canon.yaml`, which names the
+canonically commented meta-grammar. Each grammar definition is a unit, each
+rule is a child unit, and each lexer mode groups its rules. Every parser rule
+and every non-fragment lexer rule requires a canonical comment.
 
 ## Directory layout
 
@@ -236,8 +249,7 @@ canon/
 │   ├── Canon/Extract/Grammar.hs  # builds the model of any file through its language profile
 │   ├── Canon/Config.hs    # canon.yaml
 │   ├── Canon/Attach.hs    # binds a comment to the unit directly below it
-│   ├── Canon/CanonicalComment.hs  # provisional canonical comment syntax
-│   ├── Canon/Extract/Antlr4.hs    # builds the model of a grammar file
+│   ├── Canon/CanonicalComment.hs  # comment body normalisation and key extraction
 │   └── Canon/Antlr4/      # reads .g4 grammars into a queryable representation
 │       ├── Syntax.hs      # the grammar representation
 │       ├── Lexical.hs     # scanners for literals, actions, arguments, char sets, comments
@@ -274,14 +286,17 @@ canon/
 Holds one subdirectory per language that `canon` can read. Each language
 directory contains two grammars:
 
-- The grammar files at the top of the directory are the official ANTLR4
-  grammar for the language, taken from
-  [grammars-v4](https://github.com/antlr/grammars-v4) and kept as upstream
-  publishes it.
-- `canonically_commented/` contains the grammar of the canonically commented
-  dialect of that language. It is derived from the upstream grammar and
-  modified to add canonical comment structure and attachment rules. Code that
-  is valid in the language may not be valid canonically commented code.
+- The grammar files at the top of the directory are the grammar of the
+  language itself, with its rules as
+  [grammars-v4](https://github.com/antlr/grammars-v4) publishes them, and
+  with a canonical comment on every unit the language requires one on. They
+  are canonically commented code in the language of ANTLR grammars.
+- `canonically_commented/` contains the plain grammar plus the rules that
+  define canonical comments and locate the answers: the comment lexer mode,
+  the `canonicalComment` rule, and the labeled alternatives that name unit
+  kinds and mark `why`, `what`, and `how`. `canon` generates the parser that
+  slurps the five W's and the H out of a file from this grammar. Code that is
+  valid in the language may not be valid canonically commented code.
 
 `canon` consumes the canonically commented grammar by interpreting it: the
 `Canon.Antlr4.Lex` and `Canon.Antlr4.Parse` modules turn any grammar value
@@ -293,22 +308,28 @@ grammar's `superClass` option; the ANTLR meta-grammar's own adaptor is the
 first hook implementation.
 
 `grammars/antlr4/` holds ANTLR's own meta-grammar, `ANTLRv4Lexer.g4` and
-`ANTLRv4Parser.g4`, vendored unmodified from grammars-v4. The `Canon.Antlr4`
-modules read any `.g4` file into a grammar value, and the test suite checks
-that both of these files read with their known structure.
+`ANTLRv4Parser.g4`, with the rules as grammars-v4 publishes them and a
+canonical comment on every parser rule and non-fragment lexer rule, plus the
+BSD notice as the file-level comment. The `Canon.Antlr4` modules read any
+`.g4` file into a grammar value, and the test suite checks that both of these
+files read with their known structure.
 
-`grammars/antlr4/canonically_commented/` holds the canonically commented
-dialect of the meta-grammar. It differs from upstream in four ways: doc
-comments stay on the default channel, a doc comment may precede the grammar
-declaration as the file's canonical comment, a parser rule must be preceded by
-a doc comment, and a non-fragment lexer rule must be preceded by one while a
-fragment may be. Every rule in both files carries its own doc comment, so the
-dialect parses its own grammars, and the test suite checks that it does and
-that it rejects the upstream file. `canon check` runs this dialect over every
-grammar it checks and reports the first token the dialect refuses.
+`grammars/antlr4/canonically_commented/` holds the same grammar plus the
+extraction rules. The lexer turns `/**` into a `DocOpen` token that enters a
+`DocComment` mode, where `ref:KEY` and `license:KEY` are their own tokens and
+prose is words and punctuation, until `*/` leaves the mode. The parser adds
+`canonicalComment` and `docPart`, and labels the unit alternatives:
+`grammarSpec` is a `grammarDefinition`, `parserRuleSpec` a `parserRule`,
+`lexerRuleSpec` a `fragmentRule` or a `lexerRule`, and `modeSpec` a
+`lexerMode`, each with `why`, `what`, and where it differs from the whole
+node `how` marked on its elements. A `parserRule` and a `lexerRule` require
+the comment; the others allow it. Every rule in both files carries its own
+comment, so the dialect parses its own grammars, and the test suite checks
+that it does and that it rejects a grammar without canonical comments.
 
-`grammars/haskell/` is the first language directory. It is currently a husk
-with no grammar files in it.
+The other language directories hold their upstream grammars with an empty
+`canonically_commented/` husk, and their samples use the line-adjacency
+profile path until a dialect exists.
 
 ### `to_be_removed/`
 

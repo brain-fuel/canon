@@ -33,7 +33,7 @@ tests =
     , testProperty "the interpreted meta-grammar parses the parser meta-grammar" bootstrapParserGrammar
     , testProperty "the interpreted meta-grammar parses the lexer meta-grammar" bootstrapLexerGrammar
     , testProperty "the canonical dialect parses its own grammars" canonicalSelfHosting
-    , testProperty "the canonical dialect rejects the upstream parser grammar" canonicalRejectsUpstream
+    , testProperty "the canonical dialect rejects a grammar without canonical comments" canonicalRejectsUpstream
     , testProperty "precedence climbing gives ANTLR's tree for expressions" precedenceClimbing
     , testProperty "case-insensitive grammars match either case" caseInsensitive
     , testProperty "the Haskell grammar parses a layout-sensitive module through the ported base lexer" haskellLayout
@@ -146,14 +146,15 @@ canonicalSelfHosting :: Property
 canonicalSelfHosting = withTests 1 $ property $ do
   (expectedParser, parserTree) <- bootstrapWith canonicalDir (canonicalDir ++ "/ANTLRv4Parser.g4")
   ruleNamesInTree parserTree === map nameText (ruleNames expectedParser)
-  length (treeRuleNodes (Name "ruleSpec") parserTree) === 67
+  length (treeRuleNodes (Name "ruleSpec") parserTree) === 69
   (expectedLexer, lexerTree) <- bootstrapWith canonicalDir (canonicalDir ++ "/ANTLRv4Lexer.g4")
   length (treeRuleNodes (Name "lexerRuleSpec") lexerTree) === length (ruleNames expectedLexer)
-  length [() | spec <- treeRuleNodes (Name "ruleSpec") parserTree, tok <- treeTokens spec, nameText (tokenType tok) == "DOC_COMMENT"] === 67
+  length [() | spec <- treeRuleNodes (Name "ruleSpec") parserTree, _ <- treeRuleNodes (Name "canonicalComment") spec] === 69
+  length (treeRuleNodes (Name "canonicalComment") lexerTree) === 67
 
 canonicalRejectsUpstream :: Property
 canonicalRejectsUpstream = withTests 1 $ property $ do
-  result <- interpretWith canonicalDir "grammars/antlr4/ANTLRv4Parser.g4"
+  result <- interpretWith canonicalDir "grammars/prolog/prolog.g4"
   case result of
     Left message -> assert ("no parse" `T.isInfixOf` message)
     Right _ -> failure
@@ -193,6 +194,7 @@ precedenceClimbing = withTests 1 $ property $ do
         RuleNode (Name "start") _ (e : _) -> render e
         RuleNode _ _ [single] -> render single
         RuleNode _ _ children -> T.concat ["(", T.unwords (map render children), ")"]
+        Labeled _ inner -> render inner
         TokenNode t -> tokenText t
   shapeOf "1*2+3" === Just "((1 * 2) + 3)"
   shapeOf "1+2*3" === Just "(1 + (2 * 3))"

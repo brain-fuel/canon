@@ -4,20 +4,16 @@ module Canon.Project
   , loadProject
   , projectFiles
   , checkProject
+  , extractFile
   , renderProjectError
   , resolvePath
   ) where
 
 import Canon.Antlr4.Interpret
 import Canon.Cache
-import Canon.Antlr4.Lex (LexError (..))
-import Canon.Antlr4.Parse (ParseError (..), ParseFailure (..))
-import Canon.Antlr4.Syntax (Name (..))
-import Canon.Antlr4.Token (tokenPosition)
 import Canon.Config
 import Canon.Version (canonVersion)
 import Canon.Decisions
-import Canon.Extract.Antlr4 (Extraction (..), extractGrammarModel, renderExtractError)
 import Canon.Extract.Grammar
 import Canon.Git.Shell (runGit, shellGitProvider)
 import Control.Concurrent.Async (mapConcurrently)
@@ -26,11 +22,12 @@ import qualified Data.Text.Encoding as TE
 import System.FilePath (takeDirectory)
 import Canon.Ignore (defaultIgnorePatterns, parseIgnorePatterns)
 import Canon.Model.Check (checkAll)
+import Canon.Model
 import Canon.Model.Finding (Finding (..))
+import qualified Data.Set as Set
 import Canon.Model.Yaml (encodeSorted)
 import Canon.Profile
 import Canon.Registry
-import Canon.Span (Position (..))
 import Canon.Walk
 import Data.List (nub)
 import qualified Data.Map.Strict as Map
@@ -95,12 +92,13 @@ checkProject :: Project -> Maybe FilePath -> IO [Finding]
 checkProject project target = do
   walked <- projectFiles project target
   let config = projectConfig project
-  canonical <- loadCanonical project
   interpreters <- mapM (\(lang, profile) -> (,) lang <$> loadProfileInterpreter (resolveProfile project profile)) (Map.toList (configLanguages config))
   grammarBytes <- Map.fromList <$> mapM (\(lang, profile) -> (,) lang <$> profileBytes (resolveProfile project profile)) (Map.toList (configLanguages config))
   projectParts <- projectCacheParts project
-  own <- concat <$> mapConcurrently (checkFile project canonical (Map.fromList interpreters) grammarBytes projectParts) (walkedFiles walked)
+  checked <- mapConcurrently (checkFile project (Map.fromList interpreters) grammarBytes projectParts) (walkedFiles walked)
   nested <- concat <$> mapM checkNested (walkedProjects walked)
+  let citedSomewhere = Set.unions (map snd checked)
+      own = [f | f <- concatMap fst checked, case f of DecisionUncited k -> not (Set.member k citedSomewhere); _ -> True]
   pure (nub own ++ nested)
   where
     checkNested directory = do
@@ -143,8 +141,19 @@ projectCacheParts project = do
         ]
     )
 
-checkFile :: Project -> Maybe (Text, Either InterpretError Interpreter) -> Map.Map Text (Either InterpretError Interpreter) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> FilePath -> IO [Finding]
-checkFile project canonical interpreters grammarBytes projectParts path = do
+extractFile :: Project -> FilePath -> IO (Either Text Extraction)
+extractFile project path = do
+  let config = projectConfig project
+  case profileForPath (configLanguages config) path of
+    Nothing -> pure (Left (T.pack path <> ": no language profile matches this path"))
+    Just (lang, profile) -> do
+      loaded <- loadProfileInterpreter (resolveProfile project profile)
+      case loaded of
+        Left err -> pure (Left (renderInterpretError err))
+        Right interpreter -> either (Left . renderGrammarExtractError) Right <$> extractWithProfile shellGitProvider config lang profile interpreter path
+
+checkFile :: Project -> Map.Map Text (Either InterpretError Interpreter) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> FilePath -> IO ([Finding], Set.Set ReferenceKey)
+checkFile project interpreters grammarBytes projectParts path = do
   let config = projectConfig project
       profileFor = profileForPath (configLanguages config) path
   content <- LBS.readFile path
@@ -171,33 +180,13 @@ checkFile project canonical interpreters grammarBytes projectParts path = do
               <$> extractWithProfile shellGitProvider config lang profile interpreter path
           Just (Left err) -> pure (Left (renderInterpretError err))
           Nothing -> pure (Left "no interpreter for language")
-        Nothing -> either (Left . renderExtractError) Right <$> extractGrammarModel shellGitProvider config path
+        Nothing -> pure (Left "no language profile matches this path")
       either (const (pure ())) (storeCached (projectDirectory project) key) fresh
       pure fresh
   case extraction of
-    Left message -> pure [ExtractionFailed path message]
-    Right (Extraction model findings) -> do
-      dialect <- if profileForPath (configLanguages config) path == Nothing then canonicalFindings canonical path else pure []
-      pure (findings ++ checkAll (configVersion config) (projectRegistry project) (projectLedger project) model ++ dialect)
-
-loadCanonical :: Project -> IO (Maybe (Text, Either InterpretError Interpreter))
-loadCanonical project = case Map.lookup "antlr4" (configCanonical (projectConfig project)) of
-  Nothing -> pure Nothing
-  Just (CanonicalGrammar lexer parser start) ->
-    Just . (,) start <$> loadInterpreter (resolvePath project lexer) (resolvePath project parser)
-
-canonicalFindings :: Maybe (Text, Either InterpretError Interpreter) -> FilePath -> IO [Finding]
-canonicalFindings canonical path = case canonical of
-  Nothing -> pure []
-  Just (_, Left err) -> pure [CanonicalGrammarUnusable path (renderInterpretError err)]
-  Just (start, Right interpreter) -> do
-    result <- interpretFile interpreter (Name start) path
-    pure $ case result of
-      Right _ -> []
-      Left (InterpretParseError _ (ParseNoParse (ParseFailure _ (Just tok)))) ->
-        [NotCanonical path (tokenPosition tok) "the canonical dialect does not accept this token"]
-      Left (InterpretParseError _ (ParseNoParse (ParseFailure _ Nothing))) ->
-        [NotCanonical path (Position 1 1) "the canonical dialect does not accept this file"]
-      Left (InterpretLexError _ (LexNoMatch pos _)) ->
-        [NotCanonical path pos "the canonical dialect cannot tokenize this input"]
-      Left err -> [CanonicalGrammarUnusable path (renderInterpretError err)]
+    Left message -> pure ([ExtractionFailed path message], Set.empty)
+    Right (Extraction model findings) ->
+      pure
+        ( findings ++ checkAll (configVersion config) (projectRegistry project) (projectLedger project) model
+        , Set.fromList (concatMap (whyReferences . answerValue . decisionWhy) (modelDecisions model))
+        )

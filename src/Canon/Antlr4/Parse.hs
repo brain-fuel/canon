@@ -29,6 +29,7 @@ import qualified Data.Vector as BV
 data ParseTree
   = RuleNode Name Int [ParseTree]
   | TokenNode Token
+  | Labeled Text ParseTree
   deriving (Eq, Show)
 
 data ParseFailure = ParseFailure
@@ -58,17 +59,20 @@ renderParseTree = go 0
   where
     go depth tree = case tree of
       TokenNode t -> T.concat [indent depth, nameText (tokenType t), " ", T.pack (show (tokenText t))]
+      Labeled label inner -> T.concat [indent depth, label, "=\n", go depth inner]
       RuleNode name _ children -> T.intercalate "\n" (T.concat [indent depth, "(", nameText name] : map (go (depth + 1)) children ++ [indent depth <> ")"])
     indent depth = T.replicate depth "  "
 
 treeRuleNodes :: Name -> ParseTree -> [ParseTree]
 treeRuleNodes wanted tree = case tree of
   TokenNode _ -> []
+  Labeled _ inner -> treeRuleNodes wanted inner
   RuleNode name _ children -> [tree | name == wanted] ++ concatMap (treeRuleNodes wanted) children
 
 treeTokens :: ParseTree -> [Token]
 treeTokens tree = case tree of
   TokenNode t -> [t]
+  Labeled _ inner -> treeTokens inner
   RuleNode _ _ children -> concatMap treeTokens children
 
 type Children = [ParseTree] -> [ParseTree]
@@ -101,8 +105,8 @@ data CompiledAtom
   | CompiledAny
 
 data CompiledElement
-  = CompiledAtomElement CompiledAtom (Maybe EbnfSuffix)
-  | CompiledBlockElement [CompiledAlternative] (Maybe EbnfSuffix)
+  = CompiledAtomElement CompiledAtom (Maybe EbnfSuffix) (Maybe Text)
+  | CompiledBlockElement [CompiledAlternative] (Maybe EbnfSuffix) (Maybe Text)
   | CompiledActionElement
 
 data CompiledAlternative = CompiledAlternative
@@ -215,9 +219,13 @@ parseVisibleTokens grammar start visible
     evalElements look elements = foldr (\e rest -> seqStep (evalElement look e) rest) emptyStep elements
 
     evalElement look e = case e of
-      CompiledAtomElement atom suffix -> suffixed suffix (evalAtom look atom)
-      CompiledBlockElement alts suffix -> suffixed suffix (altStep [evalAlternative look a | a <- alts])
+      CompiledAtomElement atom suffix label -> labeled label (suffixed suffix (evalAtom look atom))
+      CompiledBlockElement alts suffix label -> labeled label (suffixed suffix (altStep [evalAlternative look a | a <- alts]))
       CompiledActionElement -> emptyStep
+
+    labeled label step = case label of
+      Nothing -> step
+      Just name -> \p -> let (rs, f) = step p in ([(\rest -> map (Labeled name) (children []) ++ rest, e) | (children, e) <- rs], f)
 
     evalAtom look atom p = case atom of
       CompiledTerminal predicate -> terminal predicate
@@ -349,9 +357,10 @@ compileRule ruleIndex firstTable rule = CompiledRule (parserRuleName rule) alter
       Just (EbnfSuffix ZeroOrMore _) -> True
       _ -> False
     compileElement e = case e of
-      ElementAtom _ _ atom suffix -> CompiledAtomElement (compileAtom atom) suffix
-      ElementBlock _ _ block suffix -> CompiledBlockElement (map (compileAlternative . alternativeElements) (toList (blockAlternatives block))) suffix
+      ElementAtom _ label atom suffix -> CompiledAtomElement (compileAtom atom) suffix (labelText label)
+      ElementBlock _ label block suffix -> CompiledBlockElement (map (compileAlternative . alternativeElements) (toList (blockAlternatives block))) suffix (labelText label)
       ElementAction {} -> CompiledActionElement
+    labelText = fmap (nameText . labelName)
     compileAtom atom = case atom of
       AtomTerminal t -> CompiledTerminal (terminalPredicate t)
       AtomRuleRef name _ _ -> maybe (CompiledTerminal (const False)) CompiledRuleRef (Map.lookup name ruleIndex)

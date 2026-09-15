@@ -1,6 +1,5 @@
 module Canon.Config
   ( Config (..)
-  , CanonicalGrammar (..)
   , ConfigError (..)
   , defaultConfig
   , configFileName
@@ -12,7 +11,7 @@ module Canon.Config
   ) where
 
 import Canon.Profile (Profile)
-import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
+import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:?), (.=))
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
 import Data.Maybe (fromMaybe)
@@ -21,18 +20,10 @@ import qualified Data.Text as T
 import qualified Data.Yaml as Yaml
 import System.Directory (doesFileExist)
 
-data CanonicalGrammar = CanonicalGrammar
-  { canonicalLexer :: FilePath
-  , canonicalParser :: FilePath
-  , canonicalStartRule :: Text
-  }
-  deriving (Eq, Show)
-
 data Config = Config
   { configVersion :: Maybe Text
   , configRegistry :: FilePath
   , configDecisions :: FilePath
-  , configCanonical :: Map Text CanonicalGrammar
   , configIgnore :: [Text]
   , configRoot :: FilePath
   , configLanguages :: Map Text Profile
@@ -52,7 +43,7 @@ defaultDecisionsFileName :: FilePath
 defaultDecisionsFileName = "canonical_decisions.yaml"
 
 defaultConfig :: Config
-defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName Map.empty [] "." Map.empty
+defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName [] "." Map.empty
 
 readConfigFile :: FilePath -> IO (Either ConfigError Config)
 readConfigFile path = do
@@ -67,17 +58,10 @@ loadConfig = do
 renderConfigError :: ConfigError -> Text
 renderConfigError (ConfigUnreadable path message) = T.concat [T.pack path, ": ", message]
 
-instance ToJSON CanonicalGrammar where
-  toJSON (CanonicalGrammar lexer parser start) = object ["lexer" .= lexer, "parser" .= parser, "start" .= start]
-
-instance FromJSON CanonicalGrammar where
-  parseJSON = withObject "CanonicalGrammar" $ \o -> CanonicalGrammar <$> o .: "lexer" <*> o .: "parser" <*> o .: "start"
-
 instance ToJSON Config where
-  toJSON (Config version registry decisions canonical ignore root languages) =
+  toJSON (Config version registry decisions ignore root languages) =
     object
-      [ "canonical" .= canonical
-      , "decisions" .= decisions
+      [ "decisions" .= decisions
       , "ignore" .= ignore
       , "languages" .= languages
       , "registry" .= registry
@@ -91,7 +75,6 @@ instance FromJSON Config where
       <$> o .:? "version"
       <*> (fromMaybe defaultRegistryFileName <$> o .:? "registry")
       <*> (fromMaybe defaultDecisionsFileName <$> o .:? "decisions")
-      <*> (fromMaybe Map.empty <$> o .:? "canonical")
       <*> (fromMaybe [] <$> o .:? "ignore")
       <*> (fromMaybe "." <$> o .:? "root")
       <*> (fromMaybe Map.empty <$> o .:? "languages")
