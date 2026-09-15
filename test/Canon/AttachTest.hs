@@ -1,3 +1,4 @@
+-- | The fast attachment must equal the brute-force definition. ref:DEC-comment-attachment
 module Canon.AttachTest (tests) where
 
 import Canon.Antlr4.Comment (Comment (..), CommentKind (..))
@@ -18,6 +19,7 @@ import qualified Hedgehog.Range as Range
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

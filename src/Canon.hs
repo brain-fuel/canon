@@ -1,3 +1,5 @@
+-- | The command line is the only surface a user touches, so every subcommand is named and dispatched
+-- here and nowhere else. ref:DEC-decision-ledger ref:DEC-comment-vetting
 module Canon
   ( Command (..)
   , parseCommand
@@ -34,6 +36,8 @@ import System.Environment (getArgs)
 import System.Exit (ExitCode (..), exitWith)
 import System.IO (stderr)
 
+-- | One constructor per subcommand so that parsing arguments and running them are separate steps
+-- that tests can exercise without a process.
 data Command
   = CommandVersion
   | CommandModel FilePath
@@ -47,9 +51,12 @@ data Command
   | CommandUsage
   deriving (Eq, Show)
 
+-- | The version string a user sees, derived from the one source of the version so it cannot drift.
+-- ref:DEC-version-duplication
 version :: String
 version = "canon " ++ canonVersion
 
+-- | Pure argument parsing, so unknown or malformed arguments are a value rather than an exit.
 parseCommand :: [String] -> Command
 parseCommand arguments = case arguments of
   ["version"] -> CommandVersion
@@ -65,11 +72,15 @@ parseCommand arguments = case arguments of
   ["vet"] -> CommandVet
   _ -> CommandUsage
 
+-- | The pure part of running a command, kept for the tests that check usage text without side
+-- effects.
 dispatch :: [String] -> String
 dispatch arguments = case parseCommand arguments of
   CommandVersion -> version
   _ -> usage
 
+-- | Usage text lives beside the parser so that a subcommand cannot exist without a line describing
+-- it.
 usage :: String
 usage =
   unlines
@@ -87,9 +98,12 @@ usage =
     , "  canon vet                                             list the canonical comments that need a human verdict, with their text"
     ]
 
+-- | The process entry point: arguments in, exit code out, with every effect inside runCommand.
 runCanon :: IO ()
 runCanon = getArgs >>= runCommand . parseCommand >>= exitWith
 
+-- | Runs one command and returns its exit code, so that failing findings and errors fail the process
+-- the way a build step expects.
 runCommand :: Command -> IO ExitCode
 runCommand command = case command of
   CommandVersion -> putStrLn version >> pure ExitSuccess
@@ -152,6 +166,8 @@ renderWithSeverity f = case findingSeverity f of
   Failing -> renderFinding f
   Informational -> "info: " <> renderFinding f
 
+-- | Renders the decision ledger open-first because open decisions are the ones a reader must act on.
+-- ref:DEC-decision-ledger
 renderLedger :: Ledger -> Text
 renderLedger ledger = T.concat (concatMap section [Open, Decided, Superseded])
   where

@@ -1,3 +1,5 @@
+-- | Comments are scanned by a profile's syntax for languages without a dialect, so attachment can
+-- run without the grammar knowing about comments. ref:DEC-comment-attachment
 module Canon.CommentScan
   ( scanCommentsWith
   ) where
@@ -9,6 +11,8 @@ import Canon.Span (Located (..), Position (..), Span (..))
 import Data.Text (Text)
 import qualified Data.Text as T
 
+-- | Scans line and block comments by the given syntax, skipping strings so a marker inside one is
+-- not a comment.
 scanCommentsWith :: CommentSyntax -> Text -> [Located Comment]
 scanCommentsWith syntax source = mergeLineComments (go 0 source)
   where

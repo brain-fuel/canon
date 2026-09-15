@@ -1,3 +1,6 @@
+-- | A comment that predates canon or that nobody has judged is not known to fulfil its purpose, so
+-- every canonical comment carries a human verdict whose assessor is the author of the commit that
+-- wrote it. ref:DEC-comment-vetting
 module Canon.Vetting
   ( VettingEntry (..)
   , Vetting (..)
@@ -37,6 +40,7 @@ import qualified Data.Text.Encoding as TE
 import qualified Data.Text.IO as TIO
 import qualified Data.Yaml as Yaml
 
+-- | A verdict with the digest of the text it applies to, an optional revisit version, and a note.
 data VettingEntry = VettingEntry
   { entryVerdict :: Verdict
   , entryDigest :: Text
@@ -45,26 +49,33 @@ data VettingEntry = VettingEntry
   }
   deriving (Eq, Show)
 
+-- | The vetting file keyed by decision id.
 newtype Vetting = Vetting {vettingEntries :: Map DecisionId VettingEntry}
   deriving (Eq, Show)
 
+-- | An unreadable vetting file is an error.
 data VettingError = VettingUnreadable FilePath Text
   deriving (Eq, Show)
 
+-- | No verdicts.
 emptyVetting :: Vetting
 emptyVetting = Vetting Map.empty
 
+-- | Renders a vetting error.
 renderVettingError :: VettingError -> Text
 renderVettingError (VettingUnreadable path message) = T.concat [T.pack path, ": ", message]
 
+-- | Reads a vetting file.
 readVettingFile :: FilePath -> IO (Either VettingError Vetting)
 readVettingFile path = do
   result <- Yaml.decodeFileEither path
   pure (either (Left . VettingUnreadable path . T.pack . Yaml.prettyPrintParseException) Right result)
 
+-- | Writes a vetting file in the fixed form the line scanner reads.
 writeVettingFile :: FilePath -> Vetting -> IO ()
 writeVettingFile path = TIO.writeFile path . renderVetting
 
+-- | Renders entries one key per line so git blame attributes each verdict line to its author.
 renderVetting :: Vetting -> Text
 renderVetting (Vetting entries)
   | Map.null entries = "{}\n"
@@ -81,9 +92,11 @@ renderVetting (Vetting entries)
     plain c = isAlphaNum c || c `elem` ("/._-#+~@" :: String)
     quoted t = TE.decodeUtf8 (LBS.toStrict (encode t))
 
+-- | A digest of the comment text, so a verdict applies to exactly the text that was read.
 commentDigest :: Why -> Text
 commentDigest why = "sha256:" <> T.take 16 (TE.decodeUtf8 (Base16.encode (hash (TE.encodeUtf8 (whyText why)))))
 
+-- | Adds a pending entry for every decision without one and leaves the rest alone.
 ingest :: Vetting -> [Decision ev] -> (Vetting, [DecisionId])
 ingest (Vetting entries) decisions = (Vetting (Map.union entries fresh), Map.keys fresh)
   where
@@ -94,6 +107,7 @@ ingest (Vetting entries) decisions = (Vetting (Map.union entries fresh), Map.key
         , not (Map.member (decisionId d) entries)
         ]
 
+-- | The line of each verdict in the file, which is what blame is asked about.
 verdictLines :: Text -> Map DecisionId Int
 verdictLines source = go Nothing (zip [1 ..] (T.lines source))
   where
@@ -110,6 +124,7 @@ verdictLines source = go Nothing (zip [1 ..] (T.lines source))
       Right t -> t
       Left _ -> body
 
+-- | The assessor of each verdict from blame, or an assertion when the line is uncommitted.
 assess :: GitProvider -> FilePath -> Text -> Vetting -> IO (Map DecisionId (Answer Assessment Evidence))
 assess provider path source (Vetting entries) = do
   let lineOf = verdictLines source
@@ -126,11 +141,13 @@ assess provider path source (Vetting entries) = do
     lineSpan n = Span (Position n 1) (Position n 1)
     uncommitted l = T.all (== '0') (commitHashText (blameHash l))
 
+-- | Puts assessments on the decisions of a model.
 applyAssessments :: Map DecisionId (Answer Assessment Evidence) -> Model Evidence -> Model Evidence
 applyAssessments assessments m = m {modelDecisions = map fill (modelDecisions m)}
   where
     fill d = d {decisionVetting = Map.lookup (decisionId d) assessments}
 
+-- | Pending, stale, bad, and deferred comments as findings.
 vettingFindings :: Maybe Text -> Vetting -> Map DecisionId (Answer Assessment ev) -> Model ev2 -> [Finding]
 vettingFindings version (Vetting entries) assessments m = concatMap check (modelDecisions m)
   where
@@ -157,9 +174,11 @@ vettingFindings version (Vetting entries) assessments m = concatMap check (model
       Just (Answer a _) | assessmentBy a == Nothing -> [VerdictUncommitted i]
       _ -> []
 
+-- | Verdicts whose comment no longer exists.
 orphanVerdictFindings :: Vetting -> Set.Set DecisionId -> [Finding]
 orphanVerdictFindings (Vetting entries) seen = [VerdictOrphan d | d <- Map.keys entries, not (Set.member d seen)]
 
+-- | The findings a reviewer must act on, which the vet subcommand lists.
 attention :: Finding -> Bool
 attention f = case f of
   CommentPending {} -> True

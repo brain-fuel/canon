@@ -5,7 +5,13 @@ ignore:
   - grammars/*/*.g4
   - "!grammars/antlr4/*.g4"
   - "!grammars/java/*.g4"
+  - "!grammars/haskell/*.g4"
 languages:
+  haskell:
+    extensions: [.hs]
+    lexer: grammars/haskell/canonically_commented/HaskellLexer.g4
+    parser: grammars/haskell/canonically_commented/HaskellParser.g4
+    start: module
   antlr4:
     extensions: [.g4]
     lexer: grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4

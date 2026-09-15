@@ -1,3 +1,6 @@
+-- | Extraction reads units and decisions out of a parse tree by the labels the canonically commented
+-- grammar carries, so nothing about a language's comment placement is written here.
+-- ref:DEC-grammar-carries-extraction-rules ref:DEC-marker-label ref:DEC-export-rule
 module Canon.Extract.Grammar
   ( GrammarExtractError (..)
   , Extraction (..)
@@ -7,6 +10,10 @@ module Canon.Extract.Grammar
   , extractWithProfileText
   , renderGrammarExtractError
   , alternativePlans
+  , exportLabelsDeclared
+  , ExportEntry (..)
+  , parseExportEntry
+  , exportRequires
   , unitsFromTree
   ) where
 
@@ -27,7 +34,7 @@ import Canon.Model.Finding (Finding (..))
 import Canon.Profile
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.Testing (isTestUnit)
-import Data.Char (isAlphaNum)
+import Data.Char (isAlphaNum, isSpace)
 import Data.Foldable (toList)
 import Data.List (group, sort)
 import Data.List.NonEmpty (NonEmpty (..))
@@ -41,42 +48,50 @@ import qualified Data.Text.IO as TIO
 import qualified Data.Vector.Unboxed as V
 import System.FilePath (splitDirectories)
 
+-- | Extraction fails when the interpreter fails or when two units share an id.
 data GrammarExtractError
   = GrammarInterpretError InterpretError
   | GrammarDuplicateUnitIds [UnitId]
   deriving (Eq, Show)
 
+-- | A model with the findings produced while building it.
 data Extraction = Extraction
   { extractionModel :: Model Evidence
   , extractionFindings :: [Finding]
   }
   deriving (Eq, Show)
 
+-- | What a labeled alternative says about its units: the kind and whether the comment is mandatory.
 data AlternativePlan = AlternativePlan
   { planKind :: Text
   , planWhyRequired :: Bool
   }
   deriving (Eq, Show)
 
+-- | Renders an extraction error.
 renderGrammarExtractError :: GrammarExtractError -> Text
 renderGrammarExtractError e = case e of
   GrammarInterpretError err -> renderInterpretError err
   GrammarDuplicateUnitIds ids -> "duplicate unit ids: " <> T.intercalate ", " (map renderUnitId ids)
 
+-- | Loads the interpreter a profile names.
 loadProfileInterpreter :: Profile -> IO (Either InterpretError Interpreter)
 loadProfileInterpreter profile = case profileGrammar profile of
   CombinedGrammarFile path -> loadCombinedInterpreter path
   SplitGrammarFiles lexer parser -> loadInterpreter lexer parser
 
+-- | Extracts a file through a profile.
 extractWithProfile :: GitProvider -> Config -> Text -> Profile -> Interpreter -> FilePath -> FilePath -> IO (Either GrammarExtractError Extraction)
 extractWithProfile provider config language profile interpreter idPath path =
   TIO.readFile path >>= extractWithProfileText provider config language profile interpreter idPath path
 
+-- | Extracts text through a profile, with the id path separate from the display path so ids are
+-- project-relative.
 extractWithProfileText :: GitProvider -> Config -> Text -> Profile -> Interpreter -> FilePath -> FilePath -> Text -> IO (Either GrammarExtractError Extraction)
 extractWithProfileText provider config language profile interpreter idPath path source =
   case interpretText interpreter (profileStart profile) path source of
     Left err -> pure (Left (GrammarInterpretError err))
-    Right tree -> case unitsFromTree language profile (alternativePlans (interpreterParser interpreter)) idPath path source tree of
+    Right tree -> case unitsFromTree language profile (alternativePlans (interpreterParser interpreter)) (exportLabelsDeclared (interpreterParser interpreter)) idPath path source tree of
       Left err -> pure (Left err)
       Right (root, labeled, unbound) -> do
         let comments = scanCommentsWith (profileComments profile) source
@@ -86,6 +101,7 @@ extractWithProfileText provider config language profile interpreter idPath path 
         let model = Model language (configVersion config) described [unitsWithGit] (labeled ++ attached)
         pure (Right (Extraction model (map (OrphanDocComment path) unbound ++ [OrphanDocComment path (locatedSpan c) | c <- orphans] ++ gitFindings)))
 
+-- | Reads the unit alternatives out of the parser grammar: a labeled alternative with a why element.
 alternativePlans :: Grammar Span -> Map.Map Name [Maybe AlternativePlan]
 alternativePlans grammar = Map.fromList [(parserRuleName r, map plan (toList (parserRuleAlternatives r))) | RuleParser r <- grammarRules grammar]
   where
@@ -102,8 +118,54 @@ alternativePlans grammar = Map.fromList [(parserRuleName r, map plan (toList (pa
       Just (EbnfSuffix OneOrMore _) -> True
       Just _ -> False
 
-unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
-unitsFromTree language profile plans idPath path source tree =
+-- | Tells whether a grammar labels export entries, which opts a language into the export rule.
+-- ref:DEC-export-rule
+exportLabelsDeclared :: Grammar Span -> Bool
+exportLabelsDeclared grammar = any labeled (concatMap elementsOf [r | RuleParser r <- grammarRules grammar])
+  where
+    elementsOf r = concatMap (alternativeElements . labeledAlternativeBody) (toList (parserRuleAlternatives r))
+    labeled e = case e of
+      ElementAtom _ (Just (Label (Name "export") _)) _ _ -> True
+      ElementBlock _ (Just (Label (Name "export") _)) _ _ -> True
+      ElementBlock _ _ block _ -> any labeled (concatMap alternativeElements (toList (blockAlternatives block)))
+      _ -> False
+
+-- | The forms an export entry takes: a name, all members, some members, or a module.
+data ExportEntry
+  = ExportName Text
+  | ExportAll Text
+  | ExportSome Text [Text]
+  | ExportModule Text
+  deriving (Eq, Show)
+
+-- | Parses an export entry from its text.
+parseExportEntry :: Text -> ExportEntry
+parseExportEntry raw
+  | Just m <- T.stripPrefix "module" compact, not (T.null m) = ExportModule m
+  | Just (name, rest) <- splitParen compact = if rest == ".." then ExportAll name else ExportSome name (filter (not . T.null) (T.splitOn "," rest))
+  | otherwise = ExportName compact
+  where
+    compact = T.concat (T.words raw)
+    splitParen t = case T.breakOn "(" t of
+      (name, inner) | not (T.null name), not (T.null inner), Just body <- T.stripSuffix ")" (T.drop 1 inner) -> Just (name, body)
+      _ -> Nothing
+
+-- | Decides whether the export rule requires a comment on a unit. ref:DEC-export-rule
+exportRequires :: Maybe [ExportEntry] -> Maybe Text -> Text -> Bool
+exportRequires exports parent name = case exports of
+  Nothing -> plainName name
+  Just entries -> any matches entries
+  where
+    matches entry = case entry of
+      ExportName n -> n == name
+      ExportAll n -> n == name || Just n == parent
+      ExportSome n members -> n == name || (Just n == parent && name `elem` members)
+      ExportModule _ -> False
+    plainName n = not (T.null n) && not (T.any isSpace n)
+
+-- | Builds the unit tree, its decisions, and the orphan spans from a parse tree.
+unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
+unitsFromTree language profile plans exportsDeclared idPath path source tree =
   case [i | i@(_ : _ : _) <- group (sort (map unitId (allUnits root)))] of
     [] -> Right (root, decisions, unbound)
     duplicates -> Left (GrammarDuplicateUnitIds (map NonEmpty.head (map NonEmpty.fromList duplicates)))
@@ -115,6 +177,16 @@ unitsFromTree language profile plans idPath path source tree =
     fileId = UnitId (language :| fileSegments)
     rulesByName = Map.fromList [(unitRuleName r, r) | r <- profileUnits profile]
     (children, decisions) = collect fileId [] tree
+    exportEntries = if exportsDeclared then Just (map (parseExportEntry . tokensText) (exportedIn tree)) else Nothing
+    exportedIn node = case node of
+      TokenNode _ -> []
+      Labeled "export" inner -> [inner]
+      Labeled _ inner -> exportedIn inner
+      RuleNode _ _ ns -> concatMap exportedIn ns
+    fileExports = case exportEntries of
+      Just entries | not (null entries) -> Just (Just entries)
+      Just _ -> Just Nothing
+      Nothing -> Nothing
     unbound = map treeSpan (unboundWhys tree ++ orphansIn tree)
     orphansIn node = case node of
       TokenNode _ -> []
@@ -146,6 +218,12 @@ unitsFromTree language profile plans idPath path source tree =
     collectAll parent chain nodes =
       let built = map (build parent chain) (uniqueNames (concatMap found nodes))
        in (map fst built, concatMap snd built)
+    exported chain name = case fileExports of
+      Nothing -> False
+      Just entries -> exportRequires entries (parentName chain) name
+    parentName chain = case reverse chain of
+      (p : _) -> Just p
+      [] -> Nothing
     childrenOf node = case node of
       RuleNode _ _ ns -> ns
       Labeled _ inner -> [inner]
@@ -188,6 +266,7 @@ unitsFromTree language profile plans idPath path source tree =
           (nested, nestedDecisions) = collectAll uid (chain ++ [candidateName c]) (childrenOf node)
           markers = [T.concat (T.words (tokensText m)) | m <- labeledSubtrees "marker" node]
           test = isTestUnit language (candidateKind c) (candidateName c) idPath markers
+          required = test || candidateRequirement c == Required || exported chain (candidateName c)
           own = case candidateWhy c of
             Nothing -> []
             Just whyNode ->
@@ -207,7 +286,7 @@ unitsFromTree language profile plans idPath path source tree =
               , unitWhere = Answer (Where path sp chain Nothing) evidence
               , unitWho = Nothing
               , unitWhen = Nothing
-              , unitRequirement = if test then Required else candidateRequirement c
+              , unitRequirement = if required then Required else Optional
               , unitTest = test
               , unitChildren = nested
               }

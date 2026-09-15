@@ -1,3 +1,6 @@
+-- | The lexer interprets lexer rules with ANTLR semantics, longest match with ties by rule order,
+-- and compiles them once because lexing dominated the time before it did.
+-- ref:DEC-parser-generation
 module Canon.Antlr4.Lex
   ( HookEffect (..)
   , LexerHooks (..)
@@ -29,6 +32,8 @@ import qualified Data.Text as T
 import qualified Data.Vector as BV
 import qualified Data.Vector.Unboxed as V
 
+-- | The effects a lexer action or command may have, as data, so that target-language base lexers are
+-- ported as hooks rather than as code inside the lexer.
 data HookEffect
   = EffectPushMode Name
   | EffectPopMode
@@ -40,17 +45,22 @@ data HookEffect
   | EffectChannel Name
   deriving (Eq, Show)
 
+-- | The hook interface a base lexer port implements: initial state, an action handler, and an emit
+-- handler.
 data LexerHooks s = LexerHooks
   { hooksInitial :: s
   , hooksOnAction :: Name -> ActionText -> Text -> s -> (s, [HookEffect])
   , hooksOnEmit :: Token -> s -> ([Token], s)
   }
 
+-- | Hides the hook state type so a grammar can select any port by its superClass option.
 data SomeHooks = forall s. SomeHooks (LexerHooks s)
 
+-- | The hooks for a grammar with no base lexer, which do nothing.
 noHooks :: LexerHooks ()
 noHooks = LexerHooks () (\_ _ _ s -> (s, [])) (\t s -> ([t], s))
 
+-- | Lexing fails at a position when no rule matches, and that position is what a user sees.
 data LexError
   = LexNoMatch Position Name
   | LexEmptyMatch Position Name
@@ -61,6 +71,7 @@ data LexError
   | LexInvalidLiteral Name Text
   deriving (Eq, Show)
 
+-- | Renders a lexing failure with its position.
 renderLexError :: LexError -> Text
 renderLexError e = case e of
   LexNoMatch pos mode -> at pos ("no lexer rule of mode " <> nameText mode <> " matches")
@@ -73,6 +84,8 @@ renderLexError e = case e of
   where
     at (Position line column) message = T.concat [T.pack (show line), ":", T.pack (show column), ": ", message]
 
+-- | The compiled form of a lexer grammar: decoded literals, character predicates, and start filters,
+-- built once per grammar.
 data LexerTable = LexerTable
   { tableModes :: Map Name [Int]
   , tableRules :: BV.Vector CompiledRule
@@ -108,6 +121,7 @@ data CompiledRule = CompiledRule
 defaultMode :: Name
 defaultMode = Name "DEFAULT_MODE"
 
+-- | Compiles a lexer grammar, rejecting rules the interpreter cannot run.
 buildLexerTable :: Grammar ann -> Either LexError LexerTable
 buildLexerTable grammar = do
   let stripped = fmap (const ()) grammar
@@ -327,11 +341,13 @@ data LexState s = LexState
   , stateHooks :: s
   }
 
+-- | Tokenizes with the hooks the grammar selects, which is what every caller wants.
 tokenize :: Grammar ann -> Text -> Either LexError [Token]
 tokenize grammar source = do
   table <- buildLexerTable grammar
   tokenizeWith noHooks table source
 
+-- | Tokenizes with explicit hooks, for tests and for grammars whose adaptor is chosen by the caller.
 tokenizeWith :: LexerHooks s -> LexerTable -> Text -> Either LexError [Token]
 tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksInitial hooks))
   where

@@ -1,3 +1,4 @@
+-- | Citations must be found exactly as written, and nothing else.
 module Canon.CanonicalCommentTest (tests) where
 
 import Canon.CanonicalComment
@@ -11,6 +12,7 @@ import qualified Hedgehog.Range as Range
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

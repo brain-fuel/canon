@@ -1,3 +1,5 @@
+-- | The canonical model: code units and decisions linked by id, with evidence on every answer, which
+-- is what canon emits, checks, and enforces. ref:DEC-parser-foundation
 module Canon.Model
   ( Model (..)
   , schemaVersion
@@ -18,6 +20,7 @@ import Canon.Model.Unit
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
 import Data.Text (Text)
 
+-- | One file's model: language, versions, units, and decisions.
 data Model ev = Model
   { modelLanguage :: Text
   , modelVersion :: Maybe Text
@@ -27,12 +30,15 @@ data Model ev = Model
   }
   deriving (Eq, Show, Functor, Foldable, Traversable)
 
+-- | The schema version emitted with every model, so a reader can refuse what it does not understand.
 schemaVersion :: Int
 schemaVersion = 1
 
+-- | Every unit in the tree, flattened.
 modelAllUnits :: Model ev -> [CodeUnit ev]
 modelAllUnits = concatMap allUnits . modelUnits
 
+-- | The decisions bound to a unit.
 decisionsFor :: UnitId -> Model ev -> [Decision ev]
 decisionsFor wanted m = [d | d <- modelDecisions m, wanted `elem` decisionUnits d]
 

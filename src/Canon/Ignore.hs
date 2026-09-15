@@ -1,3 +1,4 @@
+-- | Ignore patterns follow gitignore syntax because every developer already knows it.
 module Canon.Ignore
   ( IgnorePattern (..)
   , parseIgnorePattern
@@ -14,6 +15,7 @@ import Data.Maybe (mapMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
 
+-- | A parsed pattern: negation, anchoring, directory-only, and segments.
 data IgnorePattern = IgnorePattern
   { patternNegated :: Bool
   , patternAnchored :: Bool
@@ -22,6 +24,7 @@ data IgnorePattern = IgnorePattern
   }
   deriving (Eq, Show)
 
+-- | Parses one pattern, rejecting the empty one.
 parseIgnorePattern :: Text -> Maybe IgnorePattern
 parseIgnorePattern raw
   | T.null trimmed || T.isPrefixOf "#" trimmed = Nothing
@@ -41,9 +44,11 @@ parseIgnorePattern raw
   where
     trimmed = T.strip raw
 
+-- | Parses a list of patterns, dropping the unparsable.
 parseIgnorePatterns :: [Text] -> [IgnorePattern]
 parseIgnorePatterns = mapMaybe parseIgnorePattern
 
+-- | Renders a pattern back to text.
 renderIgnorePattern :: IgnorePattern -> Text
 renderIgnorePattern p =
   T.concat
@@ -53,6 +58,7 @@ renderIgnorePattern p =
     , if patternDirectoryOnly p then "/" else ""
     ]
 
+-- | The directories that never hold a project's own sources.
 defaultIgnorePatterns :: [IgnorePattern]
 defaultIgnorePatterns =
   parseIgnorePatterns
@@ -79,6 +85,7 @@ defaultIgnorePatterns =
     , ".DS_Store"
     ]
 
+-- | Decides whether a path is ignored, with a later negation overriding an earlier match.
 isIgnored :: [IgnorePattern] -> Bool -> [Text] -> Bool
 isIgnored patterns isDirectory segments = any ancestorIgnored (drop 1 (inits segments))
   where
@@ -89,6 +96,7 @@ isIgnored patterns isDirectory segments = any ancestorIgnored (drop 1 (inits seg
       [] -> False
       verdicts -> not (last verdicts)
 
+-- | Matches one pattern against path segments.
 matchesPattern :: IgnorePattern -> Bool -> [Text] -> Bool
 matchesPattern p isDirectory segments
   | patternDirectoryOnly p && not isDirectory = False
@@ -109,6 +117,7 @@ segmentsMatch pattern path = case (pattern, path) of
       [] -> [[]]
       (_ : more) -> xs : suffixes more
 
+-- | Matches one glob against one segment.
 globMatches :: Text -> Text -> Bool
 globMatches pattern subject = go (T.unpack pattern) (T.unpack subject)
   where

@@ -3,28 +3,6 @@ root: source
 languages:
   haskell:
     extensions: [.hs]
-    lexer: ../../grammars/haskell/HaskellLexer.g4
-    parser: ../../grammars/haskell/HaskellParser.g4
+    lexer: ../../grammars/haskell/canonically_commented/HaskellLexer.g4
+    parser: ../../grammars/haskell/canonically_commented/HaskellParser.g4
     start: module
-    comments:
-      line: "--"
-      blockOpen: "{-"
-      blockClose: "-}"
-      strings: ["\""]
-    units:
-      - rule: ty_decl
-        kind: type
-        name: {token: CONID, index: 1}
-        required: true
-      - rule: cl_decl
-        kind: class
-        name: {token: CONID, index: 1}
-        required: true
-      - rule: inst_decl
-        kind: instance
-        name: {token: CONID, index: 1}
-        required: false
-      - rule: sigdecl
-        kind: function
-        name: {token: VARID, index: 1}
-        required: true

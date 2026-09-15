@@ -1,3 +1,5 @@
+-- | Every finding canon can report is one constructor here, with its severity and rendering, so a
+-- finding cannot exist without a message.
 module Canon.Model.Finding
   ( Finding (..)
   , Severity (..)
@@ -13,6 +15,7 @@ import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), 
 import Data.Text (Text)
 import qualified Data.Text as T
 
+-- | The findings, one constructor each.
 data Finding
   = UnresolvedReference DecisionId Where ReferenceKey
   | DanglingDecision DecisionId Where UnitId
@@ -40,9 +43,11 @@ data Finding
   | RequirementUntested ReferenceKey
   deriving (Eq, Show)
 
+-- | Failing findings fail the check; informational ones do not.
 data Severity = Failing | Informational
   deriving (Eq, Ord, Show)
 
+-- | The severity of each finding, decided in one place.
 findingSeverity :: Finding -> Severity
 findingSeverity f = case f of
   DecisionUncited _ -> Informational
@@ -52,6 +57,7 @@ findingSeverity f = case f of
   VerdictUncommitted _ -> Informational
   _ -> Failing
 
+-- | Renders a finding as path, line, column, and message.
 renderFinding :: Finding -> Text
 renderFinding f = case f of
   UnresolvedReference d w k ->

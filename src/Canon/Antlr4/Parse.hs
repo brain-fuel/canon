@@ -1,3 +1,6 @@
+-- | The parser interprets parser rules over tokens with memoisation, precedence climbing for left
+-- recursion, and one tree per rule and span, because the alternatives were exponential.
+-- ref:DEC-precedence-climbing ref:DEC-one-tree-per-span ref:DEC-parser-generation
 module Canon.Antlr4.Parse
   ( ParseTree (..)
   , ParseFailure (..)
@@ -26,24 +29,29 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Vector as BV
 
+-- | A tree of rule nodes, tokens, and labeled subtrees; labels are kept because the extraction rules
+-- are labels. ref:DEC-grammar-carries-extraction-rules
 data ParseTree
   = RuleNode Name Int [ParseTree]
   | TokenNode Token
   | Labeled Text ParseTree
   deriving (Eq, Show)
 
+-- | Where a parse failed and what it expected, for the message a user sees.
 data ParseFailure = ParseFailure
   { failureIndex :: Int
   , failureToken :: Maybe Token
   }
   deriving (Eq, Show)
 
+-- | A parse failure or a grammar the parser cannot run.
 data ParseError
   = ParseUnknownStartRule Name
   | ParseUndefinedRules [(Name, Name)]
   | ParseNoParse ParseFailure
   deriving (Eq, Show)
 
+-- | Renders a parse failure with its token and position.
 renderParseError :: ParseError -> Text
 renderParseError e = case e of
   ParseUnknownStartRule n -> "unknown start rule " <> nameText n
@@ -54,6 +62,7 @@ renderParseError e = case e of
        in T.concat [T.pack (show line), ":", T.pack (show column), ": no parse at token ", renderToken t]
     Nothing -> "no parse at token index " <> T.pack (show i)
 
+-- | Renders a tree for the parse subcommand and for debugging.
 renderParseTree :: ParseTree -> Text
 renderParseTree = go 0
   where
@@ -63,12 +72,14 @@ renderParseTree = go 0
       RuleNode name _ children -> T.intercalate "\n" (T.concat [indent depth, "(", nameText name] : map (go (depth + 1)) children ++ [indent depth <> ")"])
     indent depth = T.replicate depth "  "
 
+-- | Finds every node of a rule, looking through labels.
 treeRuleNodes :: Name -> ParseTree -> [ParseTree]
 treeRuleNodes wanted tree = case tree of
   TokenNode _ -> []
   Labeled _ inner -> treeRuleNodes wanted inner
   RuleNode name _ children -> [tree | name == wanted] ++ concatMap (treeRuleNodes wanted) children
 
+-- | The tokens of a subtree in order, looking through labels.
 treeTokens :: ParseTree -> [Token]
 treeTokens tree = case tree of
   TokenNode t -> [t]
@@ -133,9 +144,12 @@ isExtension sh = case sh of
   ShapeSuffix _ -> True
   _ -> False
 
+-- | Parses all tokens from a start rule.
 parseTokens :: Grammar ann -> Name -> [Token] -> Either ParseError ParseTree
 parseTokens grammar start = parseVisibleTokens grammar start . filter ((== defaultChannelName) . tokenChannel)
 
+-- | Parses only the tokens on the default channel, which is what a grammar with a hidden channel
+-- expects.
 parseVisibleTokens :: Grammar ann -> Name -> [Token] -> Either ParseError ParseTree
 parseVisibleTokens grammar start visible
   | not (Map.member start ruleIndex) = Left (ParseUnknownStartRule start)

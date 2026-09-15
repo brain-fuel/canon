@@ -1,3 +1,5 @@
+-- | A decision is a Why bound to units by id, which is what an architecture decision record is to
+-- architecture.
 module Canon.Model.Decision
   ( Decision (..)
   ) where
@@ -7,6 +9,7 @@ import Canon.Model.Id (DecisionId, UnitId)
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
 import Data.List.NonEmpty (NonEmpty)
 
+-- | A decision: its id, units, Why, location, and vetting.
 data Decision ev = Decision
   { decisionId :: DecisionId
   , decisionUnits :: NonEmpty UnitId

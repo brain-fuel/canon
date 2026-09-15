@@ -9,6 +9,10 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- Haskell as a dialect language: `grammars/haskell/canonically_commented/` tokenizes Haddock `-- |` and `{-| -}` comments, labels unit alternatives and export-list entries, and the layout port holds doc tokens until the next code token; the root `canon.yaml` checks canon's own `src`, `app`, and `test` through it
+- The export rule: a dialect that labels export entries requires a comment on exactly the exported units, or on every named unit when a module has no export list
+- Canonical comments on every rule of the plain Haskell grammar and on every exported unit and module of canon's own source, ingested as pending for a human to vet
+- Four fixes to the vendored Haskell grammar and its layout port, so all seventy-seven Haskell files in the repository parse: standard literals with escapes, contextual keywords and pragma names as identifiers, block closing on a dedented `where` or brace, and doc-comment holding
 - Rule 8: the name says what and the comment says why, so a comment that restates the name is vetted bad; applied to one Gson test as the worked example, with its requirement recorded in the sample's registry
 - Test recognition: the `marker` element label on annotations in the Java dialect, a built-in table per language of test markers and name patterns (JUnit 3, 4, and 5, jqwik, EUnit, plunit, and naming conventions for Clojure and Haskell), `test` on every unit in the model, a required comment on every test, and two failing checks: a commented test that cites no `requirement` and a requirement no test in the project cites
 - Canonical comments on every rule of the plain Java grammar and its dialect, with the BSD header citing its license, so both are checked at the root; test sources are not exempt from canonical comments, since a test's Why is the requirement it verifies
@@ -24,6 +28,8 @@ and this project adheres to
 - An uncited decided decision is reported once per project, when no file in the project cites it, instead of per file that happens not to
 
 ### Changed
+- The decree of no comments in canon's own code ends: the standard is canonical comments in Haddock form on exported units and module headers, and nothing else
+- The tetris sample is checked through the Haskell dialect instead of a profile with `units`, which brought its findings from 92 to 25 missing comments and no parse failures
 - `canon check` stops at nested projects instead of checking them too, so the root check reports canon's own state and each sample is checked from its own directory
 - The canonically commented grammar carries the extraction rules: a `DocComment` lexer mode tokenizes canonical comments, and labeled alternatives with `why`, `what`, and `how` elements name unit kinds and locate the answers, so `canon` generates the parser that slurps the five W's and the H from the grammar instead of a hand-written extractor; the plain meta-grammar files are now the language's own grammar with canonical comments on every unit, the `canonical` entry in `canon.yaml` and the hand-written ANTLR extractor are gone, `canon model` goes through the language profile, and unit ids for grammars are file-path based like every other language
 - Versions follow Semantic Versioning 2.0.0 rather than the Haskell Package Versioning Policy; the released version is 0.1.0, decision entries and `canon.yaml` use three-part versions, and pre-release labels order as the specification says

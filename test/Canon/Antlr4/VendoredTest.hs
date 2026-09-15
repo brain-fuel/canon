@@ -1,3 +1,4 @@
+-- | The vendored grammars must read with their known structure, so a grammar update is noticed.
 module Canon.Antlr4.VendoredTest (tests) where
 
 import Canon.Antlr4.Grammar (parseGrammarText)
@@ -11,6 +12,7 @@ import Hedgehog (Property, PropertyT, annotate, assert, evalEither, evalIO, fail
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

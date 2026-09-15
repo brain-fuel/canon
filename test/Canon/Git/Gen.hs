@@ -1,3 +1,5 @@
+-- | Generators and renderers for git history, so the parsers are tested against git's exact formats
+-- without a repository.
 module Canon.Git.Gen
   ( genCommitHash
   , genPerson
@@ -17,6 +19,7 @@ import Hedgehog (Gen)
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
+-- | A forty-character hash.
 genCommitHash :: Gen CommitHash
 genCommitHash = CommitHash <$> Gen.text (Range.singleton 40) (Gen.element ("0123456789abcdef" :: String))
 
@@ -26,15 +29,18 @@ genWord = Gen.text (Range.linear 1 10) Gen.alphaNum
 genPhrase :: Gen Text
 genPhrase = T.unwords <$> Gen.list (Range.linear 1 4) genWord
 
+-- | A person with a plausible email.
 genPerson :: Gen Person
 genPerson = Person <$> genPhrase <*> ((\u d -> T.concat [u, "@", d, ".example"]) <$> genWord <*> genWord)
 
 genTime :: Gen UTCTime
 genTime = posixSecondsToUTCTime . fromInteger <$> Gen.integral (Range.linear 0 2000000000)
 
+-- | A commit.
 genCommit :: Gen Commit
 genCommit = Commit <$> genCommitHash <*> genPerson <*> genTime <*> genPerson <*> genTime <*> genPhrase
 
+-- | A blame line.
 genBlameLine :: Gen BlameLine
 genBlameLine =
   BlameLine
@@ -47,6 +53,8 @@ genBlameLine =
     <*> genPhrase
     <*> Gen.text (Range.linear 0 40) (Gen.frequency [(8, Gen.alphaNum), (1, Gen.element (" ;:(){}" :: String))])
 
+-- | Renders commits as git log would, with the junk after the last separator that the parser must
+-- discard.
 renderGitLog :: [Commit] -> Text
 renderGitLog = T.concat . map renderRecord
   where
@@ -68,6 +76,7 @@ renderGitLog = T.concat . map renderRecord
         ]
     isoTime t = T.pack (if even (round (utcTimeToPOSIXSeconds t) :: Integer) then iso8601Show t else iso8601Show (utcToZonedTime utc t))
 
+-- | Renders blame lines as line porcelain.
 renderBlamePorcelain :: [BlameLine] -> Text
 renderBlamePorcelain = T.concat . map renderEntry
   where

@@ -181,3 +181,46 @@ DEC-name-what-comment-why:
     Rule 8. The name is the What and states the fact the unit establishes in full words, so a test is named for the property it verifies. The comment is the Why and says why that fact must hold, citing the requirement or decision that records the reason. A comment that restates the name fulfils no purpose the name does not and is vetted bad. canon cannot judge this by Rice's theorem; the vetting human does. Worked example: Gson's testReflectionInternalField became verifyThatGsonPackagesAreOnlyExportedButNotOpenedForReflection with a comment giving the reason and citing REQ-module-not-opened in the sample's registry.
   opened: 0.1.0
   decided: 0.1.0
+
+DEC-haskell-dialect:
+  status: decided
+  question: What does the canonically commented dialect of the Haskell grammar look like, and how does it coexist with the layout algorithm the base lexer port implements?
+  answer: |
+    The canonical comment forms are Haddock's: a line comment opened with two dashes and a bar, continued by directly following lines that start with two dashes, or a block comment opened with a brace, dash, and bar. Caret after-comments and plain comments are not canonical. The dialect lexer sends the doc opener into a DocLine or DocBlock mode that tokenizes prose, ref:KEY, and license:KEY; the line break that ends a doc line keeps the NEWLINE type and the newline action so the layout algorithm and the parser see it as usual. The dialect parser inlines each unit-bearing top-level form as its own labeled alternative with why, what, and how, labels export-list entries export, and absorbs a doc comment on a local binding, an instance method, or a constructor as an orphan. Two doc comments on consecutive lines merge, as Haddock also reads them. The base lexer port holds doc tokens until the next code token has produced its virtual braces and semicolons, then emits them just before it, so a doc comment never counts as the first token of a line and sits inside the block of the declaration it documents; it also dispatches lexer actions by the method they call rather than by rule name, so the dialect's DOC_CLOSE can carry the newline action.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [grammars-v4]
+
+DEC-export-rule:
+  status: decided
+  question: Which Haskell units require a canonical comment, given that a module's public API is its export list and a grammar can label the list but not cross-reference it?
+  answer: |
+    The exported ones. A dialect that labels export-list entries export opts into the rule: a unit is required when its What is an exported name, is listed under its parent's entry, or its parent is exported with two dots; when the file has no export list, every unit whose What is a plain name is required. An instance's What is its head, which is not a name, so an instance never requires a comment by this rule. The grammar's own required labels and test recognition still apply. Erlang's export attribute is the next user of the mechanism.
+  opened: 0.1.0
+  decided: 0.1.0
+
+DEC-haskell-grammar-fixes:
+  status: decided
+  question: The grammars-v4 Haskell grammar could not parse thirty-five of canon's own seventy-seven Haskell files; is it right to change the vendored grammar, and how?
+  answer: |
+    Yes, where the grammar rejects Haskell that GHC accepts, and each change is commented in the grammar and cited here. Character and string literals are written in the standard form with escapes and gaps, because the enumerated form rejected escapes and let a backslash be an ordinary character, which made a string holding two backslashes match past its closing quote and lexing exponential. The contextual keywords by, group, using, pattern, family, role, and rec are accepted as variable identifiers, and pragma names such as SCC as constructor identifiers, because GHC treats them as ordinary names outside their extensions. In the base lexer port, a where or a closing brace that starts a line at or left of the current block's indentation closes the implicit blocks above it, which is the case the upstream port left open and which every where after a case hit. Two constructs remain outside reach, because they need the parse-error rule of the layout algorithm: a case whose alternatives end at a closing parenthesis or bracket on the same line, and a let inside a comprehension; canon's own code avoids both.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [grammars-v4]
+
+DEC-haskell-grammar-comments:
+  status: decided
+  question: Does the plain Haskell grammar carry a canonical comment on each of its own rules, as the ANTLR and Java grammars do?
+  answer: |
+    Yes, written on 2026-09-15: every parser rule and every non-fragment lexer rule, with the BSD header as the file-level comment citing its license. The dialect is generated from the plain grammar and carries the same comments, extended on the rules that gained labels. Both are checked at the root.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [grammars-v4]
+
+DEC-canon-comment-standard:
+  status: decided
+  question: canon's own source carried no comments until a standard existed; what is the standard?
+  answer: |
+    Canonical comments in Haddock form, on exported units and module headers, and nothing else. Every module has a doc comment before the module keyword saying why the module exists and citing the decisions it embodies. Every exported unit has a doc comment that says why under rule 8, since the name says what; a type cites the decision that shaped it and a function states the reason or invariant. Non-exported units may have one. Every one of these comments is recorded as pending in the root vetting file, because they were written by an AI and a human vets them.
+  opened: 0.1.0
+  decided: 0.1.0

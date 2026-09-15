@@ -1,3 +1,4 @@
+-- | Generators for the model and every file canon reads, so properties cover the whole shape.
 module Canon.Model.Gen
   ( genPosition
   , genSpan
@@ -58,27 +59,33 @@ import Hedgehog (Gen)
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
+-- | A position.
 genPosition :: Gen Position
 genPosition = Position <$> Gen.int (Range.linear 1 500) <*> Gen.int (Range.linear 1 120)
 
+-- | A span with its end after its start.
 genSpan :: Gen Span
 genSpan = do
   a <- genPosition
   b <- genPosition
   pure (Span (min a b) (max a b))
 
+-- | A valid id segment.
 genIdSegment :: Gen Text
 genIdSegment = Gen.text (Range.linear 1 10) Gen.alphaNum
 
 nonEmptyOf :: Range.Range Int -> Gen a -> Gen (NonEmpty a)
 nonEmptyOf range gen = NonEmpty.fromList <$> Gen.list (Range.linear 1 (Range.upperBound 99 range)) gen
 
+-- | A unit id.
 genUnitId :: Gen UnitId
 genUnitId = UnitId <$> nonEmptyOf (Range.linear 1 4) genIdSegment
 
+-- | A decision id.
 genDecisionId :: Gen DecisionId
 genDecisionId = DecisionId <$> genUnitId
 
+-- | A valid key.
 genReferenceKey :: Gen ReferenceKey
 genReferenceKey =
   ReferenceKey
@@ -90,15 +97,19 @@ genReferenceKey =
           <*> Gen.alphaNum
       ]
 
+-- | A file path.
 genPath :: Gen FilePath
 genPath = T.unpack <$> Gen.text (Range.linear 1 20) (Gen.frequency [(5, Gen.alphaNum), (1, Gen.element ("/._-" :: String))])
 
+-- | Printable text.
 genPlainText :: Gen Text
 genPlainText = Gen.text (Range.linear 0 30) (Gen.filter isPrint Gen.unicode)
 
+-- | A whole-second time, so ISO round trips exactly.
 genUTCTime :: Gen UTCTime
 genUTCTime = posixSecondsToUTCTime . fromInteger <$> Gen.integral (Range.linear 0 2000000000)
 
+-- | Evidence of any source.
 genEvidence :: Gen Evidence
 genEvidence =
   Gen.choice
@@ -108,33 +119,41 @@ genEvidence =
     , Asserted <$> (Assertion <$> genPath <*> genSpan)
     ]
 
+-- | A What.
 genWhat :: Gen What
 genWhat = What <$> genIdSegment <*> (UnitKind <$> genIdSegment)
 
+-- | A How.
 genHow :: Gen How
 genHow = Gen.choice [HowText <$> genPlainText, HowAt <$> genSpan]
 
+-- | A Where.
 genWhere :: Gen Where
 genWhere = Where <$> genPath <*> genSpan <*> Gen.list (Range.linear 0 3) genIdSegment <*> Gen.maybe (Gen.int (Range.linear 0 100))
 
+-- | A Why.
 genWhy :: Gen Why
 genWhy = Why <$> genPlainText <*> Gen.list (Range.linear 0 3) genReferenceKey <*> Gen.list (Range.linear 0 2) genReferenceKey
 
 genAttribution :: Gen Attribution
 genAttribution = Attribution <$> genPerson <*> Gen.list (Range.linear 1 3) genCommitHash
 
+-- | A Who.
 genWho :: Gen Who
 genWho = Who <$> Gen.list (Range.linear 0 3) genAttribution <*> Gen.list (Range.linear 0 3) genAttribution
 
 genChange :: Gen Change
 genChange = Change <$> genCommitHash <*> genUTCTime
 
+-- | A When.
 genWhen :: Gen When
 genWhen = When <$> genChange <*> genChange <*> Gen.maybe genIdSegment
 
+-- | An answer with evidence.
 genAnswer :: Gen a -> Gen (Answer a Evidence)
 genAnswer gen = Answer <$> gen <*> genEvidence
 
+-- | A bounded-depth unit tree.
 genCodeUnit :: Gen (CodeUnit Evidence)
 genCodeUnit =
   Gen.recursive
@@ -155,6 +174,7 @@ genCodeUnitWith genChildren =
     <*> Gen.bool
     <*> genChildren
 
+-- | A decision over known unit ids, sometimes dangling.
 genDecisionOver :: [UnitId] -> Gen (Decision Evidence)
 genDecisionOver known =
   Decision
@@ -164,18 +184,23 @@ genDecisionOver known =
     <*> genWhere
     <*> Gen.maybe (genAnswer genAssessment)
 
+-- | A verdict.
 genVerdict :: Gen Verdict
 genVerdict = Gen.enumBounded
 
+-- | An assessment.
 genAssessment :: Gen Assessment
 genAssessment = Assessment <$> genVerdict <*> Gen.maybe genPerson <*> Gen.maybe genUTCTime <*> Gen.maybe genCommitHash
 
+-- | A vetting entry.
 genVettingEntry :: Gen VettingEntry
 genVettingEntry = VettingEntry <$> genVerdict <*> (("sha256:" <>) <$> Gen.text (Range.singleton 16) Gen.hexit) <*> Gen.maybe genVersion <*> Gen.maybe genPlainText
 
+-- | A vetting file.
 genVetting :: Gen Vetting
 genVetting = Vetting . Map.fromList <$> Gen.list (Range.linear 0 4) ((,) <$> genDecisionId <*> genVettingEntry)
 
+-- | A model whose decisions mostly name its own units.
 genModel :: Gen (Model Evidence)
 genModel = do
   units <- Gen.list (Range.linear 0 3) genCodeUnit
@@ -187,12 +212,15 @@ genModel = do
     <*> pure units
     <*> Gen.list (Range.linear 0 3) (genDecisionOver known)
 
+-- | A reference.
 genReference :: Gen Reference
 genReference = Reference <$> Gen.enumBounded <*> genPlainText <*> genPlainText
 
+-- | A registry.
 genRegistry :: Gen Registry
 genRegistry = Registry . Map.fromList <$> Gen.list (Range.linear 0 5) ((,) <$> genReferenceKey <*> genReference)
 
+-- | A configuration.
 genConfig :: Gen Config
 genConfig =
   Config
@@ -204,6 +232,7 @@ genConfig =
     <*> genPath
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> genProfile))
 
+-- | A semantic version.
 genVersion :: Gen Version
 genVersion =
   Version
@@ -221,6 +250,7 @@ genVersion =
         ]
     genIdentifierText = Gen.text (Range.linear 1 6) (Gen.frequency [(8, Gen.alphaNum), (1, pure '-')])
 
+-- | A ledger entry consistent with its status.
 genDecisionEntry :: Gen DecisionEntry
 genDecisionEntry = do
   status <- Gen.enumBounded
@@ -234,9 +264,11 @@ genDecisionEntry = do
   units <- Gen.list (Range.linear 0 2) genUnitId
   pure (DecisionEntry status question answer opened revisit decided by refs units)
 
+-- | A ledger.
 genLedger :: Gen Ledger
 genLedger = Ledger . Map.fromList <$> Gen.list (Range.linear 0 4) ((,) <$> genReferenceKey <*> genDecisionEntry)
 
+-- | A profile.
 genProfile :: Gen Profile
 genProfile =
   Profile
@@ -254,6 +286,7 @@ genProfile =
         <*> Gen.bool
         <*> Gen.maybe ((,) <$> Gen.maybe (Name <$> genIdSegment) <*> Gen.list (Range.linear 1 3) genIdSegment)
 
+-- | A finding of any kind.
 genFinding :: Gen Finding
 genFinding =
   Gen.choice

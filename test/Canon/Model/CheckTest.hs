@@ -1,3 +1,4 @@
+-- | Each check must report exactly the findings its definition says, over generated models.
 module Canon.Model.CheckTest (tests) where
 
 import Canon.Model
@@ -15,6 +16,7 @@ import qualified Hedgehog.Gen as Gen
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup
@@ -148,7 +150,7 @@ citedWhileOpenInformational = property $ do
           altered = m {modelDecisions = d {decisionWhy = (decisionWhy d) {answerValue = why {whyReferences = key : whyReferences why}}} : rest}
           ledger = ledgerOf [(key, e {entryStatus = Open, entryRevisit = Just (Version 9 0 0 [] [])})]
           findings = checkLedger Nothing emptyRegistry ledger altered
-      assert (any (\f -> case f of DecisionCitedWhileOpen _ _ k -> k == key; _ -> False) findings)
+      assert (any (citesKey key) findings)
       assert (all ((== Informational) . findingSeverity) [f | f@DecisionCitedWhileOpen {} <- findings])
       [k | UnresolvedReference _ _ k <- checkModel emptyRegistry ledger altered, k == key] === []
 
@@ -170,3 +172,8 @@ licenseKindChecked = property $ do
       findings = checkModel (fullRegistry m r) emptyLedger m
   [(d, k) | LicenseKeyNotLicense d _ k <- findings] === (if referenceKind r == License then [] else licensed)
   [(d, k) | LicenseKeyNotLicense d _ k <- checkModel asLicense emptyLedger m] === []
+
+citesKey :: ReferenceKey -> Finding -> Bool
+citesKey key f = case f of
+  DecisionCitedWhileOpen _ _ k -> k == key
+  _ -> False

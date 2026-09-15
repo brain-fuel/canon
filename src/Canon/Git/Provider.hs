@@ -1,3 +1,5 @@
+-- | Git is behind a provider record so that the shell is one implementation and tests use a static
+-- one.
 module Canon.Git.Provider
   ( GitError (..)
   , GitProvider (..)
@@ -16,12 +18,14 @@ import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
 
+-- | Git can be missing or fail, and the model reports which.
 data GitError
   = GitNotFound
   | GitFailed Int Text
   | GitUnparsable GitParseError
   deriving (Eq, Show)
 
+-- | The four questions canon asks git.
 data GitProvider = GitProvider
   { historyOf :: FilePath -> Span -> IO (Either GitError [Commit])
   , blameOf :: FilePath -> Span -> IO (Either GitError [BlameLine])
@@ -29,15 +33,18 @@ data GitProvider = GitProvider
   , describeVersion :: IO (Either GitError (Maybe Text))
   }
 
+-- | The data a static provider answers from.
 data StaticGit = StaticGit
   { staticCommits :: [Commit]
   , staticTags :: Map CommitHash [Text]
   , staticDescribe :: Maybe Text
   }
 
+-- | A provider that answers from a fixed commit list.
 staticGitProvider :: [Commit] -> GitProvider
 staticGitProvider commits = staticGitProviderWith (StaticGit commits Map.empty Nothing)
 
+-- | A static provider with tags and a describe value too.
 staticGitProviderWith :: StaticGit -> GitProvider
 staticGitProviderWith static =
   GitProvider
@@ -54,6 +61,7 @@ cycle' xs = if null xs then [] else cycle xs
 blameLine :: Int -> Commit -> BlameLine
 blameLine line c = BlameLine (commitHash c) line (commitAuthor c) (commitAuthoredAt c) (commitCommitter c) (commitCommittedAt c) (commitSubject c) T.empty
 
+-- | Renders a git error.
 renderGitError :: GitError -> Text
 renderGitError e = case e of
   GitNotFound -> "git is not available"

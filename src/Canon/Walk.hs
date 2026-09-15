@@ -1,3 +1,5 @@
+-- | The walk finds supported files and stops at nested projects and ignored directories, so a check
+-- never reads what is not the project's own.
 module Canon.Walk
   ( Walked (..)
   , findSupportedFiles
@@ -11,18 +13,22 @@ import qualified Data.Text as T
 import System.Directory (doesDirectoryExist, doesFileExist, listDirectory)
 import System.FilePath (splitDirectories, takeExtension, (</>))
 
+-- | The files found and the nested projects skipped.
 data Walked = Walked
   { walkedFiles :: [FilePath]
   , walkedProjects :: [FilePath]
   }
   deriving (Eq, Show)
 
+-- | The extension of grammar files, which every project supports.
 grammarExtension :: String
 grammarExtension = ".g4"
 
+-- | Finds files by extension under a directory, honouring ignores.
 findSupportedFiles :: [IgnorePattern] -> FilePath -> IO [FilePath]
 findSupportedFiles patterns root = walkedFiles <$> walkProject patterns [grammarExtension] "canon.yaml" root
 
+-- | Walks a project root, stopping at directories that hold their own configuration.
 walkProject :: [IgnorePattern] -> [String] -> FilePath -> FilePath -> IO Walked
 walkProject patterns extensions marker root = go []
   where

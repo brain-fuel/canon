@@ -1,3 +1,4 @@
+-- | The shell provider runs git as a process, the only place canon starts one.
 module Canon.Git.Shell
   ( shellGitProvider
   , runGit
@@ -17,6 +18,7 @@ import System.Exit (ExitCode (..))
 import System.FilePath (takeDirectory, takeFileName)
 import System.Process.Typed (proc, readProcess)
 
+-- | Runs one git command in a directory and returns its output or a git error.
 runGit :: FilePath -> [String] -> IO (Either GitError Text)
 runGit directory arguments = do
   result <- try (readProcess (proc "git" ("-C" : directory : arguments)))
@@ -33,6 +35,7 @@ lineRange (Span start end) =
       final = max first (positionLine end)
    in show first ++ "," ++ show final
 
+-- | The provider over the git executable.
 shellGitProvider :: GitProvider
 shellGitProvider =
   GitProvider

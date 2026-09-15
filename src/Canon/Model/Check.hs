@@ -1,3 +1,5 @@
+-- | Every check over a model lives here, so that a finding has one definition.
+-- ref:DEC-decision-ledger ref:DEC-test-requirement-check
 module Canon.Model.Check
   ( checkModel
   , checkLedger
@@ -18,9 +20,12 @@ import Data.Maybe (isNothing)
 import qualified Data.Set as Set
 import Data.Text (Text)
 
+-- | Runs every per-model check.
 checkAll :: Maybe Text -> Registry -> Ledger -> Model ev -> [Finding]
 checkAll version registry ledger m = checkModel registry ledger m ++ checkLedger version registry ledger m ++ checkTests registry m
 
+-- | The requirement keys the file's tests cite, which the project unions to decide untested
+-- requirements.
 requirementsCitedByTests :: Registry -> Model ev -> Set.Set ReferenceKey
 requirementsCitedByTests registry m =
   Set.fromList
@@ -32,6 +37,8 @@ requirementsCitedByTests registry m =
     , fmap referenceKind (lookupReference key registry) == Just Requirement
     ]
 
+-- | A commented test must cite a requirement, and a requirement must be cited by a test.
+-- ref:DEC-test-requirement-check
 checkTests :: Registry -> Model ev -> [Finding]
 checkTests registry m = withoutRequirement ++ untested
   where
@@ -51,6 +58,8 @@ checkTests registry m = withoutRequirement ++ untested
       , not (Set.member k cited)
       ]
 
+-- | References resolve, license keys are licenses, decisions name existing units, and required units
+-- have comments.
 checkModel :: Registry -> Ledger -> Model ev -> [Finding]
 checkModel registry ledger m = unresolved ++ licenseKinds ++ licenseText ++ dangling ++ missing
   where
@@ -90,6 +99,8 @@ checkModel registry ledger m = unresolved ++ licenseKinds ++ licenseText ++ dang
       , null (decisionsFor (unitId u) m)
       ]
 
+-- | The ledger checks: revisit versions, citations, successors, collisions, and named units.
+-- ref:DEC-decision-ledger
 checkLedger :: Maybe Text -> Registry -> Ledger -> Model ev -> [Finding]
 checkLedger version registry ledger m =
   collisions ++ pastRevisit ++ uncited ++ successors ++ citedWhileOpen ++ missingUnits

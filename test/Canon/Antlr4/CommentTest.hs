@@ -1,3 +1,4 @@
+-- | Comment scanning must keep every comment with the right span, or attachment binds the wrong Why.
 module Canon.Antlr4.CommentTest (tests) where
 
 import Canon.Antlr4.Comment
@@ -9,6 +10,7 @@ import Hedgehog (Property, assert, evalIO, forAll, property, withTests, (===))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

@@ -1,3 +1,4 @@
+-- | Ignore patterns must behave as gitignore does.
 module Canon.IgnoreTest (tests) where
 
 import Canon.Ignore
@@ -13,6 +14,7 @@ import System.FilePath ((</>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

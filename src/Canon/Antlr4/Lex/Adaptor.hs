@@ -1,3 +1,5 @@
+-- | ANTLR's own meta-grammar delegates its argument and action bookkeeping to a Java LexerAdaptor,
+-- and this is that adaptor as a hook. ref:DEC-parser-generation
 module Canon.Antlr4.Lex.Adaptor
   ( AdaptorState (..)
   , antlrLexerHooks
@@ -13,6 +15,8 @@ import Data.Char (isUpper)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Text as T
 
+-- | The adaptor tracks nesting of arguments and actions so it can set token types and modes the way
+-- the Java class does.
 data AdaptorState
   = OutsideRule
   | InPrequel
@@ -22,6 +26,7 @@ data AdaptorState
   | InParserRule
   deriving (Eq, Show)
 
+-- | The hooks for the ANTLR meta-grammar.
 antlrLexerHooks :: LexerHooks AdaptorState
 antlrLexerHooks = LexerHooks OutsideRule onAction onEmit
   where
@@ -50,6 +55,8 @@ antlrLexerHooks = LexerHooks OutsideRule onAction onEmit
 
     startsUpper t = maybe False (isUpper . fst) (T.uncons t)
 
+-- | Selects the hook port named by a grammar's superClass option, so a grammar declares its base
+-- lexer and canon supplies it.
 hooksForGrammar :: Grammar ann -> SomeHooks
 hooksForGrammar grammar =
   case [NonEmpty.last v | Option (Name "superClass") (OptionValueName (QualifiedName v)) <- grammarOptions grammar] of

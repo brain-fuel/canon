@@ -1,3 +1,4 @@
+-- | Test recognition must follow the table exactly. ref:DEC-test-requirement-check
 module Canon.TestingTest (tests) where
 
 import Canon.Testing
@@ -10,6 +11,7 @@ import qualified Hedgehog.Range as Range
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

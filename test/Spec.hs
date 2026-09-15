@@ -1,3 +1,4 @@
+-- | The suite is split into unit and property groups so either can be run alone.
 module Main (main) where
 
 import qualified Canon.Antlr4.CommentTest
@@ -22,6 +23,7 @@ import qualified Canon.TestingTest
 import qualified CanonTest
 import Test.Tasty (defaultMain, testGroup)
 
+-- | Runs the whole suite.
 main :: IO ()
 main =
   defaultMain

@@ -1,3 +1,5 @@
+-- | Comments carry the Why, so the reader keeps them with their spans instead of discarding them as
+-- ANTLR does. ref:DEC-comment-reasons
 module Canon.Antlr4.Comment
   ( Comment (..)
   , CommentKind (..)
@@ -21,9 +23,11 @@ import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
 
+-- | Only doc comments are canonical, so the kind is kept to tell them from line and block comments.
 data CommentKind = DocComment | BlockComment | LineComment
   deriving (Eq, Ord, Show, Enum, Bounded)
 
+-- | A comment with its span, so it can be bound to the unit directly below it.
 data Comment = Comment
   { commentKind :: CommentKind
   , commentText :: Text
@@ -32,6 +36,8 @@ data Comment = Comment
 
 data Walk = Walk Int Text Text
 
+-- | Scans comments out of grammar text independently of parsing, so a grammar that fails to parse
+-- still yields its comments.
 scanComments :: Text -> [Located Comment]
 scanComments source = go (Walk 0 source T.empty)
   where

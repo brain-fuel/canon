@@ -1,3 +1,5 @@
+-- | The decision ledger keeps every decision, open or closed, with a version by which an open one
+-- must be revisited, so the list of open decisions cannot go stale. ref:DEC-decision-ledger
 module Canon.Decisions
   ( DecisionStatus (..)
   , DecisionEntry (..)
@@ -21,9 +23,11 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Yaml as Yaml
 
+-- | Open, decided, or superseded: an entry moves forward and is never deleted.
 data DecisionStatus = Open | Decided | Superseded
   deriving (Eq, Ord, Show, Enum, Bounded)
 
+-- | One decision: its question, answer, versions, successor, references, and units.
 data DecisionEntry = DecisionEntry
   { entryStatus :: DecisionStatus
   , entryQuestion :: Text
@@ -37,29 +41,37 @@ data DecisionEntry = DecisionEntry
   }
   deriving (Eq, Show)
 
+-- | The ledger keyed like the registry, so a comment cites a decision with the same ref form.
 newtype Ledger = Ledger {ledgerEntries :: Map ReferenceKey DecisionEntry}
   deriving (Eq, Show)
 
+-- | An unreadable ledger is an error.
 data LedgerError = LedgerUnreadable FilePath Text
   deriving (Eq, Show)
 
+-- | The default ledger file name.
 defaultLedgerFileName :: FilePath
 defaultLedgerFileName = "canonical_decisions.yaml"
 
+-- | The ledger of a project without one.
 emptyLedger :: Ledger
 emptyLedger = Ledger Map.empty
 
+-- | Finds a decision by key.
 lookupDecision :: ReferenceKey -> Ledger -> Maybe DecisionEntry
 lookupDecision key = Map.lookup key . ledgerEntries
 
+-- | Reads a ledger file.
 readLedgerFile :: FilePath -> IO (Either LedgerError Ledger)
 readLedgerFile path = do
   result <- Yaml.decodeFileEither path
   pure (either (Left . LedgerUnreadable path . T.pack . Yaml.prettyPrintParseException) Right result)
 
+-- | Renders a ledger error with its path.
 renderLedgerError :: LedgerError -> Text
 renderLedgerError (LedgerUnreadable path message) = T.concat [T.pack path, ": ", message]
 
+-- | The text of a status as it appears in the file.
 statusText :: DecisionStatus -> Text
 statusText s = case s of
   Open -> "open"

@@ -1,3 +1,5 @@
+-- | The vetting file must round-trip, and verdicts, digests, and assessors must behave as rule 7
+-- says. ref:DEC-comment-vetting
 module Canon.VettingTest (tests) where
 
 import Canon.Git.Commit
@@ -20,6 +22,7 @@ import qualified Hedgehog.Gen as Gen
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup
@@ -116,7 +119,7 @@ assessorFromBlame = withTests 1 $ property $ do
     Just (Answer a ev) -> do
       assessmentVerdict a === Bad
       assessmentBy a === Nothing
-      assert (case ev of Asserted _ -> True; _ -> False)
+      assert (isAsserted ev)
     Nothing -> failure
   let model = modelOf [decisionWith d2 (Why "" [] []) (Where "f" (Span (Position 1 1) (Position 1 1)) [] Nothing)]
       entry = Vetting (Map.singleton d2 (VettingEntry Bad (commentDigest (Why "" [] [])) Nothing (Just "wrong")))
@@ -129,3 +132,8 @@ orphanVerdicts = property $ do
   seen <- forAll (Gen.subsequence (Map.keys (vettingEntries vetting)))
   let orphans = [d | VerdictOrphan d <- orphanVerdictFindings vetting (Set.fromList seen)]
   Set.fromList orphans === Set.difference (Map.keysSet (vettingEntries vetting)) (Set.fromList seen)
+
+isAsserted :: Evidence -> Bool
+isAsserted ev = case ev of
+  Asserted _ -> True
+  _ -> False

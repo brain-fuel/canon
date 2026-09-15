@@ -41,9 +41,9 @@ module
     : OCURLY? semi* pragmas? semi* (module_content | body) CCURLY? semi? EOF
     ;
 
-/** The module header: the module keyword, the module name, an optional export list, and the where that introduces the body. */
+/** The module header: the module keyword, the module name, an optional export list, and the where that introduces the body. In the dialect a canonical comment before the module keyword is the Why of the module unit, whose What is the module name. ref:DEC-haskell-dialect */
 module_content
-    : 'module' modid exports? where_module
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'module' what = modid exports? where_module # module
     ;
 
 /** The where keyword that introduces a module body. */
@@ -100,9 +100,9 @@ impdecls
     : (impdecl | NEWLINE | semi)+
     ;
 
-/** The parenthesised export list, which is the public API of the module. */
+/** The parenthesised export list, which is the public API of the module. Each entry is labeled export so that canon requires a comment on exactly the exported units. ref:DEC-export-rule */
 exports
-    : '(' (exprt (',' exprt)*)? ','? ')'
+    : '(' (export = exprt (',' export = exprt)*)? ','? ')'
     ;
 
 /** One export: a variable, a type with all or some of its constructors, a class with all or some of its methods, or a whole module. */
@@ -154,32 +154,48 @@ ops
 
 // -------------------------------------------
 // Top-Level Declarations
-/** The top-level declarations of a module, separated by virtual or explicit semicolons. */
+/** The top-level declarations of a module, separated by virtual or explicit semicolons. A canonical comment that no declaration follows is an orphan. */
 topdecls
-    : (topdecl semi+ | NEWLINE | semi)+
+    : (topdecl semi+ | NEWLINE | semi | orphan = canonicalComment)+
     ;
 
-/** A top-level declaration: class, type, kind signature, instance, standalone deriving, role annotation, default, foreign, pragma, annotation, ordinary declaration, or a naked Template Haskell splice. */
+/** A top-level declaration: class, type, kind signature, instance, standalone deriving, role annotation, default, foreign, pragma, annotation, ordinary declaration, or a naked Template Haskell splice. In the dialect each form that is a unit is its own alternative: class, type, typeFamily, data, newtype, dataFamily, instance, typeInstance, dataInstance, newtypeInstance, and function for a type signature; a canonical comment before it is its Why, the declared name is its What, and the body or type is its How. An instance head is not an exportable name, so an instance never requires a comment. ref:DEC-haskell-dialect ref:DEC-export-rule */
 topdecl
-    : cl_decl
-    | ty_decl
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'class' tycl_hdr fds? how = where_cls? # class
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'type' what = type_ '=' ktypedoc # type
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'type' 'family' what = type_ opt_tyfam_kind_sig? opt_injective_info? where_type_family? # typeFamily
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'data' capi_ctype? tycl_hdr how = constrs derivings? # data
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'newtype' capi_ctype? tycl_hdr how = constrs derivings? # newtype
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'data' capi_ctype? tycl_hdr opt_kind_sig? how = gadt_constrlist? derivings? # data
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'newtype' capi_ctype? tycl_hdr opt_kind_sig? how = gadt_constrlist? derivings? # newtype
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'data' 'family' what = type_ opt_datafam_kind_sig? # dataFamily
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'instance' overlap_pragma? what = inst_type how = where_inst? # instance
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'type' 'instance' what = ty_fam_inst_eqn # typeInstance
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'data' 'instance' capi_ctype? what = tycl_hdr_inst derivings? # dataInstance
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'newtype' 'instance' capi_ctype? what = tycl_hdr_inst derivings? # newtypeInstance
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'data' 'instance' capi_ctype? what = tycl_hdr_inst opt_kind_sig? gadt_constrlist? derivings? # dataInstance
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'newtype' 'instance' capi_ctype? what = tycl_hdr_inst opt_kind_sig? gadt_constrlist? derivings? # newtypeInstance
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = infixexp '::' how = sigtypedoc # function
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = var_ ',' sig_vars '::' how = sigtypedoc # function
+    | cl_decl # plainClass
+    | ty_decl # plainType
     // Check KindSignatures
-    | standalone_kind_sig
-    | inst_decl
-    | standalone_deriving
-    | role_annot
-    | ('default' '(' comma_types? ')')
-    | ('foreign' fdecl)
-    | ('{-#' 'DEPRECATED' deprecations? '#-}')
-    | ('{-#' 'WARNING' warnings? '#-}')
-    | ('{-#' 'RULES' rules? '#-}')
-    | annotation
-    | decl_no_th
+    | standalone_kind_sig # kindSignature
+    | inst_decl # plainInstance
+    | standalone_deriving # deriving
+    | role_annot # role
+    | ('default' '(' comma_types? ')') # defaultDeclaration
+    | ('foreign' fdecl) # foreign
+    | ('{-#' 'DEPRECATED' deprecations? '#-}') # deprecated
+    | ('{-#' 'WARNING' warnings? '#-}') # warning
+    | ('{-#' 'RULES' rules? '#-}') # rules
+    | annotation # annotationPragma
+    | decl_no_th # declaration
     // -- Template Haskell Extension
     //  The $(..) form is one possible form of infixexp
     //  but we treat an arbitrary expression just as if
     //  it had a $(..) wrapped around it
-    | infixexp
+    | infixexp # spliceExpression
     ;
 
 // Type classes
@@ -361,10 +377,10 @@ opt_at_kind_inj_sig
     | ('=' tv_bndr_no_braces '|' injectivity_cond)
     ;
 
-/** The header of a type or class declaration: an optional context and the declared type. */
+/** The header of a type or class declaration: an optional context and the declared type. The dialect prefers to read the declared name as a bare type constructor with binders, so that the What of a type or class is its name; the full type is the fallback for exotic heads. */
 tycl_hdr
-    : (tycl_context '=>' type_)
-    | type_
+    : (tycl_context '=>' (what = oqtycon tv_bndrs? | type_))
+    | (what = oqtycon tv_bndrs? | type_)
     ;
 
 /** The header of a family instance: optional quantification, optional context, and the instance type. */
@@ -448,11 +464,13 @@ pattern_synonym_sig
 
 // Declaration in class bodies
 
-/** A declaration inside a class body: an associated family, an ordinary declaration, or a default signature. */
+/** A declaration inside a class body: an associated family, an ordinary declaration, or a default signature. A type signature inside a class is a method unit whose comment is required when the class exports it. */
 decl_cls
-    : at_decl_cls
-    | decl
-    | 'default' infixexp '::' sigtypedoc
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = infixexp '::' how = sigtypedoc # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = var_ ',' sig_vars '::' how = sigtypedoc # method
+    | at_decl_cls # associatedType
+    | decl # classDeclaration
+    | 'default' infixexp '::' sigtypedoc # defaultSignature
     ;
 
 /** The declarations of a class body. */
@@ -480,9 +498,9 @@ decl_inst
     | decl
     ;
 
-/** The declarations of an instance body. */
+/** The declarations of an instance body. A canonical comment on an instance method binding is an orphan. */
 decls_inst
-    : decl_inst (semi+ decl_inst)* semi*
+    : (orphan = canonicalComment)* decl_inst (semi+ (orphan = canonicalComment)* decl_inst)* semi*
     ;
 
 /** The layout block of an instance body. */
@@ -499,9 +517,9 @@ where_inst
 
 // Declarations in binding groups other than classes and instances
 //
-/** The declarations of a binding group. */
+/** The declarations of a binding group. A canonical comment on a local binding is an orphan. */
 decls
-    : decl (semi+ decl)* semi*
+    : (orphan = canonicalComment)* decl (semi+ (orphan = canonicalComment)* decl)* semi*
     ;
 
 /** The layout block of a binding group. */
@@ -991,9 +1009,9 @@ constrs
     : '=' constrs1
     ;
 
-/** One or more bar-separated constructors. */
+/** One or more bar-separated constructors. Constructors are not units in this pass, so a canonical comment on one is an orphan. */
 constrs1
-    : constr ('|' constr)*
+    : (orphan = canonicalComment)* constr ('|' (orphan = canonicalComment)* constr)*
     ;
 
 // {- Note [Constr variations of non-terminals]
@@ -2053,4 +2071,18 @@ pchar
 /** A string literal. */
 pstring
     : STRING
+    ;
+
+/** A canonical comment: the Why of the unit it precedes, holding prose, reference citations, and license citations. A Haddock line comment ends at its line break, which stays a NEWLINE token; a block comment ends at its closer. ref:DEC-comment-reasons ref:DEC-haskell-dialect */
+canonicalComment
+    : DOC_OPEN docPart*
+    | DOC_BLOCK_OPEN docPart* DOC_BLOCK_CLOSE
+    ;
+
+/** One piece of a canonical comment: a reference citation, a license citation, or prose. ref:DEC-grammar-carries-extraction-rules */
+docPart
+    : ref = DOC_REF
+    | license = DOC_LICENSE
+    | DOC_WORD
+    | DOC_PUNCT
     ;

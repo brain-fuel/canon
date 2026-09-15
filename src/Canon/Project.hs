@@ -1,3 +1,6 @@
+-- | A project is a directory with its configuration, registry, ledger, and vetting file, and the
+-- check stops at nested projects because each answers for itself. ref:DEC-nested-root-check
+-- ref:DEC-extraction-cache
 module Canon.Project
   ( Project (..)
   , ProjectError (..)
@@ -44,6 +47,7 @@ import qualified Data.Text as T
 import System.Directory (doesDirectoryExist, doesFileExist)
 import System.FilePath (makeRelative, normalise, (</>))
 
+-- | A project with its four canonical files loaded.
 data Project = Project
   { projectDirectory :: FilePath
   , projectConfig :: Config
@@ -52,6 +56,7 @@ data Project = Project
   , projectVetting :: Maybe Vetting
   }
 
+-- | Any of the four files can be unreadable.
 data ProjectError
   = ProjectConfigError ConfigError
   | ProjectRegistryError RegistryError
@@ -59,6 +64,7 @@ data ProjectError
   | ProjectVettingError VettingError
   deriving (Eq, Show)
 
+-- | Renders a project error.
 renderProjectError :: ProjectError -> Text
 renderProjectError e = case e of
   ProjectConfigError err -> renderConfigError err
@@ -66,9 +72,11 @@ renderProjectError e = case e of
   ProjectLedgerError err -> renderLedgerError err
   ProjectVettingError err -> renderVettingError err
 
+-- | Resolves a configured path against the project directory.
 resolvePath :: Project -> FilePath -> FilePath
 resolvePath project path = normalise (projectDirectory project </> path)
 
+-- | Loads a project from a directory, defaulting each absent file when it has the default name.
 loadProject :: FilePath -> IO (Either ProjectError Project)
 loadProject directory = do
   let configPath = directory </> configFileName
@@ -89,6 +97,8 @@ loadVetting path isDefault = do
     then either (Left . ProjectVettingError) (Right . Just) <$> readVettingFile path
     else pure (if isDefault then Right Nothing else Left (ProjectVettingError (VettingUnreadable path "file not found")))
 
+-- | The assessor of every verdict, read once per project from a blame of the vetting file.
+-- ref:DEC-comment-vetting
 projectAssessments :: Project -> IO (Map.Map DecisionId (Answer Assessment Evidence))
 projectAssessments project = case projectVetting project of
   Nothing -> pure Map.empty
@@ -104,6 +114,7 @@ loadOptional path isDefault empty reader wrap = do
     then pure (Right empty)
     else either (Left . wrap) Right <$> reader path
 
+-- | The files a check visits, honouring ignore patterns and stopping at nested projects.
 projectFiles :: Project -> Maybe FilePath -> IO Walked
 projectFiles project target = do
   let config = projectConfig project
@@ -115,6 +126,7 @@ projectFiles project target = do
     then walkProject patterns extensions configFileName root
     else pure (Walked [root] [])
 
+-- | Checks a project, with project-wide findings decided after every file has been seen.
 checkProject :: Project -> Maybe FilePath -> IO [Finding]
 checkProject project target = do
   walked <- projectFiles project target
@@ -180,6 +192,7 @@ extractAll project walked = do
   slots <- newQSem (max 1 workers)
   mapConcurrently (\path -> (,) path <$> bracket_ (waitQSem slots) (signalQSem slots) (extractCached project (Map.fromList interpreters) grammarBytes projectParts path)) (walkedFiles walked)
 
+-- | Records every canonical comment without a verdict as pending. ref:DEC-comment-vetting
 ingestProject :: Project -> IO (Either Text (FilePath, Int, [DecisionId]))
 ingestProject project = do
   walked <- projectFiles project Nothing
@@ -193,6 +206,7 @@ ingestProject project = do
     [] -> writeVettingFile path updated >> pure (Right (path, Map.size (vettingEntries updated), fresh))
     _ -> pure (Left (T.intercalate "\n" ("ingest refused because some files could not be extracted:" : failures)))
 
+-- | The comments that need a human verdict, with their text.
 vetProject :: Project -> IO [(Finding, Maybe (Decision Evidence))]
 vetProject project = do
   walked <- projectFiles project Nothing
@@ -213,6 +227,7 @@ vetProject project = do
 idPathOf :: Project -> FilePath -> FilePath
 idPathOf project path = makeRelative (normalise (projectDirectory project)) (normalise path)
 
+-- | Extracts one file through the profile that owns it, for the model subcommand.
 extractFile :: Project -> FilePath -> IO (Either Text Extraction)
 extractFile project path = do
   let config = projectConfig project

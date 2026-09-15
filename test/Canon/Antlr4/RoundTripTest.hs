@@ -1,3 +1,5 @@
+-- | Reading a printed grammar must give the value that was printed, over generated grammars.
+-- ref:DEC-parser-foundation
 module Canon.Antlr4.RoundTripTest (tests) where
 
 import Canon.Antlr4.Gen (genGrammar)
@@ -8,6 +10,7 @@ import Hedgehog (Property, forAll, property, tripping)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

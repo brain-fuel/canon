@@ -1,3 +1,5 @@
+-- | Versions follow Semantic Versioning 2.0.0 exactly, including precedence, because the ledger
+-- compares them. ref:DEC-decision-ledger
 module Canon.Version
   ( Version (..)
   , PreReleaseIdentifier (..)
@@ -13,6 +15,7 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.Read as TR
 
+-- | Numeric identifiers compare numerically and before alphanumeric ones, as the specification says.
 data PreReleaseIdentifier
   = NumericIdentifier Integer
   | AlphanumericIdentifier Text
@@ -25,6 +28,7 @@ instance Ord PreReleaseIdentifier where
     (AlphanumericIdentifier _, NumericIdentifier _) -> GT
     (AlphanumericIdentifier x, AlphanumericIdentifier y) -> compare x y
 
+-- | Major, minor, patch, pre-release, and build metadata.
 data Version = Version
   { versionMajor :: Integer
   , versionMinor :: Integer
@@ -34,12 +38,14 @@ data Version = Version
   }
   deriving (Eq, Show)
 
+-- | The key by which versions order, with build metadata ignored.
 precedence :: Version -> (Integer, Integer, Integer, Bool, [PreReleaseIdentifier])
 precedence v = (versionMajor v, versionMinor v, versionPatch v, null (versionPreRelease v), versionPreRelease v)
 
 instance Ord Version where
   compare a b = compare (precedence a) (precedence b)
 
+-- | Parses a version exactly as the specification allows.
 parseVersion :: Text -> Maybe Version
 parseVersion input = do
   let (core, afterCore) = T.break (\c -> c == '-' || c == '+') (T.strip input)
@@ -67,6 +73,7 @@ parseVersion input = do
       | otherwise = Nothing
     isIdentifierChar c = (isAscii c && isAlphaNum c) || c == '-'
 
+-- | Renders a version.
 renderVersion :: Version -> Text
 renderVersion v =
   T.concat
@@ -85,5 +92,7 @@ instance ToJSON Version where
 instance FromJSON Version where
   parseJSON = withText "Version" $ \t -> maybe (fail ("not a semantic version: " ++ T.unpack t)) pure (parseVersion t)
 
+-- | canon's own version, part of every cache key so a new canon never reads an old extraction.
+-- ref:DEC-extraction-cache
 canonVersion :: String
 canonVersion = "0.1.0"

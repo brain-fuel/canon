@@ -1,3 +1,5 @@
+-- | Extraction through each dialect must yield the units, decisions, requirements, and orphans the
+-- grammar declares. ref:DEC-grammar-carries-extraction-rules ref:DEC-export-rule
 module Canon.Extract.GrammarTest (tests) where
 
 import Canon.Antlr4.Interpret (Interpreter (..), renderInterpretError)
@@ -23,6 +25,7 @@ import Hedgehog (Property, PropertyT, annotate, assert, evalIO, failure, propert
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup
@@ -35,6 +38,8 @@ tests =
     , testProperty "the license header binds to the grammar unit" fileLevelLicense
     , testProperty "the dialect grammar's extraction rules are labeled alternatives" dialectPlans
     , testProperty "the java dialect marks public members required and misplaced comments orphan" javaDialect
+    , testProperty "the haskell dialect requires comments on exported units" haskellDialect
+    , testProperty "export entries parse and decide requirement" exportEntries
     ]
 
 dialectDir :: FilePath
@@ -115,7 +120,7 @@ parserDecisions = withTests 1 $ property $ do
   case [d | d <- modelDecisions model, renderDecisionId (decisionId d) == "decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ruleAction"] of
     [d] -> do
       assert (T.isPrefixOf "Match stuff like @init {int i;}" (whyText (answerValue (decisionWhy d))))
-      assert (case answerEvidence (decisionWhy d) of Asserted _ -> True; _ -> False)
+      assert (isAsserted (answerEvidence (decisionWhy d)))
     other -> annotate (show (length other)) >> failure
   [u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
 
@@ -237,3 +242,82 @@ javaDialect = withTests 1 $ property $ do
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["java/A.java/package/p/class/A/method/n", "java/A.java/package/p/class/A/method/u", "java/A.java/package/p/interface/I/method/k"]
   [renderUnitId u | TestWithoutRequirement u _ <- checkTests emptyRegistry model] === ["java/A.java/package/p/class/A/method/t"]
   [renderUnitId u | TestWithoutRequirement u _ <- checkTests (Registry (Map.singleton (ReferenceKey "REQ-1") (Reference Requirement "t" "here"))) model] === []
+
+isAsserted :: Evidence -> Bool
+isAsserted ev = case ev of
+  Asserted _ -> True
+  _ -> False
+
+haskellProfile :: Profile
+haskellProfile = Profile [".hs"] (SplitGrammarFiles "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4") (Name "module") [] defaultCommentSyntax
+
+haskellDialect :: Property
+haskellDialect = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter haskellProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "-- | This module exists to exercise the dialect. ref:some-key"
+          , "module Fixture"
+          , "  ( Shape (..)"
+          , "  , area"
+          , "  , Named (name)"
+          , "  , (+.+)"
+          , "  ) where"
+          , ""
+          , "-- | A shape is either a circle or a box"
+          , "-- and nothing else."
+          , "data Shape = Circle Double | Box Double Double"
+          , ""
+          , "{-| Names exist so that shapes can be reported. -}"
+          , "class Named a where"
+          , "  -- | The reported name."
+          , "  name :: a -> Text"
+          , "  describe :: a -> Text"
+          , ""
+          , "instance Named Shape where"
+          , "  name _ = \"shape\""
+          , ""
+          , "area :: Shape -> Double"
+          , "area s = go s"
+          , "  where"
+          , "    -- | not a unit"
+          , "    go _ = 1"
+          , ""
+          , "(+.+) :: Double -> Double -> Double"
+          , "a +.+ b = a + b"
+          , ""
+          , "helper :: Int"
+          , "helper = 2"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "haskell" haskellProfile interpreter "Fixture.hs" "Fixture.hs" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  let units = modelAllUnits model
+      byName n = [u | u <- units, whatName (answerValue (unitWhat u)) == n]
+      requirementOf n = map unitRequirement (byName n)
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- byName n, d <- decisionsFor (unitId u) model]
+  map kindOf (filter ((/= "file") . kindOf) units) === ["module", "data", "class", "method", "method", "instance", "function", "function", "function"]
+  map requirementOf ["Shape", "Named", "name", "describe", "area", "(+.+)", "helper", "Fixture"] === [[Required], [Required], [Required], [Optional], [Required], [Required], [Optional], [Optional]]
+  requirementOf "NamedShape" === [Optional]
+  whyOf "Fixture" === ["This module exists to exercise the dialect. ref:some-key"]
+  whyOf "Shape" === ["A shape is either a circle or a box\nand nothing else."]
+  whyOf "Named" === ["Names exist so that shapes can be reported."]
+  whyOf "name" === ["The reported name."]
+  length [() | OrphanDocComment _ _ <- findings] === 1
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["haskell/Fixture.hs/module/Fixture/function/area", "haskell/Fixture.hs/module/Fixture/function/(+.+)"]
+
+exportEntries :: Property
+exportEntries = withTests 1 $ property $ do
+  parseExportEntry "Shape (..)" === ExportAll "Shape"
+  parseExportEntry "Named (name, describe)" === ExportSome "Named" ["name", "describe"]
+  parseExportEntry "(+.+)" === ExportName "(+.+)"
+  parseExportEntry "module Data.Text" === ExportModule "Data.Text"
+  parseExportEntry "area" === ExportName "area"
+  let entries = Just [ExportAll "Shape", ExportSome "Named" ["name"], ExportName "area"]
+  exportRequires entries Nothing "Shape" === True
+  exportRequires entries (Just "Shape") "Circle" === True
+  exportRequires entries (Just "Named") "name" === True
+  exportRequires entries (Just "Named") "describe" === False
+  exportRequires entries Nothing "helper" === False
+  exportRequires Nothing Nothing "helper" === True
+  exportRequires Nothing Nothing "Named Shape" === False

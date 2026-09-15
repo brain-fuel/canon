@@ -1,3 +1,5 @@
+-- | Extractions are cached by content so that a second check re-reads only what changed, and the key
+-- holds everything that reaches the model so a stale entry cannot lie. ref:DEC-extraction-cache
 module Canon.Cache
   ( CacheKey (..)
   , cacheDirectoryName
@@ -21,12 +23,15 @@ import qualified Data.Text.Encoding as TE
 import System.Directory (createDirectoryIfMissing, doesFileExist)
 import System.FilePath ((</>))
 
+-- | A digest of every input to an extraction.
 newtype CacheKey = CacheKey {cacheKeyText :: Text}
   deriving (Eq, Show)
 
+-- | The cache lives in one named directory so it can be ignored and deleted.
 cacheDirectoryName :: FilePath
 cacheDirectoryName = ".canon-cache"
 
+-- | Digests the parts of a key in order.
 cacheKey :: [LBS.ByteString] -> CacheKey
 cacheKey parts =
   CacheKey (TE.decodeUtf8 (Base16.encode (hashlazy (LBS.concat (LBS.pack (map (fromIntegral . fromEnum) (show schemaVersion)) : parts)))))
@@ -42,6 +47,7 @@ instance FromJSON CachedExtraction where
 cachePath :: FilePath -> CacheKey -> FilePath
 cachePath directory (CacheKey key) = directory </> cacheDirectoryName </> (T.unpack key ++ ".yaml")
 
+-- | Reads an extraction back, treating any unreadable entry as a miss.
 lookupCached :: FilePath -> CacheKey -> IO (Maybe Extraction)
 lookupCached directory key = do
   let path = cachePath directory key
@@ -54,6 +60,7 @@ lookupCached directory key = do
         Left (_ :: IOException) -> Nothing
         Right content -> either (const Nothing) (\(CachedExtraction e) -> Just e) (decodeSorted content)
 
+-- | Writes an extraction under its key.
 storeCached :: FilePath -> CacheKey -> Extraction -> IO ()
 storeCached directory key extraction = do
   createDirectoryIfMissing True (directory </> cacheDirectoryName)

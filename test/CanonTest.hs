@@ -1,3 +1,4 @@
+-- | The command line must parse and print as documented.
 module CanonTest (tests) where
 
 import Canon (Command (..), dispatch, parseCommand, usage, version)
@@ -5,6 +6,7 @@ import Hedgehog (property, withTests, (===))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

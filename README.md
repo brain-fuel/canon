@@ -186,12 +186,20 @@ file exists, a new comment without an entry is pending too, so the author of
 a new comment adds its `good` entry in the same commit and is thereby its
 assessor.
 
-Until the canonical comment grammar exists for Haskell, this repository's own
-code carries no comments at all. Languages whose dialect grammars do not exist
-yet fall back to the provisional line-adjacency rule recorded in
-`to_be_removed/provisional_canonical_comment_syntax.md`: a doc comment on the
-line directly above a unit named by the language profile is its canonical
-comment.
+This repository's own Haskell code follows the same rule through the Haskell
+dialect: a Haddock comment in `-- |` or `{-| -}` form before every exported
+unit and before every `module` keyword, and no other comments. Languages whose
+dialect grammars do not exist yet fall back to the provisional line-adjacency
+rule recorded in `to_be_removed/provisional_canonical_comment_syntax.md`: a
+doc comment on the line directly above a unit named by the language profile
+is its canonical comment.
+
+An element labeled `export` marks an entry of a module's export list. A
+dialect that labels exports opts into the export rule: a named unit requires
+a comment when its name is exported, is listed under its parent's entry, or
+its parent is exported with `(..)`; when the file has no export list, every
+unit with a plain name requires one. An instance's What is its head, not a
+name, so an instance never requires a comment by this rule.
 
 ## The model
 
@@ -282,7 +290,7 @@ after cloning to fetch them.
 | `lang_samples/erlang-recon` | Erlang | `grammars/erlang/Erlang.g4` |
 | `lang_samples/clojure-hiccup` | Clojure | `grammars/clojure/Clojure.g4` |
 | `lang_samples/prolog-marelle` | Prolog | `grammars/prolog/prolog.g4` |
-| `lang_samples/haskell-tetris` | Haskell | `grammars/haskell/HaskellLexer.g4` and `HaskellParser.g4` |
+| `lang_samples/haskell-tetris` | Haskell | `grammars/haskell/canonically_commented/HaskellLexer.g4` and `HaskellParser.g4` |
 | `lang_samples/java-commons-lang` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
 | `lang_samples/java-joda-time` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
 | `lang_samples/java-gson` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
@@ -303,8 +311,19 @@ The Haskell grammar needs the layout rule, which upstream implements in a
 Java base lexer that injects virtual braces and semicolons into the token
 stream. `Canon.Antlr4.Lex.Haskell` is that base lexer ported to a lexer hook,
 selected by the grammar's `superClass` option like the meta-grammar's own
-adaptor. Where the upstream base lexer gets layout wrong, the port does too,
-and the file is reported as unparsable rather than parsed differently.
+adaptor. The port holds doc-comment tokens until the next code token has
+produced its virtual braces and semicolons, so a comment never counts as the
+first token of a line, and it closes implicit blocks when a `where` or a
+closing brace starts a line at or left of the block's indentation, which the
+upstream port left open. Two constructs stay out of reach because they need
+the parse-error rule of the layout algorithm: a `case` whose alternatives end
+at a closing bracket on the same line, and a `let` inside a comprehension.
+
+Haskell is checked through its dialect in this repository's own `canon.yaml`,
+so `canon check` at the root checks canon itself: `src`, `app`, `test`, and
+the four grammars that carry canonical comments. Every one of canon's own
+comments is recorded as pending in `canonical_vetting.yaml` until a human
+vets it.
 
 ANTLR grammar files are the first language `canon` models, through the
 `antlr4` profile in this repository's `canon.yaml`, which names the
@@ -425,6 +444,18 @@ node `how` marked on its elements. A `parserRule` and a `lexerRule` require
 the comment; the others allow it. Every rule in both files carries its own
 comment, so the dialect parses its own grammars, and the test suite checks
 that it does and that it rejects a grammar without canonical comments.
+
+`grammars/haskell/` holds the Haskell grammar from grammars-v4 with a
+canonical comment on every rule and four fixes, each cited in the ledger:
+standard character and string literals with escapes, contextual keywords and
+pragma names accepted as identifiers, and the two layout cases above. Under
+`canonically_commented/` the dialect sends `-- |` and `{-|` into `DocLine`
+and `DocBlock` lexer modes, keeps the line break that ends a doc line as a
+`NEWLINE` carrying the layout action, inlines each unit-bearing top-level
+form as a labeled alternative, labels export-list entries `export`, and
+absorbs a doc comment on a local binding, instance method, or constructor as
+an `orphan`. Two `-- |` comments on consecutive lines merge, as Haddock also
+reads them.
 
 `grammars/java/` holds the Java grammar from grammars-v4 and, under
 `canonically_commented/`, its dialect: the same `DocComment` lexer mode,

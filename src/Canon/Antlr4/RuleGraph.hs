@@ -1,3 +1,6 @@
+-- | The questions ANTLR's Grammar object answers about references, nullability, left recursion, and
+-- reachability are answered here over the reference graph, so the interpreter can plan around left
+-- recursion. ref:DEC-precedence-climbing
 module Canon.Antlr4.RuleGraph
   ( RuleGraph (..)
   , referenceGraph
@@ -20,16 +23,19 @@ import Data.Maybe (mapMaybe)
 import Data.Set (Set)
 import qualified Data.Set as Set
 
+-- | The graph of which rules reference which, the basis of every other question here.
 data RuleGraph = RuleGraph
   { ruleGraphNodes :: [Name]
   , ruleGraphEdges :: Map Name (Set Name)
   }
   deriving (Eq, Show)
 
+-- | Builds the reference graph of a grammar.
 referenceGraph :: Grammar ann -> RuleGraph
 referenceGraph g =
   RuleGraph (ruleNames g) (Map.fromListWith Set.union [(ruleName r, ruleReferences r) | r <- allRules g])
 
+-- | The rules that can match nothing, needed to tell which references are left corners.
 nullableRules :: Grammar ann -> Set Name
 nullableRules g = fixpoint Set.empty
   where
@@ -75,6 +81,7 @@ suffixNullable suffix = case suffix of
   Just (EbnfSuffix ZeroOrMore _) -> True
   _ -> False
 
+-- | The graph of references in leftmost position, whose cycles are left recursion.
 leftCornerGraph :: Grammar ann -> RuleGraph
 leftCornerGraph g = RuleGraph (ruleNames g) (Map.fromListWith Set.union [(ruleName r, leftCorners r) | r <- allRules g])
   where
@@ -101,12 +108,15 @@ leftCornerGraph g = RuleGraph (ruleNames g) (Map.fromListWith Set.union [(ruleNa
       LexerElementBlock _ alts _ -> Set.unions (map lexerAlternativeLeftCorners (NonEmpty.toList alts))
       _ -> Set.empty
 
+-- | The rules that reference themselves in leftmost position, which precedence climbing handles.
 directlyLeftRecursiveRules :: Grammar ann -> Set Name
 directlyLeftRecursiveRules g = Set.fromList [n | (n, targets) <- Map.toList (ruleGraphEdges (leftCornerGraph g)), Set.member n targets]
 
+-- | Every rule in a left-corner cycle, direct or indirect.
 leftRecursiveRules :: Grammar ann -> Set Name
 leftRecursiveRules g = Set.fromList (concatMap NonEmpty.toList (stronglyConnectedRuleGroups (leftCornerGraph g)))
 
+-- | The cyclic groups of the left-corner graph, which the interpreter iterates to a fixpoint.
 stronglyConnectedRuleGroups :: RuleGraph -> [NonEmpty Name]
 stronglyConnectedRuleGroups graph = mapMaybe cyclic (stronglyConnComp (adjacency graph))
   where
@@ -120,11 +130,13 @@ adjacency (RuleGraph nodes edges) =
   where
     defined = Set.fromList nodes
 
+-- | The rules no path from the start reaches, which a grammar author wants to know.
 unreachableRules :: Name -> Grammar ann -> Set Name
 unreachableRules start g = case vertexOf start of
   Nothing -> Set.fromList (ruleGraphNodes graph)
   Just v ->
-    let reached = Set.fromList [n | vertex <- reachable adjacencyGraph v, let (n, _, _) = nodeOf vertex]
+    let reached = Set.fromList [nodeName (nodeOf vertex) | vertex <- reachable adjacencyGraph v]
+        nodeName (n, _, _) = n
      in Set.difference (Set.fromList (ruleGraphNodes graph)) reached
   where
     graph = referenceGraph g

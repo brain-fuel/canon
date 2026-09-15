@@ -1,3 +1,5 @@
+-- | A language profile in canon.yaml is how a project declares a language: its grammar, extensions,
+-- and for languages without a dialect the units and comment syntax. ref:DEC-comment-attachment
 module Canon.Profile
   ( Profile (..)
   , GrammarSource (..)
@@ -17,16 +19,19 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import System.FilePath (takeExtension)
 
+-- | A combined grammar file or a lexer and parser pair.
 data GrammarSource
   = CombinedGrammarFile FilePath
   | SplitGrammarFiles FilePath FilePath
   deriving (Eq, Show)
 
+-- | Where a unit's name comes from: a token by index or a child rule.
 data UnitName
   = NameFromToken Name Int
   | NameFromRule Name
   deriving (Eq, Show)
 
+-- | A parse-tree rule that is a unit, for languages without a dialect.
 data UnitRule = UnitRule
   { unitRuleName :: Name
   , unitRuleKind :: Text
@@ -36,6 +41,7 @@ data UnitRule = UnitRule
   }
   deriving (Eq, Show)
 
+-- | The comment and string delimiters of a language without a dialect.
 data CommentSyntax = CommentSyntax
   { commentLine :: Maybe Text
   , commentBlockOpen :: Maybe Text
@@ -44,9 +50,11 @@ data CommentSyntax = CommentSyntax
   }
   deriving (Eq, Show)
 
+-- | No comments and double-quoted strings, the default for a dialect language.
 defaultCommentSyntax :: CommentSyntax
 defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""]
 
+-- | A language profile.
 data Profile = Profile
   { profileExtensions :: [Text]
   , profileGrammar :: GrammarSource
@@ -56,6 +64,7 @@ data Profile = Profile
   }
   deriving (Eq, Show)
 
+-- | The profile that owns a file's extension.
 profileForPath :: Map Text Profile -> FilePath -> Maybe (Text, Profile)
 profileForPath profiles path =
   case [(lang, p) | (lang, p) <- Map.toList profiles, T.pack (takeExtension path) `elem` profileExtensions p] of

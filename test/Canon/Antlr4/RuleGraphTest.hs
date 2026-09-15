@@ -1,3 +1,5 @@
+-- | Left recursion and reachability must be found exactly, because the interpreter plans around
+-- them.
 module Canon.Antlr4.RuleGraphTest (tests) where
 
 import Canon.Antlr4.Gen (genClosedGrammar)
@@ -14,6 +16,7 @@ import Hedgehog (Property, PropertyT, annotate, evalIO, failure, forAll, propert
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

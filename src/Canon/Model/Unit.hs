@@ -1,3 +1,5 @@
+-- | A code unit is a node in the tree of facts derived from code, with the language's ruling on
+-- whether it requires a comment.
 module Canon.Model.Unit
   ( CommentRequirement (..)
   , CodeUnit (..)
@@ -12,9 +14,11 @@ import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
 
+-- | Required or optional, decided by the language at extraction so checks stay language-independent.
 data CommentRequirement = Required | Optional
   deriving (Eq, Ord, Show, Enum, Bounded)
 
+-- | A unit: id, the answers, requirement, whether it is a test, and children.
 data CodeUnit ev = CodeUnit
   { unitId :: UnitId
   , unitWhat :: Answer What ev
@@ -28,9 +32,11 @@ data CodeUnit ev = CodeUnit
   }
   deriving (Eq, Show, Functor, Foldable, Traversable)
 
+-- | A unit and all its descendants.
 allUnits :: CodeUnit ev -> [CodeUnit ev]
 allUnits u = u : concatMap allUnits (unitChildren u)
 
+-- | Finds a unit by id in a forest.
 lookupUnit :: UnitId -> [CodeUnit ev] -> Maybe (CodeUnit ev)
 lookupUnit wanted roots = case [u | u <- concatMap allUnits roots, unitId u == wanted] of
   (u : _) -> Just u

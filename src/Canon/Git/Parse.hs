@@ -1,3 +1,5 @@
+-- | Pure parsers for the git output formats canon reads, so the shell provider stays a thin process
+-- wrapper.
 module Canon.Git.Parse
   ( GitParseError (..)
   , logFormat
@@ -15,6 +17,7 @@ import Data.Time (UTCTime, zonedTimeToUTC)
 import Data.Time.Clock.POSIX (posixSecondsToUTCTime)
 import Data.Time.Format.ISO8601 (iso8601ParseM)
 
+-- | Malformed git output is an error with the offending text.
 newtype GitParseError = GitParseError Text
   deriving (Eq, Show)
 
@@ -24,9 +27,11 @@ recordSeparator = "\x1e"
 fieldSeparator :: Text
 fieldSeparator = "\x1f"
 
+-- | The log format string, with separators chosen so subjects can contain anything.
 logFormat :: Text
 logFormat = "%x1e%H%x1f%an%x1f%ae%x1f%aI%x1f%cn%x1f%ce%x1f%cI%x1f%s%x1f"
 
+-- | Parses log output in that format.
 parseGitLog :: Text -> Either GitParseError [Commit]
 parseGitLog output = traverse parseRecord (filter (not . T.null . T.strip) (T.splitOn recordSeparator output))
   where
@@ -39,6 +44,7 @@ parseGitLog output = traverse parseRecord (filter (not . T.null . T.strip) (T.sp
           <*> pure subject
       fields -> Left (GitParseError (T.concat ["log record has ", T.pack (show (length fields)), " fields"]))
 
+-- | Parses git's ISO time, including the Z form git also emits.
 parseIsoTime :: Text -> Either GitParseError UTCTime
 parseIsoTime t = case (iso8601ParseM trimmed, iso8601ParseM trimmed) of
   (Just zoned, _) -> Right (zonedTimeToUTC zoned)
@@ -47,6 +53,7 @@ parseIsoTime t = case (iso8601ParseM trimmed, iso8601ParseM trimmed) of
   where
     trimmed = T.unpack (T.strip t)
 
+-- | Parses a blame epoch time.
 parseEpochTime :: Text -> Either GitParseError UTCTime
 parseEpochTime t = case TR.decimal (T.strip t) of
   Right (seconds, rest) | T.null rest -> Right (posixSecondsToUTCTime (fromInteger seconds))
@@ -67,6 +74,7 @@ data BlameFields = BlameFields
 emptyFields :: BlameFields
 emptyFields = BlameFields Nothing Nothing Nothing Nothing Nothing Nothing Nothing
 
+-- | Parses line porcelain blame output.
 parseBlamePorcelain :: Text -> Either GitParseError [BlameLine]
 parseBlamePorcelain output = go (T.lines output)
   where

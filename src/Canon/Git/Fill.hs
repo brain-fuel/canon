@@ -1,3 +1,5 @@
+-- | Who and When come from one blame per file rather than one log per unit, because the log was the
+-- slow part. ref:DEC-extraction-cache
 module Canon.Git.Fill
   ( fillGitFromBlame
   ) where
@@ -12,6 +14,8 @@ import Data.List (nubBy)
 import qualified Data.Map.Strict as Map
 import Data.Maybe (listToMaybe)
 
+-- | Fills Who and When on every unit from one blame of the file, reporting once when git is
+-- unavailable.
 fillGitFromBlame :: GitProvider -> FilePath -> CodeUnit Evidence -> IO (CodeUnit Evidence, [Finding])
 fillGitFromBlame provider path root = do
   let rootSpan = whereSpan (answerValue (unitWhere root))

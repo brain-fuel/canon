@@ -1,3 +1,6 @@
+-- | ANTLR literals and character sets have their own escape rules, and getting them wrong silently
+-- changes what a grammar matches, so decoding and encoding live together with round-trip
+-- properties. ref:DEC-parser-foundation
 module Canon.Antlr4.Escape
   ( EscapeError (..)
   , CharSetItem (..)
@@ -17,6 +20,8 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import Numeric (readHex, showHex)
 
+-- | Decoding fails loudly on a malformed escape rather than guessing, because a guessed character
+-- changes the language.
 data EscapeError
   = InvalidEscape Text
   | UnterminatedEscape
@@ -24,12 +29,15 @@ data EscapeError
   | InvalidRange Char Char
   deriving (Eq, Show)
 
+-- | A character set is a sequence of single characters and ranges, and the distinction matters when
+-- compiling predicates.
 data CharSetItem
   = CharSetSingle Char
   | CharSetRange Char Char
   | CharSetProperty Bool Text
   deriving (Eq, Show)
 
+-- | Turns a quoted literal into the characters it matches, which is what the lexer needs.
 decodeStringLiteral :: StringLiteral -> Either EscapeError Text
 decodeStringLiteral (StringLiteral raw) = T.pack <$> go raw
   where
@@ -75,6 +83,7 @@ codePoint digits = case readHex (T.unpack digits) of
     | otherwise -> Left (CodePointOutOfRange n)
   _ -> Left (InvalidEscape digits)
 
+-- | The inverse of decoding, so pretty printing a grammar reproduces its literals byte for byte.
 encodeStringLiteral :: Text -> StringLiteral
 encodeStringLiteral = StringLiteral . T.concatMap encodeChar
   where
@@ -92,6 +101,8 @@ encodeStringLiteral = StringLiteral . T.concatMap encodeChar
         | otherwise -> T.singleton c
     pad4 s = replicate (4 - length s) '0' ++ s
 
+-- | Turns a bracketed set into items, honouring ranges and escapes, which is what the lexer compiles
+-- into predicates.
 decodeCharSet :: CharSet -> Either EscapeError [CharSetItem]
 decodeCharSet (CharSet raw) = do
   atoms <- go raw
@@ -124,14 +135,20 @@ decodeCharSet (CharSet raw) = do
       (Left c : rest) -> (CharSetSingle c :) <$> ranges rest
       (Right item : rest) -> (item :) <$> ranges rest
 
+-- | Validates raw literal text before decoding, so that the generator and the reader agree on what
+-- is a literal.
 isWellFormedStringLiteralRaw :: Text -> Bool
 isWellFormedStringLiteralRaw t = scanStringLiteral (T.concat ["'", t, "'"]) == Just (T.length t + 2)
 
+-- | Validates raw character set text before decoding, for the same reason as literals.
 isWellFormedCharSetRaw :: Text -> Bool
 isWellFormedCharSetRaw t = scanCharSet (T.concat ["[", t, "]"]) == Just (T.length t + 2)
 
+-- | Validates raw action text, whose braces and strings must balance, so that the scanner and the
+-- generator agree.
 isWellFormedActionRaw :: Text -> Bool
 isWellFormedActionRaw t = scanAction (T.concat ["{", t, "}"]) == Just (T.length t + 2)
 
+-- | Validates raw argument text, whose brackets must balance, for the same reason as actions.
 isWellFormedArgumentRaw :: Text -> Bool
 isWellFormedArgumentRaw t = scanArgument (T.concat ["[", t, "]"]) == Just (T.length t + 2)

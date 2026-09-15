@@ -1,3 +1,5 @@
+-- | The ledger must read and order as the specification says, and the repository's own ledger must
+-- load. ref:DEC-decision-ledger
 module Canon.DecisionsTest (tests) where
 
 import Canon.Decisions
@@ -11,6 +13,7 @@ import Hedgehog (Property, assert, evalIO, forAll, property, withTests, (===))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

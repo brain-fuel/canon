@@ -1,7 +1,9 @@
+-- | The interpreter must give the trees ANTLR gives, including for left recursion and for the
+-- canonically commented dialects. ref:DEC-precedence-climbing ref:DEC-haskell-dialect
 module Canon.Antlr4.InterpretTest (tests) where
 
 import Canon.Antlr4.Grammar (parseGrammarText)
-import Canon.Antlr4.Interpret (interpretText, loadInterpreter, renderInterpretError)
+import Canon.Antlr4.Interpret (interpretFile, interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Lex
 import Canon.Antlr4.Lex.Adaptor (antlrLexerHooks)
 import Canon.Antlr4.Parse
@@ -20,6 +22,7 @@ import qualified Hedgehog.Range as Range
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup
@@ -34,6 +37,7 @@ tests =
     , testProperty "the interpreted meta-grammar parses the lexer meta-grammar" bootstrapLexerGrammar
     , testProperty "the canonical dialect parses its own grammars" canonicalSelfHosting
     , testProperty "the canonical dialect rejects a grammar without canonical comments" canonicalRejectsUpstream
+    , testProperty "the haskell dialect parses canon's own commented source" haskellDialectParsesCanon
     , testProperty "precedence climbing gives ANTLR's tree for expressions" precedenceClimbing
     , testProperty "case-insensitive grammars match either case" caseInsensitive
     , testProperty "the Haskell grammar parses a layout-sensitive module through the ported base lexer" haskellLayout
@@ -240,3 +244,12 @@ haskellLayout = withTests 1 $ property $ do
       length (treeRuleNodes (Name "sigdecl") tree) === 3
       length (treeRuleNodes (Name "ty_decl") tree) === 1
       assert (not (null (treeRuleNodes (Name "impdecl") tree)))
+
+haskellDialectParsesCanon :: Property
+haskellDialectParsesCanon = withTests 1 $ property $ do
+  loaded <- evalIO (loadInterpreter "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4")
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  result <- evalIO (interpretFile interpreter (Name "module") "src/Canon/Vetting.hs")
+  tree <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure result
+  length (treeRuleNodes (Name "canonicalComment") tree) === 17
+  length [() | n <- treeRuleNodes (Name "topdecl") tree, _ <- treeRuleNodes (Name "canonicalComment") n] === 16

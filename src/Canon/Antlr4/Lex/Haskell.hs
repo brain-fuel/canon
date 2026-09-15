@@ -1,10 +1,13 @@
+-- | Haskell layout is decided by a base lexer that inserts virtual braces and semicolons, and this
+-- is that base lexer ported as a hook, with the doc-comment handling the dialect needs.
+-- ref:DEC-haskell-dialect ref:DEC-haskell-grammar-fixes
 module Canon.Antlr4.Lex.Haskell
   ( HaskellLayout (..)
   , haskellLayoutHooks
   ) where
 
 import Canon.Antlr4.Lex (HookEffect (..), LexerHooks (..))
-import Canon.Antlr4.Syntax (Name (..))
+import Canon.Antlr4.Syntax (ActionText (..), Name (..))
 import Canon.Antlr4.Token
 import Canon.Span (Position (..))
 import Control.Monad (when)
@@ -12,6 +15,8 @@ import Control.Monad.State.Strict (State, get, modify, put, runState)
 import Data.Text (Text)
 import qualified Data.Text as T
 
+-- | The layout state: pending indentation, the stack of open blocks, the last layout keyword, and
+-- doc tokens held back.
 data HaskellLayout = HaskellLayout
   { pendingDent :: Bool
   , indentCount :: Int
@@ -27,27 +32,29 @@ data HaskellLayout = HaskellLayout
   , startIndent :: Int
   , nestedLevel :: Int
   , queue :: [Token]
+  , heldDocs :: [Token]
   }
   deriving (Eq, Show)
 
 initialLayout :: HaskellLayout
-initialLayout = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 []
+initialLayout = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 [] []
 
+-- | The hooks for the Haskell grammar.
 haskellLayoutHooks :: LexerHooks HaskellLayout
 haskellLayoutHooks = LexerHooks initialLayout onAction onEmit
 
 hidden :: HookEffect
 hidden = EffectChannel hiddenChannelName
 
-onAction :: Name -> a -> Text -> HaskellLayout -> (HaskellLayout, [HookEffect])
-onAction rule _ matched s = case nameText rule of
-  "NEWLINE" -> (s {indentCount = 0, initialIndent = Nothing}, [hidden | pendingDent s])
-  "TAB" -> (s {indentCount = if pendingDent s then indentCount s + 8 * T.length matched else indentCount s}, [hidden])
-  "WS" -> (s {indentCount = if pendingDent s then indentCount s + T.length matched else indentCount s}, [hidden])
-  "VOCURLY" -> (s, [hidden])
-  "VCCURLY" -> (s, [hidden])
-  "SEMI" -> (s, [hidden])
-  _ -> (s, [])
+onAction :: Name -> ActionText -> Text -> HaskellLayout -> (HaskellLayout, [HookEffect])
+onAction _ action matched s
+  | calls "processNEWLINEToken" = (s {indentCount = 0, initialIndent = Nothing}, [hidden | pendingDent s])
+  | calls "processTABToken" = (s {indentCount = if pendingDent s then indentCount s + 8 * T.length matched else indentCount s}, [hidden])
+  | calls "processWSToken" = (s {indentCount = if pendingDent s then indentCount s + T.length matched else indentCount s}, [hidden])
+  | calls "SetHidden" = (s, [hidden])
+  | otherwise = (s, [])
+  where
+    calls method = method `T.isInfixOf` actionTextRaw action
 
 type Layout = State HaskellLayout
 
@@ -94,6 +101,14 @@ closeNested next = do
     closeWith next
     closeNested next
 
+closeToIndentInclusive :: Token -> Layout ()
+closeToIndentInclusive next = do
+  s <- get
+  when (indentCount s <= savedIndent s && not (null (indentStack s))) $ do
+    put s {indentStack = drop 1 (indentStack s), nestedLevel = max 0 (nestedLevel s - 1)}
+    closeWith next
+    closeToIndentInclusive next
+
 closeToIndent :: Token -> Layout ()
 closeToIndent next = do
   s <- get
@@ -134,14 +149,31 @@ processEof next = do
   when (wasModuleExport s') $ enqueue =<< createToken "VCCURLY" next
   modify (\x -> x {startIndent = -1})
 
+isDocToken :: Text -> Bool
+isDocToken ty = "DOC_" `T.isPrefixOf` ty
+
+takeHeld :: Layout [Token]
+takeHeld = do
+  s <- get
+  put s {heldDocs = []}
+  pure (heldDocs s)
+
 step :: Token -> Layout [Token]
 step next = do
   before <- takeQueue
   let ty = nameText (tokenType next)
+  if isDocToken ty
+    then modify (\s -> s {heldDocs = heldDocs s ++ [next]}) >> pure before
+    else stepCode before ty next
+
+stepCode :: [Token] -> Text -> Token -> Layout [Token]
+stepCode before ty next = do
   when (ty == "OpenPragmaBracket") $ modify (\s -> s {inPragmas = True})
   early <- startOfFile ty
   case early of
-    Just tokens -> pure (before ++ tokens)
+    Just tokens -> do
+      held <- takeHeld
+      pure (before ++ withHeld held tokens)
     Nothing -> do
       when (ty == "ClosePragmaBracket") $ modify (\s -> s {inPragmas = False})
       when (ty == "OCURLY") $ do
@@ -160,6 +192,11 @@ step next = do
       when (pendingDent s3 && prevWasKeyWord s3 && not (ignoreIndent s3) && indentCount s3 <= savedIndent s3 && ty `notElem` ["NEWLINE", "WS"]) $ do
         enqueue =<< createToken "VOCURLY" next
         modify (\x -> x {prevWasKeyWord = False, prevWasEndl = True})
+      s3b <- get
+      when (pendingDent s3b && prevWasEndl s3b && ty `elem` ["WHERE", "CCURLY"] && indentCount s3b <= savedIndent s3b && nestedLevel s3b > 0) $ do
+        closeNested next
+        closeToIndentInclusive next
+        modify (\x -> x {prevWasEndl = False})
       s4 <- get
       when
         ( pendingDent s4
@@ -202,15 +239,19 @@ step next = do
           when (ty == "EOF") $ processEof next
           modify (\x -> x {pendingDent = True})
           queued <- takeQueue
-          pure (before ++ queued ++ [next])
+          held <- takeHeld
+          pure (before ++ queued ++ held ++ [next])
   where
-    startOfFile ty = do
+    withHeld held tokens = case reverse tokens of
+      (final : virtual) -> reverse virtual ++ held ++ [final]
+      [] -> held
+    startOfFile kind = do
       s <- get
-      if startIndent s == -1 && ty `notElem` ["NEWLINE", "WS", "TAB", "OCURLY"]
+      if startIndent s == -1 && kind `notElem` ["NEWLINE", "WS", "TAB", "OCURLY"]
         then do
-          when (ty == "MODULE") $ modify (\x -> x {moduleStartIndent = True, wasModuleExport = True})
+          when (kind == "MODULE") $ modify (\x -> x {moduleStartIndent = True, wasModuleExport = True})
           st <- get
-          if ty /= "MODULE" && not (moduleStartIndent st) && not (inPragmas st)
+          if kind /= "MODULE" && not (moduleStartIndent st) && not (inPragmas st)
             then do
               put st {startIndent = column next}
               pure Nothing

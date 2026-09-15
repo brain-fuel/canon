@@ -1,3 +1,4 @@
+-- | The git parsers must invert the renderers over generated history.
 module Canon.Git.ParseTest (tests) where
 
 import Canon.Git.Commit
@@ -13,6 +14,7 @@ import qualified Hedgehog.Range as Range
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

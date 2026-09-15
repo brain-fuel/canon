@@ -1,3 +1,5 @@
+-- | Printing a grammar back to text is what makes the reader testable: reading what was printed must
+-- give the same value.
 module Canon.Antlr4.Pretty
   ( prettyGrammar
   , prettyPrequel
@@ -21,6 +23,8 @@ import qualified Data.List.NonEmpty as NonEmpty
 import Data.Text (Text)
 import qualified Data.Text as T
 
+-- | Prints a whole grammar in the layout antlr-format produces, so vendored files print back
+-- unchanged.
 prettyGrammar :: Grammar ann -> Text
 prettyGrammar g =
   T.concat $
@@ -39,6 +43,7 @@ prettyMode :: Mode ann -> Text
 prettyMode m =
   T.concat $ ["mode ", nameText (modeName m), ";\n\n"] ++ map (\r -> prettyLexerRule r <> "\n\n") (modeRules m)
 
+-- | Prints one prequel construct.
 prettyPrequel :: Prequel -> Text
 prettyPrequel p = case p of
   PrequelOptions opts -> prettyOptionsBlock "" opts
@@ -62,9 +67,11 @@ prettyOptionsBlock indent opts =
       ++ map (\o -> T.concat [indent, "    ", prettyOption o, ";\n"]) opts
       ++ [indent, "}"]
 
+-- | Prints one option.
 prettyOption :: Option -> Text
 prettyOption (Option name value) = T.concat [nameText name, " = ", prettyOptionValue value]
 
+-- | Prints one option value.
 prettyOptionValue :: OptionValue -> Text
 prettyOptionValue v = case v of
   OptionValueName q -> prettyQualifiedName q
@@ -84,17 +91,20 @@ prettyAction (ActionText body) = T.concat ["{", body, "}"]
 prettyArgument :: ArgumentText -> Text
 prettyArgument (ArgumentText body) = T.concat ["[", body, "]"]
 
+-- | Prints a literal with its escapes encoded.
 prettyStringLiteral :: StringLiteral -> Text
 prettyStringLiteral (StringLiteral raw) = T.concat ["'", raw, "'"]
 
 prettyCharSet :: CharSet -> Text
 prettyCharSet (CharSet raw) = T.concat ["[", raw, "]"]
 
+-- | Prints one rule of either kind.
 prettyRule :: Rule ann -> Text
 prettyRule r = case r of
   RuleParser p -> prettyParserRule p
   RuleLexer l -> prettyLexerRule l
 
+-- | Prints a parser rule with its alternatives on their own lines.
 prettyParserRule :: ParserRule ann -> Text
 prettyParserRule r =
   T.intercalate "\n" $
@@ -131,6 +141,7 @@ prettyLabeledAlternative :: Text -> LabeledAlternative ann -> Text
 prettyLabeledAlternative lead (LabeledAlternative alt label) =
   T.unwords $ ["    " <> lead] ++ alternativeWords alt ++ maybe [] (\l -> ["#", nameText l]) label
 
+-- | Prints one alternative.
 prettyAlternative :: Alternative ann -> Text
 prettyAlternative = T.unwords . alternativeWords
 
@@ -138,6 +149,7 @@ alternativeWords :: Alternative ann -> [Text]
 alternativeWords (Alternative _ opts elements) =
   (if null opts then [] else [prettyElementOptions opts]) ++ map prettyElement elements
 
+-- | Prints one element with its label and suffix.
 prettyElement :: Element ann -> Text
 prettyElement e = case e of
   ElementAtom _ label a suffix -> T.concat [prettyLabel label, prettyAtom a, prettySuffix suffix]
@@ -179,6 +191,7 @@ prettyBlock (Block opts actions alts) =
   where
     optionsInline os = if null os then [] else [T.concat ["options { ", T.concat (map (\o -> prettyOption o <> "; ") os), "}"]]
 
+-- | Prints one atom.
 prettyAtom :: Atom -> Text
 prettyAtom a = case a of
   AtomTerminal t -> prettyTerminal t
@@ -205,6 +218,7 @@ prettySetElement s = case s of
 prettyCharRange :: CharRange -> Text
 prettyCharRange (CharRange lo hi) = T.concat [prettyStringLiteral lo, " .. ", prettyStringLiteral hi]
 
+-- | Prints element options in angle brackets.
 prettyElementOptions :: [ElementOption] -> Text
 prettyElementOptions opts
   | null opts = ""
@@ -215,6 +229,7 @@ prettyElementOption o = case o of
   ElementOptionFlag q -> prettyQualifiedName q
   ElementOptionAssign n v -> T.concat [nameText n, " = ", prettyOptionValue v]
 
+-- | Prints a lexer rule with its commands.
 prettyLexerRule :: LexerRule ann -> Text
 prettyLexerRule r =
   T.intercalate "\n" $
@@ -223,6 +238,7 @@ prettyLexerRule r =
       ++ zipWith (\lead alt -> T.unwords ("    " <> lead : lexerAlternativeWords alt)) (":" : repeat "|") (NonEmpty.toList (lexerRuleAlternatives r))
       ++ ["    ;"]
 
+-- | Prints one lexer alternative.
 prettyLexerAlternative :: LexerAlternative ann -> Text
 prettyLexerAlternative = T.unwords . lexerAlternativeWords
 
@@ -239,6 +255,7 @@ prettyCommandArgument a = case a of
   CommandArgumentName n -> nameText n
   CommandArgumentInt n -> T.pack (show n)
 
+-- | Prints one lexer element.
 prettyLexerElement :: LexerElement ann -> Text
 prettyLexerElement e = case e of
   LexerElementAtom _ a suffix -> prettyLexerAtom a <> prettySuffix suffix
@@ -246,6 +263,7 @@ prettyLexerElement e = case e of
     T.concat ["(", T.intercalate " | " (map prettyLexerAlternative (NonEmpty.toList alts)), ")", prettySuffix suffix]
   LexerElementAction _ form body -> prettyAction body <> prettyActionForm form
 
+-- | Prints one lexer atom.
 prettyLexerAtom :: LexerAtom -> Text
 prettyLexerAtom a = case a of
   LexerAtomTerminal t -> prettyTerminal t

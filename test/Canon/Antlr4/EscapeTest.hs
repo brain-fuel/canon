@@ -1,3 +1,4 @@
+-- | Escape decoding and encoding must round-trip, or a printed grammar changes its language.
 module Canon.Antlr4.EscapeTest (tests) where
 
 import Canon.Antlr4.Escape
@@ -9,6 +10,7 @@ import qualified Hedgehog.Range as Range
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

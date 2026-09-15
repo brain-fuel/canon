@@ -1,3 +1,4 @@
+-- | A model must survive a YAML round trip with sorted keys. ref:DEC-parser-foundation
 module Canon.Model.YamlTest (tests) where
 
 import Canon.Model
@@ -9,6 +10,7 @@ import Hedgehog (Property, assert, forAll, property, (===))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

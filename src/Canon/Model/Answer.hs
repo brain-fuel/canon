@@ -1,3 +1,5 @@
+-- | The six answers and their evidence, as values, so that every language yields the same shape.
+-- ref:DEC-comment-vetting
 module Canon.Model.Answer
   ( Answer (..)
   , UnitKind (..)
@@ -23,26 +25,31 @@ import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import Data.Time (UTCTime)
 
+-- | A value with the evidence of how it is known.
 data Answer a ev = Answer
   { answerValue :: a
   , answerEvidence :: ev
   }
   deriving (Eq, Show, Functor, Foldable, Traversable)
 
+-- | A language-defined kind, kept as text so a dialect can name its own.
 newtype UnitKind = UnitKind {unitKindText :: Text}
   deriving (Eq, Ord, Show)
 
+-- | A name and a kind.
 data What = What
   { whatName :: Text
   , whatKind :: UnitKind
   }
   deriving (Eq, Show)
 
+-- | A body as text or as a span.
 data How
   = HowText Text
   | HowAt Span
   deriving (Eq, Show)
 
+-- | A path, a span, the chain of enclosing units, and an optional index.
 data Where = Where
   { wherePath :: FilePath
   , whereSpan :: Span
@@ -51,6 +58,7 @@ data Where = Where
   }
   deriving (Eq, Show)
 
+-- | Prose with the references and licenses it cites.
 data Why = Why
   { whyText :: Text
   , whyReferences :: [ReferenceKey]
@@ -58,24 +66,28 @@ data Why = Why
   }
   deriving (Eq, Show)
 
+-- | A person with the commits they made.
 data Attribution = Attribution
   { attributionPerson :: Person
   , attributionCommits :: [CommitHash]
   }
   deriving (Eq, Show)
 
+-- | Authors and committers.
 data Who = Who
   { whoAuthors :: [Attribution]
   , whoCommitters :: [Attribution]
   }
   deriving (Eq, Show)
 
+-- | A commit and its time.
 data Change = Change
   { changeCommit :: CommitHash
   , changeAt :: UTCTime
   }
   deriving (Eq, Show)
 
+-- | First and last change and the version that introduced the unit.
 data When = When
   { whenFirst :: Change
   , whenLast :: Change
@@ -83,9 +95,11 @@ data When = When
   }
   deriving (Eq, Show)
 
+-- | The states of a vetted comment: pending, good, bad, or deferred. ref:DEC-comment-vetting
 data Verdict = Pending | Good | Bad | Deferred
   deriving (Eq, Ord, Show, Enum, Bounded)
 
+-- | The text of a verdict as written in the vetting file.
 verdictText :: Verdict -> Text
 verdictText v = case v of
   Pending -> "pending"
@@ -93,11 +107,13 @@ verdictText v = case v of
   Bad -> "bad"
   Deferred -> "deferred"
 
+-- | Parses a verdict from that text.
 parseVerdict :: Text -> Maybe Verdict
 parseVerdict t = case [v | v <- [minBound .. maxBound], verdictText v == t] of
   (v : _) -> Just v
   [] -> Nothing
 
+-- | A verdict with the person, time, and commit that made it, read from git. ref:DEC-comment-vetting
 data Assessment = Assessment
   { assessmentVerdict :: Verdict
   , assessmentBy :: Maybe Person

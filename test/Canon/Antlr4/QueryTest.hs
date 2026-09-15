@@ -1,3 +1,4 @@
+-- | The queries must agree with what ANTLR reports for the same grammar.
 module Canon.Antlr4.QueryTest (tests) where
 
 import Canon.Antlr4.Gen (genClosedGrammar, genGrammar)
@@ -13,6 +14,7 @@ import qualified Hedgehog.Gen as Gen
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

@@ -1,3 +1,5 @@
+-- | The registry is the single canonical source for everything a comment cites, so a citation is a
+-- key and nothing else.
 module Canon.Registry
   ( ReferenceKind (..)
   , Reference (..)
@@ -17,9 +19,11 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Yaml as Yaml
 
+-- | The kinds of reference, including requirement and license, which checks treat specially.
 data ReferenceKind = Article | Paper | Ticket | Requirement | Package | Discussion | License
   deriving (Eq, Ord, Show, Enum, Bounded)
 
+-- | A reference: kind, title, and locator.
 data Reference = Reference
   { referenceKind :: ReferenceKind
   , referenceTitle :: Text
@@ -27,23 +31,29 @@ data Reference = Reference
   }
   deriving (Eq, Show)
 
+-- | The registry keyed by reference key.
 newtype Registry = Registry {registryEntries :: Map ReferenceKey Reference}
   deriving (Eq, Show)
 
+-- | An unreadable registry is an error.
 data RegistryError = RegistryUnreadable FilePath Text
   deriving (Eq, Show)
 
+-- | The registry of a project without one.
 emptyRegistry :: Registry
 emptyRegistry = Registry Map.empty
 
+-- | Finds a reference by key.
 lookupReference :: ReferenceKey -> Registry -> Maybe Reference
 lookupReference key = Map.lookup key . registryEntries
 
+-- | Reads a registry file.
 readRegistryFile :: FilePath -> IO (Either RegistryError Registry)
 readRegistryFile path = do
   result <- Yaml.decodeFileEither path
   pure (either (Left . RegistryUnreadable path . T.pack . Yaml.prettyPrintParseException) Right result)
 
+-- | Renders a registry error.
 renderRegistryError :: RegistryError -> Text
 renderRegistryError (RegistryUnreadable path message) = T.concat [T.pack path, ": ", message]
 

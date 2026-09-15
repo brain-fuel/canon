@@ -1,3 +1,6 @@
+-- | The reader is one scannerless grammar record on grammatical-parsers, because a record that knows
+-- whether it is inside a parser or lexer rule makes a separate lexer adaptor unnecessary.
+-- ref:DEC-parser-foundation
 module Canon.Antlr4.Grammar
   ( G4 (..)
   , Offsets (..)
@@ -23,12 +26,15 @@ import qualified Text.Grampa as G
 import Text.Grampa.PEG.Packrat (Parser)
 import qualified Text.Parser.Input.Position as Position
 
+-- | The reader annotates every node with input offsets, from which spans are computed afterwards,
+-- because grampa works on offsets.
 data Offsets = Offsets
   { offsetsStartFromEnd :: Int
   , offsetsEndFromEnd :: Int
   }
   deriving (Eq, Show)
 
+-- | A reader failure carries where it happened, so a grammar file error is reported at a position.
 data ParseError = ParseError
   { parseErrorPosition :: Position
   , parseErrorExpected :: [Text]
@@ -36,6 +42,8 @@ data ParseError = ParseError
   }
   deriving (Eq, Show)
 
+-- | The grammar record: one field per ANTLR meta-grammar production, so the reader is the
+-- meta-grammar written as Haskell.
 data G4 p = G4
   { grammarSpec :: p (Grammar Offsets)
   , prequelConstruct :: p Prequel
@@ -147,6 +155,8 @@ sepBy p sep = ((:) <$> p <*> many (sep *> p)) <|> pure []
 optionalList :: P [a] -> P [a]
 optionalList p = fromMaybe [] <$> optional p
 
+-- | The record filled in with its productions, before the fixpoint that ties recursive references
+-- together.
 g4Grammar :: G.GrammarBuilder G4 G4 Parser Text
 g4Grammar G4{..} =
   G4
@@ -321,9 +331,12 @@ g4Grammar G4{..} =
     blockPrefix = (,) <$> optionalList optionsSpec <*> many namedAction <* symbol ":"
     wildcard = symbolNotFollowedBy "." (== '.') *> optionalList elementOptions
 
+-- | The grammar after grampa has tied the knot, which is the value that parses.
 fixedGrammar :: G4 (Parser G4 Text)
 fixedGrammar = G.fixGrammar g4Grammar
 
+-- | Parses a whole grammar file to its representation with offsets, the only entry point the reader
+-- exposes.
 parseGrammarText :: Text -> Either ParseError (Grammar Span)
 parseGrammarText source =
   case grammarSpec (G.parseComplete fixedGrammar source) of

@@ -1,3 +1,4 @@
+-- | Profiles, walking, caching, and project-wide findings must behave on real directories.
 module Canon.ProjectTest (tests) where
 
 import Canon.Antlr4.Comment (Comment (..), CommentKind (..))
@@ -28,6 +29,7 @@ import System.FilePath ((</>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
+-- | The test group this module contributes to the suite.
 tests :: TestTree
 tests =
   testGroup

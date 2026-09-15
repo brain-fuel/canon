@@ -1,3 +1,5 @@
+-- | Generators for whole grammars, closed so that every reference resolves, which is what round-trip
+-- and interpreter properties need.
 module Canon.Antlr4.Gen
   ( GenEnv (..)
   , openEnv
@@ -42,12 +44,14 @@ import Hedgehog (Gen)
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
+-- | The names in scope while generating, so references can be closed.
 data GenEnv = GenEnv
   { envRuleNames :: [Name]
   , envTokenNames :: [Name]
   , envLexerRuleNames :: [Name]
   }
 
+-- | An environment with no names, for open grammars.
 openEnv :: GenEnv
 openEnv = GenEnv [] [] []
 
@@ -61,12 +65,15 @@ genNameWith genFirst =
   where
     genNameTail = Gen.frequency [(10, Gen.alphaNum), (1, pure '_')]
 
+-- | A parser rule name.
 genRuleName :: Gen Name
 genRuleName = genNameWith Gen.lower
 
+-- | A token name.
 genTokenName :: Gen Name
 genTokenName = genNameWith Gen.upper
 
+-- | A name of either kind.
 genAnyName :: Gen Name
 genAnyName = Gen.choice [genRuleName, genTokenName]
 
@@ -85,9 +92,11 @@ envLexerRuleName env = case envLexerRuleNames env of
   [] -> genTokenName
   names -> Gen.element names
 
+-- | A dotted name.
 genQualifiedName :: Gen QualifiedName
 genQualifiedName = QualifiedName <$> nonEmptyList (Range.linear 1 3) genAnyName
 
+-- | A literal with escapes.
 genStringLiteral :: Gen StringLiteral
 genStringLiteral = StringLiteral . T.concat <$> Gen.list (Range.linear 1 8) genStringLiteralPiece
 
@@ -102,6 +111,7 @@ genStringLiteralPiece =
 genUnicodeEscape :: Gen Text
 genUnicodeEscape = T.append "\\u" <$> Gen.text (Range.singleton 4) Gen.hexit
 
+-- | A character set with ranges and escapes.
 genCharSet :: Gen CharSet
 genCharSet = CharSet . T.concat <$> Gen.list (Range.linear 1 6) genCharSetPiece
 
@@ -123,9 +133,11 @@ genCharSetRange = do
   hi <- Gen.filter (>= lo) genCharSetChar
   pure (T.pack [lo, '-', hi])
 
+-- | Balanced action text.
 genActionText :: Gen ActionText
 genActionText = ActionText <$> genBalanced '{' '}'
 
+-- | Balanced argument text.
 genArgumentText :: Gen ArgumentText
 genArgumentText = ArgumentText <$> genBalanced '[' ']'
 
@@ -153,15 +165,18 @@ genBalanced open close =
 genPrintableAscii :: Gen Char
 genPrintableAscii = Gen.enum ' ' '~'
 
+-- | An integer.
 genInteger :: Gen Integer
 genInteger = Gen.integral (Range.linear 0 1000)
 
 nonEmptyList :: Range.Range Int -> Gen a -> Gen (NonEmpty a)
 nonEmptyList range gen = NonEmpty.fromList <$> Gen.list (Range.linear 1 (Range.upperBound 99 range)) gen
 
+-- | A grammar of any kind.
 genGrammar :: Gen (Grammar ())
 genGrammar = Gen.enumBounded >>= genGrammarOfKind
 
+-- | A grammar of a given kind.
 genGrammarOfKind :: GrammarKind -> Gen (Grammar ())
 genGrammarOfKind kind =
   Grammar kind
@@ -170,6 +185,7 @@ genGrammarOfKind kind =
     <*> Gen.list (Range.linear 0 6) (genRuleOfKind openEnv kind)
     <*> (if kind == LexerGrammar then Gen.list (Range.linear 0 2) (genMode openEnv) else pure [])
 
+-- | A grammar whose references all resolve.
 genClosedGrammar :: Gen (Grammar ())
 genClosedGrammar = do
   kind <- Gen.enumBounded
@@ -193,6 +209,7 @@ genRuleOfKind env kind = case kind of
   ParserGrammar -> RuleParser <$> genParserRule env
   CombinedGrammar -> Gen.choice [RuleLexer <$> genLexerRule env, RuleParser <$> genParserRule env]
 
+-- | A prequel construct.
 genPrequel :: Gen Prequel
 genPrequel =
   Gen.choice
@@ -209,9 +226,11 @@ genImport = Import <$> Gen.maybe genAnyName <*> genAnyName
 genNamedAction :: Gen NamedAction
 genNamedAction = NamedAction <$> genAnyName <*> genActionText
 
+-- | An option.
 genOption :: Gen Option
 genOption = Option <$> genAnyName <*> genOptionValue
 
+-- | An option value.
 genOptionValue :: Gen OptionValue
 genOptionValue =
   Gen.choice
@@ -221,6 +240,7 @@ genOptionValue =
     , OptionValueInt <$> genInteger
     ]
 
+-- | A parser rule.
 genParserRule :: GenEnv -> Gen (ParserRule ())
 genParserRule env = genRuleName >>= genParserRuleNamed env
 
@@ -248,12 +268,14 @@ genRulePrequel =
 genLabeledAlternative :: GenEnv -> Gen (LabeledAlternative ())
 genLabeledAlternative env = LabeledAlternative <$> genAlternative env <*> Gen.maybe genAnyName
 
+-- | An alternative.
 genAlternative :: GenEnv -> Gen (Alternative ())
 genAlternative env = do
   elements <- Gen.list (Range.linear 0 5) (genElement env)
   opts <- if null elements then pure [] else Gen.list (Range.linear 0 2) genElementOption
   pure (Alternative () opts elements)
 
+-- | An element.
 genElement :: GenEnv -> Gen (Element ())
 genElement env =
   Gen.recursive
@@ -266,6 +288,7 @@ genElement env =
 genLabel :: Gen Label
 genLabel = Label <$> genAnyName <*> Gen.enumBounded
 
+-- | An atom.
 genAtom :: GenEnv -> Gen Atom
 genAtom env =
   Gen.choice
@@ -282,6 +305,7 @@ genTerminal env =
     , TerminalLiteral <$> genStringLiteral <*> Gen.list (Range.linear 0 2) genElementOption
     ]
 
+-- | A block.
 genBlock :: GenEnv -> Gen (Block ())
 genBlock env =
   Block
@@ -289,9 +313,11 @@ genBlock env =
     <*> Gen.list (Range.linear 0 2) genNamedAction
     <*> nonEmptyList (Range.linear 1 3) (genAlternative env)
 
+-- | A suffix.
 genEbnfSuffix :: Gen EbnfSuffix
 genEbnfSuffix = EbnfSuffix <$> Gen.enumBounded <*> Gen.enumBounded
 
+-- | An element option.
 genElementOption :: Gen ElementOption
 genElementOption =
   Gen.choice
@@ -310,6 +336,7 @@ genPredicateOption =
     , ElementOptionAssign <$> genAnyName <*> (OptionValueAction <$> genActionText)
     ]
 
+-- | A lexer rule.
 genLexerRule :: GenEnv -> Gen (LexerRule ())
 genLexerRule env = genTokenName >>= genLexerRuleNamed env
 
@@ -324,12 +351,14 @@ genLexerRuleNamedWith env name isFragment =
     <$> Gen.list (Range.linear 0 2) genOption
     <*> nonEmptyList (Range.linear 1 4) (genLexerAlternative env)
 
+-- | A lexer alternative.
 genLexerAlternative :: GenEnv -> Gen (LexerAlternative ())
 genLexerAlternative env =
   LexerAlternative ()
     <$> Gen.list (Range.linear 0 5) (genLexerElement env)
     <*> Gen.list (Range.linear 0 2) genLexerCommand
 
+-- | A lexer element.
 genLexerElement :: GenEnv -> Gen (LexerElement ())
 genLexerElement env =
   Gen.recursive
@@ -339,6 +368,7 @@ genLexerElement env =
     ]
     [LexerElementBlock () <$> nonEmptyList (Range.linear 1 3) (genLexerAlternative env) <*> Gen.maybe genEbnfSuffix]
 
+-- | A lexer atom.
 genLexerAtom :: GenEnv -> Gen LexerAtom
 genLexerAtom env =
   Gen.choice
@@ -367,6 +397,7 @@ genLexerSetElement env =
     , SetCharSet <$> genCharSet
     ]
 
+-- | A lexer command.
 genLexerCommand :: Gen LexerCommand
 genLexerCommand =
   Gen.choice
@@ -376,5 +407,6 @@ genLexerCommand =
         <*> (Just <$> Gen.choice [CommandArgumentName <$> genAnyName, CommandArgumentInt <$> genInteger])
     ]
 
+-- | A mode.
 genMode :: GenEnv -> Gen (Mode ())
 genMode env = Mode () <$> genAnyName <*> Gen.list (Range.linear 0 3) (genLexerRule env)

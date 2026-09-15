@@ -345,10 +345,16 @@ ClosePragmaBracket : '#-}';
 // MultiLineMacro : '#' (~ [\n]*? '\\' '\r'? '\n')+ ~ [\n]+ -> skip;
 // Directive : '#' ~ [\n]* -> skip;
 
-/** A line comment, skipped. */
-COMMENT  : '--' (~[\r\n])*    -> skip;
-/** A block comment, skipped; one starting with a hash is a pragma instead. */
-NCOMMENT : '{-' ~[#] .*? '-}' -> skip;
+/** A line comment, skipped, unless it opens with a bar, in which case it is a canonical comment tokenized in the DocLine mode. ref:DEC-haskell-dialect */
+COMMENT  : '--' (' '* ~[ |\r\n] (~[\r\n])*)? -> skip;
+
+/** Opens a Haddock line comment, which is a canonical comment, and enters the DocLine mode. ref:DEC-haskell-dialect */
+DOC_OPEN : '--' ' '* '|' -> pushMode(DocLine);
+/** A block comment, skipped; one starting with a hash is a pragma and one starting with a bar is a canonical comment tokenized in the DocBlock mode. ref:DEC-haskell-dialect */
+NCOMMENT : '{-' ~[#|] .*? '-}' -> skip;
+
+/** Opens a Haddock block comment, which is a canonical comment, and enters the DocBlock mode. ref:DEC-haskell-dialect */
+DOC_BLOCK_OPEN : '{-|' -> pushMode(DocBlock);
 
 /** An explicit opening brace. */
 OCURLY  : '{';
@@ -1867,3 +1873,52 @@ fragment CLASSIFY_So:
     | '\uffed' ..'\uffee' // Halfwidth_and_Fullwidth_Forms
     | '\ufffc' ..'\ufffd' // Specials
 ;
+
+mode DocLine;
+
+/** A following line that starts with two dashes continues the comment, as Haddock reads it; so two doc comments on consecutive lines merge, which is a known limit. ref:DEC-haskell-dialect */
+DOC_CONTINUE : ('\r'? '\n' | '\r') [ \t]* '--' -> skip;
+
+/** The line break that ends a doc line comment. It carries the newline action and the NEWLINE type so that the layout algorithm and the parser see the line break as usual. ref:DEC-haskell-dialect */
+DOC_CLOSE:
+    ('\r'? '\n' | '\r') {
+    this.processNEWLINEToken();
+} -> popMode, type(NEWLINE)
+;
+
+/** A citation of a registry reference inside a canonical comment. ref:DEC-grammar-carries-extraction-rules */
+DOC_REF     : 'ref:' DocKey;
+
+/** A citation of a registry license inside a canonical comment. ref:DEC-grammar-carries-extraction-rules */
+DOC_LICENSE : 'license:' DocKey;
+
+/** Whitespace inside a doc line comment. */
+DOC_WS      : [ \t]+ -> skip;
+
+/** Punctuation inside a canonical comment, kept separate so a citation followed by a comma is still a citation. */
+DOC_PUNCT   : [,.;:()!?[\]{}"'`<>=+|];
+
+/** A word of prose inside a canonical comment. */
+DOC_WORD    : ~[ \t\r\n,.;:()!?[\]{}"'`<>=+|]+;
+
+mode DocBlock;
+
+/** Closes a doc block comment and returns to the enclosing mode. ref:DEC-haskell-dialect */
+DOC_BLOCK_CLOSE : '-}' -> popMode;
+
+/** A citation of a registry reference inside a doc block comment, typed as DOC_REF. */
+DOC_BLOCK_REF     : 'ref:' DocKey -> type(DOC_REF);
+
+/** A citation of a registry license inside a doc block comment, typed as DOC_LICENSE. */
+DOC_BLOCK_LICENSE : 'license:' DocKey -> type(DOC_LICENSE);
+
+/** Whitespace inside a doc block comment, including line breaks, which the layout algorithm never sees because a block comment is one token to it. ref:DEC-haskell-dialect */
+DOC_BLOCK_WS      : [ \t\r\n]+ -> skip;
+
+/** Punctuation inside a doc block comment, typed as DOC_PUNCT. */
+DOC_BLOCK_PUNCT   : [,.;:()!?[\]{}"'`<>=+|] -> type(DOC_PUNCT);
+
+/** A word of prose inside a doc block comment, typed as DOC_WORD. */
+DOC_BLOCK_WORD    : ~[ \t\r\n,.;:()!?[\]{}"'`<>=+|]+ -> type(DOC_WORD);
+
+fragment DocKey : [A-Za-z0-9] ([A-Za-z0-9._-]* [A-Za-z0-9])?;

@@ -1,3 +1,4 @@
+-- | Every answer says how it is known, because an answer without evidence is a claim.
 module Canon.Model.Evidence
   ( GitSource (..)
   , VerificationKind (..)
@@ -13,24 +14,29 @@ import Data.Aeson.Types (Parser)
 import Data.Text (Text)
 import qualified Data.Text as T
 
+-- | Which git command an answer came from.
 data GitSource = GitLog | GitBlame | GitTags | GitDescribe
   deriving (Eq, Ord, Show, Enum, Bounded)
 
+-- | The ways an answer can be verified, reserved for runners that do not exist yet.
 data VerificationKind = PropertyTest | UnitTest | MutationRun | DecisionCoverage
   deriving (Eq, Ord, Show, Enum, Bounded)
 
+-- | A verification by a named test or run.
 data Verification = Verification
   { verificationKind :: VerificationKind
   , verificationName :: Text
   }
   deriving (Eq, Show)
 
+-- | A human assertion at a location.
 data Assertion = Assertion
   { assertionPath :: FilePath
   , assertionSpan :: Span
   }
   deriving (Eq, Show)
 
+-- | Derived from git, derived from a parse, verified, or asserted.
 data Evidence
   = DerivedFromGit GitSource
   | DerivedFromParse FilePath
@@ -38,6 +44,7 @@ data Evidence
   | Asserted Assertion
   deriving (Eq, Show)
 
+-- | Tells git-derived evidence, which tests check for Who and When.
 isDerivedFromGit :: Evidence -> Bool
 isDerivedFromGit e = case e of
   DerivedFromGit _ -> True
