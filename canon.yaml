@@ -54,8 +54,5 @@ parity:
   current: [python, javascript, typescript, go, java, kotlin, rust, haskell]
   planned: [erlang, elixir, gleam, csharp, fsharp, scala, groovy, clojure, prolog, hcl, yaml, antlr4, make, folio]
   pending:
-    erlang: [dialect]
-    elixir: [dialect]
-    gleam: [dialect]
     hcl: [grammar, profile, dialect, sample]
     yaml: [grammar, profile, dialect, sample]

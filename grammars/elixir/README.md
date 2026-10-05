@@ -41,21 +41,54 @@ The decision is recorded as `DEC-elixir-grammar` in canon's
 - Each kind of definition (`defmodule`, `defprotocol`, `defimpl`, `def`,
   `defp`, `defmacro`, `defmacrop`, `defguard`, `defguardp`, `defdelegate`,
   `defstruct`, `defexception`, `@type`, `@typep`, `@opaque`, `@callback`,
-  `@macrocallback`) is its own rule, and takes the module attributes on the
-  lines directly above it, each labeled `marker`, so its node starts at its
-  first attribute and the `@doc` above those attributes documents it. A
-  documentation attribute with a string value is not taken: canon scans it as
-  the definition's comment. `@doc false` and `@doc since: "1.0"` are taken.
+  `@macrocallback`) is its own rule, and takes the module attributes above
+  it, each labeled `marker`, so its node starts at its first attribute and the
+  `@doc` above those attributes documents it. Blank lines do not part an
+  attribute from its definition, since Elixir binds every pending attribute to
+  the next definition. A documentation attribute with a string value is not
+  taken: canon scans it as the definition's comment.
+- `@doc false` and `@doc nil` are labeled `hidden`, so the definition below
+  needs no comment. `@moduledoc false` in a module body hides the module and
+  every definition in it. Only a module body reads it so, so a
+  `@moduledoc false` quoted inside a function does not hide the function.
+- An operator definition such as `def a <~> b` or `def -value` is named by its
+  operator. A definition whose name is computed, such as
+  `def unquote(name)(args)`, is named by its `unquote` call.
+- An uppercase sigil does not interpolate and is one token. A lowercase sigil
+  has a lexer mode per delimiter, so an interpolation inside it may hold any
+  code, including the closing delimiter and newlines.
 - `test`, `describe`, and `property` are a token of their own, so a profile
   can make an ExUnit or StreamData call a unit by its first token even when
-  `@tag` attributes sit above it.
+  `@tag` attributes sit above it. A test may name itself in parentheses, as in
+  `test("name", context)`, and a test without a block is a pending test.
+
+## Profile
+
+The Elixir profile in `lang_samples/elixir-jason/canon.yaml` names `@doc` and
+`@typedoc` as outer doc attributes and `@moduledoc` as an inner one. Its
+`interpolation` setting, `["#{", "}"]`, lets canon scan a `@doc` heredoc
+whose interpolation holds strings of its own. Blank lines below a `@doc` do
+not part it from the definition, as in Elixir.
+
+## Canonically commented dialect
+
+`canonically_commented/ElixirLexer.g4` and `ElixirParser.g4` are the plain
+grammar plus the extraction rules. Lexer modes tokenize a `@doc`, `@typedoc`,
+or `@moduledoc` string, heredoc, or sigil heredoc as a canonical comment, and
+read its interpolations as code. Each kind of definition is a labeled unit
+alternative. Documentation, `@doc false`, and attributes may come in any order
+above a definition, and the last doc wins: an earlier `@doc` is an `orphan`,
+and a later `@doc false` makes the unit `hidden`. A module's Why is the first
+`@moduledoc` anywhere in its body. A `@typedoc` documents a `@type`, `@typep`,
+or `@opaque` only, and is an `orphan` above anything else. Public definitions label their keyword
+`required`. Function, macro, and guard clauses are labeled `merge`, so the
+clauses of one name are one unit. On the 308 files of Jason, Plug, and Phoenix
+the dialect parses every file and reports the same missing comments as the
+profile. The ledger records it as `DEC-elixir-dialect`.
 
 ## Known limitations
 
-- A definition whose name is computed, such as `def unquote(name)(args)`, is
-  not a unit, so a `@doc` above it is reported as attached to nothing.
-- A blank line between an attribute and its definition, or between a `@doc`
-  and the attributes below it, separates them, as everywhere in canon.
-- Operator definitions such as `def left <> right` take the left operand as
-  their name.
-- A lowercase sigil's interpolation may not contain `}` or a newline.
+- Every limitation listed before this version is fixed: computed and
+  operator names, `@doc false`, blank lines, sigil interpolation, and test
+  names. The ledger records the fixes in `DEC-elixir-grammar`.
+- Operator precedence is not modelled, by design.

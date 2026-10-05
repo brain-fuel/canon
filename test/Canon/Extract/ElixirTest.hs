@@ -33,6 +33,9 @@ tests =
     [ testProperty "the Elixir grammar parses the Jason sample into its definitions and tests" prop_elixirGrammarParsesTheJasonSampleIntoItsDefinitionsAndTests
     , testProperty "the Elixir lexer keeps interpolations, heredocs, and sigils whole" prop_elixirLexerKeepsInterpolationsHeredocsAndSigilsWhole
     , testProperty "the Elixir profile binds doc attributes, merges clauses, and recognises tests" prop_elixirProfileBindsDocAttributesMergesClausesAndRecognisesTests
+    , testProperty "the Elixir profile names operator, unquoted, and test definitions as Elixir does" prop_elixirProfileNamesOperatorUnquotedAndTestDefinitionsAsElixirDoes
+    , testProperty "the Elixir profile binds a doc across blank lines and hides what @doc false hides" prop_elixirProfileBindsADocAcrossBlankLinesAndHidesWhatDocFalseHides
+    , testProperty "the Elixir dialect reads @doc and @moduledoc as canonical comments as Elixir binds them" prop_elixirDialectReadsDocAndModuledocAsCanonicalCommentsAsElixirBindsThem
     ]
 
 sampleDir :: FilePath
@@ -99,9 +102,27 @@ prop_elixirLexerKeepsInterpolationsHeredocsAndSigilsWhole = withTests 1 $ proper
       , ("STRING_CLOSE", "\"")
       ]
   typesOf "\"\"\"\nsay \"hi\" # not a comment\n\"\"\"" === Right [("HEREDOC_OPEN", "\"\"\""), ("HEREDOC_TEXT", "\nsay \"hi\" # not a comment\n"), ("HEREDOC_CLOSE", "\"\"\"")]
-  typesOf "~s(<a href=\"#{path(x)}\">)" === Right [("SIGIL", "~s(<a href=\"#{path(x)}\">)")]
+  typesOf "~S(<a href=\"#{x}\">)" === Right [("SIGIL", "~S(<a href=\"#{x}\">)")]
+  typesOf "~s(<a href=\"#{f(%{a: x})}\n\">)"
+    === Right
+      [ ("SIGIL_PAREN_OPEN", "~s(")
+      , ("SIGIL_TEXT", "<a href=\"")
+      , ("SIGIL_INTERPOLATION", "#{")
+      , ("IDENTIFIER", "f")
+      , ("OPEN_PAREN", "(")
+      , ("OPEN_MAP", "%{")
+      , ("KEYWORD", "a:")
+      , ("IDENTIFIER", "x")
+      , ("CLOSE_BRACE", "}")
+      , ("CLOSE_PAREN", ")")
+      , ("CLOSE_BRACE", "}")
+      , ("SIGIL_TEXT", "\n\">")
+      , ("SIGIL_CLOSE", ")")
+      ]
+  typesOf "~r/#{\n  x\n}/u" === Right [("SIGIL_SLASH_OPEN", "~r/"), ("SIGIL_INTERPOLATION", "#{"), ("NL", "\n"), ("IDENTIFIER", "x"), ("NL", "\n"), ("CLOSE_BRACE", "}"), ("SIGIL_CLOSE", "/u")]
   typesOf "valid? x" === Right [("IDENTIFIER", "valid?"), ("IDENTIFIER", "x")]
   typesOf "@doc false\n@docs_url 1" === Right [("DOC_ATTRIBUTE", "@doc"), ("FALSE", "false"), ("NL", "\n"), ("ATTRIBUTE", "@docs_url"), ("INTEGER", "1")]
+  typesOf "@moduledoc false" === Right [("MODULEDOC_ATTRIBUTE", "@moduledoc"), ("FALSE", "false")]
 
 fixture :: Text
 fixture =
@@ -130,7 +151,7 @@ fixture =
     , ""
     , "  defp twice(x), do: x * 2"
     , ""
-    , "  @doc \"Orphaned by the blank line below.\""
+    , "  @doc \"Orphaned by the @doc false that overrides it.\""
     , ""
     , "  @doc false"
     , "  def hidden, do: twice(1)"
@@ -193,7 +214,202 @@ prop_elixirProfileBindsDocAttributesMergesClausesAndRecognisesTests = withTests 
   map testsOf ["of a square", "uncommented", "twice"] === [[True], [True], [False]]
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === [ "elixir/shapes.ex/module/Shapes/function/helper"
-        , "elixir/shapes.ex/module/Shapes/function/hidden"
-        , "elixir/shapes.ex/module/ShapesTest"
         , "elixir/shapes.ex/module/ShapesTest/test/uncommented"
         ]
+
+-- | Extracts a fixture through the sample's profile, for the properties that read one.
+extractFixture :: Text -> PropertyT IO Extraction
+extractFixture source = do
+  profile <- sampleProfile
+  loaded <- evalIO (loadProfileInterpreter profile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "elixir" profile interpreter "fixture.ex" "fixture.ex" source)
+  either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+
+-- | An Elixir library defines operators with def a <~> b, generates functions with
+-- def unquote(name)(args), and names tests with strings, in parentheses or not, so each must be a
+-- unit named for what Elixir calls it, or its documentation would be reported as attached to
+-- nothing and the unit as missing. ref:REQ-elixir-support ref:DEC-elixir-grammar
+prop_elixirProfileNamesOperatorUnquotedAndTestDefinitionsAsElixirDoes :: Property
+prop_elixirProfileNamesOperatorUnquotedAndTestDefinitionsAsElixirDoes = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractFixture $
+      T.unlines
+        [ "defmodule Ops do"
+        , "  @doc \"Combines two values.\""
+        , "  def left <~> right, do: {left, right}"
+        , ""
+        , "  @doc \"Negates.\""
+        , "  def -value, do: value"
+        , ""
+        , "  for name <- [:first, :second] do"
+        , "    @doc \"Generated for each name.\""
+        , "    def unquote(name)(arg), do: ~s(#{arg}: #{inspect(%{name: unquote(name)})})"
+        , "  end"
+        , ""
+        , "  test(\"in parentheses\", %{conn: conn}) do"
+        , "    assert conn"
+        , "  end"
+        , ""
+        , "  test \"pending\""
+        , "end"
+        ]
+  let units = modelAllUnits model
+      nameOf u = whatName (answerValue (unitWhat u))
+      kindOf u = unitKindText (whatKind (answerValue (unitWhat u)))
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- units, nameOf u == n, d <- decisionsFor (unitId u) model]
+  [(kindOf u, nameOf u) | u <- units, kindOf u /= "file"]
+    === [ ("module", "Ops")
+        , ("function", "<~>")
+        , ("function", "-")
+        , ("function", "unquote(name)")
+        , ("test", "in parentheses")
+        , ("test", "pending")
+        ]
+  map whyOf ["<~>", "-", "unquote(name)"] === [["Combines two values."], ["Negates."], ["Generated for each name."]]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+
+-- | Elixir binds every @doc to the next definition whatever blank lines lie between, a later
+-- @doc false overrides an earlier @doc, and @doc false and @moduledoc false hide what they mark from
+-- the documentation, as ExDoc does, so canon must bind across blank lines, report the overridden
+-- @doc, and mark the hidden units hidden rather than missing their comment, while a test in a hidden
+-- module still needs its requirement. ref:REQ-elixir-support ref:DEC-hidden-label
+prop_elixirProfileBindsADocAcrossBlankLinesAndHidesWhatDocFalseHides :: Property
+prop_elixirProfileBindsADocAcrossBlankLinesAndHidesWhatDocFalseHides = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractFixture $
+      T.unlines
+        [ "defmodule Spaced do"
+        , "  @moduledoc \"Spaced exists to test binding.\""
+        , ""
+        , "  @doc \"\"\""
+        , "  Bound across the blank lines and the spec."
+        , "  \"\"\""
+        , ""
+        , "  @spec spaced() :: :ok"
+        , ""
+        , "  def spaced, do: :ok"
+        , ""
+        , "  @doc \"Overridden.\""
+        , "  @doc false"
+        , "  def hidden, do: :ok"
+        , ""
+        , "  def generator do"
+        , "    quote do"
+        , "      @moduledoc false"
+        , "    end"
+        , "  end"
+        , "end"
+        , ""
+        , "defmodule Internal do"
+        , "  @moduledoc false"
+        , "  def helper, do: :ok"
+        , "  test \"still a test\", do: :ok"
+        , "end"
+        ]
+  let units = modelAllUnits model
+      nameOf u = whatName (answerValue (unitWhat u))
+      requirementOf n = [unitRequirement u | u <- units, nameOf u == n]
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- units, nameOf u == n, d <- decisionsFor (unitId u) model]
+  whyOf "spaced" === ["Bound across the blank lines and the spec."]
+  whyOf "hidden" === []
+  length [() | OrphanDocComment _ _ <- findings] === 1
+  map requirementOf ["Spaced", "spaced", "hidden", "generator", "Internal", "helper", "still a test"]
+    === [[Required], [Required], [Hidden], [Required], [Hidden], [Hidden], [Required]]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === ["elixir/fixture.ex/module/Spaced/function/generator", "elixir/fixture.ex/module/Internal/test/still a test"]
+
+-- | The Elixir dialect, under grammars/elixir/canonically_commented, as a project names it.
+dialectProfile :: Profile
+dialectProfile = Profile [".ex", ".exs"] (SplitGrammarFiles "grammars/elixir/canonically_commented/ElixirLexer.g4" "grammars/elixir/canonically_commented/ElixirParser.g4") (Name "file") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+
+-- | A canonically commented grammar must say in grammar form what the Elixir profile says in
+-- canon.yaml, so a project can check Elixir through the dialect alone: @doc and @typedoc document the
+-- definition below their attributes across blank lines, a @typedoc only a type, @moduledoc documents
+-- the module wherever it
+-- sits in the body, the last @doc wins and @doc false hides, the clauses of a function are one unit,
+-- and the Jason sample parses whole. ref:REQ-elixir-support ref:DEC-elixir-dialect
+-- ref:DEC-hidden-label
+prop_elixirDialectReadsDocAndModuledocAsCanonicalCommentsAsElixirBindsThem :: Property
+prop_elixirDialectReadsDocAndModuledocAsCanonicalCommentsAsElixirBindsThem = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  library <- evalIO (interpretFile interpreter (Name "file") (sampleDir </> "source/lib/formatter.ex"))
+  _ <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure library
+  suite <- evalIO (interpretFile interpreter (Name "file") (sampleDir </> "source/test/formatter_test.exs"))
+  _ <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure suite
+  let source =
+        T.unlines
+          [ "defmodule Shapes do"
+          , "  use Something"
+          , "  @moduledoc \"\"\""
+          , "  Shapes exist to exercise the Elixir dialect. ref:some-key"
+          , "  \"\"\""
+          , ""
+          , "  @typedoc \"A typedoc documents a type and nothing else.\""
+          , "  def helper, do: :ok"
+          , ""
+          , "  @typedoc \"A shape is a circle or a square.\""
+          , "  @type shape :: {:circle, float} | {:square, float}"
+          , ""
+          , "  @doc ~S\"\"\""
+          , "  Areas are what shapes are for, #{verbatim}."
+          , "  \"\"\""
+          , "  # The spec below is the area's contract."
+          , ""
+          , "  @spec area(shape) :: float"
+          , "  def area({:circle, r}), do: 3.0 * r * r"
+          , "  def area({:square, w}), do: w * w"
+          , ""
+          , "  @doc \"The area scaled by #{inspect(%{by: \"}\"})}.\""
+          , "  def area(shape, factor), do: area(shape) * factor"
+          , ""
+          , "  @doc \"Overridden.\""
+          , "  @doc false"
+          , "  def hidden, do: :ok"
+          , ""
+          , "  @doc \"Combines.\""
+          , "  def left <~> right, do: {left, right}"
+          , "end"
+          , ""
+          , "defmodule ShapesTest do"
+          , "  @moduledoc false"
+          , "  describe \"area\" do"
+          , "    @doc \"Squares have the area of their side squared. ref:REQ-1\""
+          , "    @tag :fast"
+          , "    test \"of a square\", do: :ok"
+          , "  end"
+          , ""
+          , "  test(\"uncommented\", %{}) do"
+          , "    :ok"
+          , "  end"
+          , "end"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "elixir" dialectProfile interpreter "shapes.ex" "shapes.ex" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  let units = modelAllUnits model
+      nameOf u = whatName (answerValue (unitWhat u))
+      kindOf u = unitKindText (whatKind (answerValue (unitWhat u)))
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- units, nameOf u == n, d <- decisionsFor (unitId u) model]
+  [(kindOf u, nameOf u, unitRequirement u) | u <- units, kindOf u /= "file"]
+    === [ ("module", "Shapes", Required)
+        , ("function", "helper", Required)
+        , ("type", "shape", Optional)
+        , ("function", "area", Required)
+        , ("function", "area", Required)
+        , ("function", "hidden", Hidden)
+        , ("function", "<~>", Required)
+        , ("module", "ShapesTest", Hidden)
+        , ("describe", "area", Hidden)
+        , ("test", "of a square", Required)
+        , ("test", "uncommented", Required)
+        ]
+  whyOf "Shapes" === ["Shapes exist to exercise the Elixir dialect. ref:some-key"]
+  whyOf "shape" === ["A shape is a circle or a square."]
+  whyOf "area" === ["Areas are what shapes are for, #{verbatim}.", "The area scaled by #{inspect(%{by: \"}\"})}."]
+  whyOf "<~>" === ["Combines."]
+  whyOf "of a square" === ["Squares have the area of their side squared. ref:REQ-1"]
+  whyOf "helper" === []
+  length [() | OrphanDocComment _ _ <- findings] === 2
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === ["elixir/shapes.ex/module/Shapes/function/helper", "elixir/shapes.ex/module/ShapesTest/test/uncommented"]

@@ -2,18 +2,31 @@ version: 0.1.0
 root: source
 languages:
   erlang:
-    extensions: [.erl, .hrl]
+    extensions: [.erl, .hrl, .escript]
     grammar: ../../grammars/erlang/Erlang.g4
     start: forms
     comments:
       line: "%"
-      strings: ["\""]
+      innerDoc: ["-moduledoc"]
+      docAttributes: ["-moduledoc", "-doc"]
+      hiddenTags: ["@private", "@hidden"]
+      strings: ["\"\"\"\"", "\"\"\"", "\""]
     units:
-      - rule: function_
+      - rule: functionDefinition
         kind: function
-        name: {token: TokAtom, index: 1}
+        name: {rule: definedName}
         required: true
-      - rule: attribute
-        kind: attribute
-        name: {token: TokAtom, index: 1}
+      - rule: typeAttribute
+        kind: type
+        name: {rule: definedName}
         required: false
+        firstToken: {token: TokAtom, oneOf: [type, opaque, nominal]}
+      - rule: recordAttribute
+        kind: record
+        name: {rule: definedName}
+        required: false
+        firstToken: {token: TokAtom, oneOf: [record]}
+      - rule: callbackAttribute
+        kind: callback
+        name: {rule: specFun}
+        required: true

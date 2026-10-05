@@ -303,7 +303,7 @@ genProfile =
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> genEmbedding))
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> Gen.list (Range.linear 1 2) genIdSegment))
   where
-    genCommentSyntax = (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment)
+    genCommentSyntax = (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.maybe ((,) <$> genIdSegment <*> genIdSegment) <*> Gen.bool <*> Gen.list (Range.linear 0 2) genIdSegment)
     genEmbedding =
       Embedding
         <$> genIdSegment

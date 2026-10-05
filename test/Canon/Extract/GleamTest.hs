@@ -30,6 +30,8 @@ tests =
     "gleam"
     [ testProperty "the Gleam grammar parses the stdlib sample into its items" prop_gleamGrammarParsesTheStdlibSampleIntoItsItems
     , testProperty "the Gleam profile binds item and module doc comments and recognises tests" prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests
+    , testProperty "the Gleam profile reads pre-1.0 syntax and hides internal items" prop_gleamProfileReadsPre10SyntaxAndHidesInternalItems
+    , testProperty "the Gleam dialect reads /// and //// as canonical comments as Gleam joins them" prop_gleamDialectReadsDocAndModuleCommentsAsCanonicalCommentsAsGleamJoinsThem
     ]
 
 sampleDir :: FilePath
@@ -99,7 +101,7 @@ fixture =
     , ""
     , "pub const unit: Shape = Square(1.0)"
     , ""
-    , "/// Orphaned by the blank line below."
+    , "/// Bound across the blank line below, as Gleam binds it."
     , ""
     , "pub fn perimeter(shape: Shape) -> Float {"
     , "  case shape { Circle(r) -> 2.0 *. r Square(w) -> 4.0 *. w }"
@@ -111,9 +113,9 @@ fixture =
     , "pub fn uncommented_test() { Nil }"
     ]
 
--- | In Gleam /// documents the item below its attributes, //// documents the module, a plain //
--- comment documents nothing, and gleeunit runs the public functions named _test, so the profile
--- must bind and recognise each that way for the Why of a Gleam item to be its documentation.
+-- | In Gleam /// documents the item below its attributes, across blank lines, //// documents the
+-- module, a plain // comment documents nothing, and gleeunit runs the public functions named _test,
+-- so the profile must bind and recognise each that way for the Why of a Gleam item to be its documentation.
 -- ref:REQ-gleam-support ref:DEC-gleam-grammar
 prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests :: Property
 prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests = withTests 1 $ property $ do
@@ -146,11 +148,146 @@ prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests = withTests 1 $
   whyOf "Circle" === ["A circle by its radius."]
   whyOf "radius" === ["The radius, never negative."]
   whyOf "area" === ["Areas are what shapes are for."]
-  whyOf "perimeter" === []
-  length [() | OrphanDocComment _ _ <- findings] === 1
+  whyOf "perimeter" === ["Bound across the blank line below, as Gleam binds it."]
+  length [() | OrphanDocComment _ _ <- findings] === 0
   map testsOf ["square_area_test", "uncommented_test", "helper"] === [[True], [True], [False]]
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === [ "gleam/shapes.gleam/const/unit"
-        , "gleam/shapes.gleam/function/perimeter"
         , "gleam/shapes.gleam/function/uncommented_test"
         ]
+
+-- | Gleam code written before 1.0 declares external functions and types with the external keyword
+-- and groups items by target with if erlang { ... }, and @internal hides a public item from the
+-- documentation, so an older project must parse into the same units as a current one, and an
+-- internal item must be marked hidden rather than missing its comment. ref:REQ-gleam-support
+-- ref:DEC-gleam-grammar ref:DEC-hidden-label
+prop_gleamProfileReadsPre10SyntaxAndHidesInternalItems :: Property
+prop_gleamProfileReadsPre10SyntaxAndHidesInternalItems = withTests 1 $ property $ do
+  profile <- sampleProfile
+  loaded <- evalIO (loadProfileInterpreter profile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "if erlang {"
+          , "  import gleam/erlang/internal"
+          , "}"
+          , ""
+          , "/// Dynamic data comes from the outside world."
+          , "pub external type Dynamic"
+          , ""
+          , "external type Opaque(a)"
+          , ""
+          , "if erlang {"
+          , "  /// Identity on the Erlang target."
+          , "  pub external fn from(anything) -> Dynamic ="
+          , "    \"gleam_stdlib\" \"identity\""
+          , "}"
+          , ""
+          , "if javascript {"
+          , "  pub external fn from(anything) -> Dynamic ="
+          , "    \"../gleam_stdlib.js\" \"identity\""
+          , "}"
+          , ""
+          , "pub fn parse(text: String) -> Result(Int, Nil) {"
+          , "  try value = do_parse(text)"
+          , "  assert Ok(x) = value"
+          , "  Ok(x)"
+          , "}"
+          , ""
+          , "@internal"
+          , "pub fn internal_helper(external: Int) -> Int { external }"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "gleam" profile interpreter "old.gleam" "old.gleam" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  let units = modelAllUnits model
+      nameOf u = whatName (answerValue (unitWhat u))
+      kindOf u = unitKindText (whatKind (answerValue (unitWhat u)))
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- units, nameOf u == n, d <- decisionsFor (unitId u) model]
+  [(kindOf u, nameOf u, unitRequirement u) | u <- units, kindOf u /= "file"]
+    === [ ("type", "Dynamic", Required)
+        , ("type", "Opaque", Optional)
+        , ("function", "from", Required)
+        , ("function", "from", Required)
+        , ("function", "parse", Required)
+        , ("function", "internal_helper", Hidden)
+        ]
+  whyOf "Dynamic" === ["Dynamic data comes from the outside world."]
+  whyOf "from" === ["Identity on the Erlang target."]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === ["gleam/old.gleam/function/from#2", "gleam/old.gleam/function/parse"]
+
+-- | The Gleam dialect, under grammars/gleam/canonically_commented, as a project names it.
+dialectProfile :: Profile
+dialectProfile = Profile [".gleam"] (SplitGrammarFiles "grammars/gleam/canonically_commented/GleamLexer.g4" "grammars/gleam/canonically_commented/GleamParser.g4") (Name "module") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+
+-- | A canonically commented grammar must say in grammar form what the Gleam profile says in
+-- canon.yaml, and say it as the Gleam compiler does: every /// line since the previous item documents
+-- the item below its attributes, blank lines and plain comments included, every //// comment joins
+-- the documentation of the module, @internal hides an item, a /// before an import documents nothing,
+-- and the stdlib sample parses whole. ref:REQ-gleam-support ref:DEC-gleam-dialect ref:DEC-hidden-label
+prop_gleamDialectReadsDocAndModuleCommentsAsCanonicalCommentsAsGleamJoinsThem :: Property
+prop_gleamDialectReadsDocAndModuleCommentsAsCanonicalCommentsAsGleamJoinsThem = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  bytes <- evalIO (interpretFile interpreter (Name "module") (sampleDir </> "source/src/gleam/bytes_tree.gleam"))
+  _ <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure bytes
+  let source =
+        T.unlines
+          [ "//// Shapes exist to exercise the Gleam dialect."
+          , "//// They cite ref:some-key."
+          , ""
+          , "/// Not documentation of an import."
+          , "import gleam/float"
+          , ""
+          , "/// A shape is a circle"
+          , ""
+          , "/// or a square."
+          , "pub type Shape {"
+          , "  /// A circle by its radius."
+          , "  Circle("
+          , "    /// The radius, never negative."
+          , "    radius: Float,"
+          , "  )"
+          , "  Square(Float)"
+          , "}"
+          , ""
+          , "/// Areas are what shapes are for."
+          , "// The external is faster on Erlang."
+          , "@external(erlang, \"shapes_ffi\", \"area\")"
+          , "pub fn area(shape: Shape) -> Float"
+          , ""
+          , "//// The module documentation goes on here."
+          , ""
+          , "@internal"
+          , "pub fn internal_area(shape: Shape) -> Float { area(shape) }"
+          , ""
+          , "pub const unit: Shape = Square(1.0)"
+          , ""
+          , "fn helper() { Nil }"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "gleam" dialectProfile interpreter "shapes.gleam" "shapes.gleam" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  let units = modelAllUnits model
+      nameOf u = whatName (answerValue (unitWhat u))
+      kindOf u = unitKindText (whatKind (answerValue (unitWhat u)))
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- units, nameOf u == n, d <- decisionsFor (unitId u) model]
+      refsOf n = [whyReferences (answerValue (decisionWhy d)) | u <- units, nameOf u == n, d <- decisionsFor (unitId u) model]
+  [(kindOf u, nameOf u, unitRequirement u) | u <- units, kindOf u /= "file"]
+    === [ ("type", "Shape", Required)
+        , ("constructor", "Circle", Optional)
+        , ("field", "radius", Optional)
+        , ("constructor", "Square", Optional)
+        , ("function", "area", Required)
+        , ("function", "internal_area", Hidden)
+        , ("const", "unit", Required)
+        , ("function", "helper", Optional)
+        ]
+  whyOf "shapes.gleam" === ["Shapes exist to exercise the Gleam dialect.\nThey cite ref:some-key.\n\nThe module documentation goes on here."]
+  refsOf "shapes.gleam" === [[ReferenceKey "some-key"]]
+  whyOf "Shape" === ["A shape is a circle\n\nor a square."]
+  whyOf "Circle" === ["A circle by its radius."]
+  whyOf "radius" === ["The radius, never negative."]
+  whyOf "area" === ["Areas are what shapes are for."]
+  length [() | OrphanDocComment _ _ <- findings] === 1
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["gleam/shapes.gleam/const/unit"]

@@ -34,13 +34,14 @@ knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csh
 -- ref:DEC-csharp-grammar ref:DEC-fsharp-grammar Elixir's tests are the units its profile makes of
 -- ExUnit's test calls, and Gleam's are gleeunit's functions named for it. ref:DEC-elixir-grammar
 -- ref:DEC-gleam-grammar A Prolog test is a clause of plunit's test, which the plain profile names test
--- and the dialect makes a unit of kind test. ref:DEC-prolog-dialect
+-- and the dialect makes a unit of kind test. ref:DEC-prolog-dialect An Erlang function is named by
+-- its name and arity, and EUnit runs the ones of arity 0. ref:DEC-erlang-grammar
 testRules :: Text -> [TestRule]
 testRules language = case language of
   "java" ->
     [TestRule (Just "method") (Just marker) Nothing Nothing | marker <- javaMarkers]
       ++ [TestRule (Just "method") Nothing (Just "test*") (Just "**/src/test/**")]
-  "erlang" -> [TestRule (Just "function") Nothing (Just name) Nothing | name <- ["*_test", "*_test_"]]
+  "erlang" -> [TestRule (Just "function") Nothing (Just name) Nothing | name <- ["*_test", "*_test_", "*_test/0", "*_test_/0"]]
   "clojure" -> [TestRule (Just "deftest") Nothing Nothing Nothing, TestRule (Just "definition") Nothing (Just "*-test") Nothing]
   "prolog" -> [TestRule (Just "clause") Nothing (Just "test") Nothing, TestRule (Just "test") Nothing Nothing Nothing]
   "haskell" -> [TestRule (Just "function") Nothing (Just name) Nothing | name <- ["prop_*", "test_*"]]

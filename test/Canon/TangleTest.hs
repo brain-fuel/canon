@@ -34,7 +34,7 @@ folioProfile :: Profile
 folioProfile = Profile [".md"] (SplitGrammarFiles "grammars/folio/FolioLexer.g4" "grammars/folio/FolioParser.g4") (Name "document") [] defaultCommentSyntax Map.empty Map.empty Map.empty
 
 haskellEmbedding :: Embedding
-haskellEmbedding = Embedding "haskell" (CommentSyntax (Just "--") (Just "{-") (Just "-}") ["\""] [] [] [] []) 98 (DocStyle "-- | " "-- " "--" "-- " "haddock")
+haskellEmbedding = Embedding "haskell" (CommentSyntax (Just "--") (Just "{-") (Just "-}") ["\""] [] [] [] [] Nothing False []) 98 (DocStyle "-- | " "-- " "--" "-- " "haddock")
 
 interpreterOrFail :: PropertyT IO Interpreter
 interpreterOrFail = do

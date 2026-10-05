@@ -68,6 +68,15 @@ data UnitRule = UnitRule
 --
 -- A line that starts with one of the directive openers, as C#'s #if and #pragma do, stands between
 -- a doc comment and its unit without separating them. ref:DEC-csharp-grammar
+--
+-- An interpolation opener and closer, such as Elixir's #{ and }, mark code inside a string, which
+-- may hold strings and braces of its own, so a quote inside it does not end the string around it.
+-- ref:DEC-elixir-grammar
+--
+-- Where doc comments join across blank lines, as Gleam's /// lines do, doc comments that open alike
+-- and stand apart only by blank lines are one comment, and blank lines below one do not part it from
+-- its unit. A hidden tag, such as EDoc's @private, in a doc comment hides the unit it documents.
+-- ref:DEC-gleam-grammar ref:DEC-hidden-label
 data CommentSyntax = CommentSyntax
   { commentLine :: Maybe Text
   , commentBlockOpen :: Maybe Text
@@ -77,12 +86,15 @@ data CommentSyntax = CommentSyntax
   , commentInnerDoc :: [Text]
   , commentDocAttributes :: [Text]
   , commentDirectives :: [Text]
+  , commentInterpolation :: Maybe (Text, Text)
+  , commentJoinAcrossBlankLines :: Bool
+  , commentHiddenTags :: [Text]
   }
   deriving (Eq, Show)
 
 -- | No comments and double-quoted strings, the default for a dialect language.
 defaultCommentSyntax :: CommentSyntax
-defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] [] [] []
+defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] [] [] [] Nothing False []
 
 -- | How a Folio page's fenced blocks of one language are read and tangled: the profile that parses
 -- them, the comment syntax that must not appear in a block, the width a tangled line may have,
@@ -179,13 +191,16 @@ instance FromJSON UnitRule where
       <*> (fromMaybe False <$> o .:? "mergeClauses")
 
 instance ToJSON CommentSyntax where
-  toJSON (CommentSyntax line open close strings outer inner attributes directives) =
+  toJSON (CommentSyntax line open close strings outer inner attributes directives interpolation joins hiddenTags) =
     object
       ( ["blockClose" .= close, "blockOpen" .= open, "line" .= line, "strings" .= strings]
           ++ ["outerDoc" .= outer | not (null outer)]
           ++ ["innerDoc" .= inner | not (null inner)]
           ++ ["docAttributes" .= attributes | not (null attributes)]
           ++ ["directives" .= directives | not (null directives)]
+          ++ ["interpolation" .= [o, c] | Just (o, c) <- [interpolation]]
+          ++ ["joinAcrossBlankLines" .= True | joins]
+          ++ ["hiddenTags" .= hiddenTags | not (null hiddenTags)]
       )
 
 instance FromJSON CommentSyntax where
@@ -199,6 +214,13 @@ instance FromJSON CommentSyntax where
       <*> (fromMaybe [] <$> o .:? "innerDoc")
       <*> (fromMaybe [] <$> o .:? "docAttributes")
       <*> (fromMaybe [] <$> o .:? "directives")
+      <*> (o .:? "interpolation" >>= traverse pair)
+      <*> (fromMaybe False <$> o .:? "joinAcrossBlankLines")
+      <*> (fromMaybe [] <$> o .:? "hiddenTags")
+    where
+      pair xs = case xs of
+        [open, close] -> pure (open, close)
+        _ -> fail "an interpolation is an opener and a closer"
 
 instance ToJSON DocStyle where
   toJSON (DocStyle open continue blank banner markup) = object ["banner" .= banner, "blank" .= blank, "continue" .= continue, "markup" .= markup, "open" .= open]

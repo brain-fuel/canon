@@ -24,10 +24,12 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // expression after a binary operator, a comma, or a keyword, and before a binary operator that
 // cannot start an expression, as Elixir's tokenizer does. Operator precedence is not modelled.
 //
-// A definition takes the module attributes directly above it, one per line, so that its node
-// starts at its first attribute and the @doc above those attributes documents it. Attributes are
+// A definition takes the module attributes above it, one or more lines apart, so that its node
+// starts at its first attribute and the @doc above those attributes documents it, as Elixir binds
+// every pending attribute to the next definition whatever blank lines lie between. Attributes are
 // labeled marker. Documentation attributes with a string value are not taken: they are the
-// definition's comment, which canon scans from the text.
+// definition's comment, which canon scans from the text. @doc false and @doc nil hide the
+// definition below them and @moduledoc false the module around it, so each is labeled hidden.
 
 parser grammar ElixirParser;
 
@@ -53,6 +55,28 @@ statement
     | expression
     ;
 
+// The do-block of a module, a protocol, or an implementation, whose statements may include
+// @moduledoc false. Only here is it labeled hidden, so a @moduledoc false quoted inside a function
+// for a module the function generates does not hide the function.
+moduleBody
+    : NL* DO moduleBlock END
+    ;
+
+moduleBlock
+    : separator* (moduleStatement (separator+ moduleStatement)* separator*)?
+    ;
+
+moduleStatement
+    : definition
+    | hiddenModule
+    | expression
+    ;
+
+// @moduledoc false, which hides the module around it from the documentation.
+hiddenModule
+    : hidden = MODULEDOC_ATTRIBUTE (FALSE | NIL)
+    ;
+
 definition
     : moduleDefinition
     | protocolDefinition
@@ -72,48 +96,52 @@ definition
     ;
 
 attributes
-    : (marker += attribute NL)+
+    : (marker += attribute NL+)+
     ;
 
 attribute
     : ATTRIBUTE continuation*
-    | DOC_ATTRIBUTE (FALSE | NIL | KEYWORD continuation*)
+    | hidden = DOC_ATTRIBUTE (FALSE | NIL)
+    | DOC_ATTRIBUTE KEYWORD continuation*
     ;
 
 moduleDefinition
-    : attributes? DEFMODULE moduleName continuation*
+    : attributes? DEFMODULE moduleName (COMMA NL* KEYWORD NL* (moduleName | operand))* moduleBody continuation*
+    | attributes? DEFMODULE moduleName continuation*
     ;
 
 protocolDefinition
-    : attributes? DEFPROTOCOL moduleName continuation*
+    : attributes? DEFPROTOCOL moduleName (COMMA NL* KEYWORD NL* (moduleName | operand))* moduleBody continuation*
+    | attributes? DEFPROTOCOL moduleName continuation*
     ;
 
 implementationDefinition
-    : attributes? DEFIMPL moduleName continuation*
+    : attributes? DEFIMPL moduleName (COMMA NL* KEYWORD NL* (moduleName | operand))* moduleBody continuation*
+    | attributes? DEFIMPL moduleName continuation*
     ;
 
 publicFunction
-    : attributes? DEF definitionName continuation*
+    : attributes? DEF definitionHead continuation*
     ;
 
 privateFunction
-    : attributes? DEFP definitionName continuation*
+    : attributes? DEFP definitionHead continuation*
     ;
 
 publicMacro
-    : attributes? DEFMACRO definitionName continuation*
+    : attributes? DEFMACRO definitionHead continuation*
     ;
 
 privateMacro
-    : attributes? DEFMACROP definitionName continuation*
+    : attributes? DEFMACROP definitionHead continuation*
     ;
 
 publicGuard
-    : attributes? DEFGUARD definitionName continuation*
+    : attributes? DEFGUARD definitionHead continuation*
     ;
 
 privateGuard
-    : attributes? DEFGUARDP definitionName continuation*
+    : attributes? DEFGUARDP definitionHead continuation*
     ;
 
 delegateDefinition
@@ -137,19 +165,52 @@ callbackDefinition
     ;
 
 // A call such as test "name" do ... end or describe "name" do ... end, with a do-block or do:,
-// which the profile turns into a unit by its first word.
+// which the profile turns into a unit by its first word. The name may be written in parentheses,
+// as in test("name", context), and may interpolate; a test without a block is a pending test.
 // Its node starts at the attributes above it, such as @tag, as a definition's does.
 namedBlock
-    : attributes? TEST_MACRO STRING_OPEN blockName? STRING_CLOSE continuation*
+    : attributes? TEST_MACRO STRING_OPEN blockName STRING_CLOSE continuation*
+    | attributes? TEST_MACRO OPEN_PAREN NL* STRING_OPEN blockName STRING_CLOSE (NL* COMMA NL* inner)? CLOSE_PAREN continuation*
     ;
 
 blockName
     : stringPart+
     ;
 
+// What follows a definition keyword: the head of an operator definition such as def a <~> b or
+// def -value, whose name is the operator, or a name followed by its arguments.
+definitionHead
+    : operand definitionName operand
+    | definitionName operand
+    | definitionName
+    ;
+
+// The name of a definition. A name computed with unquote, as in def unquote(name)(args), is named
+// by its unquote call, since the name is known only when the macro runs.
 definitionName
     : IDENTIFIER
     | TEST_MACRO
+    | UNQUOTE parenthesized
+    | definableOperator
+    ;
+
+// The operators Elixir lets a module define with def or defmacro.
+definableOperator
+    : PLUS
+    | MINUS
+    | STAR
+    | SLASH
+    | BANG
+    | CARET
+    | TILDE3
+    | PIPE_RIGHT
+    | AT
+    | AND
+    | OR
+    | NOT
+    | IN
+    | NOT IN
+    | OPERATOR
     ;
 
 moduleName
@@ -216,13 +277,14 @@ primary
     | heredoc
     | CHARLIST
     | CHARLIST_HEREDOC
-    | SIGIL
+    | sigil
     | TRUE
     | FALSE
     | NIL
     | ELLIPSIS
     | ATTRIBUTE
     | DOC_ATTRIBUTE
+    | MODULEDOC_ATTRIBUTE
     | TYPE_ATTRIBUTE
     | CALLBACK_ATTRIBUTE
     | UNQUOTE
@@ -271,6 +333,30 @@ capturedOperator
 
 string
     : STRING_OPEN stringPart* STRING_CLOSE
+    ;
+
+// A sigil: an uppercase one is a single token, and a lowercase one holds text and interpolations.
+sigil
+    : SIGIL
+    | sigilOpen sigilPart* SIGIL_CLOSE
+    ;
+
+sigilOpen
+    : SIGIL_HEREDOC_OPEN
+    | SIGIL_CHARDOC_OPEN
+    | SIGIL_QUOTE_OPEN
+    | SIGIL_APOSTROPHE_OPEN
+    | SIGIL_SLASH_OPEN
+    | SIGIL_BAR_OPEN
+    | SIGIL_PAREN_OPEN
+    | SIGIL_BRACKET_OPEN
+    | SIGIL_BRACE_OPEN
+    | SIGIL_ANGLE_OPEN
+    ;
+
+sigilPart
+    : SIGIL_TEXT
+    | SIGIL_INTERPOLATION block CLOSE_BRACE
     ;
 
 quotedAtom
