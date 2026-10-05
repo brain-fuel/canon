@@ -14,7 +14,6 @@ import Canon.Antlr4.Predicate.Groovy (groovyPredicates)
 import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token (..))
-import Canon.Span (Position (..))
 import Data.Char (isAlpha, isAlphaNum, isUpper)
 import Data.Maybe (listToMaybe)
 import qualified Data.List.NonEmpty as NonEmpty

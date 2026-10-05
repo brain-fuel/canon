@@ -129,6 +129,10 @@ strayCommentRules grammar = [NonEmpty.last v | Option (Name "strayComment") (Opt
 strayWindow :: Int
 strayWindow = 3
 
+-- | How many tokens a candidate stray comment is first read from. ref:DEC-stray-comments
+strayReach :: Int
+strayReach = 256
+
 -- | Parses the tokens, and where the parse fails at a stray comment, or within strayWindow tokens
 -- after one, parses again without it and adds it to the root as an orphan, for as long as no
 -- round moves the failure back. A doc comment may stand between any two tokens, as inside an
@@ -175,11 +179,20 @@ parseWithStrayComments hook grammar start toks = case parseVisibleTokensWith hoo
         , Just tok <- [listToMaybe (drop k current)]
         , Set.member (tokenType tok) openers
         , r <- strays
-        , Just comment <- [strayFrom r (takeWhile (not . isEofToken) (drop k current))]
+        , Just comment <- [strayWithin r (takeWhile (not . isEofToken) (drop k current))]
         , let size = length (treeTokens comment)
         , size > 0
         , k == f || (k + size <= f && k + size >= f - strayWindow)
         ]
+    -- The comment is read from the next strayReach tokens, which hold any comment but a long one,
+    -- so a candidate costs a short parse rather than one over the rest of the file; a comment that
+    -- runs to the end of that span is read again from the whole rest.
+    strayWithin r rest =
+      let (near, far) = splitAt strayReach rest
+       in case strayFrom r near of
+            Just comment | null far || length (treeTokens comment) < strayReach -> Just comment
+            _ | null far -> Nothing
+            _ -> strayFrom r rest
     -- The longest match of the comment rule at the start of the tokens, read by a rule that takes
     -- the comment and then any tokens.
     strayFrom r rest = case parseVisibleTokensWith hook (withStrayRule r) (Name "canonStrayComment") rest of
