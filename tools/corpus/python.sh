@@ -37,7 +37,6 @@ itsdangerous-sample local:lang_samples/python-itsdangerous/source 0
 EXCLUDE='
 cpython-lib Lib/test/tokenizedata/badsyntax_* invalid-code fixture: CPython test_unicode_identifiers and test_utf8source expect a SyntaxError
 django tests/test_runner_apps/tagged/tests_syntax_error.py invalid-code fixture: Django test_runner expects its SyntaxError
-cpython-lib Lib/test/encoded_modules/module_* not UTF-8: a PEP 263 coding declaration names latin-1 or koi8-r, and canon reads every source as UTF-8
 '
 
 files_of() { # files_of DIR: the files of the language under DIR

@@ -66,24 +66,24 @@ package, with a sparse checkout; the other repositories are read whole.
 
 | Repository | Commit | Sampled | Files | Parsed | Excluded | Dialect | Seconds | Dialect seconds |
 |------------|--------|---------|------:|-------:|---------:|--------:|--------:|----------------:|
-| [python/cpython](https://github.com/python/cpython) | `dc0add3a65fc` | `/Lib/` | 2073 | 2069 | 4 | 2069 | 285.5 | 296.4 |
+| [python/cpython](https://github.com/python/cpython) | `dc0add3a65fc` | `/Lib/` | 2073 | 2071 | 2 | 2071 | 285.5 | 296.4 |
 | [django/django](https://github.com/django/django) | `fd91518f17c8` | all | 2933 | 2932 | 1 | 2932 | 180.3 | 186.5 |
 | [psf/requests](https://github.com/psf/requests) | `611c6162cbc4` | all | 37 | 37 | 0 | 37 | 3.2 | 3.2 |
 | [pallets/flask](https://github.com/pallets/flask) | `d73fa1cdcbd8` | all | 83 | 83 | 0 | 83 | 4.7 | 4.9 |
 | [numpy/numpy](https://github.com/numpy/numpy) | `a9d5324eb734` | `/numpy/` | 429 | 429 | 0 | 429 | 74.5 | 77.9 |
 | [pandas-dev/pandas](https://github.com/pandas-dev/pandas) | `67b43b389914` | all | 1544 | 1544 | 0 | 1544 | 227.7 | 227.5 |
 | sample `lang_samples/python-itsdangerous/source` | — | all | 15 | 15 | 0 | 15 | 0.7 | 0.7 |
-| Total | | | 7114 | 7109 | 5 | 7109 | 776.6 | 797.1 |
+| Total | | | 7114 | 7111 | 3 | 7111 | 776.6 | 797.1 |
 
-Of the 7,114 files, 95 MB, 7,109 parse with the plain grammar and with the
-dialect, and 5 are excluded, each a file CPython or Django rejects or one
-canon cannot read:
+Of the 7,114 files, 95 MB, 7,111 parse with the plain grammar and with the
+dialect, the two modules in latin-1 and koi8-r among them, read as Latin-1
+(DEC-source-encoding), and 3 are excluded, each a file CPython or Django
+rejects:
 
 | Excluded | Reason |
 |----------|--------|
 | `Lib/test/tokenizedata/badsyntax_3131.py`, `badsyntax_pep3120.py` | invalid-code fixtures: CPython's `test_unicode_identifiers` and `test_utf8source` expect a `SyntaxError` |
 | `tests/test_runner_apps/tagged/tests_syntax_error.py` | invalid-code fixture: Django's test runner tests expect its `SyntaxError` |
-| `Lib/test/encoded_modules/module_iso_8859_1.py`, `module_koi8_r.py` | not UTF-8: a PEP 263 coding declaration names latin-1 or koi8-r, and canon reads every source as UTF-8 |
 
 The seconds are the sum of each file's process time, user and system, of the
 `canon parse` process, with 8 files parsed at once; wall time depended on the
@@ -130,8 +130,9 @@ each marked `canon:`:
   definition, so a module took time in the square of its length; it reads
   back only to the block around the definition.
 
-Known limits: a source in a PEP 263 encoding other than UTF-8 is not read,
-since canon reads every source as UTF-8; Python 2 syntax, such as the `print`
+Known limits: a source in a PEP 263 encoding other than UTF-8 or Latin-1 is
+read as Latin-1 (DEC-source-encoding), so its structure parses but the text of
+its strings and comments is misread, as in CPython's koi8-r test module; Python 2 syntax, such as the `print`
 statement, is rejected, as Python 3 rejects it; the grammar accepts some
 programs that CPython rejects, such as a `lazy import` inside a `try`; and an
 f-string format spec whose fill character is a quote, as in `f"{x:'>10}"`,
