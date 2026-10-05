@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Which of scopeguard's items are public API in canon's sense, given that the Rust profile requires a comment on every function and type by its kind, while Rust itself asks for documentation only on public items?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [scopeguard-upstream]

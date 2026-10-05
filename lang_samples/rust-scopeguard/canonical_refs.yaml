@@ -1,0 +1,12 @@
+scopeguard-upstream:
+  kind: package
+  title: scopeguard 1.2.0, bluss's RAII scope guard crate, vendored under source/
+  locator: https://crates.io/crates/scopeguard/1.2.0
+MIT:
+  kind: license
+  title: MIT License
+  locator: https://spdx.org/licenses/MIT.html
+Apache-2.0:
+  kind: license
+  title: Apache License 2.0
+  locator: https://spdx.org/licenses/Apache-2.0.html

@@ -2,19 +2,23 @@
 -- run without the grammar knowing about comments. ref:DEC-comment-attachment
 module Canon.CommentScan
   ( scanCommentsWith
+  , docOpenerOf
   ) where
 
 import Canon.Antlr4.Comment (Comment (..), CommentKind (..))
 import Canon.Antlr4.Lexical (lineTable, spanBetween)
 import Canon.Profile (CommentSyntax (..))
 import Canon.Span (Located (..), Position (..), Span (..))
+import Data.List (sortOn)
+import Data.Ord (Down (..))
 import Data.Text (Text)
 import qualified Data.Text as T
 
 -- | Scans line and block comments by the given syntax, skipping strings so a marker inside one is
--- not a comment.
+-- not a comment. Adjacent line comments merge only when they open alike, so a doc comment and a plain
+-- comment on the next line stay apart. ref:DEC-rust-grammar
 scanCommentsWith :: CommentSyntax -> Text -> [Located Comment]
-scanCommentsWith syntax source = mergeLineComments (go 0 source)
+scanCommentsWith syntax source = mergeLineComments (docOpenerOf syntax) (go 0 source)
   where
     table = lineTable source
     go offset remaining
@@ -46,17 +50,26 @@ scanCommentsWith syntax source = mergeLineComments (go 0 source)
       let (body, rest) = T.breakOn close (T.drop (T.length open) remaining)
        in T.length open + T.length body + (if T.null rest then 0 else T.length close)
 
-mergeLineComments :: [Located Comment] -> [Located Comment]
-mergeLineComments comments = case comments of
+-- | The longest doc-comment opener, outer or inner, that a comment's text starts with; a plain
+-- comment has none.
+docOpenerOf :: CommentSyntax -> Text -> Maybe Text
+docOpenerOf syntax text =
+  case sortOn (Down . T.length) [o | o <- commentOuterDoc syntax ++ commentInnerDoc syntax, o `T.isPrefixOf` T.stripStart text] of
+    (o : _) -> Just o
+    [] -> Nothing
+
+mergeLineComments :: (Text -> Maybe Text) -> [Located Comment] -> [Located Comment]
+mergeLineComments opener comments = case comments of
   (a : b : rest)
-    | adjacentLines a b -> mergeLineComments (merged a b : rest)
-    | otherwise -> a : mergeLineComments (b : rest)
+    | adjacentLines a b -> mergeLineComments opener (merged a b : rest)
+    | otherwise -> a : mergeLineComments opener (b : rest)
   _ -> comments
   where
     adjacentLines a b =
       commentKind (locatedValue a) == LineComment
         && commentKind (locatedValue b) == LineComment
         && positionLine (spanEnd (locatedSpan a)) + 1 == positionLine (spanStart (locatedSpan b))
+        && opener (commentText (locatedValue a)) == opener (commentText (locatedValue b))
     merged a b =
       Located
         (Span (spanStart (locatedSpan a)) (spanEnd (locatedSpan b)))

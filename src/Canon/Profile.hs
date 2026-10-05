@@ -41,18 +41,24 @@ data UnitRule = UnitRule
   }
   deriving (Eq, Show)
 
--- | The comment and string delimiters of a language without a dialect.
+-- | The comment and string delimiters of a language without a dialect, and the openers of its doc
+-- comments where the language tells them from plain comments, as Rust's /// and //! are told from
+-- //. When outer openers are given, only a comment that starts with one binds to the unit below it;
+-- a comment that starts with an inner opener belongs to the unit that encloses it, or to the file.
+-- ref:DEC-rust-grammar
 data CommentSyntax = CommentSyntax
   { commentLine :: Maybe Text
   , commentBlockOpen :: Maybe Text
   , commentBlockClose :: Maybe Text
   , commentStringDelimiters :: [Text]
+  , commentOuterDoc :: [Text]
+  , commentInnerDoc :: [Text]
   }
   deriving (Eq, Show)
 
 -- | No comments and double-quoted strings, the default for a dialect language.
 defaultCommentSyntax :: CommentSyntax
-defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""]
+defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] []
 
 -- | A language profile.
 data Profile = Profile
@@ -110,8 +116,12 @@ instance FromJSON UnitRule where
       <*> pure constraint
 
 instance ToJSON CommentSyntax where
-  toJSON (CommentSyntax line open close strings) =
-    object ["blockClose" .= close, "blockOpen" .= open, "line" .= line, "strings" .= strings]
+  toJSON (CommentSyntax line open close strings outer inner) =
+    object
+      ( ["blockClose" .= close, "blockOpen" .= open, "line" .= line, "strings" .= strings]
+          ++ ["outerDoc" .= outer | not (null outer)]
+          ++ ["innerDoc" .= inner | not (null inner)]
+      )
 
 instance FromJSON CommentSyntax where
   parseJSON = withObject "CommentSyntax" $ \o ->
@@ -120,6 +130,8 @@ instance FromJSON CommentSyntax where
       <*> o .:? "blockOpen"
       <*> o .:? "blockClose"
       <*> (fromMaybe ["\""] <$> o .:? "strings")
+      <*> (fromMaybe [] <$> o .:? "outerDoc")
+      <*> (fromMaybe [] <$> o .:? "innerDoc")
 
 instance ToJSON Profile where
   toJSON p =

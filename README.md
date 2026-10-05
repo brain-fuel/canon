@@ -158,6 +158,7 @@ whatever its visibility.
 | `clojure` | a `deftest` unit, or a definition named `*-test` |
 | `prolog` | a clause named `test` (plunit) |
 | `haskell` | a function named `prop_*` or `test_*` |
+| `rust` | a function marked `#[test]`, `#[tokio::test]`, `#[async_std::test]`, `#[rstest]`, or `#[quickcheck]` |
 
 Two findings fail `canon check`: a commented test whose comment cites no
 requirement, and a requirement in the registry that no test in the project
@@ -277,7 +278,11 @@ and `parser` pair, the `start` rule, the comment syntax (`line`, `blockOpen`,
 `name` comes from (the nth token of a type, or the text of a child rule),
 whether a canonical comment is `required`, and optionally a `firstToken`
 constraint so that, for example, only Clojure lists beginning with `defn`
-count. Unit ids are the language, the file path, and then kind and name at
+count. A language that tells doc comments from plain ones lists their
+openers under `comments`: with `outerDoc` given, only a comment opening with
+one binds to the unit below it, and a plain comment is neither a Why nor an
+orphan; a comment opening with one of `innerDoc` binds to the innermost unit
+that encloses it, or to the file, as Rust's `//!` documents its module. Unit ids are the language, the file path, and then kind and name at
 each level of nesting; a repeated name in one scope gets an ordinal suffix.
 
 A directory containing its own `canon.yaml` is a nested project. The walk
@@ -289,7 +294,8 @@ each answers for itself. A project whose sources live elsewhere, such as a
 git submodule, sets `root` to that directory.
 
 `lang_samples/` holds real projects in other languages, each a nested project
-whose sources are a submodule under `source` and whose canon files sit
+whose sources are a submodule under `source` (vendored, for the one-file
+Rust sample) and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
 grammars-v4, with a `canonically_commented/` dialect where one exists and an
 empty husk where it does not. `canon check` at the repository root checks
@@ -310,6 +316,47 @@ after cloning to fetch them.
 | `lang_samples/java-commons-lang` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
 | `lang_samples/java-joda-time` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
 | `lang_samples/java-gson` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
+| `lang_samples/rust-scopeguard` | Rust | `grammars/rust/RustLexer.g4` and `RustParser.g4` |
+
+The Rust sample is scopeguard 1.2.0, one source file, vendored under
+`source/` with its MIT and Apache-2.0 licenses instead of a submodule. Its
+`canon.yaml` holds the Rust profile a Rust project can copy, with the
+`lexer` and `parser` paths pointing at wherever the Rust grammar lives:
+
+```yaml
+languages:
+  rust:
+    extensions: [.rs]
+    lexer: ../../grammars/rust/RustLexer.g4
+    parser: ../../grammars/rust/RustParser.g4
+    start: crate
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["///", "/**"]
+      innerDoc: ["//!", "/*!"]
+      strings: ["\""]
+    units:
+      - {rule: function_, kind: function, name: {rule: identifier}, required: true}
+      - {rule: structStruct, kind: struct, name: {rule: identifier}, required: true}
+      - {rule: tupleStruct, kind: struct, name: {rule: identifier}, required: true}
+      - {rule: enumeration, kind: enum, name: {rule: identifier}, required: true}
+      - {rule: union_, kind: union, name: {rule: identifier}, required: true}
+      - {rule: trait_, kind: trait, name: {rule: identifier}, required: true}
+      - {rule: macroRulesDefinition, kind: macro, name: {rule: identifier}, required: true}
+      - {rule: typeAlias, kind: type, name: {rule: identifier}, required: false}
+      - {rule: constantItem, kind: const, name: {rule: identifier}, required: false}
+      - {rule: staticItem, kind: static, name: {rule: identifier}, required: false}
+      - {rule: inherentImpl, kind: impl, name: {rule: type_}, required: false}
+      - {rule: traitImpl, kind: impl, name: {rule: type_}, required: false}
+      - {rule: module, kind: module, name: {rule: identifier}, required: false}
+```
+
+The profile cannot see visibility, so functions, structs, enums, unions,
+traits, and macros require a comment whether or not they are `pub`, and the
+other kinds may have one. An impl is named by its self type, so the impls of
+one type are told apart by ordinal.
 
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked
@@ -487,6 +534,16 @@ it, and the `marker` label on annotations lets `canon` recognise tests. The plai
 and non-fragment lexer rule and cites its BSD license in the header, the
 dialect carries the same comments extended where a rule gained unit labels,
 and both are checked at the root like the meta-grammar.
+
+`grammars/rust/` holds the Rust grammar from grammars-v4 with an empty
+`canonically_commented/` husk. canon has no port of its base classes, so the
+predicates that called into them are replaced in the grammar itself; outer
+attributes and visibility move into each kind of item, so an item's node
+starts at its first attribute and the doc comment above binds to it, with
+each attribute labeled `marker`; and macro token trees take one token at a
+time, which keeps macro bodies from parsing in exponential time. Each change
+is marked `// canon:` in the grammar, listed in `grammars/rust/README.md`,
+and recorded in the ledger.
 
 The other language directories hold their upstream grammars with an empty
 `canonically_commented/` husk, and their samples use the line-adjacency

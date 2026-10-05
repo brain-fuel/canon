@@ -17,7 +17,7 @@ module Canon.Antlr4.Lex
 import Canon.Antlr4.Escape (CharSetItem (..), decodeCharSet, decodeStringLiteral)
 import Canon.Antlr4.Lexical (LineTable, lineTable, positionAt)
 import Canon.Antlr4.Query (KnownLexerCommand (..), grammarOptions, implicitLiteralTokens, knownLexerCommand, lexerRuleElements)
-import Data.Char (toLower, toUpper)
+import Data.Char (GeneralCategory (..), generalCategory, isAlpha, isSpace, toLower, toUpper)
 import Data.List.NonEmpty (NonEmpty (..))
 import Canon.Antlr4.RuleGraph (leftRecursiveRules)
 import Canon.Antlr4.Syntax
@@ -212,7 +212,57 @@ charSetPredicate cs = case decodeCharSet cs of
     itemMatches c item = case item of
       CharSetSingle x -> c == x
       CharSetRange lo hi -> c >= lo && c <= hi
-      CharSetProperty _ _ -> False
+      CharSetProperty positive name -> propertyMatches name c == positive
+
+-- | A Unicode property class in a character set, by general category or by the few named
+-- properties the grammars-v4 lexers use, so a grammar written for identifiers in any script, such
+-- as Rust's, lexes as its author meant. ref:DEC-rust-grammar
+propertyMatches :: Text -> Char -> Bool
+propertyMatches name c = case name of
+  "L" -> cat `elem` [UppercaseLetter, LowercaseLetter, TitlecaseLetter, ModifierLetter, OtherLetter]
+  "Lu" -> cat == UppercaseLetter
+  "Ll" -> cat == LowercaseLetter
+  "Lt" -> cat == TitlecaseLetter
+  "Lm" -> cat == ModifierLetter
+  "Lo" -> cat == OtherLetter
+  "M" -> cat `elem` [NonSpacingMark, SpacingCombiningMark, EnclosingMark]
+  "Mn" -> cat == NonSpacingMark
+  "Mc" -> cat == SpacingCombiningMark
+  "Me" -> cat == EnclosingMark
+  "N" -> cat `elem` [DecimalNumber, LetterNumber, OtherNumber]
+  "Nd" -> cat == DecimalNumber
+  "Nl" -> cat == LetterNumber
+  "No" -> cat == OtherNumber
+  "P" -> cat `elem` [ConnectorPunctuation, DashPunctuation, OpenPunctuation, ClosePunctuation, InitialQuote, FinalQuote, OtherPunctuation]
+  "Pc" -> cat == ConnectorPunctuation
+  "Pd" -> cat == DashPunctuation
+  "Ps" -> cat == OpenPunctuation
+  "Pe" -> cat == ClosePunctuation
+  "Pi" -> cat == InitialQuote
+  "Pf" -> cat == FinalQuote
+  "Po" -> cat == OtherPunctuation
+  "S" -> cat `elem` [MathSymbol, CurrencySymbol, ModifierSymbol, OtherSymbol]
+  "Sm" -> cat == MathSymbol
+  "Sc" -> cat == CurrencySymbol
+  "Sk" -> cat == ModifierSymbol
+  "So" -> cat == OtherSymbol
+  "Z" -> cat `elem` [Space, LineSeparator, ParagraphSeparator]
+  "Zs" -> cat == Space
+  "Zl" -> cat == LineSeparator
+  "Zp" -> cat == ParagraphSeparator
+  "C" -> cat `elem` [Control, Format, Surrogate, PrivateUse, NotAssigned]
+  "Cc" -> cat == Control
+  "Cf" -> cat == Format
+  "Cs" -> cat == Surrogate
+  "Co" -> cat == PrivateUse
+  "Cn" -> cat == NotAssigned
+  "Other_ID_Start" -> c `elem` ("\x1885\x1886\x2118\x212E\x309B\x309C" :: String)
+  "Other_ID_Continue" -> c `elem` ("\x00B7\x0387\x1369\x136A\x136B\x136C\x136D\x136E\x136F\x1370\x1371\x19DA" :: String)
+  "White_Space" -> isSpace c
+  "Alphabetic" -> isAlpha c
+  _ -> False
+  where
+    cat = generalCategory c
 
 startPredicate :: BV.Vector CompiledRule -> Int -> Char -> Bool
 startPredicate rules index = case startOfRule Set.empty index of

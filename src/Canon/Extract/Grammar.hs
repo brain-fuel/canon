@@ -25,7 +25,7 @@ import Canon.Antlr4.Syntax (Alternative (..), Block (..), EbnfSuffix (..), Eleme
 import Canon.Antlr4.Token (Token (..), isEofToken)
 import Canon.Attach (attachPreceding, firstContentLine, topOfFileComment)
 import Canon.CanonicalComment (docCommentBody, parseCanonicalComment, toWhy)
-import Canon.CommentScan (scanCommentsWith)
+import Canon.CommentScan (docOpenerOf, scanCommentsWith)
 import Canon.Config (Config (..))
 import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider
@@ -95,7 +95,7 @@ extractWithProfileText provider config language profile interpreter idPath path 
       Left err -> pure (Left err)
       Right (root, labeled, unbound) -> do
         let comments = scanCommentsWith (profileComments profile) source
-            (attached, orphans) = extractDecisionsFor path source root (Set.fromList (map decisionId labeled)) comments
+            (attached, orphans) = extractDecisionsFor (profileComments profile) path source root (Set.fromList (map decisionId labeled)) comments
         (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root
         described <- either (const Nothing) id <$> describeVersion provider
         let model = Model language (configVersion config) described [unitsWithGit] (labeled ++ attached)
@@ -343,12 +343,46 @@ offsetFromPosition source (Position line column) =
   let linesBefore = take (line - 1) (T.splitOn "\n" source)
    in sum (map ((+ 1) . T.length) linesBefore) + column - 1
 
-extractDecisionsFor :: FilePath -> Text -> CodeUnit Evidence -> Set.Set DecisionId -> [Located Comment] -> ([Decision Evidence], [Located Comment])
-extractDecisionsFor path source root decided comments = (maybe [] (\c -> [toDecision (c, Located (whereSpan (answerValue (unitWhere root))) root)]) header ++ map toDecision pairs, orphans)
+-- | Binds comments to units. A doc comment with an inner opener belongs to the innermost unit that
+-- encloses it, or to the file, and the file's first one is the file's comment ahead of a comment on
+-- the first line; every other comment binds to the unit directly below it. Where the syntax names
+-- outer openers, a plain comment binds to nothing and is no orphan, since it is not documentation.
+-- ref:DEC-rust-grammar ref:DEC-comment-attachment
+extractDecisionsFor :: CommentSyntax -> FilePath -> Text -> CodeUnit Evidence -> Set.Set DecisionId -> [Located Comment] -> ([Decision Evidence], [Located Comment])
+extractDecisionsFor syntax path source root decided comments = (map toDecision (fileInner ++ maybe [] (\c -> [(c, rootTarget)]) header ++ pairs ++ nestedInner), orphans ++ innerOrphans)
   where
-    targets = [Located (whereSpan (answerValue (unitWhere u))) u | u <- drop 1 (allUnits root), not (Set.member (decisionIdFor (unitId u)) decided)]
-    (header, rest) = if Set.member (decisionIdFor (unitId root)) decided then (Nothing, comments) else topOfFileComment (firstContentLine source) comments
-    (pairs, orphans) = attachPreceding rest targets
+    rootTarget = Located (whereSpan (answerValue (unitWhere root))) root
+    isInner c = maybe False (`elem` commentInnerDoc syntax) (docOpenerOf syntax (commentText (locatedValue c)))
+    isOuter c = null (commentOuterDoc syntax) || maybe False (`elem` commentOuterDoc syntax) (docOpenerOf syntax (commentText (locatedValue c)))
+    (inner, plain) = (filter isInner comments, filter (not . isInner) comments)
+    rootDecided = Set.member (decisionIdFor (unitId root)) decided
+    nested = [Located (whereSpan (answerValue (unitWhere u))) u | u <- drop 1 (allUnits root)]
+    enclosing c = case [t | t <- nested, spanStart (locatedSpan t) <= spanStart (locatedSpan c), spanEnd (locatedSpan c) <= spanEnd (locatedSpan t)] of
+      [] -> rootTarget
+      found -> last found
+    innerByUnit = Map.fromListWith (flip (++)) [(unitId (locatedValue t), [(c, t)]) | (c, t) <- zip inner (map enclosing inner)]
+    (fileInner, rootInnerOrphans) = case Map.lookup (unitId root) innerByUnit of
+      Just ((first, t) : more) | not rootDecided -> ([(first, t)], map fst more)
+      Just found -> ([], map fst found)
+      Nothing -> ([], [])
+    (header, rest)
+      | rootDecided || not (null fileInner) = (Nothing, plain)
+      | otherwise = topOfFileComment (firstContentLine source) plain
+    targets = [t | t <- nested, not (Set.member (decisionIdFor (unitId (locatedValue t))) decided)]
+    (pairs, unattached) = attachPreceding (filter isOuter rest) targets
+    orphans = unattached
+    bound = Set.fromList (map (unitId . locatedValue . snd) pairs)
+    (nestedInner, nestedInnerOrphans) =
+      foldr
+        ( \(uid, found) (keep, drop') -> case found of
+            ((first, t) : more)
+              | uid /= unitId root, not (Set.member uid bound), not (Set.member (decisionIdFor uid) decided) -> ((first, t) : keep, map fst more ++ drop')
+            _ | uid /= unitId root -> (keep, map fst found ++ drop')
+            _ -> (keep, drop')
+        )
+        ([], [])
+        (Map.toList innerByUnit)
+    innerOrphans = rootInnerOrphans ++ nestedInnerOrphans
     toDecision (comment, target) =
       let u = locatedValue target
           sp = locatedSpan comment

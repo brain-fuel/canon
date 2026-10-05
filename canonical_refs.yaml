@@ -30,3 +30,15 @@ MIT:
   kind: license
   title: MIT License
   locator: https://spdx.org/licenses/MIT.html
+grammars-v4-rust:
+  kind: package
+  title: The grammars-v4 Rust grammar, RustLexer.g4 and RustParser.g4, MIT, at commit 8af0d4c26c796ea27c15c3d85418f2d0f77c3adb
+  locator: https://github.com/antlr/grammars-v4/tree/8af0d4c26c796ea27c15c3d85418f2d0f77c3adb/rust
+rust-reference-comments:
+  kind: article
+  title: The Rust Reference, Comments, on outer and inner doc comments
+  locator: https://doc.rust-lang.org/reference/comments.html
+REQ-rust-support:
+  kind: requirement
+  title: canon reads Rust, parsing every stable Rust source file, taking functions, types, traits, impls, modules, constants, statics, and macros as units, binding /// to the item below its attributes and //! to the enclosing module or file, and recognising test functions by their attribute
+  locator: README.md

@@ -26,9 +26,10 @@ data TestRule = TestRule
 
 -- | The languages the table covers.
 knownLanguages :: [Text]
-knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell"]
+knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust"]
 
--- | The rules of a language.
+-- | The rules of a language. Rust's rules are attributes, which the Rust grammar labels marker on
+-- every item. ref:DEC-rust-grammar
 testRules :: Text -> [TestRule]
 testRules language = case language of
   "java" ->
@@ -38,6 +39,7 @@ testRules language = case language of
   "clojure" -> [TestRule (Just "deftest") Nothing Nothing Nothing, TestRule (Just "definition") Nothing (Just "*-test") Nothing]
   "prolog" -> [TestRule (Just "clause") Nothing (Just "test") Nothing]
   "haskell" -> [TestRule (Just "function") Nothing (Just name) Nothing | name <- ["prop_*", "test_*"]]
+  "rust" -> [TestRule (Just "function") (Just marker) Nothing Nothing | marker <- ["#[test]", "#[tokio::test]", "#[async_std::test]", "#[rstest]", "#[quickcheck]"]]
   _ -> []
   where
     javaMarkers =

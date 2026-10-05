@@ -4969,6 +4969,9 @@ decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/buildL
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/noHooks:
   comment: sha256:95a9ebea08e73d66
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/propertyMatches:
+  comment: sha256:62361397ea65d755
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/renderLexError:
   comment: sha256:ff0a15d9c09c255b
   verdict: pending
@@ -5503,8 +5506,11 @@ decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/fun
 decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan:
   comment: sha256:1aea37d2356bafac
   verdict: pending
+decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/docOpenerOf:
+  comment: sha256:0a0ee6307aa66999
+  verdict: pending
 decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/scanCommentsWith:
-  comment: sha256:52ff31ee8b39993e
+  comment: sha256:3dbe7828f8b393c9
   verdict: pending
 decision/haskell/src/Canon/Config.hs/module/Canon.Config:
   comment: sha256:54fcbe229f434909
@@ -5595,6 +5601,9 @@ decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/funct
   verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/exportRequires:
   comment: sha256:71f2f1644debb907
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/extractDecisionsFor:
+  comment: sha256:52a667cf5702dbf1
   verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/extractWithProfile:
   comment: sha256:d5b1da8d6db5028f
@@ -5921,7 +5930,7 @@ decision/haskell/src/Canon/Profile.hs/module/Canon.Profile:
   comment: sha256:68baad4144c1c392
   verdict: pending
 decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/CommentSyntax:
-  comment: sha256:ed70e0ff98f3a802
+  comment: sha256:9944301310da9dbf
   verdict: pending
 decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/GrammarSource:
   comment: sha256:dbf3cc8fb9f77611
@@ -6035,7 +6044,7 @@ decision/haskell/src/Canon/Testing.hs/module/Canon.Testing/function/matchesRule:
   comment: sha256:fd4e17b13811611a
   verdict: pending
 decision/haskell/src/Canon/Testing.hs/module/Canon.Testing/function/testRules:
-  comment: sha256:3a3bff6eeb2718f1
+  comment: sha256:2169e52cab499c92
   verdict: pending
 decision/haskell/src/Canon/Version.hs/module/Canon.Version:
   comment: sha256:aed5e921ffb6bff4
@@ -6328,6 +6337,24 @@ decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarT
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/tests:
   comment: sha256:1b696bdd90d4f5c2
   verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest:
+  comment: sha256:78269b1018bc614d
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustGrammarParsesTheScopeguardSampleIntoItsItems:
+  comment: sha256:3945a07b8ee2affa
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustLexerTellsRangesMethodCallsTupleIndicesAndEscapesApart:
+  comment: sha256:f3f74745e9ea40d3
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustProfileBindsDocCommentsAcrossAttributesAndRecognisesTests:
+  comment: sha256:732ccea7b2f885e3
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/sampleProfile:
+  comment: sha256:ec37d8eda1a1e59d
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/tests:
+  comment: sha256:1b696bdd90d4f5c2
+  verdict: pending
 decision/haskell/test/Canon/Git/Gen.hs/module/Canon.Git.Gen:
   comment: sha256:32a41e856ff156b5
   verdict: pending
@@ -6583,6 +6610,9 @@ ledger/DEC-precedence-climbing:
 ledger/DEC-required-orphan-labels:
   comment: sha256:bf2b6c07605a617e
   verdict: pending
+ledger/DEC-rust-grammar:
+  comment: sha256:1f576e4a5b7aea8e
+  verdict: pending
 ledger/DEC-sample-project-readme:
   comment: sha256:cd4a6a344f0bfce6
   verdict: pending
@@ -6601,6 +6631,9 @@ registry/BSD-3-Clause:
 registry/MIT:
   comment: sha256:ed6c0abb656b1c69
   verdict: pending
+registry/REQ-rust-support:
+  comment: sha256:9c276227332612a9
+  verdict: pending
 registry/antlr-haskell:
   comment: sha256:2b6ed033549bd2f1
   verdict: pending
@@ -6610,8 +6643,14 @@ registry/canon-provisional-syntax:
 registry/grammars-v4:
   comment: sha256:f55b2f8ddcedba30
   verdict: pending
+registry/grammars-v4-rust:
+  comment: sha256:4aaaf6600d958f28
+  verdict: pending
 registry/grampa-2017:
   comment: sha256:0990a639309c9f81
+  verdict: pending
+registry/rust-reference-comments:
+  comment: sha256:6a6df382bf4aad23
   verdict: pending
 registry/semver-2:
   comment: sha256:7ef7fa24c6809d32

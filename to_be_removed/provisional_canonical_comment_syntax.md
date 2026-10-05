@@ -5,7 +5,9 @@ comment structure and attachment. The ANTLR meta-grammar has one since
 2026-09-14 (ref DEC-grammar-carries-extraction-rules in the ledger), so
 nothing here applies to `.g4` files any more. Everything here is provisional
 and applies only to languages checked through a profile with `units`, which
-today are the sample languages Erlang, Clojure, Prolog, and Haskell.
+today are the sample languages Erlang, Clojure, Prolog, and Haskell, and
+Rust, whose profile names its doc-comment openers so that only `///` binds
+below and `//!` binds to the enclosing module or file (ref DEC-rust-grammar).
 
 Date: 2026-09-14
 

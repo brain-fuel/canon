@@ -14,6 +14,7 @@ import qualified Canon.DecisionsTest
 import qualified Canon.IgnoreTest
 import qualified Canon.ProjectTest
 import qualified Canon.Extract.GrammarTest
+import qualified Canon.Extract.RustTest
 import qualified Canon.Model.CheckTest
 import qualified Canon.Git.ParseTest
 import qualified Canon.Model.YamlTest
@@ -29,7 +30,7 @@ main =
   defaultMain
     ( testGroup
         "canon"
-        [ testGroup "unit" [CanonTest.tests, Canon.Antlr4.VendoredTest.tests, Canon.Extract.GrammarTest.tests]
+        [ testGroup "unit" [CanonTest.tests, Canon.Antlr4.VendoredTest.tests, Canon.Extract.GrammarTest.tests, Canon.Extract.RustTest.tests]
         , testGroup
             "property"
             [ Canon.Antlr4.EscapeTest.tests

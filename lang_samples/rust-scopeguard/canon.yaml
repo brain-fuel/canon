@@ -1,0 +1,68 @@
+version: 0.1.0
+root: source
+languages:
+  rust:
+    extensions: [.rs]
+    lexer: ../../grammars/rust/RustLexer.g4
+    parser: ../../grammars/rust/RustParser.g4
+    start: crate
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["///", "/**"]
+      innerDoc: ["//!", "/*!"]
+      strings: ["\""]
+    units:
+      - rule: function_
+        kind: function
+        name: {rule: identifier}
+        required: true
+      - rule: structStruct
+        kind: struct
+        name: {rule: identifier}
+        required: true
+      - rule: tupleStruct
+        kind: struct
+        name: {rule: identifier}
+        required: true
+      - rule: enumeration
+        kind: enum
+        name: {rule: identifier}
+        required: true
+      - rule: union_
+        kind: union
+        name: {rule: identifier}
+        required: true
+      - rule: trait_
+        kind: trait
+        name: {rule: identifier}
+        required: true
+      - rule: macroRulesDefinition
+        kind: macro
+        name: {rule: identifier}
+        required: true
+      - rule: typeAlias
+        kind: type
+        name: {rule: identifier}
+        required: false
+      - rule: constantItem
+        kind: const
+        name: {rule: identifier}
+        required: false
+      - rule: staticItem
+        kind: static
+        name: {rule: identifier}
+        required: false
+      - rule: inherentImpl
+        kind: impl
+        name: {rule: type_}
+        required: false
+      - rule: traitImpl
+        kind: impl
+        name: {rule: type_}
+        required: false
+      - rule: module
+        kind: module
+        name: {rule: identifier}
+        required: false
