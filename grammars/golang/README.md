@@ -41,12 +41,16 @@ canon's `canonical_decisions.yaml`. Each change is marked `// canon:`:
   `interface`, and not inside a function body, opens a `DocLine` or `DocBlock`
   mode on the default channel, which tokenizes prose, `ref:KEY`, and
   `license:KEY`. A following `//` line continues a line comment. A directive
-  such as `//go:generate` stays a plain comment and is left out of a doc
-  comment. Every other comment stays hidden.
+  such as `//go:generate`, `//nolint`, `//line`, `//extern`, `//export`, or
+  `// +build` stays a plain comment and is left out of a doc comment's tokens
+  and of its Why, as go/doc leaves it out. Every other comment stays hidden.
 - The hook holds a doc comment until the next code token and hides it again
   when a blank line or the end of the file comes first, so a license header or
   a build constraint is no documentation, as go/doc reads it.
-- `canonicalComment` and `docPart` are the comment rules.
+- `canonicalComment`, `commentPiece`, and `docPart` are the comment rules. A
+  canonical comment is one or more pieces with no blank line between them, so
+  a `/* */` block followed directly by a `//` comment is one doc comment, as
+  go/doc groups them.
 - Each top-level function, method, type, const, and var, each spec of a
   grouped declaration, each struct field, and each interface method and
   embedded element is a labeled unit alternative: `# function`, `# method`,
@@ -55,8 +59,9 @@ canon's `canonical_decisions.yaml`. Each change is marked `// canon:`:
   clause is the file's Why. Top-level declarations have rules of their own, so
   a declaration inside a function body is the plain grammar's.
 - A declared name is labeled `required` when the `GoParserBase` predicate
-  `isExported` holds, an upper-case initial; a receiver of unexported type is
-  labeled `optional`. A spec of a group with a comment needs none of its own.
+  `isExported` holds, an upper-case initial; each name of a const or var spec
+  is labeled on its own, so `var a, B int` requires a comment because `B` is
+  exported. A receiver of unexported type is labeled `optional`. A spec of a group with a comment needs none of its own.
   Fields and interface methods may have a comment.
 - A doc comment above an import, or after the last field, element, or spec of
   a struct, interface, or group, is an `orphan`.

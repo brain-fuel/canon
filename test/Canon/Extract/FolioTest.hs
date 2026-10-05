@@ -13,7 +13,6 @@ import Canon.Git.Provider (staticGitProvider)
 import Canon.Model
 import Canon.Model.Finding
 import Canon.Profile
-import Canon.Span (Position (..), Span (..))
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
@@ -28,7 +27,8 @@ tests =
   testGroup
     "folio"
     [ testProperty "the Folio dialect reads canon's pages into a doc unit and its sections" prop_theFolioDialectReadsCanonsPagesIntoADocUnitAndItsSections
-    , testProperty "the Folio dialect binds front matter to the page and reports misplaced front matter" prop_theFolioDialectBindsFrontMatterToThePageAndReportsMisplacedFrontMatter
+    , testProperty "the Folio dialect binds front matter to the page only at its top" prop_theFolioDialectBindsFrontMatterToThePageOnlyAtItsTop
+    , testProperty "the Folio dialect reads all of a section's prose as its Why and its blocks as its How" prop_theFolioDialectReadsAllOfASectionsProseAsItsWhyAndItsBlocksAsItsHow
     ]
 
 -- | The canonically commented dialect of the Folio grammar, with no units of a profile and no
@@ -81,12 +81,13 @@ prop_theFolioDialectReadsCanonsPagesIntoADocUnitAndItsSections = withTests 1 $ p
         , "folio/docs/how-to/tangle.md/doc/canon.how-to.tangle/section/Tangle-a-project's-pages-into-its-sources"
         ]
 
--- | Front matter documents the page only at its top: a second --- block binds to nothing and is an
--- orphan, a section whose heading is followed by a block rather than prose is no unit, a citation in
--- backticks is an example rather than a citation, and the video a page names is cited like a
--- reference. ref:REQ-folio-support ref:DEC-folio-dialect
-prop_theFolioDialectBindsFrontMatterToThePageAndReportsMisplacedFrontMatter :: Property
-prop_theFolioDialectBindsFrontMatterToThePageAndReportsMisplacedFrontMatter = withTests 1 $ property $ do
+-- | Front matter documents the page only at its top, so a --- line anywhere below it is a thematic
+-- break, as in Markdown, and neither front matter nor an orphan; a section whose heading is followed
+-- by a block rather than prose is no unit, a citation in backticks is an example rather than a
+-- citation, and the video a page names is cited like a reference. ref:REQ-folio-support
+-- ref:DEC-folio-dialect
+prop_theFolioDialectBindsFrontMatterToThePageOnlyAtItsTop :: Property
+prop_theFolioDialectBindsFrontMatterToThePageOnlyAtItsTop = withTests 1 $ property $ do
   Extraction model findings <-
     extractDialect
       "docs/how-to/draw.md"
@@ -104,14 +105,6 @@ prop_theFolioDialectBindsFrontMatterToThePageAndReportsMisplacedFrontMatter = wi
           , "Drawing needs a canvas. ref:DEC-canvas"
           , "Write `ref:not-a-citation` to cite."
           , ""
-          , "```haskell file=src/Draw.hs def=draw"
-          , "draw = undefined"
-          , "```"
-          , ""
-          , "Prose after the block."
-          , ""
-          , "---"
-          , "id: misplaced"
           , "---"
           , ""
           , "## Only code"
@@ -119,6 +112,8 @@ prop_theFolioDialectBindsFrontMatterToThePageAndReportsMisplacedFrontMatter = wi
           , "```"
           , "canon tangle"
           , "```"
+          , ""
+          , "---"
           ]
       )
   whysOf model
@@ -126,9 +121,40 @@ prop_theFolioDialectBindsFrontMatterToThePageAndReportsMisplacedFrontMatter = wi
         , ("folio/docs/how-to/draw.md/doc/shapes.how-to.draw/section/Draw", "Drawing needs a canvas. ref:DEC-canvas\nWrite `ref:not-a-citation` to cite.")
         ]
   [whyReferences (answerValue (decisionWhy d)) | d <- modelDecisions model] === [[ReferenceKey "draw-video"], [ReferenceKey "DEC-canvas"]]
+  map (whatName . answerValue . unitWhat) (modelAllUnits model) === ["docs/how-to/draw.md", "shapes.how-to.draw", "Draw"]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+
+-- | Every tangled block of a section takes its Why from the section's prose, so the section's Why is
+-- all of its prose, before and after its fenced blocks, with the citations of all of it, and its
+-- How is its blocks. ref:REQ-folio-support ref:DEC-folio-dialect ref:DEC-section-prose-is-why
+prop_theFolioDialectReadsAllOfASectionsProseAsItsWhyAndItsBlocksAsItsHow :: Property
+prop_theFolioDialectReadsAllOfASectionsProseAsItsWhyAndItsBlocksAsItsHow = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractDialect
+      "docs/how-to/draw.md"
+      ( T.unlines
+          [ "# Draw"
+          , ""
+          , "Drawing needs a canvas. ref:DEC-canvas"
+          , ""
+          , "```haskell file=src/Draw.hs def=draw"
+          , "draw = undefined"
+          , "```"
+          , ""
+          , "Prose after the block. ref:DEC-after"
+          , ""
+          , "```haskell file=src/Draw.hs def=erase"
+          , "erase = undefined"
+          , "```"
+          , ""
+          , "The last word."
+          ]
+      )
+  whysOf model === [("folio/docs/how-to/draw.md/section/Draw", "Drawing needs a canvas. ref:DEC-canvas\n\nProse after the block. ref:DEC-after\n\nThe last word.")]
+  [whyReferences (answerValue (decisionWhy d)) | d <- modelDecisions model] === [[ReferenceKey "DEC-canvas", ReferenceKey "DEC-after"]]
   [howText (answerValue (unitHow u)) | u <- modelAllUnits model, whatName (answerValue (unitWhat u)) == "Draw"]
-    === ["```haskell file=src/Draw.hs def=draw\ndraw = undefined\n```\n\nProse after the block.\n\n---\nid: misplaced\n---"]
-  [spanStart sp | OrphanDocComment _ sp <- findings] === [Position 20 1]
+    === ["```haskell file=src/Draw.hs def=draw\ndraw = undefined\n```\n\n```haskell file=src/Draw.hs def=erase\nerase = undefined\n```"]
+  length [() | OrphanDocComment _ _ <- findings] === 0
   where
     howText h = case h of
       HowText t -> t

@@ -1,8 +1,20 @@
-/** The canonically commented dialect of the Folio lexer. Where the plain lexer makes each line one token, this one tokenizes the front matter and the prose into words, punctuation, reference citations, and license citations, as every dialect tokenizes a canonical comment, and a heading into the words of its title, so the parser can label the front matter as the page's Why, its id as the page's What, and each section's prose as the section's Why. DEFAULT_MODE is the start of a line, which decides what the line is; a mode per kind of line reads the rest of it. Every --- line opens front matter, so a page draws a thematic break with *** or ___. ref:DEC-folio-dialect ref:DEC-folio-language */
+/** The canonically commented dialect of the Folio lexer. Where the plain lexer makes each line one token, this one tokenizes the front matter and the prose into words, punctuation, reference citations, and license citations, as every dialect tokenizes a canonical comment, and a heading into the words of its title, so the parser can label the front matter as the page's Why, its id as the page's What, and each section's prose as the section's Why. DEFAULT_MODE is the first line of the page, where three dashes open front matter; LineStart is the start of every later line, which decides what the line is; a mode per kind of line reads the rest of it. A --- line below the top of the page is a thematic break, as in Markdown. ref:DEC-folio-dialect ref:DEC-folio-language */
 lexer grammar FolioLexer;
 
-/** Three dashes alone on a line, which open front matter: the page's own at the top, and misplaced front matter anywhere else. */
-FRONT_OPEN : '---' [ \t]* -> pushMode(FrontMatter) ;
+/** Three dashes alone on the first line, which open the page's front matter; the lines after it start in LineStart. */
+FRONT_OPEN : '---' [ \t]* -> mode(LineStart), pushMode(FrontMatter) ;
+
+/** Any other first line: an empty match that reads it, and every line after it, from LineStart. */
+PAGE_START : -> mode(LineStart), channel(HIDDEN) ;
+
+/** A registry key: letters and digits, with dots, underscores, and hyphens inside. */
+fragment DocKey : [A-Za-z0-9] ([A-Za-z0-9._-]* [A-Za-z0-9])? ;
+
+/** The start of a line below the first. */
+mode LineStart;
+
+/** Three or more dashes alone on a line below the top of the page: a thematic break, which separates paragraphs and decides nothing else. */
+THEMATIC_BREAK : '---' '-'* [ \t]* ('\r'? '\n' | EOF) -> skip ;
 
 /** The hashes and the space that open a heading, whose depth is the number of hashes and whose title follows. */
 HEADING_OPEN : '#'+ [ \t]+ -> pushMode(HeadingLine) ;
@@ -18,9 +30,6 @@ BLANK : [ \t]* '\r'? '\n' -> skip ;
 
 /** Any other line is prose: an empty match that starts reading the line as prose without consuming it. */
 PROSE_START : -> pushMode(ProseLine), channel(HIDDEN) ;
-
-/** A registry key: letters and digits, with dots, underscores, and hyphens inside. */
-fragment DocKey : [A-Za-z0-9] ([A-Za-z0-9._-]* [A-Za-z0-9])? ;
 
 /** The start of a line of front matter. */
 mode FrontMatter;

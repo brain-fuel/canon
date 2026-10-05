@@ -268,6 +268,11 @@ exportRequires exports parent name = case exports of
 -- data, as an HCL description or a Pulumi config description is: its prose is the string's
 -- contents and its citations are also read from its text. ref:DEC-hcl-grammar
 -- ref:DEC-pulumi-yaml-grammar
+--
+-- A why element that holds how elements is the Why without them, the text on each side of one a
+-- paragraph of its own, and a unit with several how elements has them all as its How, as a Folio
+-- section's prose around its fenced blocks is its Why and the blocks its How.
+-- ref:DEC-folio-dialect ref:DEC-section-prose-is-why
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span], Set.Set UnitId)
 unitsFromTree language profile plans exportsDeclared idPath path source tree
   | language == "calm" = either (Left . GrammarArchitectureError) (\(r, ds, sps) -> Right (r, ds, sps, Set.empty)) (calmUnits idPath path source tree)
@@ -325,7 +330,13 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
                 , decisionVetting = Nothing
                 }
             ]
-    exportEntries = if exportsDeclared then Just (map (parseExportEntry . tokensText) (exportedIn tree)) else Nothing
+    -- An export entry that holds a what element and an arity element names name/arity, as the unit
+    -- it exports is named, so a Prolog nonterminal exported as name//N is the unit name/N.
+    -- ref:DEC-prolog-dialect
+    exportEntries = if exportsDeclared then Just (map (parseExportEntry . exportText) (exportedIn tree)) else Nothing
+    exportText inner = case (labeledSubtree "what" inner, labeledSubtree "arity" inner) of
+      (Just w, Just a) -> T.concat [tokensText w, "/", T.pack (show (arityOf a))]
+      _ -> tokensText inner
     exportedIn node = case node of
       TokenNode _ -> []
       Labeled "export" inner -> [inner]
@@ -482,6 +493,11 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
       RuleNode (Name "block") _ ns -> listToMaybe [n | n@RuleNode {} <- ns] >>= firstStatement
       RuleNode (Name "file_input") _ ns -> listToMaybe [n | n@RuleNode {} <- ns] >>= firstStatement
       _ -> Nothing
+    -- Adjacent strings are one string, as Python joins them, so a docstring written "a" "b" reads
+    -- ab. ref:DEC-python-dialect
+    pythonStrings whyNode raw = case [t | t <- treeTokens whyNode, nameText (tokenType t) == "STRING"] of
+      strings@(_ : _ : _) -> T.concat <$> mapM (pythonString . tokenText) strings
+      _ -> pythonString raw
     pythonString raw =
       let plain = if "r" `T.isPrefixOf` T.toLower raw || "u" `T.isPrefixOf` T.toLower raw then T.drop 1 raw else raw
        in listToMaybe [body | delimiter <- ["\"\"\"", "'''", "\"", "'"], Just middle <- [T.stripPrefix delimiter plain], Just body <- [T.stripSuffix delimiter middle]]
@@ -598,7 +614,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
                in [ Decision
                       { decisionId = decisionIdFor uid
                       , decisionUnits = uid :| []
-                      , decisionWhy = Answer (whyFrom whyNode (slice whySpan)) (Asserted (Assertion path whySpan))
+                      , decisionWhy = Answer (whyFrom whyNode (whySource whyNode)) (Asserted (Assertion path whySpan))
                       , decisionWhere = Where path whySpan chain Nothing
                       , decisionVetting = Nothing
                       }
@@ -608,6 +624,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
               , unitWhat = Answer (What (candidateName c) (UnitKind (candidateKind c)) (T.strip . slice . treeSpan <$> candidateSignature c)) evidence
               , unitHow = Answer (HowText (T.strip (case candidateWhy c of
                     Just why | language == "python" -> slice (Span (spanStart ownSpan) (spanStart (treeSpan why))) <> slice (Span (spanEnd (treeSpan why)) (spanEnd ownSpan))
+                    _ | null bindingSpans, hows@(_ : _ : _) <- labeledSubtrees "how" node -> T.intercalate "\n\n" (map (T.strip . slice . treeSpan) hows)
                     _ -> slice howSpan))) evidence
               , unitWhere = Answer (Where path sp chain Nothing) evidence
               , unitWho = Nothing
@@ -619,7 +636,15 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
           , own ++ nestedDecisions
           , if hiddenSelf then Set.insert uid nestedHidden else nestedHidden
           )
-    whyFrom _ raw | language == "python", Just body <- pythonString raw = toWhy (parseCanonicalComment body)
+    -- The text of a why element without the how elements inside it, as a Folio section's prose is
+    -- its Why around the fenced blocks that are its How; the prose on each side of a block is a
+    -- paragraph of its own. ref:DEC-folio-dialect ref:DEC-section-prose-is-why
+    whySource whyNode =
+      let sp = treeSpan whyNode
+          cuts = map treeSpan (labeledSubtrees "how" whyNode)
+          pieces = zipWith Span (spanStart sp : map spanEnd cuts) (map spanStart cuts ++ [spanEnd sp])
+       in if null cuts then slice sp else T.intercalate "\n\n" (filter (not . T.null) (map (T.strip . slice) pieces))
+    whyFrom whyNode raw | language == "python", Just body <- pythonStrings whyNode raw = toWhy (parseCanonicalComment body)
     whyFrom whyNode _ | Just body <- stringWhy whyNode = Why body (referenceTokens body) (licenseTokens body)
     whyFrom whyNode raw | not (isComment whyNode) =
       let body = docStringBody raw

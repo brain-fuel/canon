@@ -41,9 +41,10 @@ file_
     | form* EOF
     ;
 
-// canon: a definition form is tried before the generic list.
+// canon: a definition form is tried before the generic list, and a comment form before both.
 form
-    : definition
+    : comment_form
+    | definition
     | literal
     | list_
     | vector
@@ -52,13 +53,21 @@ form
     ;
 
 // canon: a form read as data or discarded, in which a definition form is not a definition: the
-// form of a quote, a syntax quote, or a #_ discard.
+// form of a quote, a syntax quote, a #_ discard, or a comment form, and every list, vector, map, and
+// set inside it.
 plain_form
     : literal
-    | list_
-    | vector
-    | map_
+    | '(' plain_form* ')'
+    | '[' plain_form* ']'
+    | '{' plain_form* '}'
+    | '#{' plain_form* '}'
     | reader_macro
+    ;
+
+// canon: a (comment ...) form, whose body Clojure never evaluates, so a definition in it defines
+// nothing and is no unit.
+comment_form
+    : '(' COMMENT_HEAD plain_form* ')'
     ;
 
 // canon: the definition forms that carry documentation. defn, defmacro, defmulti, and defprotocol
@@ -67,6 +76,10 @@ plain_form
 // which wins. A def, a record, a type, and a test may have documentation and need none by their form,
 // though a test always needs a Why. A docstring stands after the name, and a string after the
 // parameters of a function with more body forms after it is a misplaced docstring, an orphan.
+// A defmethod is a unit of kind method named by its multimethod and its dispatch value, and takes
+// no docstring. Any other head that starts with def, as a library's own definition macro such as
+// hiccup's defelem does, followed by a symbol is a unit of kind def, whose docstring is a string
+// after the name with more forms after it.
 definition
     : '(' required = DEFN ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_? map_? function_tail ')' # function
     | '(' DEFN_PRIVATE ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_? map_? function_tail ')' # function
@@ -78,6 +91,9 @@ definition
     | '(' DEF ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_? form ')' # var
     | '(' DEF ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol ')' # var
     | '(' DEFTEST ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol form* ')' # deftest
+    | '(' DEFMETHOD ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol what = form form* ')' # method
+    | '(' DEF_OTHER ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_ form+ ')' # def
+    | '(' DEF_OTHER ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol form* ')' # def
     ;
 
 // canon: the method signatures of a protocol need a docstring when their protocol does.
@@ -303,6 +319,9 @@ simple_sym
     | DEFTYPE
     | DEF
     | DEFTEST
+    | DEFMETHOD
+    | DEF_OTHER
+    | COMMENT_HEAD
     | NS
     ;
 
@@ -421,6 +440,25 @@ DEF
 
 DEFTEST
     : 'deftest'
+    ;
+
+// canon: defmethod, comment, and any other symbol that starts with def, a library's definition
+// macro; default, defer, and their longer forms, and Leiningen's defproject, whose string is a
+// version, are plain symbols, listed first so that they win at equal length.
+DEFMETHOD
+    : 'defmethod'
+    ;
+
+COMMENT_HEAD
+    : 'comment'
+    ;
+
+NOT_DEF
+    : (('default' | 'defer') SYMBOL_REST* (':' SYMBOL_REST+)* | 'defproject') -> type(SYMBOL)
+    ;
+
+DEF_OTHER
+    : 'def' SYMBOL_REST+ (':' SYMBOL_REST+)*
     ;
 
 NS

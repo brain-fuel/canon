@@ -16,6 +16,7 @@ import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token (..))
 import Data.Char (isAlpha, isUpper)
+import Data.Maybe (listToMaybe)
 import qualified Data.List.NonEmpty as NonEmpty
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -83,11 +84,13 @@ goPredicates predicate toks _ at
 
 -- | The predicates the canonically commented Python grammar adds to Python3ParserBase; upstream's
 -- own still hold. isPublicTopLevel holds when the next token names a definition at the top level
--- of a module, its def or class keyword in the first column, without a leading underscore, which
--- is what PEP 8 calls public. isPrivateName holds when the next token starts with an underscore
+-- of a module, nested in no def or class body though it may stand in a module-level if, try, or
+-- with block, without a leading underscore, which is what PEP 8 calls public. The nesting is
+-- counted from the INDENT and DEDENT tokens before the definition: a def or class opens a body one
+-- level deeper than itself, which the DEDENT back to its own level closes. isPrivateName holds when the next token starts with an underscore
 -- and is not __init__, which PEP 257 asks to document like a public method. isDocString holds when
--- the next token is a string that is a statement alone, ended by its line, and neither a bytes nor
--- an f-string, which Python does not take as a docstring. isOverload holds when the next tokens are
+-- the next tokens are strings, one or adjacent ones that Python joins, that are a statement alone,
+-- ended by its line, and none a bytes or an f-string, which Python does not take as a docstring. isOverload holds when the next tokens are
 -- an @overload decorator, bare or qualified, whose stub pydocstyle asks not to document.
 -- ref:DEC-python-dialect ref:pep-257
 pythonPredicates :: PredicateHook
@@ -101,18 +104,31 @@ pythonPredicates predicate toks _ at
     overload = case map tokenText (takeWhile ((/= "NEWLINE") . nameText . tokenType) (drop at (BV.toList toks))) of
       ("@" : dotted) -> not (null dotted) && last dotted == "overload"
       _ -> False
-    docString = case (toks BV.!? at, toks BV.!? (at + 1)) of
-      (Just string, next) ->
-        nameText (tokenType string) == "STRING"
-          && not (T.any (`elem` ("bBfF" :: String)) (T.takeWhile (`notElem` ("'\"" :: String)) (tokenText string)))
-          && maybe True ((`elem` ["NEWLINE", "EOF"]) . nameText . tokenType) next
+    isString t = nameText (tokenType t) == "STRING"
+    docString = case span isString (drop at (BV.toList toks)) of
+      (strings@(_ : _), next) ->
+        not (any (T.any (`elem` ("bBfF" :: String)) . T.takeWhile (`notElem` ("'\"" :: String)) . tokenText) strings)
+          && maybe True ((`elem` ["NEWLINE", "EOF"]) . nameText . tokenType) (listToMaybe next)
       _ -> False
     nameText' = tokenText <$> toks BV.!? at
     public = maybe False (not . T.isPrefixOf "_") nameText'
-    keyword = case (toks BV.!? (at - 2), toks BV.!? (at - 1)) of
-      (Just async', Just def) | tokenText async' == "async", tokenText def == "def" -> Just async'
-      (_, k) -> k
-    topLevel = maybe False ((== 1) . positionColumn . tokenPosition) keyword
+    topLevel = null (openDefinitions (BV.toList (BV.take (at - 1) toks)))
+
+-- | The depths of the def and class bodies open after the tokens: each def or class at a depth
+-- pushes it, and a DEDENT to a depth closes every body at or below it, as does a later def or class
+-- at the same depth, which ends a one-line definition that opened no indented body.
+-- ref:DEC-python-dialect
+openDefinitions :: [Token] -> [Int]
+openDefinitions = go (0 :: Int) []
+  where
+    go depth open ts = case ts of
+      [] -> filter (< depth) open
+      (t : rest) -> case nameText (tokenType t) of
+        "INDENT" -> go (depth + 1) open rest
+        "DEDENT" -> go (depth - 1) (filter (< depth - 1) open) rest
+        _
+          | tokenText t `elem` ["def", "class"] -> go depth (depth : filter (< depth) open) rest
+          | otherwise -> go depth open rest
 
 -- | A predicate written with a leading ! asks the opposite.
 negated :: Text -> Bool -> Bool

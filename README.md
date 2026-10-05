@@ -180,7 +180,13 @@ other `why` element is reported. An element labeled `arity` names the unit
 the number of arguments when the element is a bracketed list, the number the
 element holds, or else the number of rules among its children, and adjacent units so
 named that share a kind and a name are one unit unless a later one has a Why of
-its own, as the clauses of a predicate are one predicate. A `why` element of
+its own, as the clauses of a predicate are one predicate. An `export` element
+that holds a `what` and an `arity` element exports `name/arity`, as Prolog's
+`name//N` exports the nonterminal named `name/N`. A `why` element that holds
+`how` elements is the Why without them, the text on each side of one a
+paragraph of its own, and a unit with several `how` elements has them all as
+its How, as a Folio section's prose around its fenced blocks is its Why and the
+blocks its How. A `why` element of
 the start rule outside every unit is the file's Why, as Rust's `//!` at the top
 of a file is. A unit's What is the text of its `what` element; when the
 alternative itself holds several, they are joined with a dot, as a Terraform
@@ -786,15 +792,20 @@ mark needs; the change is marked `canon:` and recorded as
 `grammars/prolog/canonically_commented/` reads PlDoc: a `%!` or `%%` comment at
 the start of a line, with the `%` lines that continue it, or a `/**` comment,
 documents the clauses directly below it, and a `/** <module>` comment documents
-the file, while a plain `%` comment, a `%%%` banner, and a `%%` inside a clause
-body document nothing. The clauses of a predicate are one unit of kind
-`predicate` named `name/arity`, a declaration such as `:- dynamic foo/1.` being
-one of its clauses; a DCG rule is a `nonterminal` and a clause of `test/1` or
-`test/2` a plunit `test` named by its first argument. The module directive's
-export list labels each predicate indicator `export`, so a module requires a
-comment on what it exports, and a file without a module directive on every
-predicate, as all of them are visible; a PlDoc comment where no predicate
-follows is an orphan (`DEC-prolog-dialect`). marelle writes plain `%` comments,
+the file, while a plain `%` comment, a `%%%` banner, and a `%!`, `%%`, or `/**`
+anywhere inside a clause, on whatever line before its full stop, document
+nothing. The clauses of a predicate are one unit of kind `predicate` named
+`name/arity`, the arity being the number of the head's arguments, and a head
+may be module-qualified, as `user:portray(X)` is; a declaration such as
+`:- dynamic foo/1.` is one of its clauses, and one of several predicates,
+`:- dynamic a/1, b/2.`, documents the first. A DCG rule is a `nonterminal` and a
+clause of `test/1` or `test/2` a plunit `test` named by its first argument. The
+module directive's export list labels each predicate indicator `export`, and
+`name//N` exports the nonterminal `name/N`, so a module requires a comment on
+what it exports, and a file without a module directive on every predicate, as
+all of them are visible; a PlDoc comment where no predicate follows is an
+orphan. A head written with an operator is no unit, since the grammar has no
+operator table (`DEC-prolog-dialect`). marelle writes plain `%` comments,
 so through the dialect it has 197 units, every one required, and no canonical
 comment.
 
@@ -1022,16 +1033,23 @@ field, and each interface element is a unit, a group is named by its position,
 and the comment above the package clause is the file's Why. An exported name,
 one with an upper-case initial, requires a comment, as revive's `exported`
 rule asks, unless it is a method of an unexported type or a spec of a group
-whose comment documents it; fields and interface methods may have one. The
+whose comment documents it; a spec requires one when any of its names is
+exported, and fields and interface methods may have one. Comments with no
+blank line between them are one doc comment, as go/doc groups them, and a
+directive line such as `//go:generate`, `//nolint`, or `// +build` is left out
+of it. The
 sample's plain profile requires a comment on every function, method, and type.
 A Python docstring is a string, so the Python dialect keeps the plain lexer and
 labels the string that opens a module, class, or function body `why`, and
-canon reads its prose and keys from the string's contents; a string elsewhere
-and a `#` comment are no documentation. Decorators are markers. A public name
-at the top level of a module requires a docstring, a class body is
+canon reads its prose and keys from the string's contents, adjacent strings
+joined as Python joins them; a string elsewhere and a `#` comment are no
+documentation. Decorators are markers. A public name at the top level of a
+module, nested in no `def` or `class` though perhaps in a module-level `if` or
+`try`, requires a docstring, a class body is
 `inherited`, so the public methods of a public class need one, `__init__`
 included, and a private name, a dunder other than `__init__`, and an
-`@overload` stub need none, as PEP 257 and PEP 8 have it. The sample's plain
+`@overload` stub need none, as PEP 257 and PEP 8 have it. A module's
+docstring is never required, since no file unit requires a comment. The sample's plain
 profile requires one on every function and class.
 
 ## Makefiles
@@ -1078,9 +1096,9 @@ page as units by labels, as every dialect reads its language: a page's front
 matter is the Why of a unit of kind `doc` named by its id, the id canon's page
 extraction gives it, with its `video` cited as a reference; each section whose
 heading is followed by prose is a unit of kind `section` named by its title,
-its Why that prose up to the first fenced block and its How the rest of the
-section; and a `---` block below the top of a page is misplaced front matter
-and an orphan, so a page draws a thematic break with `***` or `___`. The root
+its Why all of its prose, before and after its fenced blocks, and its How the
+blocks; and a `---` line below the top of a page is a thematic break, as in
+Markdown. A thematic break inside a section's prose stays in the Why's text. The root
 `canon.yaml` keeps reading `docs/` through the plain grammar, whose line tokens
 the page extraction, the tangler, and the site read (`DEC-folio-dialect`).
 
@@ -1334,8 +1352,13 @@ so the string is labeled `why` and canon reads a Why that is one string literal
 without its quotes and escapes. `defn`, `defmacro`, `defmulti`, and
 `defprotocol` are `required`, protocol methods `inherited`, and `^:private`
 and `^:no-doc` `optional`; a string after a function's parameters with more
-body after it is a misplaced docstring and an `orphan`. A `;` comment is not
-documentation (`DEC-clojure-dialect`).
+body after it is a misplaced docstring and an `orphan`. Any other head that
+starts with `def`, as hiccup's `defelem` does, followed by a symbol is a unit
+of kind `def` with an optional docstring, except `default`, `defer`, their
+longer forms, and `defproject`; a `defmethod` is a unit of kind `method` named
+by its multimethod and dispatch value, as `render.:circle`; and a definition
+inside `(comment ...)` is no unit. A `;` comment is not documentation
+(`DEC-clojure-dialect`).
 
 The Rust, C#, F#, Kotlin, and Clojure samples keep the profiles above, and the
 test suite reads their sources through the dialects too. The dialects bind a doc comment across

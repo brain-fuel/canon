@@ -35,6 +35,8 @@ tests =
     , testProperty "the Go profile binds comments to declarations and recognises tests" prop_theGoProfileBindsCommentsToDeclarationsAndRecognisesTests
     , testProperty "the Go dialect parses every file of the uuid sample with its doc comments" prop_theGoDialectParsesEveryFileOfTheUuidSampleWithItsDocComments
     , testProperty "the Go dialect binds doc comments directly above declarations and requires them on exported names" prop_theGoDialectBindsDocCommentsDirectlyAboveDeclarationsAndRequiresThemOnExportedNames
+    , testProperty "the Go dialect reads a doc comment as go/doc groups it, without its directives" prop_theGoDialectReadsADocCommentAsGoDocGroupsItWithoutItsDirectives
+    , testProperty "the Go dialect requires a comment on a spec when any of its names is exported" prop_theGoDialectRequiresACommentOnASpecWhenAnyOfItsNamesIsExported
     ]
 
 sampleDir :: FilePath
@@ -226,3 +228,60 @@ prop_theGoDialectBindsDocCommentsDirectlyAboveDeclarationsAndRequiresThemOnExpor
   length [() | OrphanDocComment _ _ <- findings] === 2
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === ["go/shapes.go/group/1/var/ErrSize", "go/shapes.go/function/Plain", "go/shapes.go/method/Area"]
+
+-- | go/doc reads the comments above a declaration with no blank line between them as one comment,
+-- a block comment followed by a line comment included, and leaves directive lines such as
+-- //go:generate, //nolint, and // +build out of its text, so the Why is that comment without them
+-- and nothing of it is an orphan. ref:REQ-go-support ref:DEC-go-dialect
+prop_theGoDialectReadsADocCommentAsGoDocGroupsItWithoutItsDirectives :: Property
+prop_theGoDialectReadsADocCommentAsGoDocGroupsItWithoutItsDirectives = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractWith
+      dialectProfile
+      "shapes.go"
+      ( T.unlines
+          [ "package shapes"
+          , ""
+          , "// Area is the area of a shape."
+          , "//go:noinline"
+          , "//nolint"
+          , "// +build linux"
+          , "// It is never negative. ref:area-key"
+          , "func Area() float64 { return 0 }"
+          , ""
+          , "/* Perimeter is the length of a shape's edge. */"
+          , "// It is never negative either."
+          , "func Perimeter() float64 { return 0 }"
+          ]
+      )
+  let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+  whys
+    === [ ("go/shapes.go/function/Area", "Area is the area of a shape.\nIt is never negative. ref:area-key")
+        , ("go/shapes.go/function/Perimeter", "Perimeter is the length of a shape's edge.\nIt is never negative either.")
+        ]
+  [whyReferences (answerValue (decisionWhy d)) | d <- modelDecisions model] === [[ReferenceKey "area-key"], []]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+
+-- | Every name of a const or var spec is exported or not by its own initial, so a spec that exports
+-- any of its names is part of the package's API and needs a comment, whichever name comes first.
+-- ref:REQ-go-support ref:DEC-go-dialect ref:revive-exported
+prop_theGoDialectRequiresACommentOnASpecWhenAnyOfItsNamesIsExported :: Property
+prop_theGoDialectRequiresACommentOnASpecWhenAnyOfItsNamesIsExported = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractWith
+      dialectProfile
+      "shapes.go"
+      ( T.unlines
+          [ "package shapes"
+          , ""
+          , "var a, B = 1, 2"
+          , ""
+          , "const c, d = 3, 4"
+          , ""
+          , "var ("
+          , "\te, F int"
+          , ")"
+          ]
+      )
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === ["go/shapes.go/var/a,B", "go/shapes.go/group/0/var/e,F"]

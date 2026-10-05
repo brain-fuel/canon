@@ -51,7 +51,7 @@ options {
 // package's documentation; one above an import documents nothing and is an orphan. Only top-level
 // declarations are units, so a declaration inside a function body is the plain grammar's.
 sourceFile
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment)? packageClause eos ((orphan = canonicalComment)* importDecl eos)* ((functionDecl | methodDecl | topLevelDeclaration) eos)* EOF
+    : why = canonicalComment? packageClause eos ((orphan = canonicalComment)* importDecl eos)* ((functionDecl | methodDecl | topLevelDeclaration) eos)* EOF
     ;
 
 // canon: a top-level const, type, or var declaration.
@@ -67,10 +67,10 @@ declaredName
     | {!this.isExported()}? IDENTIFIER
     ;
 
-// canon: the names of a const or var spec, labeled required when the first is exported.
+// canon: the names of a const or var spec, each labeled required when it is exported, so the spec
+// requires a comment when any of its names is exported.
 declaredNames
-    : {this.isExported()}? required = IDENTIFIER (COMMA IDENTIFIER)*
-    | {!this.isExported()}? IDENTIFIER (COMMA IDENTIFIER)*
+    : declaredName (COMMA declaredName)*
     ;
 
 // canon: a single const declaration is a unit; a grouped one is a unit named by its position whose
@@ -78,53 +78,53 @@ declaredNames
 // accepts a comment on the block in place of one on each spec, so a spec of a documented group needs
 // none; the specs of an undocumented group need one when they are exported.
 topLevelConstDecl
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) CONST what = declaredNames (type_? ASSIGN expressionList)? # const
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) CONST ordinal = L_PAREN (documentedConstSpec eos)* (orphan = canonicalComment)* R_PAREN # group
+    : why = canonicalComment? CONST what = declaredNames (type_? ASSIGN expressionList)? # const
+    | why = canonicalComment CONST ordinal = L_PAREN (documentedConstSpec eos)* (orphan = canonicalComment)* R_PAREN # group
     | why = canonicalComment? CONST ordinal = L_PAREN (topLevelConstSpec eos)* (orphan = canonicalComment)* R_PAREN # group
     ;
 
 // canon: a spec of an undocumented const group.
 topLevelConstSpec
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = declaredNames (type_? ASSIGN expressionList)? # const
+    : why = canonicalComment? what = declaredNames (type_? ASSIGN expressionList)? # const
     ;
 
 // canon: a spec of a documented const group.
 documentedConstSpec
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = identifierList (type_? ASSIGN expressionList)? # const
+    : why = canonicalComment? what = identifierList (type_? ASSIGN expressionList)? # const
     ;
 
 // canon: type declarations, single and grouped, as const declarations are.
 topLevelTypeDecl
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) TYPE what = declaredName typeParameters? ASSIGN? type_ # type
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) TYPE ordinal = L_PAREN (documentedTypeSpec eos)* (orphan = canonicalComment)* R_PAREN # group
+    : why = canonicalComment? TYPE what = declaredName typeParameters? ASSIGN? type_ # type
+    | why = canonicalComment TYPE ordinal = L_PAREN (documentedTypeSpec eos)* (orphan = canonicalComment)* R_PAREN # group
     | why = canonicalComment? TYPE ordinal = L_PAREN (topLevelTypeSpec eos)* (orphan = canonicalComment)* R_PAREN # group
     ;
 
 // canon: a spec of an undocumented type group.
 topLevelTypeSpec
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = declaredName typeParameters? ASSIGN? type_ # type
+    : why = canonicalComment? what = declaredName typeParameters? ASSIGN? type_ # type
     ;
 
 // canon: a spec of a documented type group.
 documentedTypeSpec
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = IDENTIFIER typeParameters? ASSIGN? type_ # type
+    : why = canonicalComment? what = IDENTIFIER typeParameters? ASSIGN? type_ # type
     ;
 
 // canon: var declarations, single and grouped, as const declarations are.
 topLevelVarDecl
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) VAR what = declaredNames (type_ (ASSIGN expressionList)? | ASSIGN expressionList) # var
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) VAR ordinal = L_PAREN (documentedVarSpec eos)* (orphan = canonicalComment)* R_PAREN # group
+    : why = canonicalComment? VAR what = declaredNames (type_ (ASSIGN expressionList)? | ASSIGN expressionList) # var
+    | why = canonicalComment VAR ordinal = L_PAREN (documentedVarSpec eos)* (orphan = canonicalComment)* R_PAREN # group
     | why = canonicalComment? VAR ordinal = L_PAREN (topLevelVarSpec eos)* (orphan = canonicalComment)* R_PAREN # group
     ;
 
 // canon: a spec of an undocumented var group.
 topLevelVarSpec
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = declaredNames (type_ (ASSIGN expressionList)? | ASSIGN expressionList) # var
+    : why = canonicalComment? what = declaredNames (type_ (ASSIGN expressionList)? | ASSIGN expressionList) # var
     ;
 
 // canon: a spec of a documented var group.
 documentedVarSpec
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = identifierList (type_ (ASSIGN expressionList)? | ASSIGN expressionList) # var
+    : why = canonicalComment? what = identifierList (type_ (ASSIGN expressionList)? | ASSIGN expressionList) # var
     ;
 
 packageClause
@@ -208,13 +208,13 @@ typeTerm
 
 // canon: a function is a unit, required when its name is exported.
 functionDecl
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) FUNC what = declaredName typeParameters? signature how = block? # function
+    : why = canonicalComment? FUNC what = declaredName typeParameters? signature how = block? # function
     ;
 
 // canon: a method is a unit, required when its name and its receiver's type are exported, as revive
 // skips a method whose receiver is unexported.
 methodDecl
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) FUNC receiver what = declaredName signature how = block? # method
+    : why = canonicalComment? FUNC receiver what = declaredName signature how = block? # method
     ;
 
 // canon: a receiver whose base type is unexported is labeled optional, which wins over required.
@@ -466,12 +466,12 @@ channelType
 // canon: an interface method is a unit, whose comment is optional, since revive's exported rule
 // does not ask for one.
 methodSpec
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = IDENTIFIER parameters result? # method
+    : why = canonicalComment? what = IDENTIFIER parameters result? # method
     ;
 
 // canon: an embedded interface or a type union in an interface is a unit named by its text.
 interfaceElement
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = typeElement # element
+    : why = canonicalComment? what = typeElement # element
     ;
 
 functionType
@@ -603,7 +603,7 @@ structType
 // canon: a field is a unit whose comment is optional, since revive's exported rule does not ask for
 // one; an embedded field is named by its unqualified type name, as the Go specification names it.
 fieldDecl
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (what = identifierList type_ | STAR? (IDENTIFIER DOT)? what = IDENTIFIER typeArgs?) tag = string_? # field
+    : why = canonicalComment? (what = identifierList type_ | STAR? (IDENTIFIER DOT)? what = IDENTIFIER typeArgs?) tag = string_? # field
     ;
 
 string_
@@ -647,7 +647,14 @@ eos
 
 // canon: a canonical comment, a Go doc comment, holding prose, reference citations, and license
 // citations.
+// Comments with no blank line between them are one comment, as go/doc groups them, so a block
+// comment followed directly by a line comment is one doc comment.
 canonicalComment
+    : commentPiece+
+    ;
+
+// canon: a line or block comment of a canonical comment.
+commentPiece
     : DOC_OPEN docPart*
     | DOC_BLOCK_OPEN docPart* DOC_BLOCK_CLOSE
     ;

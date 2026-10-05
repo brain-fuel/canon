@@ -34,28 +34,41 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // a combined grammar may not hold modes. The literals the plain grammar's parser rules name are tokens
 // of their own here, in the order ANTLR gives the plain grammar's implicit tokens, so they win their
 // ties with LETTER_DIGIT and GRAPHIC_TOKEN as they do there; module and test are new, for the module
-// directive and plunit's tests. DEFAULT_MODE is the start of a line, where a PlDoc line comment may
-// open; the code of a line is lexed in the Code mode, which a line break leaves. Every change from
-// the plain grammar is marked canon: and recorded as DEC-prolog-dialect.
+// directive and plunit's tests. DEFAULT_MODE is the space between clauses, where a PlDoc comment
+// may open; the code of a clause is lexed in the Code mode, which the clause's closing full stop
+// leaves, so a comment inside a clause, on whatever line, is plain. Every change from the plain
+// grammar is marked canon: and recorded as DEC-prolog-dialect.
 lexer grammar PrologLexer;
 
-// canon: a PlDoc line comment opens with %! or %% at the start of a line and is a canonical comment
-// on the default channel, tokenized in DocLine. %%% opens a plain comment, as a banner of percent
-// signs is no documentation, and so does %! or %% anywhere but the start of a line, such as inside a
-// clause body.
-DOC_OPEN      : '%' [!%] -> pushMode(DocLine) ;
-BANNER        : '%%%' ~[\r\n]* -> channel(HIDDEN) ;
-BLANK_LINE    : [ \t]* ('\r'? '\n' | '\r') -> skip ;
-// canon: anything else starts the code of the line, without consuming it.
-LINE_START    : -> pushMode(Code), channel(HIDDEN) ;
+// canon: a PlDoc line comment opens with %! or %% at the start of a line between clauses and is a
+// canonical comment on the default channel, tokenized in DocLine. %%% opens a plain comment, as a
+// banner of percent signs is no documentation, and so does %! or %% indented or inside a clause,
+// whose lines the Code mode reads. A /** comment between clauses, at the start of a line or after
+// the full stop of a clause, opens a PlDoc block comment; /*** and /**/ stay plain.
+DOC_OPEN       : '%' [!%] -> pushMode(DocLine) ;
+BANNER         : '%%%' ~[\r\n]* -> channel(HIDDEN) ;
+BLANK_LINE     : [ \t]* ('\r'? '\n' | '\r') -> skip ;
+GAP_COMMENT    : ([ \t]+ '%' ~[\r\n]* | '%' (~[!%\r\n] ~[\r\n]*)?) -> channel(HIDDEN) ;
+GAP_BLOCK      : [ \t]* PLAIN_BLOCK -> channel(HIDDEN) ;
+DOC_BLOCK_OPEN : [ \t]* '/**' -> pushMode(DocBlock) ;
+// canon: anything else starts the code of a clause, without consuming it.
+LINE_START     : -> pushMode(Code), channel(HIDDEN) ;
 
-// canon: the code of a line, lexed by the plain grammar's rules; a line break returns to the start of
-// a line.
+// canon: a block comment that is no PlDoc comment: /* followed by anything but a star, /*** and
+// more stars, or /**/.
+fragment PLAIN_BLOCK
+    : '/*' ~[*] (MULTILINE_COMMENT_PART | .)*? ('*/' | EOF)
+    | '/**' '*'+ ('/' | ~[*/] (MULTILINE_COMMENT_PART | .)*? ('*/' | EOF))
+    | '/**/'
+    ;
+
+// canon: the code of a clause, lexed by the plain grammar's rules; the full stop that closes the
+// clause returns to the space between clauses.
 mode Code;
 
 // canon: the plain grammar's implicit literal tokens, named, and module and test.
 NECK          : ':-' ;
-END           : '.' ;
+END           : '.' -> popMode ;
 COMMA         : ',' ;
 OPEN          : '(' ;
 CLOSE         : ')' ;
@@ -108,11 +121,10 @@ CUT           : '!' ;
 MODULE        : 'module' ;
 TEST          : 'test' ;
 
-// canon: /** followed by anything but a star or a slash opens a PlDoc block comment, a canonical
-// comment tokenized in DocBlock; /*** and /**/ stay plain. It is listed
-// before GRAPHIC_TOKEN, which would otherwise win their tie.
-DOC_BLOCK_OPEN
-    : '/**' -> pushMode(DocBlock)
+// canon: a block comment inside a clause is plain, a /** comment included. It is listed before
+// GRAPHIC_TOKEN, which would otherwise win the tie of /**.
+CODE_BLOCK_COMMENT
+    : '/*' (MULTILINE_COMMENT_PART | .)*? ('*/' | EOF) -> channel(HIDDEN)
     ;
 
 // Lexer (6.4 & 6.5): Tokens formed from Characters
@@ -264,24 +276,14 @@ fragment SOLO
     | ']'
     ;
 
-// canon: a line break is not white space here, since it returns to the start of a line.
+// canon: a line break inside a clause is white space; only the clause's full stop leaves it.
 WS
-    : [ \t]+ -> skip
-    ;
-
-NEWLINE
-    : ('\r'? '\n' | '\r') -> skip, popMode
+    : [ \t\r\n]+ -> skip
     ;
 
 // canon: a plain comment ends before its line break, which then returns to the start of a line.
 COMMENT
     : '%' ~[\n\r]* -> channel(HIDDEN)
-    ;
-
-MULTILINE_COMMENT
-    : '/*' ~[*] (MULTILINE_COMMENT_PART | .)*? ('*/' | EOF) -> channel(HIDDEN)
-    | '/**' '*'+ ('/' | ~[*/] (MULTILINE_COMMENT_PART | .)*? ('*/' | EOF)) -> channel(HIDDEN)
-    | '/**/' -> channel(HIDDEN)
     ;
 
 fragment MULTILINE_COMMENT_PART

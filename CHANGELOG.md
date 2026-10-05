@@ -9,6 +9,9 @@ and this project adheres to
 ## Unreleased
 
 ### Changed
+- An `export` element that holds a `what` and an `arity` element exports `name/arity`, so Prolog's `name//N` exports the nonterminal unit `name/N`
+- A `why` element that holds `how` elements is the Why without them, and a unit with several `how` elements has them all as its How
+- A Go directive line among `//` lines, such as `//go:generate`, `//nolint`, or `// +build`, is left out of a comment's Why
 - The parser memoises each repeated element by position, so a file that does not parse fails as fast as one that does parses, instead of taking minutes
 - HCL templates must pair `%{ if }` with `%{ endif }` and `%{ for }` with `%{ endfor }`
 - A quoted YAML key is named without its quotes; flow collections read JSON-like pairs such as `{"a":1}` and Pulumi interpolations such as `[${a}]`
@@ -134,6 +137,11 @@ and this project adheres to
 - `canon check` parses files concurrently, caches extractions under `.canon-cache/` keyed by content, grammar, profile, and git revision, and derives Who and When from one `git blame` per file; the Haskell sample check went from 26 seconds to 1.4 cold and 0.2 warm with identical findings
 
 ### Fixed
+- Go dialect: a directive line inside a doc comment is no longer in its Why, a `/* */` block followed directly by a `//` comment is one doc comment instead of an orphan and a Why, and a const or var spec requires a comment when any of its names is exported, not only the first
+- Python dialect: a definition is at the top level when it is nested in no `def` or `class`, counted from `INDENT` and `DEDENT`, so one inside a module-level `if`, `try`, or `with` requires a docstring; a docstring written as adjacent strings is one docstring
+- Clojure dialect: any other head that starts with `def`, such as hiccup's `defelem`, is a unit of kind `def`, a `defmethod` is a unit of kind `method` named by multimethod and dispatch value, and a definition inside `(comment ...)` is no unit
+- Prolog dialect: a `%!`, `%%`, or `/**` inside a clause, on any line before its full stop, is a plain comment instead of failing the parse; `name//N` in an export list exports the nonterminal of arity N; a declaration of several predicates documents the first; a module-qualified head is a unit; and a head whose one argument is a number, as `foo(2)`, has arity one
+- Folio dialect: a section's Why is all of its prose, before and after its fenced blocks, and its How the blocks; a `---` line below the top of a page is a thematic break instead of misplaced front matter
 - Elixir: `def unquote(name)(args)` is a unit named by its `unquote` call, `def a <~> b` is named by its operator, a `@doc` binds across blank lines and attributes, `@doc false` hides instead of leaving a unit missing its comment, an interpolation in a lowercase sigil may hold `}` and newlines, and a test may name itself in parentheses
 - Gleam: the syntax removed before 1.0, `external fn`, `external type`, and `if erlang { ... }` groups, parses, so older projects check
 - Erlang: recon and OTP's stdlib, kernel, and eunit parse whole, where 10 of recon's 16 files failed: macros and preprocessor directives, `X-1` as a subtraction, escript `#!` lines, OTP 25 to 28 syntax, triple-quoted strings, and sigils

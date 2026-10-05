@@ -35,6 +35,8 @@ tests =
     , testProperty "the Python profile binds docstrings to definitions and recognises tests" prop_thePythonProfileBindsDocstringsToDefinitionsAndRecognisesTests
     , testProperty "the Python dialect parses every file of the itsdangerous sample with its docstrings" prop_thePythonDialectParsesEveryFileOfTheItsdangerousSampleWithItsDocstrings
     , testProperty "the Python dialect binds docstrings that open a body and requires them on public names" prop_thePythonDialectBindsDocstringsThatOpenABodyAndRequiresThemOnPublicNames
+    , testProperty "the Python dialect knows the top level by nesting, not by column" prop_thePythonDialectKnowsTheTopLevelByNestingNotByColumn
+    , testProperty "the Python dialect reads adjacent strings as one docstring" prop_thePythonDialectReadsAdjacentStringsAsOneDocstring
     ]
 
 sampleDir :: FilePath
@@ -242,3 +244,77 @@ prop_thePythonDialectBindsDocstringsThatOpenABodyAndRequiresThemOnPublicNames = 
         , "python/shapes.py/class/TestShape/function/test_uncommented"
         ]
   [renderUnitId u | TestWithoutRequirement u _ <- checkTests (Registry (Map.singleton (ReferenceKey "REQ-1") (Reference Requirement "areas" "here"))) model] === []
+
+-- | A module exports what it defines outside every def and class, inside a module-level if, try, or
+-- with block as much as at its first column, so such a definition requires a docstring, while a
+-- definition in a function or class body is no export of the module. ref:REQ-python-support
+-- ref:DEC-python-dialect ref:pep-257
+prop_thePythonDialectKnowsTheTopLevelByNestingNotByColumn :: Property
+prop_thePythonDialectKnowsTheTopLevelByNestingNotByColumn = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractWith
+      dialectProfile
+      "compat.py"
+      ( T.unlines
+          [ "import sys"
+          , ""
+          , "if sys.version_info >= (3, 8):"
+          , "    def fast():"
+          , "        pass"
+          , "else:"
+          , "    def fast():"
+          , "        \"\"\"The slow fallback.\"\"\""
+          , ""
+          , "try:"
+          , "    class Loader:"
+          , "        pass"
+          , "except ImportError:"
+          , "    pass"
+          , ""
+          , "def outer():"
+          , "    \"\"\"Defines a helper.\"\"\""
+          , "    if True:"
+          , "        def inner():"
+          , "            pass"
+          , "    return inner"
+          , ""
+          , "def one(): pass"
+          , "def two():"
+          , "    pass"
+          , ""
+          , "class _Private:"
+          , "    def method(self):"
+          , "        pass"
+          , "    with open(__file__) as f:"
+          , "        class Inside:"
+          , "            pass"
+          ]
+      )
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === [ "python/compat.py/function/fast"
+        , "python/compat.py/class/Loader"
+        , "python/compat.py/function/one"
+        , "python/compat.py/function/two"
+        ]
+
+-- | Python joins adjacent string literals into one string, so a docstring written as several strings
+-- side by side is one docstring, read whole with its citations. ref:REQ-python-support
+-- ref:DEC-python-dialect ref:pep-257
+prop_thePythonDialectReadsAdjacentStringsAsOneDocstring :: Property
+prop_thePythonDialectReadsAdjacentStringsAsOneDocstring = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractWith
+      dialectProfile
+      "joined.py"
+      ( T.unlines
+          [ "def joined():"
+          , "    \"Joined from two strings, \" 'cited. ref:some-key'"
+          , "    return 1"
+          , ""
+          , "def mixed():"
+          , "    \"A bytes string \" b\"is no docstring.\""
+          ]
+      )
+  let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d)), whyReferences (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+  whys === [("python/joined.py/function/joined", "Joined from two strings, cited. ref:some-key", [ReferenceKey "some-key"])]
+  length [() | OrphanDocComment _ _ <- findings] === 0

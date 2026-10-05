@@ -32,6 +32,8 @@ tests =
     [ testProperty "the Prolog profile parses every file of the marelle sample into its clauses" prop_thePrologProfileParsesEveryFileOfTheMarelleSampleIntoItsClauses
     , testProperty "the Prolog dialect parses the marelle sample into its predicates" prop_thePrologDialectParsesTheMarelleSampleIntoItsPredicates
     , testProperty "the Prolog dialect binds PlDoc comments to predicates and reports misplaced ones" prop_thePrologDialectBindsPlDocCommentsToPredicatesAndReportsMisplacedOnes
+    , testProperty "the Prolog dialect reads a PlDoc mark inside a clause as a plain comment" prop_thePrologDialectReadsAPlDocMarkInsideAClauseAsAPlainComment
+    , testProperty "the Prolog dialect names exported nonterminals, declarations, and qualified heads as Prolog does" prop_thePrologDialectNamesExportedNonterminalsDeclarationsAndQualifiedHeadsAsPrologDoes
     ]
 
 sampleDir :: FilePath
@@ -196,3 +198,79 @@ prop_thePrologDialectBindsPlDocCommentsToPredicatesAndReportsMisplacedOnes = wit
     === ["prolog/lists.pl/predicate/empty/0", "prolog/lists.pl/test/last_one", "prolog/lists.pl/predicate/module_path/1"]
   [renderUnitId (unitId u) | u <- modelAllUnits model, unitRequirement u == Optional, whatKind (answerValue (unitWhat u)) /= UnitKind "file"]
     === ["prolog/lists.pl/predicate/helper/2", "prolog/lists.pl/nonterminal/greeting/0"]
+
+-- | A clause runs to its full stop, so a %!, %%, or /** comment on any line inside a clause or a
+-- directive is a comment inside code, which documents nothing; it must neither fail the parse nor
+-- bind, while the same comment after the full stop documents the next clause.
+-- ref:REQ-prolog-support ref:DEC-prolog-dialect
+prop_thePrologDialectReadsAPlDocMarkInsideAClauseAsAPlainComment :: Property
+prop_thePrologDialectReadsAPlDocMarkInsideAClauseAsAPlainComment = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractThrough
+      dialectProfile
+      "body.pl"
+      ( T.unlines
+          [ "%! walk(+X) is det."
+          , "walk(X) :-"
+          , "%! At the start of a line inside the body."
+          , "    step(X),"
+          , "%% Also inside the body."
+          , "    /** A block inside the body. */"
+          , "    step(X)."
+          , ""
+          , ":- initialization(("
+          , "%! Inside a directive's term."
+          , "    walk(1)))."
+          , ""
+          , "step(_). % A plain comment after the full stop."
+          , "/** After the full stop, so it documents run/0. */"
+          , "run."
+          ]
+      )
+  let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+  whys
+    === [ ("prolog/body.pl/predicate/walk/1", "walk(+X) is det.")
+        , ("prolog/body.pl/predicate/run/0", "After the full stop, so it documents run/0.")
+        ]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  map (renderUnitId . unitId) (unitsBelowFile (Extraction model findings))
+    === ["prolog/body.pl/predicate/walk/1", "prolog/body.pl/predicate/step/1", "prolog/body.pl/predicate/run/0"]
+
+-- | Prolog exports a DCG nonterminal as name//N, the nonterminal of N written arguments, so that
+-- entry exports the nonterminal's unit name/N. A declaration of several predicates documents the
+-- first, a module-qualified head defines a predicate of its own name, and a head whose one argument
+-- is a number has arity one, so each is named as Prolog names it.
+-- ref:REQ-prolog-support ref:DEC-prolog-dialect ref:DEC-export-rule
+prop_thePrologDialectNamesExportedNonterminalsDeclarationsAndQualifiedHeadsAsPrologDoes :: Property
+prop_thePrologDialectNamesExportedNonterminalsDeclarationsAndQualifiedHeadsAsPrologDoes = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractThrough
+      dialectProfile
+      "grammar.pl"
+      ( T.unlines
+          [ ":- module(grammar, [greeting//0, pair//1, count/1])."
+          , ""
+          , "greeting --> [hello]."
+          , "pair(X) --> [X, X]."
+          , "private --> []."
+          , ""
+          , "count(1)."
+          , "count(2)."
+          , ""
+          , "%! cache(?K, ?V) and seen(?K) are the memo tables."
+          , ":- dynamic cache/2, seen/1."
+          , "cache(a, 1)."
+          , ""
+          , ":- multifile [user:portray/1]."
+          , "user:portray(X) :- write(X)."
+          ]
+      )
+  [(renderUnitId (unitId u), unitRequirement u) | u <- unitsBelowFile (Extraction model findings)]
+    === [ ("prolog/grammar.pl/nonterminal/greeting/0", Required)
+        , ("prolog/grammar.pl/nonterminal/pair/1", Required)
+        , ("prolog/grammar.pl/nonterminal/private/0", Optional)
+        , ("prolog/grammar.pl/predicate/count/1", Required)
+        , ("prolog/grammar.pl/predicate/cache/2", Optional)
+        , ("prolog/grammar.pl/predicate/portray/1", Optional)
+        ]
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)] === ["prolog/grammar.pl/predicate/cache/2"]

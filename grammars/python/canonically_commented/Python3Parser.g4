@@ -82,8 +82,9 @@ funcdef
     ) # function
     ;
 
-// canon: a definition's name, labeled required when it is public at the top level of a module and
-// optional when it is private or a dunder other than __init__.
+// canon: a definition's name, labeled required when it is public at the top level of a module, in no
+// def or class body though perhaps in a module-level if, try, or with block, and optional when it is
+// private or a dunder other than __init__.
 definitionName
     : {this.isPublicTopLevel()}? required = name
     | {this.isPrivateName()}? optional = name
@@ -96,9 +97,10 @@ overloadDecorator
     : {this.isOverload()}? decorator
     ;
 
-// canon: a docstring, a string that is a statement alone and neither a bytes nor an f-string.
+// canon: a docstring, a string that is a statement alone and neither a bytes nor an f-string; adjacent
+// strings, which Python joins into one, are one docstring.
 docString
-    : {this.isDocString()}? STRING
+    : {this.isDocString()}? STRING+
     ;
 
 parameters

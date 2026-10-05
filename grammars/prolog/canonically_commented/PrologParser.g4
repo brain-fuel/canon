@@ -82,9 +82,11 @@ exportEntry
     | term
     ;
 
-// canon: a predicate indicator, name/arity, or name//arity for a DCG nonterminal.
+// canon: a predicate indicator, name/arity, or name//arity for a DCG nonterminal. A nonterminal's
+// name and arity are labeled, so the entry exports name/arity, the name of the nonterminal's unit.
 predicateIndicator
-    : atom ('/' | '//') integer
+    : atom '/' integer
+    | what = atom '//' arity = integer
     ;
 
 // canon: a plunit test, a clause of test/1 or test/2, named by the test's name, its first argument.
@@ -92,11 +94,17 @@ testClause
     : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) 'test' '(' what = term (',' term)? ')' (':-' termlist)? '.' # test
     ;
 
-// canon: a declaration of one predicate, as :- dynamic foo/1, is a clause of the predicate it
-// declares, so the comment above it documents the predicate, as PlDoc reads it, and the clauses that
-// follow it belong to the same unit.
+// canon: a declaration of predicates, as :- dynamic foo/1, is a clause of the first predicate it
+// declares, so the comment above it documents that predicate, as PlDoc reads it, and the clauses
+// that follow it belong to the same unit. Several predicates may be declared at once, as
+// :- dynamic a/1, b/2 or :- dynamic [a/1, b/2], and a declared predicate may be module-qualified.
 declaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) ':-' declarationKeyword (what = atom '/' arity = integer | '(' what = atom '/' arity = integer ')') '.' # predicate
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) ':-' declarationKeyword (declaredPredicates | '(' declaredPredicates ')' | '[' declaredPredicates ']') '.' # predicate
+    ;
+
+// canon: the predicates of a declaration; the first names the declaration's unit.
+declaredPredicates
+    : (atom ':')? what = atom '/' arity = integer (',' (atom ':')? atom '/' integer)*
     ;
 
 // canon: the keywords of a predicate declaration.
@@ -110,14 +118,21 @@ declarationKeyword
 // canon: a clause whose head is an atom or a compound term, a fact or a rule. Its unit is named by
 // the head's name and the number of its arguments, name/arity, as Prolog names a predicate, and
 // adjacent clauses with one name and arity are one unit, unless a canonical comment above a later
-// clause starts a unit of its own.
+// clause starts a unit of its own. A head may be qualified by its module, as user:portray(X) is,
+// and is still named by its own name.
 predicateClause
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = atom ('(' arity = termlist ')' | arity = noArguments) (':-' termlist)? '.' # predicate
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (atom ':')? what = atom (arity = arguments | arity = noArguments) (':-' termlist)? '.' # predicate
     ;
 
 // canon: a DCG rule, a unit of kind nonterminal named by its head's name and written arity.
 nonterminalClause
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = atom ('(' arity = termlist ')' | arity = noArguments) (',' term)? '-->' termlist '.' # nonterminal
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (atom ':')? what = atom (arity = arguments | arity = noArguments) (',' term)? '-->' termlist '.' # nonterminal
+    ;
+
+// canon: the bracketed arguments of a head, whose arity is the number of its arguments, so a head
+// whose one argument is a number, as foo(2) is, has arity one.
+arguments
+    : '(' termlist ')'
     ;
 
 // canon: the arguments of a head without any, so that a head without arguments has arity zero.

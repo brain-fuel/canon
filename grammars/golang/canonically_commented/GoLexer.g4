@@ -185,11 +185,11 @@ INTERPRETED_STRING_LIT : '"' (~["\\] | ESCAPED_VALUE)* '"' -> mode(NLSEMI);
 // Hidden tokens
 
 WS           : [ \t]+        -> channel(HIDDEN);
-// canon: a comment where a doc comment may stand opens one; a directive such as //go:generate or
-// //nolint:errcheck stays a plain comment by the longest match, as go/doc leaves it out.
+// canon: a comment where a doc comment may stand opens one; a directive such as //go:generate,
+// //nolint, //line, or // +build stays a plain comment by the longest match, as go/doc leaves it out.
 DOC_OPEN       : {this.isDocPosition()}? '//' -> pushMode(DocLine);
 DOC_BLOCK_OPEN : {this.isDocPosition()}? '/*' -> pushMode(DocBlock);
-DIRECTIVE      : '//' [a-z0-9]+ ':' [a-z0-9] ~[\r\n]* -> channel(HIDDEN);
+DIRECTIVE      : '//' ([a-z0-9]+ ':' [a-z0-9] | 'nolint' | ('line' | 'extern' | 'export') [ \t] | ' +build') ~[\r\n]* -> channel(HIDDEN);
 COMMENT        : {!this.isDocPosition()}? '/*' .*? '*/' -> channel(HIDDEN);
 TERMINATOR     : [\r\n]+       -> channel(HIDDEN);
 LINE_COMMENT   : {!this.isDocPosition()}? '//' ~[\r\n]* -> channel(HIDDEN);
@@ -239,11 +239,12 @@ EOS: ([\r\n]+ | ';' | '/*' .*? '*/' | EOF) -> mode(DEFAULT_MODE);
 OTHER: -> mode(DEFAULT_MODE), channel(HIDDEN);
 
 // canon: a line doc comment. A following line that starts with // continues it, so a comment of
-// several lines is one canonical comment; a directive line among them is left out of the prose, as
-// go/doc leaves it out; any other line break ends it.
+// several lines is one canonical comment; a directive line among them, such as //go:generate,
+// //nolint, or // +build, is left out of its tokens and of its Why, as go/doc leaves it out; any
+// other line break ends it.
 mode DocLine;
 
-DOC_DIRECTIVE : ('\r'? '\n' | '\r') [ \t]* '//' [a-z0-9]+ ':' [a-z0-9] ~[\r\n]* -> skip;
+DOC_DIRECTIVE : ('\r'? '\n' | '\r') [ \t]* '//' ([a-z0-9]+ ':' [a-z0-9] | 'nolint' | ('line' | 'extern' | 'export') [ \t] | ' +build') ~[\r\n]* -> skip;
 DOC_CONTINUE  : ('\r'? '\n' | '\r') [ \t]* '//' -> skip;
 DOC_CLOSE     : ('\r'? '\n' | '\r') -> popMode, channel(HIDDEN);
 DOC_REF       : 'ref:' DocKey;

@@ -39,6 +39,7 @@ tests =
     , testProperty "the Clojure profile binds comments above definitions and recognises tests" prop_theClojureProfileBindsCommentsAboveDefinitionsAndRecognisesTests
     , testProperty "the Clojure dialect parses every file of the hiccup sample with its docstrings" prop_theClojureDialectParsesEveryFileOfTheHiccupSampleWithItsDocstrings
     , testProperty "the Clojure dialect binds docstrings to definitions, requires them on public API, and reports misplaced ones" prop_theClojureDialectBindsDocstringsToDefinitionsRequiresThemOnPublicApiAndReportsMisplacedOnes
+    , testProperty "the Clojure dialect reads library definition macros and defmethods as units and comment forms as none" prop_theClojureDialectReadsLibraryDefinitionMacrosAndDefmethodsAsUnitsAndCommentFormsAsNone
     ]
 
 sampleDir :: FilePath
@@ -161,8 +162,8 @@ prop_theClojureDialectParsesEveryFileOfTheHiccupSampleWithItsDocstrings = withTe
   let models = [model | (_, Extraction model _) <- extracted]
       kinds = [k | model <- models, (k, _) <- unitsOf model]
       count k = length (filter (== k) kinds)
-  map count ["function", "macro", "multimethod", "protocol", "method", "record", "type", "var", "deftest"] === [57, 11, 2, 4, 4, 0, 1, 9, 64]
-  sum (map (length . modelDecisions) models) === 60
+  map count ["function", "macro", "multimethod", "protocol", "method", "record", "type", "var", "deftest", "def"] === [57, 11, 2, 4, 14, 0, 1, 9, 64, 27]
+  sum (map (length . modelDecisions) models) === 81
   length [() | (_, Extraction _ findings) <- extracted, OrphanDocComment _ _ <- findings] === 0
   length [() | model <- models, u <- modelAllUnits model, unitTest u] === 64
   length [() | model <- models, MissingCanonicalComment _ _ <- checkModel emptyRegistry emptyLedger model] === 73
@@ -246,3 +247,54 @@ prop_theClojureDialectBindsDocstringsToDefinitionsRequiresThemOnPublicApiAndRepo
         , "clojure/shapes.clj/protocol/Scalable/method/reset"
         , "clojure/shapes.clj/deftest/uncommented-test"
         ]
+
+-- | A library's own definition macro, such as hiccup's defelem, defines a name as defn does, and a
+-- defmethod defines the method of a multimethod for a dispatch value, so each is a unit; a call of
+-- default or a Leiningen defproject defines nothing, and nothing in a (comment ...) form is
+-- evaluated, so a definition there is no unit. A docstring's citations are the Why's references.
+-- ref:REQ-clojure-support ref:DEC-clojure-dialect
+prop_theClojureDialectReadsLibraryDefinitionMacrosAndDefmethodsAsUnitsAndCommentFormsAsNone :: Property
+prop_theClojureDialectReadsLibraryDefinitionMacrosAndDefmethodsAsUnitsAndCommentFormsAsNone = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "elements.clj"
+      ( T.unlines
+          [ "(ns elements)"
+          , ""
+          , "(defelem link-to"
+          , "  \"Wraps content in a link. ref:REQ-links\""
+          , "  [url & content]"
+          , "  [:a {:href url} content])"
+          , ""
+          , "(defhtml page [body] [:html body])"
+          , ""
+          , "(defonce state \"A string value, not a docstring.\")"
+          , ""
+          , "(defmulti render :kind)"
+          , ""
+          , "(defmethod render :circle [s] s)"
+          , ""
+          , "(defmethod render \"square\" [s] s)"
+          , ""
+          , "(default-options {:a 1})"
+          , ""
+          , "(defproject sample \"1.0.0\" :dependencies [])"
+          , ""
+          , "(comment"
+          , "  (defn scratch [] 1)"
+          , "  (let [x 1] (def inner x)))"
+          ]
+      )
+  unitsOf model
+    === [ ("def", "link-to")
+        , ("def", "page")
+        , ("def", "state")
+        , ("multimethod", "render")
+        , ("method", "render.:circle")
+        , ("method", "render.\"square\"")
+        ]
+  [(renderUnitId u, whyText (answerValue (decisionWhy d)), whyReferences (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+    === [("clojure/elements.clj/def/link-to", "Wraps content in a link. ref:REQ-links", [ReferenceKey "REQ-links"])]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["clojure/elements.clj/multimethod/render"]

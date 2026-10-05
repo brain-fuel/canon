@@ -14,7 +14,7 @@ module Canon.CanonicalComment
 
 import Canon.Model.Answer (Why (..))
 import Canon.Model.Id (ReferenceKey (..), isReferenceKey)
-import Data.Char (isAlpha)
+import Data.Char (isAlpha, isAsciiLower, isDigit)
 import Data.List (nub)
 import Data.Maybe (mapMaybe)
 import Data.Text (Text)
@@ -38,7 +38,7 @@ data CanonicalComment = CanonicalComment
 -- ref:DEC-hcl-grammar ref:DEC-pulumi-yaml-grammar
 docCommentBody :: Text -> Text
 docCommentBody raw
-  | plainOpener (T.stripStart raw) = T.strip (T.intercalate "\n" (map stripPlainLine (T.lines raw)))
+  | plainOpener (T.stripStart raw) = T.strip (T.intercalate "\n" (map stripPlainLine (filter (not . isDirective) (T.lines raw))))
   | otherwise = T.strip (T.intercalate "\n" (map stripLineMarker (T.lines (stripDelimiters raw))))
   where
     stripDelimiters t = foldr dropSuffix (foldr dropPrefix (T.strip t) ["/*", "/**", "/*!", "{-|", "--|", "-- |", "#|", "# |"]) ["*/", "-}"]
@@ -53,6 +53,14 @@ docCommentBody raw
       | Just rest <- T.stripPrefix "#" trimmed = maybe rest id (T.stripPrefix "|" (T.stripStart rest))
       | Just rest <- T.stripPrefix "%" trimmed = T.dropWhile (`elem` ("%!" :: String)) rest
       | otherwise = maybe trimmed id (T.stripPrefix "*" trimmed)
+    -- A tool directive among // lines, such as //go:generate, //nolint, or // +build, is no prose,
+    -- as go/doc leaves it out of a doc comment. ref:DEC-go-dialect ref:go-doc-comments
+    isDirective line = case T.stripPrefix "//" (T.stripStart line) of
+      Just rest ->
+        let (word, after) = T.span (\c -> isAsciiLower c || isDigit c) rest
+         in any (`T.isPrefixOf` rest) ["line ", "extern ", "export ", "nolint", " +build"]
+              || (not (T.null word) && maybe False (\(c, more) -> c == ':' && maybe False (\(d, _) -> isAsciiLower d || isDigit d) (T.uncons more)) (T.uncons after))
+      Nothing -> False
     plainOpener t = "#" `T.isPrefixOf` t || "//" `T.isPrefixOf` t || ("/*" `T.isPrefixOf` t && not ("/**" `T.isPrefixOf` t))
     stripPlainLine line =
       let trimmed = T.strip line
