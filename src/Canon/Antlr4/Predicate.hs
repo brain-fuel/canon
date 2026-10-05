@@ -14,7 +14,8 @@ import Canon.Antlr4.Predicate.Groovy (groovyPredicates)
 import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token (..))
-import Data.Char (isAlpha, isUpper)
+import Canon.Span (Position (..))
+import Data.Char (isAlpha, isAlphaNum, isUpper)
 import Data.Maybe (listToMaybe)
 import qualified Data.List.NonEmpty as NonEmpty
 import Data.Text (Text)
@@ -56,20 +57,44 @@ csharpPredicates predicate toks from at
       Just (c, _) -> isAlpha c || c == '_' || c == '@'
       Nothing -> False
 
--- | JavaScriptParserBase's and TypeScriptParserBase's token-text predicates: n("x") holds when the
--- next token reads x and p("x") when the one just read does, so a getter, a setter, and a static
--- member are told from a member named get, set, or static. The line-terminator predicates would need
--- the hidden tokens, which the hook is not given, so they hold. ref:DEC-javascript-dialect
+-- | JavaScriptParserBase's and TypeScriptParserBase's predicates. n("x") holds when the next token
+-- reads x and p("x") when the one just read does, so a getter, a setter, and a static member are
+-- told from a member named get, set, or static. lineTerminatorAhead holds when the token just read
+-- and the next one are on different lines, which is where the base class finds a line terminator
+-- among the hidden tokens between them, and notLineTerminator when they are on one line; closeBrace
+-- holds when the next token is a closing brace, and notOpenBraceAndNotFunction, with its
+-- TypeScript form that adds interface, when the next token opens no block, function, or interface.
+-- propertyAhead, which only the dialects ask, holds when a name and a colon follow, as a property of
+-- an object literal starts, so a doc comment before one is read as an orphan there and not taken by
+-- a path that reads the braces as a block. A doc comment is not code, so these look past it to the
+-- code on either side. ref:DEC-javascript-dialect ref:DEC-stray-comments
 javaScriptPredicates :: PredicateHook
 javaScriptPredicates predicate toks _ at
   | Just word <- argumentOf "n" = textAt at == Just word
   | Just word <- argumentOf "p" = textAt (at - 1) == Just word
+  | "notLineTerminator" `T.isInfixOf` predicate = not lineBreak
+  | "lineTerminatorAhead" `T.isInfixOf` predicate = lineBreak
+  | "closeBrace" `T.isInfixOf` predicate = codeText == Just "}"
+  | "notOpenBraceAndNotFunctionAndNotInterface" `T.isInfixOf` predicate = codeText `notElem` map Just ["{", "function", "interface"]
+  | "notOpenBraceAndNotFunction" `T.isInfixOf` predicate = codeText `notElem` map Just ["{", "function"]
+  | "propertyAhead" `T.isInfixOf` predicate = propertyAhead
   | otherwise = True
   where
     argumentOf method = case T.breakOn ("." <> method <> "(\"") predicate of
       (_, rest) | not (T.null rest) -> Just (T.takeWhile (/= '"') (T.drop (T.length method + 3) rest))
       _ -> Nothing
     textAt i = tokenText <$> toks BV.!? i
+    isDoc t = let ty = nameText (tokenType t) in "DOC_" `T.isPrefixOf` ty || "FILE_DOC_" `T.isPrefixOf` ty
+    code = until (\i -> maybe True (not . isDoc) (toks BV.!? i)) (+ 1) at
+    codeText = textAt code
+    previous = until (\i -> i < 0 || maybe True (not . isDoc) (toks BV.!? i)) (subtract 1) (at - 1)
+    lineBreak = case (toks BV.!? previous, toks BV.!? code) of
+      (Just before, Just after) -> endLine before < positionLine (tokenPosition after)
+      _ -> False
+    endLine t = positionLine (tokenPosition t) + T.count "\n" (tokenText t)
+    propertyAhead = case (toks BV.!? code, toks BV.!? (code + 1)) of
+      (Just name, Just colon) -> tokenText colon == ":" && maybe False (\(c, _) -> isAlphaNum c || c `elem` ("_$'\"" :: String)) (T.uncons (tokenText name))
+      _ -> False
 
 -- | The predicates the canonically commented Go grammar adds to GoParserBase; upstream's own, such
 -- as isOperand, still hold. isExported holds when the next token is an identifier with an upper-case

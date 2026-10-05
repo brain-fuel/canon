@@ -40,6 +40,13 @@ channels {
     ERROR
 }
 
+// canon: the quotes and the name of an ambient module, as in declare module 'foo', which the
+// AfterModule mode reads so the module is named without its quotes.
+tokens {
+    MODULE_QUOTE,
+    MODULE_NAME
+}
+
 options {
     superClass = TypeScriptLexerBase;
 }
@@ -50,6 +57,8 @@ options {
 // stars. The first /** of a file, before any code, opens FILE_DOC_OPEN instead, in a mode that also
 // tells the file tags apart and marks a blank line after the comment, so the parser can tell a
 // file's Why from the Why of the declaration below it.
+// canon: a hashbang line, which only the first line of a file may hold, as in the JavaScript grammar.
+HashBangLine      : {this.IsStartOfFile()}? '#!' ~[\r\n\u2028\u2029]*;
 FILE_DOC_OPEN     : {this.IsStartOfFile()}? '/**' -> pushMode(FileDocBlock);
 DOC_BLOCK_OPEN    : '/**' -> pushMode(DocBlock);
 MultiLineComment  : '/*' (~'*' .*? | '**' .*? | '*')? '*/' -> channel(HIDDEN);
@@ -226,7 +235,7 @@ TypeAlias: 'type';
 Constructor : 'constructor';
 Namespace   : 'namespace';
 Require     : 'require';
-Module      : 'module';
+Module      : 'module' -> pushMode(AfterModule); // canon: a quoted name may follow
 Declare     : 'declare';
 
 Abstract: 'abstract';
@@ -360,3 +369,16 @@ FILE_DOC_AFTER    : -> popMode, skip;
 
 fragment DocLineEnd : '\r'? '\n' | '\r' | [\u2028\u2029];
 fragment DocKey     : [A-Za-z0-9] ([A-Za-z0-9._-]* [A-Za-z0-9])?;
+
+// canon: what follows the module keyword: a quoted name, read as MODULE_QUOTE, MODULE_NAME, and
+// MODULE_QUOTE, or anything else, which is left to the default mode.
+mode AfterModule;
+
+MODULE_WS         : [ \t]+ -> channel(HIDDEN);
+MODULE_OPEN       : ['"] -> type(MODULE_QUOTE), mode(ModuleName);
+MODULE_OTHER      : -> popMode, skip;
+
+mode ModuleName;
+
+MODULE_TEXT       : ~['"\r\n]+ -> type(MODULE_NAME);
+MODULE_CLOSE      : ['"] -> type(MODULE_QUOTE), popMode;

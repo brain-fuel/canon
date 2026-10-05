@@ -130,8 +130,8 @@ strayWindow :: Int
 strayWindow = 3
 
 -- | Parses the tokens, and where the parse fails at a stray comment, or within strayWindow tokens
--- after one, parses again without it and adds it to the root as an orphan, for as long as each
--- round moves the failure forward. A doc comment may stand between any two tokens, as inside an
+-- after one, parses again without it and adds it to the root as an orphan, for as long as no
+-- round moves the failure back. A doc comment may stand between any two tokens, as inside an
 -- expression, and no grammar can accept it everywhere without reading every expression
 -- differently, so one the grammar does not accept where it stands documents nothing. A failure no
 -- stray comment explains is reported where the parse stopped before the round that did not move
@@ -148,15 +148,16 @@ parseWithStrayComments hook grammar start toks = case parseVisibleTokensWith hoo
     openers = Set.fromList [t | r <- strays, Just rule <- [lookupRule r plain], t <- Set.toList (tokenReferences rule)]
     -- Each round drops one comment, so a file is parsed at most once more than it holds stray
     -- comments, and a syntax error with none at it costs one parse beyond the first.
-    -- A round that drops a comment must move the failure forward, or the comment was not what
-    -- stopped the parse and the failure is reported where it is.
+    -- A round that drops a comment must not move the failure back, or the comment was not what
+    -- stopped the parse and the failure is reported where it is; it may leave the failure at the
+    -- same token, as when two stray comments stand side by side before it.
     recover budget current found failure@(ParseFailure f _) = case strayAt current f of
       Just (k, e, comment) | budget > 0 -> do
         let rest = take k current ++ drop e current
         case parseVisibleTokensWith hook grammar start rest of
           Right tree -> Right (withOrphans (comment : found) tree)
           Left (ParseNoParse next)
-            | reached next > reached failure -> recover (budget - 1) rest (comment : found) next
+            | reached next >= reached failure -> recover (budget - 1) rest (comment : found) next
             | otherwise -> Left (ParseNoParse failure)
           Left other -> Left other
       _ -> Left (ParseNoParse failure)

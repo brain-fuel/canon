@@ -116,13 +116,18 @@ grammar above with JSDoc comments as canonical comments, recorded as
   decorate a line, and reads a block tag such as `@param` as a word. A plain
   comment may not start with two stars, so `/**/` and `/***` stay plain by
   the longest match.
-- The first `/**` of a file, before any code, opens `FILE_DOC_OPEN` through
-  the base lexer's `IsStartOfFile` predicate, in the `FileDocBlock` mode,
-  which reads `@file`, `@fileoverview`, `@overview`, `@module`, `@license`,
-  and `@packageDocumentation` as `DOC_FILE_TAG`; the `FileDocAfter` mode
-  marks a blank line below it with `DOC_BLANK_LINE`. `program` makes it the
-  file's Why when it holds a file tag or a blank line or an import follows
-  it, and otherwise it documents the declaration below.
+- The first `/**` of a file, before any code but a hashbang line, opens
+  `FILE_DOC_OPEN` through the base lexer's `IsStartOfFile` predicate, in the
+  `FileDocBlock` mode, which reads `@file`, `@fileoverview`, `@overview`,
+  `@module`, `@license`, and `@packageDocumentation` as `DOC_FILE_TAG`; the
+  `FileDocAfter` mode marks a blank line below it with `DOC_BLANK_LINE`.
+  `program` makes it the file's Why when it holds a file tag or a blank line
+  or an import follows it, and otherwise it documents the declaration below.
+- The lexer hook, `Canon.Antlr4.Lex.JavaScript`, hides a doc comment whose
+  first word is `@type` or `@satisfies`: it is a type cast or a type
+  annotation, which TypeScript's checker reads as a type, not documentation,
+  so it is neither a Why nor an orphan wherever it stands, above a local
+  binding included.
 - `canonicalComment`, `fileComment`, `taggedFileComment`, and `docPart` are
   the comment rules, and `moduleItem` reads a statement at the top of a
   module, where a variable statement is a unit.
@@ -133,10 +138,41 @@ grammar above with JSDoc comments as canonical comments, recorded as
   `# export`. An accessor is named by `get` or `set` and its property, a
   variable statement by its first binding, and `export default` by `default`.
   Of several doc comments in a row the last binds.
+- An object literal that an exported binding or `export default` holds
+  directly is a `memberObject`: its properties, methods, and accessors are
+  units, `# property`, `# method`, and `# accessor`, and a property whose
+  value is such an object literal holds units of its own. It is labeled
+  `inherited`, so what the module exports requires a comment down to these
+  members. The properties of any other object literal are no units.
 - `export` is part of the declaration it exports and is labeled `required`; a
   class's tail is labeled `inherited`, and a `#private` name `optional`.
-- A doc comment before any other statement, a parameter, an argument, a
-  property of an object literal, or a case, after the last statement or
-  member of a body or file, or inside an expression, as a `@type` cast is, is
-  an `orphan`. A named function expression is an expression and no unit, and
-  `exportStatement` keeps only lists of exports and `export default`.
+- A doc comment after the last statement or member of a body or file, before
+  or after the last property of an object literal, before a case, or before a
+  list of exports, is an `orphan` the grammar reads; before a property it is
+  read only when the predicate `propertyAhead`, which canon's parser hook
+  answers, sees a name and a colon after it, so a path that reads a block's
+  braces as an object literal does not take it. Anywhere else the grammar
+  does not take one, as above a statement that declares nothing, a local
+  binding included, inside an expression, before an argument, or before a
+  parameter, the parser's `strayComment` option reads the file without it and
+  reports it as an orphan (`DEC-stray-comments`). A named function expression
+  is an expression and no unit, and `exportStatement` keeps only lists of
+  exports and `export default`.
+- `JavaScriptParserBase`'s predicates are answered by canon's parser hook:
+  `n` and `p` compare the next or previous token's text, and
+  `lineTerminatorAhead`, `notLineTerminator`, `closeBrace`, and
+  `notOpenBraceAndNotFunction` compare the lines of the code tokens on either
+  side, so a statement without a semicolon ends at a line break, as automatic
+  semicolon insertion ends it, in the plain grammar and in the dialect.
+
+Known limitations:
+
+- A destructuring statement at the top of a module, as
+  `export const {a, b} = o`, is one unit named by its pattern, `{a,b}`,
+  because its one comment documents all its bindings together.
+- `strayComment` finds a stray doc comment where the parse fails at it or a
+  few tokens after it; a fuzz that put a doc comment before every token of a
+  broad JavaScript file, and of the chalk sample's sources, on the line of the
+  code and on a line of its own, found no position where the parse fails but
+  inside a token or where the code itself no longer parses, as `throw` with a
+  line break after it.

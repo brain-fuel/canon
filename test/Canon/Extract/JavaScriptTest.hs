@@ -4,7 +4,7 @@
 -- ref:DEC-more-languages ref:DEC-javascript-dialect ref:REQ-javascript-support
 module Canon.Extract.JavaScriptTest (tests) where
 
-import Canon.Antlr4.Interpret (renderInterpretError)
+import Canon.Antlr4.Interpret (interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
 import Canon.Decisions (emptyLedger)
@@ -15,8 +15,9 @@ import Canon.Model.Check (checkModel)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
+import Canon.Span (Position (..), Span (..))
 import Canon.Walk (Walked (..), walkProject)
-import Data.List (isSuffixOf, stripPrefix)
+import Data.List (isSuffixOf, sort, stripPrefix)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Maybe (fromMaybe)
@@ -37,6 +38,10 @@ tests =
     , testProperty "the JavaScript dialect parses the chalk sample with its doc comments" prop_theJavaScriptDialectParsesTheChalkSampleWithItsDocComments
     , testProperty "the JavaScript dialect binds JSDoc to declarations and reports misplaced ones" prop_theJavaScriptDialectBindsJsDocToDeclarationsAndReportsMisplacedOnes
     , testProperty "the first JSDoc comment of a file is the file's Why only when it says so" prop_theFirstJsDocCommentOfAFileIsTheFilesWhyOnlyWhenItSaysSo
+    , testProperty "a JSDoc comment anywhere never fails the parse and is an orphan unless it is a type annotation" prop_aJsDocCommentAnywhereNeverFailsTheParseAndIsAnOrphanUnlessItIsATypeAnnotation
+    , testProperty "the properties of an exported object literal are units that inherit its requirement" prop_thePropertiesOfAnExportedObjectLiteralAreUnitsThatInheritItsRequirement
+    , testProperty "the first JSDoc comment below a hashbang line can be the file's Why" prop_theFirstJsDocCommentBelowAHashbangLineCanBeTheFilesWhy
+    , testProperty "a line break between two tokens ends a statement where JavaScript inserts a semicolon" prop_aLineBreakBetweenTwoTokensEndsAStatementWhereJavaScriptInsertsASemicolon
     ]
 
 sampleDir :: FilePath
@@ -127,7 +132,8 @@ prop_theJavaScriptDialectParsesTheChalkSampleWithItsDocComments = withTests 1 $ 
 
 -- | In the dialect the grammar says where a JSDoc comment binds: to the function, class, member,
 -- module-level binding, or export default below it, as JSDoc reads it; one before any other
--- statement, inside an expression, or after the last member binds to nothing and is reported. What
+-- statement or after the last member binds to nothing and is reported, and a @type cast is no
+-- documentation and is neither. What
 -- a module exports requires one, the members of an exported class included, and a #private member
 -- never does. ref:REQ-javascript-support ref:DEC-javascript-dialect
 prop_theJavaScriptDialectBindsJsDocToDeclarationsAndReportsMisplacedOnes :: Property
@@ -180,7 +186,8 @@ prop_theJavaScriptDialectBindsJsDocToDeclarationsAndReportsMisplacedOnes = withT
         , ("javascript/lib.js/variable/LIMIT", "A limit.")
         , ("javascript/lib.js/export/default", "The default export.")
         ]
-  length [() | OrphanDocComment _ _ <- findings] === 3
+  -- The @type cast is a type annotation, not documentation, so only the other two are orphans.
+  length [() | OrphanDocComment _ _ <- findings] === 2
   [(renderUnitId (unitId u), unitRequirement u == Required) | u <- unitsOf model]
     === [ ("javascript/lib.js/function/double", True)
         , ("javascript/lib.js/function/helper", False)
@@ -194,12 +201,14 @@ prop_theJavaScriptDialectBindsJsDocToDeclarationsAndReportsMisplacedOnes = withT
         , ("javascript/lib.js/variable/local", False)
         , ("javascript/lib.js/variable/arrow", True)
         , ("javascript/lib.js/export/default", True)
+        , ("javascript/lib.js/export/default/property/LIMIT", True)
         ]
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === [ "javascript/lib.js/class/Shape/accessor/get-size"
         , "javascript/lib.js/class/Shape/accessor/set-size"
         , "javascript/lib.js/class/Shape/method/make"
         , "javascript/lib.js/variable/arrow"
+        , "javascript/lib.js/export/default/property/LIMIT"
         ]
 
 -- | A file's first JSDoc comment documents the file when JSDoc says it does, with @file, @module, or
@@ -222,3 +231,109 @@ prop_theFirstJsDocCommentOfAFileIsTheFilesWhyOnlyWhenItSaysSo = withTests 1 $ pr
   aboveImports === ["javascript/lib.js"]
   aboveDeclaration <- whysOf ["/** The function. */", "export function f() {}"]
   aboveDeclaration === ["javascript/lib.js/function/f"]
+
+-- | A JSDoc comment may stand between any two tokens, so one the grammar does not take, as after an
+-- argument, before a property, or before a semicolon, must not fail the parse: it documents nothing and is reported as
+-- an orphan, as one above a local binding is. A comment that starts with @type or @satisfies is a
+-- type annotation that TypeScript reads as a type, not documentation, so it is neither a Why nor an
+-- orphan. ref:REQ-javascript-support ref:DEC-javascript-dialect ref:DEC-stray-comments
+prop_aJsDocCommentAnywhereNeverFailsTheParseAndIsAnOrphanUnlessItIsATypeAnnotation :: Property
+prop_aJsDocCommentAnywhereNeverFailsTheParseAndIsAnOrphanUnlessItIsATypeAnnotation = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "lib.js"
+      ( T.unlines
+          [ "/** Applies f. */"
+          , "export function apply(a, b) {"
+          , "  /** Above a local, so an orphan. */"
+          , "  const x = /** @type {number} */ (a);"
+          , "  /** @type {string} */"
+          , "  const y = b;"
+          , "  g(a /** After an argument, so an orphan. */, b);"
+          , "  h(/** Before an argument, so an orphan. */ a);"
+          , "  k({inner: {/** Before a property, so an orphan. */ value: a}});"
+          , "  const o = {k: /** @satisfies {Shape} */ ({})};"
+          , "  return x /** Before a semicolon, so an orphan. */;"
+          , "}"
+          ]
+      )
+  sort [line | OrphanDocComment _ sp <- findings, let line = positionLine (spanStart sp)] === [3, 7, 8, 9, 11]
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)] === ["javascript/lib.js/function/apply"]
+
+-- | What a module exports is its API, and a module often exports an object literal of settings or
+-- functions, so the properties, methods, and accessors of an object literal that an exported binding
+-- or export default holds directly are units, nested object literals included, and require a comment
+-- as the export does; those of an object literal that is not exported, or that is part of a larger
+-- expression, are no units. ref:REQ-javascript-support ref:DEC-javascript-dialect
+prop_thePropertiesOfAnExportedObjectLiteralAreUnitsThatInheritItsRequirement :: Property
+prop_thePropertiesOfAnExportedObjectLiteralAreUnitsThatInheritItsRequirement = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "lib.js"
+      ( T.unlines
+          [ "/** The defaults. */"
+          , "export const defaults = {"
+          , "  /** The retry count. */"
+          , "  retries: 2,"
+          , "  nested: {"
+          , "    /** Deep. */"
+          , "    depth: 1,"
+          , "  },"
+          , "  run() {},"
+          , "  get size() { return 1; },"
+          , "  ...base,"
+          , "};"
+          , "const local = {a: 1};"
+          , "export const picked = {a: 1}.a;"
+          , "export default {"
+          , "  /** The name. */"
+          , "  name: 'x',"
+          , "};"
+          ]
+      )
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  [(renderUnitId (unitId u), unitRequirement u == Required) | u <- unitsOf model]
+    === [ ("javascript/lib.js/variable/defaults", True)
+        , ("javascript/lib.js/variable/defaults/property/retries", True)
+        , ("javascript/lib.js/variable/defaults/property/nested", True)
+        , ("javascript/lib.js/variable/defaults/property/nested/property/depth", True)
+        , ("javascript/lib.js/variable/defaults/method/run", True)
+        , ("javascript/lib.js/variable/defaults/accessor/get-size", True)
+        , ("javascript/lib.js/variable/local", False)
+        , ("javascript/lib.js/variable/picked", True)
+        , ("javascript/lib.js/export/default", True)
+        , ("javascript/lib.js/export/default/property/name", True)
+        ]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === [ "javascript/lib.js/variable/defaults/property/nested"
+        , "javascript/lib.js/variable/defaults/method/run"
+        , "javascript/lib.js/variable/defaults/accessor/get-size"
+        , "javascript/lib.js/variable/picked"
+        , "javascript/lib.js/export/default"
+        ]
+
+-- | A script starts with a hashbang line, which is no code a comment documents, so the first JSDoc
+-- comment below it is still the first of the file and may be the file's Why.
+-- ref:REQ-javascript-support ref:DEC-javascript-dialect
+prop_theFirstJsDocCommentBelowAHashbangLineCanBeTheFilesWhy :: Property
+prop_theFirstJsDocCommentBelowAHashbangLineCanBeTheFilesWhy = withTests 1 $ property $ do
+  Extraction model findings <- extractText dialectProfile "cli.js" (T.unlines ["#!/usr/bin/env node", "/** @module cli */", "export function main() {}"])
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)] === ["javascript/cli.js"]
+
+-- | JavaScriptParserBase finds a line terminator among the hidden tokens between two tokens, which
+-- canon's predicate hook does not see; the hook tells it from the lines of the code tokens on either
+-- side, so a statement without a semicolon ends at a line break and not inside a line, and return
+-- followed by a line break returns nothing, in the plain grammar and in the dialect.
+-- ref:REQ-javascript-support ref:DEC-javascript-dialect ref:DEC-parser-predicates
+prop_aLineBreakBetweenTwoTokensEndsAStatementWhereJavaScriptInsertsASemicolon :: Property
+prop_aLineBreakBetweenTwoTokensEndsAStatementWhereJavaScriptInsertsASemicolon = withTests 1 $ property $ do
+  let grammars = [("grammars/javascript/JavaScriptLexer.g4", "grammars/javascript/JavaScriptParser.g4"), ("grammars/javascript/canonically_commented/JavaScriptLexer.g4", "grammars/javascript/canonically_commented/JavaScriptParser.g4")]
+  results <- mapM (\(lexer, parser) -> do
+    loaded <- evalIO (loadInterpreter lexer parser)
+    interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+    let parses source = either (const False) (const True) (interpretText interpreter (Name "program") "f.js" source)
+    pure (map parses ["let a = 1\nlet b = 2\n", "let a = 1 let b = 2\n", "function f() { return\n1 }\n", "a\n++b\n", "a ++ b\n"])) grammars
+  results === replicate 2 [True, False, True, True, False]

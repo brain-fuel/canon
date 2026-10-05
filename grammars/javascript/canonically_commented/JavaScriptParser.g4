@@ -42,9 +42,13 @@ parser grammar JavaScriptParser;
 
 // Insert here @header for C++ parser.
 
+// canon: a doc comment may stand between any two tokens; where the grammar does not accept one,
+// canon reads the file without it and reports it as an orphan, as the strayComment option says.
+// ref:DEC-stray-comments
 options {
     tokenVocab = JavaScriptLexer;
     superClass = JavaScriptParserBase;
+    strayComment = canonicalComment;
 }
 
 // canon: the first JSDoc comment of a file is the file's Why when a blank line or an import follows
@@ -61,7 +65,8 @@ program
 // canon: a statement at the top of a module, where a variable statement declares a binding the
 // module may export, as a function or class declaration does anywhere.
 moduleItem
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? varModifier what = assignable ('=' singleExpression)? (
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = Export varModifier what = identifier '=' inherited = memberObject eos # variable // canon: an exported object literal's properties are units
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? varModifier what = assignable ('=' singleExpression)? (
         ',' variableDeclaration
     )* eos # variable
     | statement
@@ -72,28 +77,29 @@ sourceElement
     ;
 
 // canon: function and class declarations come first, so a JSDoc comment above one binds to it; a
-// JSDoc comment above any other statement binds to nothing.
+// JSDoc comment above any other statement, as anywhere else the grammar does not take one, is a
+// stray comment and an orphan.
 statement
     : functionDeclaration
     | classDeclaration
-    | (orphan = canonicalComment)* block
-    | (orphan = canonicalComment)* variableStatement
-    | (orphan = canonicalComment)* importStatement
+    | block
+    | variableStatement
+    | importStatement
     | exportStatement
-    | (orphan = canonicalComment)* emptyStatement_
-    | (orphan = canonicalComment)* expressionStatement
-    | (orphan = canonicalComment)* ifStatement
-    | (orphan = canonicalComment)* iterationStatement
-    | (orphan = canonicalComment)* continueStatement
-    | (orphan = canonicalComment)* breakStatement
-    | (orphan = canonicalComment)* returnStatement
-    | (orphan = canonicalComment)* yieldStatement
-    | (orphan = canonicalComment)* withStatement
-    | (orphan = canonicalComment)* labelledStatement
-    | (orphan = canonicalComment)* switchStatement
-    | (orphan = canonicalComment)* throwStatement
-    | (orphan = canonicalComment)* tryStatement
-    | (orphan = canonicalComment)* debuggerStatement
+    | emptyStatement_
+    | expressionStatement
+    | ifStatement
+    | iterationStatement
+    | continueStatement
+    | breakStatement
+    | returnStatement
+    | yieldStatement
+    | withStatement
+    | labelledStatement
+    | switchStatement
+    | throwStatement
+    | tryStatement
+    | debuggerStatement
     ;
 
 // canon: a JSDoc comment after the last statement of a block binds to nothing.
@@ -155,7 +161,8 @@ aliasName
 // moduleItem, functionDeclaration, and classDeclaration; a JSDoc comment above a list of exports
 // binds to nothing.
 exportStatement
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = Export what = Default singleExpression eos # export
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = Export what = Default inherited = memberObject eos # export // canon: an exported object literal's properties are units
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = Export what = Default singleExpression eos # export
     | (orphan = canonicalComment)* Export exportFromBlock eos # ExportDeclaration
     ;
 
@@ -308,7 +315,7 @@ classElement
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (Static | {this.n("static")}? identifier)? methodDefinition # method
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (Static | {this.n("static")}? identifier)? fieldDefinition # field
     | (orphan = canonicalComment)* (Static | {this.n("static")}? identifier) block
-    | (orphan = canonicalComment)* emptyStatement_
+    | emptyStatement_
     ;
 
 methodDefinition
@@ -342,13 +349,12 @@ formalParameterList
     | lastFormalParameterArg
     ;
 
-// canon: a JSDoc comment before a parameter, as an inline type, binds to nothing.
 formalParameterArg
-    : (orphan = canonicalComment)* assignable ('=' singleExpression)? // ECMAScript 6: Initialization
+    : assignable ('=' singleExpression)? // ECMAScript 6: Initialization
     ;
 
 lastFormalParameterArg // ECMAScript 6: Rest Parameter
-    : (orphan = canonicalComment)* Ellipsis singleExpression
+    : Ellipsis singleExpression
     ;
 
 // canon: a JSDoc comment after the last statement of a body binds to nothing.
@@ -373,15 +379,14 @@ arrayElement
     : Ellipsis? singleExpression
     ;
 
-// canon: an object literal is an expression, so a JSDoc comment on one of its properties binds to
-// nothing.
 propertyAssignment
-    : (orphan = canonicalComment)* propertyName ':' singleExpression                                  # PropertyExpressionAssignment
-    | (orphan = canonicalComment)* '[' singleExpression ']' ':' singleExpression                      # ComputedPropertyExpressionAssignment
-    | (orphan = canonicalComment)* Async? '*'? propertyName '(' formalParameterList? ')' functionBody # FunctionProperty
-    | (orphan = canonicalComment)* getter '(' ')' functionBody                                        # PropertyGetter
-    | (orphan = canonicalComment)* setter '(' formalParameterArg ')' functionBody                     # PropertySetter
-    | (orphan = canonicalComment)* Ellipsis? singleExpression                                         # PropertyShorthand
+    : propertyName ':' singleExpression                                  # PropertyExpressionAssignment
+    | {this.propertyAhead()}? (orphan = canonicalComment)+ propertyName ':' singleExpression # PropertyExpressionAssignment // canon: a JSDoc comment before a property binds to nothing
+    | '[' singleExpression ']' ':' singleExpression                      # ComputedPropertyExpressionAssignment
+    | Async? '*'? propertyName '(' formalParameterList? ')' functionBody # FunctionProperty
+    | getter '(' ')' functionBody                                        # PropertyGetter
+    | setter '(' formalParameterArg ')' functionBody                     # PropertySetter
+    | Ellipsis? singleExpression                                         # PropertyShorthand
     ;
 
 propertyName
@@ -391,13 +396,12 @@ propertyName
     | '[' singleExpression ']'
     ;
 
-// canon: a JSDoc comment before the closing parenthesis binds to nothing.
 arguments
-    : '(' (argument (',' argument)* ','?)? (orphan = canonicalComment)* ')'
+    : '(' (argument (',' argument)* ','?)? ')'
     ;
 
 argument
-    : (orphan = canonicalComment)* Ellipsis? (singleExpression | identifier)
+    : Ellipsis? (singleExpression | identifier)
     ;
 
 expressionSequence
@@ -427,7 +431,6 @@ singleExpression
     | '~' singleExpression                                                 # BitNotExpression
     | '!' singleExpression                                                 # NotExpression
     | Await singleExpression                                               # AwaitExpression
-    | (orphan = canonicalComment) singleExpression                         # DocumentedExpression // canon: a JSDoc comment inside an expression, as a type cast, binds to nothing
     | <assoc = right> singleExpression '**' singleExpression               # PowerExpression
     | singleExpression ('*' | '/' | '%') singleExpression                  # MultiplicativeExpression
     | singleExpression ('+' | '-') singleExpression                        # AdditiveExpression
@@ -471,6 +474,26 @@ assignable
     | objectLiteral
     ;
 
+// canon: an object literal that an exported module-level binding or export default holds directly, whose
+// properties, methods, and accessors are units, as the members of a class are; a property whose
+// value is such an object literal holds units of its own. Its tail is labeled inherited where it
+// is used, so what the module exports requires a comment down to these members.
+memberObject
+    : '{' (memberProperty (',' memberProperty)* ','?)? (orphan = canonicalComment)* '}'
+    ;
+
+memberProperty
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = propertyName ':' inherited = memberObject # property
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = propertyName ':' singleExpression # property
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) Async? '*'? what = propertyName '(' formalParameterList? ')' how = functionBody # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = getter '(' ')' how = functionBody # accessor
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = setter '(' formalParameterArg ')' how = functionBody # accessor
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = identifier # property
+    | (orphan = canonicalComment)* Ellipsis singleExpression
+    ;
+
+// canon: any other object literal is an expression, so a JSDoc comment on one of its properties or
+// after the last binds to nothing.
 objectLiteral
     : '{' (propertyAssignment (',' propertyAssignment)* ','?)? (orphan = canonicalComment)* '}'
     ;

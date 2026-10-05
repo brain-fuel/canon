@@ -1033,16 +1033,25 @@ position. An accessor is named by `get` or `set` and its property, and
 `export default` by `default`. A file's first `/**` documents the file when
 it holds `@file`, `@fileoverview`, `@overview`, `@module`, `@license`, or
 `@packageDocumentation`, or when a blank line or an import follows it, and
-otherwise the declaration below it. A `/**` above any other statement, a local
-binding's included, inside an expression, as a `@type` cast is, or after the
-last member of a body is an orphan; `/**/` and `/***` are plain comments. The
-`export` keyword is part of the declaration it exports and is labeled
-`required`, the bodies of classes, interfaces, and enums, and an object type
-alone on the right of a type alias, are labeled `inherited`, and `private`,
-`protected`, and `#private` names are labeled `optional`, so what a module
-exports requires a comment, its members included. The parser hook answers
-`JavaScriptParserBase`'s `n` and `p` predicates, which tell a getter, a
-setter, or `static` from a member so named. On chalk the JavaScript dialect
+otherwise the declaration below it, a hashbang line above it changing
+nothing. A `/**` that starts with `@type` or `@satisfies` is a type cast or
+annotation and is hidden: neither a Why nor an orphan. Any other `/**` above
+another statement, a local binding's included, inside an expression or a
+type, or after the last member of a body is an orphan, through the grammar or
+through the parser's `strayComment` option, so none fails the parse; `/**/`
+and `/***` are plain comments. The properties, methods, and accessors of an
+object literal an exported binding or `export default` holds directly are
+units, and in TypeScript overload signatures and their implementation are one
+unit, merged as Elixir's clauses are, and an ambient module is named without
+quotes. The `export` keyword is part of the declaration it exports and is
+labeled `required`, the bodies of classes, interfaces, and enums, exported
+object literals, and the right side of a type alias are labeled `inherited`,
+and `private`, `protected`, and `#private` names are labeled `optional`, so
+what a module exports requires a comment, its members included. The parser
+hook answers `JavaScriptParserBase`'s `n` and `p` predicates, which tell a
+getter, a setter, or `static` from a member so named, and its line terminator
+predicates from the lines of the code tokens on either side, so a statement
+without a semicolon ends at a line break. On chalk the JavaScript dialect
 parses all 16 files with no orphan, and on ky the TypeScript dialect parses
 all 87, binding all 90 TSDoc comments, within the time the plain grammar takes.
 A sample checks through either by naming the dialect's `lexer` and `parser`

@@ -15,8 +15,9 @@ import Canon.Model.Check (checkModel)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
+import Canon.Span (Position (..), Span (..))
 import Canon.Walk (Walked (..), walkProject)
-import Data.List (isSuffixOf, stripPrefix)
+import Data.List (isSuffixOf, sort, stripPrefix)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Maybe (fromMaybe)
@@ -36,6 +37,10 @@ tests =
     , testProperty "the TypeScript profile binds TSDoc to the declaration below and treats test-directory units as tests" prop_theTypeScriptProfileBindsTsDocToTheDeclarationBelowAndTreatsTestDirectoryUnitsAsTests
     , testProperty "the TypeScript dialect parses the ky sample with its doc comments" prop_theTypeScriptDialectParsesTheKySampleWithItsDocComments
     , testProperty "the TypeScript dialect binds TSDoc to declarations and members and reports misplaced ones" prop_theTypeScriptDialectBindsTsDocToDeclarationsAndMembersAndReportsMisplacedOnes
+    , testProperty "overload signatures and their implementation are one unit" prop_overloadSignaturesAndTheirImplementationAreOneUnit
+    , testProperty "the members of every object type on the right of an exported alias inherit its requirement" prop_theMembersOfEveryObjectTypeOnTheRightOfAnExportedAliasInheritItsRequirement
+    , testProperty "an exported object literal's properties are units and a stray TSDoc comment is an orphan" prop_anExportedObjectLiteralsPropertiesAreUnitsAndAStrayTsDocCommentIsAnOrphan
+    , testProperty "an ambient module is named without quotes and a hashbang line precedes the file's Why" prop_anAmbientModuleIsNamedWithoutQuotesAndAHashbangLinePrecedesTheFilesWhy
     ]
 
 sampleDir :: FilePath
@@ -120,7 +125,7 @@ prop_theTypeScriptDialectParsesTheKySampleWithItsDocComments :: Property
 prop_theTypeScriptDialectParsesTheKySampleWithItsDocComments = withTests 1 $ property $ do
   extractions <- extractSample dialectProfile
   length extractions === 87
-  sum [length (unitsOf model) | Extraction model _ <- extractions] === 706
+  sum [length (unitsOf model) | Extraction model _ <- extractions] === 740
   sum [length (modelDecisions model) | Extraction model _ <- extractions] === 90
   sum [length [() | OrphanDocComment _ _ <- findings] | Extraction _ findings <- extractions] === 0
 
@@ -229,3 +234,145 @@ prop_theTypeScriptDialectBindsTsDocToDeclarationsAndMembersAndReportsMisplacedOn
         , "typescript/lib.ts/function/f"
         , "typescript/lib.ts/export/default"
         ]
+
+-- | TypeScript writes overloads as signatures above one implementation, and TSDoc and editors show
+-- the comment of the first, so the signatures and the implementation of a function, a method, a
+-- constructor, or an interface's method are one unit whose Why is the first comment; a later
+-- signature with a comment of its own starts a unit of its own, as the clauses of an Elixir
+-- function do. ref:REQ-typescript-support ref:DEC-typescript-dialect ref:DEC-elixir-dialect
+prop_overloadSignaturesAndTheirImplementationAreOneUnit :: Property
+prop_overloadSignaturesAndTheirImplementationAreOneUnit = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "lib.ts"
+      ( T.unlines
+          [ "/** Opens a file or a descriptor. */"
+          , "export function open(path: string): void;"
+          , "export function open(fd: number): void;"
+          , "export function open(target: string | number): void {}"
+          , "/** Parses text. */"
+          , "export function parse(text: string): unknown;"
+          , "/** Parses bytes. */"
+          , "export function parse(bytes: Uint8Array): unknown;"
+          , "export function parse(input: string | Uint8Array): unknown { return input; }"
+          , "/** A reader. */"
+          , "export class Reader {"
+          , "  /** Made from a path or a descriptor. */"
+          , "  constructor(path: string);"
+          , "  constructor(fd: number);"
+          , "  constructor(target: string | number) {}"
+          , "  /** Reads. */"
+          , "  read(size: number): string;"
+          , "  read(): string;"
+          , "  read(size?: number): string { return ''; }"
+          , "}"
+          , "/** A source. */"
+          , "export interface Source {"
+          , "  /** Pulls. */"
+          , "  pull(size: number): string;"
+          , "  pull(): string;"
+          , "}"
+          ]
+      )
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  [renderUnitId (unitId u) | u <- unitsOf model]
+    === [ "typescript/lib.ts/function/open"
+        , "typescript/lib.ts/function/parse"
+        , "typescript/lib.ts/function/parse#2"
+        , "typescript/lib.ts/class/Reader"
+        , "typescript/lib.ts/class/Reader/constructor/constructor"
+        , "typescript/lib.ts/class/Reader/method/read"
+        , "typescript/lib.ts/interface/Source"
+        , "typescript/lib.ts/interface/Source/method/pull"
+        ]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
+
+-- | An exported type alias is API whatever its right side is, so the members of an object type in a
+-- union or an intersection on the right need a comment as those of an object type alone do.
+-- ref:REQ-typescript-support ref:DEC-typescript-dialect ref:DEC-inherited-label
+prop_theMembersOfEveryObjectTypeOnTheRightOfAnExportedAliasInheritItsRequirement :: Property
+prop_theMembersOfEveryObjectTypeOnTheRightOfAnExportedAliasInheritItsRequirement = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractText
+      dialectProfile
+      "lib.ts"
+      ( T.unlines
+          [ "/** A result. */"
+          , "export type Result = {ok: true; /** The value. */ value: string} | {ok: false};"
+          , "/** Options with extras. */"
+          , "export type Extended = Base & {"
+          , "  extra: number;"
+          , "};"
+          , "type Local = {a: string} | null;"
+          ]
+      )
+  [(renderUnitId (unitId u), unitRequirement u == Required) | u <- unitsOf model]
+    === [ ("typescript/lib.ts/type/Result", True)
+        , ("typescript/lib.ts/type/Result/property/ok", True)
+        , ("typescript/lib.ts/type/Result/property/value", True)
+        , ("typescript/lib.ts/type/Result/property/ok#2", True)
+        , ("typescript/lib.ts/type/Extended", True)
+        , ("typescript/lib.ts/type/Extended/property/extra", True)
+        , ("typescript/lib.ts/type/Local", False)
+        , ("typescript/lib.ts/type/Local/property/a", False)
+        ]
+
+-- | The properties of an object literal that an exported binding holds, with as const or satisfies
+-- after it, are units, as in JavaScript; a TSDoc comment the grammar does not take, as inside a type
+-- argument list or after an argument, does not fail the parse and is an orphan, and a @type cast is
+-- neither. ref:REQ-typescript-support ref:DEC-typescript-dialect ref:DEC-stray-comments
+prop_anExportedObjectLiteralsPropertiesAreUnitsAndAStrayTsDocCommentIsAnOrphan :: Property
+prop_anExportedObjectLiteralsPropertiesAreUnitsAndAStrayTsDocCommentIsAnOrphan = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "lib.ts"
+      ( T.unlines
+          [ "/** The methods. */"
+          , "export const methods = {"
+          , "  /** Reads. */"
+          , "  get: 'GET',"
+          , "  /** Writes. */"
+          , "  post: 'POST',"
+          , "} as const;"
+          , "/** Runs. */"
+          , "export function run(a: unknown, b: string): number {"
+          , "  /** Above a local, so an orphan. */"
+          , "  const x = /** @type {number} */ (a as number);"
+          , "  g(a /** After an argument, so an orphan. */, b);"
+          , "  Object.defineProperties(a, {url: {/** Before a property, so an orphan. */ value: b}});"
+          , "  const t: Map<string, /** In a type, so an orphan. */ number> = new Map();"
+          , "  return x /** Before a semicolon, so an orphan. */;"
+          , "}"
+          ]
+      )
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [10, 12, 13, 14, 15]
+  [renderUnitId (unitId u) | u <- unitsOf model]
+    === ["typescript/lib.ts/variable/methods", "typescript/lib.ts/variable/methods/property/get", "typescript/lib.ts/variable/methods/property/post", "typescript/lib.ts/function/run"]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
+
+-- | declare module 'foo' declares the module foo, so the unit is named without the quotes; and a
+-- TypeScript script may start with a hashbang line, below which the first TSDoc comment may still be
+-- the file's Why. ref:REQ-typescript-support ref:DEC-typescript-dialect
+prop_anAmbientModuleIsNamedWithoutQuotesAndAHashbangLinePrecedesTheFilesWhy :: Property
+prop_anAmbientModuleIsNamedWithoutQuotesAndAHashbangLinePrecedesTheFilesWhy = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "cli.ts"
+      ( T.unlines
+          [ "#!/usr/bin/env node"
+          , "/** The command line. @packageDocumentation */"
+          , "/** Typings for foo. */"
+          , "declare module 'foo/bar' {"
+          , "  /** Its version. */"
+          , "  export const version: string;"
+          , "}"
+          , "const module = {exports: 1};"
+          , "module.exports = 2;"
+          ]
+      )
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+    === ["typescript/cli.ts", "typescript/cli.ts/module/foo/bar", "typescript/cli.ts/module/foo/bar/variable/version"]

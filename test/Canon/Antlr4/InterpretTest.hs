@@ -465,6 +465,9 @@ prop_aStrayCommentWhereTheGrammarTakesNoneIsAnOrphanAndASyntaxErrorIsStillReport
   -- is still taken for its cause.
   fmap orphanTexts (parse with "x = [[ why ]] z ;") === Right ["[[ why ]]"]
   fmap orphans (parse with "x = [[ why ]] z as w ;") === Right 0
+  -- Two stray comments side by side leave the failure at the same token once the first is dropped,
+  -- and both are still orphans.
+  fmap orphanTexts (parse with "x = y [[ one ]] [[ two ]] ;") === Right ["[[ one ]]", "[[ two ]]"]
   -- A syntax error is reported where it is, with or without a stray comment before it.
   parse with "x = y + ; z = w ;" === parse without "x = y + ; z = w ;"
   parse with "x = [[ note ]] y + ; z = w ;" === Left "1:20: no parse at token SEMI@1:20 \";\""

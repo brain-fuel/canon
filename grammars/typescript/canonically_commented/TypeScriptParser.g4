@@ -41,9 +41,13 @@ parser grammar TypeScriptParser;
 // comment the grammar accepts but binds to nothing is an orphan. Every change from the plain grammar
 // is marked canon: and listed in grammars/typescript/README.md.
 
+// canon: a doc comment may stand between any two tokens; where the grammar does not accept one,
+// canon reads the file without it and reports it as an orphan, as the strayComment option says.
+// ref:DEC-stray-comments
 options {
     tokenVocab = TypeScriptLexer;
     superClass = TypeScriptParserBase;
+    strayComment = canonicalComment;
 }
 
 // SupportSyntax
@@ -109,7 +113,7 @@ primaryType
     | predefinedType                             # PredefinedPrimType
     | typeReference                              # ReferencePrimType
     | objectType                                 # ObjectPrimType
-    | primaryType {this.notLineTerminator()}? '[' primaryType? ']' # ArrayPrimType
+    | primaryType {this.notLineTerminator()}? (orphan = canonicalComment)* '[' primaryType? ']' # ArrayPrimType // canon: a TSDoc comment before [ binds to nothing
     | '[' tupleElementTypes ']'                  # TuplePrimType
     | typeQuery                                  # QueryPrimType
     | This                                       # ThisPrimType
@@ -117,6 +121,7 @@ primaryType
     | KeyOf primaryType                          # KeyOfType
     | Infer identifier                           # InferType // canon: infer U in a conditional type
     | ReadOnly primaryType                       # ReadonlyType // canon: readonly T[]
+    | templateStringLiteral                      # TemplateLiteralPrimType // canon: a template literal type, as `pre-${string}`
     ;
 
 predefinedType
@@ -173,7 +178,7 @@ typeMember
     ;
 
 arrayType
-    : primaryType {this.notLineTerminator()}? '[' ']'
+    : primaryType {this.notLineTerminator()}? (orphan = canonicalComment)* '[' ']' // canon: a TSDoc comment before [ binds to nothing
     ;
 
 tupleType
@@ -230,10 +235,9 @@ requiredParameterList
     : requiredParameter (',' requiredParameter)*
     ;
 
-// canon: a TSDoc comment before a parameter binds to nothing.
 parameter
-    : (orphan = canonicalComment)* requiredParameter
-    | (orphan = canonicalComment)* optionalParameter
+    : requiredParameter
+    | optionalParameter
     ;
 
 optionalParameter
@@ -273,21 +277,18 @@ indexSignature
     ;
 
 methodSignature
-    : what = propertyName '?'? callSignature
+    : what = propertyName '?'? merge = callSignature
     ;
 
-// canon: export is labeled required. The members of an exported object type are as exported as the
-// alias, so an object type alone on the right is labeled inherited.
+// canon: export is labeled required. The members of the object types on the right, alone or in a
+// union or an intersection, are as exported as the alias, so the right side is labeled inherited.
 typeAliasDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? Declare? 'type' what = identifier typeParameters? '=' (
-        inherited = objectType eos
-        | type_ eos
-    ) # type
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? Declare? 'type' what = identifier typeParameters? '=' inherited = type_ eos # type
     ;
 
 // canon: a constructor is a unit; private and protected are labeled optional.
 constructorDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (Public | optional = Private | optional = Protected)? what = Constructor '(' formalParameterList? ')' (
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (Public | optional = Private | optional = Protected)? what = Constructor merge = '(' formalParameterList? ')' (
         ('{' how = functionBody '}')
         | SemiColon
     )? # constructor
@@ -339,7 +340,7 @@ namespaceDeclaration
 
 // canon: an ambient module declaration, a unit named by its string or name.
 moduleDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? Declare? Module what = (StringLiteral | namespaceName) '{' moduleItem* (orphan = canonicalComment)* '}' # module
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? Declare? Module (MODULE_QUOTE what = MODULE_NAME MODULE_QUOTE | what = StringLiteral | what = namespaceName) '{' moduleItem* (orphan = canonicalComment)* '}' # module
     ;
 
 namespaceName
@@ -375,7 +376,7 @@ decoratorCallExpression
 // it, or when it holds a file tag such as @packageDocumentation, @module, or @license; otherwise it
 // documents the declaration below it. A TSDoc comment at the end of a file binds to nothing.
 program
-    : (
+    : HashBangLine? ( // canon: a hashbang line, as JavaScript reads it
         why = fileComment DOC_BLANK_LINE? importStatement
         | why = fileComment DOC_BLANK_LINE
         | why = taggedFileComment DOC_BLANK_LINE?
@@ -385,7 +386,12 @@ program
 // canon: a statement at the top of a module or namespace, where a variable statement declares a
 // binding the module may export, as other declarations do anywhere; export is labeled required.
 moduleItem
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? (Declare varModifier? | varModifier) ReadOnly? declaredVariable (
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = Export (Declare varModifier? | varModifier) ReadOnly? what = identifierOrKeyWord typeAnnotation? '=' inherited = memberObject (
+        As Const
+        | As type_
+        | {this.n("satisfies")}? identifier type_
+    )? SemiColon? # variable // canon: an exported object literal's properties are units
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? (Declare varModifier? | varModifier) ReadOnly? declaredVariable (
         ',' variableDeclaration
     )* SemiColon? # variable
     | statement
@@ -403,7 +409,8 @@ sourceElement
     ;
 
 // canon: declarations come first, so a TSDoc comment above one binds to it; a TSDoc comment above
-// any other statement binds to nothing.
+// a local binding binds to nothing, and above any other statement, as anywhere else the grammar
+// does not take one, it is a stray comment and an orphan.
 statement
     : namespaceDeclaration //ADDED
     | moduleDeclaration // canon: declare module 'name' { ... }
@@ -413,27 +420,28 @@ statement
     | typeAliasDeclaration //ADDED
     | enumDeclaration      //ADDED
     | exportStatement
-    | (orphan = canonicalComment)* block
-    | (orphan = canonicalComment)* variableStatement
-    | (orphan = canonicalComment)* importStatement
-    | (orphan = canonicalComment)* emptyStatement_
-    | (orphan = canonicalComment)* abstractDeclaration //ADDED
-    | (orphan = canonicalComment)* ifStatement
-    | (orphan = canonicalComment)* iterationStatement
-    | (orphan = canonicalComment)* continueStatement
-    | (orphan = canonicalComment)* breakStatement
-    | (orphan = canonicalComment)* returnStatement
-    | (orphan = canonicalComment)* yieldStatement
-    | (orphan = canonicalComment)* withStatement
-    | (orphan = canonicalComment)* labelledStatement
-    | (orphan = canonicalComment)* switchStatement
-    | (orphan = canonicalComment)* throwStatement
-    | (orphan = canonicalComment)* tryStatement
-    | (orphan = canonicalComment)* debuggerStatement
-    | (orphan = canonicalComment)* arrowFunctionDeclaration
-    | (orphan = canonicalComment)* generatorFunctionDeclaration
-    | (orphan = canonicalComment)* Export statement
-    | (orphan = canonicalComment)* expressionStatement
+    | block
+    | variableStatement
+    | (orphan = canonicalComment)+ varModifier ReadOnly? variableDeclarationList SemiColon? // canon: a TSDoc comment above a local binding binds to nothing
+    | importStatement
+    | emptyStatement_
+    | abstractDeclaration //ADDED
+    | ifStatement
+    | iterationStatement
+    | continueStatement
+    | breakStatement
+    | returnStatement
+    | yieldStatement
+    | withStatement
+    | labelledStatement
+    | switchStatement
+    | throwStatement
+    | tryStatement
+    | debuggerStatement
+    | arrowFunctionDeclaration
+    | generatorFunctionDeclaration
+    | Export statement
+    | expressionStatement
     ;
 
 // canon: a TSDoc comment after the last statement of a block binds to nothing.
@@ -450,7 +458,7 @@ abstractDeclaration
     ;
 
 importStatement
-    : Import importFromBlock
+    : Import (orphan = canonicalComment)* importFromBlock // canon: a TSDoc comment after import binds to nothing
     ;
 
 // canon: import type and an inline type modifier, as in import type {A} and import {type A}, which
@@ -500,7 +508,8 @@ aliasName
 // module exports is its API. An exported declaration holds its export keyword itself; a TSDoc
 // comment above a list of exports binds to nothing.
 exportStatement
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = Export what = Default singleExpression eos # export
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = Export what = Default inherited = memberObject eos # export // canon: an exported object literal's properties are units
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = Export what = Default (orphan = canonicalComment)* singleExpression eos # export
     | (orphan = canonicalComment)* Export Default? (exportFromBlock | declaration) eos # ExportDeclaration
     ;
 
@@ -637,7 +646,7 @@ debuggerStatement
 // canon: a function declaration is a unit wherever it stands, an overload included; export and
 // export default are part of it, and export is labeled required.
 functionDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export Default?)? Declare? Async? Function_ '*'? what = identifier callSignature (
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export Default?)? Declare? Async? Function_ '*'? what = identifier merge = callSignature (
         ('{' how = functionBody '}')
         | SemiColon
     ) # function
@@ -680,9 +689,9 @@ classElement
 // property, so a getter and setter pair are two units.
 propertyMemberDeclaration
     : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase what = classElementName '?'? typeAnnotation? initializer? SemiColon # property // canon: #private members
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase what = classElementName callSignature (('{' how = functionBody '}') | SemiColon) # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase what = classElementName merge = callSignature (('{' how = functionBody '}') | SemiColon) # method
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase (classGetAccessor | classSetAccessor) # accessor
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase Abstract what = classElementName callSignature eos # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase Abstract what = classElementName merge = callSignature eos # method
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase Abstract ReadOnly? what = classElementName '?'? typeAnnotation? eos # property
     | (orphan = canonicalComment)* decoratorList? abstractDeclaration # AbstractMemberDeclaration
     ;
@@ -738,15 +747,14 @@ formalParameterList
     | objectLiteral (':' formalParameterList)? // ECMAScript 6: Parameter Context Matching
     ;
 
-// canon: a TSDoc comment before a parameter binds to nothing.
 formalParameterArg
-    : (orphan = canonicalComment)* decorator? accessibilityModifier? ReadOnly? assignable '?'? typeAnnotation? ( // canon: readonly parameter properties
+    : decorator? accessibilityModifier? ReadOnly? assignable '?'? typeAnnotation? ( // canon: readonly parameter properties
         '=' singleExpression
     )? // ECMAScript 6: Initialization
     ;
 
 lastFormalParameterArg // ECMAScript 6: Rest Parameter
-    : (orphan = canonicalComment)* Ellipsis identifier typeAnnotation?
+    : Ellipsis identifier typeAnnotation?
     ;
 
 // canon: a TSDoc comment after the last statement of a body binds to nothing.
@@ -771,22 +779,41 @@ arrayElement // ECMAScript 6: Spread Operator
     : Ellipsis? (singleExpression | identifier) ','?
     ;
 
-// canon: an object literal is an expression, so a TSDoc comment on one of its properties binds to
-// nothing.
+// canon: an object literal that an exported module-level binding or export default holds directly, whose
+// properties, methods, and accessors are units, as the members of a class are; a property whose
+// value is such an object literal holds units of its own. Its tail is labeled inherited where it
+// is used, so what the module exports requires a comment down to these members.
+memberObject
+    : '{' (memberProperty (',' memberProperty)* ','?)? (orphan = canonicalComment)* '}'
+    ;
+
+memberProperty
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = propertyName ':' inherited = memberObject # property
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = propertyName ':' singleExpression # property
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (Async {this.notLineTerminator()}?)? '*'? what = propertyName '?'? callSignature '{' how = functionBody '}' # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = getter '(' ')' typeAnnotation? '{' how = functionBody '}' # accessor
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = setter '(' formalParameterList? ')' '{' how = functionBody '}' # accessor
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = identifierOrKeyWord # property
+    | (orphan = canonicalComment)* Ellipsis singleExpression
+    ;
+
+// canon: any other object literal is an expression, so a TSDoc comment on one of its properties or
+// after the last binds to nothing.
 objectLiteral
     : '{' (propertyAssignment (',' propertyAssignment)* ','?)? (orphan = canonicalComment)* '}'
     ;
 
 // MODIFIED
 propertyAssignment
-    : (orphan = canonicalComment)* propertyName (':' | '=') singleExpression     # PropertyExpressionAssignment
-    | (orphan = canonicalComment)* '[' singleExpression ']' ':' singleExpression # ComputedPropertyExpressionAssignment
-    | (orphan = canonicalComment)* getAccessor                                   # PropertyGetter
-    | (orphan = canonicalComment)* setAccessor                                   # PropertySetter
-    | (orphan = canonicalComment)* generatorMethod                               # MethodProperty
-    | (orphan = canonicalComment)* identifierOrKeyWord                           # PropertyShorthand
-    | (orphan = canonicalComment)* Ellipsis? singleExpression                    # SpreadOperator
-    | (orphan = canonicalComment)* restParameter                                 # RestParameterInObject
+    : propertyName (':' | '=') singleExpression     # PropertyExpressionAssignment
+    | {this.propertyAhead()}? (orphan = canonicalComment)+ propertyName ':' singleExpression # PropertyExpressionAssignment // canon: a TSDoc comment before a property binds to nothing
+    | '[' singleExpression ']' ':' singleExpression # ComputedPropertyExpressionAssignment
+    | getAccessor                                   # PropertyGetter
+    | setAccessor                                   # PropertySetter
+    | generatorMethod                               # MethodProperty
+    | identifierOrKeyWord                           # PropertyShorthand
+    | Ellipsis? singleExpression                    # SpreadOperator
+    | restParameter                                 # RestParameterInObject
     ;
 
 getAccessor
@@ -814,9 +841,8 @@ propertyName
     | '[' singleExpression ']'
     ;
 
-// canon: a TSDoc comment before the closing parenthesis binds to nothing.
 arguments
-    : '(' (argumentList ','?)? (orphan = canonicalComment)* ')'
+    : '(' (argumentList ','?)? ')'
     ;
 
 argumentList
@@ -824,7 +850,7 @@ argumentList
     ;
 
 argument // ECMAScript 6: Spread Operator
-    : (orphan = canonicalComment)* Ellipsis? (singleExpression | identifier)
+    : Ellipsis? (singleExpression | identifier)
     ;
 
 expressionSequence
@@ -855,7 +881,6 @@ singleExpression
     | '~' singleExpression                                            # BitNotExpression
     | '!' singleExpression                                            # NotExpression
     | Await singleExpression                                          # AwaitExpression
-    | (orphan = canonicalComment) singleExpression                    # DocumentedExpression // canon: a TSDoc comment inside an expression binds to nothing
     | <assoc = right> singleExpression '**' singleExpression          # PowerExpression
     | singleExpression ('*' | '/' | '%') singleExpression             # MultiplicativeExpression
     | singleExpression ('+' | '-') singleExpression                   # AdditiveExpression

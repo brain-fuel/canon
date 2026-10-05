@@ -137,6 +137,9 @@ and this project adheres to
 - Versions follow Semantic Versioning 2.0.0 rather than the Haskell Package Versioning Policy; the released version is 0.1.0, decision entries and `canon.yaml` use three-part versions, and pre-release labels order as the specification says
 - The lexer compiles a grammar once into decoded literals, character predicates, and first-character filters, and the parser compiles a grammar once into FIRST sets that prune alternatives, vector memo tables, and difference-list children; the largest Haskell sample module went from 10.6 seconds to 1.3, and profiling shows the parser at under one percent of the remaining time
 - `canon check` parses files concurrently, caches extractions under `.canon-cache/` keyed by content, grammar, profile, and git revision, and derives Who and When from one `git blame` per file; the Haskell sample check went from 26 seconds to 1.4 cold and 0.2 warm with identical findings
+- JavaScript and TypeScript dialects: a doc comment that starts with `@type` or `@satisfies` is a type cast or annotation and is neither a Why nor an orphan
+- JavaScript and TypeScript dialects: the properties, methods, and accessors of an object literal that an exported binding or `export default` holds directly are units that inherit the export's requirement
+- TypeScript dialect: overload signatures and their implementation are one unit whose Why is the first comment, and the members of object types in a union or an intersection on the right of a type alias inherit its requirement
 
 ### Fixed
 - Kotlin, Groovy, and Java dialects: a doc comment inside an expression, between arguments, or between brackets no longer fails the parse; each dialect names `canonicalComment` in a `strayComment` option and reports such a comment as an orphan, and a comment before a Kotlin lambda's or a Groovy closure's parameters or before a Groovy case label is an orphan in the grammar
@@ -173,6 +176,10 @@ and this project adheres to
 - `canon check` bounds the number of files extracted at once to the core count instead of starting every file concurrently
 - Unit ids are relative to the project directory rather than the working directory, so verdicts and ledger unit names mean the same thing wherever `canon` is run
 - An uncited decided decision is reported once per project, when no file in the project cites it, instead of per file that happens not to
+- JavaScript and TypeScript dialects: a doc comment inside an expression, between arguments, or in a type no longer fails the parse; both dialects name `canonicalComment` in a `strayComment` option and report such a comment as an orphan, and a comment before a property of an object literal or above a local binding is an orphan in the grammar
+- JavaScript and TypeScript dialects: the first `/**` below a hashbang line can be the file's Why; the TypeScript dialect reads a hashbang line at all
+- TypeScript dialect: an ambient module is named without quotes, `declare module 'foo'` as `module/foo`, and a template literal type parses
+- `JavaScriptParserBase` and `TypeScriptParserBase` predicates `lineTerminatorAhead`, `notLineTerminator`, `closeBrace`, and `notOpenBraceAndNotFunction` are answered from the lines and text of the code tokens around the parse's position instead of always holding, in the plain grammars and the dialects, so a statement without a semicolon ends at a line break
 
 ## 0.1.0 - 2026-09-12
 
