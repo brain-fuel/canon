@@ -5,6 +5,7 @@
 # repository, the failures, and the slowest files. Elixir itself is sampled to lib/, which holds
 # the standard library, Mix, ExUnit, IEx, EEx, and Logger with their tests. Rerun after changing
 # a grammar; no rebuild is needed unless Haskell changed. ref:DEC-elixir-grammar
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 CORPUS=${1:-/tmp/corpus/elixir}

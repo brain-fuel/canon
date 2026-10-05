@@ -5,6 +5,7 @@
 # parsed per repository, the failures, and the slowest files. OTP is sampled to the lib/
 # applications listed in its patterns, RabbitMQ to the deps/ listed in its. Rerun after changing
 # a grammar; no rebuild is needed unless Haskell changed. ref:DEC-erlang-grammar
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 CORPUS=${1:-/tmp/corpus/erlang}

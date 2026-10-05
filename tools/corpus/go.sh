@@ -8,6 +8,7 @@
 # Usage: tools/corpus/go.sh [clone-dir]   (default /tmp/corpus/go)
 # Environment: CORPUS_TIMEOUT wall seconds per file (default 60), CORPUS_JOBS parallel parses (default 8),
 # CORPUS_CLONE_ONLY=1 to fetch the repositories without parsing, CORPUS_ONLY=name to run one repository.
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 LANG_NAME=go

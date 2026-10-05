@@ -9,6 +9,7 @@
 # Environment: CORPUS_TIMEOUT CPU seconds per file (default 10; the SLOW files get their own),
 # CORPUS_JOBS parallel parses (default 8), CORPUS_CLONE_ONLY=1 to fetch the repositories without
 # parsing, CORPUS_CANON a canon binary to use instead of the one stack built.
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 LANG_NAME=haskell

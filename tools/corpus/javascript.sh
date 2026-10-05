@@ -8,6 +8,7 @@
 # paths are the patterns after the commit below. Node classifies the failures: a file node --check
 # rejects is an exclusion. See jsts-common.sh for the environment it reads.
 # ref:DEC-more-languages ref:DEC-javascript-dialect
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 ROOT=${1:-/tmp/corpus/javascript}

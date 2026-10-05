@@ -5,6 +5,7 @@
 # parsed per repository, the failures, and the slowest files. The compiler is sampled to its .gleam
 # files, which are test projects and fixtures. Rerun after changing a grammar; no rebuild is
 # needed unless Haskell changed. ref:DEC-gleam-grammar
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 CORPUS=${1:-/tmp/corpus/gleam}

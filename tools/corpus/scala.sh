@@ -6,6 +6,7 @@
 # apart. Run it from the root of canon after `stack build`. ref:DEC-scala-grammar
 #
 # Usage: tools/corpus/scala.sh [corpus-dir] [plain|dialect] [jobs]
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 corpus="${1:-/tmp/scala-corpus}"

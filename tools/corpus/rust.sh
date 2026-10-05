@@ -4,6 +4,7 @@
 # Usage: tools/corpus/rust.sh [CORPUS_DIR]   (default /tmp/corpus/rust; JOBS, TIMEOUT, and ONLY,
 # one repository's name, may be set in the environment). Run from anywhere; the clones never
 # enter the repository. ref:DEC-rust-grammar
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)

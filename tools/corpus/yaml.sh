@@ -12,6 +12,7 @@
 #
 # Environment: CORPUS_TIMEOUT (seconds per file, default 10), CORPUS_JOBS (parallel parses,
 # default 8), CORPUS_SKIP_FETCH=1 to reuse the clones as they are.
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 ROOT=${1:-/tmp/corpus/yaml}

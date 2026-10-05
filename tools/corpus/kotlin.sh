@@ -4,6 +4,7 @@
 # Usage: tools/corpus/kotlin.sh [CORPUS_DIR]   (default /tmp/corpus/kotlin; JOBS and TIMEOUT
 # may be set in the environment). Run from anywhere; the clones never enter the repository.
 # ref:DEC-kotlin-grammar
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)

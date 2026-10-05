@@ -7,6 +7,7 @@
 # parse them all. Large repositories are sampled by subdirectory with a sparse checkout; the sampled
 # paths are the patterns after the commit below. See jsts-common.sh for the environment it reads.
 # ref:DEC-more-languages ref:DEC-typescript-dialect
+. "$(dirname "$0")/process-group.sh"
 set -euo pipefail
 
 ROOT=${1:-/tmp/corpus/typescript}
