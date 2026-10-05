@@ -1,0 +1,8 @@
+spock-genesis-upstream:
+  kind: package
+  title: spock-genesis 0.6.0 at commit 9aa1375c16af1846669647ee8c71ae0c9f699482, Dylan Bijnagte's lazy data generators for Spock, six of its sources and two of its Spock specifications vendored under source/
+  locator: https://github.com/Bijnagte/spock-genesis/tree/9aa1375c16af1846669647ee8c71ae0c9f699482
+MIT:
+  kind: license
+  title: MIT License
+  locator: https://spdx.org/licenses/MIT.html

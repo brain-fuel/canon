@@ -174,8 +174,8 @@ of a file is.
 Alternative labels without a `why`, such as the Java grammar's own expression
 labels, are inert. `canon` generates the extraction parser from that grammar,
 so nothing about a language's comment placement is written in Haskell. The
-ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, JavaScript, TypeScript, Go,
-Python, Kotlin, Clojure, Prolog, and the Folio have dialects.
+ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, Groovy, JavaScript,
+TypeScript, Go, Python, Kotlin, Clojure, Prolog, and the Folio have dialects.
 
 ### Tests
 
@@ -202,6 +202,7 @@ whatever its visibility.
 | `python` | a function named `test_*` or a class named `Test*` (pytest and unittest) |
 | `go` | a function named `Test*`, `Benchmark*`, `Example*`, or `Fuzz*` in a `*_test.go` file |
 | `kotlin` | a function marked `@Test`, `@kotlin.test.Test`, `@org.junit.Test`, or `@org.junit.jupiter.api.Test`, or any function under a `src/test` or `src/*Test` source set, since Kotlin test names are often backticked sentences |
+| `groovy` | a method marked with one of the JUnit or jqwik annotations `java` lists, or a method named `test*` under a `src/test` directory (JUnit 3), as for `java`; or a method named by a string, as Spock writes a feature method such as `def 'adds two numbers'()`, under a `src/test` directory or in a `*Spec.groovy` file |
 
 Two findings fail `canon check`: a commented test whose comment cites no
 requirement, and a requirement in the registry that no test in the project
@@ -424,7 +425,7 @@ git submodule, sets `root` to that directory.
 
 `lang_samples/` holds real projects in other languages, each a nested project
 whose sources are a submodule under `source` (vendored, for the small Rust,
-C#, F#, Elixir, and Gleam samples) and whose canon files sit
+C#, F#, Elixir, Gleam, and Groovy samples) and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
 grammars-v4 or written for canon, with a `canonically_commented/` dialect
 where one exists and an empty husk where it does not. `canon check` at the repository root checks
@@ -468,6 +469,7 @@ repository holds.
 | `lang_samples/python-itsdangerous` | Python | `grammars/python/Python3Lexer.g4` and `Python3Parser.g4` |
 | `lang_samples/go-uuid` | Go | `grammars/golang/GoLexer.g4` and `GoParser.g4` |
 | `lang_samples/kotlin-turbine` | Kotlin | `grammars/kotlin/KotlinLexer.g4`, `KotlinParser.g4`, and `UnicodeClasses.g4` |
+| `lang_samples/groovy-spock-genesis` | Groovy | `grammars/groovy/GroovyLexer.g4` and `GroovyParser.g4` |
 
 The Rust sample is scopeguard 1.2.0, one source file, vendored under
 `source/` with its MIT and Apache-2.0 licenses instead of a submodule. Its
@@ -715,6 +717,44 @@ predicate, as all of them are visible; a PlDoc comment where no predicate
 follows is an orphan (`DEC-prolog-dialect`). marelle writes plain `%` comments,
 so through the dialect it has 197 units, every one required, and no canonical
 comment.
+
+The Groovy sample is spock-genesis 0.6.0, six of its sources and two of its
+Spock specifications, vendored under `source/` with its MIT license. Groovy
+documents a declaration with a `/**` Groovydoc comment above its annotations.
+Its `canon.yaml` holds the Groovy profile a Groovy project can copy:
+
+```yaml
+languages:
+  groovy:
+    extensions: [.groovy, .gvy, .gy, .gsh]
+    lexer: ../../grammars/groovy/GroovyLexer.g4
+    parser: ../../grammars/groovy/GroovyParser.g4
+    start: compilationUnit
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["/**"]
+      strings: ["\"\"\"", "'''", "\"", "'"]
+    units:
+      - {rule: normalClassDeclaration, kind: class, name: {rule: identifier}, required: true}
+      - {rule: interfaceDeclaration, kind: interface, name: {rule: identifier}, required: true}
+      - {rule: traitDeclaration, kind: trait, name: {rule: identifier}, required: true}
+      - {rule: enumDeclaration, kind: enum, name: {rule: identifier}, required: true}
+      - {rule: annotationTypeDeclaration, kind: annotation, name: {rule: identifier}, required: true}
+      - {rule: recordDeclaration, kind: record, name: {rule: identifier}, required: true}
+      - {rule: enumConstant, kind: constant, name: {rule: identifier}, required: true}
+      - {rule: constructorDeclaration, kind: constructor, name: {rule: methodName}, required: true}
+      - {rule: methodDeclaration, kind: method, name: {rule: methodName}, required: true}
+      - {rule: fieldDeclaration, kind: field, name: {rule: variableDeclaratorId}, required: true}
+```
+
+Groovy declarations are public unless they say otherwise, so every unit
+requires a comment by its rule, and the grammar labels `private` `optional`,
+which lifts the requirement, as Groovydoc documents what is not private. A
+field, which Groovy makes a property when it has no access modifier, is named
+by its first declarator. A Spock feature method is named by its string,
+quotes included, as `'is finite'`, and a constructor by its class.
 
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked
@@ -1123,6 +1163,24 @@ a blank line and read no plain comment as a file's Why, as every dialect does
 under the open `DEC-comment-attachment`, while the profiles part a doc comment
 from its unit at a blank line and bind a plain comment on a file's first line
 to the file.
+
+`grammars/groovy/` holds Apache Groovy's own ANTLR 4 grammar, which the Groovy
+compiler parses with, since grammars-v4 has none, and its dialect. Its lexer
+and parser lean on Java superclasses, `AbstractLexer` and `AbstractParser`,
+which canon ports as a lexer hook that decides whether a slash starts a
+slashy string and which brackets hide newlines, and as a parser hook that
+answers whether a line declares a method or a variable or calls one. The
+lexer predicates that looked ahead in the characters are written as the
+characters they allowed, comments are hidden, each kind of type is a rule of
+its own that starts with its annotations, and a constructor is a rule of its
+own, with `private` labeled `optional` and each annotation `marker`. Under
+`canonically_commented/` the dialect sends `/**` into a `DocBlock` lexer mode,
+labels each type, constructor, method, field, and enum constant as a unit
+alternative that holds the empty rule `publicByDefault` labeled `required`,
+and takes a Groovydoc comment after an annotation or above a statement as an
+`orphan`. The Groovy sample keeps the profile above, and the test suite reads
+its sources through the dialect too. Each change is marked `// canon:` in the
+grammar, listed in `grammars/groovy/README.md`, and recorded in the ledger.
 
 `grammars/elixir/` and `grammars/gleam/` hold grammars written for canon, with
 empty `canonically_commented/` husks. The grammars-v4 Elixir grammar parsed

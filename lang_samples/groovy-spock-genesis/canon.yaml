@@ -1,0 +1,25 @@
+version: 0.1.0
+root: source
+languages:
+  groovy:
+    extensions: [.groovy, .gvy, .gy, .gsh]
+    lexer: ../../grammars/groovy/GroovyLexer.g4
+    parser: ../../grammars/groovy/GroovyParser.g4
+    start: compilationUnit
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["/**"]
+      strings: ["\"\"\"", "'''", "\"", "'"]
+    units:
+      - {rule: normalClassDeclaration, kind: class, name: {rule: identifier}, required: true}
+      - {rule: interfaceDeclaration, kind: interface, name: {rule: identifier}, required: true}
+      - {rule: traitDeclaration, kind: trait, name: {rule: identifier}, required: true}
+      - {rule: enumDeclaration, kind: enum, name: {rule: identifier}, required: true}
+      - {rule: annotationTypeDeclaration, kind: annotation, name: {rule: identifier}, required: true}
+      - {rule: recordDeclaration, kind: record, name: {rule: identifier}, required: true}
+      - {rule: enumConstant, kind: constant, name: {rule: identifier}, required: true}
+      - {rule: constructorDeclaration, kind: constructor, name: {rule: methodName}, required: true}
+      - {rule: methodDeclaration, kind: method, name: {rule: methodName}, required: true}
+      - {rule: fieldDeclaration, kind: field, name: {rule: variableDeclaratorId}, required: true}

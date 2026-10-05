@@ -21,6 +21,7 @@ import qualified Canon.Extract.GrammarTest
 import qualified Canon.Extract.RustTest
 import qualified Canon.Extract.CSharpTest
 import qualified Canon.Extract.FSharpTest
+import qualified Canon.Extract.GroovyTest
 import qualified Canon.Extract.ElixirTest
 import qualified Canon.Extract.GleamTest
 import qualified Canon.Extract.KotlinTest
@@ -47,7 +48,7 @@ main =
   defaultMain
     ( testGroup
         "canon"
-        [ testGroup "unit" [CanonTest.tests, Canon.Antlr4.VendoredTest.tests, Canon.Extract.GrammarTest.tests, Canon.Extract.RustTest.tests, Canon.Extract.CSharpTest.tests, Canon.Extract.FSharpTest.tests, Canon.Extract.ElixirTest.tests, Canon.Extract.GleamTest.tests, Canon.Extract.CalmTest.tests, Canon.Extract.KotlinTest.tests, Canon.Extract.ClojureTest.tests, Canon.Extract.PrologTest.tests, Canon.Extract.FolioTest.tests, Canon.Extract.JavaScriptTest.tests, Canon.Extract.TypeScriptTest.tests, Canon.Extract.GoTest.tests, Canon.Extract.PythonTest.tests]
+        [ testGroup "unit" [CanonTest.tests, Canon.Antlr4.VendoredTest.tests, Canon.Extract.GrammarTest.tests, Canon.Extract.RustTest.tests, Canon.Extract.CSharpTest.tests, Canon.Extract.FSharpTest.tests, Canon.Extract.GroovyTest.tests, Canon.Extract.ElixirTest.tests, Canon.Extract.GleamTest.tests, Canon.Extract.CalmTest.tests, Canon.Extract.KotlinTest.tests, Canon.Extract.ClojureTest.tests, Canon.Extract.PrologTest.tests, Canon.Extract.FolioTest.tests, Canon.Extract.JavaScriptTest.tests, Canon.Extract.TypeScriptTest.tests, Canon.Extract.GoTest.tests, Canon.Extract.PythonTest.tests]
         , testGroup
             "property"
             [ Canon.Antlr4.EscapeTest.tests

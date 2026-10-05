@@ -26,7 +26,7 @@ data TestRule = TestRule
 
 -- | The languages the table covers.
 knownLanguages :: [Text]
-knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "python", "go", "kotlin"]
+knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "python", "go", "kotlin", "groovy"]
 
 -- | The rules of a language. Rust's, C#'s, and F#'s rules are attributes, which their grammars label
 -- marker on every item. An F# test list bound with Expecto's [<Tests>] is the test, because the
@@ -62,6 +62,12 @@ testRules language = case language of
   "kotlin" ->
     [TestRule (Just "function") Nothing Nothing (Just path) | path <- ["**/src/test/**", "**/src/*Test/**"]]
       ++ [TestRule (Just "function") (Just marker) Nothing Nothing | marker <- kotlinMarkers]
+  -- Groovy runs JUnit as Java does, and a Spock feature method is named by a string, in a
+  -- specification under src/test or named *Spec. ref:DEC-groovy-grammar
+  "groovy" ->
+    [TestRule (Just "method") (Just marker) Nothing Nothing | marker <- javaMarkers]
+      ++ [TestRule (Just "method") Nothing (Just "test*") (Just "**/src/test/**")]
+      ++ [TestRule (Just "method") Nothing (Just "[\"']*") (Just path) | path <- ["**/src/test/**", "**/*Spec.groovy"]]
   _ -> []
   where
     scriptTestPaths = ["**/test/**", "**/tests/**", "**/__tests__/**", "**/*.test.*", "**/*.spec.*"]

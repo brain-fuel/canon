@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Which of spock-genesis's declarations are API in canon's sense, given that the Groovy profile requires a comment on every declaration not marked private, as Groovy makes them public, while the library documents its factory methods in Gen and leaves the generators' fluent methods, its properties, and its Spock specifications without Groovydoc?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [spock-genesis-upstream]

@@ -9,6 +9,7 @@ ignore:
   - grammars/rust/canonically_commented/
   - grammars/csharp/canonically_commented/
   - grammars/fsharp/canonically_commented/
+  - grammars/groovy/canonically_commented/
   - grammars/kotlin/canonically_commented/
   - grammars/clojure/canonically_commented/
   - grammars/prolog/canonically_commented/
@@ -56,6 +57,5 @@ parity:
     elixir: [dialect]
     gleam: [dialect]
     scala: [grammar, profile, dialect, sample]
-    groovy: [grammar, profile, dialect, sample]
     hcl: [grammar, profile, dialect, sample]
     yaml: [grammar, profile, dialect, sample]

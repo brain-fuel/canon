@@ -11,6 +11,7 @@ module Canon.Antlr4.Lex.Adaptor
 import Canon.Antlr4.Lex (HookEffect (..), LexerHooks (..), SomeHooks (..), noHooks)
 import Canon.Antlr4.Lex.CSharp (csharpLexerHooks)
 import Canon.Antlr4.Lex.FSharp (fsharpLexerHooks)
+import Canon.Antlr4.Lex.Groovy (groovyLexerHooks)
 import Canon.Antlr4.Lex.Go (goLexerHooks)
 import Canon.Antlr4.Lex.Haskell (haskellLayoutHooks)
 import Canon.Antlr4.Lex.JavaScript (javaScriptHooks, typeScriptHooks)
@@ -83,6 +84,7 @@ hooksForGrammarWith choice grammar =
     (Name "TypeScriptLexerBase" : _) -> SomeHooks typeScriptHooks
     (Name "Python3LexerBase" : _) -> SomeHooks pythonHooks
     (Name "GoLexerBase" : _) -> SomeHooks goLexerHooks
+    (Name "AbstractLexer" : _) -> SomeHooks groovyLexerHooks
     _ -> SomeHooks noHooks
 
 -- | Whether the hook port a grammar selects reads #if directives, so a file is read once per build.

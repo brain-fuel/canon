@@ -10,6 +10,7 @@ module Canon.Antlr4.Predicate
   ) where
 
 import Canon.Antlr4.Parse (PredicateHook)
+import Canon.Antlr4.Predicate.Groovy (groovyPredicates)
 import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token (..))
@@ -28,6 +29,7 @@ predicateHookFor grammar =
     (Name "TypeScriptParserBase" : _) -> javaScriptPredicates
     (Name "GoParserBase" : _) -> goPredicates
     (Name "Python3ParserBase" : _) -> pythonPredicates
+    (Name "AbstractParser" : _) -> groovyPredicates
     _ -> \_ _ _ _ -> True
 
 -- | CSharpParserBase's predicates. IsRightArrow, IsRightShift, and IsRightShiftAssignment hold when
