@@ -7,7 +7,10 @@ nothing here applies to `.g4` files any more. Everything here is provisional
 and applies only to languages checked through a profile with `units`, which
 today are the sample languages Erlang, Clojure, Prolog, and Haskell, and
 Rust, whose profile names its doc-comment openers so that only `///` binds
-below and `//!` binds to the enclosing module or file (ref DEC-rust-grammar).
+below and `//!` binds to the enclosing module or file (ref DEC-rust-grammar),
+Elixir, whose profile scans `@doc` and `@moduledoc` attributes as doc comments
+(ref DEC-elixir-grammar), and Gleam, whose profile binds `///` below and `////`
+to the file (ref DEC-gleam-grammar).
 
 Date: 2026-09-14
 

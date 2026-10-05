@@ -159,6 +159,8 @@ whatever its visibility.
 | `prolog` | a clause named `test` (plunit) |
 | `haskell` | a function named `prop_*` or `test_*` |
 | `rust` | a function marked `#[test]`, `#[tokio::test]`, `#[async_std::test]`, `#[rstest]`, or `#[quickcheck]` |
+| `elixir` | a unit of kind `test`, which the Elixir profile makes of ExUnit's `test "name"` and StreamData's `property "name"` calls |
+| `gleam` | a function named `*_test` (gleeunit) |
 
 Two findings fail `canon check`: a commented test whose comment cites no
 requirement, and a requirement in the registry that no test in the project
@@ -282,7 +284,20 @@ count. A language that tells doc comments from plain ones lists their
 openers under `comments`: with `outerDoc` given, only a comment opening with
 one binds to the unit below it, and a plain comment is neither a Why nor an
 orphan; a comment opening with one of `innerDoc` binds to the innermost unit
-that encloses it, or to the file, as Rust's `//!` documents its module. Unit ids are the language, the file path, and then kind and name at
+that encloses it, or to the file, as Rust's `//!` documents its module.
+With outer openers given, full-line plain comments directly below a doc
+comment do not separate it from its unit, and an outer doc comment on the
+first line of a file documents the item below it rather than the file. A
+language that writes documentation as code lists `docAttributes`: an
+attribute such as Elixir's `@doc` followed by a string, or by a sigil and a
+string, is scanned as a comment running to the end of the string, its body is
+the string's contents, and its name is matched against `outerDoc` and
+`innerDoc` like any opener; a string delimiter of three or more characters,
+such as a heredoc's, may span lines. Several unit rules may name one parse
+rule, told apart by `firstToken`, and a unit rule with `mergeClauses: true`
+makes adjacent matches with one name a single unit, as the clauses of an
+Elixir function are one function, unless a doc comment directly above a later
+clause starts a unit of its own. Unit ids are the language, the file path, and then kind and name at
 each level of nesting; a repeated name in one scope gets an ordinal suffix.
 
 A directory containing its own `canon.yaml` is a nested project. The walk
@@ -294,8 +309,8 @@ each answers for itself. A project whose sources live elsewhere, such as a
 git submodule, sets `root` to that directory.
 
 `lang_samples/` holds real projects in other languages, each a nested project
-whose sources are a submodule under `source` (vendored, for the one-file
-Rust sample) and whose canon files sit
+whose sources are a submodule under `source` (vendored, for the small Rust,
+Elixir, and Gleam samples) and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
 grammars-v4, with a `canonically_commented/` dialect where one exists and an
 empty husk where it does not. `canon check` at the repository root checks
@@ -317,6 +332,8 @@ after cloning to fetch them.
 | `lang_samples/java-joda-time` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
 | `lang_samples/java-gson` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
 | `lang_samples/rust-scopeguard` | Rust | `grammars/rust/RustLexer.g4` and `RustParser.g4` |
+| `lang_samples/elixir-jason` | Elixir | `grammars/elixir/ElixirLexer.g4` and `ElixirParser.g4` |
+| `lang_samples/gleam-stdlib` | Gleam | `grammars/gleam/GleamLexer.g4` and `GleamParser.g4` |
 
 The Rust sample is scopeguard 1.2.0, one source file, vendored under
 `source/` with its MIT and Apache-2.0 licenses instead of a submodule. Its
@@ -357,6 +374,78 @@ The profile cannot see visibility, so functions, structs, enums, unions,
 traits, and macros require a comment whether or not they are `pub`, and the
 other kinds may have one. An impl is named by its self type, so the impls of
 one type are told apart by ordinal.
+
+The Elixir sample is Jason 1.4.5's formatter and its tests, vendored under
+`source/` with Jason's Apache-2.0 license. Elixir documents with attributes,
+not comments: `@doc` and `@typedoc` document the definition below them and
+its other attributes, such as `@spec`, and `@moduledoc` documents the module
+around it, while a `#` comment documents nothing. Its `canon.yaml` holds the
+Elixir profile:
+
+```yaml
+languages:
+  elixir:
+    extensions: [.ex, .exs]
+    lexer: ../../grammars/elixir/ElixirLexer.g4
+    parser: ../../grammars/elixir/ElixirParser.g4
+    start: file
+    comments:
+      line: "#"
+      outerDoc: ["@doc", "@typedoc"]
+      innerDoc: ["@moduledoc"]
+      docAttributes: ["@moduledoc", "@doc", "@typedoc"]
+      strings: ["\"\"\"", "'''", "\"", "'"]
+    units:
+      - {rule: moduleDefinition, kind: module, name: {rule: moduleName}, required: true}
+      - {rule: protocolDefinition, kind: protocol, name: {rule: moduleName}, required: true}
+      - {rule: implementationDefinition, kind: impl, name: {rule: moduleName}, required: false}
+      - {rule: publicFunction, kind: function, name: {rule: definitionName}, required: true, mergeClauses: true}
+      - {rule: privateFunction, kind: function, name: {rule: definitionName}, required: false, mergeClauses: true}
+      - {rule: publicMacro, kind: macro, name: {rule: definitionName}, required: true, mergeClauses: true}
+      - {rule: privateMacro, kind: macro, name: {rule: definitionName}, required: false, mergeClauses: true}
+      - {rule: publicGuard, kind: guard, name: {rule: definitionName}, required: true, mergeClauses: true}
+      - {rule: privateGuard, kind: guard, name: {rule: definitionName}, required: false, mergeClauses: true}
+      - {rule: delegateDefinition, kind: function, name: {rule: definitionName}, required: true, mergeClauses: true}
+      - {rule: callbackDefinition, kind: callback, name: {rule: definitionName}, required: true, mergeClauses: true}
+      - {rule: typeDefinition, kind: type, name: {rule: definitionName}, required: false}
+      - {rule: structDefinition, kind: struct, name: {token: DEFSTRUCT}, required: false}
+      - {rule: exceptionDefinition, kind: exception, name: {token: DEFEXCEPTION}, required: false}
+      - {rule: namedBlock, kind: test, name: {rule: blockName}, firstToken: {token: TEST_MACRO, oneOf: [test, property]}}
+      - {rule: namedBlock, kind: describe, name: {rule: blockName}, required: false, firstToken: {token: TEST_MACRO, oneOf: [describe]}}
+```
+
+Private definitions are told apart by their keyword, so `def` requires a
+comment and `defp` may have one. A test is named by its string, and its
+canonical comment is a `@doc` above it, which ExUnit compiles without
+warning.
+
+The Gleam sample is the standard library's `order` and `bytes_tree` modules
+and `order`'s tests, vendored under `source/` with the library's Apache-2.0
+licence. `///` documents the item below its attributes and `////` documents
+the module. Its `canon.yaml` holds the Gleam profile:
+
+```yaml
+languages:
+  gleam:
+    extensions: [.gleam]
+    lexer: ../../grammars/gleam/GleamLexer.g4
+    parser: ../../grammars/gleam/GleamParser.g4
+    start: module
+    comments:
+      line: "//"
+      outerDoc: ["///"]
+      innerDoc: ["////"]
+      strings: ["\""]
+    units:
+      - {rule: publicFunction, kind: function, name: {rule: definitionName}, required: true}
+      - {rule: privateFunction, kind: function, name: {rule: definitionName}, required: false}
+      - {rule: publicType, kind: type, name: {rule: typeName}, required: true}
+      - {rule: privateType, kind: type, name: {rule: typeName}, required: false}
+      - {rule: constructor, kind: constructor, name: {rule: constructorName}, required: false}
+      - {rule: publicConstant, kind: const, name: {rule: definitionName}, required: true}
+      - {rule: privateConstant, kind: const, name: {rule: definitionName}, required: false}
+      - {rule: field, kind: field, name: {rule: fieldName}, required: false}
+```
 
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked
@@ -544,6 +633,21 @@ each attribute labeled `marker`; and macro token trees take one token at a
 time, which keeps macro bodies from parsing in exponential time. Each change
 is marked `// canon:` in the grammar, listed in `grammars/rust/README.md`,
 and recorded in the ledger.
+
+`grammars/elixir/` and `grammars/gleam/` hold grammars written for canon, with
+empty `canonically_commented/` husks. The grammars-v4 Elixir grammar parsed
+71 of 308 files from Jason, Plug, and Phoenix in canon's interpreter, and no
+ANTLR grammar for Gleam exists. The Elixir grammar is structural: statements
+end at newlines unless an operator continues them, expressions are chains of
+operands without precedence, strings and heredocs have lexer modes whose
+interpolations nest, and each kind of definition takes the module attributes
+directly above it, labeled `marker`. The Gleam grammar reads a module's items
+with their attributes, labeled `marker`, and reads function bodies as
+balanced brackets. Both parse every file of their test corpora: the 308
+Elixir files, and the 116 modules of the Gleam stdlib, gleam_json, gleam_otp,
+and wisp. Each directory's `README.md` gives the design and the known
+limitations, and the ledger records them as `DEC-elixir-grammar` and
+`DEC-gleam-grammar`.
 
 The other language directories hold their upstream grammars with an empty
 `canonically_commented/` husk, and their samples use the line-adjacency

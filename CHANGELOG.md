@@ -9,6 +9,11 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- Elixir as a language: a structural Elixir grammar written for canon under `grammars/elixir/`, since the grammars-v4 Elixir grammar parsed 71 of 308 real files, reading statements, interpolating strings and heredocs, sigils, and every kind of definition with the attributes above it; an Elixir profile with modules, protocols, implementations, functions, macros, guards, delegates, callbacks, types, structs, exceptions, and ExUnit tests and describe blocks as units; ExUnit and StreamData tests in the test table; and `lang_samples/elixir-jason`, Jason 1.4.5's formatter and its tests vendored with Jason's license
+- Gleam as a language: a grammar of Gleam's module level written for canon under `grammars/gleam/`, reading imports, functions, types with constructors and labelled fields, and constants with their attributes; a Gleam profile that requires a comment on public items; gleeunit's `*_test` functions in the test table; and `lang_samples/gleam-stdlib`, two stdlib modules and a test module vendored with the stdlib's licence
+- `docAttributes` in a profile's comment syntax: an attribute such as Elixir's `@doc` followed by a string is scanned as a comment whose body is the string's contents, and a string delimiter of three or more characters may span lines
+- `mergeClauses` on a unit rule, which makes adjacent matches with one name a single unit unless a doc comment above a later one starts a new unit, and several unit rules naming one parse rule, told apart by `firstToken`
+
 - Rust as a language: the grammars-v4 Rust grammar under `grammars/rust/`, with its base-class predicates replaced in the grammar, attributes and visibility moved into each kind of item so a doc comment above the attributes binds, macro token trees parsed one token at a time, and seven fixes where upstream rejected stable Rust, among them a string ending in an escaped backslash; a Rust profile with functions, structs, enums, unions, traits, macros, type aliases, constants, statics, impls, and modules as units; `#[test]` and four other test attributes in the test table; and `lang_samples/rust-scopeguard`, scopeguard 1.2.0 vendored with its licenses
 - `outerDoc` and `innerDoc` openers in a profile's comment syntax: with outer openers given, only a doc comment binds to the unit below and a plain comment is neither a Why nor an orphan, and an inner doc comment such as Rust's `//!` binds to the unit that encloses it or to the file; adjacent line comments merge only when they open alike
 - Unicode property classes such as `\p{L}` and `\p{Zs}` in lexer character sets, matched by general category
@@ -26,12 +31,14 @@ and this project adheres to
 - The `required` and `orphan` element labels in canonically commented grammars, and the rule that only a labeled alternative containing a `why` element is a unit, so upstream alternative labels stay inert
 
 ### Fixed
+- Lexing a long literal is linear rather than quadratic in its length: a 20 KB string in a Plug module took seconds, because each iteration of a loop copied the ends of the iterations after it
 - Extraction was exponential in expression depth on the Java grammar because every labeled expression alternative was scanned as a possible unit; the check of one 170-line test file took minutes and now takes a fraction of a second
 - `canon check` bounds the number of files extracted at once to the core count instead of starting every file concurrently
 - Unit ids are relative to the project directory rather than the working directory, so verdicts and ledger unit names mean the same thing wherever `canon` is run
 - An uncited decided decision is reported once per project, when no file in the project cites it, instead of per file that happens not to
 
 ### Changed
+- Where a profile gives outer doc openers, full-line plain comments directly below a doc comment no longer separate it from its unit, and an outer doc comment on a file's first line documents the item below it rather than the file
 - The decree of no comments in canon's own code ends: the standard is canonical comments in Haddock form on exported units and module headers, and nothing else
 - The tetris sample is checked through the Haskell dialect instead of a profile with `units`, which brought its findings from 92 to 25 missing comments and no parse failures
 - `canon check` stops at nested projects instead of checking them too, so the root check reports canon's own state and each sample is checked from its own directory

@@ -26,10 +26,11 @@ data TestRule = TestRule
 
 -- | The languages the table covers.
 knownLanguages :: [Text]
-knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust"]
+knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "elixir", "gleam"]
 
 -- | The rules of a language. Rust's rules are attributes, which the Rust grammar labels marker on
--- every item. ref:DEC-rust-grammar
+-- every item. ref:DEC-rust-grammar Elixir's tests are the units its profile makes of ExUnit's test
+-- calls, and Gleam's are gleeunit's functions named for it. ref:DEC-elixir-grammar ref:DEC-gleam-grammar
 testRules :: Text -> [TestRule]
 testRules language = case language of
   "java" ->
@@ -40,6 +41,8 @@ testRules language = case language of
   "prolog" -> [TestRule (Just "clause") Nothing (Just "test") Nothing]
   "haskell" -> [TestRule (Just "function") Nothing (Just name) Nothing | name <- ["prop_*", "test_*"]]
   "rust" -> [TestRule (Just "function") (Just marker) Nothing Nothing | marker <- ["#[test]", "#[tokio::test]", "#[async_std::test]", "#[rstest]", "#[quickcheck]"]]
+  "elixir" -> [TestRule (Just "test") Nothing Nothing Nothing]
+  "gleam" -> [TestRule (Just "function") Nothing (Just "*_test") Nothing]
   _ -> []
   where
     javaMarkers =

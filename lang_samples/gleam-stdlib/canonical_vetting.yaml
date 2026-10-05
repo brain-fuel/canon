@@ -1,0 +1,84 @@
+decision/gleam/source/src/gleam/bytes_tree.gleam:
+  comment: sha256:0291270fcd676bc4
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/append:
+  comment: sha256:026b63fc37cf48aa
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/append_string:
+  comment: sha256:bac151e5ef821aa9
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/append_tree:
+  comment: sha256:621f74d21c41f36c
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/byte_size:
+  comment: sha256:e5ee8b4bfc92ec00
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/concat:
+  comment: sha256:dc7dbf96ecd741f3
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/concat_bit_arrays:
+  comment: sha256:dcac26da6de28032
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/from_bit_array:
+  comment: sha256:0183e66493b4014e
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/from_string:
+  comment: sha256:920b7c1c91a39b75
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/from_string_tree:
+  comment: sha256:8cd02ea4f15bda6a
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/new:
+  comment: sha256:69117171166be03f
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/prepend:
+  comment: sha256:a20edb22c1d44752
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/prepend_string:
+  comment: sha256:0503447e4bc3e7c1
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/prepend_tree:
+  comment: sha256:3373588078f78938
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/to_bit_array:
+  comment: sha256:73bf14bd3875ff05
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/break_tie:
+  comment: sha256:d7afabe7227010e3
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/compare:
+  comment: sha256:c47177e4d2143c43
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/lazy_break_tie:
+  comment: sha256:553f3439ac72325a
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/negate:
+  comment: sha256:481b529a3a8f19c5
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/reverse:
+  comment: sha256:4da5437bb1c3e050
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/to_int:
+  comment: sha256:aabb2e893dd70e39
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/type/Order:
+  comment: sha256:3abf43a05e66d58f
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/type/Order/constructor/Eq:
+  comment: sha256:374c25297421fa0e
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/type/Order/constructor/Gt:
+  comment: sha256:1fbcaddaa36260ff
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/type/Order/constructor/Lt:
+  comment: sha256:bd0508c4dbcec4b8
+  verdict: pending
+ledger/DEC-sample-scope:
+  comment: sha256:94dfac4d85e86258
+  verdict: pending
+registry/Apache-2.0:
+  comment: sha256:f42cc8899f7d45b9
+  verdict: pending
+registry/gleam-stdlib-upstream:
+  comment: sha256:1bb009038367380a
+  verdict: pending

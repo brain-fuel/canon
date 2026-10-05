@@ -1,0 +1,46 @@
+version: 0.1.0
+root: source
+languages:
+  gleam:
+    extensions: [.gleam]
+    lexer: ../../grammars/gleam/GleamLexer.g4
+    parser: ../../grammars/gleam/GleamParser.g4
+    start: module
+    comments:
+      line: "//"
+      outerDoc: ["///"]
+      innerDoc: ["////"]
+      strings: ["\""]
+    units:
+      - rule: publicFunction
+        kind: function
+        name: {rule: definitionName}
+        required: true
+      - rule: privateFunction
+        kind: function
+        name: {rule: definitionName}
+        required: false
+      - rule: publicType
+        kind: type
+        name: {rule: typeName}
+        required: true
+      - rule: privateType
+        kind: type
+        name: {rule: typeName}
+        required: false
+      - rule: constructor
+        kind: constructor
+        name: {rule: constructorName}
+        required: false
+      - rule: publicConstant
+        kind: const
+        name: {rule: definitionName}
+        required: true
+      - rule: privateConstant
+        kind: const
+        name: {rule: definitionName}
+        required: false
+      - rule: field
+        kind: field
+        name: {rule: fieldName}
+        required: false

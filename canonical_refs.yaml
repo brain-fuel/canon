@@ -42,3 +42,35 @@ REQ-rust-support:
   kind: requirement
   title: canon reads Rust, parsing every stable Rust source file, taking functions, types, traits, impls, modules, constants, statics, and macros as units, binding /// to the item below its attributes and //! to the enclosing module or file, and recognising test functions by their attribute
   locator: README.md
+grammars-v4-elixir:
+  kind: package
+  title: The grammars-v4 Elixir grammar, ElixirLexer.g4 and ElixirParser.g4, MIT, at commit 7df52be94698550d219d299d04105c6bafadd9c3, evaluated and not vendored
+  locator: https://github.com/antlr/grammars-v4/tree/7df52be94698550d219d299d04105c6bafadd9c3/elixir
+elixir-syntax-reference:
+  kind: article
+  title: The Elixir syntax reference, on the forms canon's Elixir grammar reads
+  locator: https://hexdocs.pm/elixir/syntax-reference.html
+elixir-writing-documentation:
+  kind: article
+  title: Writing documentation in Elixir, on @moduledoc, @doc, and @typedoc
+  locator: https://hexdocs.pm/elixir/writing-documentation.html
+REQ-elixir-support:
+  kind: requirement
+  title: canon reads Elixir, parsing real Elixir source files, taking modules, protocols, implementations, functions, macros, guards, delegates, structs, exceptions, types, callbacks, and ExUnit tests and describe blocks as units, merging the clauses of a function, binding @doc and @typedoc to the definition below its attributes and @moduledoc to the enclosing module, and treating a # comment as no documentation
+  locator: README.md
+gleam-language-tour:
+  kind: article
+  title: The Gleam language tour, on the module-level syntax canon's Gleam grammar reads
+  locator: https://tour.gleam.run/
+gleam-compiler-parser:
+  kind: package
+  title: The parser of the Gleam compiler at v1.19.0, Apache-2.0, the reference for canon's Gleam grammar
+  locator: https://github.com/gleam-lang/gleam/tree/v1.19.0/compiler-core/src/parse
+gleam-documentation-comments:
+  kind: article
+  title: The Gleam language tour, Documentation comments, on /// and ////
+  locator: https://tour.gleam.run/functions/documentation-comments/
+REQ-gleam-support:
+  kind: requirement
+  title: canon reads Gleam, parsing every Gleam module, taking functions, types, constructors, labelled fields, and constants as units, requiring a comment on public functions, types, and constants, binding /// to the item below its attributes and //// to the file, and recognising gleeunit test functions by their _test suffix
+  locator: README.md

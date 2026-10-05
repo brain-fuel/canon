@@ -1,0 +1,8 @@
+jason-upstream:
+  kind: package
+  title: Jason 1.4.5, Michał Muskała's JSON library for Elixir, of which lib/formatter.ex and test/formatter_test.exs are vendored under source/ at commit 4ede42858eb19f80ec9e863aab52df466eab8608
+  locator: https://hex.pm/packages/jason/1.4.5
+Apache-2.0:
+  kind: license
+  title: Apache License 2.0
+  locator: https://spdx.org/licenses/Apache-2.0.html

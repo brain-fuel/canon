@@ -281,7 +281,7 @@ genProfile =
     <*> Gen.choice [CombinedGrammarFile <$> genPath, SplitGrammarFiles <$> genPath <*> genPath]
     <*> (Name <$> genIdSegment)
     <*> Gen.list (Range.linear 0 3) genUnitRule
-    <*> (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment)
+    <*> (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment)
   where
     genUnitRule =
       UnitRule
@@ -290,6 +290,7 @@ genProfile =
         <*> Gen.choice [NameFromToken <$> (Name <$> genIdSegment) <*> Gen.int (Range.linear 1 3), NameFromRule . Name <$> genIdSegment]
         <*> Gen.bool
         <*> Gen.maybe ((,) <$> Gen.maybe (Name <$> genIdSegment) <*> Gen.list (Range.linear 1 3) genIdSegment)
+        <*> Gen.bool
 
 -- | A finding of any kind.
 genFinding :: Gen Finding

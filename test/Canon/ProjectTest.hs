@@ -52,7 +52,7 @@ profileRoundTrip = property $ do
 
 commentScanning :: Property
 commentScanning = withTests 1 $ property $ do
-  let syntax = CommentSyntax (Just "%") (Just "/*") (Just "*/") ["\""] [] []
+  let syntax = CommentSyntax (Just "%") (Just "/*") (Just "*/") ["\""] [] [] []
       source = "%% one\n%% two\nx = \"% not\".\n/* block */ y.\n\n% alone\n"
       found = scanCommentsWith syntax source
   map (commentKind . locatedValue) found === [LineComment, BlockComment, LineComment]
@@ -79,7 +79,7 @@ profileExtraction = withTests 1 $ property $ do
   case interpreter of
     Left err -> annotate (show err) >> failure
     Right loaded -> do
-      let profile = Profile [".tiny"] (CombinedGrammarFile "Tiny.g4") (Name "file_") [UnitRule (Name "definition") "function" (NameFromToken (Name "NAME") 1) True Nothing] (CommentSyntax (Just "#") Nothing Nothing ["\""] [] [])
+      let profile = Profile [".tiny"] (CombinedGrammarFile "Tiny.g4") (Name "file_") [UnitRule (Name "definition") "function" (NameFromToken (Name "NAME") 1) True Nothing False] (CommentSyntax (Just "#") Nothing Nothing ["\""] [] [] [])
           source = "# tiny module license:MIT\n\n# why alpha ref:REQ-1\ndef alpha() { def inner() {} }\n\ndef beta() {}\ndef beta() {}\n"
       result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "tiny" profile loaded "src/x.tiny" "src/x.tiny" source)
       case result of

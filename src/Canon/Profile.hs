@@ -31,13 +31,18 @@ data UnitName
   | NameFromRule Name
   deriving (Eq, Show)
 
--- | A parse-tree rule that is a unit, for languages without a dialect.
+-- | A parse-tree rule that is a unit, for languages without a dialect. Several unit rules may name
+-- one parse-tree rule, told apart by their first token, as ExUnit's test and describe calls are.
+-- With clauses merged, adjacent matches of the rule with one name are one unit, as the clauses of an
+-- Elixir function are one function, unless a doc comment directly above a later clause starts a new
+-- unit, as the @doc of another arity does. ref:DEC-elixir-grammar
 data UnitRule = UnitRule
   { unitRuleName :: Name
   , unitRuleKind :: Text
   , unitRuleNameSource :: UnitName
   , unitRuleRequired :: Bool
   , unitRuleFirstToken :: Maybe (Maybe Name, [Text])
+  , unitRuleMergeClauses :: Bool
   }
   deriving (Eq, Show)
 
@@ -46,6 +51,12 @@ data UnitRule = UnitRule
 -- //. When outer openers are given, only a comment that starts with one binds to the unit below it;
 -- a comment that starts with an inner opener belongs to the unit that encloses it, or to the file.
 -- ref:DEC-rust-grammar
+--
+-- Doc attributes are the openers of documentation written as code rather than as a comment, as
+-- Elixir's @doc and @moduledoc are: an attribute followed by a string, or by a sigil and a string,
+-- is scanned as a comment whose text runs from the attribute to the end of the string, and its
+-- body is the string's contents. A string delimiter of three or more characters, such as a
+-- heredoc's, may span lines. ref:DEC-elixir-grammar
 data CommentSyntax = CommentSyntax
   { commentLine :: Maybe Text
   , commentBlockOpen :: Maybe Text
@@ -53,12 +64,13 @@ data CommentSyntax = CommentSyntax
   , commentStringDelimiters :: [Text]
   , commentOuterDoc :: [Text]
   , commentInnerDoc :: [Text]
+  , commentDocAttributes :: [Text]
   }
   deriving (Eq, Show)
 
 -- | No comments and double-quoted strings, the default for a dialect language.
 defaultCommentSyntax :: CommentSyntax
-defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] []
+defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] [] []
 
 -- | A language profile.
 data Profile = Profile
@@ -93,14 +105,16 @@ instance FromJSON UnitName where
       _ -> fail "a unit name comes from exactly one of token or rule"
 
 instance ToJSON UnitRule where
-  toJSON (UnitRule (Name rule) kind name required firstToken) =
+  toJSON (UnitRule (Name rule) kind name required firstToken merge) =
     object
-      [ "firstToken" .= fmap (\(token, texts) -> object ["token" .= fmap nameText token, "oneOf" .= texts]) firstToken
-      , "kind" .= kind
-      , "name" .= name
-      , "required" .= required
-      , "rule" .= rule
-      ]
+      ( [ "firstToken" .= fmap (\(token, texts) -> object ["token" .= fmap nameText token, "oneOf" .= texts]) firstToken
+        , "kind" .= kind
+        , "name" .= name
+        , "required" .= required
+        , "rule" .= rule
+        ]
+          ++ ["mergeClauses" .= True | merge]
+      )
 
 instance FromJSON UnitRule where
   parseJSON = withObject "UnitRule" $ \o -> do
@@ -114,13 +128,15 @@ instance FromJSON UnitRule where
       <*> o .: "name"
       <*> (fromMaybe True <$> o .:? "required")
       <*> pure constraint
+      <*> (fromMaybe False <$> o .:? "mergeClauses")
 
 instance ToJSON CommentSyntax where
-  toJSON (CommentSyntax line open close strings outer inner) =
+  toJSON (CommentSyntax line open close strings outer inner attributes) =
     object
       ( ["blockClose" .= close, "blockOpen" .= open, "line" .= line, "strings" .= strings]
           ++ ["outerDoc" .= outer | not (null outer)]
           ++ ["innerDoc" .= inner | not (null inner)]
+          ++ ["docAttributes" .= attributes | not (null attributes)]
       )
 
 instance FromJSON CommentSyntax where
@@ -132,6 +148,7 @@ instance FromJSON CommentSyntax where
       <*> (fromMaybe ["\""] <$> o .:? "strings")
       <*> (fromMaybe [] <$> o .:? "outerDoc")
       <*> (fromMaybe [] <$> o .:? "innerDoc")
+      <*> (fromMaybe [] <$> o .:? "docAttributes")
 
 instance ToJSON Profile where
   toJSON p =

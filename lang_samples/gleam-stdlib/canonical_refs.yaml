@@ -1,0 +1,8 @@
+gleam-stdlib-upstream:
+  kind: package
+  title: The Gleam standard library after 1.0.5, of which src/gleam/order.gleam, src/gleam/bytes_tree.gleam, test/gleam/order_test.gleam, and gleam.toml are vendored under source/ at commit 84ac8c701824b5b004897562c30cdd9c9aced346
+  locator: https://github.com/gleam-lang/stdlib/tree/84ac8c701824b5b004897562c30cdd9c9aced346
+Apache-2.0:
+  kind: license
+  title: Apache License 2.0
+  locator: https://spdx.org/licenses/Apache-2.0.html
