@@ -1,0 +1,36 @@
+version: 0.1.0
+root: source
+languages:
+  csharp:
+    extensions: [.cs]
+    lexer: ../../grammars/csharp/CSharpLexer.g4
+    parser: ../../grammars/csharp/CSharpParser.g4
+    start: compilation_unit
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["///", "/**"]
+      directives: ["#"]
+      strings: ["\""]
+    units:
+      - {rule: namespace_declaration, kind: namespace, name: {rule: qualified_identifier}, required: false}
+      - {rule: file_scoped_namespace_declaration, kind: namespace, name: {rule: qualified_identifier}, required: false}
+      - {rule: class_definition, kind: class, name: {rule: identifier}, required: false}
+      - {rule: struct_definition, kind: struct, name: {rule: identifier}, required: false}
+      - {rule: interface_definition, kind: interface, name: {rule: identifier}, required: false}
+      - {rule: enum_definition, kind: enum, name: {rule: identifier}, required: false}
+      - {rule: record_definition, kind: record, name: {rule: identifier}, required: false}
+      - {rule: delegate_definition, kind: delegate, name: {rule: identifier}, required: false}
+      - {rule: method_declaration, kind: method, name: {rule: method_member_name}, required: false}
+      - {rule: constructor_declaration, kind: constructor, name: {rule: identifier}, required: false}
+      - {rule: destructor_definition, kind: destructor, name: {rule: identifier}, required: false}
+      - {rule: property_declaration, kind: property, name: {rule: member_name}, required: false}
+      - {rule: indexer_declaration, kind: indexer, name: {token: THIS, index: 1}, required: false}
+      - {rule: event_declaration, kind: event, name: {rule: member_name}, required: false}
+      - {rule: operator_declaration, kind: operator, name: {rule: overloadable_operator}, required: false}
+      - {rule: conversion_operator_declaration, kind: operator, name: {rule: type_}, required: false}
+      - {rule: field_declaration, kind: field, name: {rule: identifier}, required: false}
+      - {rule: constant_declaration, kind: constant, name: {rule: identifier}, required: false}
+      - {rule: enum_member_declaration, kind: member, name: {rule: identifier}, required: false}
+      - {rule: extension_declaration, kind: extension, name: {rule: type_}, required: false}

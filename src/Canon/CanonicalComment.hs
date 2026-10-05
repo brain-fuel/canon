@@ -50,10 +50,11 @@ keyedTokens prefix = nub . mapMaybe keyOf . T.words
   where
     keyOf token = do
       rest <- T.stripPrefix prefix token
-      let key = T.dropWhileEnd (`elem` (".,;:)!?" :: String)) rest
+      let key = T.dropWhileEnd (`elem` (".,;:)!?" :: String)) (T.takeWhile (/= '<') rest)
       if isReferenceKey key then Just (ReferenceKey key) else Nothing
 
--- | The ref keys cited in a body, in order and without repeats.
+-- | The ref keys cited in a body, in order and without repeats. A key ends where markup starts, so a
+-- key closed by an XML tag in a C# or F# doc comment is cited without the tag. ref:DEC-csharp-grammar
 referenceTokens :: Text -> [ReferenceKey]
 referenceTokens = keyedTokens referencePrefix
 

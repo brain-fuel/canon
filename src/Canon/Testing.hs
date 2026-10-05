@@ -26,10 +26,12 @@ data TestRule = TestRule
 
 -- | The languages the table covers.
 knownLanguages :: [Text]
-knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust"]
+knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp"]
 
--- | The rules of a language. Rust's rules are attributes, which the Rust grammar labels marker on
--- every item. ref:DEC-rust-grammar
+-- | The rules of a language. Rust's, C#'s, and F#'s rules are attributes, which their grammars label
+-- marker on every item. An F# test list bound with Expecto's [<Tests>] is the test, because the
+-- testCase and testProperty inside it are expressions, not declarations. ref:DEC-rust-grammar
+-- ref:DEC-csharp-grammar ref:DEC-fsharp-grammar
 testRules :: Text -> [TestRule]
 testRules language = case language of
   "java" ->
@@ -40,6 +42,10 @@ testRules language = case language of
   "prolog" -> [TestRule (Just "clause") Nothing (Just "test") Nothing]
   "haskell" -> [TestRule (Just "function") Nothing (Just name) Nothing | name <- ["prop_*", "test_*"]]
   "rust" -> [TestRule (Just "function") (Just marker) Nothing Nothing | marker <- ["#[test]", "#[tokio::test]", "#[async_std::test]", "#[rstest]", "#[quickcheck]"]]
+  "csharp" -> [TestRule (Just "method") (Just marker) Nothing Nothing | marker <- csharpMarkers]
+  "fsharp" ->
+    [TestRule (Just kind) (Just marker) Nothing Nothing | kind <- ["function", "member"], marker <- fsharpMarkers]
+      ++ [TestRule (Just kind) (Just marker) Nothing Nothing | kind <- ["function", "value"], marker <- ["Tests", "Expecto.Tests"]]
   _ -> []
   where
     javaMarkers =
@@ -54,6 +60,34 @@ testRules language = case language of
       , "@Example"
       , "@net.jqwik.api.Property"
       , "@net.jqwik.api.Example"
+      ]
+    csharpMarkers =
+      [ "Fact"
+      , "Theory"
+      , "Xunit.Fact"
+      , "Xunit.Theory"
+      , "Test"
+      , "TestCase"
+      , "TestCaseSource"
+      , "NUnit.Framework.Test"
+      , "NUnit.Framework.TestCase"
+      , "NUnit.Framework.TestCaseSource"
+      , "TestMethod"
+      , "DataTestMethod"
+      , "Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod"
+      ]
+    fsharpMarkers =
+      [ "Fact"
+      , "Theory"
+      , "Xunit.Fact"
+      , "Xunit.Theory"
+      , "Test"
+      , "TestCase"
+      , "TestCaseSource"
+      , "NUnit.Framework.Test"
+      , "Property"
+      , "FsCheck.Xunit.Property"
+      , "FsCheck.NUnit.Property"
       ]
 
 -- | Whether a unit is a test: some rule of its language matches.

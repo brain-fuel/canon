@@ -1,0 +1,8 @@
+giraffe-viewengine-upstream:
+  kind: package
+  title: Giraffe.ViewEngine at commit b012e4eeb02f9e67289a5432e122643a51587feb, its two source files and its xUnit test file, vendored under source/
+  locator: https://github.com/giraffe-fsharp/Giraffe.ViewEngine/tree/b012e4eeb02f9e67289a5432e122643a51587feb
+Apache-2.0:
+  kind: license
+  title: Apache License 2.0
+  locator: https://spdx.org/licenses/Apache-2.0.html

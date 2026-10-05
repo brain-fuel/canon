@@ -1,0 +1,43 @@
+version: 0.1.0
+root: source
+languages:
+  fsharp:
+    extensions: [.fs, .fsi, .fsx]
+    lexer: ../../grammars/fsharp/FSharpLexer.g4
+    parser: ../../grammars/fsharp/FSharpParser.g4
+    start: file
+    comments:
+      line: "//"
+      blockOpen: "(*"
+      blockClose: "*)"
+      outerDoc: ["///"]
+      directives: ["#"]
+      strings: ["\""]
+    units:
+      - {rule: namespaceDeclaration, kind: namespace, name: {rule: longIdentifier}, required: false}
+      - {rule: topModule, kind: module, name: {rule: longIdentifier}, required: false}
+      - {rule: nestedModule, kind: module, name: {rule: identifier}, required: false}
+      - {rule: functionDefinition, kind: function, name: {rule: bindingName}, required: true}
+      - {rule: andFunctionDefinition, kind: function, name: {rule: bindingName}, required: true}
+      - {rule: valueDefinition, kind: value, name: {rule: bindingName}, required: false}
+      - {rule: andValueDefinition, kind: value, name: {rule: bindingName}, required: false}
+      - {rule: localFunctionDefinition, kind: function, name: {rule: bindingName}, required: false}
+      - {rule: localValueDefinition, kind: value, name: {rule: bindingName}, required: false}
+      - {rule: recordType, kind: record, name: {rule: typeName}, required: true}
+      - {rule: unionType, kind: union, name: {rule: typeName}, required: true}
+      - {rule: enumType, kind: enum, name: {rule: typeName}, required: true}
+      - {rule: classType, kind: class, name: {rule: typeName}, required: true}
+      - {rule: interfaceType, kind: interface, name: {rule: typeName}, required: true}
+      - {rule: delegateType, kind: delegate, name: {rule: typeName}, required: true}
+      - {rule: exceptionDefinition, kind: exception, name: {rule: identifier}, required: true}
+      - {rule: abbreviationType, kind: abbreviation, name: {rule: typeName}, required: false}
+      - {rule: typeExtension, kind: extension, name: {rule: typeName}, required: false}
+      - {rule: abstractType, kind: type, name: {rule: typeName}, required: false}
+      - {rule: memberDefinition, kind: member, name: {rule: memberName}, required: true}
+      - {rule: abstractMemberDefinition, kind: member, name: {rule: memberName}, required: true}
+      - {rule: constructorDefinition, kind: constructor, name: {token: NEW, index: 1}, required: false}
+      - {rule: valDeclaration, kind: val, name: {rule: bindingName}, required: false}
+      - {rule: recordField, kind: field, name: {rule: identifier}, required: false}
+      - {rule: unionCase, kind: case, name: {rule: identifier}, required: false}
+      - {rule: unionCaseOf, kind: case, name: {rule: identifier}, required: false}
+      - {rule: enumCase, kind: case, name: {rule: identifier}, required: false}

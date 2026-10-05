@@ -51,12 +51,21 @@ scanCommentsWith syntax source = mergeLineComments (docOpenerOf syntax) (go 0 so
        in T.length open + T.length body + (if T.null rest then 0 else T.length close)
 
 -- | The longest doc-comment opener, outer or inner, that a comment's text starts with; a plain
--- comment has none.
+-- comment has none. An opener followed by a slash, or one ending in a star followed by another, opens
+-- a plain comment, as ////, /**/, and /*** do in Rust and C#, so commented-out documentation and
+-- banners are not documentation.
+-- ref:DEC-rust-grammar ref:DEC-csharp-grammar
 docOpenerOf :: CommentSyntax -> Text -> Maybe Text
 docOpenerOf syntax text =
-  case sortOn (Down . T.length) [o | o <- commentOuterDoc syntax ++ commentInnerDoc syntax, o `T.isPrefixOf` T.stripStart text] of
+  case sortOn (Down . T.length) [o | o <- commentOuterDoc syntax ++ commentInnerDoc syntax, opens o (T.stripStart text)] of
     (o : _) -> Just o
     [] -> Nothing
+  where
+    opens o t = case T.stripPrefix o t of
+      Just rest -> case T.uncons rest of
+        Just (c, _) -> c /= '/' && not ("*" `T.isSuffixOf` o && c == '*')
+        Nothing -> True
+      Nothing -> False
 
 mergeLineComments :: (Text -> Maybe Text) -> [Located Comment] -> [Located Comment]
 mergeLineComments opener comments = case comments of

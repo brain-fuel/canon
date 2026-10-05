@@ -31,6 +31,7 @@ import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider
 import Canon.Model
 import Canon.Model.Finding (Finding (..))
+import Canon.Preprocessor (inactiveLines)
 import Canon.Profile
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.Testing (isTestUnit)
@@ -163,7 +164,11 @@ exportRequires exports parent name = case exports of
       ExportModule _ -> False
     plainName n = not (T.null n) && not (T.any isSpace n)
 
--- | Builds the unit tree, its decisions, and the orphan spans from a parse tree.
+-- | Builds the unit tree, its decisions, and the orphan spans from a parse tree. A unit a profile
+-- names is required when its node holds an element the grammar labels required, as the C# grammar
+-- labels public and protected, or when its rule says so and its node holds no element labeled
+-- optional, as the F# grammar labels private and internal. ref:DEC-csharp-grammar
+-- ref:DEC-fsharp-grammar
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
 unitsFromTree language profile plans exportsDeclared idPath path source tree =
   case [i | i@(_ : _ : _) <- group (sort (map unitId (allUnits root)))] of
@@ -234,7 +239,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       RuleNode name alternative nodeChildren -> case planFor name alternative of
         Just plan | Just unitName <- labeledText "what" node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node]
         _ -> case Map.lookup name rulesByName of
-          Just rule | accepts rule node, Just unitName <- nameOf rule node -> [Candidate (unitRuleKind rule) unitName (if unitRuleRequired rule then Required else Optional) Nothing Nothing node]
+          Just rule | accepts rule node, Just unitName <- nameOf rule node -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule && not (isJust (labeledSubtree "optional" node))) || isJust (labeledSubtree "required" node) then Required else Optional) Nothing Nothing node]
           _ -> concatMap found nodeChildren
     planFor name alternative = Map.lookup name plans >>= \alts -> listToMaybe (drop alternative alts) >>= id
     isUnitNode node = case node of
@@ -347,11 +352,18 @@ offsetFromPosition source (Position line column) =
 -- encloses it, or to the file, and the file's first one is the file's comment ahead of a comment on
 -- the first line; every other comment binds to the unit directly below it. Where the syntax names
 -- outer openers, a plain comment binds to nothing and is no orphan, since it is not documentation.
--- ref:DEC-rust-grammar ref:DEC-comment-attachment
+-- A unit is taken to start above the directive lines, and where outer openers are named the plain
+-- comment lines, directly over it, so a C# #if or an F# note between a doc comment and its member
+-- does not part them, as neither compiler lets it. Where the syntax names directives, a comment in
+-- a branch of an #if that canon does not read binds to nothing and is no orphan, because the code it
+-- documents is not read either, and the lines of such a branch part nothing.
+-- ref:DEC-rust-grammar ref:DEC-comment-attachment ref:DEC-csharp-grammar ref:DEC-fsharp-grammar
 extractDecisionsFor :: CommentSyntax -> FilePath -> Text -> CodeUnit Evidence -> Set.Set DecisionId -> [Located Comment] -> ([Decision Evidence], [Located Comment])
-extractDecisionsFor syntax path source root decided comments = (map toDecision (fileInner ++ maybe [] (\c -> [(c, rootTarget)]) header ++ pairs ++ nestedInner), orphans ++ innerOrphans)
+extractDecisionsFor syntax path source root decided scanned = (map toDecision (fileInner ++ maybe [] (\c -> [(c, rootTarget)]) header ++ pairs ++ nestedInner), orphans ++ innerOrphans)
   where
     rootTarget = Located (whereSpan (answerValue (unitWhere root))) root
+    unread = if null (commentDirectives syntax) then Set.empty else inactiveLines source
+    comments = [c | c <- scanned, not (Set.member (positionLine (spanStart (locatedSpan c))) unread)]
     isInner c = maybe False (`elem` commentInnerDoc syntax) (docOpenerOf syntax (commentText (locatedValue c)))
     isOuter c = null (commentOuterDoc syntax) || maybe False (`elem` commentOuterDoc syntax) (docOpenerOf syntax (commentText (locatedValue c)))
     (inner, plain) = (filter isInner comments, filter (not . isInner) comments)
@@ -368,7 +380,18 @@ extractDecisionsFor syntax path source root decided comments = (map toDecision (
     (header, rest)
       | rootDecided || not (null fileInner) = (Nothing, plain)
       | otherwise = topOfFileComment (firstContentLine source) plain
-    targets = [t | t <- nested, not (Set.member (decisionIdFor (unitId (locatedValue t))) decided)]
+    targets = [overTransparent t | t <- nested, not (Set.member (decisionIdFor (unitId (locatedValue t))) decided)]
+    transparentLines = Set.fromList [n | (n, line) <- zip [1 :: Int ..] (T.lines source), Set.member n unread || transparent (T.stripStart line)]
+    transparent line =
+      any (`T.isPrefixOf` line) (commentDirectives syntax)
+        || ( not (null (commentOuterDoc syntax))
+               && maybe False (`T.isPrefixOf` line) (commentLine syntax)
+               && docOpenerOf syntax line == Nothing
+           )
+    overTransparent t =
+      let Span start end = locatedSpan t
+          firstLine = until (\l -> not (Set.member (l - 1) transparentLines)) (subtract 1) (positionLine start)
+       in if firstLine == positionLine start then t else t {locatedSpan = Span (Position firstLine 1) end}
     (pairs, unattached) = attachPreceding (filter isOuter rest) targets
     orphans = unattached
     bound = Set.fromList (map (unitId . locatedValue . snd) pairs)

@@ -1,0 +1,8 @@
+guardclauses-upstream:
+  kind: package
+  title: Ardalis.GuardClauses at commit f96b823e4228252b2927cce3effa550c16b558a5, its library sources without the vendored JetBrains annotations and one of its xUnit test files, vendored under source/
+  locator: https://github.com/ardalis/GuardClauses/tree/f96b823e4228252b2927cce3effa550c16b558a5
+MIT:
+  kind: license
+  title: MIT License
+  locator: https://spdx.org/licenses/MIT.html

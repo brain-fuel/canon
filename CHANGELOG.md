@@ -9,6 +9,10 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- C# as a language: the grammars-v4 C# 7 grammar under `grammars/csharp/`, with its `CSharpLexerBase` ported as a lexer hook that tracks interpolation holes and reads one branch of each `#if`, attributes and modifiers moved into each kind of type and member so a doc comment above the attributes binds, `public` and `protected` labeled `required`, and C# 8 to 14 syntax added, from records and patterns to raw strings and extension blocks; a C# profile with namespaces, types, and members as units; xUnit, NUnit, and MSTest attributes in the test table; and `lang_samples/csharp-guardclauses`, Ardalis.GuardClauses vendored with its license
+- F# as a language: an F# grammar written for canon under `grammars/fsharp/`, which parses namespaces, modules, bindings, types, members, fields, and cases and reads expressions as runs of tokens, with a lexer hook that turns the offside rule into layout tokens; an F# profile in which `private` and `internal` are labeled `optional`; xUnit, NUnit, FsCheck, and Expecto attributes in the test table; and `lang_samples/fsharp-giraffe-viewengine`, Giraffe.ViewEngine vendored with its license
+- `directives` in a profile's comment syntax: a directive line, and where outer doc openers are given a plain comment line, does not part a doc comment from its unit, and a comment in an `#if` branch canon does not read binds to nothing and is no orphan
+- A profile unit is required when its node holds an element labeled `required`, and not required by its rule when its node holds one labeled `optional`
 - Rust as a language: the grammars-v4 Rust grammar under `grammars/rust/`, with its base-class predicates replaced in the grammar, attributes and visibility moved into each kind of item so a doc comment above the attributes binds, macro token trees parsed one token at a time, and seven fixes where upstream rejected stable Rust, among them a string ending in an escaped backslash; a Rust profile with functions, structs, enums, unions, traits, macros, type aliases, constants, statics, impls, and modules as units; `#[test]` and four other test attributes in the test table; and `lang_samples/rust-scopeguard`, scopeguard 1.2.0 vendored with its licenses
 - `outerDoc` and `innerDoc` openers in a profile's comment syntax: with outer openers given, only a doc comment binds to the unit below and a plain comment is neither a Why nor an orphan, and an inner doc comment such as Rust's `//!` binds to the unit that encloses it or to the file; adjacent line comments merge only when they open alike
 - Unicode property classes such as `\p{L}` and `\p{Zs}` in lexer character sets, matched by general category
@@ -32,6 +36,7 @@ and this project adheres to
 - An uncited decided decision is reported once per project, when no file in the project cites it, instead of per file that happens not to
 
 ### Changed
+- A doc-comment opener followed by a slash, or one ending in a star followed by another, opens a plain comment, so `////`, `/**/`, and `/***` banners are not documentation in Rust, C#, or F#; and a `ref:` key ends where markup starts, so `ref:KEY</summary>` in an XML doc comment cites `KEY`
 - The decree of no comments in canon's own code ends: the standard is canonical comments in Haddock form on exported units and module headers, and nothing else
 - The tetris sample is checked through the Haskell dialect instead of a profile with `units`, which brought its findings from 92 to 25 missing comments and no parse failures
 - `canon check` stops at nested projects instead of checking them too, so the root check reports canon's own state and each sample is checked from its own directory

@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Giraffe.ViewEngine binds every HTML element to a public value, such as let div = tag "div", and documents none of them; the F# profile leaves values optional, so are these hundreds of values public API that should each carry a Why, or is the module's comment their Why?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [giraffe-viewengine-upstream]

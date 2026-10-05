@@ -7,7 +7,11 @@ nothing here applies to `.g4` files any more. Everything here is provisional
 and applies only to languages checked through a profile with `units`, which
 today are the sample languages Erlang, Clojure, Prolog, and Haskell, and
 Rust, whose profile names its doc-comment openers so that only `///` binds
-below and `//!` binds to the enclosing module or file (ref DEC-rust-grammar).
+below and `//!` binds to the enclosing module or file (ref DEC-rust-grammar),
+and C# and F#, whose profiles name `///` as the outer opener and `#` as the
+directive opener, so a preprocessor line or a plain comment between a doc
+comment and its declaration does not part them (ref DEC-csharp-grammar and
+DEC-fsharp-grammar).
 
 Date: 2026-09-14
 

@@ -159,6 +159,8 @@ whatever its visibility.
 | `prolog` | a clause named `test` (plunit) |
 | `haskell` | a function named `prop_*` or `test_*` |
 | `rust` | a function marked `#[test]`, `#[tokio::test]`, `#[async_std::test]`, `#[rstest]`, or `#[quickcheck]` |
+| `csharp` | a method marked `[Fact]` or `[Theory]` (xUnit), `[Test]`, `[TestCase]`, or `[TestCaseSource]` (NUnit), or `[TestMethod]` or `[DataTestMethod]` (MSTest), bare or qualified with its namespace, with or without arguments |
+| `fsharp` | a function or member marked `[<Fact>]`, `[<Theory>]`, `[<Test>]`, `[<TestCase>]`, `[<TestCaseSource>]`, or `[<Property>]` (FsCheck), bare or qualified; or a function or value marked `[<Tests>]`, the test list Expecto runs, whose `testCase` and `testProperty` entries are expressions rather than declarations |
 
 Two findings fail `canon check`: a commented test whose comment cites no
 requirement, and a requirement in the registry that no test in the project
@@ -282,8 +284,19 @@ count. A language that tells doc comments from plain ones lists their
 openers under `comments`: with `outerDoc` given, only a comment opening with
 one binds to the unit below it, and a plain comment is neither a Why nor an
 orphan; a comment opening with one of `innerDoc` binds to the innermost unit
-that encloses it, or to the file, as Rust's `//!` documents its module. Unit ids are the language, the file path, and then kind and name at
-each level of nesting; a repeated name in one scope gets an ordinal suffix.
+that encloses it, or to the file, as Rust's `//!` documents its module. An
+opener followed by a slash, or one ending in a star followed by another, opens
+a plain comment, so `////` is not documentation. Where outer openers are
+given, a plain comment line between a doc comment and its unit does not part
+them, and neither does a line opening with one of `directives`, such as C#'s
+and F#'s `#`; with `directives` given, a comment inside an `#if` branch that
+canon does not read binds to nothing and is no orphan. A unit's rule may leave
+its comment optional and the grammar still require it: a unit whose node holds
+an element labeled `required`, as the C# grammar labels `public`, requires a
+comment, and a unit whose rule requires one does not when its node holds an
+element labeled `optional`, as the F# grammar labels `private`. Unit ids are
+the language, the file path, and then kind and name at each level of nesting;
+a repeated name in one scope gets an ordinal suffix.
 
 A directory containing its own `canon.yaml` is a nested project. The walk
 stops there: `canon check` in the enclosing project does not look inside it,
@@ -294,8 +307,8 @@ each answers for itself. A project whose sources live elsewhere, such as a
 git submodule, sets `root` to that directory.
 
 `lang_samples/` holds real projects in other languages, each a nested project
-whose sources are a submodule under `source` (vendored, for the one-file
-Rust sample) and whose canon files sit
+whose sources are a submodule under `source` (vendored, for the Rust, C#, and
+F# samples) and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
 grammars-v4, with a `canonically_commented/` dialect where one exists and an
 empty husk where it does not. `canon check` at the repository root checks
@@ -317,6 +330,8 @@ after cloning to fetch them.
 | `lang_samples/java-joda-time` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
 | `lang_samples/java-gson` | Java | `grammars/java/canonically_commented/JavaLexer.g4` and `JavaParser.g4` |
 | `lang_samples/rust-scopeguard` | Rust | `grammars/rust/RustLexer.g4` and `RustParser.g4` |
+| `lang_samples/csharp-guardclauses` | C# | `grammars/csharp/CSharpLexer.g4` and `CSharpParser.g4` |
+| `lang_samples/fsharp-giraffe-viewengine` | F# | `grammars/fsharp/FSharpLexer.g4` and `FSharpParser.g4` |
 
 The Rust sample is scopeguard 1.2.0, one source file, vendored under
 `source/` with its MIT and Apache-2.0 licenses instead of a submodule. Its
@@ -357,6 +372,109 @@ The profile cannot see visibility, so functions, structs, enums, unions,
 traits, and macros require a comment whether or not they are `pub`, and the
 other kinds may have one. An impl is named by its self type, so the impls of
 one type are told apart by ordinal.
+
+The C# sample is Ardalis.GuardClauses, its library sources (without the
+vendored JetBrains annotations) and one xUnit test file, vendored under
+`source/` with its MIT license. Its `canon.yaml` holds the C# profile a C#
+project can copy:
+
+```yaml
+languages:
+  csharp:
+    extensions: [.cs]
+    lexer: ../../grammars/csharp/CSharpLexer.g4
+    parser: ../../grammars/csharp/CSharpParser.g4
+    start: compilation_unit
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["///", "/**"]
+      directives: ["#"]
+      strings: ["\""]
+    units:
+      - {rule: namespace_declaration, kind: namespace, name: {rule: qualified_identifier}, required: false}
+      - {rule: file_scoped_namespace_declaration, kind: namespace, name: {rule: qualified_identifier}, required: false}
+      - {rule: class_definition, kind: class, name: {rule: identifier}, required: false}
+      - {rule: struct_definition, kind: struct, name: {rule: identifier}, required: false}
+      - {rule: interface_definition, kind: interface, name: {rule: identifier}, required: false}
+      - {rule: enum_definition, kind: enum, name: {rule: identifier}, required: false}
+      - {rule: record_definition, kind: record, name: {rule: identifier}, required: false}
+      - {rule: delegate_definition, kind: delegate, name: {rule: identifier}, required: false}
+      - {rule: method_declaration, kind: method, name: {rule: method_member_name}, required: false}
+      - {rule: constructor_declaration, kind: constructor, name: {rule: identifier}, required: false}
+      - {rule: destructor_definition, kind: destructor, name: {rule: identifier}, required: false}
+      - {rule: property_declaration, kind: property, name: {rule: member_name}, required: false}
+      - {rule: indexer_declaration, kind: indexer, name: {token: THIS, index: 1}, required: false}
+      - {rule: event_declaration, kind: event, name: {rule: member_name}, required: false}
+      - {rule: operator_declaration, kind: operator, name: {rule: overloadable_operator}, required: false}
+      - {rule: conversion_operator_declaration, kind: operator, name: {rule: type_}, required: false}
+      - {rule: field_declaration, kind: field, name: {rule: identifier}, required: false}
+      - {rule: constant_declaration, kind: constant, name: {rule: identifier}, required: false}
+      - {rule: enum_member_declaration, kind: member, name: {rule: identifier}, required: false}
+      - {rule: extension_declaration, kind: extension, name: {rule: type_}, required: false}
+```
+
+No C# unit requires a comment by its rule; the grammar labels `public` and
+`protected` `required`, so a type or member visible outside its assembly
+requires one, as the compiler's CS1591 warning asks, and a test always does.
+A member of an interface is public without saying so, and requires a comment
+only when it says so.
+
+The F# sample is Giraffe.ViewEngine, its two source files and its xUnit test
+file, vendored under `source/` with its Apache-2.0 license. Its `canon.yaml`
+holds the F# profile an F# project can copy:
+
+```yaml
+languages:
+  fsharp:
+    extensions: [.fs, .fsi, .fsx]
+    lexer: ../../grammars/fsharp/FSharpLexer.g4
+    parser: ../../grammars/fsharp/FSharpParser.g4
+    start: file
+    comments:
+      line: "//"
+      blockOpen: "(*"
+      blockClose: "*)"
+      outerDoc: ["///"]
+      directives: ["#"]
+      strings: ["\""]
+    units:
+      - {rule: namespaceDeclaration, kind: namespace, name: {rule: longIdentifier}, required: false}
+      - {rule: topModule, kind: module, name: {rule: longIdentifier}, required: false}
+      - {rule: nestedModule, kind: module, name: {rule: identifier}, required: false}
+      - {rule: functionDefinition, kind: function, name: {rule: bindingName}, required: true}
+      - {rule: andFunctionDefinition, kind: function, name: {rule: bindingName}, required: true}
+      - {rule: valueDefinition, kind: value, name: {rule: bindingName}, required: false}
+      - {rule: andValueDefinition, kind: value, name: {rule: bindingName}, required: false}
+      - {rule: localFunctionDefinition, kind: function, name: {rule: bindingName}, required: false}
+      - {rule: localValueDefinition, kind: value, name: {rule: bindingName}, required: false}
+      - {rule: recordType, kind: record, name: {rule: typeName}, required: true}
+      - {rule: unionType, kind: union, name: {rule: typeName}, required: true}
+      - {rule: enumType, kind: enum, name: {rule: typeName}, required: true}
+      - {rule: classType, kind: class, name: {rule: typeName}, required: true}
+      - {rule: interfaceType, kind: interface, name: {rule: typeName}, required: true}
+      - {rule: delegateType, kind: delegate, name: {rule: typeName}, required: true}
+      - {rule: exceptionDefinition, kind: exception, name: {rule: identifier}, required: true}
+      - {rule: abbreviationType, kind: abbreviation, name: {rule: typeName}, required: false}
+      - {rule: typeExtension, kind: extension, name: {rule: typeName}, required: false}
+      - {rule: abstractType, kind: type, name: {rule: typeName}, required: false}
+      - {rule: memberDefinition, kind: member, name: {rule: memberName}, required: true}
+      - {rule: abstractMemberDefinition, kind: member, name: {rule: memberName}, required: true}
+      - {rule: constructorDefinition, kind: constructor, name: {token: NEW, index: 1}, required: false}
+      - {rule: valDeclaration, kind: val, name: {rule: bindingName}, required: false}
+      - {rule: recordField, kind: field, name: {rule: identifier}, required: false}
+      - {rule: unionCase, kind: case, name: {rule: identifier}, required: false}
+      - {rule: unionCaseOf, kind: case, name: {rule: identifier}, required: false}
+      - {rule: enumCase, kind: case, name: {rule: identifier}, required: false}
+```
+
+F# declarations are public unless they say otherwise, so functions, types,
+exceptions, and members require a comment by their rule, and the grammar
+labels `private` and `internal` `optional`, which lifts the requirement from
+what a file does not export. Values, abbreviations, fields, cases, `val`
+declarations, the `let` bindings of a class, modules, and namespaces may have
+a comment.
 
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked
@@ -427,6 +545,7 @@ canon/
 │   ├── Canon/Git/Fill.hs  # Who and When from one git blame per file
 │   ├── Canon/Profile.hs   # language profiles declared in canon.yaml
 │   ├── Canon/CommentScan.hs  # comments by a profile's syntax
+│   ├── Canon/Preprocessor.hs  # the branch of each #if canon reads, for C# and F#
 │   ├── Canon/Extract/Grammar.hs  # builds the model of any file through its language profile
 │   ├── Canon/Config.hs    # canon.yaml
 │   ├── Canon/Attach.hs    # binds a comment to the unit directly below it
@@ -544,6 +663,28 @@ each attribute labeled `marker`; and macro token trees take one token at a
 time, which keeps macro bodies from parsing in exponential time. Each change
 is marked `// canon:` in the grammar, listed in `grammars/rust/README.md`,
 and recorded in the ledger.
+
+`grammars/csharp/` holds the C# 7 grammar from grammars-v4 with an empty
+`canonically_commented/` husk. Upstream leaves interpolated strings and the
+preprocessor to a `CSharpLexerBase` class, which canon ports as a lexer hook
+selected by the grammar's `superClass` option: the hook tracks the braces of
+each interpolation hole, and reads one branch of each `#if`, the first whose
+condition holds for some choice of the symbols the file does not define, so
+the code canon reads is code some build compiles. Attributes and modifiers
+move into each kind of type and member, as Rust's do, with `public` and
+`protected` labeled `required` and each attribute labeled `marker`, and C# 8 to
+14 syntax is added. Each change is marked `// canon:` in the grammar, listed in
+`grammars/csharp/README.md`, and recorded in the ledger.
+
+`grammars/fsharp/` holds an F# grammar written for canon, since grammars-v4
+has none, with an empty `canonically_commented/` husk. It parses the
+declarations that carry documentation and reads expressions, patterns, and
+types as runs of tokens. F# ends a declaration by indentation, so the
+grammar's `superClass` selects a lexer hook that turns the offside rule into
+`INDENT`, `DEDENT`, and `NEWLINE` tokens outside brackets, as Python's
+tokenizer does, and reads `#if` as the C# hook does. What it reads and what it
+leaves out is listed in `grammars/fsharp/README.md` and recorded in the
+ledger.
 
 The other language directories hold their upstream grammars with an empty
 `canonically_commented/` husk, and their samples use the line-adjacency

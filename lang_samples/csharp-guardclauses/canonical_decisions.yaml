@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: GuardClauses splits one public static partial class across many files and documents it in one of them; does each partial declaration of a public type need its own canonical comment, as the C# profile asks, or is one declaration's comment the type's Why?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [guardclauses-upstream]

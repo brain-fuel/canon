@@ -1,0 +1,195 @@
+decision/csharp/source/src/GuardClauses/CompilerFixes/CallerArgumentExpressionAttribute.cs/namespace/System.Runtime.CompilerServices/class/CallerArgumentExpressionAttribute:
+  comment: sha256:e9c671fe33e8324c
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Exceptions/NotFoundException.cs/namespace/Ardalis.GuardClauses/class/NotFoundException:
+  comment: sha256:4954634fcc9dc9b7
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Exceptions/NotFoundException.cs/namespace/Ardalis.GuardClauses/class/NotFoundException/constructor/NotFoundException:
+  comment: sha256:59dd6a4b818441c9
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Exceptions/NotFoundException.cs/namespace/Ardalis.GuardClauses/class/NotFoundException/constructor/NotFoundException#2:
+  comment: sha256:b744daf51b3523a9
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Guard.cs/namespace/Ardalis.GuardClauses/class/Guard:
+  comment: sha256:c67674c75c2dc817
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Guard.cs/namespace/Ardalis.GuardClauses/class/Guard/property/Against:
+  comment: sha256:36a20ed59484ef12
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Guard.cs/namespace/Ardalis.GuardClauses/interface/IGuardClause:
+  comment: sha256:bab082937350f46b
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstEmptyOrWhiteSpaceExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/WhiteSpace:
+  comment: sha256:bd8d3137b09b47d3
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstExpressionExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Expression:
+  comment: sha256:72859aa094b0fcf7
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstExpressionExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/ExpressionAsync:
+  comment: sha256:1e83a5e7ccab54c4
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstExpressionExtensionsDeprecated.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/AgainstExpression:
+  comment: sha256:1d64761f167aee9a
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstExpressionExtensionsDeprecated.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/AgainstExpression#2:
+  comment: sha256:020ef86b69298b64
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstExpressionExtensionsDeprecated.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/AgainstExpressionAsync:
+  comment: sha256:1d64761f167aee9a
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstInvalidFormatExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/InvalidFormat:
+  comment: sha256:d5477859ee7f2323
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstInvalidFormatExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/InvalidInput:
+  comment: sha256:cb986b3a882ef5ee
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstInvalidFormatExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/InvalidInputAsync:
+  comment: sha256:cb986b3a882ef5ee
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Negative:
+  comment: sha256:b1f5c566b85b6d5c
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Negative#2:
+  comment: sha256:b1f5c566b85b6d5c
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Negative#3:
+  comment: sha256:cb8686b0edfc9fd2
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Negative#4:
+  comment: sha256:cb8686b0edfc9fd2
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Negative#5:
+  comment: sha256:cb8686b0edfc9fd2
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Negative#6:
+  comment: sha256:cb8686b0edfc9fd2
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Negative#7:
+  comment: sha256:b1f5c566b85b6d5c
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NegativeOrZero:
+  comment: sha256:3e6d9683a20624b9
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NegativeOrZero#2:
+  comment: sha256:3e6d9683a20624b9
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NegativeOrZero#3:
+  comment: sha256:3e6d9683a20624b9
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NegativeOrZero#4:
+  comment: sha256:3e6d9683a20624b9
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NegativeOrZero#5:
+  comment: sha256:3e6d9683a20624b9
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NegativeOrZero#6:
+  comment: sha256:3e6d9683a20624b9
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNegativeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NegativeOrZero#7:
+  comment: sha256:64bd5c1b8b6ce60f
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNotFoundExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NotFound:
+  comment: sha256:62e28a4124a48a13
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNotFoundExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NotFound#2:
+  comment: sha256:4e429604dcd40ea0
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions:
+  comment: sha256:d7a4818a1517af9a
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Default:
+  comment: sha256:eb3abc787f2b06cd
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Null:
+  comment: sha256:fb8e7f625865ec07
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Null#2:
+  comment: sha256:caaa481e2afcbdcb
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrEmpty:
+  comment: sha256:98bd2da2945b21fc
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrEmpty#2:
+  comment: sha256:edd84eedb4bd667b
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrEmpty#3:
+  comment: sha256:fce1904ad53f8a4a
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrInvalidInput:
+  comment: sha256:a528b5a239689461
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrWhiteSpace:
+  comment: sha256:dd55b8b20ab884e1
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/EnumOutOfRange:
+  comment: sha256:f95b02a5c781a1ff
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/EnumOutOfRange#2:
+  comment: sha256:f95b02a5c781a1ff
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/LengthOutOfRange:
+  comment: sha256:d5d911d33c9808ac
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrOutOfRange:
+  comment: sha256:2bce4d5dbada9677
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrOutOfRange#2:
+  comment: sha256:2bce4d5dbada9677
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrOutOfRangeInternal:
+  comment: sha256:05dacd2c3a96f9cb
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrOutOfSQLDateRange:
+  comment: sha256:0ac3dfbb37a05f2d
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/OutOfRange:
+  comment: sha256:e5690f9f015ce5ea
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/OutOfRange#2:
+  comment: sha256:77084518337a6e76
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/OutOfSQLDateRange:
+  comment: sha256:76bf808577ee3caf
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstStringLengthExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions:
+  comment: sha256:19c36424a0a68603
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstStringLengthExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/StringTooLong:
+  comment: sha256:898d830cfae65567
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstStringLengthExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/StringTooShort:
+  comment: sha256:d090e752c498c123
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstZeroExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Zero:
+  comment: sha256:62d033c9d8281e8f
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstZeroExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Zero#2:
+  comment: sha256:62d033c9d8281e8f
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstZeroExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Zero#3:
+  comment: sha256:62d033c9d8281e8f
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstZeroExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Zero#4:
+  comment: sha256:62d033c9d8281e8f
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstZeroExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Zero#5:
+  comment: sha256:62d033c9d8281e8f
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstZeroExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Zero#6:
+  comment: sha256:b6409281cbb6afa8
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstZeroExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Zero#7:
+  comment: sha256:62d033c9d8281e8f
+  verdict: pending
+decision/csharp/source/src/GuardClauses/ValidatedNotNullAttribute.cs/namespace/Ardalis.GuardClauses/class/ValidatedNotNullAttribute:
+  comment: sha256:7580fa3acf0b4016
+  verdict: pending
+ledger/DEC-sample-scope:
+  comment: sha256:40fc5a304f6dd76d
+  verdict: pending
+registry/MIT:
+  comment: sha256:ed6c0abb656b1c69
+  verdict: pending
+registry/guardclauses-upstream:
+  comment: sha256:facdcdcb3fd8ef12
+  verdict: pending

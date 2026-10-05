@@ -1,0 +1,27 @@
+decision/fsharp/source/src/Giraffe.ViewEngine/Engine.fs:
+  comment: sha256:f99321c5f5e99053
+  verdict: pending
+decision/fsharp/source/src/Giraffe.ViewEngine/Engine.fs/namespace/Giraffe.ViewEngine/module/Accessibility:
+  comment: sha256:24f9970b7877f7fd
+  verdict: pending
+decision/fsharp/source/src/Giraffe.ViewEngine/Engine.fs/namespace/Giraffe.ViewEngine/module/HtmlElements/function/encodedText:
+  comment: sha256:78bcefe2aa2fe26e
+  verdict: pending
+decision/fsharp/source/src/Giraffe.ViewEngine/Engine.fs/namespace/Giraffe.ViewEngine/module/HtmlElements/function/rawText:
+  comment: sha256:f3c55f51f489bc33
+  verdict: pending
+decision/fsharp/source/src/Giraffe.ViewEngine/Engine.fs/namespace/Giraffe.ViewEngine/module/HtmlElements/function/strf:
+  comment: sha256:2e4b0283b007f7ba
+  verdict: pending
+decision/fsharp/source/src/Giraffe.ViewEngine/Engine.fs/namespace/Giraffe.ViewEngine/module/HtmlElements/value/str:
+  comment: sha256:ee7cae4bf0ccb008
+  verdict: pending
+ledger/DEC-sample-scope:
+  comment: sha256:f2aec4c455049bc3
+  verdict: pending
+registry/Apache-2.0:
+  comment: sha256:f42cc8899f7d45b9
+  verdict: pending
+registry/giraffe-viewengine-upstream:
+  comment: sha256:6d1f8420b255ccc8
+  verdict: pending

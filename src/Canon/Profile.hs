@@ -45,7 +45,8 @@ data UnitRule = UnitRule
 -- comments where the language tells them from plain comments, as Rust's /// and //! are told from
 -- //. When outer openers are given, only a comment that starts with one binds to the unit below it;
 -- a comment that starts with an inner opener belongs to the unit that encloses it, or to the file.
--- ref:DEC-rust-grammar
+-- A line that starts with one of the directive openers, as C#'s #if and #pragma do, stands between
+-- a doc comment and its unit without separating them. ref:DEC-rust-grammar ref:DEC-csharp-grammar
 data CommentSyntax = CommentSyntax
   { commentLine :: Maybe Text
   , commentBlockOpen :: Maybe Text
@@ -53,12 +54,13 @@ data CommentSyntax = CommentSyntax
   , commentStringDelimiters :: [Text]
   , commentOuterDoc :: [Text]
   , commentInnerDoc :: [Text]
+  , commentDirectives :: [Text]
   }
   deriving (Eq, Show)
 
 -- | No comments and double-quoted strings, the default for a dialect language.
 defaultCommentSyntax :: CommentSyntax
-defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] []
+defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] [] []
 
 -- | A language profile.
 data Profile = Profile
@@ -116,11 +118,12 @@ instance FromJSON UnitRule where
       <*> pure constraint
 
 instance ToJSON CommentSyntax where
-  toJSON (CommentSyntax line open close strings outer inner) =
+  toJSON (CommentSyntax line open close strings outer inner directives) =
     object
       ( ["blockClose" .= close, "blockOpen" .= open, "line" .= line, "strings" .= strings]
           ++ ["outerDoc" .= outer | not (null outer)]
           ++ ["innerDoc" .= inner | not (null inner)]
+          ++ ["directives" .= directives | not (null directives)]
       )
 
 instance FromJSON CommentSyntax where
@@ -132,6 +135,7 @@ instance FromJSON CommentSyntax where
       <*> (fromMaybe ["\""] <$> o .:? "strings")
       <*> (fromMaybe [] <$> o .:? "outerDoc")
       <*> (fromMaybe [] <$> o .:? "innerDoc")
+      <*> (fromMaybe [] <$> o .:? "directives")
 
 instance ToJSON Profile where
   toJSON p =

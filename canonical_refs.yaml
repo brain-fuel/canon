@@ -42,3 +42,27 @@ REQ-rust-support:
   kind: requirement
   title: canon reads Rust, parsing every stable Rust source file, taking functions, types, traits, impls, modules, constants, statics, and macros as units, binding /// to the item below its attributes and //! to the enclosing module or file, and recognising test functions by their attribute
   locator: README.md
+grammars-v4-csharp:
+  kind: package
+  title: The grammars-v4 C# 7 grammar, CSharpLexer.g4 and CSharpParser.g4, MIT and EPL-1.0, at commit 7df52be94698550d219d299d04105c6bafadd9c3
+  locator: https://github.com/antlr/grammars-v4/tree/7df52be94698550d219d299d04105c6bafadd9c3/csharp/v7
+csharp-xml-documentation:
+  kind: article
+  title: C# language reference, Documentation comments, on /// and /** XML doc comments and where they attach
+  locator: https://learn.microsoft.com/dotnet/csharp/language-reference/xmldoc/
+REQ-csharp-support:
+  kind: requirement
+  title: canon reads C#, parsing every C# 7 to 14 source file, taking namespaces, types, and members as units, binding /// and /** to the declaration below its attributes, requiring a comment on what is public or protected, reading one branch of each #if, and recognising xUnit, NUnit, and MSTest test methods by their attribute
+  locator: README.md
+fsharp-xml-documentation:
+  kind: article
+  title: F# language guide, XML documentation, on /// doc comments and where they attach
+  locator: https://learn.microsoft.com/dotnet/fsharp/language-reference/xml-documentation
+fsharp-offside-rule:
+  kind: article
+  title: F# language specification, the offside rule for indentation-aware syntax
+  locator: https://fsharp.github.io/fslang-spec/lexical-filtering/
+REQ-fsharp-support:
+  kind: requirement
+  title: canon reads F#, parsing F# source files by its offside rule, taking namespaces, modules, bindings, types, members, fields, and cases as units, binding /// to the declaration below its attributes, requiring a comment on what is not private or internal, reading one branch of each #if, and recognising xUnit, NUnit, FsCheck, and Expecto tests by their attribute
+  locator: README.md
