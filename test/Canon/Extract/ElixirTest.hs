@@ -3,7 +3,7 @@
 -- documentation. ref:DEC-elixir-grammar ref:REQ-elixir-support
 module Canon.Extract.ElixirTest (tests) where
 
-import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, loadInterpreter, renderInterpretError)
+import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Lex (renderLexError)
 import Canon.Antlr4.Parse (treeRuleNodes)
 import Canon.Antlr4.Syntax (Name (..))
@@ -40,6 +40,7 @@ tests =
     , testProperty "the Elixir profile binds a doc across blank lines and hides what @doc false hides" prop_elixirProfileBindsADocAcrossBlankLinesAndHidesWhatDocFalseHides
     , testProperty "the Elixir dialect reads @doc and @moduledoc as canonical comments as Elixir binds them" prop_elixirDialectReadsDocAndModuledocAsCanonicalCommentsAsElixirBindsThem
     , testProperty "an Elixir doc attribute anywhere in a file parses and one that documents nothing is an orphan" prop_anElixirDocAttributeAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
+    , testProperty "the Elixir grammar and dialect read the corpus constructs of Elixir's own library" prop_theElixirGrammarAndDialectReadTheCorpusConstructsOfElixirsOwnLibrary
     ]
 
 sampleDir :: FilePath
@@ -456,3 +457,34 @@ prop_anElixirDocAttributeAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrph
   [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
     === ["elixir/odd.ex/module/Odd", "elixir/odd.ex/module/Odd/function/f"]
   sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [8, 10, 13, 17]
+
+-- | Elixir's own library, Ecto, and their tests write operators as keyword keys, structs named by an
+-- expression, the full range alone, the type of a function of no arguments, atoms and names in any
+-- script, and uppercase sigil heredocs whose lines end in an escaped quote, so the plain grammar and
+-- the dialect must read each of them, or a file holding one would fail to parse. Each construct
+-- stopped a file of the corpus in tools/corpus/elixir.sh. ref:REQ-elixir-support
+-- ref:DEC-elixir-grammar ref:DEC-elixir-dialect
+prop_theElixirGrammarAndDialectReadTheCorpusConstructsOfElixirsOwnLibrary :: Property
+prop_theElixirGrammarAndDialectReadTheCorpusConstructsOfElixirsOwnLibrary = withTests 1 $ property $ do
+  let source =
+        T.unlines
+          [ "defmodule Corpus do"
+          , "  import Kernel, except: [==: 2, and: 2, >: 2]"
+          , "  import Bitwise, only: [|||: 2, &&&: 2, >>>: 2]"
+          , "  @operators [:|>, :~>>, :<<~, :<~>, :\"<|>\", :..//, :Ol\225, :\3610\3641\3617]"
+          , "  @spec run((-> result), t | (-> t)) :: result when result: var"
+          , "  def run(%unquote(type){a: 1}, %^module{}, %@for{map: set}, %:\"Elixir.User\"{age: 0}), do: Enum.slice(list, ..)"
+          , "  @type uri :: %URI.t(){}"
+          , "  def quoted, do: [quote(do: (-> x)), %: :%{}, [\211l\225: 0, ol@: 1]]"
+          , "  def script, do: ~S\"\"\""
+          , "  -args_file \"\"vm.args\\\"\"\""
+          , "  \"\"\""
+          , "end"
+          ]
+      parses lexer parser = do
+        loaded <- evalIO (loadInterpreter lexer parser)
+        interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+        tree <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure (interpretText interpreter (Name "file") "corpus.ex" source)
+        length (treeRuleNodes (Name "moduleDefinition") tree) === 1
+  parses "grammars/elixir/ElixirLexer.g4" "grammars/elixir/ElixirParser.g4"
+  parses "grammars/elixir/canonically_commented/ElixirLexer.g4" "grammars/elixir/canonically_commented/ElixirParser.g4"

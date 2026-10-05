@@ -46,7 +46,6 @@ import Data.Maybe (fromMaybe, isJust, isNothing, listToMaybe, mapMaybe)
 import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
-import qualified Data.Text.IO as TIO
 import qualified Data.Vector as BV
 import qualified Data.Vector.Unboxed as V
 import System.FilePath (splitDirectories)
@@ -88,7 +87,7 @@ loadProfileInterpreter profile = case profileGrammar profile of
 -- | Extracts a file through a profile.
 extractWithProfile :: GitProvider -> Config -> Text -> Profile -> Interpreter -> FilePath -> FilePath -> IO (Either GrammarExtractError Extraction)
 extractWithProfile provider config language profile interpreter idPath path =
-  TIO.readFile path >>= extractWithProfileText provider config language profile interpreter idPath path
+  readSourceFile path >>= extractWithProfileText provider config language profile interpreter idPath path
 
 -- | Extracts text through a profile, with the id path separate from the display path so ids are
 -- project-relative. A file whose lexer reads #if directives is read once per build of the few that
@@ -535,8 +534,11 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
     labeledSubtree wanted node = listToMaybe (labeledSubtrees wanted node)
     labeledSubtrees wanted node = labeledIn node
       where
+        -- An orphan documents nothing, so the labels inside it, such as an EDoc @private between
+        -- two clauses, mark neither the unit nor the file around it. ref:DEC-stray-comments
         labeledIn n = case n of
           Labeled l inner | l == wanted -> [inner]
+          Labeled "orphan" _ -> []
           Labeled _ inner -> labeledIn inner
           TokenNode _ -> []
           RuleNode _ _ ns -> concatMap (\c -> if isUnitNode (unlabel c) then [] else labeledIn c) ns

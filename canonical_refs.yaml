@@ -286,6 +286,14 @@ edoc-user-guide:
   kind: article
   title: The EDoc user's guide, on documentation comments and their tags
   locator: https://www.erlang.org/doc/apps/edoc/chapter.html
+erlang-source-encoding:
+  kind: article
+  title: The epp module of Erlang/OTP, on the encoding of a source file and its coding comment
+  locator: https://www.erlang.org/doc/apps/stdlib/epp.html#module-encoding
+erl-parse-otp-29:
+  kind: article
+  title: erl_parse.yrl, the grammar of Erlang/OTP's parser, at the commit the Erlang corpus pins, with native records and comprehensions of several values
+  locator: https://github.com/erlang/otp/blob/cfe4f037932061f9d82a2622cd9a9577ee4f0226/lib/stdlib/src/erl_parse.yrl
 erlang-preprocessor:
   kind: article
   title: The Erlang preprocessor, on macros and conditional compilation

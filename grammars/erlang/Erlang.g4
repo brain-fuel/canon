@@ -38,8 +38,9 @@ options {
 // grammar read what the preprocessor leaves in a file (macros and directives), the syntax of OTP 24
 // to 28, and a function together with the attributes that belong to it.
 
+// canon: a file may hold no form, as an empty header does.
 forms
-    : form+ EOF
+    : form* EOF
     ;
 
 // canon: a function is a form of its own, with the attributes directly above it that belong to it,
@@ -48,6 +49,8 @@ form
     : functionDefinition
     | attribute '.'
     | macroCall '.'
+    // canon: macro calls may stand for the clauses of a function, as ?wr_record(a); ?wr_record(b). do.
+    | macroCall (';' (functionClause | macroCall))+ '.'
     ;
 
 // canon: a function takes its -spec and the -doc attributes that hide it or carry its metadata,
@@ -58,8 +61,10 @@ functionDefinition
     : (marker += functionAttribute '.')* function_ '.'
     ;
 
+// canon: a spec may be written with a space after the dash, as - spec f() -> ok.
 functionAttribute
     : SpecAttrName typeSpec
+    | '-' tokAtom typeSpec
     | hidden = DocHidden
     | DocAttrName '(' mapExpr ')'
     | DocAttrName mapExpr
@@ -148,6 +153,9 @@ TokString
     | '"""' .*? '"""'
     | '""""' .*? '""""'
     | '"""""' .*? '"""""'
+    // canon: a triple-quoted string may open with any number of quotes from three, as OTP 27 allows.
+    | '""""""' .*? '""""""'
+    | '"""""""' .*? '"""""""'
     ;
 
 // canon: a sigil (OTP 27) is a string with a prefix, ~, ~b, ~B, ~s, or ~S, and one of the sigil
@@ -156,6 +164,10 @@ TokSigil
     : '~' [bs]? (
         '"""' .*? '"""'
         | '""""' .*? '""""'
+        // canon: a sigil may be quoted with up to seven quotes.
+        | '"""""' .*? '"""""'
+        | '""""""' .*? '""""""'
+        | '"""""""' .*? '"""""""'
         | '"' ('\\' . | ~["\\])* '"'
         | '(' ('\\' . | ~[)\\])* ')'
         | '[' ('\\' . | ~[\]\\])* ']'
@@ -170,6 +182,10 @@ TokSigil
     | '~' [BS] (
         '"""' .*? '"""'
         | '""""' .*? '""""'
+        // canon: a sigil may be quoted with up to seven quotes.
+        | '"""""' .*? '"""""'
+        | '""""""' .*? '""""""'
+        | '"""""""' .*? '"""""""'
         | '"' ~["]* '"'
         | '(' ~[)]* ')'
         | '[' ~[\]]* ']'
@@ -251,9 +267,12 @@ typeParameters
     : '(' topTypes? ')'
     ;
 
-// canon: -record, named by the record it defines.
+// canon: -record, named by the record it defines; a native record (OTP 29) is declared as
+// -record #name{Fields}.
 recordAttribute
     : '-' tokAtom '(' definedName ',' (typedRecordFields | tuple_) ')'
+    | '-' tokAtom '#' definedName (typedRecordFields | tuple_)
+    | '-' tokAtom '(' '#' definedName (typedRecordFields | tuple_) ')'
     ;
 
 // canon: -callback, named by the callback it declares and its arity.
@@ -266,9 +285,21 @@ callbackSignature
     : arity = typeParameters '->' topType ('when' typeGuards)?
     ;
 
-// canon: the name of a function, type, or record a form defines.
+// canon: the name of a function, type, or record a form defines, which a macro may give, as in
+// ?MODULE() -> ok. A native record (OTP 29) may be named by a variable or a reserved word, as in
+// -record #Seq{} and -record #div{}.
 definedName
     : tokAtom
+    | '?' (tokAtom | tokVar)
+    | tokVar
+    | reservedWord
+    ;
+
+// canon: the reserved words, which may name a native record.
+reservedWord
+    : 'after' | 'and' | 'andalso' | 'band' | 'begin' | 'bnot' | 'bor' | 'bsl' | 'bsr' | 'bxor' | 'case'
+    | 'catch' | 'div' | 'end' | 'fun' | 'if' | 'not' | 'of' | 'or' | 'orelse' | 'receive' | 'rem'
+    | 'try' | 'when' | 'xor'
     ;
 
 // canon: -define(Name, Body) and -define(Name(Args), Body) whose body is not an expression, which
@@ -288,7 +319,18 @@ macroBody
 // canon: a macro call, ?NAME or ?NAME(Args), or a stringified argument, ??Arg, which the preprocessor
 // expands; canon reads it where an expression, a pattern, or a type may be.
 macroCall
-    : '?' '?'? (tokAtom | tokVar) argumentList?
+    : '?' '?'? (tokAtom | tokVar) macroArguments?
+    ;
+
+// canon: an argument of a macro may be a pattern with a guard, as in ?assertMatch(X when X > 0, f()),
+// since the macro, often from a header, places it in a clause; epp splits arguments at the commas
+// outside brackets, so the guard's tests are joined by ; only.
+macroArguments
+    : '(' (macroArgument (',' macroArgument)*)? ')'
+    ;
+
+macroArgument
+    : expr ('when' expr (';' expr)*)?
     ;
 
 /// Typing
@@ -301,6 +343,8 @@ typeSpec
 specFun
     : tokAtom
     | tokAtom ':' tokAtom
+    // canon: a macro may name the module of a spec, as in -spec ?MODULE:f() -> ok.
+    | macroCall ':' tokAtom
     ;
 
 typedAttrVal
@@ -345,7 +389,8 @@ topTypes
     ;
 
 topType
-    : (tokVar '::')? topType100
+    // canon: a type may carry several annotations, as in Default :: AppProto :: binary().
+    : (tokVar '::')* topType100
     ;
 
 // canon: each member of a union may be annotated, as in Name :: {atom(), arity()} | Other :: atom(),
@@ -379,8 +424,9 @@ type_
     | tokAtom
     | tokAtom '(' ')'
     | tokAtom '(' topTypes ')'
-    | tokAtom ':' tokAtom '(' ')'
-    | tokAtom ':' tokAtom '(' topTypes ')'
+    // canon: a macro may name the module of a remote type, as in ?MODULE:t().
+    | (tokAtom | macroCall) ':' tokAtom '(' ')'
+    | (tokAtom | macroCall) ':' tokAtom '(' topTypes ')'
     | '[' ']'
     | '[' topType ']'
     | '[' topType ',' '...' ']'
@@ -504,8 +550,11 @@ expr500
     : expr600 (multOp expr600)*
     ;
 
+// canon: a catch expression may be the right operand of any operator, as in X > catch f(), as
+// erl_parse reads it.
 expr600
     : prefixOp expr600
+    | 'catch' expr
     | expr650
     ;
 
@@ -551,7 +600,7 @@ maybeExpr
 
 // canon: a map comprehension (OTP 26).
 mapComprehension
-    : '#' '{' expr '=>' expr '||' lcExprs '}'
+    : '#' '{' expr '=>' expr (',' expr '=>' expr)* '||' lcExprs '}'
     ;
 
 patExpr
@@ -628,10 +677,14 @@ tail
     | ',' macroCall expr tail
     ;
 
-// canon: a record's name, which a macro may give, as in #?RECORD{}.
+// canon: a record's name, which a macro may give, as in #?RECORD{}. A native record (OTP 29) may
+// be named with its module, as in #mod:name{}, or be any native record, #_{}.
 recordName
     : tokAtom
     | macroCall
+    | tokVar
+    | reservedWord
+    | (tokAtom | macroCall) ':' (tokAtom | tokVar | reservedWord)
     ;
 
 binary
@@ -671,8 +724,9 @@ bitSizeExpr
     : exprMax
     ;
 
+// canon: a comprehension may give several values per element (OTP 29), as in [A, B || ...].
 listComprehension
-    : '[' expr '||' lcExprs ']'
+    : '[' exprs '||' lcExprs ']'
     ;
 
 binaryComprehension
@@ -747,8 +801,10 @@ recordField
 
 /* N.B. This is called from expr700. */
 
+// canon: a call's result may be called, and a remote call may be made on it, as in F()(X), fun
+// m:f/1(X), and ?MODULE:callback():reverse(L), since erl_parse calls any expression.
 functionCall
-    : expr800 argumentList
+    : expr800 argumentList (argumentList | ':' exprMax argumentList)*
     ;
 
 ifExpr

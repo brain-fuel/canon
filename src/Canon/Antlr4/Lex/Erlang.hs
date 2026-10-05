@@ -13,9 +13,11 @@ module Canon.Antlr4.Lex.Erlang
   ) where
 
 import Canon.Antlr4.Lex (LexerHooks (..))
+import Canon.Antlr4.Syntax (Name (..))
 import Canon.Antlr4.Token (Token (..), isEofToken)
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
+import qualified Data.Text as T
 
 -- | A macro a file defines: its parameters, if it takes any, and the tokens of its body.
 data Macro = Macro
@@ -120,9 +122,11 @@ parseDefine toks = case toks of
     dropClose body = take (length body - 1) body
 
 -- | Expands the macro calls in a run of tokens whose macros are known, replacing each call with the
--- body of its macro, its parameters replaced by the arguments, every token placed at the call so spans
--- stay in order. A call of an unknown macro is kept, and expansion stops after a fixed depth, so a
--- macro that refers to itself ends.
+-- body of its macro, its parameters replaced by the expanded arguments and ??Parameter by the
+-- argument as a string, every token placed at the call so spans stay in order. A call of an unknown
+-- macro is kept, and so is a call of a macro inside its own expansion, which epp refuses rather
+-- than expands; expansion also stops after a fixed depth.
+-- ref:DEC-erlang-grammar
 expandMacros :: Map.Map Text [Macro] -> [Token] -> [Token]
 expandMacros = expand (16 :: Int)
   where
@@ -136,14 +140,31 @@ expandMacros = expand (16 :: Int)
                   _ -> Nothing
              in case (called, chooseMacro defined (length . snd <$> called)) of
                   (Just (n, args), Just macro@(Macro (Just params) _)) ->
-                    let bound = Map.fromList (zip params args)
-                        body = concatMap (\t -> Map.findWithDefault [t] (tokenText t) bound) (macroBody macro)
-                     in placed q (lastOf name rest n) (expand (depth - 1) known body) ++ expand depth known (drop n rest)
-                  (_, Just (Macro Nothing body)) -> placed q name (expand (depth - 1) known body) ++ expand depth known rest
+                    let body = substitute (Map.fromList (zip params (map (expand depth known) args))) (Map.fromList (zip params args)) (macroBody macro)
+                     in placed q (lastOf name rest n) (expand (depth - 1) (without name macro) body) ++ expand depth known (drop n rest)
+                  (_, Just macro@(Macro Nothing body)) -> placed q name (expand (depth - 1) (without name macro) body) ++ expand depth known rest
                   _ -> q : expand depth known (name : rest)
       (t : rest) -> t : expand depth known rest
       [] -> []
+      where
+        -- A macro is not expanded again inside its own expansion, as -define(A, ?A + ?A) would
+        -- otherwise double at every level; epp rejects such a macro, and canon keeps the inner call.
+        -- A definition of the same name and another arity still expands, as ?F(X) may call ?F(X, Y).
+        without name macro = Map.update (\ms -> let rest' = filter (/= macro) ms in if null rest' then Nothing else Just rest') (tokenText name) known
     lastOf name rest n = if n == 0 then name else last (name : take n rest)
+    -- A parameter is replaced by its argument, and ??Parameter by the argument as a string, as epp
+    -- stringifies it, so ?T(<<X:0>>) with a body {B, ??B} expands to a tuple of a binary and a string.
+    -- The arguments are expanded before they are placed, and ??Parameter quotes the argument as
+    -- written.
+    substitute bound written body = case body of
+      (q1 : q2 : p : rest)
+        | tokenText q1 == "?"
+        , tokenText q2 == "?"
+        , Just arg <- Map.lookup (tokenText p) written ->
+            stringified q1 arg : substitute bound written rest
+      (t : rest) -> Map.findWithDefault [t] (tokenText t) bound ++ substitute bound written rest
+      [] -> []
+    stringified q arg = q {tokenType = Name "TokString", tokenText = T.pack (show (T.unpack (T.unwords (map tokenText arg))))}
     placed first final = map (\t -> t {tokenStart = tokenStart first, tokenEnd = tokenEnd final, tokenPosition = tokenPosition first})
 
 -- | Splits macro arguments at the commas outside brackets.

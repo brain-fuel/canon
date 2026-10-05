@@ -210,6 +210,7 @@ definableOperator
     | NOT
     | IN
     | NOT IN
+    | RANGE
     | OPERATOR
     ;
 
@@ -246,6 +247,7 @@ leadingOperator
     | PIPE
     | STAR
     | SLASH
+    | RANGE
     | OPERATOR
     ;
 
@@ -282,6 +284,8 @@ primary
     | FALSE
     | NIL
     | ELLIPSIS
+    // canon: .. alone is the full range.
+    | RANGE
     | ATTRIBUTE
     | DOC_ATTRIBUTE
     | MODULEDOC_ATTRIBUTE
@@ -379,8 +383,11 @@ heredocPart
     | HEREDOC_INTERPOLATION block CLOSE_BRACE
     ;
 
+// canon: a parenthesis may open with ->, as the type of a function of no arguments, (-> result),
+// and quote(do: (-> x)) write it.
 parenthesized
     : OPEN_PAREN inner CLOSE_PAREN
+    | OPEN_PAREN NL* ARROW_RIGHT inner CLOSE_PAREN
     ;
 
 list
@@ -391,8 +398,15 @@ tuple
     : OPEN_BRACE inner CLOSE_BRACE
     ;
 
+// canon: a struct's name may be an expression, as in %unquote(type){}, %^module{}, %@for{},
+// %:"Elixir.User"{}, or the type %URI.t(){}.
 map
     : OPEN_MAP inner CLOSE_BRACE
+    | PERCENT structName OPEN_BRACE inner CLOSE_BRACE
+    ;
+
+structName
+    : CARET? (IDENTIFIER | ALIAS | ATTRIBUTE | ATOM | quotedAtom | UNQUOTE parenthesized) (DOT (ALIAS | IDENTIFIER))* parenthesized?
     ;
 
 bitstring

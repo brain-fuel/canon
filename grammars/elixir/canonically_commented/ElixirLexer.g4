@@ -209,13 +209,21 @@ ATTRIBUTE
     ;
 
 /** A keyword-list key such as do: or opts:, written with no space before the colon. */
+// canon: a key may start with any letter and hold @, as an atom may, as in [Ólá: 0] and [ól@: 0].
 KEYWORD
-    : (IDENTIFIER_START | [A-Z]) IDENTIFIER_PART* [?!]? ':'
+    : [\p{L}_] (IDENTIFIER_PART | '@')* [?!]? ':'
+    ;
+
+/** An operator as a keyword-list key, as in import Kernel, except: [==: 2], with the space that must follow its colon, typed as KEYWORD. */
+// canon: an operator is a keyword-list key too when a space follows its colon.
+OPERATOR_KEYWORD
+    : OPERATOR_ATOM ':' [ \t\r\n] -> type(KEYWORD)
     ;
 
 /** An atom, such as :ok or :+. */
+// canon: an atom may start with any letter, as :Ólá does.
 ATOM
-    : ':' (IDENTIFIER_START | [A-Z]) (IDENTIFIER_PART | '@')* [?!]?
+    : ':' [\p{L}_] (IDENTIFIER_PART | '@')* [?!]?
     | ':' OPERATOR_ATOM
     ;
 
@@ -240,10 +248,12 @@ CHAR
     ;
 
 /** An uppercase sigil, which does not interpolate and so is a single token. */
+// canon: a heredoc closes only at the start of a line, so the \""" that ends a line inside an
+// uppercase sigil heredoc, which reads no escapes, does not close it.
 SIGIL
     : '~' [A-Z] [A-Z0-9]* (
-        '"""' .*? '"""'
-        | '\'\'\'' .*? '\'\'\''
+        '"""' .*? '\n' [ \t]* '"""'
+        | '\'\'\'' .*? '\n' [ \t]* '\'\'\''
         | '"' ('\\' . | ~["\\])* '"'
         | '\'' ('\\' . | ~['\\])* '\''
         | '/' ('\\' . | ~[/\\])* '/'
@@ -298,8 +308,9 @@ STRING_OPEN
     ;
 
 /** A charlist heredoc. */
+// canon: a charlist heredoc closes only at the start of a line.
 CHARLIST_HEREDOC
-    : '\'\'\'' .*? '\'\'\''
+    : '\'\'\'' .*? '\n' [ \t]* '\'\'\''
     ;
 
 /** A single-quoted charlist. */
@@ -315,6 +326,12 @@ OPEN_BRACE
 /** Opens a map or a struct, pushing the default mode as an opening brace does. */
 OPEN_MAP
     : '%' ([a-zA-Z_] [a-zA-Z0-9_.]*)? '{' -> pushMode(DEFAULT_MODE)
+    ;
+
+/** The percent sign of a struct whose name is an expression, as in %unquote(type){}, %^module{}, or %@for{}. */
+// canon: a struct's name may be an expression.
+PERCENT
+    : '%'
     ;
 
 /** Closes a tuple, a map, or an interpolation, popping the mode its opening pushed. */
@@ -379,11 +396,15 @@ STAR          : '*';
 /** The division operator. */
 SLASH         : '/';
 
+/** The range operator, which alone is an operand too, the full range, as in Enum.slice(list, ..). */
+// canon: .. has a type of its own, since alone it is an operand.
+RANGE         : '..';
+
 /** Every other operator, which the parser treats alike as binary operators. */
 OPERATOR
     : '===' | '!==' | '==' | '!=' | '=~' | '<=' | '>=' | '<' | '>'
     | '&&&' | '&&' | '|||' | '||' | '<<<' | '>>>' | '^^^'
-    | '+++' | '---' | '++' | '--' | '<>' | '..' | '//' | '**'
+    | '+++' | '---' | '++' | '--' | '<>' | '//' | '**'
     | '<<~' | '~>>' | '<~>' | '<|>' | '<~' | '~>'
     ;
 
@@ -392,6 +413,8 @@ fragment OPERATOR_ATOM
     | '<<<' | '>>>' | '<<' | '>>' | '^^^' | '+++' | '---' | '++' | '--' | '<>' | '...' | '..' | '//'
     | '**' | '->' | '<-' | '=>' | '::' | '\\\\' | '+' | '-' | '*' | '/' | '!' | '^' | '&' | '@' | '.'
     | '=' | '|' | '~~~' | '%{}' | '{}' | '%' | '<<>>'
+    // canon: the newer operators are atoms too, as in :..// and :<~>.
+    | '..//' | '<<~' | '~>>' | '<~>' | '<|>' | '<~' | '~>'
     ;
 
 fragment IDENTIFIER_START
@@ -399,8 +422,9 @@ fragment IDENTIFIER_START
     | [\p{Lo}]
     ;
 
+// canon: a name may hold combining marks, as Thai names such as บูมเมอแรง do.
 fragment IDENTIFIER_PART
-    : [\p{L}\p{Nd}_]
+    : [\p{L}\p{M}\p{Nd}_]
     ;
 
 fragment DIGITS

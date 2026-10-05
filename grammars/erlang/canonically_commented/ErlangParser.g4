@@ -53,25 +53,30 @@ compileOption
 
 /** A form of a module that does not compile with export_all: the module declaration, which then labels an export, or any other form. ref:DEC-erlang-dialect ref:DEC-export-rule */
 exportingForm
-    : file = canonicalComment? export = ModuleAttrName '(' tokAtom ')' '.'
+    : file = canonicalComment? export = ModuleAttrName '(' tokAtom (',' expr)? ')' '.'
     | form
     ;
 
 /** A form: a function, a type, a record, or a callback, each a unit, the module declaration, an export list, another attribute, or a macro call that stands for forms. */
 form
-    : typeDefinition
-    | recordDefinition
+    // canon: a record comes first and takes its attributes lazily, since an untyped record such as
+    // -record(r, {a, b}). reads as an attribute too, and another unit below would take it as one of its
+    // markers, so the record would be no unit of its own.
+    : recordDefinition
+    | typeDefinition
     | callbackDefinition
     | functionDefinition
     | moduleDeclaration
     | exportAttribute
     | attribute '.'
     | macroCall '.'
+    // canon: macro calls may stand for the clauses of a function, as ?wr_record(a); ?wr_record(b). do.
+    | macroCall (';' (functionClause | macroCall))+ '.'
     ;
 
 /** The module declaration. An EDoc comment above it documents the module, so it is labeled file. ref:DEC-erlang-dialect */
 moduleDeclaration
-    : file = canonicalComment? ModuleAttrName '(' tokAtom ')' '.'
+    : file = canonicalComment? ModuleAttrName '(' tokAtom (',' expr)? ')' '.'
     ;
 
 /** An export list, of functions or of types, whose entries are labeled export, so a unit requires its comment when it is exported. ref:DEC-export-rule ref:DEC-erlang-dialect */
@@ -79,14 +84,18 @@ exportAttribute
     : ExportAttrName '[' (exportEntry (',' exportEntry)*)? ']' ')' '.'
     ;
 
-/** One exported name and arity, labeled export, which the export rule matches against the name and arity of a unit. */
+/** One exported name and arity, labeled export, which the export rule matches against the name and arity of a unit. An entry in the old tuple form, {Name, Arity}, which -export_type still accepts, is read but exports nothing to canon. */
+// canon: -export_type accepts {Name, Arity}.
 exportEntry
     : export = exportedName
+    | '{' tokAtom ',' tokInteger '}'
     ;
 
-/** A name and an arity, written name/arity. */
+/** A name and an arity, written name/arity, whose name a macro may give, as in ?MODULE/0. */
+// canon: a macro may name an exported function.
 exportedName
     : tokAtom '/' tokInteger
+    | '?' (tokAtom | tokVar) '/' tokInteger
     ;
 
 /** A type, -type, -opaque, or -nominal, documented as a function is. ref:DEC-erlang-dialect */
@@ -98,9 +107,9 @@ typeDefinition
 
 /** A record, documented as a function is. ref:DEC-erlang-dialect */
 recordDefinition
-    : (orphan = canonicalComment | DocHidden '.' | marker += functionAttribute '.')*? why = canonicalComment (marker += functionAttribute '.')* recordAttribute '.' # record
-    | (orphan = canonicalComment | marker += functionAttribute '.')*? hidden = DocHidden '.' (marker += functionAttribute '.')* why = canonicalComment? recordAttribute '.' # record
-    | (marker += functionAttribute '.')* why = canonicalComment? recordAttribute '.' # record
+    : (orphan = canonicalComment | DocHidden '.' | marker += functionAttribute '.')*? why = canonicalComment (marker += functionAttribute '.')*? recordAttribute '.' # record
+    | (orphan = canonicalComment | marker += functionAttribute '.')*? hidden = DocHidden '.' (marker += functionAttribute '.')*? why = canonicalComment? recordAttribute '.' # record
+    | (marker += functionAttribute '.')*? why = canonicalComment? recordAttribute '.' # record
     ;
 
 /** A callback of a behaviour, whose comment is required. ref:DEC-erlang-dialect */
@@ -120,6 +129,8 @@ functionDefinition
 /** An attribute between a unit and the documentation above it, labeled marker: its -spec, its -doc metadata, or another attribute such as -dialyzer, since -doc and EDoc bind to the next definition whatever attributes come between. */
 functionAttribute
     : SpecAttrName typeSpec
+    // canon: a spec may be written with a space after the dash, as - spec f() -> ok.
+    | '-' tokAtom typeSpec
     | DocAttrName '(' mapExpr ')'
     | DocAttrName mapExpr
     | '-' tokAtom attrVal
@@ -182,9 +193,12 @@ typeParameters
     : '(' topTypes? ')'
     ;
 
-/** The record a -record attribute defines, named by its name. */
+/** The record a -record attribute defines, named by its name, or the native record (OTP 29) a -record #name{Fields} attribute defines. */
+// canon: a native record is declared as -record #name{Fields}.
 recordAttribute
     : '-' tokAtom '(' what = definedName ',' (typedRecordFields | tuple_) ')'
+    | '-' tokAtom '#' what = definedName (typedRecordFields | tuple_)
+    | '-' tokAtom '(' '#' what = definedName (typedRecordFields | tuple_) ')'
     ;
 
 /** A -callback attribute, named by its function. */
@@ -198,9 +212,20 @@ callbackSignature
     : arity = typeParameters '->' topType ('when' typeGuards)?
     ;
 
-/** The name of a function, type, or record a form defines. */
+/** The name of a function, type, or record a form defines: an atom, a macro, as in ?MODULE() -> ok, or, for a native record, a variable or a reserved word, as in -record #div{}. */
+// canon: a macro may name a function, and a variable or a reserved word a native record.
 definedName
     : tokAtom
+    | '?' (tokAtom | tokVar)
+    | tokVar
+    | reservedWord
+    ;
+
+/** The reserved words, which may name a native record. */
+reservedWord
+    : 'after' | 'and' | 'andalso' | 'band' | 'begin' | 'bnot' | 'bor' | 'bsl' | 'bsr' | 'bxor' | 'case'
+    | 'catch' | 'div' | 'end' | 'fun' | 'if' | 'not' | 'of' | 'or' | 'orelse' | 'receive' | 'rem'
+    | 'try' | 'when' | 'xor'
     ;
 
 /** A -define whose body is not an expression, read as balanced tokens. */
@@ -219,7 +244,18 @@ macroBody
 
 /** A macro call or a stringified macro argument. */
 macroCall
-    : '?' '?'? (tokAtom | tokVar) argumentList?
+    : '?' '?'? (tokAtom | tokVar) macroArguments?
+    ;
+
+/** The arguments of a macro call, split at the commas outside brackets as epp splits them. */
+macroArguments
+    : '(' (macroArgument (',' macroArgument)*)? ')'
+    ;
+
+/** An argument of a macro call, which may be a pattern with a guard, as in ?assertMatch(X when X > 0, f()), since the macro places it in a clause. */
+// canon: a macro argument may hold a guard.
+macroArgument
+    : expr ('when' expr (';' expr)*)?
     ;
 
 /** The function and signatures of a -spec or -callback. */
@@ -232,6 +268,8 @@ typeSpec
 specFun
     : tokAtom
     | tokAtom ':' tokAtom
+    // canon: a macro may name the module of a spec, as in -spec ?MODULE:f() -> ok.
+    | macroCall ':' tokAtom
     ;
 
 /** The value of a typed attribute. */
@@ -286,7 +324,8 @@ topTypes
 
 /** A type, optionally annotated with a variable. */
 topType
-    : (tokVar '::')? topType100
+    // canon: a type may carry several annotations, as in Default :: AppProto :: binary().
+    : (tokVar '::')* topType100
     ;
 
 /** A union of types. */
@@ -324,8 +363,9 @@ type_
     | tokAtom
     | tokAtom '(' ')'
     | tokAtom '(' topTypes ')'
-    | tokAtom ':' tokAtom '(' ')'
-    | tokAtom ':' tokAtom '(' topTypes ')'
+    // canon: a macro may name the module of a remote type, as in ?MODULE:t().
+    | (tokAtom | macroCall) ':' tokAtom '(' ')'
+    | (tokAtom | macroCall) ':' tokAtom '(' topTypes ')'
     | '[' ']'
     | '[' topType ']'
     | '[' topType ',' '...' ']'
@@ -399,9 +439,11 @@ attrVal
     | '(' expr ',' exprs ')'
     ;
 
-/** The clauses of a function. */
+/** The clauses of a function. An EDoc comment between two clauses, as gen_server callbacks often carry, documents nothing and is labeled orphan. */
+// canon: an EDoc comment may stand between clauses; reading it here keeps the stray-comment
+// recovery, which parses the file once more per comment, for comments the grammar cannot place.
 function_
-    : functionClause (';' (functionClause | macroCall))*
+    : functionClause (';' (orphan = canonicalComment)* (functionClause | macroCall))*
     ;
 
 /** One clause of a function; its name and the arity its arguments give are the What of the function. */
@@ -465,9 +507,11 @@ expr500
     : expr600 (multOp expr600)*
     ;
 
-/** A prefix operation. */
+/** A prefix operation, or a catch expression, which may be the right operand of any operator, as in X > catch f(). */
+// canon: a catch expression may be an operand, as erl_parse reads it.
 expr600
     : prefixOp expr600
+    | 'catch' expr
     | expr650
     ;
 
@@ -517,7 +561,7 @@ maybeExpr
 
 /** A map comprehension. */
 mapComprehension
-    : '#' '{' expr '=>' expr '||' lcExprs '}'
+    : '#' '{' expr '=>' expr (',' expr '=>' expr)* '||' lcExprs '}'
     ;
 
 /** A pattern. */
@@ -606,10 +650,14 @@ tail
     | ',' macroCall expr tail
     ;
 
-/** The name of a record, which a macro may give. */
+/** The name of a record, which a macro may give; a native record may be named with its module, as in #mod:name{}, or be any native record, #_{}. */
+// canon: native records (OTP 29).
 recordName
     : tokAtom
     | macroCall
+    | tokVar
+    | reservedWord
+    | (tokAtom | macroCall) ':' (tokAtom | tokVar | reservedWord)
     ;
 
 /** A binary. */
@@ -658,9 +706,10 @@ bitSizeExpr
     : exprMax
     ;
 
-/** A list comprehension. */
+/** A list comprehension, which may give several values per element (OTP 29). */
+// canon: [A, B || ...] gives two values per element.
 listComprehension
-    : '[' expr '||' lcExprs ']'
+    : '[' exprs '||' lcExprs ']'
     ;
 
 /** A binary comprehension. */
@@ -739,9 +788,10 @@ recordField
     : (tokVar | tokAtom) '=' expr
     ;
 
-/** A function call. */
+/** A function call, whose result may be called, or a remote call made on it, as in F()(X) and ?MODULE:callback():reverse(L). */
+// canon: erl_parse calls any expression.
 functionCall
-    : expr800 argumentList
+    : expr800 argumentList (argumentList | ':' exprMax argumentList)*
     ;
 
 /** An if expression. */

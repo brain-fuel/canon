@@ -11,7 +11,7 @@ Both files were written for canon, under canon's MIT license (Copyright (c)
 2026 brain-fuel) as their headers state, from the
 [Elixir syntax reference](https://hexdocs.pm/elixir/syntax-reference.html)
 and the behaviour of Elixir's own tokenizer. Nothing in them is copied from
-another grammar, so no line is marked as changed.
+another grammar; the changes made for the corpus below are marked `// canon:`.
 
 [antlr/grammars-v4](https://github.com/antlr/grammars-v4/tree/7df52be94698550d219d299d04105c6bafadd9c3/elixir)
 has an Elixir grammar at commit `7df52be94698550d219d299d04105c6bafadd9c3`.
@@ -57,6 +57,18 @@ The decision is recorded as `DEC-elixir-grammar` in canon's
 - An uppercase sigil does not interpolate and is one token. A lowercase sigil
   has a lexer mode per delimiter, so an interpolation inside it may hold any
   code, including the closing delimiter and newlines.
+- An operator is a keyword key when a space follows its colon, as in
+  `import Kernel, except: [==: 2]`; a key or an atom may start with any
+  letter and hold `@`, and a name may hold combining marks, as `:Ólá`,
+  `[ól@: 0]`, and Thai names do; and the newer operators are atoms, as
+  `:..//` and `:<~>`.
+- A struct may be named by an expression, as in `%unquote(type){}`,
+  `%^module{}`, `%@for{}`, `%:"Elixir.User"{}`, and the type `%URI.t(){}`;
+  `..` alone is the full range; and a parenthesis may open with `->`, as the
+  type of a function of no arguments, `(-> result)`, does.
+- A heredoc of an uppercase sigil or of a charlist closes only at the start
+  of a line, so `\"""` ending a line inside `~S"""`, which reads no escapes,
+  does not close it.
 - `test`, `describe`, and `property` are a token of their own, so a profile
   can make an ExUnit or StreamData call a unit by its first token even when
   `@tag` attributes sit above it. A test may name itself in parentheses, as in
@@ -90,6 +102,39 @@ as in `x + @doc "text"`, where it is an `orphan`, and the parser's
 not accept where it stands is read out of the file and reported as an
 `orphan` (`DEC-stray-comments`): documentation never fails the parse. The
 ledger records it as `DEC-elixir-dialect`.
+
+## Corpus
+
+`tools/corpus/elixir.sh` clones these repositories, shallow and at the pinned
+commits, into `/tmp/corpus/elixir`, or the directory given as its argument,
+and parses every `.ex` and `.exs` file with the plain grammar and then with the
+dialect. Elixir itself is sampled to `lib/`, the standard library, Mix,
+ExUnit, IEx, EEx, and Logger with their tests; the others are whole.
+
+Each commit is shortened here; the script pins the full hash.
+
+| Repository | Commit | Files | Parsed | Excluded | CPU seconds |
+| --- | --- | --- | --- | --- | --- |
+| [elixir-lang/elixir](https://github.com/elixir-lang/elixir) `lib/` | `23423047325d` | 566 | 566 | 0 | 99.9 |
+| [phoenixframework/phoenix](https://github.com/phoenixframework/phoenix) | `2ca60ffe811c` | 206 | 206 | 0 | 21.0 |
+| [elixir-ecto/ecto](https://github.com/elixir-ecto/ecto) | `94d69279c517` | 126 | 126 | 0 | 25.9 |
+| [elixir-plug/plug](https://github.com/elixir-plug/plug) | `73404f851852` | 78 | 78 | 0 | 8.0 |
+| [michalmuskala/jason](https://github.com/michalmuskala/jason) | `4ede42858eb1` | 24 | 24 | 0 | 2.0 |
+| Total | | 1000 | 1000 | 0 | 156.8 |
+
+The dialect parses all 1000 files too. A file takes 0.09 CPU seconds at the
+median, 0.34 at the 90th percentile, and 3.62 at most, for
+`lib/elixir/lib/module/types/descr.ex`, 7,178 lines of Elixir's type checker;
+the dialect takes 4.37 at most. Before the fixes listed under Design, 73 files
+failed, each within 1.5 seconds: 37 at `(-> result)`, 14 at an operator
+keyword key, 13 at an operator atom or a name in another script, 7 at a
+struct named by an expression, one at `..` alone, and one at an uppercase
+sigil heredoc.
+
+To rerun, build canon and run `tools/corpus/elixir.sh [directory]`; `JOBS`
+sets the parallel parses and `TIMEOUT` the CPU seconds a file may take. It
+prints the table above, the slowest files, and every failure, and fails when a
+file fails that no exclusion names.
 
 ## Known limitations
 

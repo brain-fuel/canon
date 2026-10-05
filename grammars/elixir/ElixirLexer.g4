@@ -107,12 +107,20 @@ ATTRIBUTE
     ;
 
 // A keyword-list key such as do: or opts:, which Elixir writes with no space before the colon.
+// canon: a key may start with any letter and hold @, as an atom may, as in [Ólá: 0] and [ól@: 0].
 KEYWORD
-    : (IDENTIFIER_START | [A-Z]) IDENTIFIER_PART* [?!]? ':'
+    : [\p{L}_] (IDENTIFIER_PART | '@')* [?!]? ':'
     ;
 
+// canon: an operator is a keyword-list key too, as in import Kernel, except: [==: 2], when a space
+// follows its colon; the token takes the space, since Elixir's tokenizer requires one there.
+OPERATOR_KEYWORD
+    : OPERATOR_ATOM ':' [ \t\r\n] -> type(KEYWORD)
+    ;
+
+// canon: an atom may start with any letter, as :Ólá does.
 ATOM
-    : ':' (IDENTIFIER_START | [A-Z]) (IDENTIFIER_PART | '@')* [?!]?
+    : ':' [\p{L}_] (IDENTIFIER_PART | '@')* [?!]?
     | ':' OPERATOR_ATOM
     ;
 
@@ -133,10 +141,12 @@ CHAR
     ;
 
 // An uppercase sigil does not interpolate, so it is a single token: canon reads no code inside it.
+// canon: a heredoc closes only at the start of a line, so the \""" that ends a line inside an
+// uppercase sigil heredoc, which reads no escapes, does not close it.
 SIGIL
     : '~' [A-Z] [A-Z0-9]* (
-        '"""' .*? '"""'
-        | '\'\'\'' .*? '\'\'\''
+        '"""' .*? '\n' [ \t]* '"""'
+        | '\'\'\'' .*? '\n' [ \t]* '\'\'\''
         | '"' ('\\' . | ~["\\])* '"'
         | '\'' ('\\' . | ~['\\])* '\''
         | '/' ('\\' . | ~[/\\])* '/'
@@ -176,8 +186,9 @@ STRING_OPEN
     : '"' -> pushMode(STRING)
     ;
 
+// canon: a charlist heredoc closes only at the start of a line.
 CHARLIST_HEREDOC
-    : '\'\'\'' .*? '\'\'\''
+    : '\'\'\'' .*? '\n' [ \t]* '\'\'\''
     ;
 
 CHARLIST
@@ -190,6 +201,12 @@ OPEN_BRACE
 
 OPEN_MAP
     : '%' ([a-zA-Z_] [a-zA-Z0-9_.]*)? '{' -> pushMode(DEFAULT_MODE)
+    ;
+
+// canon: a struct whose name is an expression, as in %unquote(type){}, %^module{}, or %@for{},
+// starts with a percent sign of its own.
+PERCENT
+    : '%'
     ;
 
 CLOSE_BRACE
@@ -225,11 +242,15 @@ PIPE          : '|';
 STAR          : '*';
 SLASH         : '/';
 
+// canon: .. has a type of its own, since alone it is an operand, the full range, as in
+// Enum.slice(list, ..).
+RANGE         : '..';
+
 // Every other operator. The parser treats them alike, as binary operators.
 OPERATOR
     : '===' | '!==' | '==' | '!=' | '=~' | '<=' | '>=' | '<' | '>'
     | '&&&' | '&&' | '|||' | '||' | '<<<' | '>>>' | '^^^'
-    | '+++' | '---' | '++' | '--' | '<>' | '..' | '//' | '**'
+    | '+++' | '---' | '++' | '--' | '<>' | '//' | '**'
     | '<<~' | '~>>' | '<~>' | '<|>' | '<~' | '~>'
     ;
 
@@ -238,6 +259,8 @@ fragment OPERATOR_ATOM
     | '<<<' | '>>>' | '<<' | '>>' | '^^^' | '+++' | '---' | '++' | '--' | '<>' | '...' | '..' | '//'
     | '**' | '->' | '<-' | '=>' | '::' | '\\\\' | '+' | '-' | '*' | '/' | '!' | '^' | '&' | '@' | '.'
     | '=' | '|' | '~~~' | '%{}' | '{}' | '%' | '<<>>'
+    // canon: the newer operators are atoms too, as in :..// and :<~>.
+    | '..//' | '<<~' | '~>>' | '<~>' | '<|>' | '<~' | '~>'
     ;
 
 fragment IDENTIFIER_START
@@ -245,8 +268,9 @@ fragment IDENTIFIER_START
     | [\p{Lo}]
     ;
 
+// canon: a name may hold combining marks, as Thai names such as บูมเมอแรง do.
 fragment IDENTIFIER_PART
-    : [\p{L}\p{Nd}_]
+    : [\p{L}\p{M}\p{Nd}_]
     ;
 
 fragment DIGITS

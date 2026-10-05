@@ -502,7 +502,7 @@ tangleProject project only = case folioProfiles project of
           scanned <- mapM (scanOne interpreter profile) mine
           pure (Right ([d | Right d <- scanned], [f | Left f <- scanned]))
     scanOne interpreter profile path = do
-      source <- TIO.readFile path
+      source <- readSourceFile path
       pure $ case interpretText interpreter (profileStart profile) path source of
         Left err -> Left (ExtractionFailed path (renderInterpretError err))
         Right tree -> Right (scanDocument (idPathOf project path) tree)

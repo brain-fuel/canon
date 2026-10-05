@@ -142,6 +142,7 @@ and this project adheres to
 - TypeScript dialect: overload signatures and their implementation are one unit whose Why is the first comment, and the members of object types in a union or an intersection on the right of a type alias inherit its requirement
 - The ANTLR dialect parses a rule without a canonical comment and reports the comment missing through the empty rule `documentedRule` labeled `required`, binds the last of several comments in a row and reports the others as orphans, reads `/**/` as a plain comment, and names `canonicalComment` in a `strayComment` option
 - The Makefile dialect is the only Makefile grammar and reads every makefile itself; `export X = 1` is a variable unit
+- Corpus scripts `tools/corpus/erlang.sh`, `elixir.sh`, and `gleam.sh` clone popular projects at pinned commits and parse every file with the plain grammar and the dialect: Erlang/OTP, RabbitMQ, ejabberd, and recon; Elixir, Phoenix, Ecto, Plug, and Jason; and the Gleam stdlib, compiler, and 23 packages, each at 100% of its files or a documented exclusion, as each grammar's README records
 
 ### Fixed
 - HCL: Unicode identifiers, HCL 1's quoted attribute names and block types, as Nomad's agent and volume files write them, and, in the dialect, a comment before an object `for` parse; `tools/corpus/hcl.sh` parses 2,039 files of thirty terraform-aws-modules repositories, the provider examples, Terraform's test configurations, Nomad, and Packer, all of them with both grammars
@@ -192,6 +193,11 @@ and this project adheres to
 - In the Prolog dialect, a single sided unification rule, `Head, Guard => Body`, is a clause of its predicate
 - ANTLR meta-grammar: an action's comments, escapes, and quoted strings each have one reading in canon's backtracking lexer, so grammars-v4 grammars such as ECMAScript.g4 lex in a fraction of a second instead of minutes, and an apostrophe in a target comment such as Python's `#` pairs with the next one as the ANTLR tool pairs it; 1,152 of grammars-v4's 1,154 grammars parse, the other two being the meta-grammar test's negative fixtures (`tools/corpus/antlr4.sh`)
 - Folio dialect: prose and front-matter values have one parse, so a long section reads in time linear in its lines rather than timing out; every page of canon's and Rice's Tax's `docs/` parses with the plain grammar and the dialect (`tools/corpus/folio.sh`)
+- Erlang grammar and dialect: OTP 29 native records (`-record #name{...}`, `#mod:name{}`, `#_{}`), comprehensions of several values, calls of any expression (`F()(X)`, `?MODULE:f():g()`), `catch` as an operand, a macro naming a function, a spec's module, or a remote type's module, macro calls standing for clauses, macro arguments with guards, `- spec` with a space, nested type annotations, empty headers, and strings and sigils of up to seven quotes now parse; the `ErlangPreprocessor` hook no longer expands a macro inside its own expansion, and `??Arg` becomes a string
+- Erlang dialect: an EDoc comment between two clauses is an orphan read in place, an untyped record followed by another record or a type is a unit of its own, and `-module(m, [Params])`, `?MODULE/0` export entries, and `{Name, Arity}` export-type entries parse
+- An orphan's labels no longer mark the unit or file around it, so an EDoc `@private` inside a function no longer hides the whole file
+- A source file that is not valid UTF-8 is read as Latin-1 instead of failing to decode, as Erlang reads a file declared `coding: latin-1`
+- Elixir grammar and dialect: operator keyword keys (`[==: 2]`), structs named by an expression (`%unquote(t){}`, `%^m{}`, `%@for{}`, `%URI.t(){}`), the full range `..` alone, `(-> result)`, atoms, keys, and names in any script, the newer operator atoms (`:..//`, `:<~>`), and an uppercase sigil heredoc whose line ends in `\"""` now parse
 
 ## 0.1.0 - 2026-09-12
 

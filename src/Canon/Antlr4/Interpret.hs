@@ -6,6 +6,7 @@ module Canon.Antlr4.Interpret
   , loadInterpreter
   , loadCombinedInterpreter
   , interpretFile
+  , readSourceFile
   , interpretText
   , interpretTextWith
   , parseWithStrayComments
@@ -27,9 +28,10 @@ import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Set as Set
 import System.FilePath (takeDirectory, (</>))
+import qualified Data.ByteString as BS
 import Data.Text (Text)
 import qualified Data.Text as T
-import qualified Data.Text.IO as TIO
+import qualified Data.Text.Encoding as TE
 
 -- | Holds the compiled lexer and parser for one grammar pair, so that a language is loaded once and
 -- reused across files.
@@ -217,4 +219,12 @@ parseWithStrayComments hook grammar start toks = case parseVisibleTokensWith hoo
 
 -- | Reads and parses a file, so callers do not repeat the read.
 interpretFile :: Interpreter -> Name -> FilePath -> IO (Either InterpretError ParseTree)
-interpretFile interpreter start path = interpretText interpreter start path <$> TIO.readFile path
+interpretFile interpreter start path = interpretText interpreter start path <$> readSourceFile path
+
+-- | Reads a source file as UTF-8, or as Latin-1 when it is not valid UTF-8, since a language may
+-- allow Latin-1 sources, as Erlang does for a file that declares coding: latin-1, and every byte
+-- sequence is Latin-1. ref:DEC-source-encoding
+readSourceFile :: FilePath -> IO Text
+readSourceFile path = do
+  bytes <- BS.readFile path
+  pure (either (const (TE.decodeLatin1 bytes)) id (TE.decodeUtf8' bytes))

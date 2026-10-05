@@ -3,7 +3,7 @@
 -- function and its documentation. ref:DEC-erlang-grammar ref:REQ-erlang-support
 module Canon.Extract.ErlangTest (tests) where
 
-import Canon.Antlr4.Interpret (Interpreter (..), interpretText, renderInterpretError)
+import Canon.Antlr4.Interpret (Interpreter (..), interpretText, readSourceFile, renderInterpretError)
 import Canon.Antlr4.Lex (renderLexError)
 import Canon.Antlr4.Parse (treeRuleNodes)
 import Canon.Antlr4.Syntax (Name (..))
@@ -18,12 +18,15 @@ import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
 import Canon.Span (Position (..), Span (..))
+import Control.Exception (bracket)
+import qualified Data.ByteString as BS
 import Data.List (sort)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
 import Hedgehog (Property, PropertyT, annotate, evalIO, failure, property, withTests, (===))
+import System.Directory (createDirectoryIfMissing, getTemporaryDirectory, removeDirectoryRecursive)
 import System.FilePath (normalise, (</>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
@@ -39,6 +42,11 @@ tests =
     , testProperty "the Erlang dialect reads -doc strings and EDoc comments and requires them on exported units" prop_erlangDialectReadsDocStringsAndEdocCommentsAndRequiresThemOnExportedUnits
     , testProperty "an Erlang doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_anErlangDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
     , testProperty "an Erlang module exports nothing without an export list unless it compiles with export_all" prop_anErlangModuleExportsNothingWithoutAnExportListUnlessItCompilesWithExportAll
+    , testProperty "the Erlang grammar and dialect read native records, calls of calls, and the other syntax of OTP 29" prop_theErlangGrammarAndDialectReadNativeRecordsCallsOfCallsAndTheOtherSyntaxOfOtp29
+    , testProperty "an Erlang macro is not expanded inside itself and ??Arg expands to a string" prop_anErlangMacroIsNotExpandedInsideItselfAndStringifiedArgumentsExpandToAString
+    , testProperty "an EDoc comment between Erlang clauses is an orphan that hides neither the function nor the file" prop_anEdocCommentBetweenErlangClausesIsAnOrphanThatHidesNeitherTheFunctionNorTheFile
+    , testProperty "an Erlang file in Latin-1 is read as Latin-1" prop_anErlangFileInLatin1IsReadAsLatin1
+    , testProperty "an untyped Erlang record is a unit of its own in the dialect, whatever follows it" prop_anUntypedErlangRecordIsAUnitOfItsOwnInTheDialectWhateverFollowsIt
     ]
 
 sampleDir :: FilePath
@@ -371,3 +379,137 @@ prop_anErlangModuleExportsNothingWithoutAnExportListUnlessItCompilesWithExportAl
   open' === ["erlang/open.erl/function/helper/0"]
   header <- required "defs.hrl" ["-type id() :: integer()."]
   header === ["erlang/defs.hrl/type/id/0"]
+
+-- | OTP's own sources, compiled by the OTP that ships them, use native records, calls of calls,
+-- comprehensions of several values, catch as an operand, functions named by a macro, macro arguments
+-- with guards, and quotes of any count, so the plain grammar and the dialect must read each, or
+-- those files of the corpus in tools/corpus/erlang.sh would fail to parse. ref:REQ-erlang-support
+-- ref:DEC-erlang-grammar ref:DEC-erlang-dialect
+prop_theErlangGrammarAndDialectReadNativeRecordsCallsOfCallsAndTheOtherSyntaxOfOtp29 :: Property
+prop_theErlangGrammarAndDialectReadNativeRecordsCallsOfCallsAndTheOtherSyntaxOfOtp29 = withTests 1 $ property $ do
+  let source =
+        T.unlines
+          [ "-module(native)."
+          , "-export([?MODULE/0, f/1])."
+          , "-export_type([{t, 0}])."
+          , "-record #point{x = 0 :: integer(), y = 0 :: integer()}."
+          , "-record #div{n = 0}."
+          , "-record #Seq{elements = []}."
+          , "-type t() :: ?MODULE:point() | #native:point{}."
+          , "- spec f(term()) -> term()."
+          , "-spec ?MODULE:g(T) -> T when T :: Default :: term()."
+          , "?MODULE() -> ok."
+          , "f(R) ->"
+          , "    #point{x = X} = R,"
+          , "    #_{} = R,"
+          , "    _ = #?MODULE:point{x = 1},"
+          , "    _ = R#native:point.x,"
+          , "    _ = id(fun erlang:abs/1)(-42),"
+          , "    _ = ?MODULE:callback():reverse([1]),"
+          , "    _ = [X, X || _ <- [1]],"
+          , "    _ = #{X => 1, X + 1 => 2 || _ <- [1]},"
+          , "    ?assertMatch({ok, Y} when Y > 0; Y < 0, R),"
+          , "    _ = ~B\"\"\"\"\"\""
+          , "        \"\"\"\""
+          , "        \"\"\"\"\"\","
+          , "    (X > catch f(X)) xor false."
+          , "?wr(a);"
+          , "?wr(b)."
+          ]
+      parses rules profile = do
+        loaded <- evalIO (loadProfileInterpreter profile)
+        interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+        tree <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure (interpretText interpreter (Name "forms") "native.erl" source)
+        [length (treeRuleNodes (Name r) tree) | r <- rules] === [3, 2]
+  plain <- sampleProfile
+  parses ["recordAttribute", "functionDefinition"] plain
+  parses ["recordDefinition", "functionDefinition"] dialectProfile
+
+-- | Erlang's preprocessor never expands a macro inside its own expansion, and ??Arg quotes the
+-- argument as written, so canon's preprocessor hook must do the same: -define(A, ?A + ?A) would
+-- otherwise double at every level, as OTP's epp test data does, and a stringified binary would leave
+-- tokens no expression holds. A definition of the same name and another arity still expands, as
+-- RabbitMQ's ?ASSERT_EFF/2 calls ?ASSERT_EFF/3. ref:REQ-erlang-support ref:DEC-erlang-grammar
+prop_anErlangMacroIsNotExpandedInsideItselfAndStringifiedArgumentsExpandToAString :: Property
+prop_anErlangMacroIsNotExpandedInsideItselfAndStringifiedArgumentsExpandToAString = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let tokensOf source = case interpreterTokenize interpreter source of
+        Left err -> Left (renderLexError err)
+        Right toks -> Right [tokenText t | t <- toks, not (isEofToken t), tokenChannel t /= hiddenChannelName]
+      body source = fmap (drop 1 . dropWhile (/= "->")) (tokensOf source)
+  body "-define(A, ?A + ?A).\nf() -> ?A." === Right ["?", "A", "+", "?", "A", "."]
+  body "-define(T(B), {B, ??B}).\nf() -> ?T(<<1:0>>)." === Right ["{", "<<", "1", ":", "0", ">>", ",", "\"<< 1 : 0 >>\"", "}", "."]
+  body "-define(E(P), ?E(P, true)).\n-define(E(P, G), {P, G}).\nf() -> ?E(x)." === Right ["{", "x", ",", "true", "}", "."]
+
+-- | EDoc reads the comment above a function's first clause only, and gen_server callbacks often carry
+-- a %% @private above every clause, so a comment between clauses documents nothing: the dialect must
+-- read it as an orphan, without the stray-comment recovery that parses the file once more per
+-- comment, and its @private must hide neither the function nor, as it did when recovered, the whole
+-- file. ref:REQ-erlang-support ref:DEC-erlang-dialect ref:DEC-stray-comments ref:DEC-hidden-label
+prop_anEdocCommentBetweenErlangClausesIsAnOrphanThatHidesNeitherTheFunctionNorTheFile :: Property
+prop_anEdocCommentBetweenErlangClausesIsAnOrphanThatHidesNeitherTheFunctionNorTheFile = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "-module(m)."
+          , "-export([f/1, g/0])."
+          , ""
+          , "%% @doc F does things."
+          , "f(1) ->"
+          , "    one;"
+          , "%% @private"
+          , "f(_) ->"
+          , "    other."
+          , ""
+          , "g() ->"
+          , "    %% @private"
+          , "    ok."
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "erlang" dialectProfile interpreter "m.erl" "m.erl" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [(whatName (answerValue (unitWhat u)), unitRequirement u) | u <- modelAllUnits model, unitKindText (whatKind (answerValue (unitWhat u))) /= "file"]
+    === [("f/1", Required), ("g/0", Required)]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [7, 12]
+
+-- | Erlang reads a file that declares coding: latin-1 as Latin-1, and OTP's edoc and eunit tests hold
+-- such files, so canon must read a file that is not UTF-8 as Latin-1 rather than fail to decode it.
+-- ref:REQ-erlang-support ref:DEC-source-encoding
+prop_anErlangFileInLatin1IsReadAsLatin1 :: Property
+prop_anErlangFileInLatin1IsReadAsLatin1 = withTests 1 $ property $ do
+  base <- evalIO getTemporaryDirectory
+  let root = base </> "canon-test-latin1"
+      path = root </> "latin.erl"
+  text <- evalIO $ bracket (createDirectoryIfMissing True root >> pure root) removeDirectoryRecursive $ \_ -> do
+    BS.writeFile path (BS.pack (map (fromIntegral . fromEnum) "%% -*- coding: latin-1 -*-\n-module(latin).\nf() -> \"\229\".\n"))
+    readSourceFile path
+  T.isInfixOf "\"\229\"" text === True
+
+-- | An untyped record, -record(r, {a, b})., reads as an ordinary attribute too, which a unit below
+-- takes as one of its markers, so the dialect lost such a record as a unit, and its EDoc comment to
+-- the unit below, whenever another record or a type followed it; a record must be a unit of its own
+-- whatever follows it. ref:REQ-erlang-support ref:DEC-erlang-dialect
+prop_anUntypedErlangRecordIsAUnitOfItsOwnInTheDialectWhateverFollowsIt :: Property
+prop_anUntypedErlangRecordIsAUnitOfItsOwnInTheDialectWhateverFollowsIt = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "-module(r)."
+          , "%% @doc A holds an x."
+          , "-record(a, {x})."
+          , "-record(b, {y})."
+          , "-type t() :: #a{}."
+          , "-record(c, {z})."
+          , "%% @doc F returns ok."
+          , "-spec f() -> ok."
+          , "-dialyzer(no_return)."
+          , "f() -> ok."
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "erlang" dialectProfile interpreter "r.erl" "r.erl" source)
+  Extraction model _ <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  let units = [u | u <- modelAllUnits model, unitKindText (whatKind (answerValue (unitWhat u))) /= "file"]
+      nameOf u = whatName (answerValue (unitWhat u))
+  map nameOf units === ["a", "b", "t/0", "c", "f/0"]
+  [(nameOf u, whyText (answerValue (decisionWhy d))) | u <- units, d <- decisionsFor (unitId u) model]
+    === [("a", "@doc A holds an x."), ("f/0", "@doc F returns ok.")]
