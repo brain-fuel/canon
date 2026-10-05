@@ -18,6 +18,7 @@ import Canon.Model.Finding
 import Canon.Profile
 import Canon.Signature (linkSignatures)
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
+import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -38,6 +39,8 @@ tests =
     , testProperty "the members after a union case with an anonymous record are the union's" prop_theMembersAfterAUnionCaseWithAnAnonymousRecordAreTheUnions
     , testProperty "a doc comment on a local let binds to it" prop_aDocCommentOnALocalLetBindsToIt
     , testProperty "a signature file carries the comments of its implementation" prop_aSignatureFileCarriesTheCommentsOfItsImplementation
+    , testProperty "the F# dialect reads the Giraffe.ViewEngine sample as the profile does" prop_theFSharpDialectReadsTheViewEngineSampleAsTheProfileDoes
+    , testProperty "the F# dialect binds doc comments to declarations and reports misplaced ones" prop_theFSharpDialectBindsDocCommentsToDeclarationsAndReportsMisplacedOnes
     ]
 
 sampleDir :: FilePath
@@ -397,3 +400,86 @@ prop_aSignatureFileCarriesTheCommentsOfItsImplementation = withTests 1 $ propert
       [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger (extractionModel impl')] === []
       [(k, n, r) | (k, n, r) <- unitsOf (extractionModel sig'), r == Required] === [("val", "double", Required), ("val", "triple", Required), ("class", "Counter", Required), ("member", "Count", Required)]
     _ -> failure
+
+-- | The canonically commented dialect of the F# grammar, with no units of a profile, so every unit
+-- comes from the grammar's labels.
+dialectProfile :: Profile
+dialectProfile = Profile [".fs"] (SplitGrammarFiles "grammars/fsharp/canonically_commented/FSharpLexer.g4" "grammars/fsharp/canonically_commented/FSharpParser.g4") (Name "file") [] defaultCommentSyntax Map.empty
+
+-- | An extraction through the F# dialect.
+extractDialect :: FilePath -> Text -> PropertyT IO Extraction
+extractDialect path source = do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "fsharp" dialectProfile interpreter path path source)
+  either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+
+-- | Doc comments are tokens of the dialect, and the lexer hook must place them so the offside rule
+-- reads real F# as before: the dialect must find the units the profile finds, with the same
+-- requirements and doc comments, on the sample; only the plain license comment the profile binds
+-- to the file is no canonical comment in the dialect. ref:REQ-fsharp-support ref:DEC-fsharp-dialect
+prop_theFSharpDialectReadsTheViewEngineSampleAsTheProfileDoes :: Property
+prop_theFSharpDialectReadsTheViewEngineSampleAsTheProfileDoes = withTests 1 $ property $ do
+  let file = "src/Giraffe.ViewEngine/Engine.fs"
+  source <- evalIO (T.pack <$> readFile (sampleDir </> "source" </> file))
+  Extraction dialect _ <- extractDialect file source
+  Extraction profiled _ <- extractAt file source
+  let missing model = [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+      unitDecisions model = [renderDecisionId (decisionId d) | d <- modelDecisions model, decisionId d /= decisionIdFor (UnitId ("fsharp" NonEmpty.:| ["src", "Giraffe.ViewEngine", "Engine.fs"]))]
+  missing dialect === missing profiled
+  unitDecisions dialect === unitDecisions profiled
+
+-- | In the dialect the grammar says where a doc comment binds: above a declaration and its
+-- attributes, a case with its bar, a field, a member, and a local let, while one after the
+-- attributes or inside an expression binds to nothing and is reported; what is private needs none.
+-- ref:REQ-fsharp-support ref:DEC-fsharp-dialect
+prop_theFSharpDialectBindsDocCommentsToDeclarationsAndReportsMisplacedOnes :: Property
+prop_theFSharpDialectBindsDocCommentsToDeclarationsAndReportsMisplacedOnes = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractDialect
+      "Shapes.fs"
+      ( T.unlines
+          [ "/// Shapes and their areas. ref:some-key"
+          , "module Shapes"
+          , ""
+          , "/// A shape."
+          , "type Shape ="
+          , "    /// A circle by its radius."
+          , "    | Circle of float"
+          , "    | Square of float"
+          , ""
+          , "/// A point."
+          , "type Point ="
+          , "    { /// Across."
+          , "      X: float"
+          , "      Y: float }"
+          , ""
+          , "[<CompiledName(\"Area\")>]"
+          , "/// After the attributes, so an orphan."
+          , "let area shape ="
+          , "    /// Squares a number."
+          , "    let sq x = x * x"
+          , "    match shape with"
+          , "    /// Inside an expression, so an orphan."
+          , "    | Circle r -> 3.0 * sq r"
+          , "    | Square w -> sq w"
+          , ""
+          , "let private hidden = 0"
+          , ""
+          , "//// Commented-out documentation."
+          , "let shown x = x"
+          ]
+      )
+  let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- decisionUnits' d]
+      decisionUnits' d = case decisionUnits d of u NonEmpty.:| more -> u : more
+  whys
+    === [ ("fsharp/Shapes.fs/module/Shapes", "Shapes and their areas. ref:some-key")
+        , ("fsharp/Shapes.fs/module/Shapes/union/Shape", "A shape.")
+        , ("fsharp/Shapes.fs/module/Shapes/union/Shape/case/Circle", "A circle by its radius.")
+        , ("fsharp/Shapes.fs/module/Shapes/record/Point", "A point.")
+        , ("fsharp/Shapes.fs/module/Shapes/record/Point/field/X", "Across.")
+        , ("fsharp/Shapes.fs/module/Shapes/function/area/function/sq", "Squares a number.")
+        ]
+  length [() | OrphanDocComment _ _ <- findings] === 2
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === ["fsharp/Shapes.fs/module/Shapes/function/area", "fsharp/Shapes.fs/module/Shapes/function/shown"]

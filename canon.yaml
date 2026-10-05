@@ -6,6 +6,9 @@ ignore:
   - "!grammars/antlr4/*.g4"
   - "!grammars/java/*.g4"
   - "!grammars/haskell/*.g4"
+  - grammars/rust/canonically_commented/
+  - grammars/csharp/canonically_commented/
+  - grammars/fsharp/canonically_commented/
 languages:
   haskell:
     extensions: [.hs]

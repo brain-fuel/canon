@@ -9,6 +9,8 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- Canonically commented dialects of Rust, C#, and F# under `grammars/<lang>/canonically_commented/`: doc comments are canonical comments in lexer modes of their own, each item, type, member, field, variant, and case is a labeled unit alternative with `why` and `what`, misplaced doc comments are `orphan`s, and the plain grammars' `required`, `optional`, `inherited`, and `marker` labels are kept; the F# hook holds doc comments until the next code token's layout tokens
+- The `ordinal` element label, which names a unit without a name by its position, and a `why` element of a dialect's start rule outside every unit as the file's Why, as Rust's `//!` is
 - Every branch of a C# or F# `#if` that some build compiles is read: a file is read once per build of a few assignments of its symbols that together read every such branch, and what each build finds is merged by id
 - The `inherited` element label: a unit under it requires a comment when the unit around it does, unless it holds an `optional` element; the bodies of Rust traits and enums and of C# interfaces and enums carry it
 - Semantic predicates answered by a parser hook keyed by the parser grammar's `superClass`; `CSharpParserBase` checks that `=>`, `>>`, and `>>=` touch and that a `var` declaration has one declarator
@@ -45,6 +47,7 @@ and this project adheres to
 - A Rust trait impl is named by its trait and self type, as `Deref-for-Guard<T>`, rather than by its self type with an ordinal
 - A unit's name runs its tokens together with a hyphen where the source spaces a word from what follows, so a Haskell instance head `Named Shape` is named `Named-Shape`
 - The members of a C# interface or enum require a comment when it does; `private`, `internal`, and `private protected` are labeled `optional`, and `protected internal` is required
+- An element labeled `optional` wins over one labeled `required` in the same node
 
 ### Fixed
 - The parser's memory is linear in the input: a loop no longer builds a result for every pair of an item and a later end, the memo table holds entries only for rules tried at a token they can start with, and entries are strict, so a 13,000-line C# collection initializer is read in 10 seconds and under 1 GB instead of 10 GB

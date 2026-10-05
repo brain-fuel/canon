@@ -56,4 +56,32 @@ classes, so every change is marked `// canon:` in the grammar and recorded as
 - A trait impl's trait and self type are one rule, `traitImplTarget`, which
   names the impl, so `impl Deref for Guard<T>` is `Deref-for-Guard<T>`.
 
-Unstable syntax, such as `default fn` under specialization, is not accepted.
+Unstable syntax, such as `default fn` under specialization, is not accepted,
+since it may change in any nightly and crates published for stable Rust do not
+use it.
+
+## Canonically commented dialect
+
+`canonically_commented/RustLexer.g4` and `RustParser.g4` are the grammar
+above with doc comments as canonical comments, recorded as `DEC-rust-dialect`.
+Each change is marked `// canon:`:
+
+- `///` and `/**` open an outer doc comment, and `//!` and `/*!` an inner one,
+  on the default channel, in the `DocLine`, `InnerDocLine`, and `DocBlock`
+  modes, which tokenize prose, `ref:KEY`, and `license:KEY`. A following `///`
+  or `//!` line continues a line comment. `////` and `/***` stay plain
+  comments by the longest match. The block doc rules nested in a plain block
+  comment are fragments.
+- `canonicalComment`, `innerComment`, and `docPart` are the comment rules.
+- Each item, named field, tuple field, and variant is a labeled unit
+  alternative: `# function`, `# struct`, `# enum`, `# union`, `# trait`,
+  `# macro`, `# type`, `# const`, `# static`, `# impl`, `# module`,
+  `# field`, and `# variant`. The doc comment above the attributes is the
+  `why`, and of several in a row the last binds. A tuple field has no name,
+  so its type is labeled `ordinal` and the field is named by its position.
+- A doc comment after an attribute, or where only an attribute may stand, as
+  above a statement, a match arm, or a parameter, is an `orphan`, as rustc
+  warns it is unused. An inner doc comment binds to the module whose body it
+  opens, or at the top of a file to the file, and elsewhere is an `orphan`.
+- A doc comment in a macro's input or matcher is a token of it.
+

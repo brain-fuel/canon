@@ -1,7 +1,8 @@
 -- | F#'s offside rule makes indentation part of the syntax, and canon's F# grammar reads it as
 -- tokens: this hook, selected by the grammar's FSharpLexerBase superClass, emits INDENT, DEDENT,
 -- and NEWLINE outside brackets as Python's tokenizer does, BRNL at each new line inside brackets,
--- and reads one branch of each #if, as Canon.Preprocessor chooses it, hiding the others.
+-- and reads the branches of each #if that a build selects, as Canon.Preprocessor chooses them,
+-- hiding the others.
 -- ref:DEC-fsharp-grammar
 module Canon.Antlr4.Lex.FSharp
   ( FSharpLayout (..)
@@ -30,6 +31,7 @@ data FSharpLayout = FSharpLayout
   , lastType :: Text
   , build :: Choice
   , held :: Maybe Held
+  , docs :: [Token]
   }
   deriving (Eq, Show)
 
@@ -44,7 +46,7 @@ data Held = Held
 
 -- | The hooks for the F# grammar, reading the branches a build selects. ref:DEC-preprocessor-builds
 fsharpLexerHooks :: Choice -> LexerHooks FSharpLayout
-fsharpLexerHooks choice = LexerHooks (FSharpLayout [] [] 0 Nothing "" choice Nothing) (\_ _ _ s -> (s, [])) onEmit
+fsharpLexerHooks choice = LexerHooks (FSharpLayout [] [] 0 Nothing "" choice Nothing []) (\_ _ _ s -> (s, [])) onEmit
 
 -- | A less-than sign touching the name before it may open a type application, as in
 -- f< ^a when ... > or List<int>, whose angle brackets F# lets span lines like any brackets. The hook
@@ -92,6 +94,13 @@ replay angles toks s0 = go toks s0 []
     go [] s acc = (concat (reverse acc), s)
     go (t : rest) s acc = let (out, s') = step angles t s in go rest s' (out : acc)
 
+-- | The tokens of a doc comment in the canonically commented dialect. The hook holds them until the
+-- next code token has produced its layout tokens, and emits them just before it, so a doc comment is
+-- never the first token of a line and sits right before the declaration it documents, as the Haskell
+-- port does. ref:DEC-fsharp-dialect
+docTypes :: [Text]
+docTypes = ["DOC_OPEN", "DOC_WORD", "DOC_PUNCT", "DOC_REF", "DOC_LICENSE"]
+
 openers, closers :: [Text]
 openers = ["LPAREN", "LBRACK", "LBRACE", "LBRACKBAR", "LBRACEBAR", "LATTR"]
 closers = ["RPAREN", "RBRACK", "RBRACE", "BARRBRACK", "BARRBRACE", "RATTR"]
@@ -100,10 +109,11 @@ step :: Bool -> Token -> FSharpLayout -> ([Token], FSharpLayout)
 step angles token s
   | ty `elem` ["IF_DIRECTIVE", "ELSE_DIRECTIVE", "ENDIF_DIRECTIVE"], Just d <- directiveOf (tokenText token) =
       ([token], s {conditions = stepBranchesWith (build s) Map.empty d (conditions s)})
-  | isEofToken token = (map (const (virtual s "DEDENT")) (drop 1 (columns s)) ++ [token], s)
+  | isEofToken token = (map (const (virtual s "DEDENT")) (drop 1 (columns s)) ++ docs s ++ [token], s {docs = []})
   | tokenChannel token /= defaultChannelName = ([token], s)
   | not (active s) = ([token {tokenChannel = hiddenChannelName}], s)
-  | otherwise = (layout ++ [token], s' {depth = depth', lastEnd = Just (tokenEnd token, endPosition token), lastType = ty})
+  | ty `elem` docTypes = ([], s {docs = docs s ++ [token]})
+  | otherwise = (layout ++ docs s ++ [token], s' {depth = depth', lastEnd = Just (tokenEnd token, endPosition token), lastType = ty, docs = []})
   where
     ty = nameText (tokenType token)
     Position line column = tokenPosition token

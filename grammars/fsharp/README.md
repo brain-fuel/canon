@@ -80,18 +80,50 @@ its documentation. The profile's `signatures` maps `.fsi` to `.fs`, and when
 signature and not on the implementation, and what the signature leaves out is
 private, as `DEC-fsharp-signatures` records.
 
+## Canonically commented dialect
+
+`canonically_commented/FSharpLexer.g4` and `FSharpParser.g4` are the grammar
+with `///` comments as canonical comments, recorded as `DEC-fsharp-dialect`.
+Each change is marked `// canon:`:
+
+- `///` opens a doc comment on the default channel, in the `DocLine` mode,
+  which tokenizes prose, `ref:KEY`, and `license:KEY`; a following `///` line
+  continues it, and `////` stays a plain comment by the longest match.
+- The hook holds a doc comment's tokens until the next code token has produced
+  its layout tokens, and emits them just before it, as the Haskell port does,
+  so the offside rule reads the file as it reads it without comments.
+- `canonicalComment` and `docPart` are the comment rules.
+- Each namespace, module, binding, type, field, case, member, constructor,
+  `val`, and exception is a labeled unit alternative whose `why` is the doc
+  comment above its attributes. A case's comment comes before its bar, so the
+  bar is part of the case, in `barUnionCase` and `barEnumCase`.
+- A declaration that is public by default holds `publicByDefault`, an empty
+  rule labeled `required`; `private` and `internal` are labeled `optional`,
+  which wins, so the dialect requires what the profile requires.
+- A doc comment after a declaration's attributes, above a line that declares
+  nothing, or inside an expression or brackets is an `orphan`.
+
 ## Known limits
 
-- A doc comment placed after a declaration's attributes is reported as attached
-  to nothing, as F# warns that it is not on a valid element.
+A doc comment placed after a declaration's attributes is reported as attached
+to nothing. That is F#'s own rule, not a gap: the compiler warns that such a
+comment is not on a valid element and does not use it.
+
+Two limits are left, because each is open-ended rather than a construct with
+one fix:
+
 - Verbose syntax is read in its common shapes only: `class`, `struct`, and
   `interface ... end` type bodies, `begin ... end` modules, and `with ... end`
-  member blocks.
+  member blocks. Verbose syntax is the compiler's older mode, and code written
+  in it today is rare enough that no corpus at hand shows which other shapes
+  matter.
 - A declaration in a layout the grammar does not read is taken as an
   expression rather than failing the file, so its units are missing from the
   model and its doc comment is reported as attached to nothing. Across the 579
   source files of FsToolkit.ErrorHandling, Expecto, FsCheck, Argu, Giraffe,
   FSharp.Data, and Fantomas's library this happened to two declarations, both
   with a statically resolved type parameter list spanning lines, which the
-  hook now reads, and across the 5,900 snapshot cases in which Fantomas tests
-  unusual layouts, to 104.
+  hook now reads. Across the 5,900 snapshot cases in which Fantomas tests
+  unusual layouts it happened to 104. Those cases exist to exercise every
+  layout the offside rule permits, and each needs its own exception to the
+  rule's common case, so they are read one at a time as real code needs them.

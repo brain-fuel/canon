@@ -309,7 +309,7 @@ DEC-inherited-label:
   status: decided
   question: The members of a Rust trait, a Rust enum, a C# interface, and a C# enum say no visibility of their own and are as visible as what holds them. How does a grammar say that their comment is required when their container's is?
   answer: |
-    With an element label, inherited, on the part of a unit that holds such members. A unit found under an element labeled inherited requires a comment when the unit enclosing it does, unless its own node holds an element labeled optional, as a private member of a C# interface does. It is the one label whose meaning depends on the enclosing unit; required, optional, and marker are read from the unit's own node.
+    With an element label, inherited, on the part of a unit that holds such members. A unit found under an element labeled inherited requires a comment when the unit enclosing it does, unless its own node holds an element labeled optional, as a private member of a C# interface does. It is the one label whose meaning depends on the enclosing unit; required, optional, and marker are read from the unit's own node. An element labeled optional wins over one labeled required in the same node, so the F# dialect labels every declaration that is public by default required and private optional; a unit whose why element is mandatory is required whatever its node holds. No grammar before these had both labels in one node.
   opened: 0.1.0
   decided: 0.1.0
 
@@ -330,4 +330,31 @@ DEC-fsharp-signatures:
   opened: 0.1.0
   decided: 0.1.0
   refs: [fsharp-signature-files, REQ-fsharp-support]
+
+DEC-rust-dialect:
+  status: decided
+  question: What does the canonically commented dialect of the Rust grammar look like, given that Rust doc comments are attributes that may stand wherever an attribute may, that //! documents the module or file around it, and that a tuple field has no name?
+  answer: |
+    grammars/rust/canonically_commented holds the plain Rust grammar with doc comments as canonical comments on the default channel. The lexer sends /// and /** into DocLine and DocBlock modes and //! and /*! into InnerDocLine and DocBlock, which tokenize prose, ref:KEY, and license:KEY; a following /// or //! line continues a line comment, and //// and /*** stay plain by the longest match. The parser adds canonicalComment, innerComment, and docPart, and labels each item, named field, tuple field, and variant as a unit alternative whose Why is the doc comment above its attributes, of which the last of several in a row binds; a doc comment after an attribute or where only an attribute may stand, as above a statement, a match arm, or a parameter, is an orphan, as rustc warns it is unused, and an inner doc comment binds to the module whose body it opens or, at the top of a file, to the file. A why element of the start rule outside every unit is the file's Why, the first of several binding. A doc comment in a macro's input is a token of it and binds to nothing. A tuple field is named by its position through an element labeled ordinal, which stands for the what of a unit without a name. The /// and //! markers are stripped from a Why like the others. The dialect keeps the plain grammar's required, inherited, and marker labels, so it requires what the profile requires. It binds a doc comment across a blank line, as every dialect does under DEC-comment-attachment, and reads no plain comment as a file's Why. Its rules carry no canonical comments, so the root canon.yaml ignores it like the plain grammar.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [rust-reference-comments, REQ-rust-support]
+
+DEC-csharp-dialect:
+  status: decided
+  question: What does the canonically commented dialect of the C# grammar look like, given that an XML doc comment documents the type or member below its attributes and that the compiler accepts one where it documents nothing?
+  answer: |
+    grammars/csharp/canonically_commented holds the plain C# grammar with /// and /** comments as canonical comments on the default channel. The lexer sends them into DocLine and DocBlock modes, which tokenize prose, markup punctuation, ref:KEY, and license:KEY; a following /// line continues a line comment, //// and /*** stay plain comments, and the lexer hook still hides the branches of an #if a build does not read, doc comments in them included. The parser adds canonicalComment and docPart, and labels each namespace, type, member, and enum member as a unit alternative whose Why is the doc comment above its attributes, of which the last of several in a row binds. A doc comment the compiler warns is on no valid element binds to nothing and is an orphan: one after an attribute, before a statement or a switch section, before a using directive, an extern alias, an assembly attribute, or an accessor, before a parameter, an argument, an initializer's element, or a switch expression's arm, and after the last member of a body or file. A doc comment anywhere else inside an expression fails the parse, as no grammar rule can accept a token everywhere without reading every expression differently. The dialect keeps the plain grammar's required, optional, inherited, and marker labels and its hooks. It binds a doc comment across a blank line, as every dialect does under DEC-comment-attachment. Its rules carry no canonical comments, so the root canon.yaml ignores it like the plain grammar.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [csharp-xml-documentation, REQ-csharp-support]
+
+DEC-fsharp-dialect:
+  status: decided
+  question: What does the canonically commented dialect of the F# grammar look like, given that F# ends a declaration by indentation, that a /// comment is the first thing on its line, and that F# declarations are public unless they say otherwise?
+  answer: |
+    grammars/fsharp/canonically_commented holds the F# grammar with /// comments as canonical comments on the default channel, sent into a DocLine mode that tokenizes prose, ref:KEY, and license:KEY, a following /// line continuing it and //// staying plain. The FSharpLexerBase hook holds a doc comment's tokens until the next code token has produced its layout tokens and emits them just before it, as the Haskell port does, so a doc comment is never the first token of a line and the offside rule reads the file as it reads it without comments. The parser adds canonicalComment and docPart, and labels each namespace, module, binding, type, field, case, member, constructor, val, and exception as a unit alternative whose Why is the doc comment above its attributes; a case's comment comes before its bar, so the bar is part of the case. A declaration public by default holds the empty rule publicByDefault labeled required, and private and internal are labeled optional, which wins, so the dialect requires what the profile requires. A doc comment after a declaration's attributes, above a line that declares nothing, or inside an expression is an orphan. On the Giraffe.ViewEngine sample it finds the units, requirements, and doc comments the profile finds; only the plain license comment the profile binds to a file is no canonical comment in it. Its rules carry no canonical comments, so the root canon.yaml ignores it like the plain grammar.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [fsharp-xml-documentation, fsharp-offside-rule, REQ-fsharp-support]
 

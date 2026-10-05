@@ -182,3 +182,31 @@ start with, and reads a loop without pairing each item with every later end,
 as `DEC-parser-memory` records: on this grammar a typical file parses in a
 tenth of a second, and a 13,000-line file of collection initializers in 10
 seconds and under 1 GB.
+
+## Canonically commented dialect
+
+`canonically_commented/CSharpLexer.g4` and `CSharpParser.g4` are the grammar
+above with XML doc comments as canonical comments, recorded as
+`DEC-csharp-dialect`. Each change is marked `// canon:`:
+
+- `///` and `/**` open a doc comment on the default channel, in the `DocLine`
+  and `DocBlock` modes, which tokenize prose, markup punctuation, `ref:KEY`,
+  and `license:KEY`. A following `///` line continues a line comment. A plain
+  comment may not start with a third slash or two stars, so `////`, `/**/`,
+  and `/***` stay plain by the longest match.
+- `canonicalComment` and `docPart` are the comment rules.
+- Each namespace, type, member, and enum member is a labeled unit alternative:
+  `# namespace`, `# class`, `# struct`, `# record`, `# interface`, `# enum`,
+  `# delegate`, `# method`, `# constructor`, `# destructor`, `# property`,
+  `# indexer`, `# event`, `# operator`, `# field`, `# constant`, `# member`,
+  and `# extension`. The doc comment above the attributes is the `why`, and of
+  several in a row the last binds.
+- A doc comment the compiler warns is on no valid element is an `orphan`:
+  after an attribute, before a statement, a switch section, a using directive,
+  an extern alias, an assembly attribute, an accessor, a parameter, an
+  argument, an initializer's element, or a switch expression's arm, and after
+  the last member of a body, an enum, or a file.
+
+A doc comment anywhere else inside an expression fails the parse, since the
+grammar would have to accept it between any two tokens of an expression.
+

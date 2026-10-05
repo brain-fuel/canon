@@ -140,10 +140,16 @@ Javadoc comment after an annotation, and is reported. An element labeled
 reads to recognise tests. A unit found under an element labeled `inherited`
 requires a comment when the unit around it does, unless its own node holds an
 element labeled `optional`, which is how the items of a public Rust trait and
-the members of a public C# interface require one. Alternative labels without a `why`, such as the
-Java grammar's own expression labels, are inert. `canon` generates the extraction parser from that grammar, so nothing
-about a language's comment placement is written in Haskell. The ANTLR
-meta-grammar and Java are the languages done this way.
+the members of a public C# interface require one. An element labeled
+`optional` wins over one labeled `required` in the same node. An element
+labeled `ordinal` stands for the `what` of a unit without a name, such as a
+field of a Rust tuple struct, which is then named by its position among the
+units of its kind in its parent. A `why` element of the start rule outside
+every unit is the file's Why, as Rust's `//!` at the top of a file is.
+Alternative labels without a `why`, such as the Java grammar's own expression
+labels, are inert. `canon` generates the extraction parser from that grammar,
+so nothing about a language's comment placement is written in Haskell. The
+ANTLR meta-grammar, Java, Haskell, Rust, C#, and F# have dialects.
 
 ### Tests
 
@@ -341,8 +347,8 @@ git submodule, sets `root` to that directory.
 whose sources are a submodule under `source` (vendored, for the small Rust,
 C#, F#, Elixir, and Gleam samples) and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
-grammars-v4, with a `canonically_commented/` dialect where one exists and an
-empty husk where it does not. `canon check` at the repository root checks
+grammars-v4 or written for canon, with a `canonically_commented/` dialect
+where one exists and an empty husk where it does not. `canon check` at the repository root checks
 canon itself and leaves the samples alone; checking a sample is its own run,
 from its directory, or with `stack exec --cwd lang_samples/<sample> canon --
 check` from the root. The samples are upstream code that is not canonically
@@ -775,18 +781,23 @@ and non-fragment lexer rule and cites its BSD license in the header, the
 dialect carries the same comments extended where a rule gained unit labels,
 and both are checked at the root like the meta-grammar.
 
-`grammars/rust/` holds the Rust grammar from grammars-v4 with an empty
-`canonically_commented/` husk. canon has no port of its base classes, so the
+`grammars/rust/` holds the Rust grammar from grammars-v4 and its dialect. canon has no port of its base classes, so the
 predicates that called into them are replaced in the grammar itself; outer
 attributes and visibility move into each kind of item, so an item's node
 starts at its first attribute and the doc comment above binds to it, with
 each attribute labeled `marker`; and macro token trees take one token at a
-time, which keeps macro bodies from parsing in exponential time. Each change
+time, which keeps macro bodies from parsing in exponential time. A bare `pub`
+and `#[macro_export]` are labeled `required`, and trait items and enum
+variants `inherited`. Under `canonically_commented/` the dialect sends `///`
+and `/**` into `DocLine` and `DocBlock` lexer modes and `//!` and `/*!` into
+`InnerDocLine` and `DocBlock`, labels each item, field, and variant as a unit
+alternative, binds `//!` to the module or file around it, and takes a doc
+comment after an attribute or above a statement as an `orphan`. Each change
 is marked `// canon:` in the grammar, listed in `grammars/rust/README.md`,
 and recorded in the ledger.
 
-`grammars/csharp/` holds the C# 7 grammar from grammars-v4 with an empty
-`canonically_commented/` husk. Upstream leaves interpolated strings and the
+`grammars/csharp/` holds the C# 7 grammar from grammars-v4 and its dialect.
+Upstream leaves interpolated strings and the
 preprocessor to a `CSharpLexerBase` class, which canon ports as a lexer hook
 selected by the grammar's `superClass` option: the hook tracks the braces of
 each interpolation hole, raw ones included, and reads the branches of each
@@ -794,19 +805,35 @@ each interpolation hole, raw ones included, and reads the branches of each
 compiles, and every branch some build compiles is read in one of a few builds.
 The parser's predicates go through a `CSharpParserBase` hook. Attributes and modifiers
 move into each kind of type and member, as Rust's do, with `public` and
-`protected` labeled `required` and each attribute labeled `marker`, and C# 8 to
-14 syntax is added. Each change is marked `// canon:` in the grammar, listed in
-`grammars/csharp/README.md`, and recorded in the ledger.
+`protected` labeled `required`, `private` and `internal` `optional`, interface
+and enum bodies `inherited`, and each attribute labeled `marker`, and C# 8 to 14
+syntax is added. Under `canonically_commented/` the dialect sends `///` and
+`/**` into `DocLine` and `DocBlock` lexer modes, labels each namespace, type,
+member, and enum member as a unit alternative, and takes a doc comment the
+compiler warns is on no valid element, such as one after an attribute or
+before a statement, as an `orphan`. Each change is marked `// canon:` in the
+grammar, listed in `grammars/csharp/README.md`, and recorded in the ledger.
 
 `grammars/fsharp/` holds an F# grammar written for canon, since grammars-v4
-has none, with an empty `canonically_commented/` husk. It parses the
+has none, and its dialect. It parses the
 declarations that carry documentation and reads expressions, patterns, and
 types as runs of tokens. F# ends a declaration by indentation, so the
 grammar's `superClass` selects a lexer hook that turns the offside rule into
 `INDENT`, `DEDENT`, and `NEWLINE` tokens outside brackets, as Python's
-tokenizer does, and reads `#if` as the C# hook does. What it reads and what it
-leaves out is listed in `grammars/fsharp/README.md` and recorded in the
-ledger.
+tokenizer does, and reads `#if` as the C# hook does. Under
+`canonically_commented/` the dialect sends `///` into a `DocLine` lexer mode,
+the hook holds a doc comment's tokens until the next code token has produced
+its layout tokens, as the Haskell port does, and each declaration is a unit
+alternative, with what is public by default labeled `required` and `private`
+and `internal` `optional`. What it reads and what it leaves out is listed in
+`grammars/fsharp/README.md` and recorded in the ledger.
+
+The Rust, C#, and F# samples keep the profiles above, and the test suite reads
+their sources through the dialects too. The dialects bind a doc comment across
+a blank line and read no plain comment as a file's Why, as every dialect does
+under the open `DEC-comment-attachment`, while the profiles part a doc comment
+from its unit at a blank line and bind a plain comment on a file's first line
+to the file.
 
 `grammars/elixir/` and `grammars/gleam/` hold grammars written for canon, with
 empty `canonically_commented/` husks. The grammars-v4 Elixir grammar parsed
@@ -823,9 +850,9 @@ and wisp. Each directory's `README.md` gives the design and the known
 limitations, and the ledger records them as `DEC-elixir-grammar` and
 `DEC-gleam-grammar`.
 
-The other language directories hold their upstream grammars with an empty
-`canonically_commented/` husk, and their samples use the line-adjacency
-profile path until a dialect exists.
+The Erlang, Clojure, Prolog, Elixir, and Gleam directories hold their grammars
+with an empty `canonically_commented/` husk, and their samples use the
+line-adjacency profile path until a dialect exists.
 
 ### `to_be_removed/`
 
@@ -886,8 +913,9 @@ slash is anchored at the project root, a trailing slash matches directories
 only, `*` stays within one path segment, `**` spans segments, `?` and `[...]`
 match single characters, and a later `!` pattern re-includes what an earlier
 pattern excluded, unless a parent directory is excluded. This repository
-ignores `grammars/*/*.g4` except the ANTLR meta-grammar and the Java grammar,
-so that only grammars carrying canonical comments are checked.
+ignores `grammars/*/*.g4` except the ANTLR meta-grammar and the Java and
+Haskell grammars, and the Rust, C#, and F# dialects, so that only grammars
+carrying canonical comments are checked.
 
 `canon check` parses files concurrently, and caches each file's extraction
 under `.canon-cache/` in the project directory, keyed by the file's content,

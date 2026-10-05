@@ -17,6 +17,7 @@ import Canon.Model.Check (checkModel, checkTests)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
+import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -38,6 +39,8 @@ tests =
     , testProperty "an interface member needs a comment as the interface does unless it is private or internal" prop_anInterfaceMemberNeedsACommentAsTheInterfaceDoesUnlessItIsPrivateOrInternal
     , testProperty "every branch of an #if that some build compiles is read" prop_everyBranchOfAnIfThatSomeBuildCompilesIsRead
     , testProperty "a long collection initializer parses in memory linear in its length" prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength
+    , testProperty "the C# dialect parses the GuardClauses sample with its XML docs" prop_theCSharpDialectParsesTheGuardClausesSampleWithItsXmlDocs
+    , testProperty "the C# dialect binds XML docs to members and reports misplaced ones" prop_theCSharpDialectBindsXmlDocsToMembersAndReportsMisplacedOnes
     ]
 
 sampleDir :: FilePath
@@ -400,3 +403,94 @@ prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength = withTests 1 $ p
   case interpretText interpreter (Name "compilation_unit") "data.cs" source of
     Left err -> annotate (T.unpack (renderInterpretError err)) >> failure
     Right tree -> length [t | t <- treeTokens tree, "\"key" `T.isPrefixOf` tokenText t] === 1500
+
+-- | The canonically commented dialect of the C# grammar, with no units of a profile, so every unit
+-- comes from the grammar's labels.
+dialectProfile :: Profile
+dialectProfile = Profile [".cs"] (SplitGrammarFiles "grammars/csharp/canonically_commented/CSharpLexer.g4" "grammars/csharp/canonically_commented/CSharpParser.g4") (Name "compilation_unit") [] defaultCommentSyntax Map.empty
+
+-- | An extraction through the C# dialect.
+extractDialect :: FilePath -> Text -> PropertyT IO Extraction
+extractDialect path source = do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "csharp" dialectProfile interpreter path path source)
+  either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+
+-- | XML doc comments are tokens of the dialect, so real C# must still parse whole with them above
+-- members, inside #if branches, and among the tests. ref:REQ-csharp-support ref:DEC-csharp-dialect
+prop_theCSharpDialectParsesTheGuardClausesSampleWithItsXmlDocs :: Property
+prop_theCSharpDialectParsesTheGuardClausesSampleWithItsXmlDocs = withTests 1 $ property $ do
+  let files =
+        [ "src/GuardClauses/GuardAgainstNullExtensions.cs"
+        , "src/GuardClauses/GuardAgainstEmptyOrWhiteSpaceExtensions.cs"
+        , "src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs"
+        , "src/GuardClauses/CompilerFixes/CallerArgumentExpressionAttribute.cs"
+        , "test/GuardClauses.UnitTests/GuardAgainstNullOrEmpty.cs"
+        ]
+  counts <-
+    mapM
+      ( \file -> do
+          source <- evalIO (T.pack <$> readFile (sampleDir </> "source" </> file))
+          Extraction model _ <- extractDialect file source
+          pure (length (modelDecisions model))
+      )
+      files
+  all (> 0) (take 4 counts) === True
+
+-- | In the dialect the grammar says where an XML doc comment binds: above a type or member and its
+-- attributes, while one after an attribute, before a statement, or after the last member binds to
+-- nothing and is reported; a public or protected member requires one, and an interface member as
+-- its interface does. ref:REQ-csharp-support ref:DEC-csharp-dialect
+prop_theCSharpDialectBindsXmlDocsToMembersAndReportsMisplacedOnes :: Property
+prop_theCSharpDialectBindsXmlDocsToMembersAndReportsMisplacedOnes = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractDialect
+      "Shapes.cs"
+      ( T.unlines
+          [ "using System;"
+          , "namespace Shapes;"
+          , ""
+          , "/// <summary>A shape has an area. ref:some-key</summary>"
+          , "[Serializable]"
+          , "public interface IShape"
+          , "{"
+          , "    /// <summary>The area.</summary>"
+          , "    double Area { get; }"
+          , "    void Draw();"
+          , "    private void Helper() { }"
+          , "}"
+          , ""
+          , "public class Square : IShape"
+          , "{"
+          , "    [Obsolete]"
+          , "    /// <summary>After an attribute, so an orphan.</summary>"
+          , "    public double Area => 1;"
+          , ""
+          , "    /** <summary>Draws the square.</summary> */"
+          , "    public void Draw()"
+          , "    {"
+          , "        /// <summary>Before a statement, so an orphan.</summary>"
+          , "        var x = $\"\"\"{Area}\"\"\";"
+          , "    }"
+          , ""
+          , "    //// <summary>Commented-out documentation.</summary>"
+          , "    internal void Inside() { }"
+          , ""
+          , "    /// <summary>After the last member, so an orphan.</summary>"
+          , "}"
+          ]
+      )
+  let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- decisionUnits' d]
+      decisionUnits' d = case decisionUnits d of u :| more -> u : more
+  whys
+    === [ ("csharp/Shapes.cs/namespace/Shapes/interface/IShape", "<summary>A shape has an area. ref:some-key</summary>")
+        , ("csharp/Shapes.cs/namespace/Shapes/interface/IShape/property/Area", "<summary>The area.</summary>")
+        , ("csharp/Shapes.cs/namespace/Shapes/class/Square/method/Draw", "<summary>Draws the square.</summary>")
+        ]
+  length [() | OrphanDocComment _ _ <- findings] === 3
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === [ "csharp/Shapes.cs/namespace/Shapes/interface/IShape/method/Draw"
+        , "csharp/Shapes.cs/namespace/Shapes/class/Square"
+        , "csharp/Shapes.cs/namespace/Shapes/class/Square/property/Area"
+        ]

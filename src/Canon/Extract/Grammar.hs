@@ -195,10 +195,11 @@ exportRequires exports parent name = case exports of
       ExportModule _ -> False
     plainName n = not (T.null n) && not (T.any isSpace n)
 
--- | Builds the unit tree, its decisions, and the orphan spans from a parse tree. A unit a profile
--- names is required when its node holds an element the grammar labels required, as the C# grammar
--- labels public and protected, or when its rule says so and its node holds no element labeled
--- optional, as the F# grammar labels private and internal. ref:DEC-csharp-grammar
+-- | Builds the unit tree, its decisions, and the orphan spans from a parse tree. A unit is required
+-- when its node holds an element the grammar labels required, as the C# grammar labels public and
+-- protected, or when a profile's rule says so, unless its node holds an element labeled optional,
+-- as the F# grammar labels private and internal; a unit whose why element is mandatory is required
+-- whatever it holds. ref:DEC-csharp-grammar
 -- ref:DEC-fsharp-grammar A unit found under an element labeled inherited needs a comment when the
 -- unit enclosing it does, unless its node holds an element labeled optional, as the items of a
 -- public Rust trait and the members of a public C# interface do. ref:DEC-inherited-label A unit
@@ -209,7 +210,7 @@ exportRequires exports parent name = case exports of
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
 unitsFromTree language profile plans exportsDeclared idPath path source tree =
   case [i | i@(_ : _ : _) <- group (sort (map unitId (allUnits root)))] of
-    [] -> Right (root, decisions, unbound)
+    [] -> Right (root, fileDecisions ++ decisions, unbound)
     duplicates -> Left (GrammarDuplicateUnitIds (map NonEmpty.head (map NonEmpty.fromList duplicates)))
   where
     evidence = DerivedFromParse path
@@ -247,7 +248,27 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       Just entries | not (null entries) -> Just (Just entries)
       Just _ -> Just Nothing
       Nothing -> Nothing
-    unbound = map treeSpan (unboundWhys tree ++ orphansIn tree)
+    unbound = map treeSpan (drop 1 rootWhys ++ unboundBelowRoot ++ orphansIn tree)
+    -- A why element of the start rule outside every unit is the file's Why, as Rust's //! at the top
+    -- of a file is; of several, the first binds and the others are orphans. ref:DEC-rust-dialect
+    rootWhys = case tree of
+      RuleNode _ _ ns | not (isUnitNode tree) -> [inner | Labeled "why" inner <- ns]
+      _ -> []
+    unboundBelowRoot = case tree of
+      RuleNode _ _ ns | not (isUnitNode tree) -> concatMap unboundWhys ns
+      _ -> unboundWhys tree
+    fileDecisions = case rootWhys of
+      (whyNode : _) ->
+        let whySpan = treeSpan whyNode
+         in [ Decision
+                { decisionId = decisionIdFor fileId
+                , decisionUnits = fileId :| []
+                , decisionWhy = Answer (whyFrom whyNode (slice whySpan)) (Asserted (Assertion path whySpan))
+                , decisionWhere = Where path whySpan [] Nothing
+                , decisionVetting = Nothing
+                }
+            ]
+      [] -> []
     orphansIn node = case node of
       TokenNode _ -> []
       Labeled "orphan" inner -> [inner]
@@ -257,7 +278,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       TokenNode _ -> []
       Labeled _ inner -> unboundWhys inner
       RuleNode _ _ ns
-        | isUnitNode node && isJust (labeledSubtree "what" node) -> concatMap unboundWhys (filter (not . isWhy) ns)
+        | isUnitNode node && isJust (planName node) -> concatMap unboundWhys (filter (not . isWhy) ns)
         | otherwise -> [inner | Labeled "why" inner <- ns] ++ concatMap unboundWhys ns
     isWhy node = case node of
       Labeled "why" _ -> True
@@ -301,9 +322,9 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       Labeled "inherited" inner -> [c {candidateInherits = True} | c <- found inner]
       Labeled _ inner -> found inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just unitName <- labeledName "what" node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) optional False False (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
+        Just plan | Just (unitName, ordinal) <- planName node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || (isJust (labeledSubtree "required" node) && not optional) then Required else Optional) optional False ordinal (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
         _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
-          ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule && not optional) || isJust (labeledSubtree "required" node) then Required else Optional) optional False (unitRuleNameSource rule == NameFromOrdinal) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
+          ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule || isJust (labeledSubtree "required" node)) && not optional then Required else Optional) optional False (unitRuleNameSource rule == NameFromOrdinal) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
           [] -> concatMap found nodeChildren
         where
           optional = isJust (labeledSubtree "optional" node)
@@ -320,6 +341,11 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
           TokenNode _ -> []
           RuleNode _ _ ns -> concatMap (\c -> if isUnitNode c then [] else labeledIn c) ns
     labeledName wanted node = nameFromTokens <$> labeledSubtree wanted node
+    -- A unit alternative is named by its what element, or by its position when it has an element
+    -- labeled ordinal instead, as a field of a Rust tuple struct is. ref:DEC-rust-dialect
+    planName node = case labeledName "what" node of
+      Just unitName -> Just (unitName, False)
+      Nothing -> if isJust (labeledSubtree "ordinal" node) then Just ("", True) else Nothing
     tokensText n = T.concat (map tokenText (filter (not . isEofToken) (treeTokens n)))
     -- A name is its tokens run together, with a hyphen where the source spaces a word from what
     -- follows it, so the Rust impl Deref for Guard<T, U> is named Deref-for-Guard<T,U> and a unit id

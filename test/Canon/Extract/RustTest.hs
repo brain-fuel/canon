@@ -18,6 +18,8 @@ import Canon.Profile
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
 import Canon.Decisions (emptyLedger)
 import qualified Data.Map.Strict as Map
+import Data.Maybe (mapMaybe)
+import qualified Data.List.NonEmpty as NonEmpty
 import Data.Text (Text)
 import qualified Data.Text as T
 import Hedgehog (Property, PropertyT, annotate, evalIO, failure, property, withTests, (===))
@@ -36,6 +38,8 @@ tests =
     , testProperty "an empty Rust line comment ends at its line and hides no code" prop_anEmptyRustLineCommentEndsAtItsLineAndHidesNoCode
     , testProperty "the Rust profile requires comments on what is visible outside the crate" prop_rustProfileRequiresCommentsOnWhatIsVisibleOutsideTheCrate
     , testProperty "a Rust trait impl is named by its trait and its self type" prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType
+    , testProperty "the Rust dialect parses the scopeguard sample with its doc comments" prop_theRustDialectParsesTheScopeguardSampleWithItsDocComments
+    , testProperty "the Rust dialect binds outer and inner doc comments and reports misplaced ones" prop_theRustDialectBindsOuterAndInnerDocCommentsAndReportsMisplacedOnes
     ]
 
 sampleDir :: FilePath
@@ -311,3 +315,85 @@ prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType = withTests 1 $ property $ do
         , "rust/lib.rs/impl/Sync-for-Guard<T>"
         , "rust/lib.rs/impl/!Send-for-&'static-mut-Guard<T>"
         ]
+
+-- | The canonically commented dialect of the Rust grammar, with no units of a profile, so every unit
+-- comes from the grammar's labels.
+dialectProfile :: Profile
+dialectProfile = Profile [".rs"] (SplitGrammarFiles "grammars/rust/canonically_commented/RustLexer.g4" "grammars/rust/canonically_commented/RustParser.g4") (Name "crate") [] defaultCommentSyntax Map.empty
+
+-- | An extraction through the Rust dialect.
+extractDialect :: FilePath -> Text -> PropertyT IO Extraction
+extractDialect path source = do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "rust" dialectProfile interpreter path path source)
+  either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+
+-- | Doc comments are tokens of the dialect, so real Rust must still parse whole with them in every
+-- place rustc allows, among them a macro's input and a test module. ref:REQ-rust-support
+-- ref:DEC-rust-dialect
+prop_theRustDialectParsesTheScopeguardSampleWithItsDocComments :: Property
+prop_theRustDialectParsesTheScopeguardSampleWithItsDocComments = withTests 1 $ property $ do
+  source <- evalIO (T.pack <$> readFile (sampleDir </> "source/src/lib.rs"))
+  Extraction model findings <- extractDialect "lib.rs" source
+  let names = [whatName (answerValue (unitWhat u)) | u <- modelAllUnits model]
+  length (filter (== "should_run") names) === 4
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  length (modelDecisions model) === 15
+  null [whyText (answerValue (decisionWhy d)) | d <- modelDecisions model, decisionId d == decisionIdFor (UnitId ("rust" NonEmpty.:| ["lib.rs"]))] === False
+
+-- | In the dialect the grammar says where a doc comment binds: /// above an item's attributes, //!
+-- inside the module or file it documents, and a doc comment where no item follows, as above a
+-- statement or after an attribute, is an orphan; //// is no documentation. ref:REQ-rust-support
+-- ref:DEC-rust-dialect
+prop_theRustDialectBindsOuterAndInnerDocCommentsAndReportsMisplacedOnes :: Property
+prop_theRustDialectBindsOuterAndInnerDocCommentsAndReportsMisplacedOnes = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractDialect
+      "lib.rs"
+      ( T.unlines
+          [ "//! The crate exercises the dialect. ref:some-key"
+          , "//! It has two lines."
+          , ""
+          , "/// A pair of numbers."
+          , "#[derive(Debug)]"
+          , "pub struct Pair("
+          , "    /// The first."
+          , "    pub u8,"
+          , "    u8,"
+          , ");"
+          , ""
+          , "//// Commented-out documentation."
+          , "pub fn plain() {}"
+          , ""
+          , "#[inline]"
+          , "/// After the attribute, so an orphan."
+          , "pub fn late() {"
+          , "    /// On a statement, so an orphan."
+          , "    let x = 1;"
+          , "}"
+          , ""
+          , "pub mod inner {"
+          , "    //! The inner module documents itself."
+          , "    /** A block doc comment. */"
+          , "    pub enum Choice { /// The first choice."
+          , "        Yes, No }"
+          , "}"
+          , ""
+          , "macro_rules! made { () => { /// Documentation in a macro's input."
+          , "    struct Made; } }"
+          ]
+      )
+  let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+  whys
+    === [ ("rust/lib.rs", "The crate exercises the dialect. ref:some-key\nIt has two lines.")
+        , ("rust/lib.rs/struct/Pair", "A pair of numbers.")
+        , ("rust/lib.rs/struct/Pair/field/0", "The first.")
+        , ("rust/lib.rs/module/inner", "The inner module documents itself.")
+        , ("rust/lib.rs/module/inner/enum/Choice", "A block doc comment.")
+        , ("rust/lib.rs/module/inner/enum/Choice/variant/Yes", "The first choice.")
+        ]
+  mapMaybe (\d -> if decisionId d == decisionIdFor (UnitId ("rust" NonEmpty.:| ["lib.rs"])) then Just (whyReferences (answerValue (decisionWhy d))) else Nothing) (modelDecisions model) === [[ReferenceKey "some-key"]]
+  length [() | OrphanDocComment _ _ <- findings] === 2
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === ["rust/lib.rs/function/plain", "rust/lib.rs/function/late", "rust/lib.rs/module/inner/enum/Choice/variant/No"]

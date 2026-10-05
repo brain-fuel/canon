@@ -1,7 +1,7 @@
-// The F# lexer canon reads F# with. It is written for canon, because grammars-v4 has no F# grammar,
-// and it covers what extraction needs: every token kind of F# source, so that comments, strings,
-// and characters never hide or fake code, and the brackets and keywords the parser's structure
-// rests on. Expressions and types are left as runs of tokens for the parser to skip.
+// The canonically commented dialect of the F# lexer canon reads F# with. It is written for canon,
+// because grammars-v4 has no F# grammar, and it covers what extraction needs: every token kind of
+// F# source, so that comments, strings, and characters never hide or fake code, and the brackets
+// and keywords the parser's structure rests on. Expressions and types are left as runs of tokens for the parser to skip.
 //
 // The offside rule is not lexical, so the FSharpLexerBase hook turns indentation into INDENT,
 // DEDENT, and NEWLINE tokens outside brackets and BRNL tokens inside them, and reads the branches
@@ -27,7 +27,12 @@ BYTE_ORDER_MARK: '﻿' -> channel(HIDDEN);
 
 // Comments. A block comment nests, and (*) is the multiplication operator, not a comment.
 BLOCK_COMMENT : '(*' (~')' (BLOCK_COMMENT | .)*?)? '*)' -> channel(HIDDEN);
-LINE_COMMENT  : '//' ~[\r\n]*                         -> channel(HIDDEN);
+// canon: in the canonically commented dialect a /// comment is a canonical comment on the default
+// channel, tokenized in a mode of its own into prose, ref:KEY, and license:KEY; //// stays a plain
+// comment by the longest match. The hook holds a doc comment's tokens until the next code token
+// has produced its layout tokens.
+DOC_OPEN      : '///' -> pushMode(DocLine);
+LINE_COMMENT  : '//' (~[/\r\n] ~[\r\n]* | '//' ~[\r\n]*)? -> channel(HIDDEN);
 WHITESPACE    : [ \t\r\n\u000C]+                      -> channel(HIDDEN);
 
 // Directives at the start of a line, the whole line each; the hook reads #if, #else, and #endif.
@@ -135,3 +140,19 @@ fragment IdentifierStart : [\p{L}_];
 fragment IdentifierPart  : [\p{L}\p{N}_'];
 fragment HexDigit        : [0-9a-fA-F];
 fragment NumberSuffix    : [a-zA-Z] [a-zA-Z0-9]*;
+
+// canon: a doc line. A following line that starts with /// continues it, so a comment of several
+// lines is one canonical comment; a following //// line ends it and is a plain comment; any other
+// line break ends it.
+mode DocLine;
+
+DOC_CONTINUE    : ('\r'? '\n' | '\r') [ \t]* '///' -> skip;
+DOC_PLAIN_AFTER : ('\r'? '\n' | '\r') [ \t]* '////' ~[\r\n]* -> popMode, channel(HIDDEN);
+DOC_CLOSE       : ('\r'? '\n' | '\r') -> popMode, channel(HIDDEN);
+DOC_REF         : 'ref:' DocKey;
+DOC_LICENSE     : 'license:' DocKey;
+DOC_WS          : [ \t]+ -> skip;
+DOC_PUNCT       : [,.;:()!?[\]{}"'`<>=+|/];
+DOC_WORD        : ~[ \t\r\n,.;:()!?[\]{}"'`<>=+|/]+;
+
+fragment DocKey : [A-Za-z0-9] ([A-Za-z0-9._-]* [A-Za-z0-9])?;
