@@ -126,3 +126,11 @@ REQ-lawspec-parity:
   kind: requirement
   title: canon reads every language LawSpec targets, now or by plan, each with a grammar, a profile, a canonically commented dialect, and a sample, and reads no language outside that list
   locator: README.md
+calm-1-2:
+  kind: article
+  title: FINOS CALM 1.2, the Common Architecture Language Model meta-schema for nodes, relationships, and flows
+  locator: https://calm.finos.org/release/1.2/meta/calm.json
+REQ-calm-ingestion:
+  kind: requirement
+  title: canon reads a CALM 1.2 architecture description through a JSON grammar as units for its nodes, relationships, and flows, each required to carry its description as a Why, and refuses a description with a dangling reference or a repeated id
+  locator: README.md

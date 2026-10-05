@@ -484,7 +484,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
               }
           , own ++ nestedDecisions
           )
-    whyFrom whyNode raw | language == "python", Just body <- pythonString raw = toWhy (parseCanonicalComment body)
+    whyFrom _ raw | language == "python", Just body <- pythonString raw = toWhy (parseCanonicalComment body)
     whyFrom whyNode raw =
       Why
         { whyText = docCommentBody raw

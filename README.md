@@ -400,6 +400,14 @@ when the unit it declares would. Unit ids are the language, the file path, and t
 kind and name at each level of nesting; a repeated name in one scope gets an
 ordinal suffix.
 
+A language named `calm` is read differently: its grammar is any JSON grammar,
+and a CALM 1.2 architecture description parsed with it becomes a unit per
+node, relationship, and flow, named by its `unique-id`, required, and with its
+`description` as its Why, so an architecture is vetted like code. A
+description with a repeated id, a dangling reference, an unknown node type,
+or a schema other than CALM 1.2 is refused. Rice's Tax ships the JSON grammar;
+canon ships none, since no language it targets is JSON.
+
 A directory containing its own `canon.yaml` is a nested project. The walk
 stops there: `canon check` in the enclosing project does not look inside it,
 and `canon files` lists it as a nested project. Checking it is a separate

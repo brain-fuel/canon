@@ -34,7 +34,6 @@ import qualified Data.Text as T
 import qualified Data.Vector as BV
 import qualified Data.Vector.Mutable as MV
 import qualified Data.Vector.Unboxed as V
-import qualified Data.IntMap.Strict as IntMap
 import System.IO.Unsafe (unsafePerformIO)
 
 -- | A tree of rule nodes, tokens, and labeled subtrees; labels are kept because the extraction rules
@@ -330,12 +329,12 @@ parseVisibleTokensWith hook grammar start visible
           -- there, so the climb is memoised by position as paths from the tree.
           paths = foldl' climbFrom IntMap.empty (map snd base)
           climbed = [(wrap tree, e) | (tree, q) <- base, (wrap, e) <- fst (paths IntMap.! q)]
-          climbFrom memo q
-            | IntMap.member q memo = memo
+          climbFrom seen q
+            | IntMap.member q seen = seen
             | otherwise =
                 let attempts = [(i, extensionStep r sh pr q) | (i, sh, pr) <- shapes, pr >= prec, isExtension sh]
                     extended = oneTreePerEnd [(\tree -> node name i (tree : children []), q') | (i, (rs, _)) <- attempts, (children, q') <- rs, q' > q]
-                    memo' = foldl' climbFrom memo (map snd extended)
+                    memo' = foldl' climbFrom seen (map snd extended)
                     deeper = [(wrap . step, e) | (step, q') <- extended, (wrap, e) <- fst (memo' IntMap.! q')]
                     reach = maximum (q : [f | (_, (_, f)) <- attempts] ++ [snd (memo' IntMap.! q') | (_, q') <- extended])
                  in IntMap.insert q (oneTreePerEnd (deeper ++ [(id, q)]), reach) memo'

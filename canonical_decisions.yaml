@@ -569,3 +569,12 @@ DEC-lawspec-parity:
   opened: 0.1.0
   decided: 0.1.0
   refs: [REQ-lawspec-parity]
+
+DEC-calm-ingestion:
+  status: decided
+  question: Rice's Tax documents architecture in CALM 1.2 JSON descriptions alongside code and wants each node, relationship, and flow vetted like a unit of code. canon reads languages through grammars, and JSON has no comments to carry a Why. How does canon read a CALM description?
+  answer: |
+    Through a profile named calm whose grammar is any JSON grammar, as Rice's Tax ships one in its presets, and an extractor of its own, Canon.Extract.Calm, chosen by the language name because CALM's units are fixed by its schema rather than by a grammar's labels. The extractor requires the CALM 1.2 $schema, refuses repeated unique-ids, dangling node and relationship references, unknown node types, and duplicate keys rather than reading a description in part, and makes every node, relationship, and flow a required unit named by its unique-id, under the file, with its description as its Why, so ref:KEY in a description cites the registry as a comment does. Interfaces, controls, decorators, and external references stay in the unit's How. canon ships no JSON grammar of its own, since no LawSpec target is JSON; the tests read a description through an inline one.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [calm-1-2, rices-tax, REQ-calm-ingestion]

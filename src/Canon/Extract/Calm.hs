@@ -1,5 +1,7 @@
--- | CALM descriptions are assertions about architecture, not evidence of deployed behaviour.
--- Extract stable node, relationship, and flow identities with exact source spans.
+-- | CALM descriptions are assertions about architecture, not evidence of deployed behaviour, so
+-- canon reads one as units with stable node, relationship, and flow identities and exact source
+-- spans, each element's description its Why, for Rice's Tax to vet like code.
+-- ref:DEC-calm-ingestion
 module Canon.Extract.Calm (calmUnits) where
 
 import qualified Canon.Antlr4.Syntax
@@ -23,8 +25,9 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as TE
 import System.FilePath (splitDirectories)
 
--- | Validate the ingestion boundary and build review units. This is not full CALM JSON Schema
+-- | Validates the ingestion boundary and builds review units. It is not full CALM JSON Schema
 -- validation: interfaces, controls, decorators, and external references remain in the body.
+-- ref:DEC-calm-ingestion
 calmUnits :: FilePath -> FilePath -> Text -> ParseTree -> Either Text (CodeUnit Evidence, [Decision Evidence], [Span])
 calmUnits idPath path _ tree = do
   rejectDuplicateKeys tree
@@ -52,11 +55,11 @@ calmUnits idPath path _ tree = do
   where
     evidence = DerivedFromParse path
     fileId = UnitId ("calm" :| map T.pack (filter (/= ".") (splitDirectories idPath)))
-    unit uid name kind node required chain children value = CodeUnit
+    unit uid name kind node required chain nested value = CodeUnit
       uid (Answer (What name (UnitKind kind) Nothing) evidence)
       (Answer (HowText (TE.decodeUtf8 (LBS.toStrict (encode value)))) evidence)
       (Answer (Where path (nodeSpan node) chain Nothing) evidence)
-      Nothing Nothing required False children
+      Nothing Nothing required False nested
     buildGroup root (kind, key, values) = do
       let objects = maybe [] arrayValues (fieldTree key root)
       if length objects /= length values then Left ("CALM source mapping failed for " <> key) else mapM (build kind) (zip objects values)
@@ -93,7 +96,7 @@ optionalArray :: Text -> KM.KeyMap Value -> Either Text [Value]
 optionalArray key object = if KM.member (K.fromText key) object then arrayField key object else Right []
 
 unique :: Text -> [Text] -> Either Text ()
-unique kind ids = case [head xs | xs <- group (sort ids), length xs > 1] of
+unique kind ids = case [x | x : _ : _ <- group (sort ids)] of
   [] -> Right ()
   duplicates -> Left ("duplicate CALM " <> kind <> " ids: " <> T.intercalate ", " duplicates)
 
@@ -115,8 +118,8 @@ validateRelationship ids v = do
     [(kind, endpoints)] | kind `elem` ["interacts", "composed-of", "deployed-in"] -> do
       e <- asObject endpoints
       parent <- fieldText (if kind == "interacts" then "actor" else "container") endpoints
-      children <- arrayField "nodes" e >>= mapM textValue
-      pure (parent : children)
+      members <- arrayField "nodes" e >>= mapM textValue
+      pure (parent : members)
     _ -> Left "CALM relationship-type must contain one supported relationship variant"
   mapM_ (known "node" ids) refs
 
@@ -141,7 +144,7 @@ treeValue = either (Left . T.pack) Right . eitherDecodeStrict' . TE.encodeUtf8 .
 
 nodeSpan :: ParseTree -> Span
 nodeSpan tree = case filter (not . isEofToken) (treeTokens tree) of
-  ts@(_ : _) -> Span (tokenPosition (head ts)) (tokenEndPosition (last ts))
+  ts@(first : _) -> Span (tokenPosition first) (tokenEndPosition (last ts))
   [] -> error "CALM grammar produced an empty value"
 
 children :: ParseTree -> [ParseTree]
