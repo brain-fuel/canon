@@ -8,17 +8,8 @@ and this project adheres to
 
 ## Unreleased
 
-### Changed
-- An `export` element that holds a `what` and an `arity` element exports `name/arity`, so Prolog's `name//N` exports the nonterminal unit `name/N`
-- A `why` element that holds `how` elements is the Why without them, and a unit with several `how` elements has them all as its How
-- A Go directive line among `//` lines, such as `//go:generate`, `//nolint`, or `// +build`, is left out of a comment's Why
-- The parser memoises each repeated element by position, so a file that does not parse fails as fast as one that does parses, instead of taking minutes
-- HCL templates must pair `%{ if }` with `%{ endif }` and `%{ for }` with `%{ endfor }`
-- A quoted YAML key is named without its quotes; flow collections read JSON-like pairs such as `{"a":1}` and Pulumi interpolations such as `[${a}]`
-- A `why` element inside an optional or repeated block is optional
-
 ### Added
-- Scala as a language: the grammars-v4 Scala 3 grammar under `grammars/scala/`, with its `Scala3LexerBase` ported as a lexer hook that turns optional braces into `INDENT`, `DEDENT`, and statement-separating `NEWLINE` tokens, `Scala3ParserBase`'s `migration30` predicate answered by a parser hook, each kind of definition a rule of its own that starts at its annotations and modifiers so a Scaladoc comment above them binds, `private`, `protected`, and `override` labeled `optional`, annotations labeled `marker`, and enum cases labeled `inherited`; a Scala profile with objects, package objects, classes, case classes, traits, enums and their cases, defs, vals, vars, givens, extensions, and type aliases as units; JUnit annotations and munit, ScalaTest, and utest suite files in the test table; a canonically commented dialect in which `/**` is a canonical comment and one after an annotation or before a statement is an orphan; and `lang_samples/scala-iron`, Iron 3.3.2's constraint core and two of its suites vendored with its license
+- Scala as a language: a Scala grammar written for canon under `grammars/scala/`, `ScalaLexer.g4` and `ScalaParser.g4`, from the Scala 3 syntax reference under canon's MIT license (grammars-v4's Scala 3 grammar states no license, so canon does not vendor it), parsing every definition with its annotations and modifiers and reading bodies as runs of tokens, with a lexer hook selected by `ScalaLexerBase` that inserts `INDENT`, `OUTDENT`, and `NEWLINE` where the reference's Optional Braces section does; `private`, `protected`, and `override` labeled `optional`, annotations labeled `marker`, and enum cases labeled `inherited`; a Scala profile with objects, package objects, classes, case classes, traits, enums and their cases, defs, vals, vars, givens, extensions, and type aliases as units; JUnit annotations and munit, ScalaTest, and utest suite files in the test table; a canonically commented dialect in which `/**` is a canonical comment and one after an annotation or in a statement or expression is an orphan; and `lang_samples/scala-iron`, Iron 3.3.2's constraint core and two of its suites vendored with its license
 - Groovy as a language: Apache Groovy's own ANTLR 4 grammar under `grammars/groovy/`, with its `AbstractLexer` members ported as a lexer hook that tells slashy strings from division and hides newlines inside brackets, its `AbstractParser` predicates answered by a parser hook, the lexer predicates that looked ahead written as characters, each kind of type and constructors as rules of their own, `private` labeled `optional` and annotations `marker`; a Groovy profile in which every declaration not private requires a comment; JUnit annotations and Spock feature methods named by strings in the test table; and `lang_samples/groovy-spock-genesis`, spock-genesis 0.6.0 vendored with its license
 - A canonically commented dialect of Groovy under `grammars/groovy/canonically_commented/`: `/**` Groovydoc comments are canonical comments in a lexer mode of their own, each type, constructor, method, field, and enum constant is a labeled unit alternative that holds `publicByDefault` labeled `required`, and Groovydoc after an annotation or above a statement is an `orphan`
 - Canonically commented dialects of Kotlin and Clojure: KDoc `/**` comments in a `DocBlock` lexer mode, with each top-level declaration, member, companion object, secondary constructor, enum entry, and constructor property a unit, a top-level declaration labeled `required` through the empty rule `publicByDefault`, class bodies `inherited`, and `private`, `internal`, `override`, and `actual` `optional`; and Clojure's `defn`, `defn-`, `defmacro`, `defmulti`, `defprotocol` and its methods, `defrecord`, `deftype`, `def`, and `deftest` as unit alternatives tried before the generic list, with the docstring or `:doc` metadata as the Why, the `ns` docstring as the file's, `^:private` and `^:no-doc` `optional`, and a string after a function's parameters an `orphan`
@@ -120,6 +111,13 @@ and this project adheres to
 - README section stating the six questions a codebase must answer and where each is answered
 
 ### Changed
+- An `export` element that holds a `what` and an `arity` element exports `name/arity`, so Prolog's `name//N` exports the nonterminal unit `name/N`
+- A `why` element that holds `how` elements is the Why without them, and a unit with several `how` elements has them all as its How
+- A Go directive line among `//` lines, such as `//go:generate`, `//nolint`, or `// +build`, is left out of a comment's Why
+- The parser memoises each repeated element by position, so a file that does not parse fails as fast as one that does parses, instead of taking minutes
+- HCL templates must pair `%{ if }` with `%{ endif }` and `%{ for }` with `%{ endfor }`
+- A quoted YAML key is named without its quotes; flow collections read JSON-like pairs such as `{"a":1}` and Pulumi interpolations such as `[${a}]`
+- A `why` element inside an optional or repeated block is optional
 - Rust requires a comment on what a crate exports, as rustc's `missing_docs` lint does: a bare `pub` and `#[macro_export]` are labeled `required`, the items of a trait and the variants of an enum inherit their container's requirement, and private items, `pub(crate)` items, and trait impl methods need none
 - A Rust trait impl is named by its trait and self type, as `Deref-for-Guard<T>`, rather than by its self type with an ordinal
 - A unit's name runs its tokens together with a hyphen where the source spaces a word from what follows, so a Haskell instance head `Named Shape` is named `Named-Shape`

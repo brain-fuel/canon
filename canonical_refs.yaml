@@ -190,10 +190,14 @@ REQ-python-support:
   kind: requirement
   title: canon reads Python, parsing every Python 3 source file, taking functions and classes as units with their decorators, binding the docstring that opens a module, class, or function body, requiring one on public names as PEP 257 asks, and recognising pytest and unittest tests by their test_ and Test names
   locator: README.md
-grammars-v4-scala:
-  kind: package
-  title: The grammars-v4 Scala 3 grammar, Scala3Lexer.g4 and Scala3Parser.g4 with the Scala3LexerBase and Scala3ParserBase classes, at commit 7df52be94698550d219d299d04105c6bafadd9c3, which states no license of its own
-  locator: https://github.com/antlr/grammars-v4/tree/7df52be94698550d219d299d04105c6bafadd9c3/scala/scala3
+grammars-v4-scala-license:
+  kind: discussion
+  title: The pull request that added the grammars-v4 Scala 3 grammar, whose files, readme, and discussion state no licence, while grammars-v4's house rules leave each grammar to state its own, so canon may not vendor it
+  locator: https://github.com/antlr/grammars-v4/pull/4836
+scala3-syntax:
+  kind: article
+  title: Scala 3 reference, Scala 3 Syntax Summary, the lexical and context-free syntax canon's Scala grammar is written from
+  locator: https://docs.scala-lang.org/scala3/reference/syntax.html
 scala3-indentation:
   kind: article
   title: Scala 3 reference, Optional Braces, on significant indentation and where the compiler inserts indent, outdent, and newline tokens

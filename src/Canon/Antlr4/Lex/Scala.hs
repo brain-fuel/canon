@@ -1,13 +1,12 @@
--- | Scala 3 lets indentation stand for braces, and the grammars-v4 Scala 3 lexer leaves the INDENT
--- and DEDENT tokens, and which line breaks separate statements, to a Java base lexer modelled on the
--- Dotty scanner. This is that base lexer, Scala3LexerBase, ported as a hook selected by the
--- grammar's superClass. It keeps a stack of regions, top level, indented block, braces, and
--- parentheses or brackets, and at each line break compares the next line's indentation with the
--- innermost indented block. ref:DEC-scala-indentation ref:scala3-indentation
+-- | Scala 3 lets indentation stand for braces, and canon's Scala grammar reads it as tokens: this
+-- hook, selected by the grammar's ScalaLexerBase superClass, inserts INDENT, OUTDENT, and NEWLINE
+-- where the Optional Braces section of the Scala 3 reference does, outside parentheses and
+-- brackets, and in the canonically commented dialect places each Scaladoc comment right before the
+-- code token it precedes. ref:DEC-scala-indentation ref:scala3-indentation
 module Canon.Antlr4.Lex.Scala
   ( ScalaLayout (..)
   , Region (..)
-  , Pending (..)
+  , Bracket (..)
   , scalaLexerHooks
   ) where
 
@@ -18,227 +17,202 @@ import Canon.Span (Position (..))
 import Data.Text (Text)
 import qualified Data.Text as T
 
--- | A region the layout is inside: the file, an indented block, braces, or parentheses and brackets,
--- inside which line breaks never separate statements.
-data Region = TopLevel | Indented | InBraces | InParens
+-- | What a parenthesis or bracket encloses: the condition of an old-style if, while, or for, after
+-- whose closing parenthesis an indented region may start; the parameters of an extension, after
+-- which its methods may be indented; or anything else.
+data Bracket = PlainBracket | ConditionBracket | ExtensionBracket
   deriving (Eq, Show)
 
--- | A line break waiting for the first code token of the next line, which decides what it is, with
--- the whitespace that starts that line and any hidden tokens after it.
-data Pending = Pending
-  { pendingBreak :: Token
-  , pendingSpace :: Maybe Token
-  , pendingHidden :: [Token]
-  }
+-- | A region the hook tracks. Statements are separated and indented only in the file's region and
+-- in braces, each with the width of its first line and the widths of the indented regions opened
+-- in it, innermost first, each marked when it is the region of case clauses that a match or catch
+-- opened at its own width. Inside parentheses and brackets line breaks are not significant.
+data Region
+  = Braces (Maybe Int) [(Int, Bool)]
+  | Brackets Bracket
   deriving (Eq, Show)
 
--- | The hook state: the regions, innermost first; the indentation of each open indented block above
--- the file's, innermost first; the type and end of the last token on the default channel; whether a
--- code token has been read; the pending line break; and the doc-comment tokens of the dialect held
--- until the next code token.
+-- | The hook state: the open regions, innermost first and the file's last; the end offset and
+-- position of the last code token, its type, and the type before it; whether an indented region
+-- may start after the last code token; whether the tokens since an extension keyword are its
+-- parameters; and the Scaladoc tokens held until the next code token.
 data ScalaLayout = ScalaLayout
   { regions :: [Region]
-  , indents :: [Int]
-  , lastType :: Text
   , lastEnd :: Maybe (Int, Position)
-  , started :: Bool
-  , pending :: Maybe Pending
+  , lastType :: Text
+  , previousType :: Text
+  , lastOpens :: Bool
+  , extensionHeader :: Bool
   , docs :: [Token]
   }
   deriving (Eq, Show)
 
--- | The hooks for the Scala 3 grammar. The upstream class reads one token ahead; the port holds a
--- line break until the next code token arrives instead. Every layout token, a NEWLINE that
--- separates statements as much as an INDENT or a DEDENT, is empty and placed where the last code
--- token ends, and the source's own line breaks and indentation are hidden, so the stream stays in
--- source order. The file's own indentation is its first code token's column rather than the first
--- column, so a file indented as a whole reads as one that is not. ref:DEC-scala-indentation
+-- | The hooks for the Scala grammar. ref:DEC-scala-indentation
 scalaLexerHooks :: LexerHooks ScalaLayout
-scalaLexerHooks = LexerHooks (ScalaLayout [TopLevel] [0] "" Nothing False Nothing []) (\_ _ _ _ s -> (s, [])) (\_ _ _ _ _ -> True) onEmit
+scalaLexerHooks = LexerHooks (ScalaLayout [Braces Nothing []] Nothing "" "" False False []) (\_ _ _ _ s -> (s, [])) (\_ _ _ _ _ -> True) onEmit
 
--- | The tokens of a doc comment in the canonically commented dialect. A line holding only a doc
--- comment is blank to the layout, as a line holding only a plain comment is, and the comment is
--- emitted just before the next code token, after its layout tokens, so it sits right before the
--- definition it documents. ref:DEC-scala-dialect
+-- | The tokens of a Scaladoc comment in the canonically commented dialect. The hook holds them until
+-- the next code token has produced its layout tokens, and emits them just before it, so a line
+-- holding only a comment is blank to the layout, as it is to the compiler. ref:DEC-scala-dialect
 docTypes :: [Text]
 docTypes = ["DOC_OPEN", "DOC_WORD", "DOC_PUNCT", "DOC_REF", "DOC_LICENSE", "DOC_CLOSE"]
 
--- | Emits a token with the layout tokens before it: a line break is held until the first code token
--- of the next line decides it, a doc comment until the next code token, and a code token first
--- resolves the held line break and then opens or closes the regions it delimits.
--- ref:DEC-scala-indentation
+-- | The tokens after which the reference lets an indented region start.
+openers :: [Text]
+openers =
+  [ "EQUALS", "FAT_ARROW", "CONTEXT_ARROW", "LEFT_ARROW", "CATCH", "DO", "ELSE", "FINALLY", "FOR", "IF"
+  , "MATCH", "RETURN", "THEN", "THROW", "TRY", "WHILE", "YIELD", "WITH", "COLON"
+  ]
+
+-- | The tokens that can end a statement: names, soft keywords, literals, this, return, and closing
+-- brackets.
+terminators :: [Text]
+terminators =
+  [ "ID", "BACKQUOTED_ID", "OP", "NUMBER", "STRING", "MULTILINE_STRING", "INTERPOLATED_STRING"
+  , "INTERPOLATED_MULTILINE_STRING", "CHARACTER", "SYMBOL", "THIS", "RETURN", "RPAREN", "RBRACK", "RBRACE"
+  , "AS", "DERIVES", "END", "EXTENSION", "INFIX", "INLINE", "OPAQUE", "OPEN", "TRANSPARENT", "USING"
+  ]
+
+-- | The keywords an end marker may name, which end a statement after end.
+endTags :: [Text]
+endTags = ["IF", "WHILE", "FOR", "MATCH", "TRY", "NEW", "THIS", "VAL", "GIVEN", "EXTENSION"]
+
+-- | The tokens that cannot begin a statement, so a line starting with one continues the line above;
+-- an operator at the start of a line is a leading infix operator.
+continuations :: [Text]
+continuations =
+  [ "THEN", "ELSE", "DO", "CATCH", "FINALLY", "YIELD", "MATCH", "WITH", "EXTENDS", "DERIVES", "DOT", "COMMA"
+  , "COLON", "EQUALS", "FAT_ARROW", "CONTEXT_ARROW", "LEFT_ARROW", "SUBTYPE", "SUPERTYPE", "HASH", "RPAREN"
+  , "RBRACK", "RBRACE", "SEMI", "OP"
+  ]
+
 onEmit :: Token -> ScalaLayout -> ([Token], ScalaLayout)
 onEmit token s
-  | isEofToken token =
-      let (layout, s1) = maybe ([], s) (\p -> resolve token p s) (pending s)
-          (closing, s2) = drain s1
-       in (layout ++ closing ++ docs s ++ heldHidden (pending s) ++ [token], s2 {pending = Nothing, docs = []})
-  | ty == "NEWLINE" && tokenChannel token == defaultChannelName =
-      if not (started s)
-        then ([hide token], s)
-        else case pending s of
-          Nothing -> ([], s {pending = Just (Pending token Nothing [])})
-          Just p -> (heldHidden (Just p), s {pending = Just (Pending token Nothing [])})
-  | tokenChannel token /= defaultChannelName = case pending s of
-      Just p
-        | ty == "WS", Nothing <- pendingSpace p, null (pendingHidden p) -> ([], s {pending = Just p {pendingSpace = Just token}})
-        | otherwise -> ([], s {pending = Just p {pendingHidden = pendingHidden p ++ [token]}})
-      Nothing -> ([token], s)
+  | isEofToken token = (replicate (sum (map indentsOf (regions s))) (virtual s "OUTDENT") ++ docs s ++ [token], s {docs = []})
+  | tokenChannel token /= defaultChannelName = ([token], s)
   | ty `elem` docTypes = ([], s {docs = docs s ++ [token]})
-  | not (started s) = onEmit token s {started = True, indents = [positionColumn (tokenPosition token) - 1]}
   | otherwise =
-      let (layout, s1) = maybe ([], s) (\p -> resolve token p s) (pending s)
-          (before, s2) = structural ty s1
-       in ( layout ++ before ++ docs s ++ heldHidden (pending s) ++ [token]
-          , s2 {lastType = ty, lastEnd = Just (tokenEnd token, endPosition token), started = True, pending = Nothing, docs = []}
+      let (layout, s1) = if newLine then atLineStart ty column s else ([], s)
+          (closing, s2, opensAfterBracket) = brackets ty s1
+          opens
+            | lastType s == "END" = False
+            | ty `elem` ["RPAREN", "RBRACK"] = opensAfterBracket
+            | otherwise = ty `elem` openers
+          header = case regions s2 of
+            (Braces _ _ : _)
+              | ty == "EXTENSION" -> True
+              | ty `elem` ["LPAREN", "LBRACK", "RPAREN", "RBRACK"] -> extensionHeader s2
+              | otherwise -> False
+            _ -> extensionHeader s2
+       in ( layout ++ closing ++ docs s ++ [token]
+          , s2
+              { lastEnd = Just (tokenEnd token, endPosition token)
+              , lastType = ty
+              , previousType = lastType s
+              , lastOpens = opens
+              , extensionHeader = header
+              , docs = []
+              }
           )
   where
     ty = nameText (tokenType token)
+    Position line column = tokenPosition token
+    newLine = case lastEnd s of
+      Nothing -> True
+      Just (_, Position previousLine _) -> line > previousLine
 
--- | The source's line break and the whitespace and comments after it, hidden.
-heldHidden :: Maybe Pending -> [Token]
-heldHidden = maybe [] (\p -> map hide (pendingBreak p : maybe [] pure (pendingSpace p) ++ pendingHidden p))
+indentsOf :: Region -> Int
+indentsOf region = case region of
+  Braces _ indents -> length indents
+  Brackets _ -> 0
 
--- | Decides a line break once the first code token of the next line is known, as Scala3LexerBase's
--- handleNewlineToken does: a line right of the innermost indented block after a token that may open
--- one, or after a closing parenthesis outside brackets and braces, as an extension's parameters end,
--- opens a block with INDENT; a line left of it closes blocks with DEDENT; and a NEWLINE separates
--- statements where the previous token can end one, the next can start one and does not continue it,
--- and no parenthesis is open. A line starting with a dot continues a method chain.
--- ref:DEC-scala-indentation
-resolve :: Token -> Pending -> ScalaLayout -> ([Token], ScalaLayout)
-resolve next p s
-  | newIndent < current =
-      let (dedents, s1) = dedentTo newIndent s0
-          ended = if null dedents then lastType s0 else "DEDENT"
-          top' = headOr TopLevel (regions s1)
-          again = top' /= InParens && separates ended
-       in (newline ++ dedents ++ [virtual s "NEWLINE" | again], s1 {lastType = if again then "NEWLINE" else ended})
-  | willIndent = (newline ++ [virtual s "INDENT"], s0 {regions = Indented : regions s0, indents = newIndent : indents s0, lastType = "INDENT"})
-  | otherwise = (newline, s0)
+-- | Opens and closes the regions of brackets and braces. A closing bracket closes the regions
+-- opened inside it, with an OUTDENT for each indented region left open, and says whether it ends
+-- an old-style condition or an extension's parameters, after which an indented region may start.
+-- A closing brace never closes the file's region.
+brackets :: Text -> ScalaLayout -> ([Token], ScalaLayout, Bool)
+brackets ty s = case ty of
+  "LPAREN" -> open (Brackets (bracketKind True))
+  "LBRACK" -> open (Brackets (bracketKind False))
+  "LBRACE" -> open (Braces Nothing [])
+  "RPAREN" -> closeBracket
+  "RBRACK" -> closeBracket
+  "RBRACE" -> closeBrace
+  _ -> ([], s, False)
   where
-    nextType = nameText (tokenType next)
-    newIndent
-      | isEofToken next = 0
-      | otherwise = maybe 0 (indentLength . tokenText) (pendingSpace p)
-    current = headOr 0 (indents s)
-    top = headOr TopLevel (regions s)
-    isDot = nextType == "DOT"
-    rparenOpens = lastType s == "RPAREN" && top `notElem` [InParens, InBraces] && nextType `notElem` ["EXTENDS", "WITH"]
-    willIndent = newIndent > current && not isDot && (canStartIndent (lastType s) || rparenOpens)
-    separates previous =
-      not isDot
-        && not (isEofToken next)
-        && nextType /= "RBRACE"
-        && canEndStat previous
-        && canStartStat nextType
-        && not (isStatContinuation nextType)
-    surface
-      | newIndent < current || willIndent = False
-      | top == InParens = False
-      | top == InBraces = not isDot && canEndStat (lastType s) && canStartStat nextType && not (isStatContinuation nextType)
-      | newIndent > current = False
-      | otherwise = separates (lastType s)
-    newline = [virtual s "NEWLINE" | surface]
-    s0 = if surface then s {lastType = "NEWLINE"} else s
+    open region = ([], s {regions = region : regions s}, False)
+    bracketKind paren
+      | paren && lastType s `elem` ["IF", "WHILE", "FOR"] = ConditionBracket
+      | extensionHeader s, (Braces _ _ : _) <- regions s = ExtensionBracket
+      | otherwise = PlainBracket
+    closeBracket =
+      let (inner, rest) = break isBracket (regions s)
+       in case rest of
+            (Brackets kind : outer) | not (null outer) -> (outdents inner, s {regions = outer}, kind /= PlainBracket)
+            _ -> ([], s, False)
+    closeBrace =
+      let (inner, rest) = break isBraces (regions s)
+       in case rest of
+            (region : outer) | not (null outer) -> (outdents (inner ++ [region]), s {regions = outer}, False)
+            _ -> ([], s, False)
+    outdents closed = replicate (sum (map indentsOf closed)) (virtual s "OUTDENT")
+    isBracket region = case region of
+      Brackets _ -> True
+      Braces _ _ -> False
+    isBraces = not . isBracket
 
--- | The regions a code token opens or closes. A comma or a closing parenthesis or bracket first closes
--- the indented blocks opened inside the brackets it belongs to, as a lambda's body passed as an
--- argument is. The upstream class closes the indented blocks on top of the stack whatever lies below
--- them, which ended an indented enum body at the comma of case A, B; the port closes them only when
--- brackets enclose them. ref:DEC-scala-indentation
-structural :: Text -> ScalaLayout -> ([Token], ScalaLayout)
-structural ty s
-  | ty `elem` ["LPAREN", "LBRACKET"] = ([], s {regions = InParens : regions s})
-  | ty == "COMMA" = drainInParens s
-  | ty `elem` ["RPAREN", "RBRACKET"] =
-      let (dedents, s1) = drainInParens s
-       in (dedents, s1 {regions = popIf InParens (regions s1)})
-  | ty == "LBRACE" = ([], s {regions = InBraces : regions s})
-  | ty == "RBRACE" = ([], s {regions = popIf InBraces (regions s)})
-  | otherwise = ([], s)
-  where
-    popIf r rs = case rs of
-      (r' : rest) | r' == r -> rest
-      _ -> rs
-
--- | Closes every indented block on top of the region stack.
-drain :: ScalaLayout -> ([Token], ScalaLayout)
-drain = dedentTo (-1)
-
--- | Closes the indented blocks on top of the region stack when brackets lie right below them.
-drainInParens :: ScalaLayout -> ([Token], ScalaLayout)
-drainInParens s = case dropWhile (== Indented) (regions s) of
-  (InParens : _) -> drain s
+-- | The layout tokens before the first code token of a line, by the rules of the reference. In a
+-- region of braces or the file's region whose width is not yet known, the line sets it. Otherwise
+-- an OUTDENT closes each indented region the line is left of, and a region of case clauses at
+-- whose width a line starts with anything but case; a line right of the current width starts an
+-- indented region when the last token may start one and continues the line above when it may not;
+-- a case level with a match or catch at the end of the line above starts a region of case clauses;
+-- and NEWLINE separates two statements level with each other, unless the last token cannot end a
+-- statement or the next cannot begin one, or after an OUTDENT, unless the next cannot begin one. A
+-- line left of the region's own width is level with it.
+atLineStart :: Text -> Int -> ScalaLayout -> ([Token], ScalaLayout)
+atLineStart ty column s = case regions s of
+  (Braces Nothing _ : outer) ->
+    ( [virtual s "NEWLINE" | lastType s /= "LBRACE", not (lastOpens s), separates]
+    , s {regions = Braces (Just column) [] : outer}
+    )
+  (Braces (Just base) indents : outer) ->
+    let (closed, remaining) = closeIndents indents
+        width = case remaining of
+          ((w, _) : _) -> w
+          [] -> base
+        put is = s {regions = Braces (Just base) is : outer}
+     in if closed > 0
+          then (replicate closed (virtual s "OUTDENT") ++ [virtual s "NEWLINE" | column <= width, canBegin], put remaining)
+          else
+            if column > width
+              then
+                if lastOpens s
+                  then ([virtual s "INDENT"], put ((column, False) : indents))
+                  else ([], s)
+              else
+                if column == width && ty == "CASE" && lastType s `elem` ["MATCH", "CATCH"]
+                  then ([virtual s "INDENT"], put ((column, True) : indents))
+                  else ([virtual s "NEWLINE" | separates], s)
   _ -> ([], s)
-
--- | Closes the indented blocks on top of the region stack deeper than an indentation.
-dedentTo :: Int -> ScalaLayout -> ([Token], ScalaLayout)
-dedentTo column = go []
   where
-    go acc s = case (regions s, indents s) of
-      (Indented : rs, i : is) | i > column -> go (virtual s "DEDENT" : acc) s {regions = rs, indents = is, lastType = "DEDENT"}
-      _ -> (acc, s)
-
--- | The tokens that can end a statement: Dotty's canEndStatTokens, with the keywords an end marker
--- may name.
-canEndStat :: Text -> Bool
-canEndStat t =
-  t
-    `elem` [ "Id", "Varid", "BacktickId", "Op", "IntegerLiteral", "FloatingPointLiteral", "BooleanLiteral", "CharacterLiteral"
-           , "StringLiteral", "InterpolatedStringLiteral", "SymbolLiteral", "NullLiteral", "QuoteId", "USCORE", "THIS", "SUPER"
-           , "RETURN", "TYPE", "GIVEN", "RPAREN", "RBRACE", "RBRACKET", "DEDENT", "NEWLINE"
-           , "IF", "WHILE", "FOR", "MATCH", "TRY", "VAL", "NEW", "EXTENSION"
-           ]
-
--- | The tokens that continue a statement on the next line: Dotty's isStatCtdTokens.
-isStatContinuation :: Text -> Bool
-isStatContinuation t = t `elem` ["THEN", "ELSE", "DO", "CATCH", "FINALLY", "YIELD", "MATCH"]
-
--- | The tokens that can start a statement: Dotty's canStartStatTokens, with the soft keywords.
-canStartStat :: Text -> Bool
-canStartStat t =
-  t
-    `elem` [ "Id", "Varid", "BacktickId", "Op", "IntegerLiteral", "FloatingPointLiteral", "BooleanLiteral", "CharacterLiteral"
-           , "StringLiteral", "InterpolatedStringLiteral", "SymbolLiteral", "NullLiteral", "QuoteId", "USCORE", "THIS", "SUPER"
-           , "NEW", "RETURN", "THROW", "IF", "WHILE", "FOR", "TRY", "LBRACE", "LPAREN", "LBRACKET", "QUOTE", "INDENT", "AT"
-           , "CASE", "END", "DEF", "VAL", "VAR", "TYPE", "GIVEN", "ABSTRACT", "FINAL", "PRIVATE", "PROTECTED", "OVERRIDE"
-           , "SEALED", "CLASS", "TRAIT", "OBJECT", "ENUM", "IMPORT", "EXPORT", "PACKAGE", "INLINE", "LAZY", "IMPLICIT"
-           , "EXTENSION", "OPEN", "INFIX", "TRANSPARENT", "OPAQUE", "AS", "DERIVES", "USING"
-           ]
-
--- | The tokens after which a deeper line opens an indented block: Dotty's canStartIndentTokens.
-canStartIndent :: Text -> Bool
-canStartIndent t =
-  t
-    `elem` [ "THEN", "ELSE", "DO", "CATCH", "FINALLY", "YIELD", "MATCH", "COLON", "WITH", "ASSIGN", "ARROW", "CTXARROW"
-           , "LARROW", "WHILE", "TRY", "FOR", "IF", "THROW", "RETURN"
-           ]
-
--- | The width of a line's leading whitespace, with a tab to the next multiple of eight and a form feed
--- restarting the count, as the base class measures it.
-indentLength :: Text -> Int
-indentLength = T.foldl' step 0
-  where
-    step n c = case c of
-      ' ' -> n + 1
-      '\t' -> (n `div` 8 + 1) * 8
-      '\f' -> 0
-      _ -> n
+    closeIndents is = case is of
+      ((w, cases) : rest)
+        | column < w || (cases && column == w && ty /= "CASE") ->
+            let (n, remaining) = closeIndents rest in (n + 1, remaining)
+      _ -> (0 :: Int, is)
+    canBegin = ty `notElem` continuations
+    separates = canBegin && terminates
+    terminates =
+      lastType s `elem` terminators
+        || (previousType s == "END" && lastType s `elem` endTags)
+        || (previousType s == "DOT" && lastType s == "TYPE")
 
 -- | A layout token, empty and placed where the last code token ends, so it widens no span.
 virtual :: ScalaLayout -> Text -> Token
 virtual s kind = case lastEnd s of
   Just (offset, position) -> Token (Name kind) "" offset offset defaultChannelName position
   Nothing -> Token (Name kind) "" 0 0 defaultChannelName (Position 1 1)
-
-hide :: Token -> Token
-hide token = token {tokenChannel = hiddenChannelName}
-
-headOr :: a -> [a] -> a
-headOr d xs = case xs of
-  (x : _) -> x
-  [] -> d
 
 endPosition :: Token -> Position
 endPosition token =

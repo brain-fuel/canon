@@ -72,7 +72,7 @@ antlrLexerHooks = LexerHooks OutsideRule onAction (\_ _ _ _ _ -> True) onEmit
 -- lexer and canon supplies it: ANTLR's own adaptor, Haskell layout, the JavaScript and TypeScript
 -- regex and template tracking, Python indentation, and where a Go doc comment may stand.
 -- ref:DEC-more-languages ref:DEC-go-dialect
--- Scala3LexerBase supplies Scala 3's significant indentation. ref:DEC-scala-indentation
+-- ScalaLexerBase supplies Scala 3's optional braces. ref:DEC-scala-indentation
 hooksForGrammar :: Grammar ann -> SomeHooks
 hooksForGrammar = hooksForGrammarWith Nothing
 
@@ -88,7 +88,7 @@ hooksForGrammarWith choice grammar =
     (Name "JavaScriptLexerBase" : _) -> SomeHooks javaScriptHooks
     (Name "TypeScriptLexerBase" : _) -> SomeHooks typeScriptHooks
     (Name "Python3LexerBase" : _) -> SomeHooks pythonHooks
-    (Name "Scala3LexerBase" : _) -> SomeHooks scalaLexerHooks
+    (Name "ScalaLexerBase" : _) -> SomeHooks scalaLexerHooks
     (Name "GoLexerBase" : _) -> SomeHooks goLexerHooks
     (Name "AbstractLexer" : _) -> SomeHooks groovyLexerHooks
     (Name "ErlangPreprocessor" : _) -> SomeHooks erlangPreprocessorHooks

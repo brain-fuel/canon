@@ -19,6 +19,3 @@ decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/fun
 decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/pythonPredicates:
   digest: sha256:3d7967fc194beb2a
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/scalaPredicates:
-  digest: sha256:f16e04624bbc8448
-  verdict: pending

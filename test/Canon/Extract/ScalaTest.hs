@@ -1,4 +1,4 @@
--- | Scala 3 is read through the grammars-v4 Scala 3 grammar, whose lexer hook turns optional braces
+-- | Scala is read through the Scala grammar written for canon, whose lexer hook turns optional braces
 -- into layout tokens, and the profile the Iron sample ships, so these properties check both against
 -- what a Scala author means by a definition and its Scaladoc. ref:DEC-scala-grammar
 -- ref:DEC-scala-indentation ref:REQ-scala-support
@@ -34,6 +34,7 @@ tests =
   testGroup
     "scala"
     [ testProperty "the Scala lexer hook turns indentation into layout tokens" prop_theScalaLexerHookTurnsIndentationIntoLayoutTokens
+    , testProperty "the Scala lexer reads strings, characters, and comments whole" prop_theScalaLexerReadsStringsCharactersAndCommentsWhole
     , testProperty "the Scala grammar parses every file of the Iron sample into its definitions" prop_theScalaGrammarParsesEveryFileOfTheIronSampleIntoItsDefinitions
     , testProperty "the Scala profile binds Scaladoc across annotations, exempts private and overriding members, and recognises tests" prop_theScalaProfileBindsScaladocAcrossAnnotationsExemptsPrivateAndOverridingMembersAndRecognisesTests
     , testProperty "the Scala dialect parses the Iron sample with its doc comments as the profile reads it" prop_theScalaDialectParsesTheIronSampleWithItsDocCommentsAsTheProfileReadsIt
@@ -62,7 +63,7 @@ sampleFiles =
 
 interpreterOrFail :: PropertyT IO Interpreter
 interpreterOrFail = do
-  loaded <- evalIO (loadInterpreter "grammars/scala/Scala3Lexer.g4" "grammars/scala/Scala3Parser.g4")
+  loaded <- evalIO (loadInterpreter "grammars/scala/ScalaLexer.g4" "grammars/scala/ScalaParser.g4")
   either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
 
 -- | The profile as the sample's canon.yaml declares it, with its grammar paths made relative to the
@@ -81,10 +82,10 @@ sampleProfile = do
 
 -- | The parser sees where a block ends only through the tokens the hook emits, so it must open a
 -- block after a token that may start one, close it at a line to the left, separate statements on
--- the same column, keep an indented enum body open across the commas of a case list, close a
--- lambda's body at the comma of the argument list it is passed in, continue a line that starts
--- with a dot, and read a file indented as a whole as one that is not, as the Scala 3 reference
--- describes optional braces. ref:REQ-scala-support
+-- the same column, read no line break inside parentheses, continue a line that starts with a dot,
+-- read a file indented as a whole as one that is not, skip a line holding only a comment, open a
+-- region of case clauses level with a match, open one after an extension's parameters, and end an
+-- if at its end marker, as the Scala 3 reference describes optional braces. ref:REQ-scala-support
 -- ref:DEC-scala-indentation ref:scala3-indentation
 prop_theScalaLexerHookTurnsIndentationIntoLayoutTokens :: Property
 prop_theScalaLexerHookTurnsIndentationIntoLayoutTokens = withTests 1 $ property $ do
@@ -94,19 +95,40 @@ prop_theScalaLexerHookTurnsIndentationIntoLayoutTokens = withTests 1 $ property 
         Right toks -> Right [nameText (tokenType t) | t <- toks, not (isEofToken t), tokenChannel t == defaultChannelName]
   typesOf "object A:\n  def f(x: Int): Int =\n    x + 1\n\n  val y = 2\ndef g = 3\n"
     === Right
-      [ "OBJECT", "Id", "COLON", "INDENT", "DEF", "Varid", "LPAREN", "Varid", "COLON", "Id", "RPAREN", "COLON", "Id", "ASSIGN"
-      , "INDENT", "Varid", "Op", "IntegerLiteral", "DEDENT", "NEWLINE", "VAL", "Varid", "ASSIGN", "IntegerLiteral", "DEDENT"
-      , "NEWLINE", "DEF", "Varid", "ASSIGN", "IntegerLiteral"
+      [ "OBJECT", "ID", "COLON", "INDENT", "DEF", "ID", "LPAREN", "ID", "COLON", "ID", "RPAREN", "COLON", "ID", "EQUALS"
+      , "INDENT", "ID", "OP", "NUMBER", "OUTDENT", "NEWLINE", "VAL", "ID", "EQUALS", "NUMBER", "OUTDENT"
+      , "NEWLINE", "DEF", "ID", "EQUALS", "NUMBER"
       ]
   typesOf "enum Color:\n  case Red, Green\n  case Blue\n"
-    === Right ["ENUM", "Id", "COLON", "INDENT", "CASE", "Id", "COMMA", "Id", "NEWLINE", "CASE", "Id", "DEDENT"]
+    === Right ["ENUM", "ID", "COLON", "INDENT", "CASE", "ID", "COMMA", "ID", "NEWLINE", "CASE", "ID", "OUTDENT"]
   typesOf "val z = f(x =>\n  x + 1, y)\n"
-    === Right ["VAL", "Varid", "ASSIGN", "Varid", "LPAREN", "Varid", "ARROW", "INDENT", "Varid", "Op", "IntegerLiteral", "DEDENT", "COMMA", "Varid", "RPAREN"]
+    === Right ["VAL", "ID", "EQUALS", "ID", "LPAREN", "ID", "FAT_ARROW", "ID", "OP", "NUMBER", "COMMA", "ID", "RPAREN"]
   typesOf "val w = xs\n  .map(f)\n  .sum\n"
-    === Right ["VAL", "Varid", "ASSIGN", "Varid", "DOT", "Varid", "LPAREN", "Varid", "RPAREN", "DOT", "Varid"]
-  typesOf "  def a = 1\n  def b = 2\n" === Right ["DEF", "Varid", "ASSIGN", "IntegerLiteral", "NEWLINE", "DEF", "Varid", "ASSIGN", "IntegerLiteral"]
+    === Right ["VAL", "ID", "EQUALS", "ID", "DOT", "ID", "LPAREN", "ID", "RPAREN", "DOT", "ID"]
+  typesOf "  def a = 1\n  def b = 2\n" === Right ["DEF", "ID", "EQUALS", "NUMBER", "NEWLINE", "DEF", "ID", "EQUALS", "NUMBER"]
   typesOf "class C {\n  def a = 1\n  // a comment line is blank\n  def b = 2\n}\n"
-    === Right ["CLASS", "Id", "LBRACE", "DEF", "Varid", "ASSIGN", "IntegerLiteral", "NEWLINE", "DEF", "Varid", "ASSIGN", "IntegerLiteral", "RBRACE"]
+    === Right ["CLASS", "ID", "LBRACE", "DEF", "ID", "EQUALS", "NUMBER", "NEWLINE", "DEF", "ID", "EQUALS", "NUMBER", "RBRACE"]
+  typesOf "x match\ncase 1 => a\ncase 2 => b\nprintln(x)\n"
+    === Right ["ID", "MATCH", "INDENT", "CASE", "NUMBER", "FAT_ARROW", "ID", "NEWLINE", "CASE", "NUMBER", "FAT_ARROW", "ID", "OUTDENT", "NEWLINE", "ID", "LPAREN", "ID", "RPAREN"]
+  typesOf "extension (s: String)\n  def twice = s + s\n"
+    === Right ["EXTENSION", "LPAREN", "ID", "COLON", "ID", "RPAREN", "INDENT", "DEF", "ID", "EQUALS", "ID", "OP", "ID", "OUTDENT"]
+  typesOf "if x then\n  a\nelse\n  b\nend if\nf()\n"
+    === Right ["IF", "ID", "THEN", "INDENT", "ID", "OUTDENT", "ELSE", "INDENT", "ID", "OUTDENT", "NEWLINE", "END", "IF", "NEWLINE", "ID", "LPAREN", "RPAREN"]
+
+-- | Interpolations, multi-line strings, characters, symbols, backquoted names, and nested comments
+-- must each lex whole, or a brace or quote inside one would be read as code. ref:REQ-scala-support
+-- ref:DEC-scala-grammar ref:scala3-syntax
+prop_theScalaLexerReadsStringsCharactersAndCommentsWhole :: Property
+prop_theScalaLexerReadsStringsCharactersAndCommentsWhole = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let typesOf source = case interpreterTokenize interpreter source of
+        Left err -> Left (renderLexError err)
+        Right toks -> Right [nameText (tokenType t) | t <- toks, not (isEofToken t), tokenChannel t == defaultChannelName]
+  typesOf "s\"a ${f(\"}\")} $x $$ $\"\"" === Right ["INTERPOLATED_STRING"]
+  typesOf "s\"\"\"a ${x}\n b\"\"\"\"" === Right ["INTERPOLATED_MULTILINE_STRING"]
+  typesOf "\"\"\"a \"q\" }\n\"\"\"" === Right ["MULTILINE_STRING"]
+  typesOf "'\\n' '\"' 'a 'sym" === Right ["CHARACTER", "CHARACTER", "SYMBOL", "SYMBOL"]
+  typesOf "`a b` /* x /* y */ z */ unary_! a :: b" === Right ["BACKQUOTED_ID", "ID", "ID", "OP", "ID"]
 
 -- | Real Scala 3 must parse whole, with every object, class, trait, definition, and given a file
 -- declares found where the compiler finds it, or a Scala project's check would report parse
@@ -119,14 +141,14 @@ prop_theScalaGrammarParsesEveryFileOfTheIronSampleIntoItsDefinitions = withTests
     either (\e -> annotate (file <> ": " <> T.unpack (renderInterpretError e)) >> failure) pure result
   let count rule tree = length (treeRuleNodes (Name rule) tree)
       counts tree = filter ((> 0) . snd) [(rule, count rule tree) | rule <- unitRules]
-      unitRules = ["objectDefinition", "classDefinition", "caseClassDefinition", "traitDefinition", "defDefinition", "valDefinition", "givenDefinition", "extension_", "typeDefinition"]
+      unitRules = ["objectDefinition", "classDefinition", "caseClassDefinition", "traitDefinition", "defDefinition", "valDefinition", "givenDefinition", "extensionDefinition", "typeDefinition"]
       byFile = Map.fromList (zip sampleFiles (map counts trees))
       at file = Map.findWithDefault [] ("main/src/io/github/iltotore/iron/" <> file) byFile
   at "constraint/char.scala" === [("objectDefinition", 6), ("classDefinition", 5), ("defDefinition", 15), ("givenDefinition", 5), ("typeDefinition", 1)]
   at "constraint/any.scala" === [("objectDefinition", 7), ("classDefinition", 9), ("traitDefinition", 1), ("defDefinition", 15), ("givenDefinition", 19), ("typeDefinition", 3)]
-  at "RefinedType.scala" === [("objectDefinition", 1), ("traitDefinition", 4), ("defDefinition", 15), ("valDefinition", 1), ("givenDefinition", 3), ("extension_", 1), ("typeDefinition", 9)]
+  at "RefinedType.scala" === [("objectDefinition", 1), ("traitDefinition", 4), ("defDefinition", 15), ("valDefinition", 1), ("givenDefinition", 3), ("extensionDefinition", 1), ("typeDefinition", 9)]
   at "InvalidValue.scala" === [("caseClassDefinition", 1)]
-  Map.lookup "main/test/src/io/github/iltotore/iron/testing/package.scala" byFile === Just [("defDefinition", 3), ("extension_", 1)]
+  Map.lookup "main/test/src/io/github/iltotore/iron/testing/package.scala" byFile === Just [("defDefinition", 3), ("extensionDefinition", 1)]
 
 profileFixture :: Text
 profileFixture =
@@ -261,7 +283,7 @@ prop_theScalaProfileBindsScaladocAcrossAnnotationsExemptsPrivateAndOverridingMem
 -- | The canonically commented dialect of the Scala grammar, with no units of a profile, so every unit
 -- comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".scala"] (SplitGrammarFiles "grammars/scala/canonically_commented/Scala3Lexer.g4" "grammars/scala/canonically_commented/Scala3Parser.g4") (Name "compilationUnit") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
+dialectProfile = Profile [".scala"] (SplitGrammarFiles "grammars/scala/canonically_commented/ScalaLexer.g4" "grammars/scala/canonically_commented/ScalaParser.g4") (Name "compilationUnit") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | An extraction through the Scala dialect.
 extractDialect :: FilePath -> Text -> PropertyT IO Extraction

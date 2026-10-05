@@ -3,8 +3,8 @@ root: source
 languages:
   scala:
     extensions: [.scala, .sc]
-    lexer: ../../grammars/scala/Scala3Lexer.g4
-    parser: ../../grammars/scala/Scala3Parser.g4
+    lexer: ../../grammars/scala/ScalaLexer.g4
+    parser: ../../grammars/scala/ScalaParser.g4
     start: compilationUnit
     comments:
       line: "//"
@@ -26,5 +26,5 @@ languages:
       - {rule: varDefinition, kind: var, name: {rule: definitionName}, required: true}
       - {rule: givenDefinition, kind: given, name: {rule: givenName}, required: true}
       - {rule: givenDefinition, kind: given, name: {rule: givenType}, required: true}
-      - {rule: extension_, kind: extension, name: {rule: paramType}, required: false}
+      - {rule: extensionDefinition, kind: extension, name: {rule: extendedType}, required: false}
       - {rule: typeDefinition, kind: type, name: {rule: definitionName}, required: true}

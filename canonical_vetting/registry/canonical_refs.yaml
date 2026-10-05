@@ -133,9 +133,6 @@ registry/grammars-v4-elixir:
 registry/grammars-v4-rust:
   digest: sha256:4aaaf6600d958f28
   verdict: pending
-registry/grammars-v4-scala:
-  digest: sha256:9c262d2639452212
-  verdict: pending
 registry/grampa-2017:
   digest: sha256:0990a639309c9f81
   verdict: pending

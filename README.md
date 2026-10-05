@@ -513,7 +513,7 @@ repository holds.
 | `lang_samples/go-uuid` | Go | `grammars/golang/GoLexer.g4` and `GoParser.g4` |
 | `lang_samples/kotlin-turbine` | Kotlin | `grammars/kotlin/KotlinLexer.g4`, `KotlinParser.g4`, and `UnicodeClasses.g4` |
 | `lang_samples/groovy-spock-genesis` | Groovy | `grammars/groovy/GroovyLexer.g4` and `GroovyParser.g4` |
-| `lang_samples/scala-iron` | Scala | `grammars/scala/Scala3Lexer.g4` and `Scala3Parser.g4` |
+| `lang_samples/scala-iron` | Scala | `grammars/scala/ScalaLexer.g4` and `ScalaParser.g4` |
 | `lang_samples/hcl-terraform-aws-key-pair` | HCL | `grammars/hcl/canonically_commented/HCLLexer.g4` and `HCLParser.g4` |
 | `lang_samples/pulumi-yaml-examples` | Pulumi YAML | `grammars/yaml/canonically_commented/YAMLLexer.g4` and `YAMLParser.g4` |
 
@@ -857,8 +857,8 @@ Scala project can copy:
 languages:
   scala:
     extensions: [.scala, .sc]
-    lexer: ../../grammars/scala/Scala3Lexer.g4
-    parser: ../../grammars/scala/Scala3Parser.g4
+    lexer: ../../grammars/scala/ScalaLexer.g4
+    parser: ../../grammars/scala/ScalaParser.g4
     start: compilationUnit
     comments:
       line: "//"
@@ -880,7 +880,7 @@ languages:
       - {rule: varDefinition, kind: var, name: {rule: definitionName}, required: true}
       - {rule: givenDefinition, kind: given, name: {rule: givenName}, required: true}
       - {rule: givenDefinition, kind: given, name: {rule: givenType}, required: true}
-      - {rule: extension_, kind: extension, name: {rule: paramType}, required: false}
+      - {rule: extensionDefinition, kind: extension, name: {rule: extendedType}, required: false}
       - {rule: typeDefinition, kind: type, name: {rule: definitionName}, required: true}
 ```
 
@@ -892,10 +892,13 @@ an override inherits the documentation of what it overrides. An enum case is
 labeled `inherited`, so it requires a comment when its enum does. Definitions
 inside a block, such as the locals of a `def`, are not units. An anonymous
 given is named by its type, as `Constraint[Char,Whitespace]`, an auxiliary
-constructor by `this`, and an extension by the type it extends. The Scala 3
-grammar needs the indentation rule, which upstream implements in a Java base
-lexer; `Canon.Antlr4.Lex.Scala` is that base lexer ported to a lexer hook,
-selected by the grammar's `superClass`.
+constructor by `this`, and an extension by the type it extends. The grammar is
+canon's own, written from the Scala 3 syntax reference under canon's MIT
+license, because the grammars-v4 Scala 3 grammar states no license. It reads
+declarations and leaves bodies and expressions as runs of tokens, and Scala 3's
+optional braces come from `Canon.Antlr4.Lex.Scala`, a lexer hook selected by
+the grammar's `superClass` that inserts the indent, outdent, and newline tokens
+the reference describes.
 
 The HCL sample is terraform-aws-key-pair 3.0.1, its root module, complete
 example, and wrappers, vendored under `source/` with its Apache-2.0 license.
@@ -1384,6 +1387,25 @@ and takes a Groovydoc comment after an annotation or above a statement as an
 `orphan`. The Groovy sample keeps the profile above, and the test suite reads
 its sources through the dialect too. Each change is marked `// canon:` in the
 grammar, listed in `grammars/groovy/README.md`, and recorded in the ledger.
+
+`grammars/scala/` holds a Scala grammar written for canon from the Scala 3
+syntax reference, under canon's MIT license, and its dialect. canon does not
+vendor the grammars-v4 Scala 3 grammar, because it states no license. It
+parses the declarations that carry documentation, packages, imports, objects,
+classes, case classes, traits, enums and their cases, defs, vals, vars, type
+aliases, givens, and extensions with their annotations and modifiers, and reads
+bodies and expressions as runs of tokens. The grammar's `superClass` selects a
+lexer hook that inserts `INDENT`, `OUTDENT`, and `NEWLINE` where the reference's
+Optional Braces section does, outside parentheses and brackets, so braces and
+significant indentation read alike. Each annotation is labeled `marker`, and
+`private`, `protected`, and `override` `optional`. Under
+`canonically_commented/` the dialect sends `/**` into a `DocBlock` lexer mode,
+the hook holds a Scaladoc comment's tokens until the next code token has
+produced its layout tokens, each definition is a unit alternative that holds
+the empty rule `publicByDefault` labeled `required`, enum cases are
+`inherited`, and a Scaladoc comment after an annotation or above a statement
+is an `orphan`. What it reads and what it leaves out is listed in
+`grammars/scala/README.md` and recorded in the ledger.
 
 `grammars/elixir/` and `grammars/gleam/` hold grammars written for canon, each
 with a canonically commented dialect. The grammars-v4 Elixir grammar parsed

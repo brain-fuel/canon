@@ -4,7 +4,6 @@
 module Canon.Antlr4.Predicate
   ( predicateHookFor
   , csharpPredicates
-  , scalaPredicates
   , javaScriptPredicates
   , goPredicates
   , pythonPredicates
@@ -27,7 +26,6 @@ predicateHookFor :: Grammar ann -> PredicateHook
 predicateHookFor grammar =
   case [NonEmpty.last v | Option (Name "superClass") (OptionValueName (QualifiedName v)) <- grammarOptions grammar] of
     (Name "CSharpParserBase" : _) -> csharpPredicates
-    (Name "Scala3ParserBase" : _) -> scalaPredicates
     (Name "JavaScriptParserBase" : _) -> javaScriptPredicates
     (Name "TypeScriptParserBase" : _) -> javaScriptPredicates
     (Name "GoParserBase" : _) -> goPredicates
@@ -136,10 +134,3 @@ negated predicate value = if "!" `T.isInfixOf` predicate then not value else val
 
 startsWith :: (Char -> Bool) -> Text -> Bool
 startsWith p t = maybe False (p . fst) (T.uncons t)
-
--- | Scala3ParserBase has one predicate, migration30, which gates the Scala 2 wildcards: _ as an import
--- selector and as a type argument. It holds, because the Scala 3 compiler accepts both, and the
--- projects canon reads are code that compiles rather than code written for one source level.
--- ref:DEC-scala-grammar
-scalaPredicates :: PredicateHook
-scalaPredicates _ _ _ _ = True

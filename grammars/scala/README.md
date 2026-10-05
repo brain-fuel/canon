@@ -1,158 +1,104 @@
-# Scala 3 Grammar
+# Scala Grammar
 
-## Source
-EBNF adapted from https://docs.scala-lang.org/scala3/reference/syntax.html (read May 6, 2026).
-NB: https://scala-lang.org/files/archive/spec/3.4/13-syntax-summary.html seems incomplete (e.g., Import).
-So, I decided to not use that, but the "docs" version instead. Note, the "docs" grammar
-contains several problems with newlines, semicolons, and statements. I tried to mirror what
-the Dotty compiler does rather than assume blind allegiance to a human-scraped EBNF.
+`ScalaLexer.g4` and `ScalaParser.g4` are written for canon, under canon's MIT
+license, from the [Scala 3 syntax summary](https://docs.scala-lang.org/scala3/reference/syntax.html)
+and the reference's [Optional Braces](https://docs.scala-lang.org/scala3/reference/other-new-features/indentation.html)
+section. They are recorded as `DEC-scala-grammar` in canon's
+`canonical_decisions.yaml`.
 
-## Options
+## Provenance
 
-The lexer and parser base classes recognise the following command-line option:
+canon used to vendor the grammars-v4 Scala 3 grammar and a port of its
+`Scala3LexerBase` class. grammars-v4 has no single license: its house rules
+leave each grammar to state its own, and the Scala 3 grammar, added in
+[grammars-v4 pull request 4836](https://github.com/antlr/grammars-v4/pull/4836),
+states none in its files, its readme, or the pull request. canon does not
+vendor unlicensed code, so that grammar and the port are gone, and this grammar
+and its lexer hook were written for canon from the Scala reference alone,
+without reference to them. The example files of the grammars-v4 Scala 3
+directory were used only as test inputs.
 
-| Option | Description |
-|--------|-------------|
-| `--3.0-migration` | Enable Scala 2-compatible syntax accepted by the Scala 3 compiler under `-source:3.0-migration`. Currently enables: `._` wildcard import selectors (e.g. `import scala.jdk.CollectionConverters._`) and `_` as a wildcard type argument (e.g. `Seq[_]`). Without this flag these constructs are rejected; the Scala 3 equivalents are `.*` and `?` respectively. |
+## What it reads
 
-## Reference
-* [pldb](http://pldb.info/concepts/scala)
-* Dotty compiler parser: https://github.com/scala/scala3/blob/main/compiler/src/dotty/tools/dotc/parsing/Parsers.scala
-* Playground: https://onecompiler.com/scala
-* Playground: https://www.tutorialspoint.com/compilers/online-scala-compiler.htm
+The grammar reads what extraction needs: the declarations that carry
+documentation, and where each one ends. It parses package clauses, packagings
+in braces or after a colon, package objects, imports, exports, objects and
+case objects, classes, case classes, traits, enums and their cases, `def`s
+(auxiliary constructors included), `val`s, `var`s, type aliases and abstract,
+opaque, and match types, givens in the current and the older syntax,
+extensions, self types, and end markers, with their annotations and modifiers,
+in braces or with optional braces. Bodies, expressions, types, and patterns
+are runs of tokens: the grammar does not type them or give them precedence, it
+only keeps them inside the declaration they belong to, by bracket nesting and
+by the layout tokens below. A statement it cannot read as a declaration is
+read as an expression with the blocks indented below it, as a script's
+top-level code is, and definitions inside a block, such as the locals of a
+`def`, are part of the block's run of tokens.
 
-## Parser Rule Coverage
+The lexer reads every Scala token, so comments (nested block comments
+included), strings (plain, multi-line, and interpolated, holes and all, as one
+token each), character literals with escapes, symbols, and backquoted names
+never hide code or fake it. Each loop in the lexer takes one character per
+step, so lexing stays linear. Soft keywords such as `end`, `extension`,
+`using`, `inline`, and `opaque` are tokens of their own that the parser also
+reads as names.
 
-The grammar is tested using the Trash Toolkit `trcover` tool, which instruments the
-ANTLR4 parser grammar and tracks which rule call sites are exercised by the example
-inputs in `examples/`. Coverage is reported as the number of rule call sites (references
-from one parser rule to another) that were reached during parsing.
+Three labels serve canon: `marker` on each annotation, so a JUnit test is told
+by its `@Test`; `optional` on `private`, `protected`, qualified or not, and
+`override`, since Scaladoc documents public members and an override inherits
+the documentation of what it overrides; and `inherited` on enum cases, which
+need a comment when their enum does. A definition is named by
+`definitionName`, an auxiliary constructor by `this`, a given by `givenName`
+or else by `givenType`, the type it provides, and an extension by
+`extendedType`, the type it extends.
 
-To regenerate coverage after adding or modifying example files:
+## Optional braces
 
-```sh
-cd Generated-CSharp
-dotnet trash cover ../examples/*.scala
-```
+Scala 3 ends a block where the indentation does, which no context-free
+grammar sees. The lexer's `superClass` option, `ScalaLexerBase`, selects the
+`Canon.Antlr4.Lex.Scala` hook in canon, written from the reference's rules and
+modelled on the F# hook, recorded as `DEC-scala-indentation`:
 
-This writes `cover.html`, an annotated copy of the grammar where covered call sites are
-highlighted. Call sites with no highlighting were not reached by any example.
+- The file and each pair of braces is a region with the width of its first
+  line, in which statements are separated and indented. Inside parentheses and
+  brackets line breaks are not significant and no layout token is emitted.
+- At a line right of the current width, `INDENT` opens an indented region when
+  the last token may start one: `=`, `=>`, `?=>`, `<-`, `catch`, `do`, `else`,
+  `finally`, `for`, `if`, `match`, `return`, `then`, `throw`, `try`, `while`,
+  `yield`, `with`, `:`, the closing parenthesis of an old-style condition, or
+  an extension's parameters. After any other token the line continues the one
+  above.
+- An `OUTDENT` closes each indented region a line is left of, and a closing
+  bracket or brace closes those opened inside it.
+- `NEWLINE` separates two lines level with each other when the first can end
+  a statement and the second can begin one, so a line starting with `.`,
+  `then`, `else`, `extends`, `with`, or an infix operator continues the line
+  above; and it follows an `OUTDENT` unless the next token cannot begin a
+  statement.
+- A `case` level with a `match` or `catch` opens a region of case clauses,
+  closed by the first other token at that width.
+- The file's width is its first code token's column, so a file indented as a
+  whole reads as one that is not. Lines holding only comments are blank.
+- Layout tokens are empty and sit where the last code token ends, so they
+  widen no span.
 
-### Current coverage
+## Coverage
 
-**750 of 763 rule call sites covered (98.3%)**
-
-The 13 uncovered call sites fall on 8 grammar alternative lines, all of which are
-permanently unreachable with this grammar and parser.  (Multiple rule references on a
-single alternative line each count as a separate call site, hence 13 sites on 8 lines.)
-
-| Grammar location | Reason unreachable |
-|---|---|
-| `funParamClause` / `typedFunParam` (L165, L169, L173 — 4 call sites) | `simpleType_: LPAREN nameAndType RPAREN` absorbs `(x: Int)` before `funParamClause` is considered in `funTypeArgs`; ANTLR always takes the `infixType` alternative first |
-| `INLINE infixExpr matchClause` in `expr1` (L309 — 2 call sites) | `postfixExpr ascription?` (L308) appears earlier and consumes `inline` as a plain identifier; the remaining `x match { … }` is then parsed as a separate statement |
-| `LPAREN namedExprInParens … RPAREN` / `namedExprInParens` in `simpleExpr` (L356, L383 — 3 call sites) | `LPAREN exprsInParens RPAREN` appears earlier in `simpleExpr` and always wins; named arguments (`f(x = 1)`) are absorbed by `exprsInParens` via `expr1: id ASSIGN expr` |
-| Varargs `LPAREN … postfixExpr Op RPAREN` in `parArgumentExprs` (L390 — 2 call sites) | `LPAREN exprsInParens RPAREN` wins first; `args*` is parsed as a postfix expression inside `exprsInParens` |
-| `defSig (COLON type_)?` (abstract declaration) in `defDef` (L704 — 2 call sites) | This alternative **is** executed for abstract method declarations, but the coverage tool cannot track it independently: all three `defDef` alternatives that start with `defSig (COLON type_)?` share the same ATN prefix, so hits are attributed to the first alternative |
-
-### Known grammar limitations
-
-The following are deliberate simplifications that keep the grammar self-contained and
-easy to maintain.  Each accepts a slightly broader set of inputs than strict Scala 3
-syntax requires.
-
-**`importSelectors` — mixed named/wildcard import lists not supported**
-
-```antlr
-importSelectors
-    : namedSelector (COMMA importSelectors)?
-    | wildCardSelector (COMMA wildCardSelector)*
-    ;
-```
-
-Valid Scala 3 allows mixing named selectors and wildcards in one import, e.g.
-`import foo.{bar, given, *}`.  The rule above only accepts a list of `namedSelector`s
-*or* a list of `wildCardSelector`s, not both together.  This covers the common cases
-without the added complexity of a fully mixed rule.
-
-**`wildCardSelector`, `negation`, and `variance` — `Op` used for single-character operators**
-
-The lexer has no dedicated tokens for the individual characters `*`, `+`, and `-`;
-all contiguous operator characters are emitted as a single `Op` token.  Three grammar
-rules therefore use `Op` where only one specific character is valid:
-
-| Rule | Intended operator | Also accepted (over-broadly) |
-|---|---|---|
-| `wildCardSelector : Op` | `*` import wildcard | any operator sequence |
-| `negation : Op` | `-` before a numeric literal | any operator sequence |
-| `variance : Op` | `+` or `-` type-parameter variance | any operator sequence |
-
-Adding dedicated single-character lexer tokens (e.g. `STAR`, `MINUS`, `PLUS`) would
-require fragmented operator lexing throughout the grammar and is not warranted for a
-reference grammar.  The comment on each rule documents the intended restriction.
-
-
-## Provenance in canon
-
-`Scala3Lexer.g4` and `Scala3Parser.g4` are from
-[antlr/grammars-v4](https://github.com/antlr/grammars-v4/tree/7df52be94698550d219d299d04105c6bafadd9c3/scala/scala3)
-at commit `7df52be94698550d219d299d04105c6bafadd9c3`. The README above is
-upstream's. Neither grammar file carries a license header, and grammars-v4 has
-no single license for its grammars; canon vendors them as it vendors the other
-grammars-v4 grammars, with that commit recorded. grammars-v4 also has a Scala 2
-grammar, `scala/scala2/Scala.g4`; canon reads Scala 3, which current Scala
-projects are written in and whose compiler still accepts most Scala 2 syntax,
-as recorded in `DEC-scala-grammar` in canon's `canonical_decisions.yaml`.
-
-The `Scala3LexerBase` class is ported as the lexer hook
-`src/Canon/Antlr4/Lex/Scala.hs`, which the grammar's `superClass` selects. It
-turns optional braces into `INDENT`, `DEDENT`, and statement-separating
-`NEWLINE` tokens as the Java class does, recorded as `DEC-scala-indentation`,
-with three differences: every layout token is empty and placed where the last
-code token ends, the source's own line breaks staying hidden; a comma or a
-closing bracket closes only the indented blocks opened inside its brackets, so
-an indented enum body survives `case A, B`; and the file's own indentation is
-its first code token's column, so a file indented as a whole reads as one
-that is not. `Scala3ParserBase`'s one predicate,
-`migration30`, holds, since the Scala 3 compiler accepts the Scala 2 wildcards
-it gates.
-
-Every change to the grammar is marked `// canon:`:
-
-- The interpolated string fragments match one character per iteration instead
-  of a run inside a starred loop, which made lexing exponential.
-- A character literal may hold any character and a Unicode escape, as
-  `'\u000B'` and `'é'`.
-- Each kind of definition, `val`, `var`, `def`, `type`, `class`, `case class`,
-  `object`, `trait`, `enum`, and `given`, is a rule of its own whose node starts
-  at the definition's first annotation or modifier, under `definition` in
-  templates and at the top level, so the Scaladoc comment above the
-  annotations binds to it. Local definitions in blocks keep upstream's
-  `def_` and are not units. An annotation may stand on a line of its own.
-- Each annotation of a definition is labeled `marker`, and `private`,
-  `protected`, and `override` are labeled `optional`: Scaladoc documents public
-  members, and an override inherits the documentation of what it overrides.
-- An enum case carries its annotations and modifiers and is labeled
-  `inherited`, so it needs a comment when its enum does.
-- `definitionName` is the name a definition declares and `givenName` a named
-  given's, so a unit is named by it rather than by an identifier in its
-  annotations; an anonymous given is named by its `givenType`, which replaces
-  the type in `oldGivenDef` and `structuralInstance`.
-- A type alias's right-hand side, and a match type case's, may be an indented
-  block on the next line.
-
-The grammar parses all 45 files of upstream's `examples/` and the 143 files of
-`examples/lila/`, and the 32 files of Iron 3.3.2's core module and its tests.
+The grammar parses all 12 files of the Iron sample, finding the units and the
+49 decisions it found before; all 45 example files of the grammars-v4 Scala 3
+directory; and all 143 files of its `lila` example; and reads no declaration
+in them as an expression.
 
 ## Canonically commented dialect
 
-`canonically_commented/Scala3Lexer.g4` and `Scala3Parser.g4` are the grammar
-above with Scaladoc comments as canonical comments, recorded as
+`canonically_commented/ScalaLexer.g4` and `ScalaParser.g4` are the grammar
+with Scaladoc comments as canonical comments, recorded as
 `DEC-scala-dialect`. Each change is marked `// canon:`:
 
 - `/**` opens a Scaladoc comment on the default channel, in the `DocBlock`
   mode, which tokenizes prose, `ref:KEY`, and `license:KEY` and drops the stars
   that decorate its lines. `/**/` and `/***` stay plain comments, and a
-  comment nested in a plain one is part of it. `DOC_OPEN` comes before `Op`,
+  comment nested in a plain one is part of it. `DOC_OPEN` comes before `OP`,
   which would otherwise take `/**`.
 - The hook holds a Scaladoc comment's tokens until the next code token has
   produced its layout tokens and emits them just before it, so a line holding
@@ -161,23 +107,37 @@ above with Scaladoc comments as canonical comments, recorded as
 - Each definition, package object, enum case, and extension is a labeled unit
   alternative whose `why` is the Scaladoc comment above its annotations and
   modifiers: `# val`, `# var`, `# def`, `# type`, `# class`, `# case_class`,
-  `# object`, `# trait`, `# enum`, `# given`, `# case`, and `# extension`. An
-  auxiliary constructor is named `this`, and an extension by the type it
-  extends.
+  `# object`, `# trait`, `# enum`, `# given`, `# case`, and `# extension`. A
+  `val` or `var` that binds a pattern is no unit.
 - A definition holds `publicByDefault`, an empty rule labeled `required`;
   `private`, `protected`, and `override` are labeled `optional`, which wins, so
-  the dialect requires what the profile requires. An extension's comment is
-  optional, since its methods are definitions of their own.
+  the dialect requires what the profile requires. An enum case is labeled
+  `inherited`, and an extension's comment is optional, since its methods are
+  definitions of their own.
 - A Scaladoc comment after an annotation or a modifier, before a package
-  clause, an import, an export, an end marker, or an expression statement,
-  before a local definition, a case clause, an argument, or a parameter, at
-  the end of a body, or at the end of the file is an `orphan`.
+  clause, a packaging, an import, an export, an end marker, a self type, an
+  expression statement, or a `val` that binds a pattern, inside an expression,
+  a header, a type, or brackets, at the end of a body, or at the end of the
+  file is an `orphan`. A declaration with one inside its header, as
+  `def /** x */ f`, is read as an expression statement, so a misplaced
+  Scaladoc comment never fails the parse.
+
+The dialect parses the Iron sample, binding its 49 Scaladoc comments with no
+orphan and finding what the profile finds, the 45 examples and 143 `lila`
+files, and the 57 of those files holding no multi-line string with a doc
+comment inserted at the start of every line, after every opening parenthesis
+and comma, and after every equals sign.
 
 ## Known limits
 
-- A Scaladoc comment elsewhere inside an expression or a type, as between
-  the operands of an infix expression, is not accepted, and the file fails to
-  parse. The comment documents nothing there, and none of the sources above
-  has one.
-- A `val` that binds a pattern, as `val (a, b) = pair`, has no name and is no
-  unit.
+- Scala 2 XML literals are not read; a `<` starts an operator.
+- Inside a `${ }` hole of an interpolated string, braces and strings nest, but
+  a character literal holding a brace or a double quote, as `'}'`, ends or
+  opens them too soon. No source at hand has one.
+- The hook does not insert the `OUTDENT` the reference adds before a token
+  such as `else` that closes an indented region on the line it opened on, nor
+  the one before a comma inside parentheses; the runs of tokens read such lines
+  either way, since no declaration that carries documentation lives there.
+- A declaration whose header holds a Scaladoc comment, or that is written in a
+  layout the hook does not read, is read as an expression statement, so its
+  units are missing from the model rather than the file failing.
