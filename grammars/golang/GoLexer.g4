@@ -59,7 +59,8 @@ IF          : 'if';
 IMPORT      : 'import';
 INTERFACE   : 'interface';
 MAP         : 'map';
-NIL_LIT     : 'nil' -> mode(NLSEMI);
+// canon: nil is a predeclared identifier, not a keyword, so the builtin package may declare it;
+// it lexes as an IDENTIFIER.
 PACKAGE     : 'package';
 RANGE       : 'range';
 RETURN      : 'return' -> mode(NLSEMI);

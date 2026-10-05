@@ -37,6 +37,10 @@ tests =
     , testProperty "the Go dialect binds doc comments directly above declarations and requires them on exported names" prop_theGoDialectBindsDocCommentsDirectlyAboveDeclarationsAndRequiresThemOnExportedNames
     , testProperty "the Go dialect reads a doc comment as go/doc groups it, without its directives" prop_theGoDialectReadsADocCommentAsGoDocGroupsItWithoutItsDirectives
     , testProperty "the Go dialect requires a comment on a spec when any of its names is exported" prop_theGoDialectRequiresACommentOnASpecWhenAnyOfItsNamesIsExported
+    , testProperty "the Go dialect reads a comment inside a continued expression as no doc comment" prop_theGoDialectReadsACommentInsideAContinuedExpressionAsNoDocComment
+    , testProperty "the Go grammars parse the syntax the Go parser accepts since 2026" prop_theGoGrammarsParseTheSyntaxTheGoParserAcceptsSince2026
+    , testProperty "the Go grammars parse a table of many elements and a long function in linear time" prop_theGoGrammarsParseATableOfManyElementsAndALongFunctionInLinearTime
+    , testProperty "the Go dialect reads a long package comment and a trailing comment group at once" prop_theGoDialectReadsALongPackageCommentAndATrailingCommentGroupAtOnce
     ]
 
 sampleDir :: FilePath
@@ -285,3 +289,124 @@ prop_theGoDialectRequiresACommentOnASpecWhenAnyOfItsNamesIsExported = withTests 
       )
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === ["go/shapes.go/var/a,B", "go/shapes.go/group/0/var/e,F"]
+
+-- | A declaration can start only where the code before it has ended a statement or opened its
+-- group, so a comment on a line of its own after a + or a comma, inside a value that goes on over
+-- several lines, documents nothing and must not break the parse; terraform's regsrc package writes
+-- its regular expressions this way. ref:REQ-go-support ref:DEC-go-grammar ref:DEC-go-dialect
+prop_theGoDialectReadsACommentInsideAContinuedExpressionAsNoDocComment :: Property
+prop_theGoDialectReadsACommentInsideAContinuedExpressionAsNoDocComment = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractWith
+      dialectProfile
+      "hosts.go"
+      ( T.unlines
+          [ "package hosts"
+          , ""
+          , "const ("
+          , "\t// Label matches one label of a host name."
+          , "\tLabel = \"\" +"
+          , "\t\t// an initial character"
+          , "\t\t\"[a-z]\" +"
+          , "\t\t/* the rest */"
+          , "\t\t\"[a-z0-9-]*\""
+          , ")"
+          , ""
+          , "var Pair = []string{"
+          , "\t// the first"
+          , "\t\"a\","
+          , "}"
+          ]
+      )
+  let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+  whys === [("go/hosts.go/group/0/const/Label", "Label matches one label of a host name.")]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["go/hosts.go/var/Pair"]
+
+-- | The Go of the standard library is what Go projects copy, so both grammars must read what its
+-- parser accepts: nil declared as a name, as the builtin package does, since nil is a predeclared
+-- identifier and no keyword; a method with type parameters, as math/rand/v2 has; and a literal
+-- value in braces whose type is elided, as cmd/go returns one. ref:REQ-go-support ref:DEC-go-grammar
+-- ref:DEC-go-dialect
+prop_theGoGrammarsParseTheSyntaxTheGoParserAcceptsSince2026 :: Property
+prop_theGoGrammarsParseTheSyntaxTheGoParserAcceptsSince2026 = withTests 1 $ property $ do
+  profile <- sampleProfile
+  Extraction plain _ <- extractWith profile "rand.go" source
+  [(unitKindText (whatKind (answerValue (unitWhat u))), whatName (answerValue (unitWhat u))) | u <- unitsBelowFile plain]
+    === [("type", "Rand"), ("method", "N"), ("function", "headers")]
+  Extraction model findings <- extractWith dialectProfile "rand.go" source
+  let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+  whys
+    === [ ("go/rand.go/var/nil", "nil is a name like any other.")
+        , ("go/rand.go/type/Rand", "Rand is a source of random numbers.")
+        , ("go/rand.go/method/N", "N returns a number below n.")
+        ]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  where
+    source =
+      T.unlines
+        [ "package rand"
+        , ""
+        , "// nil is a name like any other."
+        , "var nil Type"
+        , ""
+        , "// Rand is a source of random numbers."
+        , "type Rand struct{ src Source }"
+        , ""
+        , "// N returns a number below n."
+        , "func (r *Rand) N[Int intType](n Int) Int {"
+        , "\tif n == nil {"
+        , "\t\treturn 0"
+        , "\t}"
+        , "\treturn Int(r.uint64n(uint64(n)))"
+        , "}"
+        , ""
+        , "func headers(ifHeader, rangeHeader string) http.Header {"
+        , "\treturn {"
+        , "\t\t\"If-Range\": {ifHeader},"
+        , "\t\t\"Range\":    {rangeHeader},"
+        , "\t}"
+        , "}"
+        ]
+
+-- | A rule that ended inside a run of elements or statements built a tree for each place it could
+-- end, so a generated table of n elements, or a generated function of n statements, took time in n
+-- squared and the largest files of the standard library and Kubernetes ran past any timeout; the
+-- runs are read in the rule that holds their brackets, so these parse in time linear in their
+-- length. ref:REQ-go-support ref:DEC-go-grammar
+prop_theGoGrammarsParseATableOfManyElementsAndALongFunctionInLinearTime :: Property
+prop_theGoGrammarsParseATableOfManyElementsAndALongFunctionInLinearTime = withTests 1 $ property $ do
+  profile <- sampleProfile
+  Extraction plain _ <- extractWith profile "tables.go" source
+  [whatName (answerValue (unitWhat u)) | u <- unitsBelowFile plain] === ["rewrite"]
+  Extraction model _ <- extractWith dialectProfile "tables.go" source
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["go/tables.go/var/Table"]
+  where
+    source =
+      T.unlines
+        ( ["package tables", "", "var Table = [...]uint16{"]
+            ++ replicate 6250 "\t0x00, 0x41, 0x0300, 0x00c0, 0x00, 0x41, 0x0301, 0x00c1,"
+            ++ ["}", "", "func rewrite(v *Value) bool {"]
+            ++ concat (replicate 2000 ["\tif v.Op == OpAdd {", "\t\tv.reset(OpSub)", "\t}"])
+            ++ ["\treturn false", "}"]
+        )
+
+-- | go/doc reads a comment group directly above the package clause as the package's documentation,
+-- however long, and a group with nothing below it as documenting nothing. cmd/go's package comment
+-- runs to thousands of lines, which the dialect read in a minute when a line comment could end
+-- after any word; and a block comment joined by a line comment at the end of a file was released
+-- half visible, failing the parse. ref:REQ-go-support ref:DEC-go-dialect ref:DEC-go-grammar
+prop_theGoDialectReadsALongPackageCommentAndATrailingCommentGroupAtOnce :: Property
+prop_theGoDialectReadsALongPackageCommentAndATrailingCommentGroupAtOnce = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractWith
+      dialectProfile
+      "doc.go"
+      ( T.unlines
+          ( ["// Go is a tool for managing Go source code."]
+              ++ replicate 5000 "// The commands are build, run, test, and vet, each with flags of its own."
+              ++ ["package main", "", "/* NOTE(bar): a note */", "// that documents nothing."]
+          )
+      )
+  [T.take 45 (whyText (answerValue (decisionWhy d))) | d <- modelDecisions model] === ["Go is a tool for managing Go source code.\nThe"]
+  length [() | OrphanDocComment _ _ <- findings] === 0

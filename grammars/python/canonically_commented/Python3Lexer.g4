@@ -111,23 +111,27 @@ NAME: ID_START ID_CONTINUE*;
 /// stringliteral   ::=  [stringprefix](shortstring | longstring)
 /// stringprefix    ::=  "r" | "u" | "R" | "U" | "f" | "F"
 ///                      | "fr" | "Fr" | "fR" | "FR" | "rf" | "rF" | "Rf" | "RF"
-STRING_LITERAL: ( [rR] | [uU] | [fF] | ( [fF] [rR]) | ( [rR] [fF]))? ( SHORT_STRING | LONG_STRING);
+// canon: an f-string, and a t-string of Python 3.14 (PEP 750), is one STRING token whose replacement
+// fields may hold any expression, a string with the same quotes included, as Python 3.12 allows
+// (PEP 701); the plain lexer ended an f-string at the first quote of its kind.
+STRING_LITERAL: ( [rR] | [uU])? ( SHORT_STRING | LONG_STRING) | FORMAT_PREFIX FORMAT_STRING;
 
 /// bytesliteral   ::=  bytesprefix(shortbytes | longbytes)
 /// bytesprefix    ::=  "b" | "B" | "br" | "Br" | "bR" | "BR" | "rb" | "rB" | "Rb" | "RB"
 BYTES_LITERAL: ( [bB] | ( [bB] [rR]) | ( [rR] [bB])) ( SHORT_BYTES | LONG_BYTES);
 
 /// decimalinteger ::=  nonzerodigit digit* | "0"+
-DECIMAL_INTEGER: NON_ZERO_DIGIT DIGIT* | '0'+;
+// canon: digits may be grouped by underscores, as Python 3.6 allows (PEP 515).
+DECIMAL_INTEGER: NON_ZERO_DIGIT ('_'? DIGIT)* | '0' ('_'? '0')*;
 
 /// octinteger     ::=  "0" ("o" | "O") octdigit+
-OCT_INTEGER: '0' [oO] OCT_DIGIT+;
+OCT_INTEGER: '0' [oO] ('_'? OCT_DIGIT)+;
 
 /// hexinteger     ::=  "0" ("x" | "X") hexdigit+
-HEX_INTEGER: '0' [xX] HEX_DIGIT+;
+HEX_INTEGER: '0' [xX] ('_'? HEX_DIGIT)+;
 
 /// bininteger     ::=  "0" ("b" | "B") bindigit+
-BIN_INTEGER: '0' [bB] BIN_DIGIT+;
+BIN_INTEGER: '0' [bB] ('_'? BIN_DIGIT)+;
 
 /// floatnumber   ::=  pointfloat | exponentfloat
 FLOAT_NUMBER: POINT_FLOAT | EXPONENT_FLOAT;
@@ -142,6 +146,8 @@ OPEN_PAREN         : '(' {this.openBrace();};
 CLOSE_PAREN        : ')' {this.closeBrace();};
 COMMA              : ',';
 COLON              : ':';
+// canon: the walrus of a named expression, as Python 3.8 allows (PEP 572).
+COLON_ASSIGN       : ':=';
 SEMI_COLON         : ';';
 POWER              : '**';
 ASSIGN             : '=';
@@ -183,7 +189,8 @@ RIGHT_SHIFT_ASSIGN : '>>=';
 POWER_ASSIGN       : '**=';
 IDIV_ASSIGN        : '//=';
 
-SKIP_: ( SPACES | COMMENT | LINE_JOINING) -> skip;
+// canon: a byte order mark, which a file saved as UTF-8 by some editors starts with, is skipped.
+SKIP_: ( SPACES | COMMENT | LINE_JOINING | '\uFEFF') -> skip;
 
 UNKNOWN_CHAR: .;
 
@@ -208,7 +215,45 @@ fragment LONG_STRING_ITEM: LONG_STRING_CHAR | STRING_ESCAPE_SEQ;
 fragment LONG_STRING_CHAR: ~'\\';
 
 /// stringescapeseq ::=  "\" <any source character>
-fragment STRING_ESCAPE_SEQ: '\\' . | '\\' NEWLINE;
+// canon: a backslash escapes one character, or a CRLF line end. The plain lexer also let it escape a
+// NEWLINE token, which at the start of a file matched the spaces after a backslash a second way and
+// made a docstring with many backslashes take seconds to lex.
+fragment STRING_ESCAPE_SEQ: '\\' ( '\r\n' | ~'\r');
+
+// canon: the prefixes of an f-string and a t-string, raw or not.
+fragment FORMAT_PREFIX: [fFtT] | [fFtT] [rR] | [rR] [fFtT];
+
+// canon: an f-string's literal text holds escaped braces, escapes, and replacement fields. A named
+// escape \N{...} is one escape, and a backslash before a brace leaves the brace to open a field.
+fragment FORMAT_STRING:
+    '\'' ( FORMAT_ESCAPE | FORMAT_BRACES | ~[\\{}\r\n'])* '\''
+    | '"' ( FORMAT_ESCAPE | FORMAT_BRACES | ~[\\{}\r\n"])* '"'
+    | '\'\'\'' ( FORMAT_ESCAPE | FORMAT_BRACES | ~[\\{}])*? '\'\'\''
+    | '"""' ( FORMAT_ESCAPE | FORMAT_BRACES | ~[\\{}])*? '"""'
+;
+fragment FORMAT_ESCAPE: '\\N{' ~[}\r\n]* '}' | '\\' ( '\r\n' | ~[{\r]) | '\\' FORMAT_BRACES;
+fragment FORMAT_BRACES: '{{' | '}}' | FORMAT_FIELD;
+
+// canon: a replacement field: an expression, a conversion, and a format spec whose nested fields are
+// braces again. A string inside is read whole, so its quotes and braces end nothing; its prefix is
+// read as ordinary characters. The first character is not a brace, so {{ is an escape only. Three
+// quotes always open a long string, as Python's tokenizer reads them, so an empty string is followed
+// by a character other than a quote or ends the field: read either way, a field that did not close
+// on its line went on through every later string of the file in each of its readings.
+fragment FORMAT_FIELD: '{' ( FORMAT_FIELD_FIRST FORMAT_FIELD_ITEM*)? FORMAT_FIELD_EMPTY? '}';
+fragment FORMAT_FIELD_FIRST: FORMAT_FIELD_STRING | FORMAT_FIELD_EMPTY FORMAT_FIELD_CHAR | FORMAT_FIELD_COMMENT | ~[{}'"];
+fragment FORMAT_FIELD_ITEM: FORMAT_FIELD_STRING | FORMAT_FIELD_EMPTY FORMAT_FIELD_CHAR | FORMAT_FIELD_CHAR | FORMAT_FIELD_COMMENT;
+fragment FORMAT_FIELD_CHAR: '{' FORMAT_FIELD_ITEM* FORMAT_FIELD_EMPTY? '}' | ~[{}'"];
+fragment FORMAT_FIELD_STRING:
+    '\'' ( STRING_ESCAPE_SEQ | ~[\\\r\n\f'])+ '\''
+    | '"' ( STRING_ESCAPE_SEQ | ~[\\\r\n\f"])+ '"'
+    | LONG_STRING
+;
+fragment FORMAT_FIELD_EMPTY: '\'\'' | '""';
+
+// canon: a comment in a field that spans lines, after a space or a line break, which Python 3.12
+// allows; it runs to the end of its line, so its quotes and braces end nothing.
+fragment FORMAT_FIELD_COMMENT: [ \t\r\n] '#' ~[\r\n]* '\r'? '\n';
 
 /// nonzerodigit   ::=  "1"..."9"
 fragment NON_ZERO_DIGIT: [1-9];
@@ -232,13 +277,13 @@ fragment POINT_FLOAT: INT_PART? FRACTION | INT_PART '.';
 fragment EXPONENT_FLOAT: ( INT_PART | POINT_FLOAT) EXPONENT;
 
 /// intpart       ::=  digit+
-fragment INT_PART: DIGIT+;
+fragment INT_PART: DIGIT ('_'? DIGIT)*;
 
 /// fraction      ::=  "." digit+
-fragment FRACTION: '.' DIGIT+;
+fragment FRACTION: '.' INT_PART;
 
 /// exponent      ::=  ("e" | "E") ["+" | "-"] digit+
-fragment EXPONENT: [eE] [+-]? DIGIT+;
+fragment EXPONENT: [eE] [+-]? INT_PART;
 
 /// shortbytes     ::=  "'" shortbytesitem* "'" | '"' shortbytesitem* '"'
 /// shortbytesitem ::=  shortbyteschar | bytesescapeseq

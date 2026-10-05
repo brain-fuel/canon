@@ -1024,11 +1024,17 @@ comment lines and newlines inside brackets. The parser memoises its loops and
 its precedence climbing by position, so a block of statements that can each
 end two ways, as every TypeScript statement can, costs a table rather than a
 power of two. The vendored grammars carry small patches marked `canon:` for
-constructs newer than the grammars: Python's positional-only `/`,
+constructs newer than the grammars: Python's syntax through 3.15, Go's nil as
+a name, generic methods, and literal values that elide their type,
 JavaScript's `import.meta`, Kotlin's `when (val x = ...)`, and for TypeScript
 `readonly` types, mapped and conditional types, `infer`, `as` before any type,
 `#private` members, `readonly` parameters, optional calls, logical assignment,
 ambient `module` declarations, and `is` and `infer` as property names.
+`tools/corpus/python.sh` and `tools/corpus/go.sh` check the Python and Go
+grammars and dialects against the standard libraries and the most used
+projects of each language, with the tables in `grammars/python/README.md` and
+`grammars/golang/README.md`: every file parses but a few invalid-code
+fixtures and two modules not in UTF-8.
 
 The JavaScript and TypeScript dialects, under `canonically_commented/` beside
 each grammar, read a `/**` comment as JSDoc and TSDoc do: it documents the

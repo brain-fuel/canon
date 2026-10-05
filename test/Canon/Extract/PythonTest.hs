@@ -37,6 +37,9 @@ tests =
     , testProperty "the Python dialect binds docstrings that open a body and requires them on public names" prop_thePythonDialectBindsDocstringsThatOpenABodyAndRequiresThemOnPublicNames
     , testProperty "the Python dialect knows the top level by nesting, not by column" prop_thePythonDialectKnowsTheTopLevelByNestingNotByColumn
     , testProperty "the Python dialect reads adjacent strings as one docstring" prop_thePythonDialectReadsAdjacentStringsAsOneDocstring
+    , testProperty "the Python grammars parse the syntax of Python 3.8 through 3.15" prop_thePythonGrammarsParseTheSyntaxOfPython38Through315
+    , testProperty "a module docstring full of backslashes lexes at once" prop_aModuleDocstringFullOfBackslashesLexesAtOnce
+    , testProperty "the Python grammars parse a table of many items and a long f-string run in linear time" prop_thePythonGrammarsParseATableOfManyItemsAndALongFStringRunInLinearTime
     ]
 
 sampleDir :: FilePath
@@ -318,3 +321,107 @@ prop_thePythonDialectReadsAdjacentStringsAsOneDocstring = withTests 1 $ property
   let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d)), whyReferences (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
   whys === [("python/joined.py/function/joined", "Joined from two strings, cited. ref:some-key", [ReferenceKey "some-key"])]
   length [() | OrphanDocComment _ _ <- findings] === 0
+
+-- | Current projects are written in the Python their interpreter runs, so both grammars must read
+-- what Python 3.8 through 3.15 added: named expressions, positional-only lambda parameters, any
+-- expression as a decorator, parenthesized context managers, starred items in a return, a for, and a
+-- subscript, match on a tuple with case as a soft keyword, except*, except without parentheses, type
+-- parameters and type aliases, lazy imports, digits grouped by underscores, f-strings whose fields
+-- hold strings in the same quotes, and t-strings, which are no docstring. ref:REQ-python-support
+-- ref:DEC-python-grammar ref:DEC-python-dialect
+prop_thePythonGrammarsParseTheSyntaxOfPython38Through315 :: Property
+prop_thePythonGrammarsParseTheSyntaxOfPython38Through315 = withTests 1 $ property $ do
+  profile <- sampleProfile
+  Extraction plain _ <- extractWith profile "modern.py" modern
+  [(unitKindText (whatKind (answerValue (unitWhat u))), whatName (answerValue (unitWhat u))) | u <- unitsBelowFile plain]
+    === [("function", "first"), ("class", "Box"), ("function", "items"), ("function", "matcher")]
+  Extraction model findings <- extractWith dialectProfile "modern.py" modern
+  let whys = [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+  whys
+    === [ ("python/modern.py", "Modern syntax, Python 3.8 to 3.15.")
+        , ("python/modern.py/function/first", "Type parameters, positional-only, and a starred annotation.")
+        , ("python/modern.py/class/Box", "A generic class.")
+        , ("python/modern.py/class/Box/function/items", "Parenthesized context managers, except*, and except without parentheses.")
+        , ("python/modern.py/function/matcher", "A match on a tuple, with a guard.")
+        ]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  where
+    modern =
+      T.unlines
+          [ "\"\"\"Modern syntax, Python 3.8 to 3.15.\"\"\""
+          , "lazy import json"
+          , "lazy from os import path"
+          , "import re as _re"
+          , ""
+          , "type Pair[T] = tuple[T, T]"
+          , "type = \"a soft keyword is still a name\""
+          , "case = match = lazy = 0"
+          , ""
+          , "total = 1_000_000 + 0x_ff + 1_0.5e1_0 + 3_0j"
+          , ""
+          , "@registry[0].register"
+          , "def first[T: int = int, *Ts, **P](x, /, *args: *Ts, **kw) -> T:"
+          , "    \"\"\"Type parameters, positional-only, and a starred annotation.\"\"\""
+          , "    if (n := len(args)) > 1:"
+          , "        return *args, n"
+          , "    return f\"{kw[\"key\"]!r:>{n}} {'\\N{EM DASH}'} {f'{x}'}\""
+          , ""
+          , "class Box[T](Base):"
+          , "    \"\"\"A generic class.\"\"\""
+          , ""
+          , "    def items(self):"
+          , "        \"\"\"Parenthesized context managers, except*, and except without parentheses.\"\"\""
+          , "        with (open(a) as f,"
+          , "              open(b) as g,):"
+          , "            try:"
+          , "                pass"
+          , "            except* ValueError as group:"
+          , "                pass"
+          , "        try:"
+          , "            pass"
+          , "        except KeyError, IndexError:"
+          , "            pass"
+          , "        for x in *self.a, *self.b:"
+          , "            yield self.c[*x]"
+          , ""
+          , "def matcher(command):"
+          , "    \"\"\"A match on a tuple, with a guard.\"\"\""
+          , "    match command.verb, command.obj:"
+          , "        case (\"go\", direction) if (d := direction):"
+          , "            return d"
+          , "        case _:"
+          , "            return t\"unknown {command}\""
+          ]
+
+-- | A backslash in a string escapes one character. The upstream lexer also let it escape a NEWLINE
+-- token, which at the start of a file matched the spaces after a backslash a second way, so a module
+-- docstring drawing a diagram in backslashes took seconds to lex and longer with each backslash; it
+-- must lex at once, as the corpus requires of every file. ref:REQ-python-support
+-- ref:DEC-python-grammar
+prop_aModuleDocstringFullOfBackslashesLexesAtOnce :: Property
+prop_aModuleDocstringFullOfBackslashesLexesAtOnce = withTests 1 $ property $ do
+  profile <- sampleProfile
+  Extraction model _ <- extractWith profile "diagram.py" (T.unlines (["r\"\"\"A diagram."] ++ replicate 60 "   / \\   / \\   / \\" ++ ["\"\"\"", "", "def f():", "    pass"]))
+  [whatName (answerValue (unitWhat u)) | u <- unitsBelowFile model] === ["f"]
+
+-- | A rule that ended inside a run of items built a tree for each item it could end after, so a list
+-- of n items took time in n squared and a table of a few thousand numbers took seconds; the items
+-- of a display, a call, and a subscript are read in the rule that holds their brackets. An f-string
+-- field read in two ways, as one long string or as short ones, went on through every later string of
+-- the file in each reading when one did not close; three quotes now always open a long string, so a
+-- field has one reading. ref:REQ-python-support ref:DEC-python-grammar
+prop_thePythonGrammarsParseATableOfManyItemsAndALongFStringRunInLinearTime :: Property
+prop_thePythonGrammarsParseATableOfManyItemsAndALongFStringRunInLinearTime = withTests 1 $ property $ do
+  profile <- sampleProfile
+  Extraction plain _ <- extractWith profile "tables.py" source
+  [whatName (answerValue (unitWhat u)) | u <- unitsBelowFile plain] === ["lookup"]
+  Extraction model _ <- extractWith dialectProfile "tables.py" source
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["python/tables.py/function/lookup"]
+  where
+    source =
+      T.unlines
+        ( ["TABLE = [", "    f(1, 2), {'a': 1}, x[1:2], (3, 4),"]
+            ++ replicate 3000 "    0x00, 0x41, 0x0300, 0x00c0, 0x00, 0x41, 0x0301, 0x00c1,"
+            ++ ["]", "", "def lookup(key):", "    return f'{\"\"\"a\" # inside\"\"\"=}'"]
+            ++ replicate 40 "TEXT = '''a''' + \"\"\"b\"\"\""
+        )

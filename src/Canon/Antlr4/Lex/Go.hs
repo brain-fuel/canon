@@ -45,24 +45,33 @@ onAction :: Name -> ActionText -> Text -> Text -> GoState -> (GoState, [HookEffe
 onAction _ _ _ _ s = (s, [])
 
 -- | isDocPosition holds at the start of a line whose innermost bracket admits a declaration, or
--- outside every bracket; a leading ! negates it.
+-- outside every bracket, where the code before has ended a statement or opened the bracket; a
+-- leading ! negates it. A comment on a line of its own inside an expression that goes on over
+-- several lines, after a + or a comma in a grouped const, is no doc comment, since no declaration
+-- can start there. ref:DEC-go-dialect ref:DEC-go-grammar
 onPredicate :: Name -> ActionText -> Text -> Int -> GoState -> Bool
 onPredicate _ predicate _ _ s
   | "isDocPosition" `T.isInfixOf` raw = if "!" `T.isInfixOf` raw then not docPosition else docPosition
   | otherwise = True
   where
     raw = actionTextRaw predicate
-    docPosition = goLineStart s && case goFrames s of
+    docPosition = goLineStart s && statementBoundary && case goFrames s of
       (admits : _) -> admits
       [] -> True
+    statementBoundary = maybe True (`elem` ["EOS", "SEMI", "L_PAREN", "L_CURLY"]) (goLastCode s)
 
+-- | Holds a doc comment until the next code token. A comment that opens directly after a held one,
+-- with no blank line between, joins it, as go/doc groups them, so the pieces are released or hidden
+-- together: released before a block comment ended a file, the first piece of a group was left on the
+-- default channel with nothing to document. ref:DEC-go-dialect ref:DEC-go-grammar
 onEmit :: Token -> GoState -> ([Token], GoState)
 onEmit token s0 = case goHeld s of
   Nothing
     | opensDoc -> ([], s {goHeld = Just (Held [token] True 0)})
     | otherwise -> ([token], s)
   Just held
-    | opensDoc -> (release held (blankAfter held), s {goHeld = Just (Held [token] True 0)})
+    | opensDoc && blankAfter held -> (release held True, s {goHeld = Just (Held [token] True 0)})
+    | opensDoc -> ([], s {goHeld = Just held {heldTokens = token : heldTokens held, heldInComment = True, heldNewlines = 0}})
     | isEofToken token -> (release held True ++ [token], s {goHeld = Nothing})
     | heldInComment held ->
         let closing = kind `elem` ["DOC_CLOSE", "DOC_BLOCK_CLOSE"]

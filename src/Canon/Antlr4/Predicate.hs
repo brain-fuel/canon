@@ -98,10 +98,12 @@ javaScriptPredicates predicate toks _ at
 -- | The predicates the canonically commented Go grammar adds to GoParserBase; upstream's own, such
 -- as isOperand, still hold. isExported holds when the next token is an identifier with an upper-case
 -- initial, which is what makes a Go name visible outside its package, and a leading ! negates it.
--- ref:DEC-go-dialect ref:revive-exported
+-- isCommentEnd holds when the next token is no part of a doc comment's prose, so a line comment
+-- ends after its last part. ref:DEC-go-dialect ref:revive-exported
 goPredicates :: PredicateHook
 goPredicates predicate toks _ at
   | "isExported" `T.isInfixOf` predicate = negated predicate (maybe False (startsWith isUpper . tokenText) (toks BV.!? at))
+  | "isCommentEnd" `T.isInfixOf` predicate = maybe True ((`notElem` ["DOC_WORD", "DOC_PUNCT", "DOC_REF", "DOC_LICENSE"]) . nameText . tokenType) (toks BV.!? at)
   | otherwise = True
 
 -- | The predicates the canonically commented Python grammar adds to Python3ParserBase; upstream's
@@ -112,7 +114,7 @@ goPredicates predicate toks _ at
 -- level deeper than itself, which the DEDENT back to its own level closes. isPrivateName holds when the next token starts with an underscore
 -- and is not __init__, which PEP 257 asks to document like a public method. isDocString holds when
 -- the next tokens are strings, one or adjacent ones that Python joins, that are a statement alone,
--- ended by its line, and none a bytes or an f-string, which Python does not take as a docstring. isOverload holds when the next tokens are
+-- ended by its line, and none a bytes, an f-string, or a t-string, which Python does not take as a docstring. isOverload holds when the next tokens are
 -- an @overload decorator, bare or qualified, whose stub pydocstyle asks not to document.
 -- ref:DEC-python-dialect ref:pep-257
 pythonPredicates :: PredicateHook
@@ -129,28 +131,42 @@ pythonPredicates predicate toks _ at
     isString t = nameText (tokenType t) == "STRING"
     docString = case span isString (drop at (BV.toList toks)) of
       (strings@(_ : _), next) ->
-        not (any (T.any (`elem` ("bBfF" :: String)) . T.takeWhile (`notElem` ("'\"" :: String)) . tokenText) strings)
+        not (any (T.any (`elem` ("bBfFtT" :: String)) . T.takeWhile (`notElem` ("'\"" :: String)) . tokenText) strings)
           && maybe True ((`elem` ["NEWLINE", "EOF"]) . nameText . tokenType) (listToMaybe next)
       _ -> False
     nameText' = tokenText <$> toks BV.!? at
     public = maybe False (not . T.isPrefixOf "_") nameText'
-    topLevel = null (openDefinitions (BV.toList (BV.take (at - 1) toks)))
+    topLevel = not (insideDefinition toks (at - 1))
 
--- | The depths of the def and class bodies open after the tokens: each def or class at a depth
--- pushes it, and a DEDENT to a depth closes every body at or below it, as does a later def or class
--- at the same depth, which ends a one-line definition that opened no indented body.
--- ref:DEC-python-dialect
-openDefinitions :: [Token] -> [Int]
-openDefinitions = go (0 :: Int) []
+-- | Whether the def or class whose keyword is at the index stands in the body of another def or
+-- class. A definition whose line starts at the first column is at the top level. Otherwise the
+-- tokens before it are read backwards, counting DEDENT and INDENT tokens, to each INDENT that opens a
+-- block around it: when the line before that INDENT starts with def, class, or async def, the block
+-- is a definition's body. Reading backwards stops at the first enclosing definition, so a method is
+-- decided within its class rather than by the whole file before it, which made a long module
+-- quadratic. A one-line definition opens no INDENT, so it encloses nothing. ref:DEC-python-dialect
+insideDefinition :: BV.Vector Token -> Int -> Bool
+insideDefinition toks keyword
+  | maybe True ((== 1) . positionColumn . tokenPosition) (toks BV.!? lineStart keyword) = False
+  | otherwise = go (keyword - 1) (0 :: Int)
   where
-    go depth open ts = case ts of
-      [] -> filter (< depth) open
-      (t : rest) -> case nameText (tokenType t) of
-        "INDENT" -> go (depth + 1) open rest
-        "DEDENT" -> go (depth - 1) (filter (< depth - 1) open) rest
-        _
-          | tokenText t `elem` ["def", "class"] -> go depth (depth : filter (< depth) open) rest
-          | otherwise -> go depth open rest
+    kind j = maybe "" (nameText . tokenType) (toks BV.!? j)
+    go j depth
+      | j < 0 = False
+      | otherwise = case kind j of
+          "DEDENT" -> go (j - 1) (depth + 1)
+          "INDENT"
+            | depth == 0 -> opensDefinition (lineStart (j - 1)) || go (j - 1) 0
+            | otherwise -> go (j - 1) (depth - 1)
+          _ -> go (j - 1) depth
+    -- The first token of the logical line holding index j, past the NEWLINE that ends it.
+    lineStart j =
+      let k = if kind j == "NEWLINE" then j - 1 else j
+          back i = if i < 0 || kind i `elem` ["NEWLINE", "INDENT", "DEDENT"] then i + 1 else back (i - 1)
+       in back k
+    opensDefinition i = case map tokenText (BV.toList (BV.slice i (min 2 (BV.length toks - i)) toks)) of
+      (first : rest) -> first `elem` ["def", "class"] || (first == "async" && take 1 rest == ["def"])
+      [] -> False
 
 -- | A predicate written with a leading ! asks the opposite.
 negated :: Text -> Bool -> Bool

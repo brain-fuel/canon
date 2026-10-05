@@ -126,8 +126,9 @@ functionDecl
     : FUNC IDENTIFIER typeParameters? signature block?
     ;
 
+// canon: a method may declare type parameters, as the Go parser accepts since 2026.
 methodDecl
-    : FUNC receiver IDENTIFIER signature block?
+    : FUNC receiver IDENTIFIER typeParameters? signature block?
     ;
 
 receiver
@@ -142,12 +143,13 @@ varSpec
     : identifierList (type_ (ASSIGN expressionList)? | ASSIGN expressionList)
     ;
 
+// canon: the statements of a block, and of each clause of a switch or select, are read in the rule
+// that holds their braces, which was statementList. A rule ending inside a run of statements built a
+// tree for every statement it could end after, so a body of n statements took time in n squared, and
+// a generated function of thousands of statements took longer than any timeout. A lone semicolon
+// is an empty statement, as in return; ;.
 block
-    : L_CURLY statementList R_CURLY
-    ;
-
-statementList
-    : ( (SEMI | EOS | /* {this.closingBracket()}? */ ) statement eos)*
+    : L_CURLY ((SEMI | EOS | /* {this.closingBracket()}? */ ) statement eos | SEMI)* R_CURLY
     ;
 
 statement
@@ -238,11 +240,7 @@ switchStmt
     ;
 
 exprSwitchStmt
-    : SWITCH (expression? | simpleStmt? eos expression?) L_CURLY exprCaseClause* R_CURLY
-    ;
-
-exprCaseClause
-    : exprSwitchCase COLON statementList
+    : SWITCH (expression? | simpleStmt? eos expression?) L_CURLY (exprSwitchCase COLON ((SEMI | EOS | /* {this.closingBracket()}? */ ) statement eos | SEMI)*)* R_CURLY
     ;
 
 exprSwitchCase
@@ -251,15 +249,11 @@ exprSwitchCase
     ;
 
 typeSwitchStmt
-    : SWITCH (typeSwitchGuard | eos typeSwitchGuard | simpleStmt eos typeSwitchGuard) L_CURLY typeCaseClause* R_CURLY
+    : SWITCH (typeSwitchGuard | eos typeSwitchGuard | simpleStmt eos typeSwitchGuard) L_CURLY (typeSwitchCase COLON ((SEMI | EOS | /* {this.closingBracket()}? */ ) statement eos | SEMI)*)* R_CURLY
     ;
 
 typeSwitchGuard
     : (IDENTIFIER DECLARE_ASSIGN)? primaryExpr DOT L_PAREN TYPE R_PAREN
-    ;
-
-typeCaseClause
-    : typeSwitchCase COLON statementList
     ;
 
 typeSwitchCase
@@ -267,16 +261,13 @@ typeSwitchCase
     | DEFAULT
     ;
 
+// canon: nil is an identifier, so a case nil is a type name here.
 typeList
-    : (type_ | NIL_LIT) (COMMA (type_ | NIL_LIT))*
+    : type_ (COMMA type_)*
     ;
 
 selectStmt
-    : SELECT L_CURLY commClause* R_CURLY
-    ;
-
-commClause
-    : commCase COLON statementList
+    : SELECT L_CURLY (commCase COLON ((SEMI | EOS | /* {this.closingBracket()}? */ ) statement eos | SEMI)*)* R_CURLY
     ;
 
 commCase
@@ -421,10 +412,13 @@ conversion
     : type_ L_PAREN expression COMMA? R_PAREN
     ;
 
+// canon: a literal value in braces is an operand whose type is elided, which the Go parser accepts
+// since 2026, as in return {"a": {x}}.
 operand
     : literal
     | operandName typeArgs?
     | L_PAREN expression R_PAREN
+    | literalValue
     ;
 
 literal
@@ -433,9 +427,9 @@ literal
     | functionLit
     ;
 
+// canon: nil is an identifier, an operand name.
 basicLit
-    : NIL_LIT
-    | integer
+    : integer
     | string_
     | FLOAT_LIT
     ;
@@ -471,12 +465,10 @@ literalType
     | typeName typeArgs?
     ;
 
+// canon: the elements are read in the rule that holds their braces, which was elementList, so a
+// table of n elements takes time linear in n.
 literalValue
-    : L_CURLY (elementList COMMA?)? R_CURLY
-    ;
-
-elementList
-    : keyedElement (COMMA keyedElement)*
+    : L_CURLY (keyedElement (COMMA keyedElement)* COMMA?)? R_CURLY
     ;
 
 keyedElement
@@ -526,8 +518,11 @@ typeAssertion
     : DOT L_PAREN type_ R_PAREN
     ;
 
+// canon: the arguments are read in the rule that holds their parentheses, which was expressionList.
 arguments
-    : L_PAREN (({this.isTypeArgument()}? type_ (COMMA expressionList)? | {this.isExpressionArgument()}? expressionList) ELLIPSIS? COMMA?)? R_PAREN
+    : L_PAREN (
+        ({this.isTypeArgument()}? type_ (COMMA expression)* | {this.isExpressionArgument()}? expression (COMMA expression)*) ELLIPSIS? COMMA?
+    )? R_PAREN
     ;
 
 methodExpr

@@ -60,8 +60,9 @@ eval_input
     : testlist NEWLINE* EOF
     ;
 
+// canon: a decorator is any named expression, as Python 3.9 allows (PEP 614).
 decorator
-    : '@' dotted_name ('(' arglist? ')')? NEWLINE
+    : '@' namedexpr_test NEWLINE
     ;
 
 decorators
@@ -76,8 +77,21 @@ async_funcdef
     : ASYNC funcdef
     ;
 
+// canon: a def may declare type parameters, as Python 3.12 allows (PEP 695).
 funcdef
-    : 'def' name parameters ('->' test)? ':' block
+    : 'def' name type_params? parameters ('->' test)? ':' block
+    ;
+
+// canon: type parameters with bounds, defaults (Python 3.13, PEP 696), and the * and ** of type
+// variable tuples and parameter specifications.
+type_params
+    : '[' type_param (',' type_param)* ','? ']'
+    ;
+
+type_param
+    : name (':' test)? ('=' test)?
+    | '*' name ('=' (test | star_expr))?
+    | '**' name ('=' test)?
     ;
 
 parameters
@@ -98,13 +112,15 @@ typedargslist
     )
     ;
 
+// canon: the annotation of *args may be starred, as Python 3.11 allows (PEP 646).
 tfpdef
-    : name (':' test)?
+    : name (':' (test | star_expr))?
     ;
 
+// canon: '/' ends the positional-only parameters of a lambda too.
 varargslist
     : (
-        vfpdef ('=' test)? (',' vfpdef ('=' test)?)* (
+        vfpdef ('=' test)? (',' vfpdef ('=' test)?)* (',' '/' (',' vfpdef ('=' test)?)*)? (
             ',' (
                 '*' vfpdef? (',' vfpdef ('=' test)?)* (',' ('**' vfpdef ','?)?)?
                 | '**' vfpdef (',')?
@@ -133,6 +149,7 @@ simple_stmt
         expr_stmt
         | del_stmt
         | pass_stmt
+        | type_stmt
         | flow_stmt
         | import_stmt
         | global_stmt
@@ -144,13 +161,15 @@ simple_stmt
 expr_stmt
     : testlist_star_expr (
         annassign
-        | augassign (yield_expr | testlist)
+        | augassign (yield_expr | testlist_star_expr)
         | ('=' (yield_expr | testlist_star_expr))*
     )
     ;
 
+// canon: an annotated assignment's value may be a yield or an unparenthesized tuple, as Python 3.8
+// allows.
 annassign
-    : ':' test ('=' test)?
+    : ':' test ('=' (yield_expr | testlist_star_expr))?
     ;
 
 testlist_star_expr
@@ -200,8 +219,14 @@ continue_stmt
     : 'continue'
     ;
 
+// canon: a return value may hold starred items, as Python 3.8 allows.
 return_stmt
-    : 'return' testlist?
+    : 'return' testlist_star_expr?
+    ;
+
+// canon: a type alias statement, as Python 3.12 allows (PEP 695); type is a soft keyword.
+type_stmt
+    : 'type' name type_params? '=' test
     ;
 
 yield_stmt
@@ -217,14 +242,15 @@ import_stmt
     | import_from
     ;
 
+// canon: an import may be lazy, as Python 3.15 allows (PEP 810); lazy is a soft keyword.
 import_name
-    : 'import' dotted_as_names
+    : 'lazy'? 'import' dotted_as_names
     ;
 
 // note below: the ('.' | '...') is necessary because '...' is tokenized as ELLIPSIS
 import_from
     : (
-        'from' (('.' | '...')* dotted_name | ('.' | '...')+) 'import' (
+        'lazy'? 'from' (('.' | '...')* dotted_name | ('.' | '...')+) 'import' (
             '*'
             | '(' import_as_names ')'
             | import_as_names
@@ -281,16 +307,18 @@ async_stmt
     : ASYNC (funcdef | with_stmt | for_stmt)
     ;
 
+// canon: a condition may be a named expression, as Python 3.8 allows (PEP 572).
 if_stmt
-    : 'if' test ':' block ('elif' test ':' block)* ('else' ':' block)?
+    : 'if' namedexpr_test ':' block ('elif' namedexpr_test ':' block)* ('else' ':' block)?
     ;
 
 while_stmt
-    : 'while' test ':' block ('else' ':' block)?
+    : 'while' namedexpr_test ':' block ('else' ':' block)?
     ;
 
+// canon: the iterable may hold starred items, as Python 3.9 allows.
 for_stmt
-    : 'for' exprlist 'in' testlist ':' block ('else' ':' block)?
+    : 'for' exprlist 'in' testlist_star_expr ':' block ('else' ':' block)?
     ;
 
 try_stmt
@@ -302,8 +330,9 @@ try_stmt
     )
     ;
 
+// canon: the items may be parenthesized over several lines, as Python 3.9 allows.
 with_stmt
-    : 'with' with_item (',' with_item)* ':' block
+    : 'with' (with_item (',' with_item)* | '(' with_item (',' with_item)* ','? ')') ':' block
     ;
 
 with_item
@@ -311,8 +340,10 @@ with_item
     ;
 
 // NB compile.c makes sure that the default except clause is last
+// canon: except* handles exception groups, as Python 3.11 allows (PEP 654), and several exception
+// types may go without parentheses when there is no as, as Python 3.14 allows (PEP 758).
 except_clause
-    : 'except' (test ('as' name)?)?
+    : 'except' '*'? (test ('as' name)? | test (',' test)+)?
     ;
 
 block
@@ -324,26 +355,29 @@ match_stmt
     : 'match' subject_expr ':' NEWLINE INDENT case_block+ DEDENT
     ;
 
+// canon: the subject may be a named expression, and a tuple's items are separated by commas.
 subject_expr
-    : star_named_expression ',' star_named_expressions?
-    | test
+    : star_named_expression ',' (star_named_expression (',' star_named_expression)* ','?)?
+    | namedexpr_test
     ;
 
 star_named_expressions
     : ',' star_named_expression+ ','?
     ;
 
+// canon: an item of a subject tuple may be a named expression.
 star_named_expression
     : '*' expr
-    | test
+    | namedexpr_test
     ;
 
 case_block
     : 'case' patterns guard? ':' block
     ;
 
+// canon: a guard may be a named expression.
 guard
-    : 'if' test
+    : 'if' namedexpr_test
     ;
 
 patterns
@@ -398,14 +432,15 @@ complex_number
     | signed_real_number '-' imaginary_number
     ;
 
+// canon: a number in a pattern may carry a unary plus, as Python 3.15 allows.
 signed_number
     : NUMBER
-    | '-' NUMBER
+    | ('-' | '+') NUMBER
     ;
 
 signed_real_number
     : real_number
-    | '-' real_number
+    | ('-' | '+') real_number
     ;
 
 real_number
@@ -506,6 +541,12 @@ keyword_pattern
     : name '=' pattern
     ;
 
+// canon: a named expression, as Python 3.8 allows (PEP 572), where an expression may stand alone.
+namedexpr_test
+    : name ':=' test
+    | test
+    ;
+
 test
     : or_test ('if' or_test 'else' test)?
     | lambdef
@@ -585,10 +626,17 @@ atom_expr
     : AWAIT? atom trailer*
     ;
 
+// canon: the items of a parenthesized, list, set, or dict display are read in the rule that holds
+// their brackets, which were testlist_comp and dictorsetmaker. A rule ending inside a run of items
+// built a tree for every item it could end after, so a list of n items took time in n squared, and
+// a table of a few thousand numbers took seconds. An item may be a named expression.
 atom
-    : '(' (yield_expr | testlist_comp)? ')'
-    | '[' testlist_comp? ']'
-    | '{' dictorsetmaker? '}'
+    : '(' (yield_expr | (namedexpr_test | star_expr) (comp_for | (',' (namedexpr_test | star_expr))* ','?))? ')'
+    | '[' ((namedexpr_test | star_expr) (comp_for | (',' (namedexpr_test | star_expr))* ','?))? ']'
+    | '{' (
+        (test ':' test | '**' expr) (comp_for | (',' (test ':' test | '**' expr))* ','?)
+        | (namedexpr_test | star_expr) (comp_for | (',' (namedexpr_test | star_expr))* ','?)
+    )? '}'
     | name
     | NUMBER
     | STRING+
@@ -598,28 +646,27 @@ atom
     | 'False'
     ;
 
+// canon: case is a soft keyword too, a name outside a match statement.
 name
     : NAME
     | '_'
     | 'match'
+    | 'case'
     ;
 
-testlist_comp
-    : (test | star_expr) (comp_for | (',' (test | star_expr))* ','?)
-    ;
-
+// canon: the arguments and subscripts of a trailer are read in the rule that holds their brackets,
+// which were arglist and subscriptlist, so a call with many arguments takes time linear in them.
 trailer
-    : '(' arglist? ')'
-    | '[' subscriptlist ']'
+    : '(' (argument (',' argument)* ','?)? ')'
+    | '[' subscript_ (',' subscript_)* ','? ']'
     | '.' name
     ;
 
-subscriptlist
-    : subscript_ (',' subscript_)* ','?
-    ;
-
+// canon: a subscript may be a named expression, as Python 3.10 allows, or starred, as Python 3.11
+// allows (PEP 646).
 subscript_
-    : test
+    : namedexpr_test
+    | star_expr
     | test? ':' test? sliceop?
     ;
 
@@ -635,19 +682,9 @@ testlist
     : test (',' test)* ','?
     ;
 
-dictorsetmaker
-    : (
-        ((test ':' test | '**' expr) (comp_for | (',' (test ':' test | '**' expr))* ','?))
-        | ((test | star_expr) (comp_for | (',' (test | star_expr))* ','?))
-    )
-    ;
-
+// canon: a class may declare type parameters, as Python 3.12 allows (PEP 695).
 classdef
-    : 'class' name ('(' arglist? ')')? ':' block
-    ;
-
-arglist
-    : argument (',' argument)* ','?
+    : 'class' name type_params? ('(' (argument (',' argument)* ','?)? ')')? ':' block
     ;
 
 // The reason that keywords are test nodes instead of NAME is that using NAME
@@ -659,8 +696,9 @@ arglist
 // Illegal combinations and orderings are blocked in ast.c:
 // multiple (test comp_for) arguments are blocked; keyword unpackings
 // that precede iterable unpackings are blocked; etc.
+// canon: an argument may be a named expression.
 argument
-    : (test comp_for? | test '=' test | '**' test | '*' test)
+    : (namedexpr_test comp_for? | test '=' test | '**' test | '*' test)
     ;
 
 comp_iter
@@ -685,9 +723,10 @@ yield_expr
     : 'yield' yield_arg?
     ;
 
+// canon: a yielded tuple may hold starred items, as Python 3.8 allows.
 yield_arg
     : 'from' test
-    | testlist
+    | testlist_star_expr
     ;
 
 strings
