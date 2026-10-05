@@ -1,0 +1,39 @@
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest:
+  digest: sha256:87f921a437f5387d
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/dialectProfile:
+  digest: sha256:e29f0ed4c36decb2
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/extractSample:
+  digest: sha256:363821bd67eeca73
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/extractText:
+  digest: sha256:7fc8e9be1b607606
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinDialectBindsKDocToDeclarationsRequiresItOnPublicApiAndReportsMisplacedKDoc:
+  digest: sha256:7317049ecb269cd2
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinDialectParsesEveryFileOfTheTurbineSampleWithItsKDocComments:
+  digest: sha256:6e4f521db34da43c
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinGrammarAndProfileParseEveryFileOfTheTurbineSample:
+  digest: sha256:cf347b81db2e268c
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinProfileBindsKDocCommentsAndRecognisesTestsByAnnotationAndSourceSet:
+  digest: sha256:3a54f29ebfb0b2bf
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/sampleFiles:
+  digest: sha256:3cb0f12a664beddf
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/sampleProfile:
+  digest: sha256:ebdb3d1f636a135d
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/unitsOf:
+  digest: sha256:1757a57bab523507
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/whysOf:
+  digest: sha256:340b0cf28002377d
+  verdict: pending

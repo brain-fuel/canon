@@ -1,0 +1,6 @@
+registry/MIT:
+  digest: sha256:ed6c0abb656b1c69
+  verdict: pending
+registry/spock-genesis-upstream:
+  digest: sha256:02fd722632171b2e
+  verdict: pending

@@ -1,0 +1,27 @@
+decision/haskell/test/Canon/Extract/CalmTest.hs/module/Canon.Extract.CalmTest:
+  digest: sha256:21aab7caf7a7bf0b
+  verdict: pending
+decision/haskell/test/Canon/Extract/CalmTest.hs/module/Canon.Extract.CalmTest/function/calmInterpreter:
+  digest: sha256:bf0d10046774873b
+  verdict: pending
+decision/haskell/test/Canon/Extract/CalmTest.hs/module/Canon.Extract.CalmTest/function/calmProfile:
+  digest: sha256:8a168fca8898ccb5
+  verdict: pending
+decision/haskell/test/Canon/Extract/CalmTest.hs/module/Canon.Extract.CalmTest/function/description:
+  digest: sha256:a5b71b9f34994327
+  verdict: pending
+decision/haskell/test/Canon/Extract/CalmTest.hs/module/Canon.Extract.CalmTest/function/extractCalm:
+  digest: sha256:f25e89850d455353
+  verdict: pending
+decision/haskell/test/Canon/Extract/CalmTest.hs/module/Canon.Extract.CalmTest/function/jsonGrammar:
+  digest: sha256:fb55e941c7ea7c0e
+  verdict: pending
+decision/haskell/test/Canon/Extract/CalmTest.hs/module/Canon.Extract.CalmTest/function/prop_aCalmDescriptionWithADanglingReferenceOrARepeatedIdIsRefused:
+  digest: sha256:b473caa101325619
+  verdict: pending
+decision/haskell/test/Canon/Extract/CalmTest.hs/module/Canon.Extract.CalmTest/function/prop_aCalmDescriptionYieldsItsNodesRelationshipsAndFlowsWithTheirDescriptionsAsWhys:
+  digest: sha256:9efccfe7dfcdb482
+  verdict: pending
+decision/haskell/test/Canon/Extract/CalmTest.hs/module/Canon.Extract.CalmTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

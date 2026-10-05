@@ -1,0 +1,18 @@
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest:
+  digest: sha256:7804868a5fc87c1f
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_elixirGrammarParsesTheJasonSampleIntoItsDefinitionsAndTests:
+  digest: sha256:0453f748aa632bac
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_elixirLexerKeepsInterpolationsHeredocsAndSigilsWhole:
+  digest: sha256:1314d5fd763fe0e2
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_elixirProfileBindsDocAttributesMergesClausesAndRecognisesTests:
+  digest: sha256:307b7df36528b5c7
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/sampleProfile:
+  digest: sha256:cc309765fae57eec
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

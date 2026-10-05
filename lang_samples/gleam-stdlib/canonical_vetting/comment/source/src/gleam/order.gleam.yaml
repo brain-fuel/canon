@@ -1,0 +1,30 @@
+decision/gleam/source/src/gleam/order.gleam/function/break_tie:
+  digest: sha256:d7afabe7227010e3
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/compare:
+  digest: sha256:c47177e4d2143c43
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/lazy_break_tie:
+  digest: sha256:553f3439ac72325a
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/negate:
+  digest: sha256:481b529a3a8f19c5
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/reverse:
+  digest: sha256:4da5437bb1c3e050
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/function/to_int:
+  digest: sha256:aabb2e893dd70e39
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/type/Order:
+  digest: sha256:3abf43a05e66d58f
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/type/Order/constructor/Eq:
+  digest: sha256:374c25297421fa0e
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/type/Order/constructor/Gt:
+  digest: sha256:1fbcaddaa36260ff
+  verdict: pending
+decision/gleam/source/src/gleam/order.gleam/type/Order/constructor/Lt:
+  digest: sha256:bd0508c4dbcec4b8
+  verdict: pending

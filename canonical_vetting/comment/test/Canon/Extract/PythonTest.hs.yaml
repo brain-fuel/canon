@@ -1,0 +1,36 @@
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest:
+  digest: sha256:eab15eb2e9479711
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/dialectProfile:
+  digest: sha256:b7301d4f6b1470a9
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/extractSample:
+  digest: sha256:a0fa2b36f3590f7b
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/extractWith:
+  digest: sha256:42e7b996ad8bc84f
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonDialectBindsDocstringsThatOpenABodyAndRequiresThemOnPublicNames:
+  digest: sha256:97ebe00bbefb4729
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonDialectParsesEveryFileOfTheItsdangerousSampleWithItsDocstrings:
+  digest: sha256:28a13798d1eb9222
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonGrammarAndProfileParseEveryFileOfTheItsdangerousSampleIntoItsDefinitions:
+  digest: sha256:9bc8fb9ebba12b06
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonProfileBindsDocstringsToDefinitionsAndRecognisesTests:
+  digest: sha256:6b34fa6e7917a5dd
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/sampleProfile:
+  digest: sha256:32ac071ee6156697
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/sampleSourceDirs:
+  digest: sha256:a50b0dcb6d134e07
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/unitsBelowFile:
+  digest: sha256:fca424dc34a1ed7f
+  verdict: pending

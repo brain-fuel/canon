@@ -1,0 +1,57 @@
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any:
+  digest: sha256:aab99cc7e0aa713c
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/class/DescribedAs:
+  digest: sha256:0f83433545a37a91
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/class/False:
+  digest: sha256:7fe22e03e353c433
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/class/Not:
+  digest: sha256:b795e7aefed554ec
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/class/StrictEqual:
+  digest: sha256:f62a4841a671561c
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/class/True:
+  digest: sha256:03e09cd1ddc107c4
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/class/Xor:
+  digest: sha256:200eeb96823c515b
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/object/DescribedAs/given/(C1-==>DescribedAs[C2,V])":
+  digest: sha256:da838db666702ccb
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/object/DescribedAs/given/(DescribedAs[C1,V]==>C2)":
+  digest: sha256:f893e92a15af28e7
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/object/False/given/(False-==>Not[True])":
+  digest: sha256:a9047cb680d98849
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/object/Not/given/(C1-==>Not[Not[C2]])":
+  digest: sha256:1071824e503917ff
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/object/Not/given/(Not[Not[C1]]==>C2)":
+  digest: sha256:9285d6ddbb024eae
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/object/True/given/(True-==>Not[False])":
+  digest: sha256:2073d1918aa22312
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/object/Xor/given/(Xor[C1,C2]==>Xor[C2,C1])":
+  digest: sha256:aa5b5226a97a43d0
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/object/Xor/given/left:
+  digest: sha256:896350b6c8ac0788
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/object/Xor/given/right:
+  digest: sha256:09592fb75b2b6178
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/type/!":
+  digest: sha256:3e205e33f55c1958
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/type/In:
+  digest: sha256:d5e7606fb04a3b37
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/any.scala/object/any/type/Pure:
+  digest: sha256:5043ba8b4fb5144e
+  verdict: pending

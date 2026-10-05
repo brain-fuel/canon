@@ -1,0 +1,9 @@
+decision/csharp/source/src/GuardClauses/GuardAgainstExpressionExtensionsDeprecated.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/AgainstExpression:
+  digest: sha256:1d64761f167aee9a
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstExpressionExtensionsDeprecated.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/AgainstExpression#2:
+  digest: sha256:020ef86b69298b64
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstExpressionExtensionsDeprecated.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/AgainstExpressionAsync:
+  digest: sha256:1d64761f167aee9a
+  verdict: pending

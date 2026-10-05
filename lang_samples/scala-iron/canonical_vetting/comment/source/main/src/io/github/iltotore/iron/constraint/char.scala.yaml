@@ -1,0 +1,18 @@
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/char.scala/object/char/class/Digit:
+  digest: sha256:7a4d4b663f9fe176
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/char.scala/object/char/class/Letter:
+  digest: sha256:99757d42fde125c1
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/char.scala/object/char/class/LowerCase:
+  digest: sha256:c8f3d1eb7c2c2d89
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/char.scala/object/char/class/UpperCase:
+  digest: sha256:09eaaa0d5ca5863f
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/char.scala/object/char/class/Whitespace:
+  digest: sha256:cb36d56187e5a5ed
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/constraint/char.scala/object/char/type/Special:
+  digest: sha256:1a032587f50327a2
+  verdict: pending

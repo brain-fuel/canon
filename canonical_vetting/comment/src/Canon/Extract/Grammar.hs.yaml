@@ -19,11 +19,17 @@ decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/data/
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/alternativePlans:
   digest: sha256:a2a0ef4da0423181
   verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/commentBody:
+  digest: sha256:4995cbf38d9d1617
+  verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/exportLabelsDeclared:
   digest: sha256:0f00964697a8628a
   verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/exportRequires:
   digest: sha256:71f2f1644debb907
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/extractDecisionsFor:
+  digest: sha256:17dbfceb20a1db1c
   verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/extractWithProfile:
   digest: sha256:d5b1da8d6db5028f
@@ -33,6 +39,9 @@ decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/funct
   verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/loadProfileInterpreter:
   digest: sha256:6a657817966424a3
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/mergeUnits:
+  digest: sha256:6de3a07d8685fe63
   verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/parseExportEntry:
   digest: sha256:663d514499d453c8

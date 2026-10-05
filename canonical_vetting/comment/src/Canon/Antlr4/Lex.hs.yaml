@@ -22,6 +22,9 @@ decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/SomeHooks:
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/buildLexerTable:
   digest: sha256:b7ee0a793681e98b
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/concatMatches:
+  digest: sha256:fec212af2e16001d
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/noHooks:
   digest: sha256:95a9ebea08e73d66
   verdict: pending
@@ -36,4 +39,7 @@ decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/tokeni
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/tokenizeWith:
   digest: sha256:53ac0f2bfe878171
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/withSuffix:
+  digest: sha256:6f7f76da54ae901d
   verdict: pending

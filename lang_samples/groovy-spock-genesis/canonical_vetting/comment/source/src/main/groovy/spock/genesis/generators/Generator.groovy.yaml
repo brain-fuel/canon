@@ -1,0 +1,15 @@
+decision/groovy/source/src/main/groovy/spock/genesis/generators/Generator.groovy/class/Generator:
+  digest: sha256:f7c2af57c9f5e297
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/generators/Generator.groovy/class/Generator/method/filter:
+  digest: sha256:79ccdb61d602b8ec
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/generators/Generator.groovy/class/Generator/method/isFinite:
+  digest: sha256:56563f9fbf8fb407
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/generators/Generator.groovy/class/Generator/method/seed:
+  digest: sha256:010a966f99305c7d
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/generators/Generator.groovy/class/Generator/method/withNulls:
+  digest: sha256:13cef7f60b3f9d52
+  verdict: pending

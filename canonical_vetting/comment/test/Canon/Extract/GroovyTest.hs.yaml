@@ -1,0 +1,39 @@
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest:
+  digest: sha256:01f94d6b83a1356e
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/declarationCounts:
+  digest: sha256:11b5a6df1bbfb6c9
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/dialectProfile:
+  digest: sha256:900109bab3998bba
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/extractDialect:
+  digest: sha256:4764aac0372e37d8
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyDialectBindsGroovydocToDeclarationsAndReportsMisplacedOnes:
+  digest: sha256:20d337d9bfa493bf
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyDialectParsesTheSpockGenesisSampleWithItsGroovydoc:
+  digest: sha256:3fa1f6e5bf493468
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyGrammarParsesTheSpockGenesisSampleIntoItsDeclarations:
+  digest: sha256:e3db52aca1d51b5a
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyLexerTellsSlashyStringsFromDivisionAndReadsGStrings:
+  digest: sha256:aa31e647e59f9506
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyParserAnswersThePredicatesOfItsBaseClass:
+  digest: sha256:c85a90ca212502ad
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyProfileBindsGroovydocAboveAnnotationsRequiresItOnPublicDeclarationsAndRecognisesTests:
+  digest: sha256:7df4165cfadccf48
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/sampleFiles:
+  digest: sha256:2b4cd36a969c894a
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/sampleProfile:
+  digest: sha256:0ac11abfc56b3acb
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

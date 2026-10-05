@@ -1,0 +1,42 @@
+decision/python/source/src/itsdangerous/signer.py/class/HMACAlgorithm:
+  digest: sha256:dd24a091f6a69b1d
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/NoneAlgorithm:
+  digest: sha256:632b44be7d03c983
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/Signer:
+  digest: sha256:a7ff95f869dd5eb6
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/Signer/function/derive_key:
+  digest: sha256:57dea2d103a351ed
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/Signer/function/get_signature:
+  digest: sha256:5a128b26edf185e5
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/Signer/function/secret_key:
+  digest: sha256:09e4abc1d1ef0eab
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/Signer/function/sign:
+  digest: sha256:dd2944f9483b1aeb
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/Signer/function/unsign:
+  digest: sha256:c371b8a76eb87fcd
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/Signer/function/validate:
+  digest: sha256:eeb6cb3bc2ad34ad
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/Signer/function/verify_signature:
+  digest: sha256:5da50be9da3380a9
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/SigningAlgorithm:
+  digest: sha256:ffabf2dd8bc51c0a
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/SigningAlgorithm/function/get_signature:
+  digest: sha256:1f772d248696bb41
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/class/SigningAlgorithm/function/verify_signature:
+  digest: sha256:bb3518d5aa30dda1
+  verdict: pending
+decision/python/source/src/itsdangerous/signer.py/function/_lazy_sha1:
+  digest: sha256:b1beed32ee13125d
+  verdict: pending

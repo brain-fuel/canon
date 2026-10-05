@@ -4,6 +4,12 @@ decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/data/HaskellLayout:
   digest: sha256:c063a4732d392618
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/closeDelimited:
+  digest: sha256:3a88c9274b0cd8f5
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/closeToIndent:
+  digest: sha256:b32ed2fa8b9fb2ce
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/haskellLayoutHooks:
   digest: sha256:fbe26fb2fdc28d26
   verdict: pending

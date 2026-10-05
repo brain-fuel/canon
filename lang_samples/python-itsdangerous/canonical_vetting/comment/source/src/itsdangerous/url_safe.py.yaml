@@ -1,0 +1,9 @@
+decision/python/source/src/itsdangerous/url_safe.py/class/URLSafeSerializer:
+  digest: sha256:c3ea197af60aac54
+  verdict: pending
+decision/python/source/src/itsdangerous/url_safe.py/class/URLSafeSerializerMixin:
+  digest: sha256:a3815fc96881b80d
+  verdict: pending
+decision/python/source/src/itsdangerous/url_safe.py/class/URLSafeTimedSerializer:
+  digest: sha256:ee26a2b197956444
+  verdict: pending

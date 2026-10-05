@@ -1,0 +1,9 @@
+decision/csharp/source/src/GuardClauses/Exceptions/NotFoundException.cs/namespace/Ardalis.GuardClauses/class/NotFoundException:
+  digest: sha256:4954634fcc9dc9b7
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Exceptions/NotFoundException.cs/namespace/Ardalis.GuardClauses/class/NotFoundException/constructor/NotFoundException:
+  digest: sha256:59dd6a4b818441c9
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Exceptions/NotFoundException.cs/namespace/Ardalis.GuardClauses/class/NotFoundException/constructor/NotFoundException#2:
+  digest: sha256:b744daf51b3523a9
+  verdict: pending

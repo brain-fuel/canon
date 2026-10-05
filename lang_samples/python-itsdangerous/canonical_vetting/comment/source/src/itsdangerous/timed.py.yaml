@@ -1,0 +1,24 @@
+decision/python/source/src/itsdangerous/timed.py/class/TimedSerializer:
+  digest: sha256:13a5b62841daad5c
+  verdict: pending
+decision/python/source/src/itsdangerous/timed.py/class/TimedSerializer/function/loads:
+  digest: sha256:f020ea6772fae643
+  verdict: pending
+decision/python/source/src/itsdangerous/timed.py/class/TimestampSigner:
+  digest: sha256:e55935acd72e5e2d
+  verdict: pending
+decision/python/source/src/itsdangerous/timed.py/class/TimestampSigner/function/get_timestamp:
+  digest: sha256:84d899553fc2406c
+  verdict: pending
+decision/python/source/src/itsdangerous/timed.py/class/TimestampSigner/function/sign:
+  digest: sha256:1696bf421be802d9
+  verdict: pending
+decision/python/source/src/itsdangerous/timed.py/class/TimestampSigner/function/timestamp_to_datetime:
+  digest: sha256:da589a528dabdfa5
+  verdict: pending
+decision/python/source/src/itsdangerous/timed.py/class/TimestampSigner/function/unsign#3:
+  digest: sha256:fc2ba158cde46df4
+  verdict: pending
+decision/python/source/src/itsdangerous/timed.py/class/TimestampSigner/function/validate:
+  digest: sha256:eeb6cb3bc2ad34ad
+  verdict: pending

@@ -1,0 +1,45 @@
+decision/rust/source/src/lib.rs:
+  digest: sha256:e34e14b3d2200904
+  verdict: pending
+decision/rust/source/src/lib.rs/enum/Always:
+  digest: sha256:23207615d495904f
+  verdict: pending
+decision/rust/source/src/lib.rs/enum/OnSuccess:
+  digest: sha256:c97815219adc76fe
+  verdict: pending
+decision/rust/source/src/lib.rs/enum/OnUnwind:
+  digest: sha256:c178ff8582a9a9ee
+  verdict: pending
+decision/rust/source/src/lib.rs/function/guard:
+  digest: sha256:ae65c9201dfda508
+  verdict: pending
+decision/rust/source/src/lib.rs/function/guard_on_success:
+  digest: sha256:72ed3bd611a0013a
+  verdict: pending
+decision/rust/source/src/lib.rs/function/guard_on_unwind:
+  digest: sha256:d9d6bb3753e4e8ca
+  verdict: pending
+"decision/rust/source/src/lib.rs/impl/ScopeGuard<T,F,S>/function/into_inner":
+  digest: sha256:8717face5bdee2bc
+  verdict: pending
+"decision/rust/source/src/lib.rs/impl/ScopeGuard<T,F,S>/function/with_strategy":
+  digest: sha256:11d699fad3380211
+  verdict: pending
+decision/rust/source/src/lib.rs/macro/defer:
+  digest: sha256:cc96b347501e1fbe
+  verdict: pending
+decision/rust/source/src/lib.rs/macro/defer_on_success:
+  digest: sha256:2c687207a36c74b8
+  verdict: pending
+decision/rust/source/src/lib.rs/macro/defer_on_unwind:
+  digest: sha256:9253fbcde532d5ed
+  verdict: pending
+decision/rust/source/src/lib.rs/struct/ScopeGuard:
+  digest: sha256:ded7c7b8c0f4eae3
+  verdict: pending
+decision/rust/source/src/lib.rs/trait/Strategy:
+  digest: sha256:a609157e6f557b7a
+  verdict: pending
+decision/rust/source/src/lib.rs/trait/Strategy/function/should_run:
+  digest: sha256:b687e1991f6eba29
+  verdict: pending

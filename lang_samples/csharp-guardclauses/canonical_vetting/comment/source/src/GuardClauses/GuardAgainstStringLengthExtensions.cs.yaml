@@ -1,0 +1,9 @@
+decision/csharp/source/src/GuardClauses/GuardAgainstStringLengthExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions:
+  digest: sha256:19c36424a0a68603
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstStringLengthExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/StringTooLong:
+  digest: sha256:898d830cfae65567
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstStringLengthExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/StringTooShort:
+  digest: sha256:d090e752c498c123
+  verdict: pending

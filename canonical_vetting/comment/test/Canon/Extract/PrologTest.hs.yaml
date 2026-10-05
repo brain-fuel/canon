@@ -1,0 +1,33 @@
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest:
+  digest: sha256:b35824410821830e
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/dialectProfile:
+  digest: sha256:84b1d880042ad38f
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/extractSample:
+  digest: sha256:132d54208d296b26
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/extractThrough:
+  digest: sha256:f05f3abcd70ba34e
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/prop_thePrologDialectBindsPlDocCommentsToPredicatesAndReportsMisplacedOnes:
+  digest: sha256:a1343947fe331c35
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/prop_thePrologDialectParsesTheMarelleSampleIntoItsPredicates:
+  digest: sha256:fa6579b1af6230b6
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/prop_thePrologProfileParsesEveryFileOfTheMarelleSampleIntoItsClauses:
+  digest: sha256:f943c960b8726a03
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/sampleFiles:
+  digest: sha256:83affa96e2ead61e
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/sampleProfile:
+  digest: sha256:3461ccd269a2e18b
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/unitsBelowFile:
+  digest: sha256:c4c03c8c8554df69
+  verdict: pending

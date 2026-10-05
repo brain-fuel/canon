@@ -104,7 +104,7 @@ profileExtraction = withTests 1 $ property $ do
 
 -- | git refuses to blame a file with no lines, so a file with no text, such as an empty Python
 -- __init__.py, must not be blamed, or every such file is reported as git being unavailable.
--- ref:DEC-git-runner
+-- ref:REQ-python-support ref:DEC-git-runner
 prop_anEmptyFileIsNotBlamedAndRaisesNoGitFinding :: Property
 prop_anEmptyFileIsNotBlamedAndRaisesNoGitFinding = withTests 1 $ property $ do
   let refusing = (staticGitProvider []) {blameOf = \_ _ -> pure (Left (GitFailed 128 "fatal: file has only 0 lines"))}

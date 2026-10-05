@@ -1,0 +1,24 @@
+decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go:
+  digest: sha256:7abeb474286cb0f7
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/data/GoState:
+  digest: sha256:5357dd12108fdef3
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/data/Held:
+  digest: sha256:b66ab49c7aa14198
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/function/blankAfter:
+  digest: sha256:91844515c646dc75
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/function/goLexerHooks:
+  digest: sha256:8f1e7088b5e7bb53
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/function/onPredicate:
+  digest: sha256:b1531abaca881c5f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/function/release:
+  digest: sha256:0443ea0e35b25715
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/function/track:
+  digest: sha256:f3b34d79946c6d49
+  verdict: pending

@@ -1,0 +1,48 @@
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest:
+  digest: sha256:512a8ca5470c9486
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/dialectProfile:
+  digest: sha256:5434b16b145ba647
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/extractDialect:
+  digest: sha256:c13a4ca65800b945
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/extractFixture:
+  digest: sha256:87d8f31edc88d2ab
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength:
+  digest: sha256:89cb23517ef33824
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_anInterfaceMemberNeedsACommentAsTheInterfaceDoesUnlessItIsPrivateOrInternal:
+  digest: sha256:a7aa30b4c259c8fb
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_csharpGrammarParsesTheGuardClausesSampleIntoItsMembers:
+  digest: sha256:e10334b3ccda2f8f
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_csharpLexerReadsInterpolatedVerbatimAndRawStringsAndOneBranchOfEachConditional:
+  digest: sha256:d64392b7783a8f1b
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_csharpProfileBindsXmlDocsRequiresThemOnPublicMembersAndRecognisesTests:
+  digest: sha256:af1ef871c3ceb0ab
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_everyBranchOfAnIfThatSomeBuildCompilesIsRead:
+  digest: sha256:8d84ba1dd9133e54
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_theCSharpDialectBindsXmlDocsToMembersAndReportsMisplacedOnes:
+  digest: sha256:9729881b9fccf1bf
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_theCSharpDialectParsesTheGuardClausesSampleWithItsXmlDocs:
+  digest: sha256:be429ea0ed6d4023
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_theCSharpParserAnswersThePredicatesOfItsBaseClass:
+  digest: sha256:1c79afa3e37eab90
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_theHolesOfAnInterpolatedRawStringAreParsed:
+  digest: sha256:04aaf18637bd139f
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/sampleProfile:
+  digest: sha256:5cca8d38aee60a11
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

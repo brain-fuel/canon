@@ -1,3 +1,42 @@
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer:
+  digest: sha256:ddccdccfa03e3ff8
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/_loads_unsafe_impl:
+  digest: sha256:937dbfb70181eedd
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/dump:
+  digest: sha256:dfe37c08fc9a43be
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/dump_payload:
+  digest: sha256:3f2235bd7f7829ce
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/dumps:
+  digest: sha256:951c38019ccafa52
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/iter_unsigners:
+  digest: sha256:f0adcf7927814849
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/load:
+  digest: sha256:51d0a292dfe6b98e
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/load_payload:
+  digest: sha256:58dc8d594179dca3
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/load_unsafe:
+  digest: sha256:227fac4bdb754b10
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/loads:
+  digest: sha256:35035b9a776442d4
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/loads_unsafe:
+  digest: sha256:fb0d1e8611b8aca8
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/make_signer:
+  digest: sha256:9871d98b0f18dad3
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/class/Serializer/function/secret_key:
+  digest: sha256:09e4abc1d1ef0eab
+  verdict: pending
 decision/python/source/src/itsdangerous/serializer.py/class/_PDataSerializer/function/dumps:
   digest: sha256:61d867535cc46c91
   verdict: pending

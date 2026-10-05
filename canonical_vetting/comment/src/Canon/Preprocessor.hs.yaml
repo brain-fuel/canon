@@ -1,0 +1,57 @@
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor:
+  digest: sha256:6a55a55cc7d643b9
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/data/Condition:
+  digest: sha256:84f4de85b2165dc3
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/data/Directive:
+  digest: sha256:396cad2723140b34
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/assignments:
+  digest: sha256:89e9b68273221c01
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/builds:
+  digest: sha256:3f18492bca1a1a9d
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/conditionTokens:
+  digest: sha256:2b84fb72cf088827
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/directiveOf:
+  digest: sha256:ddeee9c494c25b7f
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/evaluate:
+  digest: sha256:a713212c2a7032be
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/inactiveLines:
+  digest: sha256:04395c247ad03eb4
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/inactiveLinesWith:
+  digest: sha256:f2370b49e10dcba0
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/parseCondition:
+  digest: sha256:0338a9fd4c20b538
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/reading:
+  digest: sha256:8cef39a97857bded
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/satisfiable:
+  digest: sha256:9ef388d0b033f63a
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/stepBranches:
+  digest: sha256:296f07c9ec115fb1
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/stepBranchesWith:
+  digest: sha256:28edf84533215181
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/symbolsOf:
+  digest: sha256:ae5113402049763e
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/walkBranches:
+  digest: sha256:6e9dd067a83f6f07
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/type/Branches:
+  digest: sha256:9f44a108e220bf32
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/type/Choice:
+  digest: sha256:5dd1ce7a6a5dab00
+  verdict: pending

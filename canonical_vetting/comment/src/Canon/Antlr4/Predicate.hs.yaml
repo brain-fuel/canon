@@ -1,0 +1,24 @@
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate:
+  digest: sha256:a61b35df3b90e0f8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/csharpPredicates:
+  digest: sha256:2377e5ee9e6ece72
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/goPredicates:
+  digest: sha256:4ba94a14de4a8899
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/javaScriptPredicates:
+  digest: sha256:1351608250e1fbfd
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/negated:
+  digest: sha256:20724442f33319c1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/predicateHookFor:
+  digest: sha256:154d993a59a379c4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/pythonPredicates:
+  digest: sha256:3d7967fc194beb2a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/scalaPredicates:
+  digest: sha256:f16e04624bbc8448
+  verdict: pending

@@ -1,0 +1,42 @@
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest:
+  digest: sha256:78269b1018bc614d
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/dialectProfile:
+  digest: sha256:6ce42a4f5b199071
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/extractDialect:
+  digest: sha256:a8ecc7a0f2831d66
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/extractFixture:
+  digest: sha256:35cb1cf05571bf9b
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType:
+  digest: sha256:ebe8d4c21e756093
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_anEmptyRustLineCommentEndsAtItsLineAndHidesNoCode:
+  digest: sha256:83417fe2a800aa35
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustGrammarParsesTheScopeguardSampleIntoItsItems:
+  digest: sha256:3945a07b8ee2affa
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustLexerTellsRangesMethodCallsTupleIndicesAndEscapesApart:
+  digest: sha256:f3f74745e9ea40d3
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustProfileBindsDocCommentsAcrossAttributesAndRecognisesTests:
+  digest: sha256:732ccea7b2f885e3
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustProfileRequiresCommentsOnWhatIsVisibleOutsideTheCrate:
+  digest: sha256:22435011ad64edbd
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_theRustDialectBindsOuterAndInnerDocCommentsAndReportsMisplacedOnes:
+  digest: sha256:d2e70be3d3184945
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_theRustDialectParsesTheScopeguardSampleWithItsDocComments:
+  digest: sha256:2f8a51e7656622c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/sampleProfile:
+  digest: sha256:ec37d8eda1a1e59d
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

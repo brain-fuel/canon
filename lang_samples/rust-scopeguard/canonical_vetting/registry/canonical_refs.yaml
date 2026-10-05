@@ -1,0 +1,9 @@
+registry/Apache-2.0:
+  digest: sha256:f42cc8899f7d45b9
+  verdict: pending
+registry/MIT:
+  digest: sha256:ed6c0abb656b1c69
+  verdict: pending
+registry/scopeguard-upstream:
+  digest: sha256:cfcde785566c8b33
+  verdict: pending

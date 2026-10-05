@@ -1,0 +1,21 @@
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest:
+  digest: sha256:2b3bfdc2324d7c37
+  verdict: pending
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/dialectProfile:
+  digest: sha256:ce19f7d121bf858e
+  verdict: pending
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/extractDialect:
+  digest: sha256:bd4b232dcc47b2cc
+  verdict: pending
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/prop_theFolioDialectBindsFrontMatterToThePageAndReportsMisplacedFrontMatter:
+  digest: sha256:ba4648022571e085
+  verdict: pending
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/prop_theFolioDialectReadsCanonsPagesIntoADocUnitAndItsSections:
+  digest: sha256:ab9faacb685c5584
+  verdict: pending
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/whysOf:
+  digest: sha256:2987965d3aad9ff1
+  verdict: pending

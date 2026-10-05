@@ -1,0 +1,15 @@
+decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp:
+  digest: sha256:4a336b07384f2ce9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/data/CSharpLexerState:
+  digest: sha256:a4eb6de7aee983f9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/data/Hole:
+  digest: sha256:14a8500d0ab7fa81
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/function/csharpLexerHooks:
+  digest: sha256:2d62444a1511ea9f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/function/runDirective:
+  digest: sha256:dbaa60eff3278f6e
+  verdict: pending

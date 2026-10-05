@@ -1,0 +1,102 @@
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen:
+  digest: sha256:46f32dfeeca66113
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/any:
+  digest: sha256:a71ec383ea8097f5
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/any#2:
+  digest: sha256:af0b62b8a84c595f
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/character:
+  digest: sha256:353972d88e992a00
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/cycle:
+  digest: sha256:3782a2a6cef2e1d8
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/date:
+  digest: sha256:1d2f780b9d45f51c
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/getBytes:
+  digest: sha256:0b6917b56f96dbd1
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/getCharacter:
+  digest: sha256:a0e5e3f97ce8ce8b
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/getDate:
+  digest: sha256:d5b92345793894a1
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/getDouble:
+  digest: sha256:251da653d5d91bbb
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/getInteger:
+  digest: sha256:2b393fa8f61a1725
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/getLong:
+  digest: sha256:989b7207d0586b52
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/getString:
+  digest: sha256:7c799c0c5e986e85
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/integer:
+  digest: sha256:a5a9ba232d6ae1a3
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/integer#2:
+  digest: sha256:21d978ee1840ecc2
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/list:
+  digest: sha256:b579246f2a4de918
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/list#2:
+  digest: sha256:31b285995f765ea9
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/list#3:
+  digest: sha256:26a817c80f125dab
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/map:
+  digest: sha256:c6343ed53d8ace6e
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/map#2:
+  digest: sha256:84cf0df989907fd7
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/once:
+  digest: sha256:6bce67108b15dcdf
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/string:
+  digest: sha256:d89f694c9c5e79bd
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/string#2:
+  digest: sha256:6010c5f17eda7b88
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/string#3:
+  digest: sha256:0db635104a1de2d7
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/string#4:
+  digest: sha256:95a9bd684ea0a43e
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/these:
+  digest: sha256:cd4cc25307471794
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/these#2:
+  digest: sha256:74c28fe0c388f6f5
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/these#3:
+  digest: sha256:4348a6703d5db4c8
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/these#4:
+  digest: sha256:1e48625f83904ffe
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/tuple:
+  digest: sha256:3dc2d8175a71f42f
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/type:
+  digest: sha256:d4743053555d7a8e
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/type#2:
+  digest: sha256:c251c3821af1046e
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/using:
+  digest: sha256:697fdfacdb7bbaad
+  verdict: pending
+decision/groovy/source/src/main/groovy/spock/genesis/Gen.groovy/class/Gen/method/value:
+  digest: sha256:6f2842679e575188
+  verdict: pending

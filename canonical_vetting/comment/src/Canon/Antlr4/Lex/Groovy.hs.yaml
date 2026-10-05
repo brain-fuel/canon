@@ -1,0 +1,30 @@
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy:
+  digest: sha256:fbcbaec9de384c92
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/data/GroovyLexerState:
+  digest: sha256:e46214d481c79916
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/groovyLexerHooks:
+  digest: sha256:bd7ecfe3cfb1606f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/ignorable:
+  digest: sha256:d63ad8016770163b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/javaIdentifierPart:
+  digest: sha256:5ede4440cc22f5f1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/javaIdentifierStart:
+  digest: sha256:0e898abb08e73d0a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/onAction:
+  digest: sha256:1db1fcf4adfa2260
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/onEmit:
+  digest: sha256:f1ee7db2d041c132
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/onPredicate:
+  digest: sha256:fbef58474d4adc32
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/regexAllowed:
+  digest: sha256:bea521b9bc11ea9e
+  verdict: pending

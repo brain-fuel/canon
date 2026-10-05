@@ -1,0 +1,36 @@
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest:
+  digest: sha256:081d098f68e97d43
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/dialectProfile:
+  digest: sha256:29f153910f1b7494
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/extractSample:
+  digest: sha256:6b6882c7980181d4
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/extractText:
+  digest: sha256:000e18c8b5b36dbe
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theTypeScriptDialectBindsTsDocToDeclarationsAndMembersAndReportsMisplacedOnes:
+  digest: sha256:3fc367699b410a67
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theTypeScriptDialectParsesTheKySampleWithItsDocComments:
+  digest: sha256:3163d2daabedbaf4
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theTypeScriptProfileBindsTsDocToTheDeclarationBelowAndTreatsTestDirectoryUnitsAsTests:
+  digest: sha256:42461d783a91e979
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theTypeScriptProfileParsesEveryFileOfTheKySampleIntoItsUnits:
+  digest: sha256:c5a7828f51b3d244
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/sampleFiles:
+  digest: sha256:a3e59b65c84c7d97
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/sampleProfile:
+  digest: sha256:33800fbe6a8b3c1c
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/unitsOf:
+  digest: sha256:178d8d73884c23f4
+  verdict: pending

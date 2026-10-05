@@ -1,0 +1,9 @@
+decision/csharp/source/src/GuardClauses/Guard.cs/namespace/Ardalis.GuardClauses/class/Guard:
+  digest: sha256:c67674c75c2dc817
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Guard.cs/namespace/Ardalis.GuardClauses/class/Guard/property/Against:
+  digest: sha256:36a20ed59484ef12
+  verdict: pending
+decision/csharp/source/src/GuardClauses/Guard.cs/namespace/Ardalis.GuardClauses/interface/IGuardClause:
+  digest: sha256:bab082937350f46b
+  verdict: pending

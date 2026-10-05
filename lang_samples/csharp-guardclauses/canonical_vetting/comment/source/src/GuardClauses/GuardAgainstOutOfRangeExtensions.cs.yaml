@@ -1,0 +1,30 @@
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/EnumOutOfRange:
+  digest: sha256:f95b02a5c781a1ff
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/EnumOutOfRange#2:
+  digest: sha256:f95b02a5c781a1ff
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/LengthOutOfRange:
+  digest: sha256:d5d911d33c9808ac
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrOutOfRange:
+  digest: sha256:2bce4d5dbada9677
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrOutOfRange#2:
+  digest: sha256:2bce4d5dbada9677
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrOutOfRangeInternal:
+  digest: sha256:05dacd2c3a96f9cb
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrOutOfSQLDateRange:
+  digest: sha256:0ac3dfbb37a05f2d
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/OutOfRange:
+  digest: sha256:e5690f9f015ce5ea
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/OutOfRange#2:
+  digest: sha256:77084518337a6e76
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstOutOfRangeExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/OutOfSQLDateRange:
+  digest: sha256:76bf808577ee3caf
+  verdict: pending

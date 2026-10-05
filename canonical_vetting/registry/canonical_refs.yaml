@@ -4,26 +4,194 @@ registry/BSD-3-Clause:
 registry/MIT:
   digest: sha256:ed6c0abb656b1c69
   verdict: pending
+registry/REQ-calm-ingestion:
+  digest: sha256:94c3a11f5480ade7
+  verdict: pending
+registry/REQ-clojure-support:
+  digest: sha256:eddda45289a62994
+  verdict: pending
+registry/REQ-csharp-support:
+  digest: sha256:7febbb606f3cda98
+  verdict: pending
+registry/REQ-elixir-support:
+  digest: sha256:2782d9b7ab29fa82
+  verdict: pending
+registry/REQ-folio-support:
+  digest: sha256:a008d5d911469c0c
+  verdict: pending
+registry/REQ-fsharp-support:
+  digest: sha256:b82e32ccb9826cfa
+  verdict: pending
+registry/REQ-gleam-support:
+  digest: sha256:c6239728d6b3933f
+  verdict: pending
+registry/REQ-go-support:
+  digest: sha256:01774e3f67833116
+  verdict: pending
+registry/REQ-groovy-support:
+  digest: sha256:1ebbf50591e22a43
+  verdict: pending
+registry/REQ-javascript-support:
+  digest: sha256:e3f75cb1a9a22261
+  verdict: pending
+registry/REQ-kotlin-support:
+  digest: sha256:d298fbeec57e2e78
+  verdict: pending
+registry/REQ-lawspec-parity:
+  digest: sha256:818808f010801263
+  verdict: pending
+registry/REQ-prolog-support:
+  digest: sha256:b46fd8ae18794413
+  verdict: pending
+registry/REQ-python-support:
+  digest: sha256:096f3e9aea5df5af
+  verdict: pending
+registry/REQ-rust-support:
+  digest: sha256:05ff76036ea0effa
+  verdict: pending
+registry/REQ-scala-support:
+  digest: sha256:7f9601143fe39cdb
+  verdict: pending
+registry/REQ-typescript-support:
+  digest: sha256:d7be84846d477430
+  verdict: pending
 registry/antlr-haskell:
   digest: sha256:2b6ed033549bd2f1
+  verdict: pending
+registry/apache-groovy-grammar:
+  digest: sha256:6cef08c0ef75fc98
+  verdict: pending
+registry/calm-1-2:
+  digest: sha256:f51df67c3be0489f
   verdict: pending
 registry/canon-provisional-syntax:
   digest: sha256:7dcc69f6c42c0111
   verdict: pending
+registry/clj-kondo-misplaced-docstring:
+  digest: sha256:6621ce4e554d7d46
+  verdict: pending
+registry/clojure-docstrings:
+  digest: sha256:979ef8a27f4c6110
+  verdict: pending
+registry/clojure-reader:
+  digest: sha256:1246803bfe8a3040
+  verdict: pending
+registry/clojure-special-forms:
+  digest: sha256:6143549de110567a
+  verdict: pending
+registry/csharp-preprocessor-directives:
+  digest: sha256:59698c48b6797c7b
+  verdict: pending
+registry/csharp-raw-string-literals:
+  digest: sha256:6fa9d28fb1a85a39
+  verdict: pending
+registry/csharp-xml-documentation:
+  digest: sha256:60856158f50ff685
+  verdict: pending
 registry/diataxis:
   digest: sha256:10ca97f8ffe93ea6
+  verdict: pending
+registry/elixir-syntax-reference:
+  digest: sha256:23bf5487f6198181
+  verdict: pending
+registry/elixir-writing-documentation:
+  digest: sha256:ae55155a89219e0b
+  verdict: pending
+registry/eslint-jsdoc-require-jsdoc:
+  digest: sha256:3177020462c90fa2
+  verdict: pending
+registry/fsharp-offside-rule:
+  digest: sha256:e1bae2f61cb25a23
+  verdict: pending
+registry/fsharp-signature-files:
+  digest: sha256:75e73da2d636eb9a
+  verdict: pending
+registry/fsharp-xml-documentation:
+  digest: sha256:6c711e1ca7960e35
+  verdict: pending
+registry/gleam-compiler-parser:
+  digest: sha256:79212005b0205b33
+  verdict: pending
+registry/gleam-documentation-comments:
+  digest: sha256:6d52d7a32350983e
+  verdict: pending
+registry/gleam-language-tour:
+  digest: sha256:e694a163877a7ce3
+  verdict: pending
+registry/go-doc-comments:
+  digest: sha256:b15a700d18eda294
   verdict: pending
 registry/grammars-v4:
   digest: sha256:f55b2f8ddcedba30
   verdict: pending
+registry/grammars-v4-csharp:
+  digest: sha256:ae580902736732ba
+  verdict: pending
+registry/grammars-v4-elixir:
+  digest: sha256:0eb0a815e45c723a
+  verdict: pending
+registry/grammars-v4-rust:
+  digest: sha256:4aaaf6600d958f28
+  verdict: pending
+registry/grammars-v4-scala:
+  digest: sha256:9c262d2639452212
+  verdict: pending
 registry/grampa-2017:
   digest: sha256:0990a639309c9f81
+  verdict: pending
+registry/groovydoc:
+  digest: sha256:4f0750ef11ed35c1
+  verdict: pending
+registry/jsdoc:
+  digest: sha256:55af014a59f32fd4
+  verdict: pending
+registry/jsdoc-file-tag:
+  digest: sha256:1a1c5adbb06558ee
+  verdict: pending
+registry/kotlin-coding-conventions:
+  digest: sha256:eb587233a4b79590
+  verdict: pending
+registry/kotlin-explicit-api:
+  digest: sha256:d1cdc77f55620d6b
+  verdict: pending
+registry/kotlin-kdoc:
+  digest: sha256:a3f592fdda1e2795
+  verdict: pending
+registry/pep-257:
+  digest: sha256:f1e899b517a23fd4
+  verdict: pending
+registry/pep-8:
+  digest: sha256:734b49d660bb0c34
+  verdict: pending
+registry/revive-exported:
+  digest: sha256:6bb680eb423f1011
   verdict: pending
 registry/rices-tax:
   digest: sha256:514692452c1b52ca
   verdict: pending
+registry/rust-missing-docs:
+  digest: sha256:24682ad693e3ed1e
+  verdict: pending
+registry/rust-reference-comments:
+  digest: sha256:6a6df382bf4aad23
+  verdict: pending
+registry/scala3-indentation:
+  digest: sha256:a963ddd2d69238ef
+  verdict: pending
+registry/scaladoc:
+  digest: sha256:b75b616c687089fa
+  verdict: pending
 registry/semver-2:
   digest: sha256:7ef7fa24c6809d32
+  verdict: pending
+registry/swi-prolog-pldoc:
+  digest: sha256:9a33a93087bac054
+  verdict: pending
+registry/tsdoc:
+  digest: sha256:5463873a73930df7
+  verdict: pending
+registry/tsdoc-package-documentation:
+  digest: sha256:3e66b451fbe0365c
   verdict: pending
 registry/warth-2008:
   digest: sha256:68507085ad4dcaee

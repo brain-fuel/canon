@@ -1,0 +1,51 @@
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/object/RefinedType/trait/Mirror:
+  digest: sha256:48614bb38ed0fc11
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/object/RefinedType/trait/Mirror/def/ops:
+  digest: sha256:741932814a814ff7
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/object/RefinedType/trait/Mirror/type/BaseType:
+  digest: sha256:913859dd3506016c
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/object/RefinedType/trait/Mirror/type/ConstraintType:
+  digest: sha256:f1fc20ff8e73b0c2
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/object/RefinedType/trait/Mirror/type/FinalType:
+  digest: sha256:21466c4c6d5e5343
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/object/RefinedType/trait/Mirror/type/IronType:
+  digest: sha256:4a7cfa89da7ba696
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined:
+  digest: sha256:82571a1a3fe587fa
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/apply:
+  digest: sha256:e333335958a9bae9
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/applyAllUnsafe:
+  digest: sha256:f4fa6af09d1ac189
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/applyUnsafe:
+  digest: sha256:7e35c757d40f4426
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/assume:
+  digest: sha256:495cf49877100793
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/assumeAll:
+  digest: sha256:03b657e860f0dbe8
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/either:
+  digest: sha256:43e45621f804af39
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/eitherAll:
+  digest: sha256:8d45fc0e94f8d646
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/option:
+  digest: sha256:739f650704a16ad8
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/optionAll:
+  digest: sha256:81428400b48a6c3a
+  verdict: pending
+decision/scala/source/main/src/io/github/iltotore/iron/RefinedType.scala/trait/Refined/def/rtc:
+  digest: sha256:90e9031fb5bccddd
+  verdict: pending

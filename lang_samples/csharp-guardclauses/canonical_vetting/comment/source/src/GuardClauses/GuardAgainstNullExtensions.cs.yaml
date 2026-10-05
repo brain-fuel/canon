@@ -1,0 +1,27 @@
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions:
+  digest: sha256:d7a4818a1517af9a
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Default:
+  digest: sha256:eb3abc787f2b06cd
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Null:
+  digest: sha256:fb8e7f625865ec07
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/Null#2:
+  digest: sha256:caaa481e2afcbdcb
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrEmpty:
+  digest: sha256:98bd2da2945b21fc
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrEmpty#2:
+  digest: sha256:edd84eedb4bd667b
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrEmpty#3:
+  digest: sha256:fce1904ad53f8a4a
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrInvalidInput:
+  digest: sha256:a528b5a239689461
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstNullExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/NullOrWhiteSpace:
+  digest: sha256:dd55b8b20ab884e1
+  verdict: pending

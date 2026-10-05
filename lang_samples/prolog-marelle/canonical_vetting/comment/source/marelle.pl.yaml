@@ -1,0 +1,57 @@
+decision/prolog/source/marelle.pl:
+  digest: sha256:2adb8063f490d61d
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/detect_platform:
+  digest: sha256:135c6026d41ff6cc
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/force_depends:
+  digest: sha256:09f4f3fb7bb82b5f
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/linux_name:
+  digest: sha256:bcb13df86745fb49
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/load_deps:
+  digest: sha256:e3a9b31a31809dcc
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/main#10:
+  digest: sha256:25ad1ea011c9a31b
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/main#8:
+  digest: sha256:c5961540ebed75e3
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/main#9:
+  digest: sha256:feb9c2f6ea2a943d
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/marelle_search_path:
+  digest: sha256:5fbecd07a48568ea
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/package_state:
+  digest: sha256:a6978171827add17
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/platform:
+  digest: sha256:5c2228d99daff39d
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/scan_packages:
+  digest: sha256:787a2a4050c7ed99
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/sh:
+  digest: sha256:1f83ac802cdeba75
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/sh#2:
+  digest: sha256:8cf726c7dda60bb6
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/sh_output:
+  digest: sha256:5a90406d80a32ea0
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/which:
+  digest: sha256:56b55c57a41d51af
+  verdict: pending
+decision/prolog/source/marelle.pl/clause/which#2:
+  digest: sha256:2a3144ddbd2b26d3
+  verdict: pending
+decision/prolog/source/marelle.pl/directive/command_pkg:
+  digest: sha256:c1647f5bda267d35
+  verdict: pending
+decision/prolog/source/marelle.pl/directive/pkg:
+  digest: sha256:0371e09eacc3993f
+  verdict: pending

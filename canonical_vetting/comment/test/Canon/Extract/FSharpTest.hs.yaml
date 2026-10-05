@@ -1,0 +1,51 @@
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest:
+  digest: sha256:cdf29e28cdb10108
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/dialectProfile:
+  digest: sha256:1876d820bb484396
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/extractAt:
+  digest: sha256:2b62762233cf3f55
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/extractDialect:
+  digest: sha256:551daabf9653449e
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_aDocCommentOnALocalLetBindsToIt:
+  digest: sha256:6017bae7b0ed150c
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_aSignatureFileCarriesTheCommentsOfItsImplementation:
+  digest: sha256:728b1581b6d0f115
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_fsharpGrammarParsesTheViewEngineSampleIntoItsDeclarations:
+  digest: sha256:9826e00f1ef6a286
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_fsharpLexerTurnsTheOffsideRuleIntoLayoutTokensOutsideBrackets:
+  digest: sha256:0e04fa6b5f00278c
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_fsharpProfileBindsDocCommentsExemptsPrivateDeclarationsAndRecognisesTests:
+  digest: sha256:314fab547196f8f8
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_fsharpTypeParametersSpanLinesAndMayBeQuoted:
+  digest: sha256:2d0018558866934d
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_theFSharpDialectBindsDocCommentsToDeclarationsAndReportsMisplacedOnes:
+  digest: sha256:5d0ae514ecae9153
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_theFSharpDialectReadsTheViewEngineSampleAsTheProfileDoes:
+  digest: sha256:adb734c17ff69f38
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_theMembersAfterAUnionCaseWithAnAnonymousRecordAreTheUnions:
+  digest: sha256:4036e9aa080497f0
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/sampleProfile:
+  digest: sha256:7e03395797aae06f
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/unitsOf:
+  digest: sha256:f6b0bc735a2de6c6
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/whysOf:
+  digest: sha256:ea34157c468c11a6
+  verdict: pending

@@ -1,6 +1,15 @@
 decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan:
   digest: sha256:1aea37d2356bafac
   verdict: pending
+decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/docAttributeBody:
+  digest: sha256:e794f10d4ab6362d
+  verdict: pending
+decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/docOpenerOf:
+  digest: sha256:8eca52a3442dc99a
+  verdict: pending
 decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/scanCommentsWith:
   digest: sha256:52ff31ee8b39993e
+  verdict: pending
+decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/sigilPrefix:
+  digest: sha256:eda55865cb9cbd2f
   verdict: pending

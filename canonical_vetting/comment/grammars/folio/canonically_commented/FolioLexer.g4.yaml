@@ -1,0 +1,138 @@
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer:
+  digest: sha256:9961dbcaa7d3dce4
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/fragmentRule/DocKey:
+  digest: sha256:b068ab07b97f8fa4
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code3:
+  digest: sha256:2d6056d749e42d8b
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code3/lexerRule/CLOSE3:
+  digest: sha256:7e036ac1eca13cbb
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code3/lexerRule/CODE_LINE:
+  digest: sha256:f3ecbe7a0011d7cc
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code3/lexerRule/CODE_NL:
+  digest: sha256:dd431261675870f2
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code4:
+  digest: sha256:cd1caae0628a76c0
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code4/lexerRule/CLOSE4:
+  digest: sha256:af4d70afd13036da
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code4/lexerRule/CODE4_LINE:
+  digest: sha256:1b68895983091111
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code4/lexerRule/CODE4_NL:
+  digest: sha256:10f755bd3519a78b
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontMatter:
+  digest: sha256:d0b247246d4de8bd
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontMatter/lexerRule/FIELD_ID:
+  digest: sha256:5e268019be0c94c0
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontMatter/lexerRule/FIELD_KIND:
+  digest: sha256:562eb3bece4783c0
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontMatter/lexerRule/FIELD_OTHER:
+  digest: sha256:f57ac63dfa80c9e1
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontMatter/lexerRule/FIELD_TITLE:
+  digest: sha256:e918b6875c80f064
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontMatter/lexerRule/FIELD_VIDEO:
+  digest: sha256:d2eb6c0342767c0c
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontMatter/lexerRule/FRONT_BLANK:
+  digest: sha256:55a9545b64499da1
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontMatter/lexerRule/FRONT_CLOSE:
+  digest: sha256:203013d7c42ec2a3
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontMatter/lexerRule/FRONT_LINE:
+  digest: sha256:104e4f29a03aa63b
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontValue:
+  digest: sha256:2068768f5743ede1
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontValue/lexerRule/FRONT_CODE:
+  digest: sha256:d32d60b472c55da9
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontValue/lexerRule/FRONT_LICENSE:
+  digest: sha256:051fdaf0ca657a83
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontValue/lexerRule/FRONT_PUNCT:
+  digest: sha256:2e8ca5c83a13763f
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontValue/lexerRule/FRONT_REF:
+  digest: sha256:242219a88dc8c008
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontValue/lexerRule/FRONT_VALUE_END:
+  digest: sha256:85fd5056f39216b8
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontValue/lexerRule/FRONT_WORD:
+  digest: sha256:ce274bc1c94b54ce
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/FrontValue/lexerRule/FRONT_WS:
+  digest: sha256:b918bc67a1958c60
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/HeadingLine:
+  digest: sha256:4e3a132eedffc5e9
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/HeadingLine/lexerRule/HEADING_END:
+  digest: sha256:2e9f5519745206e0
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/HeadingLine/lexerRule/HEADING_WS:
+  digest: sha256:71ea9806c140e83a
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/HeadingLine/lexerRule/TITLE_PUNCT:
+  digest: sha256:ef9f3187223fb657
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/HeadingLine/lexerRule/TITLE_WORD:
+  digest: sha256:ba72d1568c5ca829
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/ProseLine:
+  digest: sha256:fb511463bfb9b850
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/ProseLine/lexerRule/DOC_CODE:
+  digest: sha256:5e8e973eaf265ac2
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/ProseLine/lexerRule/DOC_LICENSE:
+  digest: sha256:a84e4c27251e4a3b
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/ProseLine/lexerRule/DOC_PUNCT:
+  digest: sha256:cf8239f86fa0f287
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/ProseLine/lexerRule/DOC_REF:
+  digest: sha256:2306a3b538a693f4
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/ProseLine/lexerRule/DOC_WORD:
+  digest: sha256:3d958f20c76cd634
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/ProseLine/lexerRule/DOC_WS:
+  digest: sha256:84fce1715e4d1c58
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/ProseLine/lexerRule/PROSE_END:
+  digest: sha256:02eef7916899d74c
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/BLANK:
+  digest: sha256:4132937c642e4352
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/FENCE3:
+  digest: sha256:a0ac98c9d88beb2b
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/FENCE4:
+  digest: sha256:30ba294a7a14ca61
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/FRONT_OPEN:
+  digest: sha256:4bbb26a91c770bc8
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/HEADING_OPEN:
+  digest: sha256:7cbfd466a0e401bf
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/PROSE_START:
+  digest: sha256:dcb7b9c2a521df11
+  verdict: pending

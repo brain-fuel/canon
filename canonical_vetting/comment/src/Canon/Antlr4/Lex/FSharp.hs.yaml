@@ -1,0 +1,27 @@
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp:
+  digest: sha256:df7382e184b7f250
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/data/FSharpLayout:
+  digest: sha256:90ab8bb2091c6cb1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/data/Held:
+  digest: sha256:04b26360af334275
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/docTypes:
+  digest: sha256:5c421f41cbeeef56
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/fsharpLexerHooks:
+  digest: sha256:7d1b730043ec1635
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/offside:
+  digest: sha256:deb9681c420c8f26
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/onEmit:
+  digest: sha256:febdc7fce1422490
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/replay:
+  digest: sha256:b4e2cb46015768ba
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/virtual:
+  digest: sha256:c91bf69b8e7b0ac0
+  verdict: pending

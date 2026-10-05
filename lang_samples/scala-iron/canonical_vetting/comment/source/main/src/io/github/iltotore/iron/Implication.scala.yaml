@@ -1,0 +1,12 @@
+decision/scala/source/main/src/io/github/iltotore/iron/Implication.scala/class/Implication:
+  digest: sha256:6f7a05adbb14108f
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/Implication.scala/object/Implication/given/(C-==>C)":
+  digest: sha256:365b553020a29913
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/Implication.scala/object/Implication/given/(C1-==>C2)":
+  digest: sha256:88f766627a53ae6b
+  verdict: pending
+"decision/scala/source/main/src/io/github/iltotore/iron/Implication.scala/type/==>":
+  digest: sha256:9c1b4baa02099b86
+  verdict: pending

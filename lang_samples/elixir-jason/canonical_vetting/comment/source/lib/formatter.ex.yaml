@@ -1,0 +1,15 @@
+decision/elixir/source/lib/formatter.ex/module/Jason.Formatter:
+  digest: sha256:0eddd32005f5444a
+  verdict: pending
+decision/elixir/source/lib/formatter.ex/module/Jason.Formatter/function/minimize:
+  digest: sha256:f983b730a2bf2b71
+  verdict: pending
+decision/elixir/source/lib/formatter.ex/module/Jason.Formatter/function/minimize_to_iodata:
+  digest: sha256:a6c3b9672545e702
+  verdict: pending
+decision/elixir/source/lib/formatter.ex/module/Jason.Formatter/function/pretty_print:
+  digest: sha256:8b65d310f2c26677
+  verdict: pending
+decision/elixir/source/lib/formatter.ex/module/Jason.Formatter/function/pretty_print_to_iodata:
+  digest: sha256:93178ab6a224a971
+  verdict: pending

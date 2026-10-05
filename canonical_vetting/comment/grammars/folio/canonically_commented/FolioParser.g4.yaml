@@ -1,0 +1,51 @@
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser:
+  digest: sha256:9130b1ddfdb9bce0
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/bareSection:
+  digest: sha256:3da406de7f0e6cb6
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/codeBlock:
+  digest: sha256:dd7cdd0e39234d9d
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/content:
+  digest: sha256:df885bbc50246c50
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/docPart:
+  digest: sha256:4864a5300996a118
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/document:
+  digest: sha256:e75e47454c167af1
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/documentedSection:
+  digest: sha256:74ec878d9a5aee4b
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/element:
+  digest: sha256:64e0542c8af55d77
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/frontField:
+  digest: sha256:fa751d714cd4d0b0
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/frontFields:
+  digest: sha256:a498fcfec0129ff6
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/frontValue:
+  digest: sha256:aa3e8eb2d062c5d2
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/page:
+  digest: sha256:965fa27f82ab4d48
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/paragraphs:
+  digest: sha256:e70dfb518fc31caa
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/section:
+  digest: sha256:4c3d8960f241e10e
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/sectionRest:
+  digest: sha256:31fcb3ff9280cc09
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/strayFrontMatter:
+  digest: sha256:6f4ca915e7b1be68
+  verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/title:
+  digest: sha256:4e3a132eedffc5e9
+  verdict: pending

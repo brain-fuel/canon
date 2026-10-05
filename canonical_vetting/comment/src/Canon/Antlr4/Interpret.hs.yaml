@@ -13,6 +13,9 @@ decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/fun
 decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/interpretText:
   digest: sha256:5ff434118cedb44c
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/interpretTextWith:
+  digest: sha256:869e2a974fabf84e
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/loadCombinedInterpreter:
   digest: sha256:0cc3580fc4a6cc03
   verdict: pending

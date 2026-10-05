@@ -10,3 +10,9 @@ decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor
 decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/hooksForGrammar:
   digest: sha256:9495dd6e3e588181
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/hooksForGrammarWith:
+  digest: sha256:cd42fb41f752811c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/preprocesses:
+  digest: sha256:6025b09d41fa402d
+  verdict: pending

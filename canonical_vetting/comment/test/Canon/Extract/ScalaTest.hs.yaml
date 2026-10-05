@@ -1,0 +1,42 @@
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest:
+  digest: sha256:e55fd45f5821f643
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/dialectProfile:
+  digest: sha256:026d9fbc33b495cc
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/extractAt:
+  digest: sha256:01456450cf798a2a
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/extractDialect:
+  digest: sha256:2c10b6102a8c4886
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaDialectBindsScaladocToDefinitionsAndReportsMisplacedComments:
+  digest: sha256:ad7385a24d5342b0
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaDialectParsesTheIronSampleWithItsDocCommentsAsTheProfileReadsIt:
+  digest: sha256:31aef1d402505198
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaGrammarParsesEveryFileOfTheIronSampleIntoItsDefinitions:
+  digest: sha256:038617c4d86cdd82
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaLexerHookTurnsIndentationIntoLayoutTokens:
+  digest: sha256:75d5d15a30a6959a
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaProfileBindsScaladocAcrossAnnotationsExemptsPrivateAndOverridingMembersAndRecognisesTests:
+  digest: sha256:ddf3b81d2f5433d6
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/sampleFiles:
+  digest: sha256:1a261ae4bb814d5d
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/sampleProfile:
+  digest: sha256:88d22dd2712768c7
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/unitsOf:
+  digest: sha256:691b8d7e5abbed0b
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/whysOf:
+  digest: sha256:ea34157c468c11a6
+  verdict: pending

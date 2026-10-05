@@ -1,6 +1,9 @@
 decision/haskell/test/Canon/ProjectTest.hs/module/Canon.ProjectTest:
   digest: sha256:b98edb49a9aee564
   verdict: pending
+decision/haskell/test/Canon/ProjectTest.hs/module/Canon.ProjectTest/function/prop_anEmptyFileIsNotBlamedAndRaisesNoGitFinding:
+  digest: sha256:9d37f9ae6a43782f
+  verdict: pending
 decision/haskell/test/Canon/ProjectTest.hs/module/Canon.ProjectTest/function/tests:
   digest: sha256:1b696bdd90d4f5c2
   verdict: pending

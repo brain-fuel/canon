@@ -1,0 +1,33 @@
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest:
+  digest: sha256:f2751110f23dee9e
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/data/Parity:
+  digest: sha256:2327fffa201fd576
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/function/grammarDirectory:
+  digest: sha256:dc908840f99f30cd
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/function/holdsGrammar:
+  digest: sha256:22000a4d7bd21c46
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/function/pieces:
+  digest: sha256:eabc0eb1f080ce03
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/function/projects:
+  digest: sha256:87d49125307f25d2
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/function/prop_everyGrammarDirectoryBelongsToALawSpecTarget:
+  digest: sha256:40ede5f2b38911c7
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/function/prop_everyLawSpecTargetHasAGrammarAProfileADialectAndASample:
+  digest: sha256:8710d8e5a7a8ea02
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/function/readParity:
+  digest: sha256:5bc73d70094dc01e
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/ParityTest.hs/module/Canon.ParityTest/newtype/Root:
+  digest: sha256:aac926a0b375a7dd
+  verdict: pending

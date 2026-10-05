@@ -1,0 +1,9 @@
+decision/csharp/source/src/GuardClauses/GuardAgainstInvalidFormatExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/InvalidFormat:
+  digest: sha256:d5477859ee7f2323
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstInvalidFormatExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/InvalidInput:
+  digest: sha256:cb986b3a882ef5ee
+  verdict: pending
+decision/csharp/source/src/GuardClauses/GuardAgainstInvalidFormatExtensions.cs/namespace/Ardalis.GuardClauses/class/GuardClauseExtensions/method/InvalidInputAsync:
+  digest: sha256:cb986b3a882ef5ee
+  verdict: pending

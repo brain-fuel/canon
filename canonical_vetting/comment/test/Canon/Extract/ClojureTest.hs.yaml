@@ -1,0 +1,42 @@
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest:
+  digest: sha256:a7fa5a267397761b
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/dialectProfile:
+  digest: sha256:f53a73daba8c25bb
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/extractSample:
+  digest: sha256:363821bd67eeca73
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/extractText:
+  digest: sha256:7fc8e9be1b607606
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureDialectBindsDocstringsToDefinitionsRequiresThemOnPublicApiAndReportsMisplacedOnes:
+  digest: sha256:e0e8de6b9a88c31f
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureDialectParsesEveryFileOfTheHiccupSampleWithItsDocstrings:
+  digest: sha256:ff7f22614ad05479
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureGrammarAndProfileParseEveryFileOfTheHiccupSample:
+  digest: sha256:e3fdb13eb8bed106
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureLexerReadsKeywordsAndStringsAsTheClojureReaderDoes:
+  digest: sha256:a19c7ab606543c27
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureProfileBindsCommentsAboveDefinitionsAndRecognisesTests:
+  digest: sha256:9ec895660a6d8ab7
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/sampleFiles:
+  digest: sha256:da00c1aee8dc57a9
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/sampleProfile:
+  digest: sha256:f59474b877cecfb2
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/unitsOf:
+  digest: sha256:1757a57bab523507
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/whysOf:
+  digest: sha256:340b0cf28002377d
+  verdict: pending

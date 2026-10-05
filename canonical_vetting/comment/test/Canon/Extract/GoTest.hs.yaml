@@ -1,0 +1,33 @@
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest:
+  digest: sha256:07d9323bdd6e249b
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/dialectProfile:
+  digest: sha256:52719fea5b0d7082
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/extractSample:
+  digest: sha256:1305d3d8b83620aa
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/extractWith:
+  digest: sha256:42e7b996ad8bc84f
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoDialectBindsDocCommentsDirectlyAboveDeclarationsAndRequiresThemOnExportedNames:
+  digest: sha256:17fadbfdbf38acbc
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoDialectParsesEveryFileOfTheUuidSampleWithItsDocComments:
+  digest: sha256:cce15df35dccbf6f
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoGrammarAndProfileParseEveryFileOfTheUuidSampleIntoItsDeclarations:
+  digest: sha256:81c851c6db9ce2b3
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoProfileBindsCommentsToDeclarationsAndRecognisesTests:
+  digest: sha256:fefec728ed2fe20a
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/sampleProfile:
+  digest: sha256:2bc0a6b8708c265c
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/unitsBelowFile:
+  digest: sha256:fca424dc34a1ed7f
+  verdict: pending

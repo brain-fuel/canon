@@ -1,0 +1,12 @@
+decision/haskell/src/Canon/Signature.hs/module/Canon.Signature:
+  digest: sha256:c94554b336780b5a
+  verdict: pending
+decision/haskell/src/Canon/Signature.hs/module/Canon.Signature/function/keyed:
+  digest: sha256:45a859f4f3c63b99
+  verdict: pending
+decision/haskell/src/Canon/Signature.hs/module/Canon.Signature/function/linkSignatures:
+  digest: sha256:c48cc4b9877e0106
+  verdict: pending
+decision/haskell/src/Canon/Signature.hs/module/Canon.Signature/function/mapUnits:
+  digest: sha256:e86ca937d5deab8b
+  verdict: pending

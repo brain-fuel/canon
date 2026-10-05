@@ -1,0 +1,6 @@
+registry/Apache-2.0:
+  digest: sha256:f42cc8899f7d45b9
+  verdict: pending
+registry/jason-upstream:
+  digest: sha256:b6e94c6221c3e5b5
+  verdict: pending

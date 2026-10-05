@@ -1,0 +1,6 @@
+registry/Apache-2.0:
+  digest: sha256:f42cc8899f7d45b9
+  verdict: pending
+registry/gleam-stdlib-upstream:
+  digest: sha256:1bb009038367380a
+  verdict: pending

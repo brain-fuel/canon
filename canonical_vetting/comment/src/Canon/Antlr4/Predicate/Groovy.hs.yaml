@@ -1,0 +1,21 @@
+decision/haskell/src/Canon/Antlr4/Predicate/Groovy.hs/module/Canon.Antlr4.Predicate.Groovy:
+  digest: sha256:ae8871a4c7f749a0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate/Groovy.hs/module/Canon.Antlr4.Predicate.Groovy/function/annotatedLoopStatement:
+  digest: sha256:21d37e4ea307ac1d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate/Groovy.hs/module/Canon.Antlr4.Predicate.Groovy/function/constructorName:
+  digest: sha256:c1e0a59d172fefc0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate/Groovy.hs/module/Canon.Antlr4.Predicate.Groovy/function/followingArgumentsOrClosure:
+  digest: sha256:5139103a01b92623
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate/Groovy.hs/module/Canon.Antlr4.Predicate.Groovy/function/groovyPredicates:
+  digest: sha256:77983a0df8650113
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate/Groovy.hs/module/Canon.Antlr4.Predicate.Groovy/function/invalidLocalVariableDeclaration:
+  digest: sha256:bdeadb796e6c538b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate/Groovy.hs/module/Canon.Antlr4.Predicate.Groovy/function/pastDocComments:
+  digest: sha256:19e2ed6157df9899
+  verdict: pending

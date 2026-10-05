@@ -1,0 +1,6 @@
+registry/Apache-2.0:
+  digest: sha256:f42cc8899f7d45b9
+  verdict: pending
+registry/giraffe-viewengine-upstream:
+  digest: sha256:6d1f8420b255ccc8
+  verdict: pending

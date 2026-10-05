@@ -1,0 +1,45 @@
+decision/gleam/source/src/gleam/bytes_tree.gleam:
+  digest: sha256:0291270fcd676bc4
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/append:
+  digest: sha256:026b63fc37cf48aa
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/append_string:
+  digest: sha256:bac151e5ef821aa9
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/append_tree:
+  digest: sha256:621f74d21c41f36c
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/byte_size:
+  digest: sha256:e5ee8b4bfc92ec00
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/concat:
+  digest: sha256:dc7dbf96ecd741f3
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/concat_bit_arrays:
+  digest: sha256:dcac26da6de28032
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/from_bit_array:
+  digest: sha256:0183e66493b4014e
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/from_string:
+  digest: sha256:920b7c1c91a39b75
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/from_string_tree:
+  digest: sha256:8cd02ea4f15bda6a
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/new:
+  digest: sha256:69117171166be03f
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/prepend:
+  digest: sha256:a20edb22c1d44752
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/prepend_string:
+  digest: sha256:0503447e4bc3e7c1
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/prepend_tree:
+  digest: sha256:3373588078f78938
+  verdict: pending
+decision/gleam/source/src/gleam/bytes_tree.gleam/function/to_bit_array:
+  digest: sha256:73bf14bd3875ff05
+  verdict: pending

@@ -1,0 +1,15 @@
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest:
+  digest: sha256:43a81ac2d52c9bd1
+  verdict: pending
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/prop_gleamGrammarParsesTheStdlibSampleIntoItsItems:
+  digest: sha256:6b7cb34566a5a6b0
+  verdict: pending
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests:
+  digest: sha256:b5e56f6667a4fe66
+  verdict: pending
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/sampleProfile:
+  digest: sha256:e9feb8dda81fae69
+  verdict: pending
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

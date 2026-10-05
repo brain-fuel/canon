@@ -1,0 +1,39 @@
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest:
+  digest: sha256:b7d9d1067e9ccbcb
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/dialectProfile:
+  digest: sha256:39b270ac99d97ba5
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/extractSample:
+  digest: sha256:6b6882c7980181d4
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/extractText:
+  digest: sha256:000e18c8b5b36dbe
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theFirstJsDocCommentOfAFileIsTheFilesWhyOnlyWhenItSaysSo:
+  digest: sha256:c315cbd624cac2e1
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theJavaScriptDialectBindsJsDocToDeclarationsAndReportsMisplacedOnes:
+  digest: sha256:97e0838840c2c95f
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theJavaScriptDialectParsesTheChalkSampleWithItsDocComments:
+  digest: sha256:f2af2389477962b1
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theJavaScriptProfileBindsJsDocToTheDeclarationBelowAndTreatsTestDirectoryUnitsAsTests:
+  digest: sha256:01677a88919140c8
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theJavaScriptProfileParsesEveryFileOfTheChalkSampleIntoItsUnits:
+  digest: sha256:12c27f9baaa00893
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/sampleFiles:
+  digest: sha256:cac4cc83a886da56
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/sampleProfile:
+  digest: sha256:d4b3c3b3d41fd2e2
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/unitsOf:
+  digest: sha256:178d8d73884c23f4
+  verdict: pending
