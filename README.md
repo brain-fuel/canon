@@ -169,7 +169,8 @@ every unit is the file's Why, as Rust's `//!` at the top of a file is.
 Alternative labels without a `why`, such as the Java grammar's own expression
 labels, are inert. `canon` generates the extraction parser from that grammar,
 so nothing about a language's comment placement is written in Haskell. The
-ANTLR meta-grammar, Java, Haskell, Rust, C#, and F# have dialects.
+ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, JavaScript, and TypeScript
+have dialects.
 
 ### Tests
 
@@ -723,7 +724,8 @@ identifiers. A grammar may `import` another, read from beside it, and its own
 rules win, which Kotlin's `UnicodeClasses` needs. A semantic predicate in a
 lexer rule is decided where it sits, by the hooks, so a predicate inside one
 alternative of a block gates only that alternative; a grammar without hooks
-has every predicate hold, and parser-side predicates are still assumed true.
+has every predicate hold, and a parser-side predicate holds unless a parser
+hook answers it, as the C#, JavaScript, and TypeScript hooks do.
 An empty lexer match is allowed when it changes mode, which Go's `OTHER` rule
 relies on. `Canon.Antlr4.Lex.JavaScript` ports `JavaScriptLexerBase` and
 `TypeScriptLexerBase`, which decide whether a slash starts a regular
@@ -739,6 +741,31 @@ JavaScript's `import.meta`, Kotlin's `when (val x = ...)`, and for TypeScript
 `readonly` types, mapped and conditional types, `infer`, `as` before any type,
 `#private` members, `readonly` parameters, optional calls, logical assignment,
 ambient `module` declarations, and `is` and `infer` as property names.
+
+The JavaScript and TypeScript dialects, under `canonically_commented/` beside
+each grammar, read a `/**` comment as JSDoc and TSDoc do: it documents the
+function, class, method, accessor, field, property, interface, type alias,
+enum and enum member, namespace, module-level `var`, `let`, or `const`
+binding, or `export default` below it, and in TypeScript the members of an
+interface or object type, a call, construct, or index signature named by its
+position. An accessor is named by `get` or `set` and its property, and
+`export default` by `default`. A file's first `/**` documents the file when
+it holds `@file`, `@fileoverview`, `@overview`, `@module`, `@license`, or
+`@packageDocumentation`, or when a blank line or an import follows it, and
+otherwise the declaration below it. A `/**` above any other statement, a local
+binding's included, inside an expression, as a `@type` cast is, or after the
+last member of a body is an orphan; `/**/` and `/***` are plain comments. The
+`export` keyword is part of the declaration it exports and is labeled
+`required`, the bodies of classes, interfaces, and enums, and an object type
+alone on the right of a type alias, are labeled `inherited`, and `private`,
+`protected`, and `#private` names are labeled `optional`, so what a module
+exports requires a comment, its members included. The parser hook answers
+`JavaScriptParserBase`'s `n` and `p` predicates, which tell a getter, a
+setter, or `static` from a member so named. On chalk the JavaScript dialect
+parses all 16 files with no orphan, and on ky the TypeScript dialect parses
+all 87, binding all 90 TSDoc comments, within the time the plain grammar takes.
+A sample checks through either by naming the dialect's `lexer` and `parser`
+in its profile with no `units`.
 
 ## Makefiles
 

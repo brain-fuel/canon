@@ -4,6 +4,7 @@
 module Canon.Antlr4.Predicate
   ( predicateHookFor
   , csharpPredicates
+  , javaScriptPredicates
   ) where
 
 import Canon.Antlr4.Parse (PredicateHook)
@@ -20,6 +21,8 @@ predicateHookFor :: Grammar ann -> PredicateHook
 predicateHookFor grammar =
   case [NonEmpty.last v | Option (Name "superClass") (OptionValueName (QualifiedName v)) <- grammarOptions grammar] of
     (Name "CSharpParserBase" : _) -> csharpPredicates
+    (Name "JavaScriptParserBase" : _) -> javaScriptPredicates
+    (Name "TypeScriptParserBase" : _) -> javaScriptPredicates
     _ -> \_ _ _ _ -> True
 
 -- | CSharpParserBase's predicates. IsRightArrow, IsRightShift, and IsRightShiftAssignment hold when
@@ -44,3 +47,18 @@ csharpPredicates predicate toks from at
     startsName t = case T.uncons t of
       Just (c, _) -> isAlpha c || c == '_' || c == '@'
       Nothing -> False
+
+-- | JavaScriptParserBase's and TypeScriptParserBase's token-text predicates: n("x") holds when the
+-- next token reads x and p("x") when the one just read does, so a getter, a setter, and a static
+-- member are told from a member named get, set, or static. The line-terminator predicates would need
+-- the hidden tokens, which the hook is not given, so they hold. ref:DEC-javascript-dialect
+javaScriptPredicates :: PredicateHook
+javaScriptPredicates predicate toks _ at
+  | Just word <- argumentOf "n" = textAt at == Just word
+  | Just word <- argumentOf "p" = textAt (at - 1) == Just word
+  | otherwise = True
+  where
+    argumentOf method = case T.breakOn ("." <> method <> "(\"") predicate of
+      (_, rest) | not (T.null rest) -> Just (T.takeWhile (/= '"') (T.drop (T.length method + 3) rest))
+      _ -> Nothing
+    textAt i = tokenText <$> toks BV.!? i

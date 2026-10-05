@@ -104,3 +104,39 @@ Error will show in terminal, correspond code located in `gen/temp.js`
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
+
+## Canonically commented dialect
+
+`canonically_commented/JavaScriptLexer.g4` and `JavaScriptParser.g4` are the
+grammar above with JSDoc comments as canonical comments, recorded as
+`DEC-javascript-dialect`. Each change is marked `// canon:`:
+
+- `/**` opens a doc comment on the default channel, in the `DocBlock` mode,
+  which tokenizes prose, `ref:KEY`, and `license:KEY`, drops the stars that
+  decorate a line, and reads a block tag such as `@param` as a word. A plain
+  comment may not start with two stars, so `/**/` and `/***` stay plain by
+  the longest match.
+- The first `/**` of a file, before any code, opens `FILE_DOC_OPEN` through
+  the base lexer's `IsStartOfFile` predicate, in the `FileDocBlock` mode,
+  which reads `@file`, `@fileoverview`, `@overview`, `@module`, `@license`,
+  and `@packageDocumentation` as `DOC_FILE_TAG`; the `FileDocAfter` mode
+  marks a blank line below it with `DOC_BLANK_LINE`. `program` makes it the
+  file's Why when it holds a file tag or a blank line or an import follows
+  it, and otherwise it documents the declaration below.
+- `canonicalComment`, `fileComment`, `taggedFileComment`, and `docPart` are
+  the comment rules, and `moduleItem` reads a statement at the top of a
+  module, where a variable statement is a unit.
+- A function declaration wherever it stands, a class declaration, each method,
+  accessor, and field of a class, a module-level `var`, `let`, or `const`
+  statement, and `export default` are labeled unit alternatives: `# function`,
+  `# class`, `# method`, `# accessor`, `# field`, `# variable`, and
+  `# export`. An accessor is named by `get` or `set` and its property, a
+  variable statement by its first binding, and `export default` by `default`.
+  Of several doc comments in a row the last binds.
+- `export` is part of the declaration it exports and is labeled `required`; a
+  class's tail is labeled `inherited`, and a `#private` name `optional`.
+- A doc comment before any other statement, a parameter, an argument, a
+  property of an object literal, or a case, after the last statement or
+  member of a body or file, or inside an expression, as a `@type` cast is, is
+  an `orphan`. A named function expression is an expression and no unit, and
+  `exportStatement` keeps only lists of exports and `export default`.

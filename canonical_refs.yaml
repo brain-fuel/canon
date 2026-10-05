@@ -114,6 +114,34 @@ REQ-gleam-support:
   kind: requirement
   title: canon reads Gleam, parsing every Gleam module, taking functions, types, constructors, labelled fields, and constants as units, requiring a comment on public functions, types, and constants, binding /// to the item below its attributes and //// to the file, and recognising gleeunit test functions by their _test suffix
   locator: README.md
+jsdoc:
+  kind: article
+  title: Use JSDoc, on /** comments and the code they document
+  locator: https://jsdoc.app/about-getting-started
+jsdoc-file-tag:
+  kind: article
+  title: Use JSDoc, the @file tag, on a comment that documents a file, with its synonyms @fileoverview and @overview
+  locator: https://jsdoc.app/tags-file
+eslint-jsdoc-require-jsdoc:
+  kind: article
+  title: eslint-plugin-jsdoc, the require-jsdoc rule, whose publicOnly option asks for a JSDoc comment on what a module exports
+  locator: https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/require-jsdoc.md
+REQ-javascript-support:
+  kind: requirement
+  title: canon reads JavaScript, parsing every file of a real package, taking functions, classes, methods, accessors, fields, module-level bindings, and export default as units, binding a JSDoc comment to the declaration below it and a file's first one, when tagged @file, @module, or @license, set apart by a blank line, or above the imports, to the file, requiring a comment on what a module exports and on the members of an exported class other than #private ones, and treating every unit under a test directory as a test
+  locator: README.md
+tsdoc:
+  kind: article
+  title: TSDoc, the doc comment standard for TypeScript, on /** comments, their tags, and the exported API they document
+  locator: https://tsdoc.org
+tsdoc-package-documentation:
+  kind: article
+  title: TSDoc, the @packageDocumentation tag, on a comment that documents a package or file rather than a declaration
+  locator: https://tsdoc.org/pages/tags/packagedocumentation/
+REQ-typescript-support:
+  kind: requirement
+  title: canon reads TypeScript, parsing every file of a real package in seconds, taking functions, classes, interfaces, type aliases, enums, namespaces, module-level bindings, export default, class members, enum members, and the members of object types as units, binding a TSDoc comment to the declaration or member below it and a file's first one, when tagged @packageDocumentation, @module, or @license, set apart by a blank line, or above the imports, to the file, requiring a comment on what a module exports and on the members of an exported class, interface, object type, or enum other than private, protected, and #private ones, and treating every unit under a test directory as a test
+  locator: README.md
 rices-tax:
   kind: discussion
   title: Rice's Tax, the review tool over canon's vetting and wavelet's mutation review
