@@ -143,8 +143,8 @@ runCommand command = case command of
     if pending > 0 then TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " pieces of canonical material pending sign-off"]) else pure ()
     pure (if any ((== Failing) . findingSeverity) findings then ExitFailure 1 else ExitSuccess)
   CommandIngest -> withProject $ \project -> do
-    (path, total, files, fresh, failures) <- ingestProject project
-    putStrLn (path ++ ": " ++ show (length fresh) ++ " pieces of canonical material recorded as pending, " ++ show total ++ " entries in " ++ show files ++ " files")
+    (path, total, files, fresh, dropped, failures) <- ingestProject project
+    putStrLn (path ++ ": " ++ show (length fresh) ++ " pieces of canonical material recorded as pending, " ++ show (length dropped) ++ " pending rows of material that no longer exists dropped, " ++ show total ++ " entries in " ++ show files ++ " files")
     mapM_ (report . ("not read, so its comments are not recorded: " <>)) failures
     pure (if null failures then ExitSuccess else ExitFailure 1)
   CommandVet -> withProject $ \project -> do

@@ -182,7 +182,7 @@ materialPending = withTests 1 $ property $ do
     writeFile (root </> "canonical_refs.yaml") (unlines ["paper-1:", "  kind: paper", "  title: A paper", "  locator: here"])
     writeFile (root </> "canonical_decisions.yaml") (unlines ["DEC-x:", "  status: decided", "  question: Why?", "  answer: Because.", "  opened: 0.1.0", "  decided: 0.1.0"])
     before <- either (const []) id <$> (loadProject root >>= either (const (pure (Right []))) (\p -> Right <$> checkProject p Nothing))
-    ingested <- loadProject root >>= either (const (pure ("", 0, 0, [], ["load"]))) ingestProject
+    ingested <- loadProject root >>= either (const (pure ("", 0, 0, [], [], ["load"]))) ingestProject
     afterIngest <- loadProject root >>= either (const (pure [])) (\p -> checkProject p Nothing)
     let sign path = do
           signedFile <- readFile path
@@ -191,7 +191,7 @@ materialPending = withTests 1 $ property $ do
     sign (root </> "canonical_vetting/ledger/canonical_decisions.yaml")
     sign (root </> "canonical_vetting/registry/canonical_refs.yaml")
     afterSigning <- loadProject root >>= either (const (pure [])) (\p -> checkProject p Nothing)
-    pure ([k | MaterialPending k <- before], (\(_, _, _, fresh, _) -> fresh) ingested, [k | MaterialPending k <- afterIngest], [k | MaterialPending k <- afterSigning], [k | VerdictUncommitted k <- afterSigning])
+    pure ([k | MaterialPending k <- before], (\(_, _, _, fresh, _, _) -> fresh) ingested, [k | MaterialPending k <- afterIngest], [k | MaterialPending k <- afterSigning], [k | VerdictUncommitted k <- afterSigning])
   let (before, fresh, pending, signedPending, uncommitted) = found
   before === []
   Set.fromList fresh === Set.fromList [LedgerKey (ReferenceKey "DEC-x"), RegistryKey (ReferenceKey "paper-1")]

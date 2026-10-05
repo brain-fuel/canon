@@ -111,6 +111,7 @@ and this project adheres to
 - README section stating the six questions a codebase must answer and where each is answered
 
 ### Changed
+- `canon ingest` drops the pending rows of material that no longer exists, never a row with a verdict nor one in a file it could not read, and removes a vetting file left empty; it reports how many it dropped
 - Corpus scripts `tools/corpus/java.sh`, `kotlin.sh`, and `groovy.sh` clone widely used Java, Kotlin, and Groovy projects pinned to a commit, shallow and sparse, under `/tmp/corpus`, parse every file with the plain grammar and the canonically commented dialect, and report per repository the files parsed, the deliberate exclusions with their reasons, and the slowest files; the results are in each grammar's README under Corpus
 - The Kotlin lexer reads letters and digits as the Unicode categories `[\p{L...}]` and `[\p{Nd}]` instead of importing `UnicodeClasses.g4`, whose ranges were tokens tried at every character: Kotlin files lex five to ten times as fast, and `UnicodeClasses.g4` is no longer vendored
 - An `export` element that holds a `what` and an `arity` element exports `name/arity`, so Prolog's `name//N` exports the nonterminal unit `name/N`

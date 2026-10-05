@@ -267,7 +267,9 @@ counts until a human has read it. The flow is:
    id and digests its text, a ledger entry is keyed `ledger/KEY` and digests
    everything it says, and a registry entry is keyed `registry/KEY` and
    digests its kind, title, and locator. Running it again adds only entries
-   that are missing.
+   that are missing, and drops the pending entries of material that no longer
+   exists, such as a comment whose unit was renamed; an entry with a verdict
+   is never dropped, and the entries of a file canon could not read are kept.
 
    The directory holds a file per kind and subject, so a record sits beside
    the path it judges and a review tool can read and rewrite exactly the

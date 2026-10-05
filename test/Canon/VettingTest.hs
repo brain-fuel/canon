@@ -22,6 +22,7 @@ import qualified Data.Text.Encoding as TE
 import Data.Time.Clock.POSIX (posixSecondsToUTCTime)
 import Hedgehog (Property, assert, evalIO, failure, forAll, property, withTests, (===))
 import qualified Hedgehog.Gen as Gen
+import qualified Hedgehog.Range as Range
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
@@ -39,6 +40,7 @@ tests =
     , testProperty "ledger and registry entries are material: pending until signed, stale when edited" materialSignOff
     , testProperty "the old comment-only key form still reads" legacyKeys
     , testProperty "rows of a declared kind are pending while open and reported when unknown" declaredKinds
+    , testProperty "a pending row of vanished material is dropped and a signed one never is" prop_aPendingRowOfVanishedMaterialIsDroppedAndASignedOneNeverIs
     ]
 
 declaredKinds :: Property
@@ -204,3 +206,38 @@ isAsserted :: Evidence -> Bool
 isAsserted ev = case ev of
   Asserted _ -> True
   _ -> False
+
+-- | A pending row records no judgement, so once its material is renamed or removed it is dropped
+-- rather than reported for ever; a row with a verdict is a signed record that only a human may
+-- retire, and a row in a file whose source could not be read is unknown rather than gone.
+-- ref:DEC-comment-vetting ref:DEC-human-sign-off
+prop_aPendingRowOfVanishedMaterialIsDroppedAndASignedOneNeverIs :: Property
+prop_aPendingRowOfVanishedMaterialIsDroppedAndASignedOneNeverIs = property $ do
+  vetting <- forAll genVetting
+  presentCount <- forAll (Gen.int (Range.linear 0 5))
+  let keys = Map.keys (vettingEntries vetting)
+      present = Set.fromList (take presentCount keys)
+      unreadFile = case Map.keys (vettingFiles vetting) of
+        (p : _) -> Just p
+        [] -> Nothing
+      readWhole p = Just p /= unreadFile
+      (pruned, dropped) = pruneVanished readWhole present vetting
+      inFile k = [p | (p, es) <- Map.toList (vettingFiles vetting), Map.member k es]
+      expectedDropped =
+        [ k
+        | (p, es) <- Map.toList (vettingFiles vetting)
+        , readWhole p
+        , (k, e) <- Map.toList es
+        , entryVerdict e == Pending
+        , not (Set.member k present)
+        , not (isKind k)
+        ]
+      isKind k = case k of
+        KindKey _ _ -> True
+        _ -> False
+  Set.fromList dropped === Set.fromList expectedDropped
+  assert (all (\k -> not (Map.member k (vettingEntries pruned))) dropped)
+  assert (all (\(k, e) -> entryVerdict e == Pending || Map.lookup k (vettingEntries pruned) == Just e) (Map.toList (vettingEntries vetting)))
+  assert (all (\k -> all readWhole (inFile k)) dropped)
+  assert (not (any Map.null (Map.elems (vettingFiles pruned))))
+  snd (pruneVanished readWhole present pruned) === []

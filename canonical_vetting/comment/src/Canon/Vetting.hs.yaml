@@ -64,6 +64,9 @@ decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/materials:
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/orphanVerdictFindings:
   digest: sha256:6b7d6809810f6dd0
   verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/pruneVanished:
+  digest: sha256:8fadb4a78ec34f85
+  verdict: pending
 decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/readVettingDirectory:
   digest: sha256:aa94c30639ffddde
   verdict: pending

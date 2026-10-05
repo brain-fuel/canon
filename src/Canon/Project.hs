@@ -33,6 +33,7 @@ import Control.Concurrent (getNumCapabilities)
 import Control.Concurrent.Async (mapConcurrently)
 import Control.Concurrent.QSem (newQSem, signalQSem, waitQSem)
 import Control.Exception (bracket_)
+import Control.Monad (forM_)
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.Text.Encoding as TE
 import System.FilePath (takeDirectory)
@@ -57,7 +58,7 @@ import Data.List (nub, sort)
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
-import System.Directory (doesDirectoryExist, doesFileExist, listDirectory)
+import System.Directory (doesDirectoryExist, doesFileExist, listDirectory, removeFile)
 import System.FilePath (makeRelative, normalise, takeExtension, takeFileName, (</>))
 
 -- | A project with its three canonical files and its vetting directory loaded.
@@ -346,19 +347,27 @@ folioExtractions project interpreters grammarBytes projectParts = case folioProf
       pure (path, fmap (\(Extraction m fs) -> Extraction m (fs ++ stale)) fresh, t)
 
 -- | Records every piece of canonical material without a verdict as pending, each in the file of
--- its kind and subject, and names the files it could not read, whose comments stay pending by
--- their absence. ref:DEC-comment-vetting ref:DEC-human-sign-off ref:DEC-vetting-layout
-ingestProject :: Project -> IO (FilePath, Int, Int, [VettingKey], [Text])
+-- its kind and subject, and drops the pending rows whose material no longer exists, removing a
+-- file left with none. The files it could not read keep their rows, and name themselves, since
+-- their comments are unknown rather than gone. ref:DEC-comment-vetting ref:DEC-human-sign-off
+-- ref:DEC-vetting-layout
+ingestProject :: Project -> IO (FilePath, Int, Int, [VettingKey], [VettingKey], [Text])
 ingestProject project = do
   walked <- projectFiles project Nothing
   extracted <- extractAll project walked
   let decisions = concat [modelDecisions (extractionModel e) | (_, Right e) <- extracted]
+      unread = [failed | (failed, Left _) <- extracted]
       failures = [T.concat [T.pack failed, ": ", message] | (failed, Left message) <- extracted]
       existing = maybe emptyVetting id (projectVetting project)
-      (updated, fresh) = ingest existing (projectMaterials project decisions)
+      items = projectMaterials project decisions
+      (added, fresh) = ingest existing items
+      unreadFiles = Set.fromList (concat [[commentFile f, docFile f] | f <- unread])
+      (updated, dropped) = pruneVanished (`Set.notMember` unreadFiles) (Set.fromList (map materialKey items)) added
       dir = resolvePath project (configVetting (projectConfig project))
   writeVettingDirectory dir updated
-  pure (dir, Map.size (vettingEntries updated), Map.size (vettingFiles updated), fresh, failures)
+  forM_ (Map.keys (vettingFiles existing)) $ \p ->
+    if Map.member p (vettingFiles updated) then pure () else removeFile (dir </> p)
+  pure (dir, Map.size (vettingEntries updated), Map.size (vettingFiles updated), fresh, dropped, failures)
 
 -- | The canonical material that needs a human verdict, each finding with the text to read.
 vetProject :: Project -> IO [(Finding, Maybe Text)]

@@ -29,6 +29,7 @@ module Canon.Vetting
   , registryFile
   , materials
   , ingest
+  , pruneVanished
   , verdictLines
   , assess
   , applyAssessments
@@ -258,6 +259,26 @@ ingest vetting@(Vetting files) items = (Vetting (Map.unionWith Map.union files f
         | m <- items
         , not (Map.member (materialKey m) known)
         ]
+
+-- | Drops the pending rows whose material no longer exists, in the files the caller read whole,
+-- since a pending row records no judgement and would otherwise be reported for ever after its
+-- material is renamed or removed. A row with a verdict is never dropped: it is a signed record, and
+-- its finding asks a human to retire it. Rows of declared kinds are the business of the tool that
+-- raises them. Returns the vetting and the keys dropped. ref:DEC-comment-vetting
+pruneVanished :: (FilePath -> Bool) -> Set.Set VettingKey -> Vetting -> (Vetting, [VettingKey])
+pruneVanished readWhole present (Vetting files) =
+  (Vetting (Map.filter (not . Map.null) kept), concat [Map.keys d | d <- Map.elems dropped])
+  where
+    split p entries
+      | readWhole p = Map.partitionWithKey (\k e -> not (vanished k e)) entries
+      | otherwise = (entries, Map.empty)
+    pairs = Map.mapWithKey split files
+    kept = Map.map fst pairs
+    dropped = Map.map snd pairs
+    vanished k e = entryVerdict e == Pending && not (Set.member k present) && not (isKind k)
+    isKind k = case k of
+      KindKey _ _ -> True
+      _ -> False
 
 -- | The line of each verdict in a file, which is what blame is asked about.
 verdictLines :: Text -> Map VettingKey Int
