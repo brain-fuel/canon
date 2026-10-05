@@ -98,3 +98,23 @@ REQ-gleam-support:
   kind: requirement
   title: canon reads Gleam, parsing every Gleam module, taking functions, types, constructors, labelled fields, and constants as units, requiring a comment on public functions, types, and constants, binding /// to the item below its attributes and //// to the file, and recognising gleeunit test functions by their _test suffix
   locator: README.md
+grammars-v4-erlang:
+  kind: package
+  title: The grammars-v4 Erlang grammar, Erlang.g4, BSD, updated to Erlang/OTP 23.3, vendored under grammars/erlang
+  locator: https://github.com/antlr/grammars-v4/tree/master/erlang
+erlang-documentation:
+  kind: article
+  title: Documentation in Erlang/OTP 27, on the -doc and -moduledoc attributes
+  locator: https://www.erlang.org/doc/system/documentation.html
+edoc-user-guide:
+  kind: article
+  title: The EDoc user's guide, on documentation comments and their tags
+  locator: https://www.erlang.org/doc/apps/edoc/chapter.html
+erlang-preprocessor:
+  kind: article
+  title: The Erlang preprocessor, on macros and conditional compilation
+  locator: https://www.erlang.org/doc/system/macros.html
+REQ-erlang-support:
+  kind: requirement
+  title: canon reads Erlang, parsing real Erlang files with their macros and the syntax of OTP 24 to 28, taking functions, types, records, and callbacks as units, binding EDoc comments and -doc strings to the unit below its -spec and attributes and -moduledoc to the file, and hiding what -doc false hides
+  locator: README.md

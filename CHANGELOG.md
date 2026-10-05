@@ -9,6 +9,11 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- Canonically commented dialects for Elixir, Gleam, and Erlang under each `grammars/<lang>/canonically_commented/`: lexer modes read `@doc` and `@moduledoc` strings, `///` and `////` lines, and `-doc` strings and EDoc comments as canonical comments, and labeled alternatives make each definition a unit; the Erlang dialect labels `-export` entries `export`
+- The `hidden` element label and the `hidden` requirement: a unit its language hides from the documentation, as `@doc false`, `@moduledoc false`, `-doc false`, `-moduledoc false`, EDoc `@private`, and Gleam `@internal` do, needs no comment unless it is a test, and so do the units inside it; a doc comment directly above it is reported as attached to nothing
+- The `merge` element label, the dialect form of `mergeClauses`, and the `file` element label, whose elements are joined into the Why of the file
+- `interpolation` in a profile's comment syntax, so a quote inside `#{...}` does not end the string around it
+- Erlang: the Erlang profile makes functions with their `-spec`, types, records, and callbacks units, binds `-doc` to the function below and `-moduledoc` to the file, and an Erlang test module; `REQ-erlang-support` in the registry
 - C# as a language: the grammars-v4 C# 7 grammar under `grammars/csharp/`, with its `CSharpLexerBase` ported as a lexer hook that tracks interpolation holes and reads one branch of each `#if`, attributes and modifiers moved into each kind of type and member so a doc comment above the attributes binds, `public` and `protected` labeled `required`, and C# 8 to 14 syntax added, from records and patterns to raw strings and extension blocks; a C# profile with namespaces, types, and members as units; xUnit, NUnit, and MSTest attributes in the test table; and `lang_samples/csharp-guardclauses`, Ardalis.GuardClauses vendored with its license
 - F# as a language: an F# grammar written for canon under `grammars/fsharp/`, which parses namespaces, modules, bindings, types, members, fields, and cases and reads expressions as runs of tokens, with a lexer hook that turns the offside rule into layout tokens; an F# profile in which `private` and `internal` are labeled `optional`; xUnit, NUnit, FsCheck, and Expecto attributes in the test table; and `lang_samples/fsharp-giraffe-viewengine`, Giraffe.ViewEngine vendored with its license
 - `directives` in a profile's comment syntax: a directive line, and where outer doc openers are given a plain comment line, does not part a doc comment from its unit, and a comment in an `#if` branch canon does not read binds to nothing and is no orphan
@@ -34,6 +39,10 @@ and this project adheres to
 - The `required` and `orphan` element labels in canonically commented grammars, and the rule that only a labeled alternative containing a `why` element is a unit, so upstream alternative labels stay inert
 
 ### Fixed
+- Elixir: `def unquote(name)(args)` is a unit named by its `unquote` call, `def a <~> b` is named by its operator, a `@doc` binds across blank lines and attributes, `@doc false` hides instead of leaving a unit missing its comment, an interpolation in a lowercase sigil may hold `}` and newlines, and a test may name itself in parentheses
+- Gleam: the syntax removed before 1.0, `external fn`, `external type`, and `if erlang { ... }` groups, parses, so older projects check
+- Erlang: recon and OTP's stdlib, kernel, and eunit parse whole, where 10 of recon's 16 files failed: macros and preprocessor directives, `X-1` as a subtraction, escript `#!` lines, OTP 25 to 28 syntax, triple-quoted strings, and sigils
+- A comment body keeps a leading `@`, so an EDoc `@doc` comment reads as written
 - Lexing a long literal is linear rather than quadratic in its length: a 20 KB string in a Plug module took seconds, because each iteration of a loop copied the ends of the iterations after it
 - Extraction was exponential in expression depth on the Java grammar because every labeled expression alternative was scanned as a possible unit; the check of one 170-line test file took minutes and now takes a fraction of a second
 - `canon check` bounds the number of files extracted at once to the core count instead of starting every file concurrently

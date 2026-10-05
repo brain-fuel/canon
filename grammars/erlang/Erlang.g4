@@ -28,12 +28,35 @@
 
 grammar Erlang;
 
+// canon: changes for canon are marked canon: and listed in grammars/erlang/README.md. They let the
+// grammar read what the preprocessor leaves in a file (macros and directives), the syntax of OTP 24
+// to 28, and a function together with the attributes that belong to it.
+
 forms
     : form+ EOF
     ;
 
+// canon: a function is a form of its own, with the attributes directly above it that belong to it,
+// and a macro call may stand for whole forms, as ?SPEC(name). does.
 form
-    : (attribute | function_) '.'
+    : functionDefinition
+    | attribute '.'
+    | macroCall '.'
+    ;
+
+// canon: a function takes its -spec and the -doc attributes that hide it or carry its metadata,
+// each labeled marker, so its node starts at the first of them and the comment or -doc string above
+// documents it. A -doc with a string is not taken: it is the function's comment, which canon scans
+// from the text. -doc false is labeled hidden.
+functionDefinition
+    : (marker += functionAttribute '.')* function_ '.'
+    ;
+
+functionAttribute
+    : SpecAttrName typeSpec
+    | hidden = DocHidden
+    | DocAttrName '(' mapExpr ')'
+    | DocAttrName mapExpr
     ;
 
 /// Tokens
@@ -54,8 +77,11 @@ fragment UPPERCASE
     | '\u00d8' ..'\u00de'
     ;
 
+// canon: maybe and else are keywords only inside a maybe expression, so they may still be atoms.
 tokAtom
     : TokAtom
+    | 'maybe'
+    | 'else'
     ;
 
 TokAtom
@@ -75,8 +101,10 @@ tokFloat
     : TokFloat
     ;
 
+// canon: a number has no sign of its own, since prefixOp reads a minus, so X-1 is a subtraction
+// rather than X followed by -1; digits may be grouped with underscores (OTP 23).
 TokFloat
-    : '-'? DIGIT+ '.' DIGIT+ ([Ee] [+-]? DIGIT+)?
+    : DIGITS '.' DIGITS ([Ee] [+-]? DIGITS)?
     ;
 
 tokInteger
@@ -84,43 +112,165 @@ tokInteger
     ;
 
 TokInteger
-    : '-'? DIGIT+ ('#' (DIGIT | [a-zA-Z])+)?
+    : DIGITS ('#' (DIGIT | [a-zA-Z]) (DIGIT | [a-zA-Z] | '_')*)?
+    ;
+
+fragment DIGITS
+    : DIGIT+ ('_' DIGIT+)*
     ;
 
 tokChar
     : TokChar
     ;
 
+// canon: a character may also be a control escape such as $\^A or a hexadecimal one such as
+// $\x{1F600}.
 TokChar
-    : '$' ('\\'? ~[\r\n] | '\\' DIGIT DIGIT DIGIT)
+    : '$' ('\\'? ~[\r\n] | '\\' DIGIT DIGIT DIGIT | '\\^' . | '\\x' ([0-9a-fA-F] [0-9a-fA-F] | '{' [0-9a-fA-F]+ '}'))
     ;
 
 tokString
     : TokString
     ;
 
+// canon: a triple-quoted string (OTP 27) may span lines and hold quotes, and one opened with four or
+// five quotes ends at as many, so it may hold three.
 TokString
     : '"' ('\\' (~'\\' | '\\') | ~[\\"])* '"'
+    | '"""' .*? '"""'
+    | '""""' .*? '""""'
+    | '"""""' .*? '"""""'
+    ;
+
+// canon: a sigil (OTP 27) is a string with a prefix, ~, ~b, ~B, ~s, or ~S, and one of the sigil
+// delimiters. Uppercase sigils have no escapes.
+TokSigil
+    : '~' [bs]? (
+        '"""' .*? '"""'
+        | '""""' .*? '""""'
+        | '"' ('\\' . | ~["\\])* '"'
+        | '(' ('\\' . | ~[)\\])* ')'
+        | '[' ('\\' . | ~[\]\\])* ']'
+        | '{' ('\\' . | ~[}\\])* '}'
+        | '<' ('\\' . | ~[>\\])* '>'
+        | '/' ('\\' . | ~[/\\])* '/'
+        | '|' ('\\' . | ~[|\\])* '|'
+        | '\'' ('\\' . | ~['\\])* '\''
+        | '`' ('\\' . | ~[`\\])* '`'
+        | '#' ('\\' . | ~[#\\])* '#'
+    )
+    | '~' [BS] (
+        '"""' .*? '"""'
+        | '""""' .*? '""""'
+        | '"' ~["]* '"'
+        | '(' ~[)]* ')'
+        | '[' ~[\]]* ']'
+        | '{' ~[}]* '}'
+        | '<' ~[>]* '>'
+        | '/' ~[/]* '/'
+        | '|' ~[|]* '|'
+        | '\'' ~[']* '\''
+        | '`' ~[`]* '`'
+        | '#' ~[#]* '#'
+    )
     ;
 
 // antlr4 would not accept spec as an Atom otherwise.
+// canon: -spec has a token of its own, apart from -callback, so a function can take its spec.
 AttrName
-    : '-' ('spec' | 'callback')
+    : '-' 'callback'
     ;
 
+SpecAttrName
+    : '-' 'spec'
+    ;
+
+// canon: -doc false and -moduledoc false hide a function or a module from the documentation
+// (OTP 27), and -doc before a map gives a function's metadata; each is a token of its own so the
+// parser can label it without making doc or false a keyword.
+DocHidden
+    : '-' [ \t]* 'doc' [ \t]* ('false' | '(' [ \t]* 'false' [ \t]* ')')
+    ;
+
+ModuledocHidden
+    : '-' [ \t]* 'moduledoc' [ \t]* ('false' | '(' [ \t]* 'false' [ \t]* ')')
+    ;
+
+DocAttrName
+    : '-' 'doc'
+    ;
+
+// canon: a comment may end the file without a line break.
 Comment
-    : '%' ~[\r\n]* '\r'? '\n' -> skip
+    : '%' ~[\r\n]* -> skip
+    ;
+
+// canon: an escript starts with a #! line, which is not Erlang.
+Shebang
+    : '#!' ~[\r\n]* -> skip
     ;
 
 WS
     : [\u0000-\u0020\u0080-\u00a0]+ -> skip
     ;
 
+// canon: types, records, and callbacks have rules of their own, named by what they define, so a
+// profile can make each a unit; -moduledoc false is labeled hidden; -define takes any tokens as its
+// body; and the preprocessor directives without a value, -else and -endif, are attributes too.
 attribute
-    : '-' tokAtom attrVal
+    : typeAttribute
+    | recordAttribute
+    | callbackAttribute
+    | hidden = ModuledocHidden
+    | '-' tokAtom attrVal
     | '-' tokAtom typedAttrVal
     | '-' tokAtom '(' typedAttrVal ')'
-    | AttrName typeSpec
+    | '-' ('if' | 'else' | tokAtom) attrVal?
+    | defineAttribute
+    | SpecAttrName typeSpec
+    | DocAttrName attrVal
+    | DocHidden
+    ;
+
+// canon: -type, -opaque, or -nominal, named by the type it defines.
+typeAttribute
+    : '-' tokAtom definedName '(' topTypes? ')' '::' topType
+    | '-' tokAtom '(' definedName '(' topTypes? ')' '::' topType ')'
+    ;
+
+// canon: -record, named by the record it defines.
+recordAttribute
+    : '-' tokAtom '(' definedName ',' (typedRecordFields | tuple_) ')'
+    ;
+
+// canon: -callback, named by the callback it declares.
+callbackAttribute
+    : AttrName typeSpec
+    ;
+
+// canon: the name of a function, type, or record a form defines.
+definedName
+    : tokAtom
+    ;
+
+// canon: -define(Name, Body) and -define(Name(Args), Body) whose body is not an expression, which
+// may be any tokens with balanced brackets, since a macro need not expand to an expression.
+defineAttribute
+    : '-' tokAtom '(' (tokAtom | tokVar) ('(' (tokVar (',' tokVar)*)? ')')? ',' macroBody* ')'
+    ;
+
+macroBody
+    : ~('(' | ')' | '[' | ']' | '{' | '}' | '<<' | '>>')
+    | '(' macroBody* ')'
+    | '[' macroBody* ']'
+    | '{' macroBody* '}'
+    | '<<' macroBody* '>>'
+    ;
+
+// canon: a macro call, ?NAME or ?NAME(Args), or a stringified argument, ??Arg, which the preprocessor
+// expands; canon reads it where an expression, a pattern, or a type may be.
+macroCall
+    : '?' '?'? (tokAtom | tokVar) argumentList?
     ;
 
 /// Typing
@@ -180,8 +330,10 @@ topType
     : (tokVar '::')? topType100
     ;
 
+// canon: each member of a union may be annotated, as in Name :: {atom(), arity()} | Other :: atom(),
+// as erl_parse reads it.
 topType100
-    : type200 ('|' topType100)?
+    : type200 ('|' topType)?
     ;
 
 type200
@@ -204,6 +356,7 @@ type500
 
 type_
     : '(' topType ')'
+    | macroCall
     | tokVar
     | tokAtom
     | tokAtom '(' ')'
@@ -217,8 +370,8 @@ type_
     | '#' '{' mapPairTypes '}'
     | '{' '}'
     | '{' topTypes '}'
-    | '#' tokAtom '{' '}'
-    | '#' tokAtom '{' fieldTypes '}'
+    | '#' recordName '{' '}'
+    | '#' recordName '{' fieldTypes '}'
     | binaryType
     | tokInteger
     | tokChar
@@ -275,12 +428,14 @@ attrVal
     | '(' expr ',' exprs ')'
     ;
 
+// canon: a macro call may stand for a clause, as ?FUNCTION(name, Arg) does.
 function_
-    : functionClause (';' functionClause)*
+    : functionClause (';' (functionClause | macroCall))*
     ;
 
+// canon: the name is a rule of its own, so a profile can name a function by it.
 functionClause
-    : tokAtom clauseArgs clauseGuard clauseBody
+    : definedName clauseArgs clauseGuard clauseBody
     ;
 
 clauseArgs
@@ -300,8 +455,10 @@ expr
     | expr100
     ;
 
+// canon: ?= matches inside a maybe expression (OTP 25), and the right side of a match or a send may
+// be a catch expression, as in _ = catch f().
 expr100
-    : expr150 (('=' | '!') expr150)*
+    : expr150 (('=' | '!' | '?=') (expr150 | 'catch' expr))*
     ;
 
 expr150
@@ -363,6 +520,19 @@ exprMax
     | receiveExpr
     | funExpr
     | tryExpr
+    | maybeExpr
+    | mapComprehension
+    | macroCall
+    ;
+
+// canon: a maybe expression (OTP 25).
+maybeExpr
+    : 'maybe' exprs ('else' crClauses)? 'end'
+    ;
+
+// canon: a map comprehension (OTP 26).
+mapComprehension
+    : '#' '{' expr '=>' expr '||' lcExprs '}'
     ;
 
 patExpr
@@ -408,6 +578,7 @@ patExpr800
 
 patExprMax
     : tokVar
+    | macroCall
     | atomic
     | list_
     | binary
@@ -421,7 +592,7 @@ mapPatExpr
     ;
 
 recordPatExpr
-    : '#' tokAtom ('.' tokAtom | recordTuple)
+    : '#' recordName ('.' tokAtom | recordTuple)
     ;
 
 list_
@@ -429,10 +600,19 @@ list_
     | '[' expr tail
     ;
 
+// canon: a macro call directly followed by an element stands for an element and its comma, as
+// ?MATCH(X) does where the macro expands to X followed by a comma.
 tail
     : ']'
     | '|' expr ']'
     | ',' expr tail
+    | ',' macroCall expr tail
+    ;
+
+// canon: a record's name, which a macro may give, as in #?RECORD{}.
+recordName
+    : tokAtom
+    | macroCall
     ;
 
 binary
@@ -480,14 +660,17 @@ binaryComprehension
     : '<<' exprMax '||' lcExprs '>>'
     ;
 
+// canon: zip generators are joined by && (OTP 28).
 lcExprs
-    : lcExpr (',' lcExpr)*
+    : lcExpr ((',' | '&&') lcExpr)*
     ;
 
+// canon: a map generator (OTP 26) and the strict generators (OTP 28).
 lcExpr
     : expr
-    | expr '<-' expr
-    | binary '<=' expr
+    | expr ('<-' | '<:-') expr
+    | binary ('<=' | '<:=') expr
+    | expr ':=' expr ('<-' | '<:-') expr
     ;
 
 tuple_
@@ -527,8 +710,8 @@ mapKey
    always atoms for the moment, this might change in the future.           */
 
 recordExpr
-    : exprMax? '#' tokAtom ('.' tokAtom | recordTuple)
-    | recordExpr '#' tokAtom ('.' tokAtom | recordTuple)
+    : exprMax? '#' recordName ('.' tokAtom | recordTuple)
+    | recordExpr '#' recordName ('.' tokAtom | recordTuple)
     ;
 
 recordTuple
@@ -588,6 +771,7 @@ funExpr
 atomOrVar
     : tokAtom
     | tokVar
+    | macroCall
     ;
 
 integerOrVar
@@ -652,7 +836,12 @@ atomic
     | tokInteger
     | tokFloat
     | tokAtom
-    | (tokString)+
+    | stringConcatenation
+    ;
+
+// canon: adjacent strings concatenate, and a macro may stand for one of them, as in ?DIR "file".
+stringConcatenation
+    : macroCall* (tokString | TokSigil) (tokString | TokSigil | macroCall)*
     ;
 
 prefixOp

@@ -20,9 +20,11 @@ import qualified Data.Text as T
 -- not a comment. Adjacent line comments merge only when they open alike, so a doc comment and a plain
 -- comment on the next line stay apart. ref:DEC-rust-grammar
 --
--- A doc attribute followed by a string is a block comment from the attribute to the end of the
--- string, and a delimiter of three or more characters may span lines, as an Elixir heredoc does.
--- ref:DEC-elixir-grammar
+-- A doc attribute followed by a string, or by an opening parenthesis or a sigil and a string, is a
+-- block comment from the attribute to the end of the string, and a delimiter of three or more
+-- characters may span lines, as an Elixir heredoc does. Inside a string, an interpolation the syntax
+-- names runs to its closer, skipping the strings and braces nested in it, so a quote inside it does
+-- not end the string. ref:DEC-elixir-grammar ref:DEC-erlang-grammar
 scanCommentsWith :: CommentSyntax -> Text -> [Located Comment]
 scanCommentsWith syntax source = mergeLineComments (docOpenerOf syntax) (go 0 source)
   where
@@ -51,7 +53,22 @@ scanCommentsWith syntax source = mergeLineComments (docOpenerOf syntax) (go 0 so
           Just ('\n', _) | T.length delimiter < 3 -> n
           Just _
             | delimiter `T.isPrefixOf` s -> n + T.length delimiter
+            | Just (open, close) <- commentInterpolation syntax, open `T.isPrefixOf` s ->
+                let len = T.length open + interpolationLength open close (T.drop (T.length open) s)
+                 in walk (n + len) (T.drop len s)
             | otherwise -> walk (n + 1) (T.drop 1 s)
+    interpolationLength open close = skip (0 :: Int) 0
+      where
+        skip depth n s = case T.uncons s of
+          Nothing -> n
+          Just (c, rest)
+            | (d : _) <- [d | d <- commentStringDelimiters syntax, d `T.isPrefixOf` s] ->
+                let len = stringLength d s in skip depth (n + len) (T.drop len s)
+            | depth == 0 && close `T.isPrefixOf` s -> n + T.length close
+            | open `T.isPrefixOf` s -> skip (depth + 1) (n + T.length open) (T.drop (T.length open) s)
+            | c == '{' -> skip (depth + 1) (n + 1) rest
+            | c == '}' -> skip (depth - 1) (n + 1) rest
+            | otherwise -> skip depth (n + 1) rest
     docAttributeLength remaining =
       case [a | a <- sortOn (Down . T.length) (commentDocAttributes syntax), a `T.isPrefixOf` remaining] of
         (attribute : _)
@@ -59,10 +76,13 @@ scanCommentsWith syntax source = mergeLineComments (docOpenerOf syntax) (go 0 so
               let afterAttribute = T.drop (T.length attribute) remaining
                   spaces = T.takeWhile (\c -> c == ' ' || c == '\t') afterAttribute
                   afterSpaces = T.drop (T.length spaces) afterAttribute
-                  sigil = sigilPrefix afterSpaces
-                  value = T.drop (T.length sigil) afterSpaces
+                  paren = openParen afterSpaces
+                  afterParen = T.drop (T.length paren) afterSpaces
+                  sigil = sigilPrefix afterParen
+                  value = T.drop (T.length sigil) afterParen
+                  prefix = T.length attribute + T.length spaces + T.length paren + T.length sigil
                in case [d | d <- commentStringDelimiters syntax, d `T.isPrefixOf` value] of
-                    (d : _) | not (T.null spaces) || not (T.null sigil) -> Just (T.length attribute + T.length spaces + T.length sigil + stringLength d value)
+                    (d : _) | not (T.null spaces) || not (T.null paren) || not (T.null sigil) -> Just (prefix + stringLength d value)
                     _ -> Nothing
         _ -> Nothing
     identifierChar c = isAlphaNum c || c == '_' || c == '?' || c == '!'
@@ -71,10 +91,16 @@ scanCommentsWith syntax source = mergeLineComments (docOpenerOf syntax) (go 0 so
       let (body, rest) = T.breakOn close (T.drop (T.length open) remaining)
        in T.length open + T.length body + (if T.null rest then 0 else T.length close)
 
--- | A sigil's name, such as ~S, ahead of the string it quotes.
+-- | A sigil's name, such as Elixir's ~S or Erlang's ~ and ~b, ahead of the string it quotes.
 sigilPrefix :: Text -> Text
 sigilPrefix t = case T.uncons t of
-  Just ('~', rest) | letters <- T.takeWhile isAlpha rest, not (T.null letters) -> T.cons '~' letters
+  Just ('~', rest) -> T.cons '~' (T.takeWhile isAlpha rest)
+  _ -> T.empty
+
+-- | An opening parenthesis and the spaces after it, as in Erlang's -doc("...").
+openParen :: Text -> Text
+openParen t = case T.uncons t of
+  Just ('(', rest) -> T.cons '(' (T.takeWhile (\c -> c == ' ' || c == '\t') rest)
   _ -> T.empty
 
 -- | The contents of a doc attribute's string, without the attribute, the sigil, or the delimiters,
@@ -85,7 +111,8 @@ docAttributeBody syntax text =
   case [a | a <- sortOn (Down . T.length) (commentDocAttributes syntax), a `T.isPrefixOf` stripped] of
     (attribute : _) ->
       let afterAttribute = T.stripStart (T.drop (T.length attribute) stripped)
-          value = T.drop (T.length (sigilPrefix afterAttribute)) afterAttribute
+          afterParen = T.stripStart (maybe afterAttribute id (T.stripPrefix "(" afterAttribute))
+          value = T.drop (T.length (sigilPrefix afterParen)) afterParen
        in case [d | d <- sortOn (Down . T.length) (commentStringDelimiters syntax), d `T.isPrefixOf` value] of
             (d : _) ->
               let inside = T.drop (T.length d) value

@@ -46,6 +46,12 @@ PANIC  : 'panic';
 ECHO   : 'echo';
 IF     : 'if';
 
+// Words that are names to Gleam 1.x but that canon must see: external, which began an external
+// function or type before Gleam 1.0, and internal, the attribute that hides an item from the
+// documentation. The parser accepts both wherever it accepts a name.
+EXTERNAL : 'external';
+INTERNAL : 'internal';
+
 UPNAME
     : [A-Z] [a-zA-Z0-9]*
     ;

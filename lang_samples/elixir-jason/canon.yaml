@@ -12,6 +12,7 @@ languages:
       innerDoc: ["@moduledoc"]
       docAttributes: ["@moduledoc", "@doc", "@typedoc"]
       strings: ["\"\"\"", "'''", "\"", "'"]
+      interpolation: ["#{", "}"]
     units:
       - rule: moduleDefinition
         kind: module

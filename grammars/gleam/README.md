@@ -30,8 +30,26 @@ as changed. The decision is recorded as `DEC-gleam-grammar` in canon's
 - A function without a body is an external function.
 - Constructor fields are parsed so that a labelled field, which Gleam
   documents with `///`, is a unit.
+- `@internal` is labeled `hidden`, so the item below it needs no comment.
+- The syntax removed before Gleam 1.0 is read too: `external fn` and
+  `external type`, and module-level target groups written
+  `if erlang { ... }`, whose items are items of the module. `try` and a bare
+  `assert` sit inside function bodies, which are balanced brackets. `external`
+  and `internal` are tokens, and are names wherever Gleam allows a name.
+
+## Canonically commented dialect
+
+`canonically_commented/GleamLexer.g4` and `GleamParser.g4` are the plain
+grammar plus the extraction rules. A lexer mode tokenizes `///` and `////`
+lines. Consecutive `///` lines are one canonical comment, the Why of the item
+below its attributes, even across blank lines, as the Gleam compiler joins
+them. `////` comments are labeled `file`, and canon joins them all into the
+Why of the file. `pub` is labeled `required`, and a `///` before an import is
+an `orphan`. The ledger records it as `DEC-gleam-dialect`.
 
 ## Known limitations
 
-- The syntax removed before Gleam 1.0, such as `external fn` and module-level
-  `if erlang { ... }` blocks, is not accepted.
+- The profile keeps canon's rule that a blank line parts a `///` comment from
+  the item below. The dialect follows Gleam and does not.
+- Pre-1.0 syntax was tested on the stdlib at v0.18.0, v0.22.0, v0.25.0, and
+  v0.29.0. Syntax older than v0.18.0 may not be read.

@@ -137,10 +137,22 @@ is how `public` makes a Java member's comment required. An element labeled
 `orphan` is a comment the grammar accepts but binds to nothing, such as a
 Javadoc comment after an annotation, and is reported. An element labeled
 `marker` is an annotation or similar mark on the unit, whose text `canon`
-reads to recognise tests. Alternative labels without a `why`, such as the
-Java grammar's own expression labels, are inert. `canon` generates the extraction parser from that grammar, so nothing
-about a language's comment placement is written in Haskell. The ANTLR
-meta-grammar and Java are the languages done this way.
+reads to recognise tests. An element labeled `hidden` is a mark the
+language uses to hide a unit from its documentation, such as Elixir's
+`@doc false`: the unit and every unit inside it need no comment unless they
+are tests, and the model records their requirement as `hidden`; a hidden mark
+outside every unit hides the file. An element labeled `merge` makes adjacent
+units of one rule, kind, and name a single unit, as the clauses of an Elixir
+function are, unless a later one has a Why of its own. An element labeled
+`file`, outside every unit, is part of the file's Why, and all of them are
+joined, as Gleam joins its `////` comments. A unit's Why is the first `why`
+element in its node outside the units nested in it, wherever the grammar puts
+it, so an Elixir module's `@moduledoc` may sit among its statements; any
+other `why` element is reported. Alternative labels without a `why`, such as
+the Java grammar's own expression labels, are inert. `canon` generates the
+extraction parser from that grammar, so nothing about a language's comment
+placement is written in Haskell. The ANTLR meta-grammar, Java, Haskell,
+Elixir, Gleam, and Erlang have such dialects.
 
 ### Tests
 
@@ -302,7 +314,13 @@ documentation as code lists `docAttributes`: an attribute such as Elixir's
 comment running to the end of the string, its body is the string's contents,
 and its name is matched against `outerDoc` and `innerDoc` like any opener; a
 string delimiter of three or more characters, such as a heredoc's, may span
-lines. Several unit rules may name one parse rule, told apart by
+lines. The string may follow an opening parenthesis, as in Erlang's
+`-doc("...")`. Blank lines below a doc attribute do not part it from the unit
+below, since Elixir and Erlang bind it to the next definition across them,
+and a doc attribute directly above a unit marked hidden binds to nothing. A
+language whose strings interpolate code names its `interpolation` opener and
+closer, such as `["#{", "}"]`, so a quote inside an interpolation does not end
+the string around it. Several unit rules may name one parse rule, told apart by
 `firstToken`, and a unit rule with `mergeClauses: true` makes adjacent matches
 with one name a single unit, as the clauses of an Elixir function are one
 function, unless a doc comment directly above a later clause starts a unit of
@@ -514,6 +532,7 @@ languages:
       innerDoc: ["@moduledoc"]
       docAttributes: ["@moduledoc", "@doc", "@typedoc"]
       strings: ["\"\"\"", "'''", "\"", "'"]
+      interpolation: ["#{", "}"]
     units:
       - {rule: moduleDefinition, kind: module, name: {rule: moduleName}, required: true}
       - {rule: protocolDefinition, kind: protocol, name: {rule: moduleName}, required: true}
@@ -534,7 +553,10 @@ languages:
 ```
 
 Private definitions are told apart by their keyword, so `def` requires a
-comment and `defp` may have one. A test is named by its string, and its
+comment and `defp` may have one. `@doc false` hides the definition below it
+and `@moduledoc false` the module around it, so neither needs a comment. An
+operator definition is named by its operator, and `def unquote(name)(args)`
+by its `unquote` call. A test is named by its string, and its
 canonical comment is a `@doc` above it, which ExUnit compiles without
 warning.
 
@@ -565,6 +587,35 @@ languages:
       - {rule: privateConstant, kind: const, name: {rule: definitionName}, required: false}
       - {rule: field, kind: field, name: {rule: fieldName}, required: false}
 ```
+
+`@internal` hides an item, so it needs no comment. Gleam written before 1.0,
+with `external fn` and `if erlang { ... }` groups, parses too.
+
+The Erlang sample is recon, a git submodule. Its `canon.yaml` holds the Erlang
+profile:
+
+```yaml
+languages:
+  erlang:
+    extensions: [.erl, .hrl, .escript]
+    grammar: ../../grammars/erlang/Erlang.g4
+    start: forms
+    comments:
+      line: "%"
+      innerDoc: ["-moduledoc"]
+      docAttributes: ["-moduledoc", "-doc"]
+      strings: ["\"\"\"\"", "\"\"\"", "\""]
+    units:
+      - {rule: functionDefinition, kind: function, name: {rule: definedName}, required: true}
+      - {rule: typeAttribute, kind: type, name: {rule: definedName}, required: false, firstToken: {token: TokAtom, oneOf: [type, opaque, nominal]}}
+      - {rule: recordAttribute, kind: record, name: {rule: definedName}, required: false, firstToken: {token: TokAtom, oneOf: [record]}}
+      - {rule: callbackAttribute, kind: callback, name: {rule: specFun}, required: true}
+```
+
+Every `%` comment directly above a unit is its Why, so an EDoc comment above a
+function's `-spec` documents the function. An OTP 27 `-doc` string documents
+the function below it and `-moduledoc` the file, and `-doc false` hides the
+function.
 
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked
@@ -776,8 +827,8 @@ tokenizer does, and reads `#if` as the C# hook does. What it reads and what it
 leaves out is listed in `grammars/fsharp/README.md` and recorded in the
 ledger.
 
-`grammars/elixir/` and `grammars/gleam/` hold grammars written for canon, with
-empty `canonically_commented/` husks. The grammars-v4 Elixir grammar parsed
+`grammars/elixir/` and `grammars/gleam/` hold grammars written for canon, each
+with a canonically commented dialect. The grammars-v4 Elixir grammar parsed
 71 of 308 files from Jason, Plug, and Phoenix in canon's interpreter, and no
 ANTLR grammar for Gleam exists. The Elixir grammar is structural: statements
 end at newlines unless an operator continues them, expressions are chains of
@@ -787,9 +838,21 @@ directly above it, labeled `marker`. The Gleam grammar reads a module's items
 with their attributes, labeled `marker`, and reads function bodies as
 balanced brackets. Both parse every file of their test corpora: the 308
 Elixir files, and the 116 modules of the Gleam stdlib, gleam_json, gleam_otp,
-and wisp. Each directory's `README.md` gives the design and the known
-limitations, and the ledger records them as `DEC-elixir-grammar` and
-`DEC-gleam-grammar`.
+and wisp, plus 182 pre-1.0 Gleam stdlib modules. Each directory's `README.md`
+gives the design, the dialect, and the known limitations, and the ledger
+records them as `DEC-elixir-grammar`, `DEC-gleam-grammar`,
+`DEC-elixir-dialect`, and `DEC-gleam-dialect`. In the dialects `@doc` and
+`@moduledoc` strings, and `///` and `////` lines, are tokenized as canonical
+comments, and the last `@doc` before an Elixir definition wins.
+
+`grammars/erlang/` holds the grammars-v4 Erlang grammar, changed for OTP 24 to
+28 and for the preprocessor, which it reads without running, and its dialect.
+Each change is marked `// canon:` and listed in `grammars/erlang/README.md`,
+and the ledger records them as `DEC-erlang-grammar`. Every file of recon and of
+OTP's stdlib, kernel, and eunit parses. The dialect, split into a lexer and a
+parser, reads `-doc` strings and EDoc comments as canonical comments and labels
+export entries `export`, so an exported unit requires a comment
+(`DEC-erlang-dialect`).
 
 The other language directories hold their upstream grammars with an empty
 `canonically_commented/` husk, and their samples use the line-adjacency

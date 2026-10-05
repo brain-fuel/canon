@@ -23,6 +23,11 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // its first attribute and the /// comment above those attributes documents it. Function bodies,
 // parameter lists, and constructor fields are read as balanced brackets, since canon needs the
 // items of a module and not the expressions inside them.
+//
+// The syntax removed before Gleam 1.0 is read too, so older code parses: external functions and
+// types, written `external fn name(Type) -> Type = "module" "function"` and `external type Name`,
+// and module-level target groups, written `if erlang { ... }`, whose items are items of the module.
+// Expressions such as try and a bare assert sit inside function bodies, which are balanced brackets.
 
 parser grammar GleamParser;
 
@@ -42,34 +47,54 @@ item
     | privateType
     | publicConstant
     | privateConstant
+    | targetGroup
     ;
 
+// A group of items compiled for one target only, as Gleam wrote it before 1.0.
+targetGroup
+    : IF name OPEN_BRACE item* CLOSE_BRACE
+    ;
+
+// @internal hides an item from the documentation, so the item is labeled hidden and requires no
+// comment.
 attribute
-    : AT NAME arguments?
+    : AT hidden = INTERNAL
+    | AT name arguments?
+    ;
+
+// A lowercase name, including the words that are names to Gleam but tokens to canon.
+name
+    : NAME
+    | EXTERNAL
+    | INTERNAL
     ;
 
 importStatement
-    : (marker += attribute)* IMPORT modulePath (DOT OPEN_BRACE balanced* CLOSE_BRACE)? (AS (NAME | DISCARD_NAME))?
+    : (marker += attribute)* IMPORT modulePath (DOT OPEN_BRACE balanced* CLOSE_BRACE)? (AS (name | DISCARD_NAME))?
     ;
 
 modulePath
-    : NAME (OPERATOR NAME)*
+    : name (OPERATOR name)*
     ;
 
 publicFunction
     : (marker += attribute)* PUB FN definitionName arguments (ARROW_RIGHT type_)? body?
+    | (marker += attribute)* PUB EXTERNAL FN definitionName arguments ARROW_RIGHT type_ EQUALS STRING STRING
     ;
 
 privateFunction
     : (marker += attribute)* FN definitionName arguments (ARROW_RIGHT type_)? body?
+    | (marker += attribute)* EXTERNAL FN definitionName arguments ARROW_RIGHT type_ EQUALS STRING STRING
     ;
 
 publicType
     : (marker += attribute)* PUB OPAQUE? TYPE typeName typeParameters? typeBody?
+    | (marker += attribute)* PUB EXTERNAL TYPE typeName typeParameters?
     ;
 
 privateType
     : (marker += attribute)* TYPE typeName typeParameters? typeBody?
+    | (marker += attribute)* EXTERNAL TYPE typeName typeParameters?
     ;
 
 typeBody
@@ -92,7 +117,7 @@ field
     ;
 
 fieldName
-    : NAME
+    : name
     ;
 
 publicConstant
@@ -104,7 +129,7 @@ privateConstant
     ;
 
 definitionName
-    : NAME
+    : name
     ;
 
 typeName
@@ -122,8 +147,8 @@ typeParameters
 type_
     : FN OPEN_PAREN typeList? CLOSE_PAREN ARROW_RIGHT type_
     | HASH OPEN_PAREN typeList? CLOSE_PAREN
-    | (NAME DOT)? UPNAME (OPEN_PAREN typeList? CLOSE_PAREN)?
-    | NAME
+    | (name DOT)? UPNAME (OPEN_PAREN typeList? CLOSE_PAREN)?
+    | name
     | DISCARD_NAME
     ;
 
@@ -141,7 +166,7 @@ constantTerm
     | OPEN_BRACKET balanced* CLOSE_BRACKET
     | HASH OPEN_PAREN balanced* CLOSE_PAREN
     | OPEN_BITS bitPart* CLOSE_BITS
-    | (NAME DOT)? (NAME | UPNAME) arguments?
+    | (name DOT)? (name | UPNAME) arguments?
     ;
 
 bitPart

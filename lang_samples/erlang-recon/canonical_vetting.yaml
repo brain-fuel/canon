@@ -1,146 +1,374 @@
 decision/erlang/source/src/recon.erl:
-  comment: sha256:c1637df2de87a079
+  comment: sha256:513719ee2be64d89
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/bin_leak:
-  comment: sha256:4e68ae741ca53e18
+decision/erlang/source/src/recon.erl/function/bin_leak:
+  comment: sha256:862146ed1bf531ac
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/files:
-  comment: sha256:b488e4ad5dc06a4e
+decision/erlang/source/src/recon.erl/function/files:
+  comment: sha256:c519a2141884da1b
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/get_state:
-  comment: sha256:7a82c22c18781a95
+decision/erlang/source/src/recon.erl/function/get_state:
+  comment: sha256:9e330da28687c1b7
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/get_state#2:
-  comment: sha256:7b650dd7110147ab
+decision/erlang/source/src/recon.erl/function/get_state#2:
+  comment: sha256:c8f561c2fd1da89f
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/inet_count:
-  comment: sha256:7f52f6e3864918c4
+decision/erlang/source/src/recon.erl/function/inet_count:
+  comment: sha256:1e5cf311c493d800
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/inet_window:
-  comment: sha256:c36791ade872605c
+decision/erlang/source/src/recon.erl/function/inet_window:
+  comment: sha256:14fd3a3a1bd2defb
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/info:
-  comment: sha256:4ad8ba8a24850670
+decision/erlang/source/src/recon.erl/function/info:
+  comment: sha256:4ce37d9e74b84a84
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/info#2:
-  comment: sha256:a35212acfc6fef1a
+decision/erlang/source/src/recon.erl/function/info#2:
+  comment: sha256:45b60b837dab918e
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/info#3:
-  comment: sha256:adcdeae6e9032bb3
+decision/erlang/source/src/recon.erl/function/info#3:
+  comment: sha256:de4205295b0d3f3b
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/info#4:
-  comment: sha256:a54db6c921f4b6f6
+decision/erlang/source/src/recon.erl/function/info#4:
+  comment: sha256:93980bcf61a84515
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/info_type:
-  comment: sha256:ed6406e34ac8c764
+decision/erlang/source/src/recon.erl/function/info_type:
+  comment: sha256:23443cb889f1e4dd
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/named_rpc:
-  comment: sha256:1d5b0d413cf2bf0a
+decision/erlang/source/src/recon.erl/function/named_rpc:
+  comment: sha256:bce99419ba2f8b64
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/named_rpc#2:
-  comment: sha256:ef286314cd1c17f2
+decision/erlang/source/src/recon.erl/function/named_rpc#2:
+  comment: sha256:b9dc6cb30bece88d
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/named_rpc#3:
-  comment: sha256:5f407eae5f0f672c
+decision/erlang/source/src/recon.erl/function/named_rpc#3:
+  comment: sha256:a32c2aa9f3eacbef
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/node_stats:
-  comment: sha256:7f2941e9b254f1b1
+decision/erlang/source/src/recon.erl/function/node_stats:
+  comment: sha256:cc0d2f19b0fd52d3
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/node_stats_list:
-  comment: sha256:23553276e41016d3
+decision/erlang/source/src/recon.erl/function/node_stats_list:
+  comment: sha256:e2ef25bff2e8a551
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/node_stats_print:
-  comment: sha256:1d81ac31e385bd62
+decision/erlang/source/src/recon.erl/function/node_stats_print:
+  comment: sha256:8014121c8fe46db9
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/port_info:
-  comment: sha256:1f9676eab4ba8b62
+decision/erlang/source/src/recon.erl/function/port_info:
+  comment: sha256:0a831c774378f1c7
   verdict: pending
-decision/erlang/source/src/recon.erl/attribute/port_info#2:
-  comment: sha256:8b7a6d69311dc656
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/port_types:
-  comment: sha256:21b997a49b4ed662
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/proc_count:
-  comment: sha256:d47a332e8be12765
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/proc_window:
-  comment: sha256:4f76c8ebb83c15e6
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/remote_load:
-  comment: sha256:dd3aa83c75f614b3
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/remote_load#2:
-  comment: sha256:b8bfc295c0329f26
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/rpc:
-  comment: sha256:5038157f039f56a2
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/rpc#2:
-  comment: sha256:c66ece72ce54804b
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/rpc#3:
-  comment: sha256:663a9336785a7825
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/scheduler_usage:
-  comment: sha256:401fbbfff12c2831
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/sctp:
-  comment: sha256:c2daa7b5a24a6f54
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/source:
-  comment: sha256:c39b3fa22df03d2d
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/tcp:
-  comment: sha256:11bf636e4f9457ac
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/type:
-  comment: sha256:2f55fb62243b4e3d
-  verdict: pending
-decision/erlang/source/src/recon.erl/attribute/udp:
-  comment: sha256:32f53b94857fff11
+decision/erlang/source/src/recon.erl/function/port_info#2:
+  comment: sha256:47a8829ef6df51ca
   verdict: pending
 decision/erlang/source/src/recon.erl/function/port_info_type:
-  comment: sha256:1220380f6007290a
+  comment: sha256:4124bc396a47987e
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/port_types:
+  comment: sha256:cbc060c02f969d0d
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/proc_count:
+  comment: sha256:56fa8ec6fd28628f
   verdict: pending
 decision/erlang/source/src/recon.erl/function/proc_info:
-  comment: sha256:cf5b5c0eebb0182d
+  comment: sha256:af832b58af679a15
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/proc_window:
+  comment: sha256:aaeac4d55d57bfc4
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/remote_load:
+  comment: sha256:194f704d51184ea8
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/remote_load#2:
+  comment: sha256:1fa3d5f0e5a98020
   verdict: pending
 decision/erlang/source/src/recon.erl/function/replace:
-  comment: sha256:779a1cf8fba9eebf
+  comment: sha256:ad0c100cb0f11d48
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/rpc:
+  comment: sha256:93b11dcc900d732d
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/rpc#2:
+  comment: sha256:57d33f8208e0ff20
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/rpc#3:
+  comment: sha256:897cf546f048b50a
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/scheduler_usage:
+  comment: sha256:496fe8f6e5e5a990
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/sctp:
+  comment: sha256:bf2f505af5ebde4b
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/source:
+  comment: sha256:386a05192fca1f59
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/tcp:
+  comment: sha256:2ef1451dc77c7077
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/udp:
+  comment: sha256:a16e5e1911616ccf
+  verdict: pending
+decision/erlang/source/src/recon.erl/type/proc_attrs:
+  comment: sha256:2f55fb62243b4e3d
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl:
+  comment: sha256:ddbd11878bb97597
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/alloc:
+  comment: sha256:974d9a8edd41ce0e
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/allocators:
+  comment: sha256:69103febd22be311
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/allocators#2:
+  comment: sha256:ec7a5e2271c30de9
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/average_block_sizes:
+  comment: sha256:9be00848aaaaf348
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/average_calc:
+  comment: sha256:6c7175b87492a592
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/average_group:
+  comment: sha256:d4dac26ec182b8f6
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/cache_hit_rates:
+  comment: sha256:b83576fc3c3a2797
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/container_size:
+  comment: sha256:fe612804f450789c
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/fragmentation:
+  comment: sha256:4e251e7e3c30c19f
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/memory:
+  comment: sha256:928d9f149073961a
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/memory#2:
+  comment: sha256:af87bd1302caa002
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/sbcs_to_mbcs:
+  comment: sha256:b52f87a137b3b61c
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/set_unit:
+  comment: sha256:441fc4896ac08a6d
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot:
+  comment: sha256:524978a84e385779
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_clear:
+  comment: sha256:22d48a02724e4663
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_get:
+  comment: sha256:b529ed014b3b6820
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_get_int:
+  comment: sha256:ff6ffd4bec3d6185
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_int:
+  comment: sha256:1490bf6e8b104ee7
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_load:
+  comment: sha256:01e2a84b750fc493
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_print:
+  comment: sha256:cd87c207153c86c5
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_save:
+  comment: sha256:2201ae2a33b38925
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/usage:
+  comment: sha256:a617ac8229bb9791
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/util_alloc:
+  comment: sha256:d7d728e67de5d768
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/weighed_values:
+  comment: sha256:a442b17e4a2df897
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/type/memory:
+  comment: sha256:355779a1c54e00f6
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl:
+  comment: sha256:4976d23525ee039c
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/binary_memory:
+  comment: sha256:e8354bb35a7550e4
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/count:
+  comment: sha256:7efb46bc2a915a7c
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/fold_processes:
+  comment: sha256:e29c931f976065c3
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/inet_attrs:
+  comment: sha256:fcf3bc2ca5e9dde3
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/inet_attrs#2:
+  comment: sha256:19bff096ffbf96c0
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/pheap_fill:
+  comment: sha256:9296f967a39cf4c2
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/port_list:
+  comment: sha256:514314aa4971751a
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/port_list#2:
+  comment: sha256:c8c2481dc465c381
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/proc_attrs:
+  comment: sha256:b3e4db66603d54f0
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/proc_attrs#2:
+  comment: sha256:289e339edc02fdae
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/sample:
+  comment: sha256:e4bacd57597356df
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/scheduler_usage_diff:
+  comment: sha256:c749179a47663069
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/sliding_window:
+  comment: sha256:1ed79da0e3531d49
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/sublist_top_n_attrs:
+  comment: sha256:c35c392b38de1297
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/term_to_pid:
+  comment: sha256:18c34be2cd51baad
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/term_to_port:
+  comment: sha256:c836f898a5ca2a03
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/time_fold:
+  comment: sha256:8fa501e15e0ed4d0
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/time_map:
+  comment: sha256:fe9c0af2cba55b90
+  verdict: pending
+decision/erlang/source/src/recon_lib.erl/function/triple_to_pid:
+  comment: sha256:85639b7c5f31af56
   verdict: pending
 decision/erlang/source/src/recon_map.erl:
-  comment: sha256:8113d91553342a4a
-  verdict: pending
-decision/erlang/source/src/recon_map.erl/attribute/is_active:
-  comment: sha256:3e5cd3762b5e46d1
-  verdict: pending
-decision/erlang/source/src/recon_map.erl/attribute/limit:
-  comment: sha256:d7893edbf24f3764
-  verdict: pending
-decision/erlang/source/src/recon_map.erl/attribute/process_map:
-  comment: sha256:c617495fde9a400e
-  verdict: pending
-decision/erlang/source/src/recon_map.erl/attribute/remove:
-  comment: sha256:4324914517900fe2
-  verdict: pending
-decision/erlang/source/src/recon_map.erl/attribute/rename:
-  comment: sha256:27fb507c65d79edb
+  comment: sha256:7188fa4b649a28b1
   verdict: pending
 decision/erlang/source/src/recon_map.erl/function/clear:
-  comment: sha256:62544b7d45b79f3f
+  comment: sha256:1cca9f29069e4655
+  verdict: pending
+decision/erlang/source/src/recon_map.erl/function/is_active:
+  comment: sha256:c440144b611c2e05
+  verdict: pending
+decision/erlang/source/src/recon_map.erl/function/limit:
+  comment: sha256:d2d3f6de15f25efe
   verdict: pending
 decision/erlang/source/src/recon_map.erl/function/list:
-  comment: sha256:41b7638ca0441ee2
+  comment: sha256:9eecdbeefd816baf
   verdict: pending
 decision/erlang/source/src/recon_map.erl/function/list#2:
-  comment: sha256:b8f9f1ca0a51f506
+  comment: sha256:4f497e1c476aec32
   verdict: pending
-decision/erlang/source/test/records1.erl/attribute/export:
-  comment: sha256:c8e5998f6a3955c2
+decision/erlang/source/src/recon_map.erl/function/process_map:
+  comment: sha256:ea609ed35063ee82
   verdict: pending
-decision/erlang/source/test/records2.erl/attribute/export:
-  comment: sha256:c8e5998f6a3955c2
+decision/erlang/source/src/recon_map.erl/function/remove:
+  comment: sha256:1077fbf33348cf55
+  verdict: pending
+decision/erlang/source/src/recon_map.erl/function/rename:
+  comment: sha256:a5d2663cb4b71b98
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl:
+  comment: sha256:ce2d46eb7661591c
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/clear:
+  comment: sha256:939c2bdfd8ca0c85
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/clear#2:
+  comment: sha256:1cca9f29069e4655
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/ensure_table_exists:
+  comment: sha256:6386a592c6da9620
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/format_tuple:
+  comment: sha256:d479d677d20720d0
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/get_list:
+  comment: sha256:4839a600151474fa
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/import:
+  comment: sha256:5b361dd623461078
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/is_active:
+  comment: sha256:c440144b611c2e05
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/limit:
+  comment: sha256:53aaf4c5e4301483
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/list:
+  comment: sha256:f1e11816a4303473
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/lookup_record:
+  comment: sha256:6386a592c6da9620
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/type/field:
+  comment: sha256:1276be3ad2325127
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/type/limit:
+  comment: sha256:ee0df97cece494b1
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl:
+  comment: sha256:432bd6f97f472fcc
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/calls:
+  comment: sha256:1dbc6627c7133eb5
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/calls#2:
+  comment: sha256:2ae3a21b332c413e
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/clear:
+  comment: sha256:53855734657ddd1d
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/count_tracer:
+  comment: sha256:c210f7aa9689337c
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/format:
+  comment: sha256:4d842a1d116764af
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/format_trace_output:
+  comment: sha256:b2ba8d78478add25
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/formatter:
+  comment: sha256:ba6a6182429a1aa2
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/fun_to_ms:
+  comment: sha256:35b7e95274e5ba4e
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/rate_tracer:
+  comment: sha256:433d8d9e3d329dcd
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/setup:
+  comment: sha256:3bb60e4b39db3b80
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/trace_calls:
+  comment: sha256:b094e5bc1258feb5
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/validate_pid_specs:
+  comment: sha256:c6c29d48e33d68c3
+  verdict: pending
+decision/erlang/source/test/recon_SUITE.erl:
+  comment: sha256:bcf31e64c6d3cb68
+  verdict: pending
+decision/erlang/source/test/recon_SUITE.erl/function/binary_memory:
+  comment: sha256:4e691457386ec9ee
+  verdict: pending
+decision/erlang/source/test/recon_SUITE.erl/function/node_stats_list:
+  comment: sha256:b0976556b5587608
+  verdict: pending
+decision/erlang/source/test/recon_SUITE.erl/function/scheduler_usage:
+  comment: sha256:5579af7580ff0617
+  verdict: pending
+decision/erlang/source/test/recon_alloc_SUITE.erl:
+  comment: sha256:4b54825fe2719503
+  verdict: pending
+decision/erlang/source/test/recon_alloc_SUITE.erl/function/allocdata:
+  comment: sha256:78993adbf627c394
   verdict: pending
 ledger/DEC-sample-scope:
   comment: sha256:f719247a2dca628d

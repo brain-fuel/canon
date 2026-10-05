@@ -15,7 +15,10 @@ import Data.Text (Text)
 import qualified Data.Text as T
 
 -- | Required or optional, decided by the language at extraction so checks stay language-independent.
-data CommentRequirement = Required | Optional
+-- A hidden unit is one its language hides from its documentation on purpose, as Elixir's @doc false,
+-- Erlang's -doc false, and Gleam's @internal do, so it requires no comment either; the model says so
+-- rather than calling it optional, because the author decided it. ref:DEC-hidden-label
+data CommentRequirement = Required | Optional | Hidden
   deriving (Eq, Ord, Show, Enum, Bounded)
 
 -- | A unit: id, the answers, requirement, whether it is a test, and children.
@@ -46,6 +49,7 @@ requirementText :: CommentRequirement -> Text
 requirementText r = case r of
   Required -> "required"
   Optional -> "optional"
+  Hidden -> "hidden"
 
 instance ToJSON CommentRequirement where
   toJSON = toJSON . requirementText
@@ -54,6 +58,7 @@ instance FromJSON CommentRequirement where
   parseJSON = withText "CommentRequirement" $ \t -> case t of
     "required" -> pure Required
     "optional" -> pure Optional
+    "hidden" -> pure Hidden
     _ -> fail ("unknown comment requirement: " ++ T.unpack t)
 
 instance ToJSON ev => ToJSON (CodeUnit ev) where

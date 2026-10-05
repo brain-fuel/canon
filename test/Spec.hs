@@ -19,6 +19,7 @@ import qualified Canon.Extract.CSharpTest
 import qualified Canon.Extract.FSharpTest
 import qualified Canon.Extract.ElixirTest
 import qualified Canon.Extract.GleamTest
+import qualified Canon.Extract.ErlangTest
 import qualified Canon.Model.CheckTest
 import qualified Canon.Git.ParseTest
 import qualified Canon.Model.YamlTest
@@ -34,7 +35,7 @@ main =
   defaultMain
     ( testGroup
         "canon"
-        [ testGroup "unit" [CanonTest.tests, Canon.Antlr4.VendoredTest.tests, Canon.Extract.GrammarTest.tests, Canon.Extract.RustTest.tests, Canon.Extract.CSharpTest.tests, Canon.Extract.FSharpTest.tests, Canon.Extract.ElixirTest.tests, Canon.Extract.GleamTest.tests]
+        [ testGroup "unit" [CanonTest.tests, Canon.Antlr4.VendoredTest.tests, Canon.Extract.GrammarTest.tests, Canon.Extract.RustTest.tests, Canon.Extract.CSharpTest.tests, Canon.Extract.FSharpTest.tests, Canon.Extract.ElixirTest.tests, Canon.Extract.GleamTest.tests, Canon.Extract.ErlangTest.tests]
         , testGroup
             "property"
             [ Canon.Antlr4.EscapeTest.tests

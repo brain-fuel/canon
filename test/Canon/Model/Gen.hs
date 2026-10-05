@@ -281,7 +281,7 @@ genProfile =
     <*> Gen.choice [CombinedGrammarFile <$> genPath, SplitGrammarFiles <$> genPath <*> genPath]
     <*> (Name <$> genIdSegment)
     <*> Gen.list (Range.linear 0 3) genUnitRule
-    <*> (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment)
+    <*> (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.maybe ((,) <$> genIdSegment <*> genIdSegment))
   where
     genUnitRule =
       UnitRule

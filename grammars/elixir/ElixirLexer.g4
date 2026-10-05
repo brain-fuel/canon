@@ -20,8 +20,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // A structural lexer for Elixir, written for canon. It tokenizes everything Elixir's tokenizer
 // does closely enough for ElixirParser.g4 to find statements, blocks, and definitions; it does not
 // tell every operator's precedence apart, because canon needs units, not evaluation order.
-// Braces push the default mode and closing braces pop it, so the closing brace of a string
-// interpolation returns to the string it interrupted.
+// Braces push the default mode and closing braces pop it, so the closing brace of a string or
+// sigil interpolation returns to the literal it interrupted.
 
 lexer grammar ElixirLexer;
 
@@ -84,8 +84,14 @@ TEST_MACRO
 // Module attributes. The documentation attributes, the type attributes, and the callback
 // attributes have their own types so the parser can tell them from the attributes a definition
 // carries; a longer attribute name such as @docs_url is an ordinary ATTRIBUTE by longest match.
+// @moduledoc has a type of its own, because @moduledoc false hides the module around it while
+// @doc false hides the definition below it.
+MODULEDOC_ATTRIBUTE
+    : '@moduledoc'
+    ;
+
 DOC_ATTRIBUTE
-    : '@' ('moduledoc' | 'doc' | 'typedoc')
+    : '@' ('doc' | 'typedoc')
     ;
 
 TYPE_ATTRIBUTE
@@ -126,21 +132,35 @@ CHAR
     : '?' ('\\' . | ~[\\ \t\r\n])
     ;
 
-// Sigils are single tokens: canon reads no code inside them, and their delimiters vary.
+// An uppercase sigil does not interpolate, so it is a single token: canon reads no code inside it.
 SIGIL
-    : '~' [a-zA-Z]+ (
+    : '~' [A-Z] [A-Z0-9]* (
         '"""' .*? '"""'
         | '\'\'\'' .*? '\'\'\''
-        | '"' ('\\' . | SIGIL_INTERPOLATION | ~["\\])* '"'
-        | '\'' ('\\' . | SIGIL_INTERPOLATION | ~['\\])* '\''
-        | '/' ('\\' . | SIGIL_INTERPOLATION | ~[/\\])* '/'
-        | '|' ('\\' . | SIGIL_INTERPOLATION | ~[|\\])* '|'
-        | '(' ('\\' . | SIGIL_INTERPOLATION | ~[)\\])* ')'
-        | '[' ('\\' . | SIGIL_INTERPOLATION | ~[\]\\])* ']'
-        | '{' ('\\' . | SIGIL_INTERPOLATION | ~[}\\])* '}'
-        | '<' ('\\' . | SIGIL_INTERPOLATION | ~[>\\])* '>'
+        | '"' ('\\' . | ~["\\])* '"'
+        | '\'' ('\\' . | ~['\\])* '\''
+        | '/' ('\\' . | ~[/\\])* '/'
+        | '|' ('\\' . | ~[|\\])* '|'
+        | '(' ('\\' . | ~[)\\])* ')'
+        | '[' ('\\' . | ~[\]\\])* ']'
+        | '{' ('\\' . | ~[}\\])* '}'
+        | '<' ('\\' . | ~[>\\])* '>'
     ) [a-zA-Z0-9]*
     ;
+
+// A lowercase sigil interpolates, so its opening enters a mode per delimiter, as a string does, and
+// an interpolation inside it may hold any code, including the sigil's closing delimiter and
+// newlines.
+SIGIL_HEREDOC_OPEN    : '~' [a-z] '"""' -> pushMode(SIGIL_HEREDOC);
+SIGIL_CHARDOC_OPEN    : '~' [a-z] '\'\'\'' -> pushMode(SIGIL_CHARDOC);
+SIGIL_QUOTE_OPEN      : '~' [a-z] '"' -> pushMode(SIGIL_QUOTE);
+SIGIL_APOSTROPHE_OPEN : '~' [a-z] '\'' -> pushMode(SIGIL_APOSTROPHE);
+SIGIL_SLASH_OPEN      : '~' [a-z] '/' -> pushMode(SIGIL_SLASH);
+SIGIL_BAR_OPEN        : '~' [a-z] '|' -> pushMode(SIGIL_BAR);
+SIGIL_PAREN_OPEN      : '~' [a-z] '(' -> pushMode(SIGIL_PAREN);
+SIGIL_BRACKET_OPEN    : '~' [a-z] '[' -> pushMode(SIGIL_BRACKET);
+SIGIL_BRACE_OPEN      : '~' [a-z] '{' -> pushMode(SIGIL_BRACE);
+SIGIL_ANGLE_OPEN      : '~' [a-z] '<' -> pushMode(SIGIL_ANGLE);
 
 HEX     : '0x' [0-9a-fA-F]+ ('_' [0-9a-fA-F]+)*;
 OCTAL   : '0o' [0-7]+ ('_' [0-7]+)*;
@@ -233,11 +253,6 @@ fragment DIGITS
     : [0-9]+ ('_' [0-9]+)*
     ;
 
-// An interpolation inside a sigil, whose code may hold the sigil's closing delimiter.
-fragment SIGIL_INTERPOLATION
-    : '#{' ~[}\r\n]* '}'
-    ;
-
 fragment ESCAPE
     : '\\' .
     ;
@@ -280,3 +295,75 @@ HEREDOC_PUNCTUATION
     : '#'
     | '"'
     ;
+
+// The inside of each lowercase sigil: text, escapes, and interpolations, up to the closing
+// delimiter and the sigil's modifiers. The text of every mode is a SIGIL_TEXT.
+mode SIGIL_HEREDOC;
+
+SIGIL_HEREDOC_CLOSE         : '"""' [a-zA-Z0-9]* -> type(SIGIL_CLOSE), popMode;
+SIGIL_HEREDOC_INTERPOLATION : '#{' -> type(SIGIL_INTERPOLATION), pushMode(DEFAULT_MODE);
+SIGIL_HEREDOC_TEXT          : (~["\\#] | ESCAPE | '#' ~["\\#{] | '"' ~["\\#] | '""' ~["\\#])+ -> type(SIGIL_TEXT);
+SIGIL_HEREDOC_PUNCTUATION   : ('#' | '"') -> type(SIGIL_TEXT);
+
+mode SIGIL_CHARDOC;
+
+SIGIL_CHARDOC_CLOSE         : '\'\'\'' [a-zA-Z0-9]* -> type(SIGIL_CLOSE), popMode;
+SIGIL_CHARDOC_INTERPOLATION : '#{' -> type(SIGIL_INTERPOLATION), pushMode(DEFAULT_MODE);
+SIGIL_CHARDOC_TEXT          : (~['\\#] | ESCAPE | '#' ~['\\#{] | '\'' ~['\\#] | '\'\'' ~['\\#])+ -> type(SIGIL_TEXT);
+SIGIL_CHARDOC_PUNCTUATION   : ('#' | '\'') -> type(SIGIL_TEXT);
+
+mode SIGIL_QUOTE;
+
+SIGIL_CLOSE               : '"' [a-zA-Z0-9]* -> popMode;
+SIGIL_INTERPOLATION       : '#{' -> pushMode(DEFAULT_MODE);
+SIGIL_TEXT                : (~["\\#] | ESCAPE | '#' ~["\\#{])+;
+SIGIL_QUOTE_HASH          : '#' -> type(SIGIL_TEXT);
+
+mode SIGIL_APOSTROPHE;
+
+SIGIL_APOSTROPHE_CLOSE         : '\'' [a-zA-Z0-9]* -> type(SIGIL_CLOSE), popMode;
+SIGIL_APOSTROPHE_INTERPOLATION : '#{' -> type(SIGIL_INTERPOLATION), pushMode(DEFAULT_MODE);
+SIGIL_APOSTROPHE_TEXT          : (~['\\#] | ESCAPE | '#' ~['\\#{])+ -> type(SIGIL_TEXT);
+SIGIL_APOSTROPHE_HASH          : '#' -> type(SIGIL_TEXT);
+
+mode SIGIL_SLASH;
+
+SIGIL_SLASH_CLOSE         : '/' [a-zA-Z0-9]* -> type(SIGIL_CLOSE), popMode;
+SIGIL_SLASH_INTERPOLATION : '#{' -> type(SIGIL_INTERPOLATION), pushMode(DEFAULT_MODE);
+SIGIL_SLASH_TEXT          : (~[/\\#] | ESCAPE | '#' ~[/\\#{])+ -> type(SIGIL_TEXT);
+SIGIL_SLASH_HASH          : '#' -> type(SIGIL_TEXT);
+
+mode SIGIL_BAR;
+
+SIGIL_BAR_CLOSE         : '|' [a-zA-Z0-9]* -> type(SIGIL_CLOSE), popMode;
+SIGIL_BAR_INTERPOLATION : '#{' -> type(SIGIL_INTERPOLATION), pushMode(DEFAULT_MODE);
+SIGIL_BAR_TEXT          : (~[|\\#] | ESCAPE | '#' ~[|\\#{])+ -> type(SIGIL_TEXT);
+SIGIL_BAR_HASH          : '#' -> type(SIGIL_TEXT);
+
+mode SIGIL_PAREN;
+
+SIGIL_PAREN_CLOSE         : ')' [a-zA-Z0-9]* -> type(SIGIL_CLOSE), popMode;
+SIGIL_PAREN_INTERPOLATION : '#{' -> type(SIGIL_INTERPOLATION), pushMode(DEFAULT_MODE);
+SIGIL_PAREN_TEXT          : (~[)\\#] | ESCAPE | '#' ~[)\\#{])+ -> type(SIGIL_TEXT);
+SIGIL_PAREN_HASH          : '#' -> type(SIGIL_TEXT);
+
+mode SIGIL_BRACKET;
+
+SIGIL_BRACKET_CLOSE         : ']' [a-zA-Z0-9]* -> type(SIGIL_CLOSE), popMode;
+SIGIL_BRACKET_INTERPOLATION : '#{' -> type(SIGIL_INTERPOLATION), pushMode(DEFAULT_MODE);
+SIGIL_BRACKET_TEXT          : (~[\]\\#] | ESCAPE | '#' ~[\]\\#{])+ -> type(SIGIL_TEXT);
+SIGIL_BRACKET_HASH          : '#' -> type(SIGIL_TEXT);
+
+mode SIGIL_BRACE;
+
+SIGIL_BRACE_CLOSE         : '}' [a-zA-Z0-9]* -> type(SIGIL_CLOSE), popMode;
+SIGIL_BRACE_INTERPOLATION : '#{' -> type(SIGIL_INTERPOLATION), pushMode(DEFAULT_MODE);
+SIGIL_BRACE_TEXT          : (~[}\\#] | ESCAPE | '#' ~[}\\#{])+ -> type(SIGIL_TEXT);
+SIGIL_BRACE_HASH          : '#' -> type(SIGIL_TEXT);
+
+mode SIGIL_ANGLE;
+
+SIGIL_ANGLE_CLOSE         : '>' [a-zA-Z0-9]* -> type(SIGIL_CLOSE), popMode;
+SIGIL_ANGLE_INTERPOLATION : '#{' -> type(SIGIL_INTERPOLATION), pushMode(DEFAULT_MODE);
+SIGIL_ANGLE_TEXT          : (~[>\\#] | ESCAPE | '#' ~[>\\#{])+ -> type(SIGIL_TEXT);
+SIGIL_ANGLE_HASH          : '#' -> type(SIGIL_TEXT);
