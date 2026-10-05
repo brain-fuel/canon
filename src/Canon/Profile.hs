@@ -25,10 +25,13 @@ data GrammarSource
   | SplitGrammarFiles FilePath FilePath
   deriving (Eq, Show)
 
--- | Where a unit's name comes from: a token by index or a child rule.
+-- | Where a unit's name comes from: a token by index, a child rule, or the unit's position among the
+-- units of its rule in its parent, counted from zero, for a unit without a name of its own, such as
+-- a field of a Rust tuple struct. ref:DEC-rust-visibility
 data UnitName
   = NameFromToken Name Int
   | NameFromRule Name
+  | NameFromOrdinal
   deriving (Eq, Show)
 
 -- | A parse-tree rule that is a unit, for languages without a dialect. Several unit rules may name
@@ -76,13 +79,17 @@ data CommentSyntax = CommentSyntax
 defaultCommentSyntax :: CommentSyntax
 defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] [] [] []
 
--- | A language profile.
+-- | A language profile. Its signatures map the extension of a signature file to the extension of
+-- the implementation it declares, as F#'s .fsi declares a .fs: where both files of a name are
+-- checked, the signature carries the comments and the implementation needs none.
+-- ref:DEC-fsharp-signatures
 data Profile = Profile
   { profileExtensions :: [Text]
   , profileGrammar :: GrammarSource
   , profileStart :: Name
   , profileUnits :: [UnitRule]
   , profileComments :: CommentSyntax
+  , profileSignatures :: Map Text Text
   }
   deriving (Eq, Show)
 
@@ -97,16 +104,19 @@ instance ToJSON UnitName where
   toJSON n = case n of
     NameFromToken (Name t) index -> object ["index" .= index, "token" .= t]
     NameFromRule (Name r) -> object ["rule" .= r]
+    NameFromOrdinal -> object ["ordinal" .= True]
 
 instance FromJSON UnitName where
   parseJSON = withObject "UnitName" $ \o -> do
     token <- o .:? "token"
     rule <- o .:? "rule"
+    ordinal <- fromMaybe False <$> o .:? "ordinal"
     index <- fromMaybe 1 <$> o .:? "index"
-    case (token, rule) of
-      (Just t, Nothing) -> pure (NameFromToken (Name t) index)
-      (Nothing, Just r) -> pure (NameFromRule (Name r))
-      _ -> fail "a unit name comes from exactly one of token or rule"
+    case (token, rule, ordinal) of
+      (Just t, Nothing, False) -> pure (NameFromToken (Name t) index)
+      (Nothing, Just r, False) -> pure (NameFromRule (Name r))
+      (Nothing, Nothing, True) -> pure NameFromOrdinal
+      _ -> fail "a unit name comes from exactly one of token, rule, or ordinal"
 
 instance ToJSON UnitRule where
   toJSON (UnitRule (Name rule) kind name required firstToken merge) =
@@ -164,6 +174,7 @@ instance ToJSON Profile where
         , "start" .= nameText (profileStart p)
         , "units" .= profileUnits p
         ]
+          ++ ["signatures" .= profileSignatures p | not (Map.null (profileSignatures p))]
           ++ case profileGrammar p of
             CombinedGrammarFile path -> ["grammar" .= path]
             SplitGrammarFiles lexer parser -> ["lexer" .= lexer, "parser" .= parser]
@@ -184,3 +195,4 @@ instance FromJSON Profile where
       <*> (Name <$> o .: "start")
       <*> (fromMaybe [] <$> o .:? "units")
       <*> (fromMaybe defaultCommentSyntax <$> o .:? "comments")
+      <*> (fromMaybe Map.empty <$> o .:? "signatures")

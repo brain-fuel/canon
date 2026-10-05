@@ -44,10 +44,18 @@ the way Python's tokenizer does:
 - Layout tokens are empty and sit where the last code token ends, so they
   widen no span.
 
-The hook also reads one branch of each `#if`: the first whose condition holds
-for some choice of its symbols, as canon reads C#. The other branches go to the
-hidden channel, and extraction neither binds nor reports the doc comments in
-them.
+The hook also reads the branches of each `#if` that a build selects, as canon
+reads C#: canon reads a file once per build of a few that together read every
+branch some build compiles, and merges what each finds. In each build the other
+branches go to the hidden channel, and a doc comment in them is neither bound
+nor reported.
+
+A less-than sign that touches the name before it may open a type application,
+as in `f< ^a when ^a : (static member Zero : ^a)>` or `List<int>`, whose angle
+brackets F# lets span lines. The hook holds the tokens from it to its closing
+greater-than sign and lays them out as inside brackets. A token a type cannot
+hold, such as an equals sign outside parentheses or a `let`, shows it was a
+comparison, and the tokens are laid out as usual.
 
 This is the offside rule's common case, not the whole of it. The F#
 specification lets some tokens sit left of their context (an infix operator at
@@ -59,10 +67,21 @@ a type's name on the line below `type` or `and` and its attributes, a union's
 cases at the column of `type`, and match arms at the column of the binding
 they end.
 
+## Local bindings and signature files
+
+A line of a body that starts with `let` is a local binding, a unit that may
+have a comment, so a doc comment on one binds to it. A union case's fields may
+continue on indented lines, as a multi-line anonymous record does, and an
+indented `with` below them begins the union's members.
+
+A signature file, `.fsi`, declares what its implementation exports and carries
+its documentation. The profile's `signatures` maps `.fsi` to `.fs`, and when
+`canon check` reads both files of a name, the comment is required on the
+signature and not on the implementation, and what the signature leaves out is
+private, as `DEC-fsharp-signatures` records.
+
 ## Known limits
 
-- Local bindings inside expressions are not units, so a doc comment on one is
-  reported as attached to nothing; F# ignores such comments too.
 - A doc comment placed after a declaration's attributes is reported as attached
   to nothing, as F# warns that it is not on a valid element.
 - Verbose syntax is read in its common shapes only: `class`, `struct`, and
@@ -73,12 +92,6 @@ they end.
   model and its doc comment is reported as attached to nothing. Across the 579
   source files of FsToolkit.ErrorHandling, Expecto, FsCheck, Argu, Giraffe,
   FSharp.Data, and Fantomas's library this happened to two declarations, both
-  with a statically resolved type parameter list spanning lines, and across
-  the 5,900 snapshot cases in which Fantomas tests unusual layouts, to 104.
-- A union case whose fields hold a multi-line anonymous record followed by
-  `with` and members reads the members as part of the case.
-- A type parameter whose name is quoted in double backticks does not lex.
-- Signature files parse, and `val` declarations are units, but the profile
-  cannot tie a `val` in a `.fsi` to the binding it declares, so when the
-  comment sits on the `val`, the binding in the `.fs` file is still reported
-  as missing one.
+  with a statically resolved type parameter list spanning lines, which the
+  hook now reads, and across the 5,900 snapshot cases in which Fantomas tests
+  unusual layouts, to 104.

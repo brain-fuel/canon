@@ -282,12 +282,13 @@ genProfile =
     <*> (Name <$> genIdSegment)
     <*> Gen.list (Range.linear 0 3) genUnitRule
     <*> (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment)
+    <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> (T.cons '.' <$> genIdSegment) <*> (T.cons '.' <$> genIdSegment)))
   where
     genUnitRule =
       UnitRule
         <$> (Name <$> genIdSegment)
         <*> genIdSegment
-        <*> Gen.choice [NameFromToken <$> (Name <$> genIdSegment) <*> Gen.int (Range.linear 1 3), NameFromRule . Name <$> genIdSegment]
+        <*> Gen.choice [NameFromToken <$> (Name <$> genIdSegment) <*> Gen.int (Range.linear 1 3), NameFromRule . Name <$> genIdSegment, pure NameFromOrdinal]
         <*> Gen.bool
         <*> Gen.maybe ((,) <$> Gen.maybe (Name <$> genIdSegment) <*> Gen.list (Range.linear 1 3) genIdSegment)
         <*> Gen.bool

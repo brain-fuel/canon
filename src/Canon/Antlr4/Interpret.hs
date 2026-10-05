@@ -7,15 +7,18 @@ module Canon.Antlr4.Interpret
   , loadCombinedInterpreter
   , interpretFile
   , interpretText
+  , interpretTextWith
   , renderInterpretError
   ) where
 
 import Canon.Antlr4.Lex
-import Canon.Antlr4.Lex.Adaptor (hooksForGrammar)
+import Canon.Antlr4.Lex.Adaptor (hooksForGrammarWith, preprocesses)
 import Canon.Antlr4.Parse
+import Canon.Antlr4.Predicate (predicateHookFor)
 import Canon.Antlr4.Read (ReadError, readGrammarFile, readResultGrammar, renderReadError)
 import Canon.Antlr4.Syntax (Grammar, Name)
 import Canon.Antlr4.Token (Token)
+import Canon.Preprocessor (Choice)
 import Canon.Span (Span)
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -28,6 +31,8 @@ data Interpreter = Interpreter
   , interpreterParser :: Grammar Span
   , interpreterTable :: LexerTable
   , interpreterTokenize :: Text -> Either LexError [Token]
+  , interpreterTokenizeWith :: Choice -> Text -> Either LexError [Token]
+  , interpreterPreprocesses :: Bool
   }
 
 -- | Reading, lexing, and parsing can each fail, and a user needs to know which stage did.
@@ -65,15 +70,19 @@ loadCombinedInterpreter path = do
 build :: FilePath -> Grammar Span -> Grammar Span -> Either InterpretError Interpreter
 build lexerPath lexerGrammar parserGrammar = do
   table <- either (Left . InterpretLexError lexerPath) Right (buildLexerTable lexerGrammar)
-  let tokenizer = case hooksForGrammar lexerGrammar of
+  let tokenizer choice = case hooksForGrammarWith choice lexerGrammar of
         SomeHooks hooks -> tokenizeWith hooks table
-  Right (Interpreter lexerGrammar parserGrammar table tokenizer)
+  Right (Interpreter lexerGrammar parserGrammar table (tokenizer Nothing) tokenizer (preprocesses lexerGrammar))
 
 -- | Parses text with a start rule and returns the tree, taking the path only for messages.
 interpretText :: Interpreter -> Name -> FilePath -> Text -> Either InterpretError ParseTree
-interpretText interpreter start path source = do
-  toks <- either (Left . InterpretLexError path) Right (interpreterTokenize interpreter source)
-  either (Left . InterpretParseError path) Right (parseTokens (interpreterParser interpreter) start toks)
+interpretText = interpretTextWith Nothing
+
+-- | Parses text reading the conditional branches a build selects. ref:DEC-preprocessor-builds
+interpretTextWith :: Choice -> Interpreter -> Name -> FilePath -> Text -> Either InterpretError ParseTree
+interpretTextWith choice interpreter start path source = do
+  toks <- either (Left . InterpretLexError path) Right (interpreterTokenizeWith interpreter choice source)
+  either (Left . InterpretParseError path) Right (parseTokensWith (predicateHookFor (interpreterParser interpreter)) (interpreterParser interpreter) start toks)
 
 -- | Reads and parses a file, so callers do not repeat the read.
 interpretFile :: Interpreter -> Name -> FilePath -> IO (Either InterpretError ParseTree)

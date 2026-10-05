@@ -4915,6 +4915,9 @@ decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/fun
 decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/interpretText:
   comment: sha256:5ff434118cedb44c
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/interpretTextWith:
+  comment: sha256:869e2a974fabf84e
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/loadCombinedInterpreter:
   comment: sha256:0cc3580fc4a6cc03
   verdict: pending
@@ -4936,11 +4939,20 @@ decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor
 decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/hooksForGrammar:
   comment: sha256:9495dd6e3e588181
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/hooksForGrammarWith:
+  comment: sha256:cd42fb41f752811c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/preprocesses:
+  comment: sha256:6025b09d41fa402d
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp:
   comment: sha256:651531982a207add
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/data/CSharpLexerState:
   comment: sha256:fc31ad8fc78bb509
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/data/Hole:
+  comment: sha256:14a8500d0ab7fa81
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/function/csharpLexerHooks:
   comment: sha256:2e8d7b1d2d48be22
@@ -4954,11 +4966,20 @@ decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp:
 decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/data/FSharpLayout:
   comment: sha256:1b64b44100d8e213
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/data/Held:
+  comment: sha256:04b26360af334275
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/fsharpLexerHooks:
   comment: sha256:8b6a814b775eb421
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/offside:
   comment: sha256:deb9681c420c8f26
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/onEmit:
+  comment: sha256:febdc7fce1422490
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/replay:
+  comment: sha256:b4e2cb46015768ba
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/virtual:
   comment: sha256:c91bf69b8e7b0ac0
@@ -5071,6 +5092,12 @@ decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/newtype
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse:
   comment: sha256:5bf7a52e34ba4e07
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/Entry:
+  comment: sha256:7e43b025684dfe4a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/Found:
+  comment: sha256:044465f3a88860bb
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/ParseError:
   comment: sha256:dab05f72c3cb9023
   verdict: pending
@@ -5080,11 +5107,29 @@ decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/ParseF
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/ParseTree:
   comment: sha256:44b4a3d727a5afa6
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/manyStep:
+  comment: sha256:96cc66952f0ffd46
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/memoised:
+  comment: sha256:07746c7c547b19b5
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/newMemo:
+  comment: sha256:f71c2c59cf96dfdb
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/node:
+  comment: sha256:7c05c3822cac6a1f
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/parseTokens:
   comment: sha256:df25a5ab39721ab8
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/parseTokensWith:
+  comment: sha256:fb5225740d0f6e88
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/parseVisibleTokens:
   comment: sha256:279e4fe018e8effa
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/parseVisibleTokensWith:
+  comment: sha256:dcc92c5b2885901e
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/renderParseError:
   comment: sha256:a3c3f2ca8a3fa752
@@ -5097,6 +5142,18 @@ decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/tr
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/treeTokens:
   comment: sha256:7f3ae18366420bbb
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/type/PredicateHook:
+  comment: sha256:9d800490195bc6b8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate:
+  comment: sha256:a61b35df3b90e0f8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/csharpPredicates:
+  comment: sha256:2377e5ee9e6ece72
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/predicateHookFor:
+  comment: sha256:154d993a59a379c4
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty:
   comment: sha256:d3533f6c33374d47
@@ -5656,6 +5713,9 @@ decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/funct
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/loadProfileInterpreter:
   comment: sha256:6a657817966424a3
   verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/mergeUnits:
+  comment: sha256:6de3a07d8685fe63
+  verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/parseExportEntry:
   comment: sha256:663d514499d453c8
   verdict: pending
@@ -5977,14 +6037,26 @@ decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/data/Condit
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/data/Directive:
   comment: sha256:396cad2723140b34
   verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/assignments:
+  comment: sha256:89e9b68273221c01
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/builds:
+  comment: sha256:3f18492bca1a1a9d
+  verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/conditionTokens:
   comment: sha256:2b84fb72cf088827
   verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/directiveOf:
   comment: sha256:ddeee9c494c25b7f
   verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/evaluate:
+  comment: sha256:a713212c2a7032be
+  verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/inactiveLines:
   comment: sha256:a4afedc650d0998f
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/inactiveLinesWith:
+  comment: sha256:f2370b49e10dcba0
   verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/parseCondition:
   comment: sha256:0338a9fd4c20b538
@@ -5998,8 +6070,20 @@ decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/sa
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/stepBranches:
   comment: sha256:30ade3e2b33efa77
   verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/stepBranchesWith:
+  comment: sha256:28edf84533215181
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/symbolsOf:
+  comment: sha256:ae5113402049763e
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/walkBranches:
+  comment: sha256:6e9dd067a83f6f07
+  verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/type/Branches:
   comment: sha256:9f44a108e220bf32
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/type/Choice:
+  comment: sha256:5dd1ce7a6a5dab00
   verdict: pending
 decision/haskell/src/Canon/Profile.hs/module/Canon.Profile:
   comment: sha256:68baad4144c1c392
@@ -6087,6 +6171,18 @@ decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/function/renderRegi
   verdict: pending
 decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/newtype/Registry:
   comment: sha256:659d02e62b61f416
+  verdict: pending
+decision/haskell/src/Canon/Signature.hs/module/Canon.Signature:
+  comment: sha256:c94554b336780b5a
+  verdict: pending
+decision/haskell/src/Canon/Signature.hs/module/Canon.Signature/function/keyed:
+  comment: sha256:45a859f4f3c63b99
+  verdict: pending
+decision/haskell/src/Canon/Signature.hs/module/Canon.Signature/function/linkSignatures:
+  comment: sha256:c48cc4b9877e0106
+  verdict: pending
+decision/haskell/src/Canon/Signature.hs/module/Canon.Signature/function/mapUnits:
+  comment: sha256:e86ca937d5deab8b
   verdict: pending
 decision/haskell/src/Canon/Span.hs/module/Canon.Span:
   comment: sha256:6d2e95d9987347cf
@@ -6409,6 +6505,15 @@ decision/haskell/test/Canon/DecisionsTest.hs/module/Canon.DecisionsTest/function
 decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest:
   comment: sha256:512a8ca5470c9486
   verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/extractFixture:
+  comment: sha256:87d8f31edc88d2ab
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength:
+  comment: sha256:89cb23517ef33824
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_anInterfaceMemberNeedsACommentAsTheInterfaceDoesUnlessItIsPrivateOrInternal:
+  comment: sha256:a7aa30b4c259c8fb
+  verdict: pending
 decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_csharpGrammarParsesTheGuardClausesSampleIntoItsMembers:
   comment: sha256:e10334b3ccda2f8f
   verdict: pending
@@ -6417,6 +6522,15 @@ decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTes
   verdict: pending
 decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_csharpProfileBindsXmlDocsRequiresThemOnPublicMembersAndRecognisesTests:
   comment: sha256:af1ef871c3ceb0ab
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_everyBranchOfAnIfThatSomeBuildCompilesIsRead:
+  comment: sha256:8d84ba1dd9133e54
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_theCSharpParserAnswersThePredicatesOfItsBaseClass:
+  comment: sha256:1c79afa3e37eab90
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_theHolesOfAnInterpolatedRawStringAreParsed:
+  comment: sha256:04aaf18637bd139f
   verdict: pending
 decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/sampleProfile:
   comment: sha256:5cca8d38aee60a11
@@ -6445,6 +6559,15 @@ decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTes
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest:
   comment: sha256:cdf29e28cdb10108
   verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/extractAt:
+  comment: sha256:2b62762233cf3f55
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_aDocCommentOnALocalLetBindsToIt:
+  comment: sha256:6017bae7b0ed150c
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_aSignatureFileCarriesTheCommentsOfItsImplementation:
+  comment: sha256:728b1581b6d0f115
+  verdict: pending
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_fsharpGrammarParsesTheViewEngineSampleIntoItsDeclarations:
   comment: sha256:9826e00f1ef6a286
   verdict: pending
@@ -6454,11 +6577,23 @@ decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTes
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_fsharpProfileBindsDocCommentsExemptsPrivateDeclarationsAndRecognisesTests:
   comment: sha256:314fab547196f8f8
   verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_fsharpTypeParametersSpanLinesAndMayBeQuoted:
+  comment: sha256:2d0018558866934d
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_theMembersAfterAUnionCaseWithAnAnonymousRecordAreTheUnions:
+  comment: sha256:4036e9aa080497f0
+  verdict: pending
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/sampleProfile:
   comment: sha256:7e03395797aae06f
   verdict: pending
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/tests:
   comment: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/unitsOf:
+  comment: sha256:f6b0bc735a2de6c6
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/whysOf:
+  comment: sha256:ea34157c468c11a6
   verdict: pending
 decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest:
   comment: sha256:43a81ac2d52c9bd1
@@ -6484,6 +6619,15 @@ decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarT
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest:
   comment: sha256:78269b1018bc614d
   verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/extractFixture:
+  comment: sha256:35cb1cf05571bf9b
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType:
+  comment: sha256:ebe8d4c21e756093
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_anEmptyRustLineCommentEndsAtItsLineAndHidesNoCode:
+  comment: sha256:83417fe2a800aa35
+  verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustGrammarParsesTheScopeguardSampleIntoItsItems:
   comment: sha256:3945a07b8ee2affa
   verdict: pending
@@ -6492,6 +6636,9 @@ decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/fu
   verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustProfileBindsDocCommentsAcrossAttributesAndRecognisesTests:
   comment: sha256:732ccea7b2f885e3
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustProfileRequiresCommentsOnWhatIsVisibleOutsideTheCrate:
+  comment: sha256:22435011ad64edbd
   verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/sampleProfile:
   comment: sha256:ec37d8eda1a1e59d
@@ -6718,6 +6865,9 @@ ledger/DEC-extraction-cache:
 ledger/DEC-fsharp-grammar:
   comment: sha256:908f7252051291cd
   verdict: pending
+ledger/DEC-fsharp-signatures:
+  comment: sha256:8d39ec1995b3bf77
+  verdict: pending
 ledger/DEC-gleam-grammar:
   comment: sha256:845555a1c6966994
   verdict: pending
@@ -6738,6 +6888,9 @@ ledger/DEC-haskell-grammar-fixes:
   verdict: pending
 ledger/DEC-human-sign-off:
   comment: sha256:32f9d9a0ab3fc0db
+  verdict: pending
+ledger/DEC-inherited-label:
+  comment: sha256:2dbee08303fe2609
   verdict: pending
 ledger/DEC-java-grammar-comments:
   comment: sha256:fb71c3ba073a3ac8
@@ -6760,14 +6913,26 @@ ledger/DEC-parser-foundation:
 ledger/DEC-parser-generation:
   comment: sha256:11195fb0353d0e17
   verdict: pending
+ledger/DEC-parser-memory:
+  comment: sha256:e1078d336e5ee04d
+  verdict: pending
+ledger/DEC-parser-predicates:
+  comment: sha256:a10025ad2075e5a0
+  verdict: pending
 ledger/DEC-precedence-climbing:
   comment: sha256:0a49bcdd56ffadc0
+  verdict: pending
+ledger/DEC-preprocessor-builds:
+  comment: sha256:6697ab531c4298fb
   verdict: pending
 ledger/DEC-required-orphan-labels:
   comment: sha256:bf2b6c07605a617e
   verdict: pending
 ledger/DEC-rust-grammar:
   comment: sha256:1f576e4a5b7aea8e
+  verdict: pending
+ledger/DEC-rust-visibility:
+  comment: sha256:7ebf4c4da3e2b27e
   verdict: pending
 ledger/DEC-sample-project-readme:
   comment: sha256:cd4a6a344f0bfce6
@@ -6808,6 +6973,12 @@ registry/antlr-haskell:
 registry/canon-provisional-syntax:
   comment: sha256:7dcc69f6c42c0111
   verdict: pending
+registry/csharp-preprocessor-directives:
+  comment: sha256:59698c48b6797c7b
+  verdict: pending
+registry/csharp-raw-string-literals:
+  comment: sha256:6fa9d28fb1a85a39
+  verdict: pending
 registry/csharp-xml-documentation:
   comment: sha256:60856158f50ff685
   verdict: pending
@@ -6819,6 +6990,9 @@ registry/elixir-writing-documentation:
   verdict: pending
 registry/fsharp-offside-rule:
   comment: sha256:e1bae2f61cb25a23
+  verdict: pending
+registry/fsharp-signature-files:
+  comment: sha256:75e73da2d636eb9a
   verdict: pending
 registry/fsharp-xml-documentation:
   comment: sha256:6c711e1ca7960e35
@@ -6846,6 +7020,9 @@ registry/grammars-v4-rust:
   verdict: pending
 registry/grampa-2017:
   comment: sha256:0990a639309c9f81
+  verdict: pending
+registry/rust-missing-docs:
+  comment: sha256:24682ad693e3ed1e
   verdict: pending
 registry/rust-reference-comments:
   comment: sha256:6a6df382bf4aad23

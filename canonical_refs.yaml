@@ -38,9 +38,13 @@ rust-reference-comments:
   kind: article
   title: The Rust Reference, Comments, on outer and inner doc comments
   locator: https://doc.rust-lang.org/reference/comments.html
+rust-missing-docs:
+  kind: article
+  title: The rustc book, the missing_docs lint, on which public items need documentation
+  locator: https://doc.rust-lang.org/rustc/lints/listing/allowed-by-default.html#missing-docs
 REQ-rust-support:
   kind: requirement
-  title: canon reads Rust, parsing every stable Rust source file, taking functions, types, traits, impls, modules, constants, statics, and macros as units, binding /// to the item below its attributes and //! to the enclosing module or file, and recognising test functions by their attribute
+  title: canon reads Rust, parsing every stable Rust source file, taking functions, types, traits, impls, modules, constants, statics, macros, variants, and fields as units, binding /// to the item below its attributes and //! to the enclosing module or file, requiring a comment on what is visible outside the crate, naming a trait impl by its trait and self type, and recognising test functions by their attribute
   locator: README.md
 grammars-v4-csharp:
   kind: package
@@ -50,9 +54,17 @@ csharp-xml-documentation:
   kind: article
   title: C# language reference, Documentation comments, on /// and /** XML doc comments and where they attach
   locator: https://learn.microsoft.com/dotnet/csharp/language-reference/xmldoc/
+csharp-preprocessor-directives:
+  kind: article
+  title: C# language reference, Preprocessor directives, on conditional compilation with #if, #elif, #else, and #define
+  locator: https://learn.microsoft.com/dotnet/csharp/language-reference/preprocessor-directives
+csharp-raw-string-literals:
+  kind: article
+  title: C# language reference, Raw string literals, on the dollars and braces of interpolated raw strings
+  locator: https://learn.microsoft.com/dotnet/csharp/language-reference/tokens/raw-string
 REQ-csharp-support:
   kind: requirement
-  title: canon reads C#, parsing every C# 7 to 14 source file, taking namespaces, types, and members as units, binding /// and /** to the declaration below its attributes, requiring a comment on what is public or protected, reading one branch of each #if, and recognising xUnit, NUnit, and MSTest test methods by their attribute
+  title: canon reads C#, parsing every C# 7 to 14 source file, taking namespaces, types, and members as units, binding /// and /** to the declaration below its attributes, requiring a comment on what is visible outside the assembly, interface and enum members included, reading every branch of an #if that some build compiles, parsing the holes of interpolated strings, raw ones included, and recognising xUnit, NUnit, and MSTest test methods by their attribute
   locator: README.md
 fsharp-xml-documentation:
   kind: article
@@ -62,9 +74,13 @@ fsharp-offside-rule:
   kind: article
   title: F# language specification, the offside rule for indentation-aware syntax
   locator: https://fsharp.github.io/fslang-spec/lexical-filtering/
+fsharp-signature-files:
+  kind: article
+  title: F# language guide, Signature files, on .fsi files and the documentation and accessibility they give an implementation
+  locator: https://learn.microsoft.com/dotnet/fsharp/language-reference/signature-files
 REQ-fsharp-support:
   kind: requirement
-  title: canon reads F#, parsing F# source files by its offside rule, taking namespaces, modules, bindings, types, members, fields, and cases as units, binding /// to the declaration below its attributes, requiring a comment on what is not private or internal, reading one branch of each #if, and recognising xUnit, NUnit, FsCheck, and Expecto tests by their attribute
+  title: canon reads F#, parsing F# source files by its offside rule, taking namespaces, modules, bindings, types, members, fields, and cases as units, binding /// to the declaration below its attributes, local lets included, requiring a comment on what is not private or internal, and on a signature file rather than its implementation, reading every branch of an #if that some build compiles, and recognising xUnit, NUnit, FsCheck, and Expecto tests by their attribute
   locator: README.md
 grammars-v4-elixir:
   kind: package

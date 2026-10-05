@@ -91,7 +91,8 @@ STRING:
 // quote character.
 CHAR: '\'' (~[\\\r\n] | '\\' ~[\r\n] | '\\' [0-9] [0-9] [0-9] | '\\' [uU] HexDigit+ | '\\' 'x' HexDigit HexDigit) '\'' 'B'?;
 
-TYPE_PARAMETER: '\'' IdentifierStart IdentifierPart*;
+// A type parameter's name may be quoted in double backticks, as an identifier's may.
+TYPE_PARAMETER: '\'' (IdentifierStart IdentifierPart* | '``' (~'`' | '`' ~'`')+ '``');
 
 NUMBER:
     '0' [xX] [0-9a-fA-F_]+ NumberSuffix?

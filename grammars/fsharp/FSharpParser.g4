@@ -229,8 +229,10 @@ unionType
     | splitTypeHead EQUALS unionRepresentation DEDENT
     ;
 
+// A with that starts a line indented below the union's cases begins its members.
 unionRepresentation
     : unionBody (NEWLINE? withMembers)?
+    | unionBody INDENT withMembers DEDENT
     | INDENT unionBody (NEWLINE? withMembers | NEWLINE classMembers)? DEDENT
     | NEWLINE unionBody
     ;
@@ -252,8 +254,14 @@ unionCaseOf
     : attributes? identifier OF caseFields
     ;
 
+// A case's fields may continue on lines indented below it, as a multi-line anonymous record does,
+// but an indented line that starts with with begins the union's members.
 caseFields
-    : (~(BAR | NEWLINE | INDENT | DEDENT | WITH) | INDENT block DEDENT)+
+    : (~(BAR | NEWLINE | INDENT | DEDENT | WITH) | INDENT caseFieldLines DEDENT)+
+    ;
+
+caseFieldLines
+    : ~(WITH | NEWLINE | INDENT | DEDENT) soupItem* (NEWLINE blockLine)*
     ;
 
 delegateType
@@ -375,9 +383,18 @@ constructorDefinition
     : leadingAttributes? access? NEW soupItem*
     ;
 
-// Let bindings in a class are private to it, so they are rules of their own.
+// Let bindings in a class, and in the body of a function, member, or expression, are private to it,
+// so they are rules of their own, and so are the and bindings that follow them.
 localLetGroup
-    : (localFunctionDefinition | localValueDefinition) (NEWLINE (andFunctionDefinition | andValueDefinition))*
+    : (localFunctionDefinition | localValueDefinition) (NEWLINE (localAndFunctionDefinition | localAndValueDefinition))*
+    ;
+
+localAndFunctionDefinition
+    : AND functionBinding
+    ;
+
+localAndValueDefinition
+    : AND valueBinding
     ;
 
 localFunctionDefinition
@@ -437,8 +454,14 @@ soupItem
     | INDENT block DEDENT
     ;
 
+// The lines of a block. A line that starts a let is a local binding, so its doc comment binds.
 block
-    : soupItem+ (NEWLINE soupItem+)*
+    : blockLine (NEWLINE blockLine)*
+    ;
+
+blockLine
+    : localLetGroup
+    | soupItem+
     ;
 
 // Balanced brackets and what they hold.

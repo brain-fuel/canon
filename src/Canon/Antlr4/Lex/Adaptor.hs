@@ -4,6 +4,8 @@ module Canon.Antlr4.Lex.Adaptor
   ( AdaptorState (..)
   , antlrLexerHooks
   , hooksForGrammar
+  , hooksForGrammarWith
+  , preprocesses
   ) where
 
 import Canon.Antlr4.Lex (HookEffect (..), LexerHooks (..), SomeHooks (..), noHooks)
@@ -13,6 +15,7 @@ import Canon.Antlr4.Lex.Haskell (haskellLayoutHooks)
 import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token (..))
+import Canon.Preprocessor (Choice)
 import Data.Char (isUpper)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Text as T
@@ -60,10 +63,25 @@ antlrLexerHooks = LexerHooks OutsideRule onAction onEmit
 -- | Selects the hook port named by a grammar's superClass option, so a grammar declares its base
 -- lexer and canon supplies it.
 hooksForGrammar :: Grammar ann -> SomeHooks
-hooksForGrammar grammar =
-  case [NonEmpty.last v | Option (Name "superClass") (OptionValueName (QualifiedName v)) <- grammarOptions grammar] of
+hooksForGrammar = hooksForGrammarWith Nothing
+
+-- | The hook port a grammar selects, reading the conditional branches a build selects where the port
+-- preprocesses. ref:DEC-preprocessor-builds
+hooksForGrammarWith :: Choice -> Grammar ann -> SomeHooks
+hooksForGrammarWith choice grammar =
+  case superClassOf grammar of
     (Name "LexerAdaptor" : _) -> SomeHooks antlrLexerHooks
     (Name "HaskellBaseLexer" : _) -> SomeHooks haskellLayoutHooks
-    (Name "CSharpLexerBase" : _) -> SomeHooks csharpLexerHooks
-    (Name "FSharpLexerBase" : _) -> SomeHooks fsharpLexerHooks
+    (Name "CSharpLexerBase" : _) -> SomeHooks (csharpLexerHooks choice)
+    (Name "FSharpLexerBase" : _) -> SomeHooks (fsharpLexerHooks choice)
     _ -> SomeHooks noHooks
+
+-- | Whether the hook port a grammar selects reads #if directives, so a file is read once per build.
+preprocesses :: Grammar ann -> Bool
+preprocesses grammar = case superClassOf grammar of
+  (Name "CSharpLexerBase" : _) -> True
+  (Name "FSharpLexerBase" : _) -> True
+  _ -> False
+
+superClassOf :: Grammar ann -> [Name]
+superClassOf grammar = [NonEmpty.last v | Option (Name "superClass") (OptionValueName (QualifiedName v)) <- grammarOptions grammar]

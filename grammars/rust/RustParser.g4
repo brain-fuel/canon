@@ -173,8 +173,14 @@ macroItem
     | macroRulesDefinition
     ;
 
+// canon: #[macro_export] is labeled required, since it makes a macro_rules macro visible outside
+// its crate, as pub makes other items.
 itemPrefix
-    : (marker += outerAttribute)* visibility?
+    : (required = macroExportAttribute | marker += outerAttribute)* visibility?
+    ;
+
+macroExportAttribute
+    : POUND LSQUAREBRACKET 'macro_export' RSQUAREBRACKET
     ;
 
 // 6.1
@@ -290,8 +296,9 @@ tupleField
     ;
 
 // 6.7
+// canon: the variants are labeled inherited, so a variant needs a comment when its enum does.
 enumeration
-    : itemPrefix KW_ENUM identifier genericParams? whereClause? LCURLYBRACE enumItems? RCURLYBRACE
+    : itemPrefix KW_ENUM identifier genericParams? whereClause? LCURLYBRACE (inherited = enumItems)? RCURLYBRACE
     ;
 
 enumItems
@@ -334,8 +341,10 @@ staticItem
     ;
 
 // 6.11
+// canon: the items of a trait are labeled inherited: an item needs a comment when the trait does,
+// since it is as visible as the trait and says no pub of its own.
 trait_
-    : itemPrefix KW_UNSAFE? KW_TRAIT identifier genericParams? (COLON typeParamBounds?)? whereClause? LCURLYBRACE innerAttribute* associatedItem* RCURLYBRACE
+    : itemPrefix KW_UNSAFE? KW_TRAIT identifier genericParams? (COLON typeParamBounds?)? whereClause? LCURLYBRACE innerAttribute* (inherited += associatedItem)* RCURLYBRACE
     ;
 
 // 6.12
@@ -348,8 +357,14 @@ inherentImpl
     : itemPrefix KW_IMPL genericParams? type_ whereClause? LCURLYBRACE innerAttribute* associatedItem* RCURLYBRACE
     ;
 
+// canon: the trait and the self type of a trait impl are one rule, traitImplTarget, which names it,
+// so the impls of one type for different traits are told apart by their traits.
 traitImpl
-    : itemPrefix KW_UNSAFE? KW_IMPL genericParams? NOT? typePath KW_FOR type_ whereClause? LCURLYBRACE innerAttribute* associatedItem* RCURLYBRACE
+    : itemPrefix KW_UNSAFE? KW_IMPL genericParams? traitImplTarget whereClause? LCURLYBRACE innerAttribute* associatedItem* RCURLYBRACE
+    ;
+
+traitImplTarget
+    : NOT? typePath KW_FOR type_
     ;
 
 // 6.13
@@ -1091,8 +1106,11 @@ typePathInputs
     ;
 
 // 12.6
+// canon: a bare pub is labeled required, since it makes an item visible outside its crate; pub(crate),
+// pub(super), pub(self), and pub(in path) do not.
 visibility
-    : KW_PUB (LPAREN ( KW_CRATE | KW_SELFVALUE | KW_SUPER | KW_IN simplePath) RPAREN)?
+    : KW_PUB LPAREN (KW_CRATE | KW_SELFVALUE | KW_SUPER | KW_IN simplePath) RPAREN
+    | required = KW_PUB
     ;
 
 // technical

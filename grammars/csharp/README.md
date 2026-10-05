@@ -114,10 +114,12 @@ in canon's `canonical_decisions.yaml`:
   closes a hole returns to the string, and switches to the format mode at a
   colon outside parentheses and brackets in the hole, which upstream found by
   looking ahead in the character stream.
-- The hook reads one branch of each `#if`: the first whose condition holds for
-  some choice of the symbols the file does not `#define` or `#undef`, so the
-  code canon reads is code some build compiles. The other branches go to the
-  hidden channel. Upstream evaluated the condition with no symbols defined.
+- The hook reads the branches of each `#if` that a build selects, and hides
+  the others. A build is an assignment of the symbols the file's conditions
+  name; a symbol the file `#define`s or `#undef`s overrides it. canon reads a
+  file once per build of a few that together read every branch some build
+  compiles, and merges what each finds, as `DEC-preprocessor-builds` records.
+  Upstream evaluated the condition with no symbols defined.
 - A verbatim interpolated string has a mode of its own instead of the
   `IsRegularCharInside` and `IsVerbatiumDoubleQuoteInside` predicates, and may
   open with `@$` as well as `$@`; an escape in a regular interpolated string is
@@ -126,7 +128,10 @@ in canon's `canonical_decisions.yaml`:
   the digits of a `\x` escape being ordinary characters, because a hex escape
   of one to four digits made the lexer try every split of a run of them; and
   strings take the C# 11 `u8` suffix.
-- C# 11 raw strings, interpolated or not, are one token each.
+- A C# 11 raw string without interpolation is one token. An interpolated raw
+  string has a mode of its own, `INTERPOLATION_RAW_STRING`: the hook counts the
+  dollars and quotes of its opener, so a run of as many braces as dollars opens
+  a hole, which is parsed, and a run of as many quotes closes the string.
 - The byte order mark is also the decoded character, which is how canon reads
   a file; a shebang line and the `#:` directives of a C# 14 file-based program
   are hidden.
@@ -145,7 +150,13 @@ in canon's `canonical_decisions.yaml`:
   is named by a child of its own.
 - `public` and `protected` are labeled `required` in `all_member_modifier`, so a
   member visible outside its assembly requires a comment, and each attribute is
-  labeled `marker`, so a test is told by its attribute.
+  labeled `marker`, so a test is told by its attribute. `private` and
+  `internal` are labeled `optional`. `protected internal` is labeled `required`
+  and `private protected` `optional`, in either order, each pair tried before
+  its parts.
+- The body of an interface and of an enum is labeled `inherited`, so a member
+  needs a comment when its interface or enum does, as `DEC-inherited-label`
+  records; a private or internal interface member does not.
 - C# 8 to 14 syntax upstream rejects: file-scoped namespaces, top-level
   statements, global using and aliases of any type, records and record
   structs, primary constructors, `init` and `readonly` accessors in any order,
@@ -159,15 +170,15 @@ in canon's `canonical_decisions.yaml`:
   struct` constraints, `nameof` of an unbound generic type, and extension
   blocks.
 
-The parser's semantic predicates stay in the grammar, but canon's interpreter
-does not run them: `IsLocalVariableDeclaration` is not needed by a parser that
-keeps every parse, and `IsRightArrow`,
-`IsRightShift`, and `IsRightShiftAssignment`, which required the two tokens of
-`=>`, `>>`, and `>>=` to touch, are not checked, so `= >` is read as an arrow.
-The holes of an interpolated raw string are not parsed, and an interface member
-requires a comment only when it is marked `public`, because the grammar does
-not see that it is public by default.
+The parser's semantic predicates stay in the grammar, and canon answers them
+through the `CSharpParserBase` hook, selected by the parser's `superClass`, as
+`DEC-parser-predicates` records: `IsRightArrow`, `IsRightShift`, and
+`IsRightShiftAssignment` hold when the two tokens of `=>`, `>>`, and `>>=`
+touch, and `IsLocalVariableDeclaration` fails when a `var` declaration has a
+second declarator.
 
-canon's parser keeps one memo table per rule and token, so its memory grows
-with both: on this grammar a typical file parses in a tenth of a second, and
-a 13,000-line file of collection initializers in 16 seconds and 10 GB.
+canon's parser keeps a memo entry only for a rule tried at a token it can
+start with, and reads a loop without pairing each item with every later end,
+as `DEC-parser-memory` records: on this grammar a typical file parses in a
+tenth of a second, and a 13,000-line file of collection initializers in 10
+seconds and under 1 GB.

@@ -137,7 +137,10 @@ is how `public` makes a Java member's comment required. An element labeled
 `orphan` is a comment the grammar accepts but binds to nothing, such as a
 Javadoc comment after an annotation, and is reported. An element labeled
 `marker` is an annotation or similar mark on the unit, whose text `canon`
-reads to recognise tests. Alternative labels without a `why`, such as the
+reads to recognise tests. A unit found under an element labeled `inherited`
+requires a comment when the unit around it does, unless its own node holds an
+element labeled `optional`, which is how the items of a public Rust trait and
+the members of a public C# interface require one. Alternative labels without a `why`, such as the
 Java grammar's own expression labels, are inert. `canon` generates the extraction parser from that grammar, so nothing
 about a language's comment placement is written in Haskell. The ANTLR
 meta-grammar and Java are the languages done this way.
@@ -282,7 +285,11 @@ and `parser` pair, the `start` rule, the comment syntax (`line`, `blockOpen`,
 `name` comes from (the nth token of a type, or the text of a child rule),
 whether a canonical comment is `required`, and optionally a `firstToken`
 constraint so that, for example, only Clojure lists beginning with `defn`
-count. A language that tells doc comments from plain ones lists their
+count. A unit's `name` may also be `{ordinal: true}`, its position from zero
+among the units of its rule in its parent, for a unit without a name of its
+own, such as a field of a Rust tuple struct. A unit's name is its tokens run
+together, with a hyphen where the source spaces a word from what follows, so a
+unit id holds no space. A language that tells doc comments from plain ones lists their
 openers under `comments`: with `outerDoc` given, only a comment opening with
 one binds to the unit below it, and a plain comment is neither a Why nor an
 orphan; a comment opening with one of `innerDoc` binds to the innermost unit
@@ -296,7 +303,11 @@ reader of the documentation sees, so they do not part a doc comment from its
 unit: with outer openers given, lines held by a plain comment that starts its
 line; lines opening with one of `directives`, such as C#'s and F#'s `#`; and,
 with `directives` given, the lines of an `#if` branch canon does not read,
-where a comment binds to nothing and is no orphan. A language that writes
+where a comment binds to nothing and is no orphan. A file whose lexer reads
+`#if`, as the C# and F# lexers do, is read once per build of a few that
+together read every branch some build compiles: a build is an assignment of the
+symbols the file's conditions name, and what each build reads is merged, units
+and decisions by id, the first build's winning. A language that writes
 documentation as code lists `docAttributes`: an attribute such as Elixir's
 `@doc` followed by a string, or by a sigil and a string, is scanned as a
 comment running to the end of the string, its body is the string's contents,
@@ -310,7 +321,11 @@ its own. A unit's rule may leave its comment optional and the grammar still
 require it: a unit whose node holds an element labeled `required`, as the C#
 grammar labels `public`, requires a comment, and a unit whose rule requires
 one does not when its node holds an element labeled `optional`, as the F#
-grammar labels `private`. Unit ids are the language, the file path, and then
+grammar labels `private`. A profile's `signatures` maps the extension of a
+signature file to the extension of the implementation it declares, as F#'s
+`.fsi` declares a `.fs`: when `canon check` reads both files of a name, a unit
+of the implementation needs no comment, and a unit of the signature needs one
+when the unit it declares would. Unit ids are the language, the file path, and then
 kind and name at each level of nesting; a repeated name in one scope gets an
 ordinal suffix.
 
@@ -371,25 +386,31 @@ languages:
       innerDoc: ["//!", "/*!"]
       strings: ["\""]
     units:
-      - {rule: function_, kind: function, name: {rule: identifier}, required: true}
-      - {rule: structStruct, kind: struct, name: {rule: identifier}, required: true}
-      - {rule: tupleStruct, kind: struct, name: {rule: identifier}, required: true}
-      - {rule: enumeration, kind: enum, name: {rule: identifier}, required: true}
-      - {rule: union_, kind: union, name: {rule: identifier}, required: true}
-      - {rule: trait_, kind: trait, name: {rule: identifier}, required: true}
-      - {rule: macroRulesDefinition, kind: macro, name: {rule: identifier}, required: true}
+      - {rule: function_, kind: function, name: {rule: identifier}, required: false}
+      - {rule: structStruct, kind: struct, name: {rule: identifier}, required: false}
+      - {rule: tupleStruct, kind: struct, name: {rule: identifier}, required: false}
+      - {rule: enumeration, kind: enum, name: {rule: identifier}, required: false}
+      - {rule: union_, kind: union, name: {rule: identifier}, required: false}
+      - {rule: trait_, kind: trait, name: {rule: identifier}, required: false}
+      - {rule: macroRulesDefinition, kind: macro, name: {rule: identifier}, required: false}
       - {rule: typeAlias, kind: type, name: {rule: identifier}, required: false}
       - {rule: constantItem, kind: const, name: {rule: identifier}, required: false}
       - {rule: staticItem, kind: static, name: {rule: identifier}, required: false}
       - {rule: inherentImpl, kind: impl, name: {rule: type_}, required: false}
-      - {rule: traitImpl, kind: impl, name: {rule: type_}, required: false}
+      - {rule: traitImpl, kind: impl, name: {rule: traitImplTarget}, required: false}
       - {rule: module, kind: module, name: {rule: identifier}, required: false}
+      - {rule: enumItem, kind: variant, name: {rule: identifier}, required: false}
+      - {rule: structField, kind: field, name: {rule: identifier}, required: false}
+      - {rule: tupleField, kind: field, name: {ordinal: true}, required: false}
 ```
 
-The profile cannot see visibility, so functions, structs, enums, unions,
-traits, and macros require a comment whether or not they are `pub`, and the
-other kinds may have one. An impl is named by its self type, so the impls of
-one type are told apart by ordinal.
+No Rust unit requires a comment by its rule. The grammar labels a bare `pub`
+and `#[macro_export]` `required`, and the items of a trait and the variants of
+an enum `inherited`, so what a crate exports requires a comment, as rustc's
+`missing_docs` lint asks; `pub(crate)` items, private items, and the methods of
+a trait impl, which the trait documents, may have one. A trait impl is named by
+its trait and self type, as `Deref-for-ScopeGuard<T,F,S>`, and an inherent impl
+by its self type. A tuple field is named by its position.
 
 The C# sample is Ardalis.GuardClauses, its library sources (without the
 vendored JetBrains annotations) and one xUnit test file, vendored under
@@ -433,11 +454,13 @@ languages:
       - {rule: extension_declaration, kind: extension, name: {rule: type_}, required: false}
 ```
 
-No C# unit requires a comment by its rule; the grammar labels `public` and
-`protected` `required`, so a type or member visible outside its assembly
-requires one, as the compiler's CS1591 warning asks, and a test always does.
-A member of an interface is public without saying so, and requires a comment
-only when it says so.
+No C# unit requires a comment by its rule; the grammar labels `public`,
+`protected`, and `protected internal` `required`, so a type or member visible
+outside its assembly requires one, as the compiler's CS1591 warning asks, and a
+test always does. The members of an interface and of an enum are as visible as
+it is, so the grammar labels their bodies `inherited`; a member marked
+`private`, `internal`, or `private protected` is labeled `optional` and never
+requires one.
 
 The F# sample is Giraffe.ViewEngine, its two source files and its xUnit test
 file, vendored under `source/` with its Apache-2.0 license. Its `canon.yaml`
@@ -457,6 +480,7 @@ languages:
       outerDoc: ["///"]
       directives: ["#"]
       strings: ["\""]
+    signatures: {.fsi: .fs}
     units:
       - {rule: namespaceDeclaration, kind: namespace, name: {rule: longIdentifier}, required: false}
       - {rule: topModule, kind: module, name: {rule: longIdentifier}, required: false}
@@ -467,6 +491,8 @@ languages:
       - {rule: andValueDefinition, kind: value, name: {rule: bindingName}, required: false}
       - {rule: localFunctionDefinition, kind: function, name: {rule: bindingName}, required: false}
       - {rule: localValueDefinition, kind: value, name: {rule: bindingName}, required: false}
+      - {rule: localAndFunctionDefinition, kind: function, name: {rule: bindingName}, required: false}
+      - {rule: localAndValueDefinition, kind: value, name: {rule: bindingName}, required: false}
       - {rule: recordType, kind: record, name: {rule: typeName}, required: true}
       - {rule: unionType, kind: union, name: {rule: typeName}, required: true}
       - {rule: enumType, kind: enum, name: {rule: typeName}, required: true}
@@ -491,8 +517,9 @@ F# declarations are public unless they say otherwise, so functions, types,
 exceptions, and members require a comment by their rule, and the grammar
 labels `private` and `internal` `optional`, which lifts the requirement from
 what a file does not export. Values, abbreviations, fields, cases, `val`
-declarations, the `let` bindings of a class, modules, and namespaces may have
-a comment.
+declarations, the `let` bindings of a class or of a body, modules, and
+namespaces may have a comment. Where a `.fsi` signature file declares a `.fs`,
+the comment is required on the signature, not the implementation.
 
 The Elixir sample is Jason 1.4.5's formatter and its tests, vendored under
 `source/` with Jason's Apache-2.0 license. Elixir documents with attributes,
@@ -635,7 +662,8 @@ canon/
 │   ├── Canon/Git/Fill.hs  # Who and When from one git blame per file
 │   ├── Canon/Profile.hs   # language profiles declared in canon.yaml
 │   ├── Canon/CommentScan.hs  # comments by a profile's syntax
-│   ├── Canon/Preprocessor.hs  # the branch of each #if canon reads, for C# and F#
+│   ├── Canon/Preprocessor.hs  # the builds a file is read under and the #if branches each reads, for C# and F#
+│   ├── Canon/Signature.hs # ties a signature file's comments to its implementation, for F#
 │   ├── Canon/Extract/Grammar.hs  # builds the model of any file through its language profile
 │   ├── Canon/Config.hs    # canon.yaml
 │   ├── Canon/Attach.hs    # binds a comment to the unit directly below it
@@ -649,6 +677,7 @@ canon/
 │       ├── Read.hs        # reads a file into a grammar plus its comments
 │       ├── Pretty.hs      # prints a grammar back to .g4 text
 │       ├── Query.hs       # rules, tokens, modes, references, and well-formedness
+│       ├── Predicate.hs   # semantic predicates answered for a parser's base class
 │       └── RuleGraph.hs   # reference graph, nullability, left recursion, reachability
 ├── test/
 │   ├── Spec.hs            # tasty entry point
@@ -695,7 +724,9 @@ parser without code generation. The upstream grammar is kept beside it as the
 source it is derived from. Lexer actions that upstream grammars delegate to a
 target-language base class are resolved through a hook interface keyed by the
 grammar's `superClass` option; the ANTLR meta-grammar's own adaptor is the
-first hook implementation.
+first hook implementation. Semantic predicates that a parser grammar
+delegates to its base class are answered the same way, by a parser hook keyed
+by the parser grammar's `superClass`; `CSharpParserBase` is the first.
 
 `grammars/antlr4/` holds ANTLR's own meta-grammar, `ANTLRv4Lexer.g4` and
 `ANTLRv4Parser.g4`, with the rules as grammars-v4 publishes them and a
@@ -758,9 +789,10 @@ and recorded in the ledger.
 `canonically_commented/` husk. Upstream leaves interpolated strings and the
 preprocessor to a `CSharpLexerBase` class, which canon ports as a lexer hook
 selected by the grammar's `superClass` option: the hook tracks the braces of
-each interpolation hole, and reads one branch of each `#if`, the first whose
-condition holds for some choice of the symbols the file does not define, so
-the code canon reads is code some build compiles. Attributes and modifiers
+each interpolation hole, raw ones included, and reads the branches of each
+`#if` that a build selects, so the code canon reads is code some build
+compiles, and every branch some build compiles is read in one of a few builds.
+The parser's predicates go through a `CSharpParserBase` hook. Attributes and modifiers
 move into each kind of type and member, as Rust's do, with `public` and
 `protected` labeled `required` and each attribute labeled `marker`, and C# 8 to
 14 syntax is added. Each change is marked `// canon:` in the grammar, listed in

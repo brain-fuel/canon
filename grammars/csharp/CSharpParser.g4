@@ -819,9 +819,6 @@ class_member_declarations
 
 // canon: attributes and modifiers move from here into each kind of member through member_prefix, so a
 // member's node starts at its first attribute and the doc comment above binds to it. Structs and
-// interfaces share this rule, which is why fixed-size buffers are here.
-// canon: attributes and modifiers move from here into each kind of member through member_prefix, so a
-// member's node starts at its first attribute and the doc comment above binds to it. Structs and
 // interfaces share this rule, which is why fixed-size buffers are here, and C# 14 extension blocks
 // hold members of their own.
 class_member_declaration
@@ -855,12 +852,17 @@ all_member_modifiers
 
 // canon: public and protected are labeled required, because a member visible outside its assembly
 // is the API whose documentation C# asks for; required, file, and readonly members are C# 8 to 11.
+// private and internal are labeled optional, which lifts the requirement a member of an interface
+// takes from the interface. protected internal is visible outside the assembly and private protected
+// is not, in either order, so each pair is one modifier here, tried before its parts.
 all_member_modifier
-    : NEW
+    : required = (PROTECTED INTERNAL | INTERNAL PROTECTED)
+    | optional = (PRIVATE PROTECTED | PROTECTED PRIVATE)
+    | NEW
     | required = PUBLIC
     | required = PROTECTED
-    | INTERNAL
-    | PRIVATE
+    | optional = INTERNAL
+    | optional = PRIVATE
     | READONLY
     | VOLATILE
     | VIRTUAL
@@ -1190,12 +1192,18 @@ boolean_literal
     | FALSE
     ;
 
+// canon: interpolated raw strings, whose holes are parsed.
 string_literal
     : interpolated_regular_string
     | interpolated_verbatium_string
+    | interpolated_raw_string
     | REGULAR_STRING
     | VERBATIUM_STRING
     | RAW_STRING
+    ;
+
+interpolated_raw_string
+    : INTERPOLATED_RAW_STRING_START (interpolated_string_expression | RAW_STRING_CONTENT)* RAW_STRING_END
     ;
 
 interpolated_regular_string
@@ -1336,15 +1344,18 @@ record_definition
     )
     ;
 
+// canon: the members of an interface are public unless they say otherwise, so its body is labeled
+// inherited: a member needs a comment when the interface does, unless it is private or internal.
 interface_definition
     : member_prefix INTERFACE identifier variant_type_parameter_list? interface_base? type_parameter_constraints_clauses? (
-        class_body ';'?
+        inherited = class_body ';'?
         | ';'
     )
     ;
 
+// canon: an enum's members are as visible as the enum, so its body is labeled inherited.
 enum_definition
-    : member_prefix ENUM identifier enum_base? enum_body ';'?
+    : member_prefix ENUM identifier enum_base? inherited = enum_body ';'?
     ;
 
 delegate_definition

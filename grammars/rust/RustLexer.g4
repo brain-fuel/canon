@@ -113,7 +113,9 @@ fragment UNICODE_OIDC: '\u00b7' | '\u0387' | '\u1369' ..'\u1371' | '\u19da';
 
 RAW_IDENTIFIER: 'r#' NON_KEYWORD_IDENTIFIER;
 // comments https://doc.rust-lang.org/reference/comments.html
-LINE_COMMENT: ('//' (~[/!] | '//') ~[\r\n]* | '//') -> channel (HIDDEN);
+// canon: the character after // or /// may not be a line break. Upstream's ~[/!] and ~[/] matched
+// one, so an empty // or /// comment ran on through the next line and hid the code on it.
+LINE_COMMENT: ('//' (~[/!\r\n] | '//') ~[\r\n]* | '//') -> channel (HIDDEN);
 
 BLOCK_COMMENT:
     (
@@ -127,7 +129,8 @@ INNER_LINE_DOC: '//!' ~[\n\r]* -> channel (HIDDEN); // isolated cr
 
 INNER_BLOCK_DOC: '/*!' ( BLOCK_COMMENT_OR_DOC | ~[*])*? '*/' -> channel (HIDDEN);
 
-OUTER_LINE_DOC: '///' (~[/] ~[\n\r]*)? -> channel (HIDDEN); // isolated cr
+// canon: as for LINE_COMMENT, an empty /// ends at its line break.
+OUTER_LINE_DOC: '///' (~[/\n\r] ~[\n\r]*)? -> channel (HIDDEN); // isolated cr
 
 OUTER_BLOCK_DOC:
     '/**' (~[*] | BLOCK_COMMENT_OR_DOC) (BLOCK_COMMENT_OR_DOC | ~[*])*? '*/' -> channel (HIDDEN)

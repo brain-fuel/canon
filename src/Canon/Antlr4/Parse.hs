@@ -1,12 +1,15 @@
 -- | The parser interprets parser rules over tokens with memoisation, precedence climbing for left
 -- recursion, and one tree per rule and span, because the alternatives were exponential.
--- ref:DEC-precedence-climbing ref:DEC-one-tree-per-span ref:DEC-parser-generation
+-- ref:DEC-precedence-climbing ref:DEC-one-tree-per-span ref:DEC-parser-generation ref:DEC-parser-memory
 module Canon.Antlr4.Parse
   ( ParseTree (..)
   , ParseFailure (..)
   , ParseError (..)
+  , PredicateHook
   , parseTokens
+  , parseTokensWith
   , parseVisibleTokens
+  , parseVisibleTokensWith
   , renderParseError
   , renderParseTree
   , treeRuleNodes
@@ -28,6 +31,10 @@ import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Vector as BV
+import qualified Data.Vector.Mutable as MV
+import qualified Data.Vector.Unboxed as V
+import qualified Data.IntMap.Strict as IntMap
+import System.IO.Unsafe (unsafePerformIO)
 
 -- | A tree of rule nodes, tokens, and labeled subtrees; labels are kept because the extraction rules
 -- are labels. ref:DEC-grammar-carries-extraction-rules
@@ -90,7 +97,25 @@ type Children = [ParseTree] -> [ParseTree]
 
 type Results = [(ParseTree, Int)]
 
-type Entry = (Results, Int)
+-- | A memo entry: the trees of a rule at a position, one per end, and the furthest index reached.
+-- It is strict and unpacked because a long file holds one for every rule tried at every token.
+data Entry = Entry !Found {-# UNPACK #-} !Int
+
+-- | The trees of a memo entry with their ends, in preference order.
+data Found = FoundNone | Found !ParseTree {-# UNPACK #-} !Int !Found
+
+toEntry :: (Results, Int) -> Entry
+toEntry (rs, f) = Entry (foldr (\(t, e) acc -> Found t e acc) FoundNone rs) f
+
+entryResults :: Entry -> Results
+entryResults (Entry found _) = go found
+  where
+    go x = case x of
+      FoundNone -> []
+      Found t e rest -> (t, e) : go rest
+
+entryFurthest :: Entry -> Int
+entryFurthest (Entry _ f) = f
 
 type Step = Int -> ([(Children, Int)], Int)
 
@@ -119,6 +144,7 @@ data CompiledElement
   = CompiledAtomElement CompiledAtom (Maybe EbnfSuffix) (Maybe Text)
   | CompiledBlockElement [CompiledAlternative] (Maybe EbnfSuffix) (Maybe Text)
   | CompiledActionElement
+  | CompiledPredicateElement Text
 
 data CompiledAlternative = CompiledAlternative
   { alternativeFirst :: FirstSet
@@ -144,17 +170,34 @@ isExtension sh = case sh of
   ShapeSuffix _ -> True
   _ -> False
 
--- | Parses all tokens from a start rule.
+-- | A semantic predicate as a parser base class would answer it: given the predicate's text, the
+-- visible tokens, the index where the rule invoking it started, and the index the parse has reached,
+-- whether the parse may go on. A predicate no base class knows holds. ref:DEC-parser-predicates
+type PredicateHook = Text -> BV.Vector Token -> Int -> Int -> Bool
+
+-- | Parses all tokens from a start rule, with every semantic predicate holding.
 parseTokens :: Grammar ann -> Name -> [Token] -> Either ParseError ParseTree
-parseTokens grammar start = parseVisibleTokens grammar start . filter ((== defaultChannelName) . tokenChannel)
+parseTokens grammar = parseTokensWith (\_ _ _ _ -> True) grammar
+
+-- | Parses all tokens from a start rule, asking the hook about each semantic predicate.
+parseTokensWith :: PredicateHook -> Grammar ann -> Name -> [Token] -> Either ParseError ParseTree
+parseTokensWith hook grammar start = parseVisibleTokensWith hook grammar start . filter ((== defaultChannelName) . tokenChannel)
 
 -- | Parses only the tokens on the default channel, which is what a grammar with a hidden channel
 -- expects.
 parseVisibleTokens :: Grammar ann -> Name -> [Token] -> Either ParseError ParseTree
-parseVisibleTokens grammar start visible
+parseVisibleTokens = parseVisibleTokensWith (\_ _ _ _ -> True)
+
+-- | Parses the visible tokens with a predicate hook. The memo table holds an entry only for the
+-- rules that can start at each token, by their first sets, so its size follows what a token can
+-- begin rather than the number of rules: a rule that cannot start at a token fails there without an
+-- entry. On the C# grammar this cut the memory of a long collection initializer several times over.
+-- ref:DEC-parser-memory
+parseVisibleTokensWith :: PredicateHook -> Grammar ann -> Name -> [Token] -> Either ParseError ParseTree
+parseVisibleTokensWith hook grammar start visible
   | not (Map.member start ruleIndex) = Left (ParseUnknownStartRule start)
   | not (null undefined') = Left (ParseUndefinedRules undefined')
-  | otherwise = case [t | (t, e) <- fst (entryOf startIndex 0), e == n] of
+  | otherwise = case [t | (t, e) <- entryResults (entryOf startIndex 0), e == n] of
       (t : _) -> Right t
       [] -> Left (ParseNoParse (ParseFailure furthest (toks BV.!? furthest)))
   where
@@ -170,6 +213,40 @@ parseVisibleTokens grammar start visible
     firstTable = computeFirst sourceRules ruleIndex
     compiled = BV.fromList (map (compileRule ruleIndex firstTable) sourceRules)
 
+    -- Tokens fall into classes by type, and by text where a parser rule names a literal, and each
+    -- class has its candidate rules: those nullable or whose first set admits the token. Position n,
+    -- past the last token, is class 0, where only nullable rules are candidates.
+    literalTexts = Set.unions [firstTexts fs | (fs, _) <- BV.toList firstTable]
+    classKey tok = (tokenType tok, if Set.member (tokenText tok) literalTexts then Just (tokenText tok) else Nothing)
+    classIndex = Map.fromList (zip (Set.toList (Set.fromList (map classKey visible))) [1 ..])
+    classRepresentative = Map.fromList [(classIndex Map.! classKey tok, tok) | tok <- visible]
+    classOfPos :: V.Vector Int
+    classOfPos = V.generate (n + 1) (\p -> maybe 0 (\tok -> classIndex Map.! classKey tok) (toks BV.!? p))
+    candidatesOf c = [r | r <- [0 .. ruleCount - 1], admits (firstTable BV.! r) (Map.lookup c classRepresentative)]
+    admits (fs, nullable) representative = nullable || maybe False (canStart fs) representative
+    classCandidates :: BV.Vector [Int]
+    classCandidates = BV.generate (Map.size classIndex + 1) candidatesOf
+    classSlots :: BV.Vector (V.Vector Int)
+    classSlots = BV.map (\rs -> V.replicate ruleCount (-1) V.// zip rs [0 ..]) classCandidates
+
+    memo = newMemo (n + 1)
+    slotEntries r p = case ruleShapes (compiled BV.! r) of
+      Nothing -> BV.singleton (compute r p)
+      Just shapes -> BV.generate (length shapes + 2) (\prec -> evalLeftRecursive r shapes prec p)
+
+    lookupEntry r prec p
+      | p > n = Entry FoundNone p
+      | otherwise =
+          let slot = classSlots BV.! (classOfPos V.! p) V.! r
+           in if slot < 0 then failures BV.! p else memoised memo p r slotEntries BV.! prec
+
+    -- One shared entry per position for a rule that fails there without reaching further.
+    failures :: BV.Vector Entry
+    failures = BV.generate (n + 1) (Entry FoundNone)
+    sharedFailure entry@(Entry found f) = case found of
+      FoundNone | f <= n -> failures BV.! f
+      _ -> entry
+
     groups =
       [ map (ruleIndex Map.!) (NonEmpty.toList g)
       | g <- stronglyConnectedRuleGroups (leftCornerGraph stripped)
@@ -179,15 +256,6 @@ parseVisibleTokens grammar start visible
     hasShapes i = maybe False (const True) (ruleShapes (compiled BV.! i))
     groupOf = Map.fromList [(m, members) | members <- groups, m <- members]
 
-    table :: BV.Vector (BV.Vector Entry)
-    table = BV.generate ruleCount (\r -> BV.generate (n + 1) (compute r))
-
-    precTable :: BV.Vector (BV.Vector (BV.Vector Entry))
-    precTable =
-      BV.generate ruleCount $ \r -> case ruleShapes (compiled BV.! r) of
-        Nothing -> BV.empty
-        Just shapes -> BV.generate (length shapes + 2) (\prec -> BV.generate (n + 1) (evalLeftRecursive r shapes prec))
-
     fixTable :: Map Int (BV.Vector (Map Int Entry))
     fixTable = Map.fromList [(headOf members, BV.generate (n + 1) (fixpoint members)) | members <- groups]
 
@@ -195,25 +263,19 @@ parseVisibleTokens grammar start visible
       (x : _) -> x
       [] -> error "empty group"
 
-    entryOf r p
-      | p > n = ([], p)
-      | otherwise = table BV.! r BV.! p
-    precEntry r prec p
-      | p > n = ([], p)
-      | otherwise = precTable BV.! r BV.! prec BV.! p
+    entryOf r p = lookupEntry r 0 p
+    precEntry r prec p = lookupEntry r prec p
 
-    compute r p
-      | hasShapes r = precEntry r 0 p
-      | otherwise = case Map.lookup r groupOf of
-          Just members -> Map.findWithDefault ([], p) r (fixTable Map.! headOf members BV.! p)
+    compute r p = case Map.lookup r groupOf of
+          Just members -> Map.findWithDefault (Entry FoundNone p) r (fixTable Map.! headOf members BV.! p)
           Nothing -> evalRule entryOf r p
 
-    fixpoint members p = go (Map.fromList [(m, ([], p)) | m <- members]) (0 :: Int)
+    fixpoint members p = go (Map.fromList [(m, Entry FoundNone p) | m <- members]) (0 :: Int)
       where
         go current k =
           let next = Map.fromList [(m, evalRule (override current) m p) | m <- members]
            in if signature next == signature current || k > n - p + 1 then next else go next (k + 1)
-        signature = Map.map (map snd . fst)
+        signature = Map.map (map snd . entryResults)
         override current r q
           | q == p, Just entry <- Map.lookup r current = entry
           | otherwise = entryOf r q
@@ -221,21 +283,27 @@ parseVisibleTokens grammar start visible
     evalRule look r p =
       let rule = compiled BV.! r
           evals = [(i, evalAlternative look alt p) | (i, alt) <- zip [0 ..] (ruleAlternatives rule)]
-       in ( oneTreePerEnd [(RuleNode (ruleName' rule) i (children []), e) | (i, (results, _)) <- evals, (children, e) <- results]
-          , maximum (p : [f | (_, (_, f)) <- evals])
-          )
+       in sharedFailure
+            ( toEntry
+                ( oneTreePerEnd [(node (ruleName' rule) i (children []), e) | (i, (results, _)) <- evals, (children, e) <- results]
+                , maximum (p : [f | (_, (_, f)) <- evals])
+                )
+            )
 
-    evalAlternative look alt p = case toks BV.!? p of
+    evalAlternative look alt p = evalAlternativeFrom p look alt p
+
+    evalAlternativeFrom from look alt p = case toks BV.!? p of
       Just tok | not (alternativeNullable alt) && not (canStart (alternativeFirst alt) tok) -> ([], p)
       Nothing | not (alternativeNullable alt) -> ([], p)
-      _ -> evalElements look (compiledAlternativeElements alt) p
+      _ -> evalElements from look (compiledAlternativeElements alt) p
 
-    evalElements look elements = foldr (\e rest -> seqStep (evalElement look e) rest) emptyStep elements
+    evalElements from look elements = foldr (\e rest -> seqStep (evalElement from look e) rest) emptyStep elements
 
-    evalElement look e = case e of
+    evalElement from look e = case e of
       CompiledAtomElement atom suffix label -> labeled label (suffixed suffix (evalAtom look atom))
-      CompiledBlockElement alts suffix label -> labeled label (suffixed suffix (altStep [evalAlternative look a | a <- alts]))
+      CompiledBlockElement alts suffix label -> labeled label (suffixed suffix (altStep [evalAlternativeFrom from look a | a <- alts]))
       CompiledActionElement -> emptyStep
+      CompiledPredicateElement predicate -> \p -> if hook predicate toks from p then emptyStep p else ([], p)
 
     labeled label step = case label of
       Nothing -> step
@@ -243,7 +311,7 @@ parseVisibleTokens grammar start visible
 
     evalAtom look atom p = case atom of
       CompiledTerminal predicate -> terminal predicate
-      CompiledRuleRef i -> let (results, f) = look i p in ([((tree :), e) | (tree, e) <- results], f)
+      CompiledRuleRef i -> let entry = look i p in ([((tree :), e) | (tree, e) <- entryResults entry], entryFurthest entry)
       CompiledNotSet predicates -> terminal (\tok -> not (isEofToken tok) && not (any ($ tok) predicates))
       CompiledAny -> terminal (not . isEofToken)
       where
@@ -251,19 +319,19 @@ parseVisibleTokens grammar start visible
           Just tok | predicate tok -> ([((TokenNode tok :), p + 1)], p + 1)
           _ -> ([], p)
 
-    refStep r prec q = let (rs, f) = precEntry r prec q in ([((t :), e) | (t, e) <- rs], f)
+    refStep r prec q = let entry = precEntry r prec q in ([((t :), e) | (t, e) <- entryResults entry], entryFurthest entry)
 
     evalLeftRecursive r shapes prec pos =
       let name = ruleName' (compiled BV.! r)
           baseEvals = [(i, step pos) | (i, sh, pr) <- shapes, Just step <- [baseStep r sh pr]]
-          base = oneTreePerEnd [(RuleNode name i (children []), q) | (i, (rs, _)) <- baseEvals, (children, q) <- rs]
+          base = oneTreePerEnd [(node name i (children []), q) | (i, (rs, _)) <- baseEvals, (children, q) <- rs]
           climbed = map climb base
           climb (tree, q) =
             let attempts = [(i, extensionStep r sh pr q) | (i, sh, pr) <- shapes, pr >= prec, isExtension sh]
-                extended = oneTreePerEnd [(RuleNode name i (tree : children []), q') | (i, (rs, _)) <- attempts, (children, q') <- rs, q' > q]
+                extended = oneTreePerEnd [(node name i (tree : children []), q') | (i, (rs, _)) <- attempts, (children, q') <- rs, q' > q]
                 deeper = map climb extended
              in (oneTreePerEnd (concatMap fst deeper ++ [(tree, q)]), maximum (q : [f | (_, (_, f)) <- attempts] ++ map snd deeper))
-       in (oneTreePerEnd (concatMap fst climbed), maximum (pos : [f | (_, (_, f)) <- baseEvals] ++ map snd climbed))
+       in sharedFailure (toEntry (oneTreePerEnd (concatMap fst climbed), maximum (pos : [f | (_, (_, f)) <- baseEvals] ++ map snd climbed)))
 
     baseStep r sh pr = case sh of
       ShapePrimary alt -> Just (evalAlternative entryOf alt)
@@ -275,7 +343,7 @@ parseVisibleTokens grammar start visible
       ShapeSuffix rest -> evalAlternative entryOf rest q
       _ -> ([], q)
 
-    furthest = snd (entryOf startIndex 0)
+    furthest = entryFurthest (entryOf startIndex 0)
 
 computeFirst :: [ParserRule ()] -> Map Name Int -> BV.Vector (FirstSet, Bool)
 computeFirst rules ruleIndex = go (BV.replicate (length rules) (emptyFirst, False))
@@ -373,6 +441,7 @@ compileRule ruleIndex firstTable rule = CompiledRule (parserRuleName rule) alter
     compileElement e = case e of
       ElementAtom _ label atom suffix -> CompiledAtomElement (compileAtom atom) suffix (labelText label)
       ElementBlock _ label block suffix -> CompiledBlockElement (map (compileAlternative . alternativeElements) (toList (blockAlternatives block))) suffix (labelText label)
+      ElementAction _ SemanticPredicate body _ -> CompiledPredicateElement (actionTextRaw body)
       ElementAction {} -> CompiledActionElement
     labelText = fmap (nameText . labelName)
     compileAtom atom = case atom of
@@ -383,6 +452,31 @@ compileRule ruleIndex firstTable rule = CompiledRule (parserRuleName rule) alter
     terminalPredicate t = case t of
       TerminalToken name _ -> (== name) . tokenType
       TerminalLiteral lit _ -> let text = either (const T.empty) id (decodeStringLiteral lit) in (== text) . tokenText
+
+-- | A rule node with its children built now, so that a memo entry holds the tree rather than the
+-- closures that would build it, which kept the intermediate results of every step alive.
+-- ref:DEC-parser-memory
+node :: Name -> Int -> [ParseTree] -> ParseTree
+node name i children = foldr seq () children `seq` RuleNode name i children
+
+-- | A memo table with one map per position, filled as entries are asked for, so a rule that could
+-- start at a token but is never tried there costs nothing. ref:DEC-parser-memory
+newMemo :: Int -> MV.IOVector (IntMap.IntMap a)
+newMemo size = unsafePerformIO (MV.replicate size IntMap.empty)
+
+-- | The entry of a rule at a position, made on first request and shared after. The entry is stored
+-- unevaluated, so a request made while it is being evaluated finds the same thunk, as a lazy table
+-- would; the table is private to one parse, which runs on one thread, and a request that runs twice
+-- makes the same entry, so the result is the same however often GHC evaluates it.
+memoised :: MV.IOVector (IntMap.IntMap a) -> Int -> Int -> (Int -> Int -> a) -> a
+memoised table p r make = unsafePerformIO $ do
+  entries <- MV.read table p
+  case IntMap.lookup r entries of
+    Just found -> pure found
+    Nothing -> do
+      let made = make r p
+      MV.write table p (IntMap.insert r made entries)
+      pure made
 
 oneTreePerEnd :: [(a, Int)] -> [(a, Int)]
 oneTreePerEnd = go IntSet.empty
@@ -409,18 +503,35 @@ altStep steps p =
   let evals = map ($ p) steps
    in (oneTreePerEnd (concatMap fst evals), maximum (p : map snd evals))
 
-guarded :: Step -> Step
-guarded m p = let (rs, f) = m p in ([r | r@(_, q) <- rs, q /= p], f)
-
 suffixed :: Maybe EbnfSuffix -> Step -> Step
 suffixed suffix m = case suffix of
   Nothing -> m
   Just (EbnfSuffix Optional Greedy) -> altStep [m, emptyStep]
   Just (EbnfSuffix Optional NonGreedy) -> altStep [emptyStep, m]
-  Just (EbnfSuffix ZeroOrMore Greedy) -> greedyMany
-  Just (EbnfSuffix ZeroOrMore NonGreedy) -> lazyMany
-  Just (EbnfSuffix OneOrMore Greedy) -> seqStep m greedyMany
-  Just (EbnfSuffix OneOrMore NonGreedy) -> seqStep m lazyMany
+  Just (EbnfSuffix ZeroOrMore Greedy) -> manyStep True m
+  Just (EbnfSuffix ZeroOrMore NonGreedy) -> manyStep False m
+  Just (EbnfSuffix OneOrMore Greedy) -> seqStep m (manyStep True m)
+  Just (EbnfSuffix OneOrMore NonGreedy) -> seqStep m (manyStep False m)
+
+-- | A loop as a depth-first walk over the positions its iterations reach, each position visited
+-- once, emitting a position after the ones beyond it when greedy and before them when not. That is
+-- the order, and with one tree per end the trees, that the loop written as a recursion of
+-- alternatives gives, since a position reached again only repeats ends already emitted; but the
+-- recursion built a result for every pair of an iteration and a later end, so a list of n items
+-- cost n squared, and a 13,000-line C# initializer ran out of memory. Each prefix of children here
+-- is shared with the one before it. ref:DEC-one-tree-per-span ref:DEC-parser-memory
+manyStep :: Bool -> Step -> Step
+manyStep greedy m start =
+  let (out, _, furthest) = visit (IntSet.singleton start) id start
+   in (out [], furthest)
   where
-    greedyMany p = altStep [seqStep (guarded m) greedyMany, emptyStep] p
-    lazyMany p = altStep [emptyStep, seqStep (guarded m) lazyMany] p
+    visit seen prefix q =
+      let (results, f0) = m q
+          (below, seen', f1) = foldl (descend prefix q) (id, seen, f0) results
+          here = ((prefix, q) :)
+       in (if greedy then below . here else here . below, seen', f1)
+    descend prefix q (acc, seen, f) (c, mid)
+      | mid == q || IntSet.member mid seen = (acc, seen, f)
+      | otherwise =
+          let (out, seen', f') = visit (IntSet.insert mid seen) (prefix . c) mid
+           in (acc . out, seen', max f f')

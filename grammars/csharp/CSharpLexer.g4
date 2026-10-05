@@ -175,10 +175,16 @@ CHARACTER_LITERAL : '\'' (~['\\\r\n\u0085\u2028\u2029] | CommonCharacter) '\'';
 // every split of a run of them; and a u8 suffix makes a C# 11 UTF-8 string.
 REGULAR_STRING    : '"' (~["\\\r\n\u0085\u2028\u2029] | '\\' ~[\r\n\u0085\u2028\u2029])* '"' U8Suffix?;
 VERBATIUM_STRING  : '@"' (~'"' | '""')* '"' U8Suffix?;
-// canon: C# 11 raw strings, interpolated or not, are one token each; the holes of an interpolated
-// raw string are not parsed. Up to six quotes delimit one, the longest match deciding.
+// canon: a C# 11 raw string without interpolation is one token. Up to six quotes delimit one, the
+// longest match deciding.
 RAW_STRING:
-    ('$'* '"""' .*? '"""' | '$'* '""""' .*? '""""' | '$'* '"""""' .*? '"""""' | '$'* '""""""' .*? '""""""') U8Suffix?
+    ('"""' .*? '"""' | '""""' .*? '""""' | '"""""' .*? '"""""' | '""""""' .*? '""""""') U8Suffix?
+;
+// canon: an interpolated raw string opens a mode of its own, whose holes are parsed. The hook counts
+// the dollars and quotes of the opener: a run of as many braces as dollars opens a hole, a run of as
+// many quotes as the opener's closes the string, and shorter runs are content.
+INTERPOLATED_RAW_STRING_START:
+    '$'+ '"""' '"'* { this.OnRawStringStart(); } -> pushMode(INTERPOLATION_RAW_STRING)
 ;
 INTERPOLATED_REGULAR_STRING_START:
     '$"' { this.OnInterpolatedRegularStringStart(); } -> pushMode(INTERPOLATION_STRING)
@@ -259,6 +265,23 @@ VERBATIUM_OPEN_BRACE_INSIDE      : '{' { this.OpenBraceInside(); } -> skip, push
 VERBATIUM_DOUBLE_QUOTE_INSIDE    : '""';
 VERBATIUM_DOUBLE_QUOTE_INSIDE_END: '"' { this.OnDoubleQuoteInside(); } -> type(DOUBLE_QUOTE_INSIDE), popMode;
 VERBATIUM_INSIDE_STRING          : ~('{' | '"')+;
+
+// canon: the inside of an interpolated raw string, read with the hook as described at
+// INTERPOLATED_RAW_STRING_START. A hole's closing braces are skipped as the hook counts them.
+mode INTERPOLATION_RAW_STRING;
+
+RAW_OPEN_BRACES    : '{'+ { this.OnRawOpenBraces(); };
+RAW_CLOSE_BRACE    : '}' { this.OnRawCloseBrace(); };
+RAW_QUOTES         : '"'+ { this.OnRawQuotes(); };
+RAW_STRING_CONTENT : ~('{' | '}' | '"')+;
+RAW_STRING_END     : '\u0000' -> skip; // the type the hook gives the closing quotes; never matched
+
+// canon: the format of a hole in an interpolated raw string, where }} may close the hole rather than
+// stand for a brace.
+mode RAW_INTERPOLATION_FORMAT;
+
+RAW_CLOSE_BRACE_INSIDE : '}' { this.OnCloseBraceInside(); } -> skip, popMode;
+RAW_FORMAT_STRING      : ~'}'+ -> type(FORMAT_STRING);
 
 mode INTERPOLATION_FORMAT;
 

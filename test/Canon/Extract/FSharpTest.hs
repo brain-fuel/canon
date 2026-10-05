@@ -16,6 +16,7 @@ import Canon.Model
 import Canon.Model.Check (checkModel, checkTests)
 import Canon.Model.Finding
 import Canon.Profile
+import Canon.Signature (linkSignatures)
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
@@ -33,6 +34,10 @@ tests =
     [ testProperty "the F# grammar parses the Giraffe.ViewEngine sample into its declarations" prop_fsharpGrammarParsesTheViewEngineSampleIntoItsDeclarations
     , testProperty "the F# lexer turns the offside rule into layout tokens outside brackets" prop_fsharpLexerTurnsTheOffsideRuleIntoLayoutTokensOutsideBrackets
     , testProperty "the F# profile binds doc comments, exempts private declarations, and recognises tests" prop_fsharpProfileBindsDocCommentsExemptsPrivateDeclarationsAndRecognisesTests
+    , testProperty "F# type parameters span lines and may be quoted" prop_fsharpTypeParametersSpanLinesAndMayBeQuoted
+    , testProperty "the members after a union case with an anonymous record are the union's" prop_theMembersAfterAUnionCaseWithAnAnonymousRecordAreTheUnions
+    , testProperty "a doc comment on a local let binds to it" prop_aDocCommentOnALocalLetBindsToIt
+    , testProperty "a signature file carries the comments of its implementation" prop_aSignatureFileCarriesTheCommentsOfItsImplementation
     ]
 
 sampleDir :: FilePath
@@ -241,3 +246,154 @@ prop_fsharpProfileBindsDocCommentsExemptsPrivateDeclarationsAndRecognisesTests =
         , "fsharp/Shapes.fs/module/Shapes.Drawing/value/tests"
         ]
   [renderUnitId u | TestWithoutRequirement u _ <- checkTests (Registry (Map.singleton (ReferenceKey "REQ-1") (Reference Requirement "squares" "here"))) model] === []
+
+-- | An F# fixture extracted through the sample's profile under a path.
+extractAt :: FilePath -> Text -> PropertyT IO Extraction
+extractAt path source = do
+  profile <- sampleProfile
+  loaded <- evalIO (loadProfileInterpreter profile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "fsharp" profile interpreter path path source)
+  either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+
+-- | The units of a model with their requirement, below the file, as kind, name, and requirement.
+unitsOf :: Model Evidence -> [(Text, Text, CommentRequirement)]
+unitsOf model = [(unitKindText (whatKind (whatOf u)), whatName (whatOf u), unitRequirement u) | u <- modelAllUnits model, unitKindText (whatKind (whatOf u)) /= "file"]
+  where
+    whatOf = answerValue . unitWhat
+
+-- | The Why bound to each unit, by name.
+whysOf :: Model Evidence -> [(Text, Text)]
+whysOf model = [(whatName (answerValue (unitWhat u)), whyText (answerValue (decisionWhy d))) | u <- modelAllUnits model, d <- decisionsFor (unitId u) model]
+
+-- | A statically resolved type parameter list may span lines, as F# lets angle brackets do, and a
+-- type parameter may be quoted in double backticks; a parser that refused either lost the
+-- declaration and reported its documentation as attached to nothing, while a less-than sign that is
+-- a comparison must still be read as one. ref:REQ-fsharp-support ref:DEC-fsharp-grammar
+prop_fsharpTypeParametersSpanLinesAndMayBeQuoted :: Property
+prop_fsharpTypeParametersSpanLinesAndMayBeQuoted = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractAt
+      "Srtp.fs"
+      ( T.unlines
+          [ "module Srtp"
+          , ""
+          , "/// Adds anything with a static zero."
+          , "let inline addZero< ^a"
+          , "                    when ^a : (static member Zero : ^a)"
+          , "                    and ^a : (static member (+) : ^a * ^a -> ^a)> (x: ^a) ="
+          , "    x + (^a : (static member Zero : ^a) ())"
+          , ""
+          , "/// Boxes a value."
+          , "type Box<'``T``> = { Value: '``T`` }"
+          , ""
+          , "/// Compares without spaces."
+          , "let less a b = a<b"
+          , ""
+          , "/// Comes after."
+          , "let after = 1"
+          ]
+      )
+  [(k, n) | (k, n, _) <- unitsOf model] === [("module", "Srtp"), ("function", "addZero"), ("record", "Box"), ("field", "Value"), ("function", "less"), ("value", "after")]
+  map fst (whysOf model) === ["addZero", "Box", "less", "after"]
+  [() | OrphanDocComment _ _ <- findings] === []
+
+-- | A union's members may follow a single case whose fields are a multi-line anonymous record, and
+-- they are the union's members, documented as members, not part of the case's type.
+-- ref:REQ-fsharp-support ref:DEC-fsharp-grammar
+prop_theMembersAfterAUnionCaseWithAnAnonymousRecordAreTheUnions :: Property
+prop_theMembersAfterAUnionCaseWithAnAnonymousRecordAreTheUnions = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractAt
+      "Union.fs"
+      ( T.unlines
+          [ "module Union"
+          , ""
+          , "/// A wrapper."
+          , "type Wrapper = Wrapper of {| A: int"
+          , "                             B: int |}"
+          , "               with"
+          , "                   /// The A of the wrapper."
+          , "                   member x.A = 1"
+          ]
+      )
+  [(k, n) | (k, n, _) <- unitsOf model] === [("module", "Union"), ("union", "Wrapper"), ("case", "Wrapper"), ("member", "A")]
+  lookup "A" (whysOf model) === Just "The A of the wrapper."
+  [() | OrphanDocComment _ _ <- findings] === []
+
+-- | A let inside a function is private to it but may carry a Why, and a doc comment on one is its
+-- documentation rather than a comment attached to nothing; such a binding needs no comment.
+-- ref:REQ-fsharp-support ref:DEC-fsharp-grammar
+prop_aDocCommentOnALocalLetBindsToIt :: Property
+prop_aDocCommentOnALocalLetBindsToIt = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractAt
+      "Local.fs"
+      ( T.unlines
+          [ "module Local"
+          , ""
+          , "/// Adds the helpers' results."
+          , "let outer x ="
+          , "    /// Steps once."
+          , "    let rec step y = if y > 0 then next (y - 1) else 0"
+          , "    and next y = step y"
+          , "    /// Two, always."
+          , "    let two = 2"
+          , "    step x + two"
+          ]
+      )
+  unitsOf model
+    === [ ("module", "Local", Optional)
+        , ("function", "outer", Required)
+        , ("function", "step", Optional)
+        , ("function", "next", Optional)
+        , ("value", "two", Optional)
+        ]
+  whysOf model === [("outer", "Adds the helpers' results."), ("step", "Steps once."), ("two", "Two, always.")]
+  [() | OrphanDocComment _ _ <- findings] === []
+
+-- | With a signature file, F# takes the documentation of what the signature declares from it and
+-- hides what it leaves out, so the comment is required on the signature's val and type, the
+-- implementation's binding is documented by it, and a binding the signature omits is private.
+-- ref:REQ-fsharp-support ref:DEC-fsharp-signatures
+prop_aSignatureFileCarriesTheCommentsOfItsImplementation :: Property
+prop_aSignatureFileCarriesTheCommentsOfItsImplementation = withTests 1 $ property $ do
+  profile <- sampleProfile
+  signature <-
+    extractAt
+      "Lib.fsi"
+      ( T.unlines
+          [ "module Lib"
+          , ""
+          , "/// Doubles a number."
+          , "val double : int -> int"
+          , ""
+          , "val triple : int -> int"
+          , ""
+          , "/// A counter."
+          , "type Counter ="
+          , "    /// The count."
+          , "    member Count : int"
+          ]
+      )
+  implementation <-
+    extractAt
+      "Lib.fs"
+      ( T.unlines
+          [ "module Lib"
+          , ""
+          , "let double x = x * 2"
+          , "let triple x = x * 3"
+          , "let hidden x = x"
+          , ""
+          , "type Counter() ="
+          , "    member _.Count = 0"
+          ]
+      )
+  let linked = linkSignatures (Map.singleton "fsharp" profile) [("Lib.fsi", Right signature), ("Lib.fs", Right implementation) :: (FilePath, Either Text Extraction)]
+  case linked of
+    [("Lib.fsi", Right sig'), ("Lib.fs", Right impl')] -> do
+      [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger (extractionModel sig')] === ["fsharp/Lib.fsi/module/Lib/val/triple"]
+      [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger (extractionModel impl')] === []
+      [(k, n, r) | (k, n, r) <- unitsOf (extractionModel sig'), r == Required] === [("val", "double", Required), ("val", "triple", Required), ("class", "Counter", Required), ("member", "Count", Required)]
+    _ -> failure

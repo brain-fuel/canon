@@ -33,6 +33,9 @@ tests =
     [ testProperty "the Rust grammar parses the scopeguard sample into its items" prop_rustGrammarParsesTheScopeguardSampleIntoItsItems
     , testProperty "the Rust lexer tells ranges, method calls, tuple indices, and escaped backslashes apart" prop_rustLexerTellsRangesMethodCallsTupleIndicesAndEscapesApart
     , testProperty "the Rust profile binds doc comments across attributes and recognises tests" prop_rustProfileBindsDocCommentsAcrossAttributesAndRecognisesTests
+    , testProperty "an empty Rust line comment ends at its line and hides no code" prop_anEmptyRustLineCommentEndsAtItsLineAndHidesNoCode
+    , testProperty "the Rust profile requires comments on what is visible outside the crate" prop_rustProfileRequiresCommentsOnWhatIsVisibleOutsideTheCrate
+    , testProperty "a Rust trait impl is named by its trait and its self type" prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType
     ]
 
 sampleDir :: FilePath
@@ -168,13 +171,19 @@ prop_rustProfileBindsDocCommentsAcrossAttributesAndRecognisesTests = withTests 1
   [(kindOf u, nameOf u) | u <- units, kindOf u /= "file"]
     === [ ("function", "helper")
         , ("enum", "Shape")
+        , ("variant", "Circle")
+        , ("field", "0")
+        , ("variant", "Square")
+        , ("field", "0")
         , ("trait", "Area")
         , ("function", "area")
-        , ("impl", "Shape")
+        , ("impl", "Area-for-Shape")
         , ("function", "area")
         , ("module", "nested")
         , ("const", "LIMIT")
         , ("struct", "Point")
+        , ("field", "0")
+        , ("field", "1")
         , ("macro", "twice")
         , ("module", "tests")
         , ("function", "square_area_is_side_squared")
@@ -191,10 +200,114 @@ prop_rustProfileBindsDocCommentsAcrossAttributesAndRecognisesTests = withTests 1
   length [() | OrphanDocComment _ _ <- findings] === 1
   map testsOf ["square_area_is_side_squared", "uncommented_test", "helper"] === [[True], [True], [False]]
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
-    === [ "rust/lib.rs/function/helper"
-        , "rust/lib.rs/impl/Shape/function/area"
+    === [ "rust/lib.rs/enum/Shape/variant/Circle"
+        , "rust/lib.rs/enum/Shape/variant/Square"
         , "rust/lib.rs/struct/Point"
-        , "rust/lib.rs/macro/twice"
+        , "rust/lib.rs/struct/Point/field/0"
+        , "rust/lib.rs/struct/Point/field/1"
         , "rust/lib.rs/module/tests/function/uncommented_test"
         ]
   [renderUnitId u | TestWithoutRequirement u _ <- checkTests (Registry (Map.singleton (ReferenceKey "REQ-1") (Reference Requirement "squares" "here"))) model] === []
+
+-- | A profile-path extraction of a Rust fixture through the sample's profile.
+extractFixture :: Text -> PropertyT IO (Model Evidence)
+extractFixture source = do
+  profile <- sampleProfile
+  loaded <- evalIO (loadProfileInterpreter profile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "rust" profile interpreter "lib.rs" "lib.rs" source)
+  Extraction model _ <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  pure model
+
+-- | Upstream's comment rules let the character after // or /// be a line break, so an empty comment
+-- ran on through the next line and the code there vanished from the parse; //// is a plain comment
+-- and no documentation. ref:REQ-rust-support ref:DEC-rust-visibility
+prop_anEmptyRustLineCommentEndsAtItsLineAndHidesNoCode :: Property
+prop_anEmptyRustLineCommentEndsAtItsLineAndHidesNoCode = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let visible source = case interpreterTokenize interpreter source of
+        Left err -> Left (renderLexError err)
+        Right toks -> Right [tokenText t | t <- toks, not (isEofToken t), tokenChannel t /= hiddenChannelName]
+      hidden source = case interpreterTokenize interpreter source of
+        Left err -> Left (renderLexError err)
+        Right toks -> Right [(nameText (tokenType t), tokenText t) | t <- toks, tokenChannel t == hiddenChannelName, nameText (tokenType t) /= "WHITESPACE", nameText (tokenType t) /= "NEWLINE"]
+  visible "//\nfn a() {}\n///\nfn b() {}\n" === Right ["fn", "a", "(", ")", "{", "}", "fn", "b", "(", ")", "{", "}"]
+  hidden "//\n///\n////x\n/// doc\n" === Right [("LINE_COMMENT", "//"), ("OUTER_LINE_DOC", "///"), ("LINE_COMMENT", "////x"), ("OUTER_LINE_DOC", "/// doc")]
+  model <- extractFixture (T.unlines ["//// Commented-out documentation.", "pub fn f() {}", "///", "/// Documented after an empty line of documentation.", "pub fn g() {}"])
+  let whyOf n = [whyText (answerValue (decisionWhy d)) | u <- modelAllUnits model, whatName (answerValue (unitWhat u)) == n, d <- decisionsFor (unitId u) model]
+  whyOf "f" === []
+  whyOf "g" === ["Documented after an empty line of documentation."]
+
+-- | rustc's missing_docs lint asks for documentation on what a crate exports: items marked pub without
+-- a restriction, the items of a public trait and the variants of a public enum, which have no pub of
+-- their own, and macros marked #[macro_export]; a private item, a pub(crate) item, and the methods of
+-- a trait impl, which the trait documents, need none. ref:REQ-rust-support ref:DEC-rust-visibility
+prop_rustProfileRequiresCommentsOnWhatIsVisibleOutsideTheCrate :: Property
+prop_rustProfileRequiresCommentsOnWhatIsVisibleOutsideTheCrate = withTests 1 $ property $ do
+  model <-
+    extractFixture
+      ( T.unlines
+          [ "pub fn exported() {}"
+          , "pub(crate) fn crate_only() {}"
+          , "fn private() {}"
+          , "pub trait Public { fn item(&self); type Out; }"
+          , "trait Private { fn hidden(&self); }"
+          , "pub enum Choice { Yes, No(u8) }"
+          , "enum Inner { A }"
+          , "pub struct Record { pub open: u8, closed: u8 }"
+          , "pub struct Pair(pub u8, u8);"
+          , "impl Public for Record { fn item(&self) {} type Out = u8; }"
+          , "impl Record { pub fn new() -> Self { todo!() } fn helper(&self) {} }"
+          , "#[macro_export]"
+          , "macro_rules! exported_macro { () => {} }"
+          , "macro_rules! local_macro { () => {} }"
+          , "pub(super) const LIMIT: u8 = 1;"
+          , "pub static NAME: &str = \"x\";"
+          ]
+      )
+  [renderUnitId (unitId u) | u <- modelAllUnits model, unitRequirement u == Required]
+    === [ "rust/lib.rs/function/exported"
+        , "rust/lib.rs/trait/Public"
+        , "rust/lib.rs/trait/Public/function/item"
+        , "rust/lib.rs/trait/Public/type/Out"
+        , "rust/lib.rs/enum/Choice"
+        , "rust/lib.rs/enum/Choice/variant/Yes"
+        , "rust/lib.rs/enum/Choice/variant/No"
+        , "rust/lib.rs/struct/Record"
+        , "rust/lib.rs/struct/Record/field/open"
+        , "rust/lib.rs/struct/Pair"
+        , "rust/lib.rs/struct/Pair/field/0"
+        , "rust/lib.rs/impl/Record/function/new"
+        , "rust/lib.rs/macro/exported_macro"
+        , "rust/lib.rs/static/NAME"
+        ]
+
+-- | A type has one inherent impl in rustdoc but an impl block per trait, and a trait impl is known by
+-- its trait, so a unit id must say which trait an impl is for rather than number the impls of a type.
+-- ref:REQ-rust-support ref:DEC-rust-visibility
+prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType :: Property
+prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType = withTests 1 $ property $ do
+  model <-
+    extractFixture
+      ( T.unlines
+          [ "struct Guard<T>(T);"
+          , "impl<T> Guard<T> { fn a(&self) {} }"
+          , "impl<T> Guard<T> { fn b(&self) {} }"
+          , "impl<T> core::ops::Deref for Guard<T> { type Target = T; fn deref(&self) -> &T { &self.0 } }"
+          , "impl<T: fmt::Debug> fmt::Debug for Guard<T> { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { Ok(()) } }"
+          , "unsafe impl<T: Sync> Sync for Guard<T> {}"
+          , "impl<T> !Send for &'static mut Guard<T> {}"
+          ]
+      )
+  [renderUnitId (unitId u) | u <- modelAllUnits model, unitKindText (whatKind (answerValue (unitWhat u))) `elem` ["impl", "function"]]
+    === [ "rust/lib.rs/impl/Guard<T>"
+        , "rust/lib.rs/impl/Guard<T>/function/a"
+        , "rust/lib.rs/impl/Guard<T>#2"
+        , "rust/lib.rs/impl/Guard<T>#2/function/b"
+        , "rust/lib.rs/impl/core::ops::Deref-for-Guard<T>"
+        , "rust/lib.rs/impl/core::ops::Deref-for-Guard<T>/function/deref"
+        , "rust/lib.rs/impl/fmt::Debug-for-Guard<T>"
+        , "rust/lib.rs/impl/fmt::Debug-for-Guard<T>/function/fmt"
+        , "rust/lib.rs/impl/Sync-for-Guard<T>"
+        , "rust/lib.rs/impl/!Send-for-&'static-mut-Guard<T>"
+        ]

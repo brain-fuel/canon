@@ -5,7 +5,7 @@ module Canon.Extract.CSharpTest (tests) where
 
 import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Lex (renderLexError)
-import Canon.Antlr4.Parse (treeRuleNodes)
+import Canon.Antlr4.Parse (treeRuleNodes, treeTokens)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Antlr4.Token (Token (..), defaultChannelName, isEofToken)
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
@@ -33,6 +33,11 @@ tests =
     [ testProperty "the C# grammar parses the GuardClauses sample into its members" prop_csharpGrammarParsesTheGuardClausesSampleIntoItsMembers
     , testProperty "the C# lexer reads interpolated, verbatim, and raw strings and one branch of each conditional" prop_csharpLexerReadsInterpolatedVerbatimAndRawStringsAndOneBranchOfEachConditional
     , testProperty "the C# profile binds XML docs above attributes, requires them on public members, and recognises tests" prop_csharpProfileBindsXmlDocsRequiresThemOnPublicMembersAndRecognisesTests
+    , testProperty "the C# parser answers the predicates of its base class" prop_theCSharpParserAnswersThePredicatesOfItsBaseClass
+    , testProperty "the holes of an interpolated raw string are parsed" prop_theHolesOfAnInterpolatedRawStringAreParsed
+    , testProperty "an interface member needs a comment as the interface does unless it is private or internal" prop_anInterfaceMemberNeedsACommentAsTheInterfaceDoesUnlessItIsPrivateOrInternal
+    , testProperty "every branch of an #if that some build compiles is read" prop_everyBranchOfAnIfThatSomeBuildCompilesIsRead
+    , testProperty "a long collection initializer parses in memory linear in its length" prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength
     ]
 
 sampleDir :: FilePath
@@ -233,9 +238,165 @@ prop_csharpProfileBindsXmlDocsRequiresThemOnPublicMembersAndRecognisesTests = wi
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === [ "csharp/Shapes.cs/namespace/Shapes/class/Shape/constructor/Shape"
         , "csharp/Shapes.cs/namespace/Shapes/class/Shape/method/Reset"
+        , "csharp/Shapes.cs/namespace/Shapes/enum/Colour/member/Green"
         , "csharp/Shapes.cs/namespace/Shapes/class/ShapeTests"
         , "csharp/Shapes.cs/namespace/Shapes/class/ShapeTests/method/UncommentedTheory"
         , "csharp/Shapes.cs/namespace/Shapes/class/ShapeTests/method/NUnitCase"
         , "csharp/Shapes.cs/namespace/Shapes/class/ShapeTests/method/MsTestMethod"
         ]
   [renderUnitId u | TestWithoutRequirement u _ <- checkTests (Registry (Map.singleton (ReferenceKey "REQ-1") (Reference Requirement "squares" "here"))) model] === []
+
+-- | A C# fixture extracted through the sample's profile.
+extractFixture :: Text -> PropertyT IO (Extraction)
+extractFixture source = do
+  profile <- sampleProfile
+  loaded <- evalIO (loadProfileInterpreter profile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "csharp" profile interpreter "F.cs" "F.cs" source)
+  either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+
+-- | CSharpParserBase rejects what the compiler rejects: an arrow or a shift whose two tokens do not
+-- touch, and a var declaration with more than one declarator; a parser that took them would read
+-- code no build compiles. ref:REQ-csharp-support ref:DEC-csharp-grammar
+prop_theCSharpParserAnswersThePredicatesOfItsBaseClass :: Property
+prop_theCSharpParserAnswersThePredicatesOfItsBaseClass = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let parses body = either (const False) (const True) (interpretText interpreter (Name "compilation_unit") "f.cs" ("class C { void M() { " <> body <> " } }"))
+  map parses ["Func<int, int> f = x => x;", "int s = 8 >> 1; s >>= 2;", "int a = 1, b = 2;", "var k = 3;"] === [True, True, True, True]
+  map parses ["Func<int, int> f = x = > x;", "int s = 8 > > 1;", "s > >= 2;", "var a = 1, b = 2;"] === [False, False, False, False]
+
+-- | An interpolated raw string's holes are expressions, and a lambda or a call in one is code like any
+-- other; a parser that took the whole string as one token read none of it. ref:REQ-csharp-support
+-- ref:DEC-csharp-grammar
+prop_theHolesOfAnInterpolatedRawStringAreParsed :: Property
+prop_theHolesOfAnInterpolatedRawStringAreParsed = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let typesOf source = case interpreterTokenize interpreter source of
+        Left err -> Left (renderLexError err)
+        Right toks -> Right [(nameText (tokenType t), tokenText t) | t <- toks, not (isEofToken t), tokenChannel t == defaultChannelName]
+  typesOf "$\"\"\"a \"q\" {x:N2}\"\"\""
+    === Right
+      [ ("INTERPOLATED_RAW_STRING_START", "$\"\"\"")
+      , ("RAW_STRING_CONTENT", "a ")
+      , ("RAW_STRING_CONTENT", "\"")
+      , ("RAW_STRING_CONTENT", "q")
+      , ("RAW_STRING_CONTENT", "\"")
+      , ("RAW_STRING_CONTENT", " ")
+      , ("IDENTIFIER", "x")
+      , ("COLON", ":")
+      , ("FORMAT_STRING", "N2")
+      , ("RAW_STRING_END", "\"\"\"")
+      ]
+  typesOf "$$\"\"\"{ \"n\": {{n + 1}} }\"\"\""
+    === Right
+      [ ("INTERPOLATED_RAW_STRING_START", "$$\"\"\"")
+      , ("RAW_STRING_CONTENT", "{")
+      , ("RAW_STRING_CONTENT", " ")
+      , ("RAW_STRING_CONTENT", "\"")
+      , ("RAW_STRING_CONTENT", "n")
+      , ("RAW_STRING_CONTENT", "\"")
+      , ("RAW_STRING_CONTENT", ": ")
+      , ("IDENTIFIER", "n")
+      , ("PLUS", "+")
+      , ("INTEGER_LITERAL", "1")
+      , ("RAW_STRING_CONTENT", " ")
+      , ("RAW_STRING_CONTENT", "}")
+      , ("RAW_STRING_END", "\"\"\"")
+      ]
+  case interpretText interpreter (Name "compilation_unit") "f.cs" "class C { string S => $\"\"\"{(a ? $\"{b}\" : Run(x => x))}\"\"\"; }" of
+    Left err -> annotate (T.unpack (renderInterpretError err)) >> failure
+    Right tree -> do
+      length (treeRuleNodes (Name "interpolated_raw_string") tree) === 1
+      length (treeRuleNodes (Name "lambda_expression") tree) === 1
+
+-- | The members of an interface are public unless they say otherwise, and CS1591 asks for their
+-- documentation when the interface is visible outside its assembly; private protected is not
+-- visible there and protected internal is. ref:REQ-csharp-support ref:DEC-csharp-grammar
+prop_anInterfaceMemberNeedsACommentAsTheInterfaceDoesUnlessItIsPrivateOrInternal :: Property
+prop_anInterfaceMemberNeedsACommentAsTheInterfaceDoesUnlessItIsPrivateOrInternal = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractFixture
+      ( T.unlines
+          [ "public interface IShape"
+          , "{"
+          , "    double Area { get; }"
+          , "    void Draw();"
+          , "    private void Helper() { }"
+          , "    internal void Inside() { }"
+          , "    protected void ForImplementers() { }"
+          , "}"
+          , "internal interface IHidden"
+          , "{"
+          , "    void Hidden();"
+          , "}"
+          , "public class Base"
+          , "{"
+          , "    private protected void AssemblyOnly() { }"
+          , "    protected private void AlsoAssemblyOnly() { }"
+          , "    protected internal void Everywhere() { }"
+          , "    internal protected void AlsoEverywhere() { }"
+          , "    void Private() { }"
+          , "}"
+          ]
+      )
+  [renderUnitId (unitId u) | u <- modelAllUnits model, unitRequirement u == Required]
+    === [ "csharp/F.cs/interface/IShape"
+        , "csharp/F.cs/interface/IShape/property/Area"
+        , "csharp/F.cs/interface/IShape/method/Draw"
+        , "csharp/F.cs/interface/IShape/method/ForImplementers"
+        , "csharp/F.cs/class/Base"
+        , "csharp/F.cs/class/Base/method/Everywhere"
+        , "csharp/F.cs/class/Base/method/AlsoEverywhere"
+        ]
+
+-- | A build compiles one branch of each #if, and different builds compile different branches, so the
+-- documentation of every branch some build compiles must be read and bound; a branch no build
+-- compiles is not read, and its comment is no orphan. ref:REQ-csharp-support
+-- ref:DEC-preprocessor-builds
+prop_everyBranchOfAnIfThatSomeBuildCompilesIsRead :: Property
+prop_everyBranchOfAnIfThatSomeBuildCompilesIsRead = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractFixture
+      ( T.unlines
+          [ "public static class Spans"
+          , "{"
+          , "#if NET6_0_OR_GREATER"
+          , "    /// <summary>Reads a span where the runtime has them.</summary>"
+          , "    public static void Read(ReadOnlySpan<char> s) { }"
+          , "#elif NETSTANDARD2_0"
+          , "    /// <summary>Reads a string on .NET Standard.</summary>"
+          , "    public static void ReadString(string s) { }"
+          , "#else"
+          , "    public static void Fallback() { }"
+          , "#endif"
+          , "#if DEBUG"
+          , "    /// <summary>Checks in debug builds.</summary>"
+          , "    public static void Check() { }"
+          , "#endif"
+          , "#if false"
+          , "    /// <summary>Never compiled.</summary>"
+          , "    public static void Never() { }"
+          , "#endif"
+          , "}"
+          ]
+      )
+  let units = modelAllUnits model
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- units, whatName (answerValue (unitWhat u)) == n, d <- decisionsFor (unitId u) model]
+  [whatName (answerValue (unitWhat u)) | u <- units, unitKindText (whatKind (answerValue (unitWhat u))) == "method"] === ["Read", "ReadString", "Fallback", "Check"]
+  whyOf "Read" === ["<summary>Reads a span where the runtime has them.</summary>"]
+  whyOf "ReadString" === ["<summary>Reads a string on .NET Standard.</summary>"]
+  whyOf "Check" === ["<summary>Checks in debug builds.</summary>"]
+  [() | OrphanDocComment _ _ <- findings] === []
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["csharp/F.cs/class/Spans", "csharp/F.cs/class/Spans/method/Fallback"]
+
+-- | A generated file can hold a collection initializer of thousands of lines, and the parser built a
+-- result for every pair of an item and a later end of the list, which took 10 GB on 13,000 lines; it
+-- must parse such a list whole. ref:REQ-csharp-support ref:DEC-parser-memory
+prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength :: Property
+prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let items = [T.concat ["    { \"key", T.pack (show i), "\", new int[] { ", T.pack (show i), ", 2 } },"] | i <- [1 .. 1500 :: Int]]
+      source = T.unlines (["static class Data {", "  static readonly Dictionary<string, int[]> Table = new Dictionary<string, int[]> {"] ++ items ++ ["  };", "}"])
+  case interpretText interpreter (Name "compilation_unit") "data.cs" source of
+    Left err -> annotate (T.unpack (renderInterpretError err)) >> failure
+    Right tree -> length [t | t <- treeTokens tree, "\"key" `T.isPrefixOf` tokenText t] === 1500

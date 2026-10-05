@@ -9,6 +9,13 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- Every branch of a C# or F# `#if` that some build compiles is read: a file is read once per build of a few assignments of its symbols that together read every such branch, and what each build finds is merged by id
+- The `inherited` element label: a unit under it requires a comment when the unit around it does, unless it holds an `optional` element; the bodies of Rust traits and enums and of C# interfaces and enums carry it
+- Semantic predicates answered by a parser hook keyed by the parser grammar's `superClass`; `CSharpParserBase` checks that `=>`, `>>`, and `>>=` touch and that a `var` declaration has one declarator
+- The holes of a C# interpolated raw string are parsed, in a lexer mode whose hook counts the dollars and quotes of the opener
+- Rust variants and named fields as units, and tuple fields named by their position through `name: {ordinal: true}`
+- `signatures` in a profile: where a signature file such as F#'s `.fsi` and its implementation are both checked, the comment is required on the signature and not the implementation, and what the signature omits is private
+- F# local `let` bindings in a body as units, so a doc comment on one binds
 - C# as a language: the grammars-v4 C# 7 grammar under `grammars/csharp/`, with its `CSharpLexerBase` ported as a lexer hook that tracks interpolation holes and reads one branch of each `#if`, attributes and modifiers moved into each kind of type and member so a doc comment above the attributes binds, `public` and `protected` labeled `required`, and C# 8 to 14 syntax added, from records and patterns to raw strings and extension blocks; a C# profile with namespaces, types, and members as units; xUnit, NUnit, and MSTest attributes in the test table; and `lang_samples/csharp-guardclauses`, Ardalis.GuardClauses vendored with its license
 - F# as a language: an F# grammar written for canon under `grammars/fsharp/`, which parses namespaces, modules, bindings, types, members, fields, and cases and reads expressions as runs of tokens, with a lexer hook that turns the offside rule into layout tokens; an F# profile in which `private` and `internal` are labeled `optional`; xUnit, NUnit, FsCheck, and Expecto attributes in the test table; and `lang_samples/fsharp-giraffe-viewengine`, Giraffe.ViewEngine vendored with its license
 - `directives` in a profile's comment syntax: a directive line, and where outer doc openers are given a plain comment line, does not part a doc comment from its unit, and a comment in an `#if` branch canon does not read binds to nothing and is no orphan
@@ -33,7 +40,17 @@ and this project adheres to
 - Rule 7 and `canonical_vetting.yaml`: `canon ingest` records every canonical comment as pending with a digest of its text, `canon vet` lists what needs a verdict with its text, a human sets `good`, `bad`, or `deferred` with a revisit version and commits, the assessor is the author of that commit from `git blame`, the model carries the verdict, assessor, time, and commit on each decision, and `canon check` fails on pending, stale, bad, and overdue comments and ends with `report invalid` while any are pending
 - The `required` and `orphan` element labels in canonically commented grammars, and the rule that only a labeled alternative containing a `why` element is a unit, so upstream alternative labels stay inert
 
+### Changed
+- Rust requires a comment on what a crate exports, as rustc's `missing_docs` lint does: a bare `pub` and `#[macro_export]` are labeled `required`, the items of a trait and the variants of an enum inherit their container's requirement, and private items, `pub(crate)` items, and trait impl methods need none
+- A Rust trait impl is named by its trait and self type, as `Deref-for-Guard<T>`, rather than by its self type with an ordinal
+- A unit's name runs its tokens together with a hyphen where the source spaces a word from what follows, so a Haskell instance head `Named Shape` is named `Named-Shape`
+- The members of a C# interface or enum require a comment when it does; `private`, `internal`, and `private protected` are labeled `optional`, and `protected internal` is required
+
 ### Fixed
+- The parser's memory is linear in the input: a loop no longer builds a result for every pair of an item and a later end, the memo table holds entries only for rules tried at a token they can start with, and entries are strict, so a 13,000-line C# collection initializer is read in 10 seconds and under 1 GB instead of 10 GB
+- An empty Rust `//` or `///` comment ends at its line break; it ran on through the next line and hid the code there
+- F# type parameter lists spanning lines, such as statically resolved constraints, and type parameters quoted in double backticks are read
+- The members after an F# union case whose fields are a multi-line anonymous record are the union's, not part of the case
 - Lexing a long literal is linear rather than quadratic in its length: a 20 KB string in a Plug module took seconds, because each iteration of a loop copied the ends of the iterations after it
 - Extraction was exponential in expression depth on the Java grammar because every labeled expression alternative was scanned as a possible unit; the check of one 170-line test file took minutes and now takes a fraction of a second
 - `canon check` bounds the number of files extracted at once to the core count instead of starting every file concurrently

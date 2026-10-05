@@ -31,13 +31,13 @@ import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider
 import Canon.Model
 import Canon.Model.Finding (Finding (..))
-import Canon.Preprocessor (inactiveLines)
+import Canon.Preprocessor (builds, inactiveLinesWith)
 import Canon.Profile
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.Testing (isTestUnit)
 import Data.Char (isAlphaNum, isSpace)
 import Data.Foldable (toList)
-import Data.List (group, sort)
+import Data.List (group, sort, sortOn)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
@@ -88,20 +88,50 @@ extractWithProfile provider config language profile interpreter idPath path =
   TIO.readFile path >>= extractWithProfileText provider config language profile interpreter idPath path
 
 -- | Extracts text through a profile, with the id path separate from the display path so ids are
--- project-relative.
+-- project-relative. A file whose lexer reads #if directives is read once per build of the few that
+-- together read every branch, and the units and decisions each read finds are merged by id, the
+-- first build's winning; a doc comment is an orphan only when every build that reads it leaves it
+-- unbound. ref:DEC-preprocessor-builds
 extractWithProfileText :: GitProvider -> Config -> Text -> Profile -> Interpreter -> FilePath -> FilePath -> Text -> IO (Either GrammarExtractError Extraction)
 extractWithProfileText provider config language profile interpreter idPath path source =
-  case interpretText interpreter (profileStart profile) path source of
-    Left err -> pure (Left (GrammarInterpretError err))
-    Right tree -> case unitsFromTree language profile (alternativePlans (interpreterParser interpreter)) (exportLabelsDeclared (interpreterParser interpreter)) idPath path source tree of
-      Left err -> pure (Left err)
-      Right (root, labeled, unbound) -> do
-        let comments = scanCommentsWith (profileComments profile) source
-            (attached, orphans) = extractDecisionsFor (profileComments profile) path source root (Set.fromList (map decisionId labeled)) comments
-        (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root
-        described <- either (const Nothing) id <$> describeVersion provider
-        let model = Model language (configVersion config) described [unitsWithGit] (labeled ++ attached)
-        pure (Right (Extraction model (map (OrphanDocComment path) unbound ++ [OrphanDocComment path (locatedSpan c) | c <- orphans] ++ gitFindings)))
+  case mapM readBuild choices of
+    Left err -> pure (Left err)
+    Right readings -> do
+      let root = foldl1 mergeUnits [r | (_, r, _, _) <- readings]
+          decisions = firstById (concat [ds | (_, _, ds, _) <- readings])
+          orphaned = [sp | sp <- uniqueSpans (concat [spans | (_, _, _, spans) <- readings]), all (orphanIn sp) readings]
+      (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root
+      described <- either (const Nothing) id <$> describeVersion provider
+      let model = Model language (configVersion config) described [unitsWithGit] decisions
+      pure (Right (Extraction model (map (OrphanDocComment path) orphaned ++ gitFindings)))
+  where
+    preprocessed = interpreterPreprocesses interpreter
+    choices = if preprocessed then builds source else [Nothing]
+    comments = scanCommentsWith (profileComments profile) source
+    readBuild choice = do
+      tree <- either (Left . GrammarInterpretError) Right (interpretTextWith choice interpreter (profileStart profile) path source)
+      (root, labeled, unbound) <- unitsFromTree language profile (alternativePlans (interpreterParser interpreter)) (exportLabelsDeclared (interpreterParser interpreter)) idPath path source tree
+      let unread = if preprocessed then inactiveLinesWith choice source else Set.empty
+          (attached, orphans) = extractDecisionsFor (profileComments profile) unread path source root (Set.fromList (map decisionId labeled)) comments
+      Right (unread, root, labeled ++ attached, unbound ++ map locatedSpan orphans)
+    orphanIn sp (unread, _, _, spans) = Set.member (positionLine (spanStart sp)) unread || sp `elem` spans
+    uniqueSpans = foldr (\sp acc -> sp : filter (/= sp) acc) []
+    firstById = go Set.empty
+      where
+        go _ [] = []
+        go seen (d : rest)
+          | Set.member (decisionId d) seen = go seen rest
+          | otherwise = d : go (Set.insert (decisionId d) seen) rest
+
+-- | Merges the units two builds of one file found: a unit both found is the first's, with the
+-- children of both merged, and the children are kept in source order. ref:DEC-preprocessor-builds
+mergeUnits :: CodeUnit Evidence -> CodeUnit Evidence -> CodeUnit Evidence
+mergeUnits a b = a {unitChildren = sortOnStart (foldl insert (unitChildren a) (unitChildren b))}
+  where
+    insert children child = case break ((== unitId child) . unitId) children of
+      (before, found : after) -> before ++ mergeUnits found child : after
+      (_, []) -> children ++ [child]
+    sortOnStart = sortOn (spanStart . whereSpan . answerValue . unitWhere)
 
 -- | Reads the unit alternatives out of the parser grammar: a labeled alternative with a why element.
 alternativePlans :: Grammar Span -> Map.Map Name [Maybe AlternativePlan]
@@ -169,7 +199,11 @@ exportRequires exports parent name = case exports of
 -- names is required when its node holds an element the grammar labels required, as the C# grammar
 -- labels public and protected, or when its rule says so and its node holds no element labeled
 -- optional, as the F# grammar labels private and internal. ref:DEC-csharp-grammar
--- ref:DEC-fsharp-grammar Adjacent clauses of a unit rule that merges them are one unit, unless a
+-- ref:DEC-fsharp-grammar A unit found under an element labeled inherited needs a comment when the
+-- unit enclosing it does, unless its node holds an element labeled optional, as the items of a
+-- public Rust trait and the members of a public C# interface do. ref:DEC-inherited-label A unit
+-- rule named by ordinal numbers its units from zero in their parent. ref:DEC-rust-visibility
+-- Adjacent clauses of a unit rule that merges them are one unit, unless a
 -- doc comment ends on the line above a later clause, which then starts a unit of its own, as the
 -- @doc of another Elixir arity does. ref:DEC-elixir-grammar
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
@@ -202,7 +236,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
             mergeClauses (a {candidateClauses = candidateClauses a ++ candidateNode b : candidateClauses b} : rest)
       (a : rest) -> a : mergeClauses rest
       [] -> []
-    (children, decisions) = collect fileId [] tree
+    (children, decisions) = collect fileId [] False tree
     exportEntries = if exportsDeclared then Just (map (parseExportEntry . tokensText) (exportedIn tree)) else Nothing
     exportedIn node = case node of
       TokenNode _ -> []
@@ -223,7 +257,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       TokenNode _ -> []
       Labeled _ inner -> unboundWhys inner
       RuleNode _ _ ns
-        | isUnitNode node && isJust (labeledText "what" node) -> concatMap unboundWhys (filter (not . isWhy) ns)
+        | isUnitNode node && isJust (labeledSubtree "what" node) -> concatMap unboundWhys (filter (not . isWhy) ns)
         | otherwise -> [inner | Labeled "why" inner <- ns] ++ concatMap unboundWhys ns
     isWhy node = case node of
       Labeled "why" _ -> True
@@ -240,10 +274,18 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
         , unitTest = False
         , unitChildren = children
         }
-    collect parent chain node = collectAll parent chain [node]
-    collectAll parent chain nodes =
-      let built = map (build parent chain) (uniqueNames (mergeClauses (concatMap found nodes)))
+    collect parent chain parentRequired node = collectAll parent chain parentRequired [node]
+    collectAll parent chain parentRequired nodes =
+      let built = map (build parent chain parentRequired) (uniqueNames (numberOrdinals (mergeClauses (concatMap found nodes))))
        in (map fst built, concatMap snd built)
+    numberOrdinals candidates = go Map.empty candidates
+      where
+        go _ [] = []
+        go counts (c : rest)
+          | candidateOrdinal c =
+              let k = Map.findWithDefault (0 :: Int) (candidateKind c) counts
+               in c {candidateName = T.pack (show k)} : go (Map.insert (candidateKind c) (k + 1) counts) rest
+          | otherwise = c : go counts rest
     exported chain name = case fileExports of
       Nothing -> False
       Just entries -> exportRequires entries (parentName chain) name
@@ -256,12 +298,15 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       TokenNode _ -> []
     found node = case node of
       TokenNode _ -> []
+      Labeled "inherited" inner -> [c {candidateInherits = True} | c <- found inner]
       Labeled _ inner -> found inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just unitName <- labeledText "what" node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
+        Just plan | Just unitName <- labeledName "what" node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) optional False False (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
         _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
-          ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule && not (isJust (labeledSubtree "optional" node))) || isJust (labeledSubtree "required" node) then Required else Optional) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
+          ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule && not optional) || isJust (labeledSubtree "required" node) then Required else Optional) optional False (unitRuleNameSource rule == NameFromOrdinal) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
           [] -> concatMap found nodeChildren
+        where
+          optional = isJust (labeledSubtree "optional" node)
     planFor name alternative = Map.lookup name plans >>= \alts -> listToMaybe (drop alternative alts) >>= id
     isUnitNode node = case node of
       RuleNode name alternative _ -> isJust (planFor name alternative) || Map.member name rulesByName
@@ -274,8 +319,21 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
           Labeled _ inner -> labeledIn inner
           TokenNode _ -> []
           RuleNode _ _ ns -> concatMap (\c -> if isUnitNode c then [] else labeledIn c) ns
-    labeledText wanted node = tokensText <$> labeledSubtree wanted node
+    labeledName wanted node = nameFromTokens <$> labeledSubtree wanted node
     tokensText n = T.concat (map tokenText (filter (not . isEofToken) (treeTokens n)))
+    -- A name is its tokens run together, with a hyphen where the source spaces a word from what
+    -- follows it, so the Rust impl Deref for Guard<T, U> is named Deref-for-Guard<T,U> and a unit id
+    -- holds no space. ref:DEC-rust-visibility
+    nameFromTokens n = joinWords (filter (not . isEofToken) (treeTokens n))
+    joinWords toks = T.concat (zipWith glue (Nothing : map Just toks) toks)
+    glue previous t = case previous of
+      Just p
+        | tokenEnd p < tokenStart t
+        , Just (_, lastChar) <- T.unsnoc (tokenText p)
+        , wordChar lastChar ->
+            "-" <> tokenText t
+      _ -> tokenText t
+    wordChar ch = isAlphaNum ch || ch == '_' || ch == '\''
     uniqueNames candidates = go Map.empty candidates
       where
         go _ [] = []
@@ -284,16 +342,17 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
               count = Map.findWithDefault (0 :: Int) key seen
               segment = if count == 0 then candidateName c else T.concat [candidateName c, "#", T.pack (show (count + 1))]
            in (c, segment) : go (Map.insert key (count + 1) seen) rest
-    build parent chain (c, segment) =
+    build parent chain parentRequired (c, segment) =
       let uid = UnitId (NonEmpty.fromList (NonEmpty.toList (unitIdSegments parent) ++ [candidateKind c, segment]))
           node = candidateNode c
           clauses = node : candidateClauses c
           sp = Span (spanStart (treeSpan node)) (spanEnd (treeSpan (last clauses)))
           howSpan = maybe sp treeSpan (candidateHow c)
-          (nested, nestedDecisions) = collectAll uid (chain ++ [candidateName c]) (concatMap childrenOf clauses)
+          (nested, nestedDecisions) = collectAll uid (chain ++ [candidateName c]) required (concatMap childrenOf clauses)
           markers = [T.concat (T.words (tokensText m)) | clause <- clauses, m <- labeledSubtrees "marker" clause]
           test = isTestUnit language (candidateKind c) (candidateName c) idPath markers
-          required = test || candidateRequirement c == Required || exported chain (candidateName c)
+          inherits = candidateInherits c && parentRequired && not (candidateOptional c)
+          required = test || candidateRequirement c == Required || inherits || exported chain (candidateName c)
           own = case candidateWhy c of
             Nothing -> []
             Just whyNode ->
@@ -340,8 +399,9 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
     nameOf rule node = case unitRuleNameSource rule of
       NameFromToken tokenName index -> tokenText <$> listToMaybe (drop (index - 1) [t | t <- treeTokens node, tokenType t == tokenName])
       NameFromRule ruleName -> listToMaybe (mapMaybe (ruleText ruleName) (directChildrenDeep node))
+      NameFromOrdinal -> Just ""
     ruleText wanted node = case node of
-      RuleNode name _ _ | name == wanted -> Just (tokensText node)
+      RuleNode name _ _ | name == wanted -> Just (nameFromTokens node)
       _ -> Nothing
     directChildrenDeep node = case node of
       RuleNode _ _ ns -> ns ++ concatMap directChildrenDeep ns
@@ -360,6 +420,9 @@ data Candidate = Candidate
   { candidateKind :: Text
   , candidateName :: Text
   , candidateRequirement :: CommentRequirement
+  , candidateOptional :: Bool
+  , candidateInherits :: Bool
+  , candidateOrdinal :: Bool
   , candidateWhy :: Maybe ParseTree
   , candidateHow :: Maybe ParseTree
   , candidateNode :: ParseTree
@@ -386,11 +449,10 @@ offsetFromPosition source (Position line column) =
 -- orphan, because the code it documents is not read either. ref:DEC-rust-grammar
 -- ref:DEC-comment-attachment ref:DEC-csharp-grammar ref:DEC-fsharp-grammar ref:DEC-gleam-grammar
 -- ref:DEC-elixir-grammar
-extractDecisionsFor :: CommentSyntax -> FilePath -> Text -> CodeUnit Evidence -> Set.Set DecisionId -> [Located Comment] -> ([Decision Evidence], [Located Comment])
-extractDecisionsFor syntax path source root decided scanned = (map toDecision (fileInner ++ maybe [] (\c -> [(c, rootTarget)]) header ++ pairs ++ nestedInner), orphans ++ innerOrphans)
+extractDecisionsFor :: CommentSyntax -> Set.Set Int -> FilePath -> Text -> CodeUnit Evidence -> Set.Set DecisionId -> [Located Comment] -> ([Decision Evidence], [Located Comment])
+extractDecisionsFor syntax unread path source root decided scanned = (map toDecision (fileInner ++ maybe [] (\c -> [(c, rootTarget)]) header ++ pairs ++ nestedInner), orphans ++ innerOrphans)
   where
     rootTarget = Located (whereSpan (answerValue (unitWhere root))) root
-    unread = if null (commentDirectives syntax) then Set.empty else inactiveLines source
     comments = [c | c <- scanned, not (Set.member (positionLine (spanStart (locatedSpan c))) unread)]
     isInner c = maybe False (`elem` commentInnerDoc syntax) (docOpenerOf syntax (commentText (locatedValue c)))
     isOuter c = null (commentOuterDoc syntax) || maybe False (`elem` commentOuterDoc syntax) (docOpenerOf syntax (commentText (locatedValue c)))

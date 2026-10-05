@@ -36,6 +36,7 @@ import Canon.Model.Finding (Finding (..))
 import qualified Data.Set as Set
 import Canon.Model.Yaml (encodeSorted)
 import Canon.Profile
+import Canon.Signature (linkSignatures)
 import Canon.Registry
 import Canon.Vetting
 import qualified Data.Text.IO as TIO
@@ -131,7 +132,7 @@ checkProject :: Project -> Maybe FilePath -> IO [Finding]
 checkProject project target = do
   walked <- projectFiles project target
   assessments <- projectAssessments project
-  extracted <- extractAll project walked
+  extracted <- linkSignatures (configLanguages (projectConfig project)) <$> extractAll project walked
   let checked = map (checkExtraction project assessments) extracted
       citedSomewhere = Set.unions [c | (_, c, _, _) <- checked]
       seen = Set.unions [s | (_, _, s, _) <- checked]
@@ -215,7 +216,7 @@ vetProject :: Project -> IO [(Finding, Maybe Text)]
 vetProject project = do
   walked <- projectFiles project Nothing
   assessments <- projectAssessments project
-  extracted <- extractAll project walked
+  extracted <- linkSignatures (configLanguages (projectConfig project)) <$> extractAll project walked
   let decisions = concat [modelDecisions (extractionModel e) | (_, Right e) <- extracted]
       texts = Map.fromList [(materialKey m, materialText m) | m <- materials decisions (projectLedger project) (projectRegistry project)]
       signOff = case projectVetting project of

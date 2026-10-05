@@ -52,7 +52,7 @@ lexerPath :: FilePath
 lexerPath = "grammars/antlr4/ANTLRv4Lexer.g4"
 
 antlrProfile :: Profile
-antlrProfile = Profile [".g4"] (SplitGrammarFiles (dialectDir ++ "/ANTLRv4Lexer.g4") (dialectDir ++ "/ANTLRv4Parser.g4")) (Name "grammarSpec") [] defaultCommentSyntax
+antlrProfile = Profile [".g4"] (SplitGrammarFiles (dialectDir ++ "/ANTLRv4Lexer.g4") (dialectDir ++ "/ANTLRv4Parser.g4")) (Name "grammarSpec") [] defaultCommentSyntax Map.empty
 
 sampleCommits :: [Commit]
 sampleCommits =
@@ -187,7 +187,7 @@ dialectPlans = withTests 1 $ property $ do
   Map.lookup (Name "ruleSpec") plans === Just [Nothing, Nothing]
 
 javaProfile :: Profile
-javaProfile = Profile [".java"] (SplitGrammarFiles "grammars/java/canonically_commented/JavaLexer.g4" "grammars/java/canonically_commented/JavaParser.g4") (Name "compilationUnit") [] defaultCommentSyntax
+javaProfile = Profile [".java"] (SplitGrammarFiles "grammars/java/canonically_commented/JavaLexer.g4" "grammars/java/canonically_commented/JavaParser.g4") (Name "compilationUnit") [] defaultCommentSyntax Map.empty
 
 javaDialect :: Property
 javaDialect = withTests 1 $ property $ do
@@ -249,7 +249,7 @@ isAsserted ev = case ev of
   _ -> False
 
 haskellProfile :: Profile
-haskellProfile = Profile [".hs"] (SplitGrammarFiles "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4") (Name "module") [] defaultCommentSyntax
+haskellProfile = Profile [".hs"] (SplitGrammarFiles "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4") (Name "module") [] defaultCommentSyntax Map.empty
 
 haskellDialect :: Property
 haskellDialect = withTests 1 $ property $ do
@@ -298,7 +298,7 @@ haskellDialect = withTests 1 $ property $ do
       whyOf n = [whyText (answerValue (decisionWhy d)) | u <- byName n, d <- decisionsFor (unitId u) model]
   map kindOf (filter ((/= "file") . kindOf) units) === ["module", "data", "class", "method", "method", "instance", "function", "function", "function"]
   map requirementOf ["Shape", "Named", "name", "describe", "area", "(+.+)", "helper", "Fixture"] === [[Required], [Required], [Required], [Optional], [Required], [Required], [Optional], [Optional]]
-  requirementOf "NamedShape" === [Optional]
+  requirementOf "Named-Shape" === [Optional]
   whyOf "Fixture" === ["This module exists to exercise the dialect. ref:some-key"]
   whyOf "Shape" === ["A shape is either a circle or a box\nand nothing else."]
   whyOf "Named" === ["Names exist so that shapes can be reported."]

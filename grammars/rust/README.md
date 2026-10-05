@@ -45,5 +45,15 @@ classes, so every change is marked `// canon:` in the grammar and recorded as
 - Fixes for Rust upstream rejects: bounds on associated types, `union` as an
   identifier, `&&` before a type, keywords as macro metavariable names, the
   `~` token, and the underscore expression `_ = x;`.
+- `LINE_COMMENT` and `OUTER_LINE_DOC` may not continue with a line break
+  after `//` or `///`. Upstream's let an empty comment run on through the next
+  line, which hid the code there.
+- A bare `pub` is labeled `required`; `pub(crate)`, `pub(super)`, `pub(self)`,
+  and `pub(in path)` are not. `#[macro_export]` is labeled `required`. The
+  items of a trait and the variants of an enum are labeled `inherited`, so they
+  need a comment when their trait or enum does. This is what rustc's
+  `missing_docs` lint asks for, recorded as `DEC-rust-visibility`.
+- A trait impl's trait and self type are one rule, `traitImplTarget`, which
+  names the impl, so `impl Deref for Guard<T>` is `Deref-for-Guard<T>`.
 
 Unstable syntax, such as `default fn` under specialization, is not accepted.

@@ -13,6 +13,7 @@ languages:
       outerDoc: ["///"]
       directives: ["#"]
       strings: ["\""]
+    signatures: {.fsi: .fs}
     units:
       - {rule: namespaceDeclaration, kind: namespace, name: {rule: longIdentifier}, required: false}
       - {rule: topModule, kind: module, name: {rule: longIdentifier}, required: false}
@@ -23,6 +24,8 @@ languages:
       - {rule: andValueDefinition, kind: value, name: {rule: bindingName}, required: false}
       - {rule: localFunctionDefinition, kind: function, name: {rule: bindingName}, required: false}
       - {rule: localValueDefinition, kind: value, name: {rule: bindingName}, required: false}
+      - {rule: localAndFunctionDefinition, kind: function, name: {rule: bindingName}, required: false}
+      - {rule: localAndValueDefinition, kind: value, name: {rule: bindingName}, required: false}
       - {rule: recordType, kind: record, name: {rule: typeName}, required: true}
       - {rule: unionType, kind: union, name: {rule: typeName}, required: true}
       - {rule: enumType, kind: enum, name: {rule: typeName}, required: true}
