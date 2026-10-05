@@ -17,16 +17,20 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-// The Scala parser canon reads Scala with. It is written for canon, from the context-free syntax of
-// the Scala 3 reference (https://docs.scala-lang.org/scala3/reference/syntax.html), and parses the
-// declarations that carry documentation: packages, imports and exports, objects, package objects,
-// classes, case classes, traits, enums and their cases, defs, vals, vars, type aliases, givens, and
-// extensions, with their annotations and modifiers, in braces or with optional braces. Bodies,
-// expressions, types, and patterns are runs of tokens, kept whole by the INDENT, OUTDENT, and
-// NEWLINE tokens the ScalaLexerBase hook emits and by bracket nesting, so the parser finds where
-// each declaration ends without typing what is inside it. A statement it cannot read as a
-// declaration is read as an expression, as a script's top-level code is. Definitions inside a block,
-// such as the locals of a def, are part of the block's run of tokens. See grammars/scala/README.md.
+
+// The Scala parser canon reads Scala with. It is written for canon from the context-free syntax of
+// the Scala 3 reference (https://docs.scala-lang.org/scala3/reference/syntax.html), rule by rule
+// under the reference's production names in lower camel case (compilationUnit for CompilationUnit,
+// templateStat for TemplateStat), with the Scala 3 compiler's parser
+// (dotty.tools.dotc.parsing.Parsers, Apache-2.0) as the authority where the two differ; the
+// differences are tabled in grammars/scala/README.md. It parses the declarations that carry
+// documentation: packages, imports and exports, objects, package objects, classes, case classes,
+// traits, enums and their cases, defs, vals, vars, type definitions, givens, and extensions, with
+// their annotations and modifiers, in braces or with optional braces, in Scala 3 and in the Scala 2
+// forms the compiler still reads. Expressions, types, patterns, and parameter lists are read
+// structurally, as runs of tokens kept whole by the INDENT, OUTDENT, and NEWLINE tokens the
+// ScalaLexerBase hook emits and by bracket nesting; each rule that does so says so. A statement it
+// cannot read as a declaration is read as an expression, as a script's top-level code is.
 //
 // Three labels serve canon: marker on each annotation, so a test is told by its annotation;
 // optional on private, protected, and override, so a comment is required only on public members
@@ -39,215 +43,329 @@ options {
     tokenVocab = ScalaLexer;
 }
 
-// A file is its top-level statements: package clauses, packagings, imports, exports, definitions,
-// extensions, end markers, and expressions.
+// CompilationUnit ::= {'package' QualId semi} TopStats. TopStats ::= TopStat {semi TopStat}, where
+// a TopStat may be empty, is written out here and in packaging rather than as a rule of its own:
+// the parser keeps one tree for every end a rule reaches, and a rule holding a file's or a body's
+// statements reaches one end per statement, which made a long file quadratic. Template, enum, and
+// block statements are written out where they are enclosed for the same reason.
 compilationUnit
-    : topStatements EOF
+    : (packageClause semi+)* topStat? (semi topStat?)* EOF
     ;
 
-topStatements
-    : separator* (topStatement (separator+ topStatement)*)? separator*
+// The 'package' QualId of a compilation unit's leading package clauses.
+packageClause
+    : PACKAGE qualId
     ;
 
-topStatement
-    : packageObject
+// TopStat ::= Import | Export | {Annotation [nl]} {Modifier} Def | Extension | Packaging
+//           | PackageObject | EndMarker. A top-level expression, as a script holds, is read too.
+topStat
+    : import_
+    | export_
+    | def_
+    | extension
     | packaging
-    | packageClause
-    | templateStatement
+    | packageObject
+    | endMarker
+    | expr1
     ;
 
-separator
+// semi ::= ';' | nl {nl}; the hook emits one NEWLINE per line break that separates statements.
+semi
     : NEWLINE
     | SEMI
     ;
 
-// package p, which the rest of the file belongs to.
-packageClause
-    : PACKAGE qualifiedName
-    ;
-
-// package p followed by a body of its own, in braces or indented after a colon.
+// Packaging ::= 'package' QualId :<<< TopStats >>>
 packaging
-    : PACKAGE qualifiedName (COLON INDENT topStatements OUTDENT | NEWLINE? LBRACE topStatements RBRACE)
+    : PACKAGE qualId (COLON INDENT topStat? (semi topStat?)* OUTDENT | NEWLINE? LBRACE topStat? (semi topStat?)* RBRACE)
     ;
 
+// PackageObject ::= 'package' 'object' ObjectDef, with the annotations a definition may have.
 packageObject
-    : definitionPrefix PACKAGE OBJECT definitionName templateHeader templateBody?
+    : definitionPrefix PACKAGE OBJECT objectDef
     ;
 
-// The statements of a class, trait, object, given, or extension body, after its self type if it
-// has one.
-templateStatements
-    : separator* (selfType separator*)? (templateStatement (separator+ templateStatement)*)? separator*
+// Import ::= 'import' ImportExpr {',' ImportExpr}
+import_
+    : IMPORT importExpr (COMMA importExpr)*
     ;
 
-// self =>, or this: T =>, which no line break separates from the statement after it.
-selfType
-    : (identifier | THIS) (COLON typeItem+)? FAT_ARROW
+// Export ::= 'export' ImportExpr {',' ImportExpr}
+export_
+    : EXPORT importExpr (COMMA importExpr)*
     ;
 
-templateStatement
-    : definition
-    | extensionDefinition
-    | importStatement
-    | exportStatement
-    | endMarker
-    | expressionStatement
+// ImportExpr, with its selectors and renamings, read as a run of tokens; a Scala 2 _ wildcard and
+// => renaming read alike.
+importExpr
+    : importPart+
     ;
 
-definition
-    : classDefinition
-    | caseClassDefinition
-    | objectDefinition
-    | traitDefinition
-    | enumDefinition
-    | defDefinition
-    | valDefinition
-    | varDefinition
-    | typeDefinition
-    | givenDefinition
+importPart
+    : group
+    | ~(COMMA | NEWLINE | INDENT | OUTDENT | SEMI | LPAREN | RPAREN | LBRACK | RBRACK | LBRACE | RBRACE)
     ;
 
-importStatement
-    : IMPORT soupItem+
-    ;
-
-exportStatement
-    : EXPORT soupItem+
-    ;
-
-// end p, end if, and the other end markers, which close what precedes them.
+// EndMarker ::= 'end' EndMarkerTag
 endMarker
-    : END (identifier | OP | IF | WHILE | FOR | MATCH | TRY | NEW | THIS | VAL | GIVEN)
+    : END endMarkerTag
     ;
 
-// A statement that declares nothing, with the blocks indented below it.
-expressionStatement
-    : soupItem+
+// EndMarkerTag ::= id | 'if' | 'while' | 'for' | 'match' | 'try' | 'new' | 'this' | 'given'
+//                | 'extension' | 'val', and throw, as the compiler's endMarkerTokens has it.
+endMarkerTag
+    : id
+    | OP
+    | IF
+    | WHILE
+    | FOR
+    | MATCH
+    | TRY
+    | NEW
+    | THIS
+    | GIVEN
+    | VAL
+    | THROW
     ;
 
-// Annotations, each on its line or before the definition, then modifiers. Each annotation is
-// labeled marker, and private, protected, and override are labeled optional.
+// TemplateBody ::= :<<< [SelfType] TemplateStat {semi TemplateStat} >>>. A colon at the end of a
+// line with nothing indented below it is an empty body, as the compiler reads one before end.
+templateBody
+    : COLON INDENT (selfType semi?)? templateStat? (semi templateStat?)* OUTDENT
+    | NEWLINE? LBRACE (selfType semi?)? templateStat? (semi templateStat?)* RBRACE
+    | COLON
+    ;
+
+// SelfType ::= id [':' InfixType] '=>' | 'this' ':' InfixType '=>', the type read as a run of
+// tokens. No line break separates it from the statement after it, since => cannot end one.
+selfType
+    : (id | THIS) (COLON typePart+)? FAT_ARROW
+    ;
+
+// TemplateStat ::= Import | Export | {Annotation [nl]} {Modifier} Def | Extension | Expr1
+//                | EndMarker
+templateStat
+    : import_
+    | export_
+    | def_
+    | extension
+    | endMarker
+    | expr1
+    ;
+
+// Def ::= 'val' PatDef | 'var' PatDef | 'def' DefDef | 'type' {nl} TypeDef | TmplDef, with the
+// {Annotation [nl]} {Modifier} before it. Each alternative is a rule of its own that starts at its
+// annotations and modifiers, so a definition's documentation above them belongs to it.
+def_
+    : valDefinition
+    | varDefinition
+    | defDefinition
+    | typeDefinition
+    | tmplDef
+    ;
+
+// {Annotation [nl]} {Modifier}, with a line break allowed after a modifier too, as the compiler
+// allows. Each annotation is labeled marker.
 definitionPrefix
-    : (marker = annotation NEWLINE?)* modifier*
+    : (marker = annotation NEWLINE?)* (modifier NEWLINE?)*
     ;
 
+// Annotation ::= '@' SimpleType {ParArgumentExprs}; the type is a qualified name with type
+// arguments, and the arguments are read as runs of tokens.
 annotation
-    : AT qualifiedName (LBRACK groupItem* RBRACK)? (LPAREN groupItem* RPAREN)*
+    : AT qualId (LBRACK groupItem* RBRACK)* (LPAREN groupItem* RPAREN)*
     ;
 
+// Modifier ::= LocalModifier | AccessModifier | 'override' | 'opaque'. Access modifiers and
+// override are labeled optional.
 modifier
-    : optional = accessModifier
+    : localModifier
+    | optional = accessModifier
     | optional = OVERRIDE
-    | ABSTRACT
+    | OPAQUE
+    ;
+
+// LocalModifier ::= 'abstract' | 'final' | 'sealed' | 'open' | 'implicit' | 'lazy' | 'inline'
+//                 | 'transparent' | 'infix'
+localModifier
+    : ABSTRACT
     | FINAL
     | SEALED
+    | OPEN
     | IMPLICIT
     | LAZY
     | INLINE
     | TRANSPARENT
     | INFIX
-    | OPAQUE
-    | OPEN
     ;
 
+// AccessModifier ::= ('private' | 'protected') [AccessQualifier]
 accessModifier
-    : (PRIVATE | PROTECTED) (LBRACK (identifier | THIS) RBRACK)?
+    : (PRIVATE | PROTECTED) accessQualifier?
     ;
 
-// Classes, traits, and objects: a name, a header of type and value parameters, extends, with, and
-// derives clauses, and a body.
+// AccessQualifier ::= '[' id ']', and [this], which Scala 2 and the compiler read.
+accessQualifier
+    : LBRACK (id | THIS) RBRACK
+    ;
+
+// 'val' PatDef
+valDefinition
+    : definitionPrefix VAL patDef
+    ;
+
+// 'var' PatDef
+varDefinition
+    : definitionPrefix VAR patDef
+    ;
+
+// PatDef ::= ids [':' Type] ['=' Expr] | Pattern2 [':' Type] ['=' Expr]. The first of the ids is the
+// definition's name; a Pattern2 binds no one name, and is read with the rest as a run of tokens.
+patDef
+    : definitionName (COMMA id)* (COLON exprPart* | EQUALS exprPart*)?
+    | exprPart+
+    ;
+
+// 'def' DefDef
+defDefinition
+    : definitionPrefix DEF defDef
+    ;
+
+// DefDef ::= DefSig [':' Type] ['=' Expr] | 'this' ConstrParamClauses [DefImplicitClause] '='
+// ConstrExpr: the name, or this, then the signature and body as a run of tokens, Scala 2's
+// procedure syntax def f() { ... } included.
+defDef
+    : (definitionName | THIS) exprPart*
+    ;
+
+// 'type' {nl} TypeDef
+typeDefinition
+    : definitionPrefix TYPE NEWLINE* typeDef
+    ;
+
+// TypeDef ::= id [HkTypeParamClause] {FunParamClause} TypeBounds ['=' Type]: the name, then the
+// rest as a run of tokens, a match type's indented cases and Scala 2's forSome included.
+typeDef
+    : definitionName exprPart*
+    ;
+
+// TmplDef ::= ([case] 'class' | 'trait') ClassDef | [case] 'object' ObjectDef | 'enum' EnumDef
+//           | 'given' (GivenDef | OldGivenDef)
+tmplDef
+    : classDefinition
+    | caseClassDefinition
+    | traitDefinition
+    | objectDefinition
+    | enumDefinition
+    | givenDefinition
+    ;
+
 classDefinition
-    : definitionPrefix CLASS definitionName templateHeader templateBody?
+    : definitionPrefix CLASS classDef
     ;
 
 caseClassDefinition
-    : definitionPrefix CASE CLASS definitionName templateHeader templateBody?
-    ;
-
-objectDefinition
-    : definitionPrefix CASE? OBJECT definitionName templateHeader templateBody?
+    : definitionPrefix CASE CLASS classDef
     ;
 
 traitDefinition
-    : definitionPrefix TRAIT definitionName templateHeader templateBody?
+    : definitionPrefix TRAIT classDef
     ;
 
+objectDefinition
+    : definitionPrefix CASE? OBJECT objectDef
+    ;
+
+enumDefinition
+    : definitionPrefix ENUM enumDef
+    ;
+
+givenDefinition
+    : definitionPrefix GIVEN givenDef
+    ;
+
+// ClassDef ::= id ClassConstr [Template], Template ::= InheritClauses [TemplateBody]. ClassConstr
+// and InheritClauses are read as a run of header tokens.
+classDef
+    : definitionName templateHeader templateBody?
+    ;
+
+// ObjectDef ::= id [Template]
+objectDef
+    : definitionName templateHeader templateBody?
+    ;
+
+// EnumDef ::= id ClassConstr InheritClauses EnumBody
+enumDef
+    : definitionName templateHeader enumBody?
+    ;
+
+// ClassConstr and InheritClauses: type and value parameters, constructor annotations and access,
+// extends, with, and derives clauses, read as a run of tokens up to the body.
 templateHeader
-    : headerItem*
+    : headerPart*
     ;
 
-headerItem
+headerPart
     : bracketGroup
     | ~(COLON | LBRACE | RBRACE | LPAREN | RPAREN | LBRACK | RBRACK | NEWLINE | INDENT | OUTDENT | SEMI | EQUALS)
     ;
 
-// A body in braces, or indented after a colon, which may also stand alone at the end of a line.
-templateBody
-    : COLON INDENT templateStatements OUTDENT
-    | NEWLINE? LBRACE templateStatements RBRACE
-    | COLON
-    ;
-
-// An enum: its body holds cases and the statements a class body holds.
-enumDefinition
-    : definitionPrefix ENUM definitionName templateHeader enumBody?
-    ;
-
+// EnumBody ::= :<<< [SelfType] EnumStat {semi EnumStat} >>>
 enumBody
-    : COLON INDENT enumStatements OUTDENT
-    | NEWLINE? LBRACE enumStatements RBRACE
+    : COLON INDENT (selfType semi?)? enumStat? (semi enumStat?)* OUTDENT
+    | NEWLINE? LBRACE (selfType semi?)? enumStat? (semi enumStat?)* RBRACE
     ;
 
-enumStatements
-    : separator* (selfType separator*)? (enumStatement (separator+ enumStatement)*)? separator*
-    ;
-
-enumStatement
+// EnumStat ::= TemplateStat | {Annotation [nl]} {Modifier} EnumCase. A case is labeled inherited.
+enumStat
     : inherited = enumCase
-    | templateStatement
+    | templateStat
     ;
 
-// case A(x: Int) extends E, or case A, B, C, named by its first name.
+// EnumCase ::= 'case' (id ClassConstr ['extends' ConstrApps] | ids), with its annotations and
+// modifiers, named by its first id; the rest is read as a run of tokens.
 enumCase
-    : definitionPrefix CASE definitionName headerItem*
+    : definitionPrefix CASE definitionName headerPart*
     ;
 
-// def f[T](x: T): T = body, def this(...) = ..., or an abstract def.
-defDefinition
-    : definitionPrefix DEF (definitionName | THIS) soupItem*
-    ;
-
-// val x = ..., val x, y: T = ..., or an abstract val; a val that binds a pattern has no name.
-valDefinition
-    : definitionPrefix VAL definitionName (COMMA identifier)* (COLON soupItem* | EQUALS soupItem*)?
-    | definitionPrefix VAL soupItem+
-    ;
-
-varDefinition
-    : definitionPrefix VAR definitionName (COMMA identifier)* (COLON soupItem* | EQUALS soupItem*)?
-    | definitionPrefix VAR soupItem+
-    ;
-
-// type T, type T[A] = ..., type T <: U, opaque type T = ..., and match types.
-typeDefinition
-    : definitionPrefix TYPE definitionName soupItem*
-    ;
-
-// A given is named by its name, given name: T, or else by the type it provides, as in
-// given [A](using Ord[A]): Ord[List[A]] with ..., given Ord[Int] = ..., or
-// given [A: Ord] => Ord[List[A]]: ...
-givenDefinition
-    : definitionPrefix GIVEN givenSignature givenBody?
-    ;
-
-givenSignature
-    : givenName givenParameters* COLON givenConditions? givenType
-    | (givenParameters* COLON)? givenConditions? givenType
+// GivenDef ::= [id ':'] GivenSig, and OldGivenDef ::= [OldGivenSig] (AnnotType ['=' Expr] |
+// StructuralInstance), the syntax up to Scala 3.5. A given is named by its id, or else by the type
+// it provides.
+givenDef
+    : (givenName COLON)? givenSig
+    | oldGivenSig? givenType givenRest?
     ;
 
 givenName
-    : identifier
+    : id
+    ;
+
+// GivenSig ::= GivenImpl | '(' ')' '=>' GivenImpl | GivenConditional '=>' GivenSig
+givenSig
+    : (givenConditional (FAT_ARROW | CONTEXT_ARROW))* givenImpl
+    ;
+
+// GivenConditional ::= DefTypeParamClause | DefTermParamClause | '(' FunArgTypes ')' | GivenType,
+// read as a run of type tokens.
+givenConditional
+    : typePart+
+    ;
+
+// GivenImpl ::= GivenType (['=' Expr] | TemplateBody) | ConstrApps TemplateBody
+givenImpl
+    : givenType givenRest?
+    ;
+
+// GivenType ::= AnnotType1 {id [nl] AnnotType1}, read as a run of type tokens.
+givenType
+    : typePart+
+    ;
+
+// OldGivenSig ::= [id] [DefTypeParamClause] {UsingParamClause} ':'
+oldGivenSig
+    : givenName? givenParameters* COLON
     ;
 
 givenParameters
@@ -255,69 +373,73 @@ givenParameters
     | LPAREN groupItem* RPAREN
     ;
 
-givenConditions
-    : (typeItem+ (FAT_ARROW | CONTEXT_ARROW))+
+// '=' Expr, a TemplateBody, or StructuralInstance's {'with' ConstrApp} ['with' WithTemplateBody].
+givenRest
+    : EQUALS exprPart*
+    | (WITH typePart+)* (WITH withTemplateBody? | templateBody)
     ;
 
-givenType
-    : typeItem+
+// WithTemplateBody ::= <<< [SelfType] TemplateStat {semi TemplateStat} >>>
+withTemplateBody
+    : INDENT (selfType semi?)? templateStat? (semi templateStat?)* OUTDENT
+    | LBRACE (selfType semi?)? templateStat? (semi templateStat?)* RBRACE
     ;
 
-typeItem
+// A type in a given, read as a run of tokens up to its =, with, colon, arrow, or body.
+typePart
     : bracketGroup
     | ~(COLON | EQUALS | WITH | FAT_ARROW | CONTEXT_ARROW | LBRACE | RBRACE | LPAREN | RPAREN | LBRACK | RBRACK | NEWLINE | INDENT | OUTDENT | SEMI)
     ;
 
-// = expr, or the further parents and the body of a given that defines members.
-givenBody
-    : EQUALS soupItem*
-    | (WITH typeItem+)* (
-        WITH (INDENT templateStatements OUTDENT | LBRACE templateStatements RBRACE)?
-        | COLON INDENT templateStatements OUTDENT
-        | NEWLINE? LBRACE templateStatements RBRACE
-    )?
+// Extension ::= 'extension' [DefTypeParamClause] {UsingParamClause} '(' DefTermParam ')'
+// {UsingParamClause} ExtMethods. It is named by the type it extends.
+extension
+    : EXTENSION (LBRACK groupItem* RBRACK | usingParamClause)* LPAREN defTermParam RPAREN usingParamClause* extMethods
     ;
 
-// extension [T](x: T)(using Ord[T]) with its methods indented below, in braces, or on its line;
-// named by the type it extends.
-extensionDefinition
-    : definitionPrefix EXTENSION extensionHeader extensionBody
-    ;
-
-extensionHeader
-    : (LBRACK groupItem* RBRACK | usingClause)* extensionParameter usingClause*
-    ;
-
-extensionParameter
-    : LPAREN annotation* INLINE? identifier COLON extendedType RPAREN
-    ;
-
-usingClause
+// UsingParamClause ::= [nl] '(' 'using' (DefTermParams | FunArgTypes) ')', read as a run of tokens.
+usingParamClause
     : LPAREN USING groupItem* RPAREN
     ;
 
-extendedType
+// DefTermParam ::= {Annotation} ['inline'] Param, Param ::= id ':' ParamType ['=' Expr]
+defTermParam
+    : annotation* INLINE? id COLON paramType
+    ;
+
+// ParamType ::= [‘=>’] ParamValueType, read as a run of tokens.
+paramType
     : groupItem+
     ;
 
-extensionBody
-    : COLON? INDENT templateStatements OUTDENT
-    | NEWLINE? LBRACE templateStatements RBRACE
-    | templateStatement
+// ExtMethods ::= ExtMethod | [nl] <<< ExtMethod {semi ExtMethod} >>>, an end marker among them
+// as the compiler allows.
+extMethods
+    : extMethod
+    | INDENT extMethod? (semi extMethod?)* OUTDENT
+    | NEWLINE? LBRACE extMethod? (semi extMethod?)* RBRACE
     ;
 
-// The name a definition declares: a name or an operator.
+// ExtMethod ::= {Annotation [nl]} {Modifier} 'def' DefDef | Export
+extMethod
+    : defDefinition
+    | export_
+    | endMarker
+    ;
+
+// The name a definition declares: an id, an operator, or a backquoted name.
 definitionName
-    : identifier
+    : id
     | OP
     ;
 
-qualifiedName
-    : identifier (DOT identifier)*
+// QualId ::= id {'.' id}
+qualId
+    : id (DOT id)*
     ;
 
-// A name, a backquoted name, or a soft keyword, which is a name where it is not a keyword.
-identifier
+// id: a name, a backquoted name, or a soft keyword, which is a name where it is not a keyword.
+id
     : ID
     | BACKQUOTED_ID
     | AS
@@ -332,19 +454,28 @@ identifier
     | USING
     ;
 
-// A run of tokens on one logical line, with the blocks indented below it.
-soupItem
+// Expr1, a statement that declares nothing, read as a run of tokens with the blocks indented below
+// it.
+expr1
+    : exprPart+
+    ;
+
+// A token of an expression, a bracketed group, or an indented Block ::= {BlockStat semi}
+// [BlockResult].
+exprPart
     : group
-    | INDENT block OUTDENT
+    | INDENT blockStat? (semi blockStat?)* OUTDENT
     | ~(NEWLINE | INDENT | OUTDENT | SEMI | LPAREN | RPAREN | LBRACK | RBRACK | LBRACE | RBRACE)
     ;
 
-// The lines of an indented block; a definition in it is local to it and part of its run of tokens.
-block
-    : separator* soupItem+ (separator+ soupItem+)* separator*
+// BlockStat: a local definition, import, extension, expression, or end marker, read as a run of
+// tokens, so a local definition is no unit.
+blockStat
+    : exprPart+
     ;
 
-// Balanced brackets and what they hold, line breaks and indentation included.
+// Brackets and what they hold, line breaks and indentation included, read as runs of tokens: a
+// BlockExpr, arguments, parameters, type arguments, refinements, and import selectors.
 group
     : bracketGroup
     | LBRACE groupItem* RBRACE

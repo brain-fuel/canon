@@ -26,5 +26,5 @@ languages:
       - {rule: varDefinition, kind: var, name: {rule: definitionName}, required: true}
       - {rule: givenDefinition, kind: given, name: {rule: givenName}, required: true}
       - {rule: givenDefinition, kind: given, name: {rule: givenType}, required: true}
-      - {rule: extensionDefinition, kind: extension, name: {rule: extendedType}, required: false}
+      - {rule: extension, kind: extension, name: {rule: paramType}, required: false}
       - {rule: typeDefinition, kind: type, name: {rule: definitionName}, required: true}

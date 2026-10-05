@@ -204,8 +204,24 @@ grammars-v4-scala-license:
   locator: https://github.com/antlr/grammars-v4/pull/4836
 scala3-syntax:
   kind: article
-  title: Scala 3 reference, Scala 3 Syntax Summary, the lexical and context-free syntax canon's Scala grammar is written from
+  title: Scala 3 reference, Scala 3 Syntax Summary, the lexical syntax and the EBNF context-free syntax whose productions canon's Scala grammar follows rule by rule
   locator: https://docs.scala-lang.org/scala3/reference/syntax.html
+scala3-compiler-parser:
+  kind: package
+  title: The Scala 3 compiler's parser, dotty.tools.dotc.parsing.Parsers, Apache-2.0, the authority canon's Scala grammar follows where the syntax summary and the compiler differ
+  locator: https://github.com/scala/scala3/blob/39f42801b17af4a49df3ae37f35ce65ab874e2a9/compiler/src/dotty/tools/dotc/parsing/Parsers.scala
+scala3-compiler-scanners:
+  kind: package
+  title: The Scala 3 compiler's scanner and token sets, dotty.tools.dotc.parsing.Scanners and Tokens, Apache-2.0, whose regions and newline, indent, and outdent insertion canon's Scala lexer hook follows
+  locator: https://github.com/scala/scala3/blob/39f42801b17af4a49df3ae37f35ce65ab874e2a9/compiler/src/dotty/tools/dotc/parsing/Scanners.scala
+pldb-scala:
+  kind: article
+  title: PLDB's Scala entry, consulted for Scala's keywords and comment forms
+  locator: https://pldb.io/concepts/scala.html
+grammars-v4-scala-page:
+  kind: article
+  title: The grammars-v4 Scala grammars' directory, listed because the owner allowed consulting it for structure; it is unlicensed for Scala 3, is not vendored, and canon's grammar is not written from it
+  locator: https://github.com/antlr/grammars-v4/tree/master/scala
 scala3-indentation:
   kind: article
   title: Scala 3 reference, Optional Braces, on significant indentation and where the compiler inserts indent, outdent, and newline tokens

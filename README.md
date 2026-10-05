@@ -897,7 +897,7 @@ languages:
       - {rule: varDefinition, kind: var, name: {rule: definitionName}, required: true}
       - {rule: givenDefinition, kind: given, name: {rule: givenName}, required: true}
       - {rule: givenDefinition, kind: given, name: {rule: givenType}, required: true}
-      - {rule: extensionDefinition, kind: extension, name: {rule: extendedType}, required: false}
+      - {rule: extension, kind: extension, name: {rule: paramType}, required: false}
       - {rule: typeDefinition, kind: type, name: {rule: definitionName}, required: true}
 ```
 
@@ -910,12 +910,15 @@ labeled `inherited`, so it requires a comment when its enum does. Definitions
 inside a block, such as the locals of a `def`, are not units. An anonymous
 given is named by its type, as `Constraint[Char,Whitespace]`, an auxiliary
 constructor by `this`, and an extension by the type it extends. The grammar is
-canon's own, written from the Scala 3 syntax reference under canon's MIT
-license, because the grammars-v4 Scala 3 grammar states no license. It reads
-declarations and leaves bodies and expressions as runs of tokens, and Scala 3's
+canon's own, written under canon's MIT license from the Scala 3 syntax summary,
+production by production under its names, with the Scala 3 compiler's parser
+as the authority where the two differ, because the grammars-v4 Scala 3 grammar
+states no license. It reads declarations, in Scala 3 and in the Scala 2 forms
+the compiler still reads, and leaves bodies and expressions as runs of tokens;
 optional braces come from `Canon.Antlr4.Lex.Scala`, a lexer hook selected by
-the grammar's `superClass` that inserts the indent, outdent, and newline tokens
-the reference describes.
+the grammar's `superClass` that inserts indent, outdent, and newline tokens
+where the compiler's scanner does. `tools/corpus/scala.sh` reproduces the run
+over 23 of the most used Scala projects recorded in `grammars/scala/README.md`.
 
 The HCL sample is terraform-aws-key-pair 3.0.1, its root module, complete
 example, and wrappers, vendored under `source/` with its Apache-2.0 license.
@@ -1441,23 +1444,26 @@ anywhere else no rule names, as inside an expression, as an `orphan`. The Groovy
 its sources through the dialect too. Each change is marked `// canon:` in the
 grammar, listed in `grammars/groovy/README.md`, and recorded in the ledger.
 
-`grammars/scala/` holds a Scala grammar written for canon from the Scala 3
-syntax reference, under canon's MIT license, and its dialect. canon does not
-vendor the grammars-v4 Scala 3 grammar, because it states no license. It
-parses the declarations that carry documentation, packages, imports, objects,
-classes, case classes, traits, enums and their cases, defs, vals, vars, type
-aliases, givens, and extensions with their annotations and modifiers, and reads
-bodies and expressions as runs of tokens. The grammar's `superClass` selects a
-lexer hook that inserts `INDENT`, `OUTDENT`, and `NEWLINE` where the reference's
-Optional Braces section does, outside parentheses and brackets, so braces and
-significant indentation read alike. Each annotation is labeled `marker`, and
-`private`, `protected`, and `override` `optional`. Under
-`canonically_commented/` the dialect sends `/**` into a `DocBlock` lexer mode,
-the hook holds a Scaladoc comment's tokens until the next code token has
+`grammars/scala/` holds a Scala grammar written for canon under canon's MIT
+license, and its dialect: the parser follows the Scala 3 syntax summary's
+productions under their names, `compilationUnit`, `topStat`, `templateBody`,
+`tmplDef`, `givenDef`, `extension`, and the rest, and the Scala 3 compiler's
+parser where the two differ, and the lexer reads Scala 3 and the Scala 2 forms
+the compiler still reads, XML literals included. canon does not vendor the
+grammars-v4 Scala 3 grammar, because it states no license. It parses the
+declarations that carry documentation, packages, imports, objects, classes,
+case classes, traits, enums and their cases, defs, vals, vars, type aliases,
+givens, and extensions with their annotations and modifiers, and reads bodies
+and expressions as runs of tokens. The grammar's `superClass` selects a lexer
+hook that inserts `INDENT`, `OUTDENT`, and `NEWLINE` where the compiler's
+scanner does, so braces and significant indentation read alike. Each annotation
+is labeled `marker`, and `private`, `protected`, and `override` `optional`.
+Under `canonically_commented/` the dialect sends `/**` into a `DocBlock` lexer
+mode, the hook holds a Scaladoc comment's tokens until the next code token has
 produced its layout tokens, each definition is a unit alternative that holds
 the empty rule `publicByDefault` labeled `required`, enum cases are
-`inherited`, and a Scaladoc comment after an annotation or above a statement
-is an `orphan`. What it reads and what it leaves out is listed in
+`inherited`, and a Scaladoc comment after an annotation or above a statement is
+an `orphan`. What it reads and what it leaves out is listed in
 `grammars/scala/README.md` and recorded in the ledger.
 
 `grammars/elixir/` and `grammars/gleam/` hold grammars written for canon, each
