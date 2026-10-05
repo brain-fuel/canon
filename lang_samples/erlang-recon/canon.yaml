@@ -9,6 +9,7 @@ languages:
       line: "%"
       innerDoc: ["-moduledoc"]
       docAttributes: ["-moduledoc", "-doc"]
+      hiddenTags: ["@private", "@hidden"]
       strings: ["\"\"\"\"", "\"\"\"", "\""]
     units:
       - rule: functionDefinition

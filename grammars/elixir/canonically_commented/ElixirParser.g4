@@ -48,6 +48,7 @@ separator
 statement
     : definition
     | orphan = canonicalComment
+    | orphan = typeComment
     | orphan = moduleComment
     | expression
     ;
@@ -62,6 +63,7 @@ moduleStatement
     : definition
     | hidden = hiddenModule
     | orphan = canonicalComment
+    | orphan = typeComment
     | why = moduleComment
     | expression
     ;
@@ -116,65 +118,65 @@ implementationDefinition
 
 /** A public function clause. A @doc above it and its attributes is its Why and is required; the last @doc wins, so an earlier one is an orphan and a later @doc false hides the function. Clauses of one name are labeled merge, so adjacent clauses are one function unless a @doc above a later one starts another. ref:DEC-elixir-dialect ref:DEC-hidden-label */
 publicFunction
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = DEF merge = definitionHead continuation* # function
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = DEF merge = definitionHead continuation* # function
     ;
 
 /** A private function clause, whose comment is optional. ref:DEC-elixir-dialect */
 privateFunction
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DEFP merge = definitionHead continuation* # function
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DEFP merge = definitionHead continuation* # function
     ;
 
 /** A public macro clause, documented and merged as a public function is. ref:DEC-elixir-dialect */
 publicMacro
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = DEFMACRO merge = definitionHead continuation* # macro
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = DEFMACRO merge = definitionHead continuation* # macro
     ;
 
 /** A private macro clause, whose comment is optional. ref:DEC-elixir-dialect */
 privateMacro
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DEFMACROP merge = definitionHead continuation* # macro
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DEFMACROP merge = definitionHead continuation* # macro
     ;
 
 /** A public guard, documented as a public function is. ref:DEC-elixir-dialect */
 publicGuard
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = DEFGUARD merge = definitionHead continuation* # guard
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = DEFGUARD merge = definitionHead continuation* # guard
     ;
 
 /** A private guard, whose comment is optional. ref:DEC-elixir-dialect */
 privateGuard
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DEFGUARDP merge = definitionHead continuation* # guard
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DEFGUARDP merge = definitionHead continuation* # guard
     ;
 
 /** A function delegated to another module, documented as a public function is. ref:DEC-elixir-dialect */
 delegateDefinition
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = DEFDELEGATE what = definitionName continuation* # function
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = DEFDELEGATE what = definitionName continuation* # function
     ;
 
 /** A struct, named by its keyword, whose comment is optional. ref:DEC-elixir-dialect */
 structDefinition
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) what = DEFSTRUCT continuation* # struct
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) what = DEFSTRUCT continuation* # struct
     ;
 
 /** An exception, named by its keyword, whose comment is optional. ref:DEC-elixir-dialect */
 exceptionDefinition
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) what = DEFEXCEPTION continuation* # exception
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) what = DEFEXCEPTION continuation* # exception
     ;
 
-/** A type, documented by @typedoc, whose comment is optional. ref:DEC-elixir-dialect */
+/** A type, documented by @typedoc and by nothing else, whose comment is optional. ref:DEC-elixir-dialect */
 typeDefinition
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) TYPE_ATTRIBUTE what = definitionName continuation* # type
+    : ((orphan = typeComment separator+ | orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = typeComment separator+ (marker += attribute NL+)* | (orphan = typeComment separator+ | orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = typeComment? (marker += attribute NL+)*) TYPE_ATTRIBUTE what = definitionName continuation* # type
     ;
 
 /** A callback, documented as a public function is, whose comment is required. ref:DEC-elixir-dialect */
 callbackDefinition
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = CALLBACK_ATTRIBUTE what = definitionName continuation* # callback
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) required = CALLBACK_ATTRIBUTE what = definitionName continuation* # callback
     ;
 
 /** An ExUnit or StreamData test, or a describe block, named by its string, written with or without parentheses. A test always requires its comment, which cites the requirement it verifies. ref:DEC-elixir-dialect */
 namedBlock
-    : ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) TEST_MACRO STRING_OPEN what = blockName STRING_CLOSE continuation* # test
-    | ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) TEST_MACRO OPEN_PAREN NL* STRING_OPEN what = blockName STRING_CLOSE (NL* COMMA NL* inner)? CLOSE_PAREN continuation* # test
-    | ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DESCRIBE_MACRO STRING_OPEN what = blockName STRING_CLOSE continuation* # describe
-    | ((orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DESCRIBE_MACRO OPEN_PAREN NL* STRING_OPEN what = blockName STRING_CLOSE (NL* COMMA NL* inner)? CLOSE_PAREN continuation* # describe
+    : ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) TEST_MACRO STRING_OPEN what = blockName STRING_CLOSE continuation* # test
+    | ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) TEST_MACRO OPEN_PAREN NL* STRING_OPEN what = blockName STRING_CLOSE (NL* COMMA NL* inner)? CLOSE_PAREN continuation* # test
+    | ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DESCRIBE_MACRO STRING_OPEN what = blockName STRING_CLOSE continuation* # describe
+    | ((orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* why = canonicalComment separator+ (marker += attribute NL+)* | (orphan = canonicalComment separator+ | orphan = typeComment separator+ | hiddenDoc NL+ | marker += attribute NL+)* hidden = hiddenDoc NL+ (marker += attribute NL+)* | why = canonicalComment? (marker += attribute NL+)*) DESCRIBE_MACRO OPEN_PAREN NL* STRING_OPEN what = blockName STRING_CLOSE (NL* COMMA NL* inner)? CLOSE_PAREN continuation* # describe
     ;
 
 /** The text of a test or describe name, interpolations included. */
@@ -453,9 +455,14 @@ hiddenDoc
     : DOC_ATTRIBUTE (FALSE | NIL)
     ;
 
-/** A @doc or @typedoc string, the canonical comment of the definition below it, holding prose, citations, and interpolations. ref:DEC-elixir-dialect ref:DEC-grammar-carries-extraction-rules */
+/** A @doc string, the canonical comment of the definition below it, holding prose, citations, and interpolations. ref:DEC-elixir-dialect ref:DEC-grammar-carries-extraction-rules */
 canonicalComment
     : DOC_OPEN docPart* DOC_CLOSE
+    ;
+
+/** A @typedoc string, the canonical comment of the type below it; above anything else it is an orphan. ref:DEC-elixir-dialect */
+typeComment
+    : TYPEDOC_OPEN docPart* DOC_CLOSE
     ;
 
 /** A @moduledoc string, the canonical comment of the module around it. ref:DEC-elixir-dialect */

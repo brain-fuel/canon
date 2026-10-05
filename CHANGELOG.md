@@ -9,6 +9,10 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- The `ErlangPreprocessor` lexer hook, which expands the macros an Erlang file defines before parsing, one definition per name and arity, so a macro that stands for part of a form parses
+- The `arity` element label, which names a unit by name and arity: Erlang functions, types, and callbacks are `info/2`, and EUnit tests are the `*_test/0` functions
+- `joinAcrossBlankLines` and `hiddenTags` in a profile's comment syntax: the Gleam profile joins `///` lines across blank lines as the Gleam compiler does, and the Erlang profile hides a function whose EDoc comment holds `@private` or `@hidden`
+- A `@typedoc` token of its own in the Elixir dialect, so a `@typedoc` documents only a type
 - Canonically commented dialects for Elixir, Gleam, and Erlang under each `grammars/<lang>/canonically_commented/`: lexer modes read `@doc` and `@moduledoc` strings, `///` and `////` lines, and `-doc` strings and EDoc comments as canonical comments, and labeled alternatives make each definition a unit; the Erlang dialect labels `-export` entries `export`
 - The `hidden` element label and the `hidden` requirement: a unit its language hides from the documentation, as `@doc false`, `@moduledoc false`, `-doc false`, `-moduledoc false`, EDoc `@private`, and Gleam `@internal` do, needs no comment unless it is a test, and so do the units inside it; a doc comment directly above it is reported as attached to nothing
 - The `merge` element label, the dialect form of `mergeClauses`, and the `file` element label, whose elements are joined into the Why of the file

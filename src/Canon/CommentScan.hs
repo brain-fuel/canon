@@ -12,13 +12,16 @@ import Canon.Profile (CommentSyntax (..))
 import Canon.Span (Located (..), Position (..), Span (..))
 import Data.Char (isAlpha, isAlphaNum)
 import Data.List (sortOn)
+import Data.Maybe (isJust)
 import Data.Ord (Down (..))
 import Data.Text (Text)
 import qualified Data.Text as T
 
 -- | Scans line and block comments by the given syntax, skipping strings so a marker inside one is
 -- not a comment. Adjacent line comments merge only when they open alike, so a doc comment and a plain
--- comment on the next line stay apart. ref:DEC-rust-grammar
+-- comment on the next line stay apart. Where the syntax joins doc comments across blank lines, as
+-- Gleam does, doc comments that open alike and stand apart only by blank lines merge too.
+-- ref:DEC-rust-grammar ref:DEC-gleam-grammar
 --
 -- A doc attribute followed by a string, or by an opening parenthesis or a sigil and a string, is a
 -- block comment from the attribute to the end of the string, and a delimiter of three or more
@@ -26,8 +29,12 @@ import qualified Data.Text as T
 -- names runs to its closer, skipping the strings and braces nested in it, so a quote inside it does
 -- not end the string. ref:DEC-elixir-grammar ref:DEC-erlang-grammar
 scanCommentsWith :: CommentSyntax -> Text -> [Located Comment]
-scanCommentsWith syntax source = mergeLineComments (docOpenerOf syntax) (go 0 source)
+scanCommentsWith syntax source = mergeLineComments (docOpenerOf syntax) blankBetween (go 0 source)
   where
+    sourceLines = T.lines source
+    blankBetween from to =
+      commentJoinAcrossBlankLines syntax
+        && all (T.null . T.strip) (take (to - from - 1) (drop from sourceLines))
     table = lineTable source
     go offset remaining
       | T.null remaining = []
@@ -145,19 +152,21 @@ docOpenerOf syntax text =
         Nothing -> True
       Nothing -> False
 
-mergeLineComments :: (Text -> Maybe Text) -> [Located Comment] -> [Located Comment]
-mergeLineComments opener comments = case comments of
+mergeLineComments :: (Text -> Maybe Text) -> (Int -> Int -> Bool) -> [Located Comment] -> [Located Comment]
+mergeLineComments opener blankBetween comments = case comments of
   (a : b : rest)
-    | adjacentLines a b -> mergeLineComments opener (merged a b : rest)
-    | otherwise -> a : mergeLineComments opener (b : rest)
+    | adjacentLines a b -> mergeLineComments opener blankBetween (merged a b : rest)
+    | otherwise -> a : mergeLineComments opener blankBetween (b : rest)
   _ -> comments
   where
+    endLine c = positionLine (spanEnd (locatedSpan c))
+    startLine c = positionLine (spanStart (locatedSpan c))
     adjacentLines a b =
       commentKind (locatedValue a) == LineComment
         && commentKind (locatedValue b) == LineComment
-        && positionLine (spanEnd (locatedSpan a)) + 1 == positionLine (spanStart (locatedSpan b))
+        && (endLine a + 1 == startLine b || (isJust (opener (commentText (locatedValue a))) && blankBetween (endLine a) (startLine b)))
         && opener (commentText (locatedValue a)) == opener (commentText (locatedValue b))
     merged a b =
       Located
         (Span (spanStart (locatedSpan a)) (spanEnd (locatedSpan b)))
-        (Comment LineComment (commentText (locatedValue a) <> "\n" <> commentText (locatedValue b)))
+        (Comment LineComment (commentText (locatedValue a) <> T.replicate (startLine b - endLine a) "\n" <> commentText (locatedValue b)))

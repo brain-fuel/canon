@@ -108,29 +108,29 @@ DESCRIBE_MACRO
     : 'describe'
     ;
 
-/** Opens a @doc or @typedoc heredoc, a canonical comment, whose contents the DocHeredoc mode tokenizes; a lowercase sigil may come before it. ref:DEC-elixir-dialect */
+/** Opens a @doc heredoc, a canonical comment, whose contents the DocHeredoc mode tokenizes; a lowercase sigil may come before it. ref:DEC-elixir-dialect */
 DOC_OPEN
-    : '@' ('doc' | 'typedoc') [ \t]+ ('~' [a-z])? '"""' -> pushMode(DocHeredoc)
+    : '@' 'doc' [ \t]+ ('~' [a-z])? '"""' -> pushMode(DocHeredoc)
     ;
 
-/** Opens a @doc or @typedoc heredoc behind an uppercase sigil, which does not interpolate, typed as DOC_OPEN. ref:DEC-elixir-dialect */
+/** Opens a @doc heredoc behind an uppercase sigil, which does not interpolate, typed as DOC_OPEN. ref:DEC-elixir-dialect */
 DOC_RAW_OPEN
-    : '@' ('doc' | 'typedoc') [ \t]+ '~' [A-Z] '"""' -> type(DOC_OPEN), pushMode(DocRawHeredoc)
+    : '@' 'doc' [ \t]+ '~' [A-Z] '"""' -> type(DOC_OPEN), pushMode(DocRawHeredoc)
     ;
 
-/** Opens a @doc or @typedoc string on one line, typed as DOC_OPEN. ref:DEC-elixir-dialect */
+/** Opens a @doc string on one line, typed as DOC_OPEN. ref:DEC-elixir-dialect */
 DOC_STRING_OPEN
-    : '@' ('doc' | 'typedoc') [ \t]+ ('~' [a-z])? '"' -> type(DOC_OPEN), pushMode(DocString)
+    : '@' 'doc' [ \t]+ ('~' [a-z])? '"' -> type(DOC_OPEN), pushMode(DocString)
     ;
 
-/** Opens a @doc or @typedoc string behind an uppercase sigil, typed as DOC_OPEN. ref:DEC-elixir-dialect */
+/** Opens a @doc string behind an uppercase sigil, typed as DOC_OPEN. ref:DEC-elixir-dialect */
 DOC_RAW_STRING_OPEN
-    : '@' ('doc' | 'typedoc') [ \t]+ '~' [A-Z] '"' -> type(DOC_OPEN), pushMode(DocRawString)
+    : '@' 'doc' [ \t]+ '~' [A-Z] '"' -> type(DOC_OPEN), pushMode(DocRawString)
     ;
 
-/** Opens a @doc or @typedoc heredoc of apostrophes behind a sigil, read without interpolation, typed as DOC_OPEN. ref:DEC-elixir-dialect */
+/** Opens a @doc heredoc of apostrophes behind a sigil, read without interpolation, typed as DOC_OPEN. ref:DEC-elixir-dialect */
 DOC_CHARLIST_OPEN
-    : '@' ('doc' | 'typedoc') [ \t]+ '~' [a-zA-Z] '\'\'\'' -> type(DOC_OPEN), pushMode(DocCharlistHeredoc)
+    : '@' 'doc' [ \t]+ '~' [a-zA-Z] '\'\'\'' -> type(DOC_OPEN), pushMode(DocCharlistHeredoc)
     ;
 
 /** Opens a @moduledoc heredoc, the canonical comment of the module around it. ref:DEC-elixir-dialect */
@@ -156,6 +156,31 @@ MODULEDOC_STRING_OPEN
 /** Opens a @moduledoc string behind an uppercase sigil, typed as MODULEDOC_OPEN. ref:DEC-elixir-dialect */
 MODULEDOC_RAW_STRING_OPEN
     : '@moduledoc' [ \t]+ '~' [A-Z] '"' -> type(MODULEDOC_OPEN), pushMode(DocRawString)
+    ;
+
+/** Opens a @typedoc heredoc, the canonical comment of the type below it and of nothing else. ref:DEC-elixir-dialect */
+TYPEDOC_OPEN
+    : '@typedoc' [ \t]+ ('~' [a-z])? '"""' -> pushMode(DocHeredoc)
+    ;
+
+/** Opens a @typedoc heredoc behind an uppercase sigil, typed as TYPEDOC_OPEN. ref:DEC-elixir-dialect */
+TYPEDOC_RAW_OPEN
+    : '@typedoc' [ \t]+ '~' [A-Z] '"""' -> type(TYPEDOC_OPEN), pushMode(DocRawHeredoc)
+    ;
+
+/** Opens a @typedoc string on one line, typed as TYPEDOC_OPEN. ref:DEC-elixir-dialect */
+TYPEDOC_STRING_OPEN
+    : '@typedoc' [ \t]+ ('~' [a-z])? '"' -> type(TYPEDOC_OPEN), pushMode(DocString)
+    ;
+
+/** Opens a @typedoc string behind an uppercase sigil, typed as TYPEDOC_OPEN. ref:DEC-elixir-dialect */
+TYPEDOC_RAW_STRING_OPEN
+    : '@typedoc' [ \t]+ '~' [A-Z] '"' -> type(TYPEDOC_OPEN), pushMode(DocRawString)
+    ;
+
+/** Opens a @typedoc heredoc of apostrophes behind a sigil, typed as TYPEDOC_OPEN. ref:DEC-elixir-dialect */
+TYPEDOC_CHARLIST_OPEN
+    : '@typedoc' [ \t]+ '~' [a-zA-Z] '\'\'\'' -> type(TYPEDOC_OPEN), pushMode(DocCharlistHeredoc)
     ;
 
 /** The @moduledoc attribute without a string, as in @moduledoc false, which hides the module. ref:DEC-elixir-dialect */

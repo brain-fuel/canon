@@ -31,6 +31,9 @@ as changed. The decision is recorded as `DEC-gleam-grammar` in canon's
 - Constructor fields are parsed so that a labelled field, which Gleam
   documents with `///`, is a unit.
 - `@internal` is labeled `hidden`, so the item below it needs no comment.
+- The profile sets `joinAcrossBlankLines`, so `///` lines above an item are
+  one comment even with blank lines between them, as the Gleam compiler
+  joins them.
 - The syntax removed before Gleam 1.0 is read too: `external fn` and
   `external type`, and module-level target groups written
   `if erlang { ... }`, whose items are items of the module. `try` and a bare
@@ -49,7 +52,5 @@ an `orphan`. The ledger records it as `DEC-gleam-dialect`.
 
 ## Known limitations
 
-- The profile keeps canon's rule that a blank line parts a `///` comment from
-  the item below. The dialect follows Gleam and does not.
 - Pre-1.0 syntax was tested on the stdlib at v0.18.0, v0.22.0, v0.25.0, and
   v0.29.0. Syntax older than v0.18.0 may not be read.

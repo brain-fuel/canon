@@ -1348,6 +1348,21 @@ decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefi
 decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TRUE:
   comment: sha256:c56a3634b0b1be1b
   verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_CHARLIST_OPEN:
+  comment: sha256:d927872832cbc77f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_OPEN:
+  comment: sha256:f5ce8253b43024ef
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_RAW_OPEN:
+  comment: sha256:6020f383a3472cba
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_RAW_STRING_OPEN:
+  comment: sha256:f506b2fee6739e1e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_STRING_OPEN:
+  comment: sha256:c8e13bead3703822
+  verdict: pending
 decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPE_ATTRIBUTE:
   comment: sha256:1aafccf479c6969b
   verdict: pending
@@ -1539,6 +1554,9 @@ decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDef
   verdict: pending
 decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/tuple:
   comment: sha256:67a1ab9b1344a37f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/typeComment:
+  comment: sha256:f6c1986aad20f3c0
   verdict: pending
 decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/typeDefinition:
   comment: sha256:f8d9db15260e058f
@@ -1978,6 +1996,9 @@ decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDef
 decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/callbackDefinition:
   comment: sha256:5aae102b1f8d1eec
   verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/callbackSignature:
+  comment: sha256:8b231560d895e625
+  verdict: pending
 decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/canonicalComment:
   comment: sha256:f5449534d153aed9
   verdict: pending
@@ -2016,6 +2037,9 @@ decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDef
   verdict: pending
 decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/exportEntry:
   comment: sha256:5b26bdf2cb5f6774
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/exportedName:
+  comment: sha256:3644fc1cdc377d87
   verdict: pending
 decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr:
   comment: sha256:54a963ed04efbf82
@@ -2328,6 +2352,9 @@ decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDef
   verdict: pending
 decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeGuards:
   comment: sha256:e390bba7811a902a
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeParameters:
+  comment: sha256:e0c1e318f85242b1
   verdict: pending
 decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeSig:
   comment: sha256:37d17ac99ebfc155
@@ -6763,6 +6790,36 @@ decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/f
 decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/function/runDirective:
   comment: sha256:dbaa60eff3278f6e
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang:
+  comment: sha256:abf4cf45e191fed9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/data/ErlangPreprocessorState:
+  comment: sha256:fd17bf340af444aa
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/data/Macro:
+  comment: sha256:95ab4961a4ca50f4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/chooseMacro:
+  comment: sha256:9256a0d01ae67140
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/closingIndex:
+  comment: sha256:8e3e6975a20603ac
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/erlangPreprocessorHooks:
+  comment: sha256:0018c9667d8f099a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/expandMacros:
+  comment: sha256:4e1d4403a12caca0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/parseDefine:
+  comment: sha256:f07382b31e114b36
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/replaceArity:
+  comment: sha256:79b422553dc16a38
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/splitArguments:
+  comment: sha256:4e4efa936e5194cd
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp:
   comment: sha256:76e8f0be43e4dd90
   verdict: pending
@@ -7479,6 +7536,12 @@ decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/funct
   verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/extractWithProfileText:
   comment: sha256:5269eb823dfc836c
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/hasHiddenTag:
+  comment: sha256:58b99bae65c6527b
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/hideTagged:
+  comment: sha256:172ff46133e6d019
   verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/loadProfileInterpreter:
   comment: sha256:6a657817966424a3

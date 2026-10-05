@@ -28,6 +28,12 @@
 
 grammar Erlang;
 
+// canon: canon's ErlangPreprocessor hook expands the macros a file defines before the parser sees
+// them, as epp does, so a macro that stands for part of a form parses as its expansion.
+options {
+    superClass = ErlangPreprocessor;
+}
+
 // canon: changes for canon are marked canon: and listed in grammars/erlang/README.md. They let the
 // grammar read what the preprocessor leaves in a file (macros and directives), the syntax of OTP 24
 // to 28, and a function together with the attributes that belong to it.
@@ -102,9 +108,11 @@ tokFloat
     ;
 
 // canon: a number has no sign of its own, since prefixOp reads a minus, so X-1 is a subtraction
-// rather than X followed by -1; digits may be grouped with underscores (OTP 23).
+// rather than X followed by -1; digits may be grouped with underscores (OTP 23); and a float may
+// have a base, as in 2#1.0#e-53 (OTP 28).
 TokFloat
     : DIGITS '.' DIGITS ([Ee] [+-]? DIGITS)?
+    | DIGITS '#' [0-9a-zA-Z_]+ '.' [0-9a-zA-Z_]+ ('#' [Ee] [+-]? DIGITS)?
     ;
 
 tokInteger
@@ -232,10 +240,15 @@ attribute
     | DocHidden
     ;
 
-// canon: -type, -opaque, or -nominal, named by the type it defines.
+// canon: -type, -opaque, or -nominal, named by the type it defines and its arity.
 typeAttribute
-    : '-' tokAtom definedName '(' topTypes? ')' '::' topType
-    | '-' tokAtom '(' definedName '(' topTypes? ')' '::' topType ')'
+    : '-' tokAtom definedName arity = typeParameters '::' topType
+    | '-' tokAtom '(' definedName arity = typeParameters '::' topType ')'
+    ;
+
+// canon: the parameters of a type, or the arguments of a callback, whose count is its arity.
+typeParameters
+    : '(' topTypes? ')'
     ;
 
 // canon: -record, named by the record it defines.
@@ -243,9 +256,14 @@ recordAttribute
     : '-' tokAtom '(' definedName ',' (typedRecordFields | tuple_) ')'
     ;
 
-// canon: -callback, named by the callback it declares.
+// canon: -callback, named by the callback it declares and its arity.
 callbackAttribute
-    : AttrName typeSpec
+    : AttrName specFun callbackSignature (';' typeSig)*
+    | AttrName '(' specFun callbackSignature (';' typeSig)* ')'
+    ;
+
+callbackSignature
+    : arity = typeParameters '->' topType ('when' typeGuards)?
     ;
 
 // canon: the name of a function, type, or record a form defines.
@@ -433,9 +451,10 @@ function_
     : functionClause (';' (functionClause | macroCall))*
     ;
 
-// canon: the name is a rule of its own, so a profile can name a function by it.
+// canon: the name is a rule of its own, so a profile can name a function by it, and the arguments
+// are labeled arity, so canon names the function by its name and arity, as Erlang does.
 functionClause
-    : definedName clauseArgs clauseGuard clauseBody
+    : definedName arity = clauseArgs clauseGuard clauseBody
     ;
 
 clauseArgs

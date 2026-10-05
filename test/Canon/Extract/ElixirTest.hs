@@ -325,7 +325,8 @@ dialectProfile = Profile [".ex", ".exs"] (SplitGrammarFiles "grammars/elixir/can
 
 -- | A canonically commented grammar must say in grammar form what the Elixir profile says in
 -- canon.yaml, so a project can check Elixir through the dialect alone: @doc and @typedoc document the
--- definition below their attributes across blank lines, @moduledoc documents the module wherever it
+-- definition below their attributes across blank lines, a @typedoc only a type, @moduledoc documents
+-- the module wherever it
 -- sits in the body, the last @doc wins and @doc false hides, the clauses of a function are one unit,
 -- and the Jason sample parses whole. ref:REQ-elixir-support ref:DEC-elixir-dialect
 -- ref:DEC-hidden-label
@@ -345,6 +346,7 @@ prop_elixirDialectReadsDocAndModuledocAsCanonicalCommentsAsElixirBindsThem = wit
           , "  Shapes exist to exercise the Elixir dialect. ref:some-key"
           , "  \"\"\""
           , ""
+          , "  @typedoc \"A typedoc documents a type and nothing else.\""
           , "  def helper, do: :ok"
           , ""
           , "  @typedoc \"A shape is a circle or a square.\""
@@ -407,6 +409,7 @@ prop_elixirDialectReadsDocAndModuledocAsCanonicalCommentsAsElixirBindsThem = wit
   whyOf "area" === ["Areas are what shapes are for, #{verbatim}.", "The area scaled by #{inspect(%{by: \"}\"})}."]
   whyOf "<~>" === ["Combines."]
   whyOf "of a square" === ["Squares have the area of their side squared. ref:REQ-1"]
-  length [() | OrphanDocComment _ _ <- findings] === 1
+  whyOf "helper" === []
+  length [() | OrphanDocComment _ _ <- findings] === 2
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === ["elixir/shapes.ex/module/Shapes/function/helper", "elixir/shapes.ex/module/ShapesTest/test/uncommented"]

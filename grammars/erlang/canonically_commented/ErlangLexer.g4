@@ -26,6 +26,10 @@
 
 lexer grammar ErlangLexer;
 
+options {
+    superClass = ErlangPreprocessor;
+}
+
 fragment DIGIT
     : [0-9]
     ;
@@ -177,6 +181,21 @@ XOR
     : 'xor'
     ;
 
+/** The punctuation <:-. */
+STRICT_LARROW
+    : '<:-'
+    ;
+
+/** The punctuation =:=. */
+EXACT_EQ
+    : '=:='
+    ;
+
+/** The punctuation =/=. */
+EXACT_NEQ
+    : '=/='
+    ;
+
 /** The punctuation .... */
 ELLIPSIS
     : '...'
@@ -187,54 +206,9 @@ STRICT_BIN_LARROW
     : '<:='
     ;
 
-/** The punctuation =:=. */
-EXACT_EQ
-    : '=:='
-    ;
-
-/** The punctuation <:-. */
-STRICT_LARROW
-    : '<:-'
-    ;
-
-/** The punctuation =/=. */
-EXACT_NEQ
-    : '=/='
-    ;
-
-/** The punctuation ?=. */
-MAYBE_MATCH
-    : '?='
-    ;
-
-/** The punctuation <=. */
-BIN_LARROW
-    : '<='
-    ;
-
-/** The punctuation =>. */
-ASSOC
-    : '=>'
-    ;
-
-/** The punctuation >>. */
-RBITS
-    : '>>'
-    ;
-
-/** The punctuation ->. */
-ARROW
-    : '->'
-    ;
-
 /** The punctuation ... */
 RANGE
     : '..'
-    ;
-
-/** The punctuation &&. */
-ZIP
-    : '&&'
     ;
 
 /** The punctuation /=. */
@@ -242,39 +216,14 @@ NEQ
     : '/='
     ;
 
+/** The punctuation >>. */
+RBITS
+    : '>>'
+    ;
+
 /** The punctuation ||. */
 DOUBLE_BAR
     : '||'
-    ;
-
-/** The punctuation ==. */
-EQ
-    : '=='
-    ;
-
-/** The punctuation <<. */
-LBITS
-    : '<<'
-    ;
-
-/** The punctuation >=. */
-GE
-    : '>='
-    ;
-
-/** The punctuation :=. */
-EXACT
-    : ':='
-    ;
-
-/** The punctuation ++. */
-PLUS_PLUS
-    : '++'
-    ;
-
-/** The punctuation --. */
-MINUS_MINUS
-    : '--'
     ;
 
 /** The punctuation ::. */
@@ -282,9 +231,44 @@ DOUBLE_COLON
     : '::'
     ;
 
-/** The punctuation =<. */
-LE
-    : '=<'
+/** The punctuation <<. */
+LBITS
+    : '<<'
+    ;
+
+/** The punctuation =>. */
+ASSOC
+    : '=>'
+    ;
+
+/** The punctuation &&. */
+ZIP
+    : '&&'
+    ;
+
+/** The punctuation ++. */
+PLUS_PLUS
+    : '++'
+    ;
+
+/** The punctuation >=. */
+GE
+    : '>='
+    ;
+
+/** The punctuation ->. */
+ARROW
+    : '->'
+    ;
+
+/** The punctuation :=. */
+EXACT
+    : ':='
+    ;
+
+/** The punctuation <=. */
+BIN_LARROW
+    : '<='
     ;
 
 /** The punctuation <-. */
@@ -292,34 +276,24 @@ LARROW
     : '<-'
     ;
 
-/** The punctuation }. */
-RBRACE
-    : '}'
+/** The punctuation =<. */
+LE
+    : '=<'
     ;
 
-/** The punctuation ;. */
-SEMI
-    : ';'
+/** The punctuation ?=. */
+MAYBE_MATCH
+    : '?='
     ;
 
-/** The punctuation {. */
-LBRACE
-    : '{'
+/** The punctuation ==. */
+EQ
+    : '=='
     ;
 
-/** The punctuation <. */
-LT
-    : '<'
-    ;
-
-/** The punctuation ). */
-RPAREN
-    : ')'
-    ;
-
-/** The punctuation /. */
-SLASH
-    : '/'
+/** The punctuation --. */
+MINUS_MINUS
+    : '--'
     ;
 
 /** The punctuation ?. */
@@ -332,14 +306,39 @@ COLON
     : ':'
     ;
 
+/** The punctuation <. */
+LT
+    : '<'
+    ;
+
+/** The punctuation =. */
+MATCH
+    : '='
+    ;
+
 /** The punctuation (. */
 LPAREN
     : '('
     ;
 
-/** The punctuation !. */
-SEND
-    : '!'
+/** The punctuation >. */
+GT
+    : '>'
+    ;
+
+/** The punctuation /. */
+SLASH
+    : '/'
+    ;
+
+/** The punctuation .. */
+DOT
+    : '.'
+    ;
+
+/** The punctuation |. */
+BAR
+    : '|'
     ;
 
 /** The punctuation *. */
@@ -352,34 +351,14 @@ COMMA
     : ','
     ;
 
-/** The punctuation .. */
-DOT
-    : '.'
-    ;
-
-/** The punctuation =. */
-MATCH
-    : '='
-    ;
-
-/** The punctuation >. */
-GT
-    : '>'
-    ;
-
 /** The punctuation -. */
 MINUS
     : '-'
     ;
 
-/** The punctuation [. */
-LBRACKET
-    : '['
-    ;
-
-/** The punctuation |. */
-BAR
-    : '|'
+/** The punctuation {. */
+LBRACE
+    : '{'
     ;
 
 /** The punctuation #. */
@@ -387,14 +366,39 @@ HASH
     : '#'
     ;
 
-/** The punctuation ]. */
-RBRACKET
-    : ']'
+/** The punctuation ;. */
+SEMI
+    : ';'
+    ;
+
+/** The punctuation [. */
+LBRACKET
+    : '['
+    ;
+
+/** The punctuation ). */
+RPAREN
+    : ')'
     ;
 
 /** The punctuation +. */
 PLUS
     : '+'
+    ;
+
+/** The punctuation }. */
+RBRACE
+    : '}'
+    ;
+
+/** The punctuation !. */
+SEND
+    : '!'
+    ;
+
+/** The punctuation ]. */
+RBRACKET
+    : ']'
     ;
 
 /** An atom, bare or quoted. */
@@ -411,6 +415,7 @@ TokVar
 /** A float, without a sign, which prefixOp reads. */
 TokFloat
     : DIGITS '.' DIGITS ([Ee] [+-]? DIGITS)?
+    | DIGITS '#' [0-9a-zA-Z_]+ '.' [0-9a-zA-Z_]+ ('#' [Ee] [+-]? DIGITS)?
     ;
 
 /** An integer, without a sign, with an optional base and underscores. */

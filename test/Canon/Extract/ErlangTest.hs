@@ -59,7 +59,8 @@ interpreterOrFail = do
   loaded <- evalIO (loadProfileInterpreter profile)
   either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
 
--- | Real Erlang files use the preprocessor, macros and conditional directives, escripts start with
+-- | Real Erlang files use the preprocessor, macros and conditional directives, and a macro a file
+-- defines may stand for part of a form, escripts start with
 -- a #! line, and code written for OTP 24 to 28 uses maybe expressions, map comprehensions, and zip
 -- and strict generators, so the grammar must read each, or ten of recon's sixteen files and most of
 -- OTP's own would be reported as parse failures instead of findings. ref:REQ-erlang-support
@@ -76,6 +77,8 @@ prop_erlangGrammarReadsMacrosDirectivesAndTheSyntaxOfOtp24To28 = withTests 1 $ p
           , "-define(LOG(Format, Args), io:format(Format ++ \"~n\", Args))."
           , "-define(FIELD(R), R#state.field)."
           , "-define(TRY, try)."
+          , "-define(MATCH(X), X,)."
+          , "-define(OPEN, begin)."
           , "-ifdef(TEST)."
           , "-export([checked/1])."
           , "-else."
@@ -101,6 +104,8 @@ prop_erlangGrammarReadsMacrosDirectivesAndTheSyntaxOfOtp24To28 = withTests 1 $ p
           , "        {error, _} = E -> E"
           , "    end."
           , ""
+          , "partial() -> [?MATCH(a) b, ?OPEN ok end]."
+          , ""
           , "pairs(M, L1, L2) ->"
           , "    Squares = #{K => V * V || K := V <- M},"
           , "    Zipped = [{A, B} || A <- L1 && B <- L2],"
@@ -108,12 +113,12 @@ prop_erlangGrammarReadsMacrosDirectivesAndTheSyntaxOfOtp24To28 = withTests 1 $ p
           , "    {Squares, Zipped, Strict, 1_000_000, 16#FF_FF, $\\^A, $\\x{1F600}}."
           ]
   tree <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure (interpretText interpreter (Name "forms") "fixture.erl" source)
-  length (treeRuleNodes (Name "functionDefinition") tree) === 2
-  length (treeRuleNodes (Name "defineAttribute") tree) === 1
+  length (treeRuleNodes (Name "functionDefinition") tree) === 3
+  length (treeRuleNodes (Name "defineAttribute") tree) === 3
   length (treeRuleNodes (Name "recordAttribute") tree) === 1
   length (treeRuleNodes (Name "typeAttribute") tree) === 1
   length (treeRuleNodes (Name "callbackAttribute") tree) === 1
-  length (treeRuleNodes (Name "macroCall") tree) === 6
+  length (treeRuleNodes (Name "macroCall") tree) === 5
   length (treeRuleNodes (Name "maybeExpr") tree) === 1
   length (treeRuleNodes (Name "mapComprehension") tree) === 1
 
@@ -182,9 +187,10 @@ fixture =
 
 -- | In Erlang an EDoc comment or an OTP 27 -doc attribute documents the function below its -spec,
 -- -doc binds to the next function across blank lines and -doc metadata, -moduledoc documents the
--- module, -doc false hides a function and overrides an earlier -doc, and EUnit runs the functions
--- named _test, so the profile must bind, hide, and recognise each that way for the Why of an
--- Erlang function to be its documentation. ref:REQ-erlang-support ref:DEC-erlang-grammar
+-- module, -doc false and EDoc's @private hide a function, -doc false overrides an earlier -doc, a
+-- function is known by its name and arity, and EUnit runs the functions named _test, so the profile
+-- must bind, hide, name, and recognise each that way for the Why of an Erlang function to be its
+-- documentation. ref:REQ-erlang-support ref:DEC-erlang-grammar
 -- ref:DEC-hidden-label
 prop_erlangProfileBindsEdocCommentsAndDocAttributesAcrossSpecsAndHidesWhatDocFalseHides :: Property
 prop_erlangProfileBindsEdocCommentsAndDocAttributesAcrossSpecsAndHidesWhatDocFalseHides = withTests 1 $ property $ do
@@ -198,26 +204,26 @@ prop_erlangProfileBindsEdocCommentsAndDocAttributesAcrossSpecsAndHidesWhatDocFal
       byName n = [u | u <- units, nameOf u == n]
       whyOf n = [whyText (answerValue (decisionWhy d)) | u <- byName n, d <- decisionsFor (unitId u) model]
   [(kindOf u, nameOf u, unitRequirement u) | u <- units, kindOf u /= "file"]
-    === [ ("type", "shape", Optional)
+    === [ ("type", "shape/0", Optional)
         , ("record", "box", Optional)
-        , ("function", "area", Required)
-        , ("function", "perimeter", Required)
-        , ("function", "hidden", Hidden)
-        , ("function", "internal", Required)
-        , ("function", "helper", Required)
-        , ("function", "square_area_test", Required)
-        , ("function", "uncommented_test", Required)
+        , ("function", "area/1", Required)
+        , ("function", "perimeter/1", Required)
+        , ("function", "hidden/0", Hidden)
+        , ("function", "internal/0", Hidden)
+        , ("function", "helper/0", Required)
+        , ("function", "square_area_test/0", Required)
+        , ("function", "uncommented_test/0", Required)
         ]
   whyOf "shapes.erl" === ["Shapes exist to exercise the Erlang profile. ref:some-key"]
-  whyOf "shape" === ["A shape is a circle or a square."]
-  whyOf "area" === ["@doc Areas are what shapes are for."]
-  whyOf "perimeter" === ["Perimeters bound a shape."]
-  whyOf "hidden" === []
-  whyOf "internal" === ["@private Kept for the tests."]
+  whyOf "shape/0" === ["A shape is a circle or a square."]
+  whyOf "area/1" === ["@doc Areas are what shapes are for."]
+  whyOf "perimeter/1" === ["Perimeters bound a shape."]
+  whyOf "hidden/0" === []
+  whyOf "internal/0" === ["@private Kept for the tests."]
   length [() | OrphanDocComment _ _ <- findings] === 1
-  map (map unitTest . byName) ["square_area_test", "uncommented_test", "helper"] === [[True], [True], [False]]
+  map (map unitTest . byName) ["square_area_test/0", "uncommented_test/0", "helper/0"] === [[True], [True], [False]]
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
-    === ["erlang/shapes.erl/function/helper", "erlang/shapes.erl/function/uncommented_test"]
+    === ["erlang/shapes.erl/function/helper/0", "erlang/shapes.erl/function/uncommented_test/0"]
 
 -- | The Erlang dialect, under grammars/erlang/canonically_commented, as a project names it.
 dialectProfile :: Profile
@@ -283,21 +289,21 @@ prop_erlangDialectReadsDocStringsAndEdocCommentsAndRequiresThemOnExportedUnits =
       kindOf u = unitKindText (whatKind (answerValue (unitWhat u)))
       whyOf n = [whyText (answerValue (decisionWhy d)) | u <- units, nameOf u == n, d <- decisionsFor (unitId u) model]
   [(kindOf u, nameOf u, unitRequirement u) | u <- units, kindOf u /= "file"]
-    === [ ("type", "shape", Required)
+    === [ ("type", "shape/0", Required)
         , ("record", "box", Optional)
-        , ("callback", "draw", Required)
-        , ("function", "area", Required)
-        , ("function", "perimeter", Required)
-        , ("function", "hidden", Hidden)
-        , ("function", "internal", Hidden)
-        , ("function", "helper", Optional)
-        , ("function", "uncommented_test", Required)
+        , ("callback", "draw/1", Required)
+        , ("function", "area/1", Required)
+        , ("function", "perimeter/1", Required)
+        , ("function", "hidden/0", Hidden)
+        , ("function", "internal/0", Hidden)
+        , ("function", "helper/0", Optional)
+        , ("function", "uncommented_test/0", Required)
         ]
   whyOf "shapes.erl" === ["@doc Shapes exist to exercise the Erlang dialect. ref:some-key\n@end\n\nShapes, documented again by OTP 27."]
-  whyOf "shape" === ["A shape is a circle or a square."]
-  whyOf "area" === ["@doc Areas are what shapes are for."]
-  whyOf "perimeter" === ["Perimeters bound a shape."]
-  whyOf "internal" === ["@private Kept for the tests."]
+  whyOf "shape/0" === ["A shape is a circle or a square."]
+  whyOf "area/1" === ["@doc Areas are what shapes are for."]
+  whyOf "perimeter/1" === ["Perimeters bound a shape."]
+  whyOf "internal/0" === ["@private Kept for the tests."]
   length [() | OrphanDocComment _ _ <- findings] === 1
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
-    === ["erlang/shapes.erl/callback/draw", "erlang/shapes.erl/function/uncommented_test"]
+    === ["erlang/shapes.erl/callback/draw/1", "erlang/shapes.erl/function/uncommented_test/0"]

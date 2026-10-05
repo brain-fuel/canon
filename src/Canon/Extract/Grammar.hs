@@ -98,10 +98,26 @@ extractWithProfileText provider config language profile interpreter idPath path 
       Right (root, labeled, unbound, hiddenOwn) -> do
         let comments = scanCommentsWith (profileComments profile) source
             (attached, orphans) = extractDecisionsFor (profileComments profile) path source root (Set.fromList (map decisionId labeled)) hiddenOwn comments
-        (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root
+            tagged = Set.fromList [u | d <- attached, hasHiddenTag (profileComments profile) (whyText (answerValue (decisionWhy d))), u <- toList (decisionUnits d)]
+            root' = hideTagged tagged False root
+        (unitsWithGit, gitFindings) <- fillGitFromBlame provider path root'
         described <- either (const Nothing) id <$> describeVersion provider
         let model = Model language (configVersion config) described [unitsWithGit] (labeled ++ attached)
         pure (Right (Extraction model (map (OrphanDocComment path) unbound ++ [OrphanDocComment path (locatedSpan c) | c <- orphans] ++ gitFindings)))
+
+-- | Whether a comment's prose holds one of the syntax's hidden tags as a word, as EDoc's @private.
+-- ref:DEC-hidden-label
+hasHiddenTag :: CommentSyntax -> Text -> Bool
+hasHiddenTag syntax body = any (`elem` map (T.dropWhileEnd (not . isAlphaNum)) (T.words body)) (commentHiddenTags syntax)
+
+-- | Marks hidden the units a hidden tag documents, and the units inside them, unless they are tests.
+hideTagged :: Set.Set UnitId -> Bool -> CodeUnit ev -> CodeUnit ev
+hideTagged tagged above u =
+  let hidden = above || Set.member (unitId u) tagged
+   in u
+        { unitRequirement = if hidden && not (unitTest u) then Hidden else unitRequirement u
+        , unitChildren = map (hideTagged tagged hidden) (unitChildren u)
+        }
 
 -- | Reads the unit alternatives out of the parser grammar: a labeled alternative with a why element.
 alternativePlans :: Grammar Span -> Map.Map Name [Maybe AlternativePlan]
@@ -182,6 +198,9 @@ exportRequires exports parent name = case exports of
 -- requires no comment, whatever its rule or a required element says, unless it is a test. The ids of
 -- the units marked hidden themselves come back too, so a doc comment above one is an orphan.
 -- ref:DEC-hidden-label
+--
+-- A unit whose node holds an element labeled arity, a bracketed list of arguments, is named by its
+-- name, a slash, and the number of arguments, as Erlang names a function info/2. ref:DEC-erlang-grammar
 --
 -- Elements labeled file, outside every unit, are the Why of the file, joined in order, as Gleam joins
 -- every //// comment of a module into its documentation. ref:DEC-gleam-dialect
@@ -294,10 +313,22 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       TokenNode _ -> []
       Labeled _ inner -> found inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just unitName <- labeledText "what" node -> [Candidate (planKind plan) unitName (hiddenOr node (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional)) (labeledSubtree "why" node) (labeledSubtree "how" node) node (if isJust (labeledSubtree "merge" node) then Just (nameText name <> "/" <> planKind plan) else Nothing) []]
+        Just plan | Just unitName <- labeledText "what" node -> [Candidate (planKind plan) (withArity node unitName) (hiddenOr node (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional)) (labeledSubtree "why" node) (labeledSubtree "how" node) node (if isJust (labeledSubtree "merge" node) then Just (nameText name <> "/" <> planKind plan) else Nothing) []]
         _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
-          ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) unitName (hiddenOr node (if (unitRuleRequired rule && not (isJust (labeledSubtree "optional" node))) || isJust (labeledSubtree "required" node) then Required else Optional)) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
+          ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) (withArity node unitName) (hiddenOr node (if (unitRuleRequired rule && not (isJust (labeledSubtree "optional" node))) || isJust (labeledSubtree "required" node) then Required else Optional)) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
           [] -> concatMap found nodeChildren
+    withArity node unitName = case labeledSubtree "arity" node of
+      Just arguments -> T.concat [unitName, "/", T.pack (show (arityOf arguments))]
+      Nothing -> unitName
+    arityOf arguments =
+      let inner = drop 1 (filter (not . isEofToken) (treeTokens arguments))
+          body = take (length inner - 1) inner
+          depthAt = scanl (\d t -> d + bracketDelta (tokenText t)) (0 :: Int) body
+       in if null body then (0 :: Int) else 1 + length [() | (t, d) <- zip body depthAt, d == 0, tokenText t == ","]
+    bracketDelta t
+      | t `elem` ["(", "[", "{", "<<"] = 1
+      | t `elem` [")", "]", "}", ">>"] = -1
+      | otherwise = 0 :: Int
     hiddenOr node requirement = if isJust (labeledSubtree "hidden" node) then Hidden else requirement
     planFor name alternative = Map.lookup name plans >>= \alts -> listToMaybe (drop alternative alts) >>= id
     isUnitNode node = case node of
@@ -482,7 +513,7 @@ extractDecisionsFor syntax path source root decided hiddenOwn scanned = (map toD
       Set.fromList
         [ l
         | c <- rest
-        , isDocAttribute c
+        , isDocAttribute c || (commentJoinAcrossBlankLines syntax && outerProper c)
         , l <- takeWhile (\l -> l <= lineCount && (blankLine l || Set.member l baseTransparent)) [positionLine (spanEnd (locatedSpan c)) + 1 ..]
         , blankLine l
         ]

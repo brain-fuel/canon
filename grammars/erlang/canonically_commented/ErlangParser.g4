@@ -56,9 +56,14 @@ exportAttribute
     : ExportAttrName '[' (exportEntry (',' exportEntry)*)? ']' ')' '.'
     ;
 
-/** One exported name and arity; the name is what the export rule matches. */
+/** One exported name and arity, labeled export, which the export rule matches against the name and arity of a unit. */
 exportEntry
-    : export = tokAtom '/' tokInteger
+    : export = exportedName
+    ;
+
+/** A name and an arity, written name/arity. */
+exportedName
+    : tokAtom '/' tokInteger
     ;
 
 /** A type, -type, -opaque, or -nominal, documented as a function is. ref:DEC-erlang-dialect */
@@ -145,8 +150,13 @@ attribute
 
 /** The type a -type, -opaque, or -nominal attribute defines, named by its name. */
 typeAttribute
-    : '-' tokAtom what = definedName '(' topTypes? ')' '::' topType
-    | '-' tokAtom '(' what = definedName '(' topTypes? ')' '::' topType ')'
+    : '-' tokAtom what = definedName arity = typeParameters '::' topType
+    | '-' tokAtom '(' what = definedName arity = typeParameters '::' topType ')'
+    ;
+
+/** The parameters of a type, or the arguments of a callback, labeled arity: their count is the arity in the name of the unit. */
+typeParameters
+    : '(' topTypes? ')'
     ;
 
 /** The record a -record attribute defines, named by its name. */
@@ -156,8 +166,13 @@ recordAttribute
 
 /** A -callback attribute, named by its function. */
 callbackAttribute
-    : AttrName what = specFun typeSigs
-    | AttrName '(' what = specFun typeSigs ')'
+    : AttrName what = specFun callbackSignature (';' typeSig)*
+    | AttrName '(' what = specFun callbackSignature (';' typeSig)* ')'
+    ;
+
+/** The first signature of a callback, whose arguments give its arity. */
+callbackSignature
+    : arity = typeParameters '->' topType ('when' typeGuards)?
     ;
 
 /** The name of a function, type, or record a form defines. */
@@ -366,9 +381,9 @@ function_
     : functionClause (';' (functionClause | macroCall))*
     ;
 
-/** One clause of a function; its name is the What of the function. */
+/** One clause of a function; its name and the arity its arguments give are the What of the function. */
 functionClause
-    : what = definedName clauseArgs clauseGuard clauseBody
+    : what = definedName arity = clauseArgs clauseGuard clauseBody
     ;
 
 /** The arguments of a clause. */

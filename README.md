@@ -166,7 +166,7 @@ whatever its visibility.
 | Language | Recognised as a test |
 |----------|----------------------|
 | `java` | a method marked `@Test`, `@org.junit.Test`, `@org.junit.jupiter.api.Test`, `@ParameterizedTest`, `@RepeatedTest`, `@TestFactory`, or `@TestTemplate` (JUnit 4 and 5), or `@Property`, `@Example`, `@net.jqwik.api.Property`, or `@net.jqwik.api.Example` (jqwik), with or without arguments; or a method named `test*` under a `src/test` directory (JUnit 3). jetCheck has no annotations of its own, so its checks are recognised through the JUnit method they run in. |
-| `erlang` | a function named `*_test` or `*_test_` (EUnit) |
+| `erlang` | a function of arity 0 named `*_test` or `*_test_` (EUnit), as `name_test/0` |
 | `clojure` | a `deftest` unit, or a definition named `*-test` |
 | `prolog` | a clause named `test` (plunit) |
 | `haskell` | a function named `prop_*` or `test_*` |
@@ -320,7 +320,12 @@ below, since Elixir and Erlang bind it to the next definition across them,
 and a doc attribute directly above a unit marked hidden binds to nothing. A
 language whose strings interpolate code names its `interpolation` opener and
 closer, such as `["#{", "}"]`, so a quote inside an interpolation does not end
-the string around it. Several unit rules may name one parse rule, told apart by
+the string around it. With `joinAcrossBlankLines`, doc comments that open
+alike and stand apart only by blank lines are one comment, and blank lines
+below one do not part it from its unit. `hiddenTags`, such as EDoc's
+`@private`, hide the unit a doc comment holding one documents. An element
+labeled `arity` around a unit's arguments names the unit by name and arity,
+such as Erlang's `info/2`. Several unit rules may name one parse rule, told apart by
 `firstToken`, and a unit rule with `mergeClauses: true` makes adjacent matches
 with one name a single unit, as the clauses of an Elixir function are one
 function, unless a doc comment directly above a later clause starts a unit of
@@ -576,6 +581,7 @@ languages:
       line: "//"
       outerDoc: ["///"]
       innerDoc: ["////"]
+      joinAcrossBlankLines: true
       strings: ["\""]
     units:
       - {rule: publicFunction, kind: function, name: {rule: definitionName}, required: true}
@@ -589,7 +595,9 @@ languages:
 ```
 
 `@internal` hides an item, so it needs no comment. Gleam written before 1.0,
-with `external fn` and `if erlang { ... }` groups, parses too.
+with `external fn` and `if erlang { ... }` groups, parses too. With
+`joinAcrossBlankLines`, `///` lines stand together across blank lines, as
+the Gleam compiler joins them.
 
 The Erlang sample is recon, a git submodule. Its `canon.yaml` holds the Erlang
 profile:
@@ -604,6 +612,7 @@ languages:
       line: "%"
       innerDoc: ["-moduledoc"]
       docAttributes: ["-moduledoc", "-doc"]
+      hiddenTags: ["@private", "@hidden"]
       strings: ["\"\"\"\"", "\"\"\"", "\""]
     units:
       - {rule: functionDefinition, kind: function, name: {rule: definedName}, required: true}
@@ -615,7 +624,10 @@ languages:
 Every `%` comment directly above a unit is its Why, so an EDoc comment above a
 function's `-spec` documents the function. An OTP 27 `-doc` string documents
 the function below it and `-moduledoc` the file, and `-doc false` hides the
-function.
+function, as does an EDoc comment holding one of the `hiddenTags`. Functions,
+types, and callbacks are named by name and arity, such as `info/2`, because
+the grammar labels their arguments `arity`. A hook named by the grammar's
+`superClass` expands the macros a file defines before parsing, as `epp` does.
 
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked

@@ -13,12 +13,19 @@ or canon requires. Every change is marked `// canon:` in the grammar and
 recorded as `DEC-erlang-grammar` in canon's `canonical_decisions.yaml`:
 
 - A number has no sign, so `X-1` is a subtraction. Digits may be grouped with
-  underscores. A character may be a control escape such as `$\^A` or a
+  underscores, and a float may have a base, as in `2#1.0#e-53`. A character may be a control escape such as `$\^A` or a
   hexadecimal one such as `$\x{1F600}`.
 - A comment may end the file, and an escript's `#!` line is skipped.
 - Strings may be triple-quoted, or quoted with four or five quotes, and
   sigils such as `~"..."` and `~b[...]` are read, as OTP 27 writes them.
-- The preprocessor is read, not run. A macro call, `?NAME`, `?NAME(Args)`, or
+- The `ErlangPreprocessor` hook, named as the grammar's `superClass`, expands
+  the macros a file defines before the parser sees them, as `epp` does. It
+  records each `-define`, one per name and arity, and replaces each call with
+  the body, the arguments in place of the parameters. So a macro that stands
+  for part of a form, such as `X,` or `begin`, parses as its expansion. Of two
+  definitions in the branches of an `-ifdef`, the later is used.
+- A macro the file does not define, such as `?MODULE` or one from a header,
+  is read, not run. A macro call, `?NAME`, `?NAME(Args)`, or
   `??Arg`, is read where an expression, a pattern, a type, an atom or variable
   in a fun, a record name, a string part, a whole form, or a function clause
   may be. A macro directly followed by a list element stands for an element
@@ -37,6 +44,8 @@ recorded as `DEC-erlang-grammar` in canon's `canonical_decisions.yaml`:
 - `-doc false` and `-moduledoc false` are labeled `hidden`.
 - Types, records, and callbacks have rules of their own, named by what they
   define, so a profile can make each a unit.
+- The arguments of a function and the parameters of a type or callback are
+  labeled `arity`, so canon names the unit by name and arity, as `info/2`.
 
 On this grammar every file of recon and of OTP's stdlib, kernel, and eunit
 parses.
@@ -46,7 +55,9 @@ parses.
 The Erlang profile in `lang_samples/erlang-recon/canon.yaml` scans `%`
 comments, names `-doc` as a doc attribute and `-moduledoc` as an inner one,
 and makes functions, callbacks, types, and records units. A `-doc` binds to
-the function below it across blank lines, and `-moduledoc` to the file.
+the function below it across blank lines, and `-moduledoc` to the file. Its
+`hiddenTags` are EDoc's `@private` and `@hidden`, so a comment holding one
+hides the function it documents.
 
 ## Canonically commented dialect
 
@@ -64,11 +75,11 @@ The ledger records it as `DEC-erlang-dialect`.
 
 ## Known limitations
 
-- A macro that expands to some other part of a form, such as half an
-  expression, cannot be read without expanding it.
-- Functions of one name and different arities share the name, told apart by
-  ordinal, as `info` and `info#2`.
-- The profile cannot read EDoc tags, so `@private` does not hide a function
-  there; the dialect reads them.
+- A macro defined in an included header is not expanded, since canon does
+  not read headers. Such a macro parses only where an expression, a pattern,
+  a type, a record name, a string part, a list element, a form, or a clause
+  may be.
+- canon does not choose `-ifdef` branches: both parse, and a macro defined in
+  both is expanded with the later definition.
 - In the dialect a file without an export list exports everything, which fits
   `-compile(export_all)` and header files.

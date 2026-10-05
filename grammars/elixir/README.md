@@ -79,7 +79,8 @@ read its interpolations as code. Each kind of definition is a labeled unit
 alternative. Documentation, `@doc false`, and attributes may come in any order
 above a definition, and the last doc wins: an earlier `@doc` is an `orphan`,
 and a later `@doc false` makes the unit `hidden`. A module's Why is the first
-`@moduledoc` anywhere in its body. Public definitions label their keyword
+`@moduledoc` anywhere in its body. A `@typedoc` documents a `@type`, `@typep`,
+or `@opaque` only, and is an `orphan` above anything else. Public definitions label their keyword
 `required`. Function, macro, and guard clauses are labeled `merge`, so the
 clauses of one name are one unit. On the 308 files of Jason, Plug, and Phoenix
 the dialect parses every file and reports the same missing comments as the
@@ -91,5 +92,3 @@ profile. The ledger records it as `DEC-elixir-dialect`.
   operator names, `@doc false`, blank lines, sigil interpolation, and test
   names. The ledger records the fixes in `DEC-elixir-grammar`.
 - Operator precedence is not modelled, by design.
-- In the dialect `@doc` and `@typedoc` share one token, so a `@typedoc` above
-  a function documents it, where Elixir would warn.

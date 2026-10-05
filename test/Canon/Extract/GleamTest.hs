@@ -101,7 +101,7 @@ fixture =
     , ""
     , "pub const unit: Shape = Square(1.0)"
     , ""
-    , "/// Orphaned by the blank line below."
+    , "/// Bound across the blank line below, as Gleam binds it."
     , ""
     , "pub fn perimeter(shape: Shape) -> Float {"
     , "  case shape { Circle(r) -> 2.0 *. r Square(w) -> 4.0 *. w }"
@@ -113,9 +113,9 @@ fixture =
     , "pub fn uncommented_test() { Nil }"
     ]
 
--- | In Gleam /// documents the item below its attributes, //// documents the module, a plain //
--- comment documents nothing, and gleeunit runs the public functions named _test, so the profile
--- must bind and recognise each that way for the Why of a Gleam item to be its documentation.
+-- | In Gleam /// documents the item below its attributes, across blank lines, //// documents the
+-- module, a plain // comment documents nothing, and gleeunit runs the public functions named _test,
+-- so the profile must bind and recognise each that way for the Why of a Gleam item to be its documentation.
 -- ref:REQ-gleam-support ref:DEC-gleam-grammar
 prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests :: Property
 prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests = withTests 1 $ property $ do
@@ -148,12 +148,11 @@ prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests = withTests 1 $
   whyOf "Circle" === ["A circle by its radius."]
   whyOf "radius" === ["The radius, never negative."]
   whyOf "area" === ["Areas are what shapes are for."]
-  whyOf "perimeter" === []
-  length [() | OrphanDocComment _ _ <- findings] === 1
+  whyOf "perimeter" === ["Bound across the blank line below, as Gleam binds it."]
+  length [() | OrphanDocComment _ _ <- findings] === 0
   map testsOf ["square_area_test", "uncommented_test", "helper"] === [[True], [True], [False]]
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === [ "gleam/shapes.gleam/const/unit"
-        , "gleam/shapes.gleam/function/perimeter"
         , "gleam/shapes.gleam/function/uncommented_test"
         ]
 

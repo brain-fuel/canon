@@ -10,6 +10,7 @@ languages:
       line: "//"
       outerDoc: ["///"]
       innerDoc: ["////"]
+      joinAcrossBlankLines: true
       strings: ["\""]
     units:
       - rule: publicFunction
