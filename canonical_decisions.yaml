@@ -560,3 +560,12 @@ DEC-highlight-by-lexer:
   opened: 0.1.0
   decided: 0.1.0
   refs: [rices-tax]
+
+DEC-lawspec-parity:
+  status: decided
+  question: LawSpec emits code in a set of target languages and canon is to read and judge the documentation of every one of them. How does the repository say which languages those are, and keep its grammars, profiles, dialects, and samples in step with the list?
+  answer: |
+    The root canon.yaml carries a parity section that canon does not read, as it carries runtime: current names the targets LawSpec emits today (python, javascript, typescript, go, java, kotlin, rust, haskell) and planned the ones it is to emit (erlang, elixir, gleam, csharp, fsharp, scala, groovy, clojure, prolog, hcl, yaml) together with the languages canon's own sources and pages are written in (antlr4, make, folio). Canon.ParityTest asserts that each listed language has a grammar under grammars/, a profile in some project's canon.yaml naming that grammar, a canonically_commented dialect beside it, and a sample project, the root counting for the languages canon is written in, and that no grammar directory is outside the list. A piece another branch delivers is named under pending, so the test passes on a branch that lacks it and fails both when a piece is missing and unnamed and when a named piece exists, which makes the merge that delivers it remove the entry.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [REQ-lawspec-parity]

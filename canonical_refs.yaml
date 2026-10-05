@@ -117,8 +117,12 @@ REQ-gleam-support:
 rices-tax:
   kind: discussion
   title: Rice's Tax, the review tool over canon's vetting and wavelet's mutation review
-  locator: ../rices-tax/README.md
+  locator: ../ricestax/README.md
 diataxis:
   kind: article
   title: Diátaxis, a systematic approach to technical documentation authoring
   locator: https://diataxis.fr
+REQ-lawspec-parity:
+  kind: requirement
+  title: canon reads every language LawSpec targets, now or by plan, each with a grammar, a profile, a canonically commented dialect, and a sample, and reads no language outside that list
+  locator: README.md

@@ -9,6 +9,7 @@ and this project adheres to
 ## Unreleased
 
 ### Added
+- The LawSpec parity list: the root `canon.yaml` pins the languages LawSpec targets now and by plan under `parity`, and the `parity` test group asserts that each has a grammar, a profile, a dialect, and a sample, that pieces another branch delivers are named under `pending` exactly, and that no grammar directory is outside the list
 - Canonically commented dialects of Rust, C#, and F# under `grammars/<lang>/canonically_commented/`: doc comments are canonical comments in lexer modes of their own, each item, type, member, field, variant, and case is a labeled unit alternative with `why` and `what`, misplaced doc comments are `orphan`s, and the plain grammars' `required`, `optional`, `inherited`, and `marker` labels are kept; the F# hook holds doc comments until the next code token's layout tokens
 - The `ordinal` element label, which names a unit without a name by its position, and a `why` element of a dialect's start rule outside every unit as the file's Why, as Rust's `//!` is
 - Every branch of a C# or F# `#if` that some build compiles is read: a file is read once per build of a few assignments of its symbols that together read every such branch, and what each build finds is merged by id

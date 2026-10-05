@@ -422,6 +422,19 @@ every function without a canonical comment is a finding, and every file the
 upstream grammar cannot parse is one too. Run `git submodule update --init`
 after cloning to fetch them.
 
+The root `canon.yaml` pins the languages LawSpec targets under `parity`:
+`current` for the targets LawSpec emits today and `planned` for those it is
+to emit, among them the languages canon itself is written and documented in.
+`canon` does not read the section; the `parity` group of the test suite holds
+the repository to it. Every listed language has a grammar under `grammars/`,
+a profile in the root `canon.yaml` or in a sample's, a `canonically_commented/`
+dialect, and a sample: a project under `lang_samples/`, or canon itself for the
+languages its own sources are written in. Every grammar directory belongs to a
+listed language. A language whose missing pieces another branch delivers names
+them under `pending`, and the suite fails both on a missing piece not named
+there and on a named piece that exists, so the list says exactly what the
+repository holds.
+
 | Sample | Language | Grammar |
 |--------|----------|---------|
 | `lang_samples/erlang-recon` | Erlang | `grammars/erlang/Erlang.g4` |

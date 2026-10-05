@@ -41,3 +41,22 @@ languages:
     lexer: grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4
     parser: grammars/antlr4/canonically_commented/ANTLRv4Parser.g4
     start: grammarSpec
+parity:
+  current: [python, javascript, typescript, go, java, kotlin, rust, haskell]
+  planned: [erlang, elixir, gleam, csharp, fsharp, scala, groovy, clojure, prolog, hcl, yaml, antlr4, make, folio]
+  pending:
+    python: [dialect]
+    javascript: [dialect]
+    typescript: [dialect]
+    go: [dialect]
+    kotlin: [dialect]
+    erlang: [dialect]
+    elixir: [dialect]
+    gleam: [dialect]
+    scala: [grammar, profile, dialect, sample]
+    groovy: [grammar, profile, dialect, sample]
+    clojure: [dialect]
+    prolog: [dialect]
+    hcl: [grammar, profile, dialect, sample]
+    yaml: [grammar, profile, dialect, sample]
+    folio: [dialect]
