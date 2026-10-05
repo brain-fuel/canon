@@ -802,6 +802,8 @@ canon/
 ├── canonical_decisions.yaml  # the decision ledger
 ├── LICENSE
 ├── install_toolchain.sh   # installs the build toolchain
+├── Makefile               # the front door: make and a verb runs the Stack commands below
+├── docs/                  # Folio pages split by Diátaxis: tutorials, how-to, reference, explanation
 ├── package.yaml           # hpack package definition; generates canon.cabal
 ├── stack.yaml             # stack snapshot and package list
 ├── Setup.hs
@@ -828,6 +830,13 @@ canon/
 │   ├── Canon/Preprocessor.hs  # the builds a file is read under and the #if branches each reads, for C# and F#
 │   ├── Canon/Signature.hs # ties a signature file's comments to its implementation, for F#
 │   ├── Canon/Extract/Grammar.hs  # builds the model of any file through its language profile
+│   ├── Canon/Extract/Folio.hs    # relocates the units of tangled files into the Folio pages
+│   ├── Canon/Extract/Calm.hs     # reads a CALM architecture description as units
+│   ├── Canon/Folio.hs     # a Folio page: front matter, sections, and fenced blocks
+│   ├── Canon/Tangle.hs    # writes the sources a page's blocks tangle to
+│   ├── Canon/Weave.hs     # renders the pages to a static site
+│   ├── Canon/Highlight.hs # colours code by the language's own lexer
+│   ├── Canon/Testing.hs   # the built-in table of test markers and name patterns per language
 │   ├── Canon/Config.hs    # canon.yaml
 │   ├── Canon/Attach.hs    # binds a comment to the unit directly below it
 │   ├── Canon/CanonicalComment.hs  # comment body normalisation and key extraction
@@ -841,6 +850,10 @@ canon/
 │       ├── Pretty.hs      # prints a grammar back to .g4 text
 │       ├── Query.hs       # rules, tokens, modes, references, and well-formedness
 │       ├── Predicate.hs   # semantic predicates answered for a parser's base class
+│       ├── Lex.hs         # the interpreted lexer and its hook interface
+│       ├── Lex/           # lexer hooks ported from grammars' base classes, one per superClass
+│       ├── Parse.hs       # the interpreted parser
+│       ├── Interpret.hs   # loads a grammar pair and runs lexer and parser over a file
 │       └── RuleGraph.hs   # reference graph, nullability, left recursion, reachability
 ├── test/
 │   ├── Spec.hs            # tasty entry point
