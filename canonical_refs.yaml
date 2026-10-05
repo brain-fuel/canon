@@ -154,6 +154,30 @@ REQ-typescript-support:
   kind: requirement
   title: canon reads TypeScript, parsing every file of a real package in seconds, taking functions, classes, interfaces, type aliases, enums, namespaces, module-level bindings, export default, class members, enum members, and the members of object types as units, binding a TSDoc comment to the declaration or member below it and a file's first one, when tagged @packageDocumentation, @module, or @license, set apart by a blank line, or above the imports, to the file, requiring a comment on what a module exports and on the members of an exported class, interface, object type, or enum other than private, protected, and #private ones, and treating every unit under a test directory as a test
   locator: README.md
+go-doc-comments:
+  kind: article
+  title: Go Doc Comments, on the comments directly above a package clause or top-level declaration that go/doc reads
+  locator: https://go.dev/doc/comment
+revive-exported:
+  kind: article
+  title: The exported rule of revive, the Go linter, on comments required on exported declarations
+  locator: https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#exported
+REQ-go-support:
+  kind: requirement
+  title: canon reads Go, parsing every Go source file, taking functions, methods, types, constants, variables, grouped declarations, struct fields, and interface elements as units, binding the comment directly above a declaration as go/doc does, requiring a comment on exported names as revive's exported rule does, and recognising Test, Benchmark, Example, and Fuzz functions in _test.go files as tests
+  locator: README.md
+pep-257:
+  kind: article
+  title: PEP 257, Docstring Conventions, on the docstring as the first statement of a module, class, or function and which of them need one
+  locator: https://peps.python.org/pep-0257/
+pep-8:
+  kind: article
+  title: PEP 8, Style Guide for Python Code, on a leading underscore marking a name internal
+  locator: https://peps.python.org/pep-0008/#descriptive-naming-styles
+REQ-python-support:
+  kind: requirement
+  title: canon reads Python, parsing every Python 3 source file, taking functions and classes as units with their decorators, binding the docstring that opens a module, class, or function body, requiring one on public names as PEP 257 asks, and recognising pytest and unittest tests by their test_ and Test names
+  locator: README.md
 rices-tax:
   kind: discussion
   title: Rice's Tax, the review tool over canon's vetting and wavelet's mutation review

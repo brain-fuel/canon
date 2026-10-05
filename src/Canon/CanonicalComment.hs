@@ -26,19 +26,21 @@ data CanonicalComment = CanonicalComment
   deriving (Eq, Show)
 
 -- | Strips the delimiters and line markers of every supported comment form, so the Why is prose
--- alone. The /// and //! of Rust, C#, and F# doc lines are line markers. ref:DEC-rust-dialect
+-- alone. The /// and //! of Rust, C#, and F# doc lines are line markers, and so is the plain // of
+-- a Go doc comment, whose block form opens with a plain /*. ref:DEC-rust-dialect ref:DEC-go-dialect
 -- The %, %%, and %! of PlDoc lines are line markers too. ref:DEC-prolog-dialect
 docCommentBody :: Text -> Text
 docCommentBody raw =
   T.strip (T.intercalate "\n" (map stripLineMarker (T.lines (stripDelimiters raw))))
   where
-    stripDelimiters t = foldr dropSuffix (foldr dropPrefix (T.strip t) ["/**", "/*!", "{-|", "--|", "-- |", "#|", "# |"]) ["*/", "-}"]
+    stripDelimiters t = foldr dropSuffix (foldr dropPrefix (T.strip t) ["/*", "/**", "/*!", "{-|", "--|", "-- |", "#|", "# |"]) ["*/", "-}"]
     dropPrefix p t = maybe t id (T.stripPrefix p t)
     dropSuffix s t = maybe t id (T.stripSuffix s t)
     stripLineMarker line = T.strip (withoutMarker (T.stripStart line))
     withoutMarker trimmed
       | Just rest <- T.stripPrefix "///" trimmed = rest
       | Just rest <- T.stripPrefix "//!" trimmed = rest
+      | Just rest <- T.stripPrefix "//" trimmed = rest
       | Just rest <- T.stripPrefix "--" trimmed = maybe rest id (T.stripPrefix "|" (T.stripStart rest))
       | Just rest <- T.stripPrefix "#" trimmed = maybe rest id (T.stripPrefix "|" (T.stripStart rest))
       | Just rest <- T.stripPrefix "%" trimmed = T.dropWhile (`elem` ("%!" :: String)) rest

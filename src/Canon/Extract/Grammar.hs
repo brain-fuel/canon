@@ -249,8 +249,10 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
       (a : rest) -> a : mergeClauses rest
       [] -> []
     (children, unitDecisions) = collect fileId [] False tree
+    -- A Python module's docstring is the file's Why through the profile, unless the grammar labels
+    -- it a why element of the start rule, as the Python dialect does. ref:DEC-python-dialect
     decisions = unitDecisions ++ case pythonDoc tree of
-      Just doc | language == "python" ->
+      Just doc | language == "python", null rootWhys ->
         let sp = treeSpan doc
          in [Decision (decisionIdFor fileId) (fileId :| []) (Answer (whyFrom doc (slice sp)) (Asserted (Assertion path sp))) (Where path sp [] Nothing) Nothing]
       _ -> []

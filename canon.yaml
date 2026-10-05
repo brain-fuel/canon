@@ -12,6 +12,8 @@ ignore:
   - grammars/prolog/canonically_commented/
   - grammars/javascript/canonically_commented/
   - grammars/typescript/canonically_commented/
+  - grammars/golang/canonically_commented/
+  - grammars/python/canonically_commented/
   - "!grammars/folio/*.g4"
   - "!grammars/make/canonically_commented/*.g4"
   - "*.md"
@@ -48,8 +50,6 @@ parity:
   current: [python, javascript, typescript, go, java, kotlin, rust, haskell]
   planned: [erlang, elixir, gleam, csharp, fsharp, scala, groovy, clojure, prolog, hcl, yaml, antlr4, make, folio]
   pending:
-    python: [dialect]
-    go: [dialect]
     kotlin: [dialect]
     erlang: [dialect]
     elixir: [dialect]

@@ -5,14 +5,17 @@ module Canon.Antlr4.Predicate
   ( predicateHookFor
   , csharpPredicates
   , javaScriptPredicates
+  , goPredicates
+  , pythonPredicates
   ) where
 
 import Canon.Antlr4.Parse (PredicateHook)
 import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token (..))
-import Data.Char (isAlpha)
+import Data.Char (isAlpha, isUpper)
 import qualified Data.List.NonEmpty as NonEmpty
+import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Vector as BV
 
@@ -23,6 +26,8 @@ predicateHookFor grammar =
     (Name "CSharpParserBase" : _) -> csharpPredicates
     (Name "JavaScriptParserBase" : _) -> javaScriptPredicates
     (Name "TypeScriptParserBase" : _) -> javaScriptPredicates
+    (Name "GoParserBase" : _) -> goPredicates
+    (Name "Python3ParserBase" : _) -> pythonPredicates
     _ -> \_ _ _ _ -> True
 
 -- | CSharpParserBase's predicates. IsRightArrow, IsRightShift, and IsRightShiftAssignment hold when
@@ -62,3 +67,52 @@ javaScriptPredicates predicate toks _ at
       (_, rest) | not (T.null rest) -> Just (T.takeWhile (/= '"') (T.drop (T.length method + 3) rest))
       _ -> Nothing
     textAt i = tokenText <$> toks BV.!? i
+
+-- | The predicates the canonically commented Go grammar adds to GoParserBase; upstream's own, such
+-- as isOperand, still hold. isExported holds when the next token is an identifier with an upper-case
+-- initial, which is what makes a Go name visible outside its package, and a leading ! negates it.
+-- ref:DEC-go-dialect ref:revive-exported
+goPredicates :: PredicateHook
+goPredicates predicate toks _ at
+  | "isExported" `T.isInfixOf` predicate = negated predicate (maybe False (startsWith isUpper . tokenText) (toks BV.!? at))
+  | otherwise = True
+
+-- | The predicates the canonically commented Python grammar adds to Python3ParserBase; upstream's
+-- own still hold. isPublicTopLevel holds when the next token names a definition at the top level
+-- of a module, its def or class keyword in the first column, without a leading underscore, which
+-- is what PEP 8 calls public. isPrivateName holds when the next token starts with an underscore
+-- and is not __init__, which PEP 257 asks to document like a public method. isDocString holds when
+-- the next token is a string that is a statement alone, ended by its line, and neither a bytes nor
+-- an f-string, which Python does not take as a docstring. isOverload holds when the next tokens are
+-- an @overload decorator, bare or qualified, whose stub pydocstyle asks not to document.
+-- ref:DEC-python-dialect ref:pep-257
+pythonPredicates :: PredicateHook
+pythonPredicates predicate toks _ at
+  | "isPublicTopLevel" `T.isInfixOf` predicate = negated predicate (public && topLevel)
+  | "isPrivateName" `T.isInfixOf` predicate = negated predicate (not public && nameText' /= Just "__init__")
+  | "isDocString" `T.isInfixOf` predicate = negated predicate docString
+  | "isOverload" `T.isInfixOf` predicate = negated predicate overload
+  | otherwise = True
+  where
+    overload = case map tokenText (takeWhile ((/= "NEWLINE") . nameText . tokenType) (drop at (BV.toList toks))) of
+      ("@" : dotted) -> not (null dotted) && last dotted == "overload"
+      _ -> False
+    docString = case (toks BV.!? at, toks BV.!? (at + 1)) of
+      (Just string, next) ->
+        nameText (tokenType string) == "STRING"
+          && not (T.any (`elem` ("bBfF" :: String)) (T.takeWhile (`notElem` ("'\"" :: String)) (tokenText string)))
+          && maybe True ((`elem` ["NEWLINE", "EOF"]) . nameText . tokenType) next
+      _ -> False
+    nameText' = tokenText <$> toks BV.!? at
+    public = maybe False (not . T.isPrefixOf "_") nameText'
+    keyword = case (toks BV.!? (at - 2), toks BV.!? (at - 1)) of
+      (Just async', Just def) | tokenText async' == "async", tokenText def == "def" -> Just async'
+      (_, k) -> k
+    topLevel = maybe False ((== 1) . positionColumn . tokenPosition) keyword
+
+-- | A predicate written with a leading ! asks the opposite.
+negated :: Text -> Bool -> Bool
+negated predicate value = if "!" `T.isInfixOf` predicate then not value else value
+
+startsWith :: (Char -> Bool) -> Text -> Bool
+startsWith p t = maybe False (p . fst) (T.uncons t)

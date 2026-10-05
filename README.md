@@ -174,8 +174,8 @@ of a file is.
 Alternative labels without a `why`, such as the Java grammar's own expression
 labels, are inert. `canon` generates the extraction parser from that grammar,
 so nothing about a language's comment placement is written in Haskell. The
-ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, JavaScript, TypeScript,
-Prolog, and the Folio have dialects.
+ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, JavaScript, TypeScript, Go,
+Python, Prolog, and the Folio have dialects.
 
 ### Tests
 
@@ -791,6 +791,30 @@ parses all 16 files with no orphan, and on ky the TypeScript dialect parses
 all 87, binding all 90 TSDoc comments, within the time the plain grammar takes.
 A sample checks through either by naming the dialect's `lexer` and `parser`
 in its profile with no `units`.
+
+Go and Python also have canonically commented dialects. A Go doc comment is an
+ordinary comment directly above a declaration, so the Go dialect's lexer hook,
+`Canon.Antlr4.Lex.Go`, makes a comment a doc comment only when it starts its
+line at the top level of a file, in a grouped `const`, `type`, or `var`, or in
+a `struct` or `interface`, and never in a function body; a comment that a
+blank line or the end of the file parts from what follows is no documentation,
+so a license header or build constraint is neither a Why nor an orphan. Each
+top-level function, method, type, const, and var, each spec of a group, each
+field, and each interface element is a unit, a group is named by its position,
+and the comment above the package clause is the file's Why. An exported name,
+one with an upper-case initial, requires a comment, as revive's `exported`
+rule asks, unless it is a method of an unexported type or a spec of a group
+whose comment documents it; fields and interface methods may have one. The
+sample's plain profile requires a comment on every function, method, and type.
+A Python docstring is a string, so the Python dialect keeps the plain lexer and
+labels the string that opens a module, class, or function body `why`, and
+canon reads its prose and keys from the string's contents; a string elsewhere
+and a `#` comment are no documentation. Decorators are markers. A public name
+at the top level of a module requires a docstring, a class body is
+`inherited`, so the public methods of a public class need one, `__init__`
+included, and a private name, a dunder other than `__init__`, and an
+`@overload` stub need none, as PEP 257 and PEP 8 have it. The sample's plain
+profile requires one on every function and class.
 
 ## Makefiles
 

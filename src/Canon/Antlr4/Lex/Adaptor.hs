@@ -11,6 +11,7 @@ module Canon.Antlr4.Lex.Adaptor
 import Canon.Antlr4.Lex (HookEffect (..), LexerHooks (..), SomeHooks (..), noHooks)
 import Canon.Antlr4.Lex.CSharp (csharpLexerHooks)
 import Canon.Antlr4.Lex.FSharp (fsharpLexerHooks)
+import Canon.Antlr4.Lex.Go (goLexerHooks)
 import Canon.Antlr4.Lex.Haskell (haskellLayoutHooks)
 import Canon.Antlr4.Lex.JavaScript (javaScriptHooks, typeScriptHooks)
 import Canon.Antlr4.Lex.Python (pythonHooks)
@@ -64,7 +65,8 @@ antlrLexerHooks = LexerHooks OutsideRule onAction (\_ _ _ _ _ -> True) onEmit
 
 -- | Selects the hook port named by a grammar's superClass option, so a grammar declares its base
 -- lexer and canon supplies it: ANTLR's own adaptor, Haskell layout, the JavaScript and TypeScript
--- regex and template tracking, and Python indentation. ref:DEC-more-languages
+-- regex and template tracking, Python indentation, and where a Go doc comment may stand.
+-- ref:DEC-more-languages ref:DEC-go-dialect
 hooksForGrammar :: Grammar ann -> SomeHooks
 hooksForGrammar = hooksForGrammarWith Nothing
 
@@ -80,6 +82,7 @@ hooksForGrammarWith choice grammar =
     (Name "JavaScriptLexerBase" : _) -> SomeHooks javaScriptHooks
     (Name "TypeScriptLexerBase" : _) -> SomeHooks typeScriptHooks
     (Name "Python3LexerBase" : _) -> SomeHooks pythonHooks
+    (Name "GoLexerBase" : _) -> SomeHooks goLexerHooks
     _ -> SomeHooks noHooks
 
 -- | Whether the hook port a grammar selects reads #if directives, so a file is read once per build.
