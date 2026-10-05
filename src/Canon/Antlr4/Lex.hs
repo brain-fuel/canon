@@ -320,9 +320,13 @@ matchElements env elements p k = case elements of
 matchElement :: Env -> CompiledElement -> Match
 matchElement env e = case e of
   CompiledAtomElement atom suffix -> withSuffix suffix (matchAtom env atom)
-  CompiledBlock alts suffix -> withSuffix suffix (\p k -> concat [matchElements env a p k | a <- alts])
+  CompiledBlock alts suffix -> withSuffix suffix (\p k -> concatMatches [matchElements env a p k | a <- alts])
   CompiledAction -> \p k -> k p
 
+-- | Applies an EBNF suffix to a match. A greedy loop lists the shorter end first: the caller takes
+-- the longest match, so the order of ends does not matter, and appending the deeper ends last keeps
+-- a loop over n characters linear rather than quadratic, which a 20 KB string literal in a Plug
+-- module made visible. ref:DEC-elixir-grammar
 withSuffix :: Maybe EbnfSuffix -> Match -> Match
 withSuffix suffix m = case suffix of
   Nothing -> m
@@ -333,7 +337,7 @@ withSuffix suffix m = case suffix of
   Just (EbnfSuffix OneOrMore Greedy) -> \p k -> m p (\p' -> if p' == p then k p' else greedyMany p' k)
   Just (EbnfSuffix OneOrMore NonGreedy) -> \p k -> m p (\p' -> if p' == p then k p' else lazyMany p' k)
   where
-    greedyMany p k = m p (\p' -> if p' == p then [] else greedyMany p' k) ++ k p
+    greedyMany p k = k p ++ m p (\p' -> if p' == p then [] else greedyMany p' k)
     lazyMany p k = firstNonEmpty (k p) (m p (\p' -> if p' == p then [] else lazyMany p' k))
     firstNonEmpty xs ys = case xs of
       [] -> ys
@@ -369,7 +373,17 @@ matchAtom env atom p k = case atom of
       _ -> []
 
 matchRuleReference :: Env -> Int -> Match
-matchRuleReference env i p k = concat [matchElements env (compiledElements alt) p k | alt <- compiledAlternatives (envRules env BV.! i)]
+matchRuleReference env i p k = concatMatches [matchElements env (compiledElements alt) p k | alt <- compiledAlternatives (envRules env BV.! i)]
+
+-- | The ends of several alternatives, with the last that matched returned as it is rather than
+-- copied, so a loop whose body is a block of alternatives stays linear in its length. A 20 KB string
+-- literal in an Elixir module took seconds to lex while each iteration copied the ends of the
+-- iterations after it. ref:DEC-elixir-grammar
+concatMatches :: [[Int]] -> [Int]
+concatMatches xss = case filter (not . null) xss of
+  [] -> []
+  [xs] -> xs
+  (xs : rest) -> xs ++ concatMatches rest
 
 matchesText :: Env -> V.Vector Char -> Int -> Bool
 matchesText env text p =

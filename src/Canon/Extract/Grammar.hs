@@ -25,7 +25,7 @@ import Canon.Antlr4.Syntax (Alternative (..), Block (..), EbnfSuffix (..), Eleme
 import Canon.Antlr4.Token (Token (..), isEofToken)
 import Canon.Attach (attachPreceding, firstContentLine, topOfFileComment)
 import Canon.CanonicalComment (docCommentBody, parseCanonicalComment, toWhy)
-import Canon.CommentScan (docOpenerOf, scanCommentsWith)
+import Canon.CommentScan (docAttributeBody, docOpenerOf, scanCommentsWith)
 import Canon.Config (Config (..))
 import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider
@@ -46,6 +46,7 @@ import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
+import qualified Data.Vector as BV
 import qualified Data.Vector.Unboxed as V
 import System.FilePath (splitDirectories)
 
@@ -168,7 +169,9 @@ exportRequires exports parent name = case exports of
 -- names is required when its node holds an element the grammar labels required, as the C# grammar
 -- labels public and protected, or when its rule says so and its node holds no element labeled
 -- optional, as the F# grammar labels private and internal. ref:DEC-csharp-grammar
--- ref:DEC-fsharp-grammar
+-- ref:DEC-fsharp-grammar Adjacent clauses of a unit rule that merges them are one unit, unless a
+-- doc comment ends on the line above a later clause, which then starts a unit of its own, as the
+-- @doc of another Elixir arity does. ref:DEC-elixir-grammar
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
 unitsFromTree language profile plans exportsDeclared idPath path source tree =
   case [i | i@(_ : _ : _) <- group (sort (map unitId (allUnits root)))] of
@@ -180,7 +183,25 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
     table = lineTable source
     fileSegments = [T.pack d | d <- splitDirectories idPath, d /= "."]
     fileId = UnitId (language :| fileSegments)
-    rulesByName = Map.fromList [(unitRuleName r, r) | r <- profileUnits profile]
+    rulesByName = Map.fromListWith (flip (++)) [(unitRuleName r, [r]) | r <- profileUnits profile]
+    syntax = profileComments profile
+    docEndLines =
+      Set.fromList
+        [ positionLine (spanEnd (locatedSpan c))
+        | c <- scanCommentsWith syntax source
+        , let opener = docOpenerOf syntax (commentText (locatedValue c))
+        , not (maybe False (`elem` commentInnerDoc syntax) opener)
+        , null (commentOuterDoc syntax) || maybe False (`elem` commentOuterDoc syntax) opener
+        ]
+    mergeClauses candidates = case candidates of
+      (a : b : rest)
+        | Just key <- candidateMerge a
+        , candidateMerge b == Just key
+        , candidateName a == candidateName b
+        , not (Set.member (positionLine (spanStart (treeSpan (candidateNode b))) - 1) docEndLines) ->
+            mergeClauses (a {candidateClauses = candidateClauses a ++ candidateNode b : candidateClauses b} : rest)
+      (a : rest) -> a : mergeClauses rest
+      [] -> []
     (children, decisions) = collect fileId [] tree
     exportEntries = if exportsDeclared then Just (map (parseExportEntry . tokensText) (exportedIn tree)) else Nothing
     exportedIn node = case node of
@@ -221,7 +242,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
         }
     collect parent chain node = collectAll parent chain [node]
     collectAll parent chain nodes =
-      let built = map (build parent chain) (uniqueNames (concatMap found nodes))
+      let built = map (build parent chain) (uniqueNames (mergeClauses (concatMap found nodes)))
        in (map fst built, concatMap snd built)
     exported chain name = case fileExports of
       Nothing -> False
@@ -237,10 +258,10 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       TokenNode _ -> []
       Labeled _ inner -> found inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just unitName <- labeledText "what" node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node]
-        _ -> case Map.lookup name rulesByName of
-          Just rule | accepts rule node, Just unitName <- nameOf rule node -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule && not (isJust (labeledSubtree "optional" node))) || isJust (labeledSubtree "required" node) then Required else Optional) Nothing Nothing node]
-          _ -> concatMap found nodeChildren
+        Just plan | Just unitName <- labeledText "what" node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
+        _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
+          ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule && not (isJust (labeledSubtree "optional" node))) || isJust (labeledSubtree "required" node) then Required else Optional) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
+          [] -> concatMap found nodeChildren
     planFor name alternative = Map.lookup name plans >>= \alts -> listToMaybe (drop alternative alts) >>= id
     isUnitNode node = case node of
       RuleNode name alternative _ -> isJust (planFor name alternative) || Map.member name rulesByName
@@ -266,10 +287,11 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
     build parent chain (c, segment) =
       let uid = UnitId (NonEmpty.fromList (NonEmpty.toList (unitIdSegments parent) ++ [candidateKind c, segment]))
           node = candidateNode c
-          sp = treeSpan node
+          clauses = node : candidateClauses c
+          sp = Span (spanStart (treeSpan node)) (spanEnd (treeSpan (last clauses)))
           howSpan = maybe sp treeSpan (candidateHow c)
-          (nested, nestedDecisions) = collectAll uid (chain ++ [candidateName c]) (childrenOf node)
-          markers = [T.concat (T.words (tokensText m)) | m <- labeledSubtrees "marker" node]
+          (nested, nestedDecisions) = collectAll uid (chain ++ [candidateName c]) (concatMap childrenOf clauses)
+          markers = [T.concat (T.words (tokensText m)) | clause <- clauses, m <- labeledSubtrees "marker" clause]
           test = isTestUnit language (candidateKind c) (candidateName c) idPath markers
           required = test || candidateRequirement c == Required || exported chain (candidateName c)
           own = case candidateWhy c of
@@ -341,6 +363,8 @@ data Candidate = Candidate
   , candidateWhy :: Maybe ParseTree
   , candidateHow :: Maybe ParseTree
   , candidateNode :: ParseTree
+  , candidateMerge :: Maybe Text
+  , candidateClauses :: [ParseTree]
   }
 
 offsetFromPosition :: Text -> Position -> Int
@@ -351,13 +375,17 @@ offsetFromPosition source (Position line column) =
 -- | Binds comments to units. A doc comment with an inner opener belongs to the innermost unit that
 -- encloses it, or to the file, and the file's first one is the file's comment ahead of a comment on
 -- the first line; every other comment binds to the unit directly below it. Where the syntax names
--- outer openers, a plain comment binds to nothing and is no orphan, since it is not documentation.
--- A unit is taken to start above the directive lines, and where outer openers are named the plain
--- comment lines, directly over it, so a C# #if or an F# note between a doc comment and its member
--- does not part them, as neither compiler lets it. Where the syntax names directives, a comment in
--- a branch of an #if that canon does not read binds to nothing and is no orphan, because the code it
--- documents is not read either, and the lines of such a branch part nothing.
--- ref:DEC-rust-grammar ref:DEC-comment-attachment ref:DEC-csharp-grammar ref:DEC-fsharp-grammar
+-- outer openers, a plain comment binds to nothing and is no orphan, since it is not documentation,
+-- and an outer doc comment on the first line documents the item below it rather than the file, as
+-- Gleam's /// above a module's first function does. A unit is taken to start above the lines
+-- directly over it that hold nothing a reader of the documentation sees: directive lines, lines of
+-- an #if branch that canon does not read, and, where outer openers are named, lines held by a plain
+-- comment that starts its line. So a C# #if, an F# note, or a # line between an Elixir @doc and the
+-- @spec below it does not part a doc comment from its unit, as no compiler lets it. Where the
+-- syntax names directives, a comment in a branch canon does not read binds to nothing and is no
+-- orphan, because the code it documents is not read either. ref:DEC-rust-grammar
+-- ref:DEC-comment-attachment ref:DEC-csharp-grammar ref:DEC-fsharp-grammar ref:DEC-gleam-grammar
+-- ref:DEC-elixir-grammar
 extractDecisionsFor :: CommentSyntax -> FilePath -> Text -> CodeUnit Evidence -> Set.Set DecisionId -> [Located Comment] -> ([Decision Evidence], [Located Comment])
 extractDecisionsFor syntax path source root decided scanned = (map toDecision (fileInner ++ maybe [] (\c -> [(c, rootTarget)]) header ++ pairs ++ nestedInner), orphans ++ innerOrphans)
   where
@@ -377,17 +405,26 @@ extractDecisionsFor syntax path source root decided scanned = (map toDecision (f
       Just ((first, t) : more) | not rootDecided -> ([(first, t)], map fst more)
       Just found -> ([], map fst found)
       Nothing -> ([], [])
+    outerProper c = not (null (commentOuterDoc syntax)) && maybe False (`elem` commentOuterDoc syntax) (docOpenerOf syntax (commentText (locatedValue c)))
     (header, rest)
       | rootDecided || not (null fileInner) = (Nothing, plain)
-      | otherwise = topOfFileComment (firstContentLine source) plain
+      | otherwise =
+          let (found, others) = topOfFileComment (firstContentLine source) (filter (not . outerProper) plain)
+           in (found, others ++ filter outerProper plain)
     targets = [overTransparent t | t <- nested, not (Set.member (decisionIdFor (unitId (locatedValue t))) decided)]
-    transparentLines = Set.fromList [n | (n, line) <- zip [1 :: Int ..] (T.lines source), Set.member n unread || transparent (T.stripStart line)]
-    transparent line =
-      any (`T.isPrefixOf` line) (commentDirectives syntax)
-        || ( not (null (commentOuterDoc syntax))
-               && maybe False (`T.isPrefixOf` line) (commentLine syntax)
-               && docOpenerOf syntax line == Nothing
-           )
+    sourceLines = BV.fromList (T.lines source)
+    startsItsLine (Position line column) = maybe False (T.null . T.strip . T.take (column - 1)) (sourceLines BV.!? (line - 1))
+    plainCommentLines =
+      Set.fromList
+        [ l
+        | not (null (commentOuterDoc syntax))
+        , c <- rest
+        , not (outerProper c)
+        , startsItsLine (spanStart (locatedSpan c))
+        , l <- [positionLine (spanStart (locatedSpan c)) .. positionLine (spanEnd (locatedSpan c))]
+        ]
+    directiveLines = Set.fromList [n | not (null (commentDirectives syntax)), (n, line) <- zip [1 :: Int ..] (T.lines source), any (`T.isPrefixOf` T.stripStart line) (commentDirectives syntax)]
+    transparentLines = Set.unions [unread, directiveLines, plainCommentLines]
     overTransparent t =
       let Span start end = locatedSpan t
           firstLine = until (\l -> not (Set.member (l - 1) transparentLines)) (subtract 1) (positionLine start)
@@ -412,14 +449,19 @@ extractDecisionsFor syntax path source root decided scanned = (map toDecision (f
        in Decision
             { decisionId = decisionIdFor (unitId u)
             , decisionUnits = unitId u :| []
-            , decisionWhy = Answer (toWhy (parseCanonicalComment (commentBody (locatedValue comment)))) (Asserted (Assertion path sp))
+            , decisionWhy = Answer (toWhy (parseCanonicalComment (commentBody syntax (locatedValue comment)))) (Asserted (Assertion path sp))
             , decisionWhere = Where path sp (whereChain (answerValue (unitWhere u))) Nothing
             , decisionVetting = Nothing
             }
 
-commentBody :: Comment -> Text
-commentBody c = T.strip (T.unlines (map stripMarker (T.lines (commentText c))))
+-- | The prose of a comment: a doc attribute's string contents, or the comment's lines without their
+-- markers. ref:DEC-elixir-grammar
+commentBody :: CommentSyntax -> Comment -> Text
+commentBody syntax c
+  | isDocAttribute = docAttributeBody syntax (commentText c)
+  | otherwise = T.strip (T.unlines (map stripMarker (T.lines (commentText c))))
   where
+    isDocAttribute = any (`T.isPrefixOf` T.stripStart (commentText c)) (commentDocAttributes syntax)
     stripMarker line =
       let trimmed = T.stripStart line
        in T.strip (T.dropWhile (\ch -> not (isAlphaNum ch) && ch /= '(' && ch /= '[' && ch /= '\'' && ch /= '"' && ch /= '`' && ch /= '<') trimmed)

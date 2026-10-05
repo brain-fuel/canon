@@ -26,12 +26,14 @@ data TestRule = TestRule
 
 -- | The languages the table covers.
 knownLanguages :: [Text]
-knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp"]
+knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam"]
 
 -- | The rules of a language. Rust's, C#'s, and F#'s rules are attributes, which their grammars label
 -- marker on every item. An F# test list bound with Expecto's [<Tests>] is the test, because the
 -- testCase and testProperty inside it are expressions, not declarations. ref:DEC-rust-grammar
--- ref:DEC-csharp-grammar ref:DEC-fsharp-grammar
+-- ref:DEC-csharp-grammar ref:DEC-fsharp-grammar Elixir's tests are the units its profile makes of
+-- ExUnit's test calls, and Gleam's are gleeunit's functions named for it. ref:DEC-elixir-grammar
+-- ref:DEC-gleam-grammar
 testRules :: Text -> [TestRule]
 testRules language = case language of
   "java" ->
@@ -46,6 +48,8 @@ testRules language = case language of
   "fsharp" ->
     [TestRule (Just kind) (Just marker) Nothing Nothing | kind <- ["function", "member"], marker <- fsharpMarkers]
       ++ [TestRule (Just kind) (Just marker) Nothing Nothing | kind <- ["function", "value"], marker <- ["Tests", "Expecto.Tests"]]
+  "elixir" -> [TestRule (Just "test") Nothing Nothing Nothing]
+  "gleam" -> [TestRule (Just "function") Nothing (Just "*_test") Nothing]
   _ -> []
   where
     javaMarkers =

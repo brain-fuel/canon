@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Should a test module such as Jason.FormatterTest be public API in canon's sense, given that the Elixir profile requires a @moduledoc on every module while Elixir's convention leaves test modules undocumented, and that each ExUnit test needs a @doc citing a requirement that Jason's suite does not have?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [jason-upstream]

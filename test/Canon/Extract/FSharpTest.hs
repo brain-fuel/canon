@@ -220,7 +220,8 @@ prop_fsharpProfileBindsDocCommentsExemptsPrivateDeclarationsAndRecognisesTests =
         , ("function", "``uncommented property``")
         , ("value", "tests")
         ]
-  whyOf "Shapes.fs" === ["The drawing module draws shapes. ref:some-key"]
+  whyOf "Shapes.fs" === []
+  whyOf "Shapes.Drawing" === ["The drawing module draws shapes. ref:some-key"]
   whyOf "helper" === []
   whyOf "area" === ["Areas are what shapes are for."]
   whyOf "scale" === ["Private helpers need no comment, but may have one."]

@@ -1,0 +1,88 @@
+version: 0.1.0
+root: source
+languages:
+  elixir:
+    extensions: [.ex, .exs]
+    lexer: ../../grammars/elixir/ElixirLexer.g4
+    parser: ../../grammars/elixir/ElixirParser.g4
+    start: file
+    comments:
+      line: "#"
+      outerDoc: ["@doc", "@typedoc"]
+      innerDoc: ["@moduledoc"]
+      docAttributes: ["@moduledoc", "@doc", "@typedoc"]
+      strings: ["\"\"\"", "'''", "\"", "'"]
+    units:
+      - rule: moduleDefinition
+        kind: module
+        name: {rule: moduleName}
+        required: true
+      - rule: protocolDefinition
+        kind: protocol
+        name: {rule: moduleName}
+        required: true
+      - rule: implementationDefinition
+        kind: impl
+        name: {rule: moduleName}
+        required: false
+      - rule: publicFunction
+        kind: function
+        name: {rule: definitionName}
+        required: true
+        mergeClauses: true
+      - rule: privateFunction
+        kind: function
+        name: {rule: definitionName}
+        required: false
+        mergeClauses: true
+      - rule: publicMacro
+        kind: macro
+        name: {rule: definitionName}
+        required: true
+        mergeClauses: true
+      - rule: privateMacro
+        kind: macro
+        name: {rule: definitionName}
+        required: false
+        mergeClauses: true
+      - rule: publicGuard
+        kind: guard
+        name: {rule: definitionName}
+        required: true
+        mergeClauses: true
+      - rule: privateGuard
+        kind: guard
+        name: {rule: definitionName}
+        required: false
+        mergeClauses: true
+      - rule: delegateDefinition
+        kind: function
+        name: {rule: definitionName}
+        required: true
+        mergeClauses: true
+      - rule: callbackDefinition
+        kind: callback
+        name: {rule: definitionName}
+        required: true
+        mergeClauses: true
+      - rule: typeDefinition
+        kind: type
+        name: {rule: definitionName}
+        required: false
+      - rule: structDefinition
+        kind: struct
+        name: {token: DEFSTRUCT}
+        required: false
+      - rule: exceptionDefinition
+        kind: exception
+        name: {token: DEFEXCEPTION}
+        required: false
+      - rule: namedBlock
+        kind: test
+        name: {rule: blockName}
+        firstToken: {token: TEST_MACRO, oneOf: [test, property]}
+      - rule: namedBlock
+        kind: describe
+        name: {rule: blockName}
+        required: false
+        firstToken: {token: TEST_MACRO, oneOf: [describe]}

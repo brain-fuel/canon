@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Should the stdlib's gleeunit tests each carry a /// comment citing a requirement, as canon asks of every test, given that the stdlib documents its public API with /// but none of its tests?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [gleam-stdlib-upstream]
