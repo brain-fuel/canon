@@ -1,0 +1,6 @@
+"decision/pulumi/source/aws-yaml-static-website/Pulumi.yaml/templateConfig/aws-native:region":
+  digest: sha256:58fded8d48ddb887
+  verdict: pending
+"decision/pulumi/source/aws-yaml-static-website/Pulumi.yaml/templateConfig/aws:region":
+  digest: sha256:03eaca1a9cd0da42
+  verdict: pending

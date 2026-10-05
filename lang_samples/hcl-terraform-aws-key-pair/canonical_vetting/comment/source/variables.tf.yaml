@@ -1,0 +1,30 @@
+decision/hcl/source/variables.tf/variable/create:
+  digest: sha256:3b5113341f539b8b
+  verdict: pending
+decision/hcl/source/variables.tf/variable/create_private_key:
+  digest: sha256:12bbb08f105fa854
+  verdict: pending
+decision/hcl/source/variables.tf/variable/key_name:
+  digest: sha256:3d0de7d9c02a18da
+  verdict: pending
+decision/hcl/source/variables.tf/variable/key_name_prefix:
+  digest: sha256:5d6411a78474184a
+  verdict: pending
+decision/hcl/source/variables.tf/variable/private_key_algorithm:
+  digest: sha256:41b9f533bfe56823
+  verdict: pending
+decision/hcl/source/variables.tf/variable/private_key_ecdsa_curve:
+  digest: sha256:f1e57db5674acb9d
+  verdict: pending
+decision/hcl/source/variables.tf/variable/private_key_rsa_bits:
+  digest: sha256:4de3f0ab210b9308
+  verdict: pending
+decision/hcl/source/variables.tf/variable/public_key:
+  digest: sha256:72dc5bd3cca44442
+  verdict: pending
+decision/hcl/source/variables.tf/variable/region:
+  digest: sha256:3122bc01e25a8abb
+  verdict: pending
+decision/hcl/source/variables.tf/variable/tags:
+  digest: sha256:d1fe354a9fce4b45
+  verdict: pending

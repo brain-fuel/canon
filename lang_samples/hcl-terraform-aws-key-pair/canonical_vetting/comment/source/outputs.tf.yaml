@@ -1,0 +1,33 @@
+decision/hcl/source/outputs.tf/output/key_pair_arn:
+  digest: sha256:50edad782f92094b
+  verdict: pending
+decision/hcl/source/outputs.tf/output/key_pair_fingerprint:
+  digest: sha256:cdc28d422e636cbd
+  verdict: pending
+decision/hcl/source/outputs.tf/output/key_pair_id:
+  digest: sha256:58a4c005dee30f6d
+  verdict: pending
+decision/hcl/source/outputs.tf/output/key_pair_name:
+  digest: sha256:05a666e938a846b9
+  verdict: pending
+decision/hcl/source/outputs.tf/output/private_key_id:
+  digest: sha256:71fbf191f0784721
+  verdict: pending
+decision/hcl/source/outputs.tf/output/private_key_openssh:
+  digest: sha256:40343c4ce0bd78d2
+  verdict: pending
+decision/hcl/source/outputs.tf/output/private_key_pem:
+  digest: sha256:606d651fd6d5d762
+  verdict: pending
+decision/hcl/source/outputs.tf/output/public_key_fingerprint_md5:
+  digest: sha256:052f71545044213f
+  verdict: pending
+decision/hcl/source/outputs.tf/output/public_key_fingerprint_sha256:
+  digest: sha256:0a2e3707115d42ae
+  verdict: pending
+decision/hcl/source/outputs.tf/output/public_key_openssh:
+  digest: sha256:67a6203b92038366
+  verdict: pending
+decision/hcl/source/outputs.tf/output/public_key_pem:
+  digest: sha256:95aaa31ddf8f2656
+  verdict: pending

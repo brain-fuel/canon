@@ -1,0 +1,6 @@
+decision/hcl/source/wrappers/variables.tf/variable/defaults:
+  digest: sha256:8837dde50f45d84f
+  verdict: pending
+decision/hcl/source/wrappers/variables.tf/variable/items:
+  digest: sha256:dfbd4ae15b6cbc93
+  verdict: pending

@@ -1,0 +1,6 @@
+registry/Apache-2.0:
+  digest: sha256:f42cc8899f7d45b9
+  verdict: pending
+registry/terraform-aws-key-pair-upstream:
+  digest: sha256:8ba67c85ea265da7
+  verdict: pending

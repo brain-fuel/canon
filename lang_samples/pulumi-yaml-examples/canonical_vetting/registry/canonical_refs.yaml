@@ -1,0 +1,6 @@
+registry/Apache-2.0:
+  digest: sha256:f42cc8899f7d45b9
+  verdict: pending
+registry/pulumi-examples-upstream:
+  digest: sha256:686a62889f5b5e1f
+  verdict: pending
