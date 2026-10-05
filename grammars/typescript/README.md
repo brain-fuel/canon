@@ -73,8 +73,8 @@ changed as follows, each change marked `// canon:`:
 - A doc comment above a local binding, after the last statement or member of
   a body or file, after `import`, after `export default`, before `[` in an
   array or indexed type, before a case, before a mapped type's member, or
-  before a property of an object literal that `propertyAhead` sees, as in the
-  JavaScript dialect, is an `orphan` the grammar reads. Anywhere else the
+  before a property or a method of an object literal that `propertyAhead` or
+  `methodAhead` sees, as in the JavaScript dialect, is an `orphan` the grammar reads. Anywhere else the
   grammar does not take one, as above another statement, inside an
   expression, before an argument or a parameter, or inside a type, the
   parser's `strayComment` option reads the file without it and reports it as
@@ -101,43 +101,85 @@ Known limitations:
   inside a token or where the code itself no longer parses, as an indexed
   type `T[K]` with a line break before `[`.
 
+## JSX, .tsx, and Flow
+
+TypeScript reads JSX in a `.tsx` file and not in a `.ts` file, where `<T>x` is a
+type assertion, and tells the two by the file's extension; a lexer cannot see
+the extension, so `TypeScriptJsxLexer.g4`, beside `TypeScriptLexer.g4` in both
+the plain grammar's directory and the dialect's, imports its rules under the
+base class `TypeScriptJsxLexerBase`, whose hook reads JSX, and a profile names
+that lexer for `.tsx` files under a language of its own, `tsx`, whose units are
+tests by where they live as TypeScript's are. Both lexers share the parser.
+This is recorded as `DEC-javascript-jsx`, and JSX itself is read as the
+JavaScript grammar reads it, described in `grammars/javascript/README.md`. In a
+`.tsx` file:
+
+- A `<` before a type parameter list, `<T,>`, `<T extends U>`, `<T = U>`, or
+  `<const T,>`, is no tag, and nor is a `<` before `Name>(` after a colon or an
+  arrow or on the right of a type alias, which opens a generic function type, as
+  TypeScript reads both; the lexer matches the list's opening as one token,
+  `JsxTypeParameters` or `JsxFunctionTypeParameters`, and the hook splits it
+  into the tokens TypeScript's scanner reads.
+- A tag's type arguments, as `<Select<number> />`, are read in the default mode
+  between `JsxTypeArgumentsOpen` and `JsxTypeArgumentsClose`, the `>` at their
+  depth, which the hook counts.
+
+Flow is not TypeScript, but its types are close enough that the `.tsx` pair
+reads them, and a Flow project's profile names it for its `.js` files: the
+parser adds Flow's maybe types `?T`, exact objects `{| |}`, spread and inexact
+object types, variance `+x` and `-x` on properties, members, and type
+parameters, bounded type parameters `<T: U>`, unnamed and unparenthesised
+function type parameters, `T => U`, the existential type `*`, empty type
+arguments `T<>`, casts `(x: T)`, `opaque type` and `declare opaque type` with a
+supertype, `import typeof`, `component(...)` types, inline interface types,
+`implies` predicates, and optional parameters with defaults. Each change is
+marked `// canon:`. A line break ends a class property and an overload
+signature, as in a file written without semicolons.
+
 ## Corpus
 
 `tools/corpus/typescript.sh` checks the grammar against the TypeScript
-compiler and four of the most used TypeScript code bases. It shallow-clones
-each repository below at the pinned commit into `/tmp/corpus/typescript`, or
-the directory given as its first argument, parses every `.ts`, `.mts`, and
-`.cts` file with the plain grammar under a timeout of 300 seconds per file,
+compiler, four of the most used TypeScript code bases, and three written with
+JSX. It shallow-clones each repository below at the pinned commit into
+`/tmp/corpus/typescript`, or the directory given as its first argument, parses
+every `.ts`, `.mts`, `.cts`, and `.tsx` file with the plain grammar, a `.tsx`
+file through `TypeScriptJsxLexer.g4`, under a timeout of 300 seconds per file,
 and then parses every file the plain grammar parsed with the dialect, which
 must parse them all. Large repositories are sampled by subdirectory with a
 sparse checkout. A file that fails is a deliberate exclusion only when the
 TypeScript compiler's own parser rejects it, a `TS1xxx` error from `tsc`;
-none does. The script and its JavaScript twin share `tools/corpus/jsts-common.sh`.
+none does. The script runs in a process group of its own, through
+`tools/corpus/process-group.sh`, and shares `tools/corpus/jsts-common.sh` with
+its JavaScript twin.
 
-| Repository | Commit | Sampled | Files | Parsed | Excluded | Seconds |
-|------------|--------|---------|------:|-------:|---------:|--------:|
-| [microsoft/TypeScript](https://github.com/microsoft/TypeScript) | `050880ce59e3` (v6.0.3) | `/src/` | 709 | 709 | 0 | 851.9 |
-| [microsoft/vscode](https://github.com/microsoft/vscode) | `729f257fa411` | `/src/vs/base/common/`, `/src/vs/editor/common/` | 383 | 383 | 0 | 280.3 |
-| [angular/angular](https://github.com/angular/angular) | `7d96a37af4f7` | `/packages/core/src/`, `/packages/common/src/`, `/packages/router/src/` | 525 | 525 | 0 | 205.2 |
-| [nestjs/nest](https://github.com/nestjs/nest) | `35142c3eca8e` | `/packages/` | 975 | 975 | 0 | 316.1 |
-| [denoland/std](https://github.com/denoland/std) | `f834d0223364` | all | 1179 | 1179 | 0 | 502.9 |
-| Total | | | 3771 | 3771 | 0 | 2156.4 |
+| Repository | Commit | Sampled | Kind | Files | Parsed | Excluded | Seconds |
+|------------|--------|---------|------|------:|-------:|---------:|--------:|
+| [microsoft/TypeScript](https://github.com/microsoft/TypeScript) | `050880ce59e3` (v6.0.3) | `/src/` | TS | 709 | 709 | 0 | 251.2 |
+| [microsoft/vscode](https://github.com/microsoft/vscode) | `729f257fa411` | `/src/vs/base/common/`, `/src/vs/editor/common/` | TS | 383 | 383 | 0 | 80.6 |
+| [angular/angular](https://github.com/angular/angular) | `7d96a37af4f7` | `/packages/core/src/`, `/packages/common/src/`, `/packages/router/src/` | TS | 525 | 525 | 0 | 68.4 |
+| [nestjs/nest](https://github.com/nestjs/nest) | `35142c3eca8e` | `/packages/` | TS | 975 | 975 | 0 | 127.3 |
+| [denoland/std](https://github.com/denoland/std) | `f834d0223364` | all | TS | 1179 | 1179 | 0 | 173.3 |
+| [shadcn-ui/ui](https://github.com/shadcn-ui/ui) | `0e3abd65a977` | `/apps/` | TSX | 3246 | 3246 | 0 | 353.1 |
+| | | | TS | 172 | 172 | 0 | 23.7 |
+| [vercel/next.js](https://github.com/vercel/next.js) | `263f6820b21d` | `/packages/next/src/client/` | TSX | 47 | 47 | 0 | 6.0 |
+| | | | TS | 161 | 161 | 0 | 18.4 |
+| [mui/material-ui](https://github.com/mui/material-ui) | `daaa525c3af0` | `/packages/mui-material/src/` | TSX | 130 | 130 | 0 | 14.0 |
+| | | | TS | 615 | 615 | 0 | 57.6 |
+| Total | | | | 8142 | 8142 | 0 | 1173.5 |
 
-Every one of the 3,771 files, 38 MB and 1.0 million lines, 112 of them
-declaration files, parses with the plain grammar and with the dialect. The
-TypeScript repository's default branch now holds the compiler's Go port, so
-the corpus pins the last release written in TypeScript, 6.0.3; its
-`tests/cases`, which hold invalid code on purpose, are not sampled. The
-sampled directories hold no `.tsx` file, and the grammar does not read JSX, so
-`.tsx` is neither in the profile's extensions nor in the corpus. The seconds
+Every one of the 8,142 files, 3,423 of them `.tsx` and 4,719 `.ts`, about 55
+MB and 1.5 million lines, parses with the plain grammar and with the dialect.
+The TypeScript repository's default branch now holds the compiler's Go port,
+so the corpus pins the last release written in TypeScript, 6.0.3; its
+`tests/cases`, which hold invalid code on purpose, are not sampled. The seconds
 are the sum of each file's wall time, the `canon` process included, with 10
-files parsed at once on a machine whose load average stood between 40 and
-100. A file takes 0.28 seconds at the median, 1.0 at the 90th percentile, 4.3
-at the 99th, and at most 111, `src/compiler/checker.ts`, 3.1 MB and 53,000
-lines, which takes 24 seconds on a lightly loaded machine; through the dialect
-it takes 55 seconds there, since its doc comments inside function bodies are
-stray comments read again without them. Files that failed before the fixes
-below failed within a few seconds, except those that the identifier fix
+files parsed at once. A file takes 0.09 seconds at the median, 0.20 at the
+90th percentile, 0.86 at the 99th, and at most 23, `src/compiler/checker.ts`,
+3.1 MB and 53,000 lines; through the dialect it takes 68 seconds, since its doc
+comments inside function bodies are stray comments read again without them.
+The slowest `.tsx` file is shadcn-ui's generated registry index,
+`apps/v4/registry/__index__.tsx`, at 9.4 seconds. Files that failed before the
+fixes below failed within a few seconds, except those that the identifier fix
 below made fast.
 
 The corpus found these gaps, now fixed in the plain grammar and the dialect:
@@ -166,6 +208,8 @@ The corpus found these gaps, now fixed in the plain grammar and the dialect:
 - In the lexer hook, a template literal inside a block inside a template
   expression, whose closing brace the TypeScript form of the hook took for the
   end of the outer expression.
+- A class property and an overload signature that a line break ends, as
+  Next.js, written without semicolons, writes them.
 
 To rerun it, from the repository root:
 

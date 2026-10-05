@@ -64,7 +64,8 @@ csharpPredicates predicate toks from at
 -- holds when the next token is a closing brace, and notOpenBraceAndNotFunction, with its
 -- TypeScript form that adds interface, when the next token opens no block, function, or interface.
 -- propertyAhead, which only the dialects ask, holds when a name and a colon follow, as a property of
--- an object literal starts, so a doc comment before one is read as an orphan there and not taken by
+-- an object literal starts, and methodAhead when a name, a parenthesised list, and a brace or a
+-- colon follow, as a method of an object literal starts, so a doc comment before one is read as an orphan there and not taken by
 -- a path that reads the braces as a block. A doc comment is not code, so these look past it to the
 -- code on either side. ref:DEC-javascript-dialect ref:DEC-stray-comments
 javaScriptPredicates :: PredicateHook
@@ -77,6 +78,7 @@ javaScriptPredicates predicate toks _ at
   | "notOpenBraceAndNotFunctionAndNotInterface" `T.isInfixOf` predicate = codeText `notElem` map Just ["{", "function", "interface"]
   | "notOpenBraceAndNotFunction" `T.isInfixOf` predicate = codeText `notElem` map Just ["{", "function"]
   | "propertyAhead" `T.isInfixOf` predicate = propertyAhead
+  | "methodAhead" `T.isInfixOf` predicate = methodAhead
   | otherwise = True
   where
     argumentOf method = case T.breakOn ("." <> method <> "(\"") predicate of
@@ -91,6 +93,16 @@ javaScriptPredicates predicate toks _ at
       (Just before, Just after) -> endLine before < positionLine (tokenPosition after)
       _ -> False
     endLine t = positionLine (tokenPosition t) + T.count "\n" (tokenText t)
+    methodAhead = case (toks BV.!? code, textAt (code + 1)) of
+      (Just name, Just "(") | maybe False (\(c, _) -> isAlphaNum c || c `elem` ("_$" :: String)) (T.uncons (tokenText name)) ->
+        textAt (closing (code + 2) (1 :: Int)) `elem` [Just "{", Just ":"]
+      _ -> False
+    closing i depth = case textAt i of
+      Nothing -> i
+      Just t
+        | t `elem` ["(", "[", "{"] -> closing (i + 1) (depth + 1)
+        | t `elem` [")", "]", "}"] -> if depth == 1 then i + 1 else closing (i + 1) (depth - 1)
+        | otherwise -> closing (i + 1) depth
     propertyAhead = case (toks BV.!? code, toks BV.!? (code + 1)) of
       (Just name, Just colon) -> tokenText colon == ":" && maybe False (\(c, _) -> isAlphaNum c || c `elem` ("_$'\"" :: String)) (T.uncons (tokenText name))
       _ -> False

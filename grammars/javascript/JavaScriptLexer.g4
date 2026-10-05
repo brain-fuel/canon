@@ -57,6 +57,9 @@ CloseBracket               : ']';
 OpenParen                  : '(';
 CloseParen                 : ')';
 OpenBrace                  : '{' {this.ProcessOpenBrace();};
+// canon: the brace that closes a JSX expression container, as {x} in <a href={x}>, which returns to
+// the JSX mode the container opened from; the hook tracks the containers as it tracks templates.
+JsxExpressionClose         : {this.IsJsxExpressionClose()}? '}' {this.ProcessJsxCloseBrace();} -> popMode;
 TemplateCloseBrace         :     {this.IsInTemplateString()}? '}' // Break lines here to ensure proper transformation by Go/transformGrammar.py
                                                                   {this.ProcessTemplateCloseBrace();} -> popMode;
 CloseBrace                 : '}' {this.ProcessCloseBrace();};
@@ -83,6 +86,10 @@ Hashtag                    : '#';
 RightShiftArithmetic       : '>>';
 LeftShiftArithmetic        : '<<';
 RightShiftLogical          : '>>>';
+// canon: a < where an expression may start opens a JSX tag when the lexer reads JSX, as JavaScript's
+// always does and TypeScript's does in a .tsx file; the hook decides from the token before it, as
+// TypeScript's scanner does, so a < after an operand is still less-than.
+JsxTagOpen                 : {this.IsJsxPossible()}? '<' -> pushMode(JSX_TAG);
 LessThan                   : '<';
 MoreThan                   : '>';
 LessThanEquals             : '<=';
@@ -221,6 +228,41 @@ HtmlComment         : '<!--' .*? '-->'      -> channel(HIDDEN);
 CDataComment        : '<![CDATA[' .*? ']]>' -> channel(HIDDEN);
 UnexpectedCharacter : .                     -> channel(ERROR);
 
+// canon: a JSX tag: its name, namespaced as a:b or a member as A.B, its attributes, strings
+// without escapes, expression containers, and comments; > opens its children and /> ends it.
+mode JSX_TAG;
+
+JsxTagClose                : '>' -> mode(JSX_CHILDREN);
+JsxAttributeElementOpen    : {this.IsJsxAttributeValue()}? '<' -> type(JsxTagOpen), pushMode(JSX_TAG); // canon: an element as an attribute's value
+JsxSelfClose               : '/>' -> popMode;
+JsxName                    : JsxNameStart JsxNamePart*;
+JsxColon                   : ':';
+JsxDot                     : '.';
+JsxAssign                  : '=';
+JsxString                  : '"' ~'"'* '"' | '\'' ~'\''* '\'';
+JsxExpressionOpen          : '{' {this.ProcessJsxOpenBrace();} -> pushMode(DEFAULT_MODE);
+JsxTagWhiteSpace           : [ \t\r\n\u000B\u000C\u00A0\u2028\u2029]+ -> channel(HIDDEN);
+JsxTagComment              : '/*' .*? '*/' -> channel(HIDDEN);
+JsxTagLineComment          : '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
+
+// canon: the children of a JSX element: text, with entities as written, expression containers,
+// nested elements, and the closing tag, which </ opens.
+mode JSX_CHILDREN;
+
+JsxText                    : ~[{<]+;
+JsxCloseOpen               : '<' [ \t\r\n]* '/' -> mode(JSX_CLOSE);
+JsxChildOpen               : '<' -> type(JsxTagOpen), pushMode(JSX_TAG);
+JsxChildExpressionOpen     : '{' {this.ProcessJsxOpenBrace();} -> type(JsxExpressionOpen), pushMode(DEFAULT_MODE);
+
+// canon: a JSX closing tag, </a> or the </> of a fragment.
+mode JSX_CLOSE;
+
+JsxCloseName               : JsxNameStart JsxNamePart* -> type(JsxName);
+JsxCloseColon              : ':' -> type(JsxColon);
+JsxCloseDot                : '.' -> type(JsxDot);
+JsxCloseEnd                : '>' -> popMode;
+JsxCloseWhiteSpace         : [ \t\r\n]+ -> channel(HIDDEN);
+
 mode TEMPLATE;
 
 BackTickInside                : '`' -> type(BackTick), popMode;
@@ -269,6 +311,10 @@ fragment ExponentPart: [eE] [+-]? [0-9_]+;
 
 // canon: the connector punctuation other than _, which IdentifierStart already matches, so an
 // identifier with many underscores has one match rather than two per underscore.
+// canon: a JSX name is an identifier that may hold hyphens, as aria-label does.
+fragment JsxNameStart: IdentifierStart;
+fragment JsxNamePart: IdentifierPart | '-';
+
 fragment IdentifierPart: IdentifierStart | [\p{Mn}] | [\p{Nd}] | [\u203F\u2040\u2054\uFE33\uFE34\uFE4D-\uFE4F\uFF3F] | '\u200C' | '\u200D';
 
 fragment IdentifierStart: [\p{L}] | [$_] | '\\' UnicodeEscapeSequence;

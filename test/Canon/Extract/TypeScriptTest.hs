@@ -17,6 +17,7 @@ import Canon.Profile
 import Canon.Registry (emptyRegistry)
 import Canon.Span (Position (..), Span (..))
 import Canon.Walk (Walked (..), walkProject)
+import Control.Monad (forM_)
 import Data.List (isSuffixOf, sort, stripPrefix)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
@@ -42,6 +43,8 @@ tests =
     , testProperty "an exported object literal's properties are units and a stray TSDoc comment is an orphan" prop_anExportedObjectLiteralsPropertiesAreUnitsAndAStrayTsDocCommentIsAnOrphan
     , testProperty "an ambient module is named without quotes and a hashbang line precedes the file's Why" prop_anAmbientModuleIsNamedWithoutQuotesAndAHashbangLinePrecedesTheFilesWhy
     , testProperty "the grammar reads the syntax the TypeScript compiler, Angular, Nest, and Deno's std write" prop_theGrammarReadsTheSyntaxTheTypeScriptCompilerAngularNestAndDenosStdWrite
+    , testProperty "the .tsx lexer reads JSX and tells type parameters from tags as TypeScript does" prop_theTsxLexerReadsJsxAndTellsTypeParametersFromTagsAsTypeScriptDoes
+    , testProperty "the .tsx pair reads Flow's types as React writes them" prop_theTsxPairReadsFlowsTypesAsReactWritesThem
     ]
 
 sampleDir :: FilePath
@@ -404,3 +407,52 @@ prop_theGrammarReadsTheSyntaxTheTypeScriptCompilerAngularNestAndDenosStdWrite = 
     interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
     pure [either (const False) (const True) (interpretText interpreter (Name "program") "f.ts" source) | source <- sources]) grammars
   results === replicate 2 [True, True, True, True, True, True, True, False]
+
+-- | TypeScript reads JSX in a .tsx file and not in a .ts file, where <T>x is a type assertion, and in
+-- a .tsx file it reads <T,>, <T extends U>, and <T = U> before a parameter list as type parameters,
+-- a < in a type alias's right side or after a colon or an arrow before a parameter list as a
+-- generic function type's, a tag's type arguments, as <Select<number> />, and a < after an operand,
+-- or after a keyword used as a name, as z.infer<T>, as less-than or type arguments. The plain
+-- grammar and the dialect read each through TypeScriptJsxLexer.g4, and a .ts file's assertion and
+-- generic arrow through TypeScriptLexer.g4. ref:REQ-typescript-support ref:DEC-javascript-jsx
+prop_theTsxLexerReadsJsxAndTellsTypeParametersFromTagsAsTypeScriptDoes :: Property
+prop_theTsxLexerReadsJsxAndTellsTypeParametersFromTagsAsTypeScriptDoes = withTests 1 $ property $ do
+  let parsesWith lexer parser path sources = do
+        loaded <- evalIO (loadInterpreter lexer parser)
+        interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+        pure [either (const False) (const True) (interpretText interpreter (Name "program") path source) | source <- sources]
+      tsx =
+        [ "export const B = forwardRef<HTMLButtonElement, Props>(({ className, ...props }, ref) => (<button ref={ref} className={cn(\"a\", className)} {...props} />));\n"
+        , "const f = <T,>(x: T) => x;\nconst g = <T extends unknown>(x: T) => x;\nconst h = <\n  T = string,\n>(x: T) => <p>{x}</p>;\n"
+        , "let k: <T>(x: T) => T;\ntype F = <A>(id: A) => void;\ntype G = () => <T>(x: T) => T;\n"
+        , "const s = <Select<number> onChange={change} />;\nconst t = useForm<z.infer<typeof schema>>({});\nconst u = a < b && c > d;\n"
+        , "const v = <div>{`a ${<b>{x}</b>}`}</div>;\n"
+        ]
+      ts = ["const z = <any>x;\nconst f = <T>(x: T) => x;\n"]
+  forM_ ["grammars/typescript", "grammars/typescript/canonically_commented"] $ \dir -> do
+    viaTsx <- parsesWith (dir </> "TypeScriptJsxLexer.g4") (dir </> "TypeScriptParser.g4") "f.tsx" tsx
+    viaTsx === map (const True) tsx
+    viaTs <- parsesWith (dir </> "TypeScriptLexer.g4") (dir </> "TypeScriptParser.g4") "f.ts" ts
+    viaTs === [True]
+
+-- | Flow is no TypeScript, but its types are close enough that the TypeScript grammar's .tsx pair
+-- reads them as React writes them, with Flow's additions: maybe types, exact and inexact object
+-- types, spread and variance in object types, bounded and variant type parameters, unnamed and
+-- unparenthesised function type parameters, empty type arguments, casts, opaque types, import
+-- typeof, component types, inline interfaces, and optional parameters with defaults; a Flow
+-- project's profile names that pair for its .js files. ref:REQ-javascript-support
+-- ref:DEC-javascript-jsx
+prop_theTsxPairReadsFlowsTypesAsReactWritesThem :: Property
+prop_theTsxPairReadsFlowsTypesAsReactWritesThem = withTests 1 $ property $ do
+  let sources =
+        [ "// @flow\nimport type {Node} from 'react';\nimport typeof * as T from './t';\nexport type Props = {|+name: ?string, -id: number|};\n"
+        , "type O = {a: string, ...B, ...};\ntype M = {[string]: number};\nopaque type ID: string = string;\ndeclare opaque type Token;\n"
+        , "function f<T: Writable, +U>(x: T, y?: number = 1): ?T { return (x: any); }\n"
+        , "type F = (string, number) => void;\ntype G = T => ?U;\ntype H = ?() => void;\nconst m: Map<string, ?number> = new Map<>();\n"
+        , "type C = component(...props: Props);\ntype I = interface extends E {x: number};\nclass K { +p: string; static -q: number = 1; }\n"
+        , "export default function App(): React.Node { return <div>{(x: any)}</div>; }\n"
+        ]
+  forM_ ["grammars/typescript", "grammars/typescript/canonically_commented"] $ \dir -> do
+    loaded <- evalIO (loadInterpreter (dir </> "TypeScriptJsxLexer.g4") (dir </> "TypeScriptParser.g4"))
+    interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+    [either (const False) (const True) (interpretText interpreter (Name "program") "f.js" source) | source <- sources] === map (const True) sources

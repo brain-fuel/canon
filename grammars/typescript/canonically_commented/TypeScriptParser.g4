@@ -71,7 +71,7 @@ typeParameterList
     ;
 
 typeParameter
-    : typeParameterModifier* identifier constraint? ('=' typeArgument)? // canon: const, in, and out modifiers, and a constraint with a default
+    : typeParameterModifier* ('+' | '-')? identifier (':' type_)? constraint? ('=' typeArgument)? // canon: const, in, and out modifiers, and a constraint with a default; Flow's variance and bound, as <+T: U>
     | typeParameters
     ;
 
@@ -91,7 +91,7 @@ typeArguments
     ;
 
 typeArgumentList
-    : typeArgument (',' typeArgument)*
+    : typeArgument (',' typeArgument)* ','? // canon: a trailing comma
     ;
 
 typeArgument
@@ -104,8 +104,21 @@ type_
     : ('|' | '&')? unionOrIntersectionOrPrimaryType Extends type_ '?' type_ ':' type_ // canon: conditional types
     | ('|' | '&')? unionOrIntersectionOrPrimaryType
     | functionType
+    | flowFunctionType // canon: Flow's function type, whose parameters may be unnamed
+    | '?' (functionType | flowFunctionType) // canon: Flow's maybe function type, ?() => T
+    | primaryType '=>' type_ // canon: Flow's function type of one unparenthesised parameter, T => U
     | constructorType
     | typeGeneric
+    ;
+
+// canon: a Flow function type, as (string, number) => void or (...Array<T>) => U, whose parameters
+// are types, named or not.
+flowFunctionType
+    : typeParameters? '(' (flowFunctionParameter (',' flowFunctionParameter)* ','?)? ')' '=>' type_
+    ;
+
+flowFunctionParameter
+    : '...'? (identifierName '?'? ':')? type_
     ;
 
 unionOrIntersectionOrPrimaryType
@@ -127,12 +140,18 @@ primaryType
     | KeyOf primaryType                          # KeyOfType
     | Infer identifier (Extends type_)?          # InferType // canon: infer U, infer U extends C
     | This Is type_                              # ThisPredicateType // canon: this is T
-    | {this.n("asserts")}? identifier (identifier | This) (Is type_)? # AssertsType // canon: asserts x, asserts x is T
+    | ({this.n("asserts")}? identifier | {this.n("implies")}? identifier) (identifier | This) (Is type_)? # AssertsType // canon: asserts x, asserts x is T, and Flow's implies x is T
     | Import '(' StringLiteral ')' ('.' identifierName)* typeGeneric? # ImportType // canon: import("m").T
     | '-'? numericLiteral                        # NumericLiteralType // canon: 0xFF and -1 as types
     | '-'? bigintLiteral                         # BigIntLiteralType
     | ReadOnly primaryType                       # ReadonlyType // canon: readonly T[]
-    | templateLiteralType                        # TemplateLiteralPrimType // canon: a template literal type, as `pre-${string}`
+    | templateLiteralType                        # TemplateLiteralPrimType // canon: a template literal type
+    | '?' primaryType                            # MaybeType // canon: Flow's maybe type, ?T
+    | '*'                                        # ExistentialType // canon: Flow's existential type
+    | '{' '|' typeBody? '|' '}'                  # ExactObjectType // canon: Flow's exact object type, {| a: T |}
+    | '{' '||' '}'                               # EmptyExactObjectType
+    | {this.n("component")}? identifier '(' (flowFunctionParameter (',' flowFunctionParameter)* ','?)? ')' ({this.n("renders")}? identifier type_)? # ComponentType // canon: Flow's component type, component(...props: P)
+    | Interface (Extends classOrInterfaceTypeList)? objectType # InlineInterfaceType // canon: Flow's inline interface type, as `pre-${string}`
     ;
 
 predefinedType
@@ -156,7 +175,7 @@ typeReference
     ;
 
 typeGeneric
-    : '<' typeArgumentList typeGeneric?'>'
+    : '<' typeArgumentList? typeGeneric?'>' // canon: Flow's empty type arguments, T<>
     ;
 
 typeName
@@ -181,6 +200,7 @@ typeMemberList
 // call, construct, or index signature by its position; a mapped type's member is none.
 typeMember
     : (orphan = canonicalComment)* mappedTypeMember // canon: { [P in keyof T]: T[P] } with its modifiers
+    | (orphan = canonicalComment)* '...' type_? // canon: Flow's spread and inexact object types, {...A, b: T, ...}
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) what = accessorName '(' parameterList? ')' typeAnnotation? # accessor // canon: get x(): T and set x(v: T)
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) propertySignatur # property
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) ordinal = callSignature # call
@@ -226,7 +246,7 @@ typeQueryExpression
     ;
 
 propertySignatur
-    : ReadOnly? what = propertyName '?'? typeAnnotation? ('=>' type_)?
+    : ('+' | '-')? ReadOnly? what = propertyName '?'? typeAnnotation? ('=>' type_)? // canon: Flow's variance, +x: T
     ;
 
 // canon: a mapped type's single member, with optional +/- readonly and ? modifiers.
@@ -261,7 +281,7 @@ parameter
 optionalParameter
     : decoratorList? (
         accessibilityModifier? ({this.n("override")}? identifier)? ReadOnly? identifierOrPattern ( // canon: readonly and override parameter properties
-            '?' typeAnnotation?
+            '?' typeAnnotation? initializer? // canon: Flow's optional parameter with a default
             | typeAnnotation? initializer
         )
     )
@@ -291,7 +311,7 @@ constructSignature
     ;
 
 indexSignature
-    : ReadOnly? '[' identifier ':' type_ ']' typeAnnotation // canon: readonly, and any key type, as symbol or a union
+    : ('+' | '-')? ReadOnly? '[' (identifier ':')? type_ ']' typeAnnotation // canon: readonly, and any key type, as symbol or a union; Flow's unnamed key and variance
     ;
 
 methodSignature
@@ -301,7 +321,7 @@ methodSignature
 // canon: export is labeled required. The members of the object types on the right, alone or in a
 // union or an intersection, are as exported as the alias, so the right side is labeled inherited.
 typeAliasDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? Declare? 'type' what = identifier typeParameters? '=' inherited = type_ eos # type
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export)? Declare? ({this.n("opaque")}? identifier)? 'type' what = identifier typeParameters? (':' type_)? ('=' inherited = type_)? eos # type // canon: Flow's opaque type, declare opaque type, and supertype
     ;
 
 // canon: a constructor is a unit; private and protected are labeled optional.
@@ -482,7 +502,7 @@ importStatement
 // canon: import type and an inline type modifier, as in import type {A} and import {type A}, which
 // the plain grammar reads as an expression, so a TSDoc comment above an import stays the file's Why.
 importFromBlock
-    : TypeAlias? importDefault? (importNamespace | importModuleItems) importFrom eos
+    : (TypeAlias | Typeof)? importDefault? (importNamespace | importModuleItems) importFrom eos // canon: and Flow's import typeof
     | StringLiteral eos
     ;
 
@@ -491,7 +511,7 @@ importModuleItems
     ;
 
 importAliasName
-    : TypeAlias? moduleExportName (As importedBinding)? // canon: import {type A}
+    : (TypeAlias | Typeof)? moduleExportName (As importedBinding)? // canon: import {type A}, and Flow's import {typeof A}
     ;
 
 moduleExportName
@@ -666,7 +686,7 @@ debuggerStatement
 functionDeclaration
     : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (required = Export Default?)? Declare? Async? Function_ '*'? what = identifier merge = callSignature (
         ('{' how = functionBody '}')
-        | SemiColon
+        | eos // canon: an overload signature a line break ends
     ) # function
     ;
 
@@ -707,8 +727,8 @@ classElement
 // canon: each property, method, and accessor is a unit; an accessor is named by get or set and its
 // property, so a getter and setter pair are two units.
 propertyMemberDeclaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase what = classElementName ('?' | '!')? typeAnnotation? initializer? SemiColon # property // canon: #private members, x!: T
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase '*'? what = classElementName '?'? merge = callSignature (('{' how = functionBody '}') | SemiColon) # method // canon: generator and optional methods
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase what = classElementName ('?' | '!')? typeAnnotation? initializer? eos # property // canon: #private members, x!: T
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase '*'? what = classElementName '?'? merge = callSignature (('{' how = functionBody '}') | eos) # method // canon: generator and optional methods
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase (classGetAccessor | classSetAccessor) # accessor
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase Abstract what = classElementName merge = callSignature eos # method
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) decoratorList? propertyMemberBase Abstract ReadOnly? what = classElementName '?'? typeAnnotation? eos # property
@@ -717,7 +737,7 @@ propertyMemberDeclaration
 
 // canon: private and protected are labeled optional, since a member so marked is not exported.
 propertyMemberBase
-    : (Public | optional = Private | optional = Protected | Async | Static | ReadOnly | Declare | Abstract | {this.n("override")}? identifier | {this.n("accessor")}? identifier)* // canon: modifiers in any order, declare, override, and accessor
+    : (Public | optional = Private | optional = Protected | Async | Static | ReadOnly | Declare | Abstract | {this.n("override")}? identifier | {this.n("accessor")}? identifier | '+' | '-')* // canon: modifiers in any order, declare, override, and accessor
     ;
 
 // canon: an index signature of a class is a unit named by its position.
@@ -830,6 +850,7 @@ propertyAssignment
     | getAccessor                                   # PropertyGetter
     | setAccessor                                   # PropertySetter
     | generatorMethod                               # MethodProperty
+    | {this.methodAhead()}? (orphan = canonicalComment)+ generatorMethod # MethodProperty // canon: a TSDoc comment before a method binds to nothing
     | identifierOrKeyWord                           # PropertyShorthand
     | Ellipsis? singleExpression                    # SpreadOperator
     | restParameter                                 # RestParameterInObject
@@ -934,6 +955,7 @@ singleExpression
     | generatorBlock                                                  # GeneratorsExpression         // ECMAScript 6
     | generatorFunctionDeclaration                                    # GeneratorsFunctionExpression // ECMAScript 6
     | yieldStatement                                                  # YieldExpression              // ECMAScript 6
+    | jsxElement # JsxExpression // canon: a JSX element, ref:DEC-javascript-jsx
     | This                                                            # ThisExpression
     | identifierName singleExpression?                                # IdentifierExpression
     | Super                                                           # SuperExpression
@@ -943,6 +965,7 @@ singleExpression
     | '(' expressionSequence ')'                                      # ParenthesizedExpression
     | typeArguments expressionSequence?                               # GenericTypes
     | singleExpression As asExpression                                # CastAsExpression
+    | '(' singleExpression ':' type_ ')'                                # FlowTypeCastExpression // canon: Flow's cast, (x: T)
     | singleExpression {this.n("satisfies")}? identifier type_         # SatisfiesExpression // canon: e satisfies T
 // TypeScript v2.0
     | singleExpression '!'                                            # NonNullAssertionExpression
@@ -964,7 +987,7 @@ assignable
 // canon: a named function expression is an expression, not a declaration, so it is no unit.
 anonymousFunction
     : Async? Function_ '*'? identifier callSignature '{' functionBody '}'
-    | Async? Function_ '*'? '(' formalParameterList? ')' typeAnnotation? '{' functionBody '}'
+    | Async? Function_ '*'? typeParameters? '(' formalParameterList? ')' typeAnnotation? '{' functionBody '}' // canon: function <T>(x: T) {}
     | arrowFunctionDeclaration
     ;
 
@@ -998,6 +1021,40 @@ assignmentOperator
     | '??='
     | '||=' // canon: logical assignment
     | '&&='
+    ;
+
+// canon: a JSX element, a fragment, or a self-closing tag, whose name is namespaced, as a:b, or a
+// member, as A.B, with attributes, spread attributes, and children: text, expression containers,
+// which may be empty or hold only a comment, spread children, and nested elements. ref:DEC-javascript-jsx
+jsxElement
+    : JsxTagOpen jsxElementName? jsxTypeArguments? jsxAttribute* JsxSelfClose
+    | JsxTagOpen jsxElementName? jsxTypeArguments? jsxAttribute* JsxTagClose jsxChild* JsxCloseOpen jsxElementName? JsxCloseEnd
+    ;
+
+jsxElementName
+    : JsxName ((JsxColon | JsxDot) JsxName)*
+    ;
+
+// canon: the type arguments of a JSX tag in a .tsx file, as <Select<number> />.
+jsxTypeArguments
+    : JsxTypeArgumentsOpen typeArgumentList? JsxTypeArgumentsClose
+    ;
+
+jsxAttribute
+    : JsxName (JsxColon JsxName)? (JsxAssign jsxAttributeValue)?
+    | JsxExpressionOpen Ellipsis singleExpression JsxExpressionClose
+    ;
+
+jsxAttributeValue
+    : JsxString
+    | JsxExpressionOpen singleExpression JsxExpressionClose
+    | jsxElement
+    ;
+
+jsxChild
+    : JsxText
+    | jsxElement
+    | JsxExpressionOpen (Ellipsis? singleExpression)? JsxExpressionClose
     ;
 
 literal

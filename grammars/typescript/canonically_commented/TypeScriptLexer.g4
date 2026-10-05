@@ -72,6 +72,9 @@ CloseBracket               : ']';
 OpenParen                  : '(';
 CloseParen                 : ')';
 OpenBrace                  : '{' {this.ProcessOpenBrace();};
+// canon: the brace that closes a JSX expression container, as {x} in <a href={x}>, which returns to
+// the JSX mode the container opened from; the hook tracks the containers as it tracks templates.
+JsxExpressionClose         : {this.IsJsxExpressionClose()}? '}' {this.ProcessJsxCloseBrace();} -> popMode;
 TemplateCloseBrace         :     {this.IsInTemplateString()}? '}' -> popMode;
 CloseBrace                 : '}' {this.ProcessCloseBrace();};
 SemiColon                  : ';';
@@ -99,6 +102,17 @@ LeftShiftArithmetic        : '<<';
 // types like Map<string, Map<string, string>>
 // RightShiftArithmetic       : '>>';
 // RightShiftLogical          : '>>>';
+// canon: a < where an expression may start opens a JSX tag when the lexer reads JSX, as JavaScript's
+// always does and TypeScript's does in a .tsx file; the hook decides from the token before it, as
+// TypeScript's scanner does, so a < after an operand is still less-than.
+// canon: the > that closes a JSX tag's type arguments, which returns to the tag.
+JsxTypeArgumentsClose      : {this.IsJsxTypeArgumentsClose()}? '>' -> popMode;
+JsxTagOpen                 : {this.IsJsxPossible()}? '<' -> pushMode(JSX_TAG);
+// canon: in a .tsx file a < that opens a type parameter list, as <T,>(x: T) => x, <T extends U>, or
+// <T = U>, or that opens a generic function type after a colon, as : <T>(x: T) => T, is no JSX tag;
+// the hook splits the match into its tokens, as TypeScript's scanner reads them.
+JsxTypeParameters          : {this.IsJsxPossible()}? '<' [ \t\r\n]* ('const' [ \t\r\n]+)? IdentifierStart IdentifierPart* [ \t\r\n]* (',' | 'extends' [ \t\r\n] | '=');
+JsxFunctionTypeParameters  : {this.IsJsxTypePossible()}? '<' [ \t]* IdentifierStart IdentifierPart* [ \t]* '>' [ \t]* '(';
 LessThan                   : '<';
 MoreThan                   : '>';
 LessThanEquals             : '<=';
@@ -268,6 +282,42 @@ HtmlComment         : '<!--' .*? '-->'      -> channel(HIDDEN);
 CDataComment        : '<![CDATA[' .*? ']]>' -> channel(HIDDEN);
 UnexpectedCharacter : .                     -> channel(ERROR);
 
+// canon: a JSX tag: its name, namespaced as a:b or a member as A.B, its attributes, strings
+// without escapes, expression containers, and comments; > opens its children and /> ends it.
+mode JSX_TAG;
+
+JsxTagClose                : '>' -> mode(JSX_CHILDREN);
+JsxAttributeElementOpen    : {this.IsJsxAttributeValue()}? '<' -> type(JsxTagOpen), pushMode(JSX_TAG); // canon: an element as an attribute's value
+JsxTypeArgumentsOpen       : '<' -> pushMode(DEFAULT_MODE); // canon: <Select<number> /> in a .tsx file
+JsxSelfClose               : '/>' -> popMode;
+JsxName                    : JsxNameStart JsxNamePart*;
+JsxColon                   : ':';
+JsxDot                     : '.';
+JsxAssign                  : '=';
+JsxString                  : '"' ~'"'* '"' | '\'' ~'\''* '\'';
+JsxExpressionOpen          : '{' {this.ProcessJsxOpenBrace();} -> pushMode(DEFAULT_MODE);
+JsxTagWhiteSpace           : [ \t\r\n\u000B\u000C\u00A0\u2028\u2029]+ -> channel(HIDDEN);
+JsxTagComment              : '/*' .*? '*/' -> channel(HIDDEN);
+JsxTagLineComment          : '//' ~[\r\n\u2028\u2029]* -> channel(HIDDEN);
+
+// canon: the children of a JSX element: text, with entities as written, expression containers,
+// nested elements, and the closing tag, which </ opens.
+mode JSX_CHILDREN;
+
+JsxText                    : ~[{<]+;
+JsxCloseOpen               : '<' [ \t\r\n]* '/' -> mode(JSX_CLOSE);
+JsxChildOpen               : '<' -> type(JsxTagOpen), pushMode(JSX_TAG);
+JsxChildExpressionOpen     : '{' {this.ProcessJsxOpenBrace();} -> type(JsxExpressionOpen), pushMode(DEFAULT_MODE);
+
+// canon: a JSX closing tag, </a> or the </> of a fragment.
+mode JSX_CLOSE;
+
+JsxCloseName               : JsxNameStart JsxNamePart* -> type(JsxName);
+JsxCloseColon              : ':' -> type(JsxColon);
+JsxCloseDot                : '.' -> type(JsxDot);
+JsxCloseEnd                : '>' -> popMode;
+JsxCloseWhiteSpace         : [ \t\r\n]+ -> channel(HIDDEN);
+
 mode TEMPLATE;
 
 TemplateStringEscapeAtom      : '\\' .;
@@ -316,6 +366,10 @@ fragment ExponentPart: [eE] [+-]? [0-9_]+;
 
 // canon: the connector punctuation other than _, which IdentifierStart already matches, so an
 // identifier with many underscores has one match rather than two per underscore.
+// canon: a JSX name is an identifier that may hold hyphens, as aria-label does.
+fragment JsxNameStart: IdentifierStart;
+fragment JsxNamePart: IdentifierPart | '-';
+
 fragment IdentifierPart: IdentifierStart | [\p{Mn}] | [\p{Nd}] | [\u203F\u2040\u2054\uFE33\uFE34\uFE4D-\uFE4F\uFF3F] | '\u200C' | '\u200D';
 
 fragment IdentifierStart: [\p{L}] | [$_] | '\\' UnicodeEscapeSequence;

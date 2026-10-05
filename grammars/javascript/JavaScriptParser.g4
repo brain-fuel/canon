@@ -400,6 +400,7 @@ singleExpression
     | Import '.' identifierName                                            # ImportMetaExpression // canon: import.meta
     | singleExpression templateStringLiteral                               # TemplateStringExpression // ECMAScript 6
     | yieldStatement                                                       # YieldExpression          // ECMAScript 6
+    | jsxElement # JsxExpression // canon: a JSX element, ref:DEC-javascript-jsx
     | This                                                                 # ThisExpression
     | identifier                                                           # IdentifierExpression
     | privateIdentifier                                                    # PrivateIdentifierExpression // canon: #x in o, ES2022
@@ -459,6 +460,35 @@ assignmentOperator
     | '??='
     | '||=' // canon: logical assignment, ES2021
     | '&&='
+    ;
+
+// canon: a JSX element, a fragment, or a self-closing tag, whose name is namespaced, as a:b, or a
+// member, as A.B, with attributes, spread attributes, and children: text, expression containers,
+// which may be empty or hold only a comment, spread children, and nested elements. ref:DEC-javascript-jsx
+jsxElement
+    : JsxTagOpen jsxElementName? jsxAttribute* JsxSelfClose
+    | JsxTagOpen jsxElementName? jsxAttribute* JsxTagClose jsxChild* JsxCloseOpen jsxElementName? JsxCloseEnd
+    ;
+
+jsxElementName
+    : JsxName ((JsxColon | JsxDot) JsxName)*
+    ;
+
+jsxAttribute
+    : JsxName (JsxColon JsxName)? (JsxAssign jsxAttributeValue)?
+    | JsxExpressionOpen Ellipsis singleExpression JsxExpressionClose
+    ;
+
+jsxAttributeValue
+    : JsxString
+    | JsxExpressionOpen singleExpression JsxExpressionClose
+    | jsxElement
+    ;
+
+jsxChild
+    : JsxText
+    | jsxElement
+    | JsxExpressionOpen (Ellipsis? singleExpression)? JsxExpressionClose
     ;
 
 literal

@@ -151,7 +151,9 @@ grammar above with JSDoc comments as canonical comments, recorded as
   list of exports, is an `orphan` the grammar reads; before a property it is
   read only when the predicate `propertyAhead`, which canon's parser hook
   answers, sees a name and a colon after it, so a path that reads a block's
-  braces as an object literal does not take it. One above a local binding or
+  braces as an object literal does not take it; before a method of an object
+  literal it is read when `methodAhead` sees a name, a parenthesised list, and
+  a brace or a colon after it. One above a local binding or
   an expression statement, as JSDoc writes above `this.x = x`, is an orphan
   the grammar reads too, since both are common. Anywhere else the grammar
   does not take one, as above another statement, inside an expression, before
@@ -178,47 +180,81 @@ Known limitations:
   inside a token or where the code itself no longer parses, as `throw` with a
   line break after it.
 
+## JSX
+
+canon reads JSX, recorded as `DEC-javascript-jsx`, in the plain grammar and the
+dialect, in `.js`, `.jsx`, `.mjs`, and `.cjs` files, as Babel and every React
+toolchain read it. Each change is marked `// canon:`:
+
+- The lexer decides whether a `<` opens a JSX tag from the token before it, as
+  TypeScript's scanner does: where an expression may start, after no token,
+  an operator, punctuation, or one of the keywords an expression follows
+  (`return`, `typeof`, `void`, `delete`, `await`, `yield`, `case`, `do`,
+  `else`, `in`, `of`, `throw`, `default`, `instanceof`, `new`), it opens a tag;
+  after an operand, a name, or a keyword used as a name, as `x.default < 3`,
+  it is less-than. The hook, `Canon.Antlr4.Lex.JavaScript`, answers the
+  predicate `IsJsxPossible`.
+- The modes `JSX_TAG`, `JSX_CHILDREN`, and `JSX_CLOSE` read a tag's name,
+  namespaced as `a:b` or a member as `A.B`, its attributes, whose strings have
+  no escapes, its text, with entities as written, and its closing tag. A `{`
+  in a tag or among the children opens an expression container in the default
+  mode, and the hook tracks the containers' braces as it tracks a template's,
+  so `IsJsxExpressionClose` returns to JSX at the brace that closes the
+  container, a template or a block inside it included. Comments between
+  attributes are hidden, and an element may be an attribute's value.
+- `jsxElement` reads elements, fragments, self-closing tags, spread attributes
+  and children, and empty and comment-only containers, and is a primary
+  expression. A JSX element is no unit: a component is the function or class
+  that returns it, documented as any function is, and a doc comment inside a
+  container is a stray comment and an orphan.
+
+The grammar does not read Flow, which is no ECMAScript. A Flow project, such as
+React, names the TypeScript grammar's `.tsx` pair for its `.js` files, which
+reads Flow's types and JSX; `grammars/typescript/README.md` lists what it reads.
+
 ## Corpus
 
-`tools/corpus/javascript.sh` checks the grammar against five of the most used
-JavaScript code bases. It shallow-clones each repository below at the pinned
-commit into `/tmp/corpus/javascript`, or the directory given as its first
-argument, parses every `.js`, `.mjs`, and `.cjs` file with the plain grammar
-under a timeout of 300 seconds per file, and then parses every file the plain
-grammar parsed with the dialect, which must parse them all. Large repositories
-are sampled by subdirectory with a sparse checkout. Minified files and build
-output, `*.min.js` and anything under `dist/` or `build/`, are generated and
-not read: seven files of lodash's `dist/` and two minified scheduler builds of
-React. A file that fails is a deliberate exclusion only when node itself
-rejects it, by `node --check`. The script and its TypeScript twin share
-`tools/corpus/jsts-common.sh`.
+`tools/corpus/javascript.sh` checks the grammar against seven of the most used
+JavaScript code bases, three of them written with JSX and React's written in
+Flow. It shallow-clones each repository below at the pinned commit into
+`/tmp/corpus/javascript`, or the directory given as its first argument, parses
+every `.js`, `.jsx`, `.mjs`, and `.cjs` file with the plain grammar under a
+timeout of 300 seconds per file, and then parses every file the plain grammar
+parsed with the dialect, which must parse them all. A file whose first comment
+holds `@flow`, and every file of React, as a Flow project's profile reads them,
+is read by the TypeScript grammar's `.tsx` pair, which reads Flow's types and
+JSX; any other file by this grammar. Large repositories are sampled by
+subdirectory with a sparse checkout. Minified files and build output,
+`*.min.js` and anything under `dist/` or `build/`, are generated and not read:
+seven files of lodash's `dist/` and two minified scheduler builds of React. The
+script runs in a process group of its own, through
+`tools/corpus/process-group.sh`, and shares `tools/corpus/jsts-common.sh` with
+its TypeScript twin.
 
-| Repository | Commit | Sampled | Files | Parsed | Excluded | Seconds |
-|------------|--------|---------|------:|-------:|---------:|--------:|
-| [facebook/react](https://github.com/facebook/react) | `278794d7dee9` | `/packages/` | 1816 | 704 | 1112 | 401.1 |
-| [nodejs/node](https://github.com/nodejs/node) | `019e869ad3a3` | `/lib/` | 429 | 429 | 0 | 190.9 |
-| [lodash/lodash](https://github.com/lodash/lodash) | `2b5e6f7399a7` | all | 48 | 48 | 0 | 104.2 |
-| [expressjs/express](https://github.com/expressjs/express) | `7ef98448f8b3` | all | 141 | 141 | 0 | 43.9 |
-| [mrdoob/three.js](https://github.com/mrdoob/three.js) | `457581a08070` | `/src/` | 755 | 755 | 0 | 190.3 |
-| Total | | | 3189 | 2077 | 1112 | 930.4 |
+| Repository | Commit | Sampled | Kind | Files | Parsed | Excluded | Seconds |
+|------------|--------|---------|------|------:|-------:|---------:|--------:|
+| [facebook/react](https://github.com/facebook/react) | `278794d7dee9` | `/packages/` | Flow | 1816 | 1816 | 0 | 322.7 |
+| [nodejs/node](https://github.com/nodejs/node) | `019e869ad3a3` | `/lib/` | JS | 429 | 429 | 0 | 64.7 |
+| [lodash/lodash](https://github.com/lodash/lodash) | `2b5e6f7399a7` | all | JS | 48 | 48 | 0 | 23.6 |
+| [expressjs/express](https://github.com/expressjs/express) | `7ef98448f8b3` | all | JS | 141 | 141 | 0 | 14.7 |
+| [mrdoob/three.js](https://github.com/mrdoob/three.js) | `457581a08070` | `/src/` | JS | 755 | 755 | 0 | 77.3 |
+| [vercel/next.js](https://github.com/vercel/next.js) | `263f6820b21d` | `/examples/`, `/packages/create-next-app/templates/` | JSX | 832 | 831 | 1 | 55.9 |
+| [mui/material-ui](https://github.com/mui/material-ui) | `daaa525c3af0` | `/packages/mui-material/src/`, `/packages/mui-system/src/` | JSX | 473 | 473 | 0 | 53.9 |
+| Total | | | | 4494 | 4493 | 1 | 612.8 |
 
-Every file node accepts parses with the plain grammar and with the dialect:
-2,077 files, node's `lib/`, lodash, express, and three.js whole and 704 of
-React's. The 1,112 React files excluded are written in Flow, the type syntax
-React checks with Flow and strips with Babel, or hold JSX, and node rejects
-every one: 1,102 carry a `@flow` pragma, `import type`, or a JSX tag, and the
-10 others use Flow annotations without a pragma. The grammar does not read
-JSX or Flow, which are no ECMAScript, and the profile's extensions leave out
-`.jsx`; reading them would take a JSX lexer mode and Flow's type grammar,
-which TypeScript's grammar is closer to. The seconds are the sum of each
-file's wall time, the `canon` process included, with 10 files parsed at once
-on a machine whose load average stood between 40 and 100. A file takes 0.15
-seconds at the median, 0.55 at the 90th percentile, 2.2 at the 99th, and at
-most 36, lodash's `test/test.js`, 27,000 lines; a file that fails fails
-within 5 seconds. Through the dialect the slowest file is lodash's vendored
-`firebug-lite-debug.js`, 31,000 lines, at 121 seconds, since each of its
-JSDoc comments that no rule takes is a stray comment the file is read again
-without.
+Every file but one parses with the plain grammar and with the dialect. By kind
+of file, a JSX file being a `.jsx` file or one that holds a closing tag: 1,821
+Flow files, React's and five that say `@flow`, all parse; 777 JSX files, 776
+parse; and 1,896 other JavaScript files all parse. The one file excluded,
+next.js's `examples/with-custom-babel-config/pages/index.js`, writes the
+pipeline operator `|>`, the syntax of a Babel proposal plugin, which no engine
+reads. The seconds are the sum of each file's wall time, the `canon` process
+included, with 10 files parsed at once. A file takes 0.08 seconds at the
+median, 0.21 at the 90th percentile, 1.0 at the 99th, and at most 6.8,
+lodash's `test/test.js`, 27,000 lines; the excluded file fails in 0.07
+seconds. Through the dialect the slowest file is lodash's vendored
+`firebug-lite-debug.js`, 31,000 lines, at 29 seconds, since each of its JSDoc
+comments that no rule takes is a stray comment the file is read again without.
 
 The corpus found these gaps, now fixed in the plain grammar and the dialect:
 logical assignment, `||=` and `&&=`; a trailing comma after the last
@@ -226,10 +262,10 @@ parameter; a number with a dot and no fraction digits, `1.`; a private brand
 check, `#x in o`; `using` and `await using` declarations; and, as in
 TypeScript, exponential lexing of an identifier with many underscores. In the
 dialect a JSDoc comment above a local binding or an expression statement, as
-JSDoc writes above `this.x = x`, is an orphan the grammar reads, so a file
-with many is not read again once for each.
+JSDoc writes above `this.x = x`, or before a method of an object literal, is an
+orphan the grammar reads, so a file with many is not read again once for each.
 
-To rerun it, from the repository root, with node on the path:
+To rerun it, from the repository root:
 
 ```sh
 stack build

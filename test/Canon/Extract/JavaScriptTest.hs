@@ -43,6 +43,8 @@ tests =
     , testProperty "the first JSDoc comment below a hashbang line can be the file's Why" prop_theFirstJsDocCommentBelowAHashbangLineCanBeTheFilesWhy
     , testProperty "a line break between two tokens ends a statement where JavaScript inserts a semicolon" prop_aLineBreakBetweenTwoTokensEndsAStatementWhereJavaScriptInsertsASemicolon
     , testProperty "the grammar reads the syntax node, three.js, and express write" prop_theGrammarReadsTheSyntaxNodeThreeJsAndExpressWrite
+    , testProperty "the grammar reads JSX where an expression may start and less-than elsewhere" prop_theGrammarReadsJsxWhereAnExpressionMayStartAndLessThanElsewhere
+    , testProperty "the dialect documents a component written with JSX" prop_theDialectDocumentsAComponentWrittenWithJsx
     ]
 
 sampleDir :: FilePath
@@ -360,3 +362,53 @@ prop_theGrammarReadsTheSyntaxNodeThreeJsAndExpressWrite = withTests 1 $ property
     interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
     pure [either (const False) (const True) (interpretText interpreter (Name "program") "f.js" source) | source <- sources]) grammars
   results === replicate 2 [True, True, True, True, True, False]
+
+-- | JSX is no ECMAScript, but React, Next.js, and Material UI write it in .js and .jsx files that
+-- Babel compiles, so the grammar reads it: elements, fragments, namespaced and member tag names,
+-- string, expression, and element attribute values, spread attributes and children, empty and
+-- comment-only containers, text with entities, and JSX inside a template. A < where an expression
+-- may start opens a tag and anywhere else it is less-than, as after an operand or a member named
+-- default; the plain grammar and the dialect read each, and an unclosed tag fails.
+-- ref:REQ-javascript-support ref:DEC-javascript-jsx
+prop_theGrammarReadsJsxWhereAnExpressionMayStartAndLessThanElsewhere :: Property
+prop_theGrammarReadsJsxWhereAnExpressionMayStartAndLessThanElsewhere = withTests 1 $ property $ do
+  let grammars = [("grammars/javascript/JavaScriptLexer.g4", "grammars/javascript/JavaScriptParser.g4"), ("grammars/javascript/canonically_commented/JavaScriptLexer.g4", "grammars/javascript/canonically_commented/JavaScriptParser.g4")]
+      sources =
+        [ "const a = <div className=\"app\" data-id={1} aria-label='x' {...rest}>Hello &amp; {name}!</div>;\n"
+        , "const b = <><a.b.C x:y=\"z\" /><svg:rect /></>;\n"
+        , "const c = <ul>{items.map(i => <Item key={i.id} {...i} />)}{/* a comment */}{}</ul>;\n"
+        , "const d = cond ? <A render={() => <B>{x}</B>} /> : <C label=<b>bold</b> />;\n"
+        , "const e = `t ${<span>{x}</span>}`;\nif (x.default < 3 && a < b) f(a > c);\n"
+        , "function App() {\n  return (\n    <p>\n      multi line\n      text\n    </p>\n  );\n}\n"
+        , "const f = <div><span></div>;\n"
+        ]
+  results <- mapM (\(lexer, parser) -> do
+    loaded <- evalIO (loadInterpreter lexer parser)
+    interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+    pure [either (const False) (const True) (interpretText interpreter (Name "program") "f.jsx" source) | source <- sources]) grammars
+  results === replicate 2 [True, True, True, True, True, True, False]
+
+-- | A React component is a function that returns JSX, so its JSDoc comment binds to it as to any
+-- function, and a doc comment inside an expression container documents nothing and is an orphan.
+-- ref:REQ-javascript-support ref:DEC-javascript-jsx ref:DEC-javascript-dialect
+prop_theDialectDocumentsAComponentWrittenWithJsx :: Property
+prop_theDialectDocumentsAComponentWrittenWithJsx = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "App.jsx"
+      ( T.unlines
+          [ "import React from 'react';"
+          , ""
+          , "/** The application. */"
+          , "export function App({items}) {"
+          , "  return ("
+          , "    <ul>"
+          , "      {/** Inside a container, so an orphan. */ items.map(i => <li key={i}>{i}</li>)}"
+          , "    </ul>"
+          , "  );"
+          , "}"
+          ]
+      )
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)] === ["javascript/App.jsx/function/App"]
+  length [() | OrphanDocComment _ _ <- findings] === 1

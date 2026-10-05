@@ -26,7 +26,7 @@ data TestRule = TestRule
 
 -- | The languages the table covers.
 knownLanguages :: [Text]
-knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "python", "go", "kotlin", "groovy", "scala", "hcl"]
+knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "tsx", "python", "go", "kotlin", "groovy", "scala", "hcl"]
 
 -- | The rules of a language. Rust's, C#'s, and F#'s rules are attributes, which their grammars label
 -- marker on every item. An F# test list bound with Expecto's [<Tests>] is the test, because the
@@ -57,6 +57,9 @@ testRules language = case language of
   -- JavaScript and TypeScript tests are calls, not declarations, so a unit is a test by where it lives.
   "javascript" -> [TestRule Nothing Nothing Nothing (Just path) | path <- scriptTestPaths]
   "typescript" -> [TestRule Nothing Nothing Nothing (Just path) | path <- scriptTestPaths]
+  -- A .tsx file is read by a profile of its own, named tsx, since its lexer reads JSX, which a
+  -- .ts file's may not. ref:DEC-javascript-jsx
+  "tsx" -> [TestRule Nothing Nothing Nothing (Just path) | path <- scriptTestPaths]
   "python" -> [TestRule (Just "function") Nothing (Just "test_*") Nothing, TestRule (Just "class") Nothing (Just "Test*") Nothing]
   "go" -> [TestRule (Just "function") Nothing (Just name) (Just "**/*_test.go") | name <- ["Test*", "Benchmark*", "Example*", "Fuzz*"]]
   -- Kotlin test names are often backticked sentences, so the source set names the tests, and the

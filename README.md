@@ -1072,6 +1072,15 @@ all 87, binding all 90 TSDoc comments, within the time the plain grammar takes.
 A sample checks through either by naming the dialect's `lexer` and `parser`
 in its profile with no `units`.
 
+The JavaScript grammar reads JSX in `.js` and `.jsx` files, and the
+TypeScript grammar reads it in `.tsx` files through `TypeScriptJsxLexer.g4`,
+which a profile names under a language of its own, `tsx`, since a `.ts` file's
+`<T>x` is a type assertion; the lexer hook decides whether a `<` opens a tag
+from the token before it, as TypeScript's scanner does. Flow is read by that
+`.tsx` pair, which a Flow project such as React names for its `.js` files.
+`DEC-javascript-jsx` records how, and `grammars/javascript/README.md` and
+`grammars/typescript/README.md` list what each reads.
+
 Go and Python also have canonically commented dialects. A Go doc comment is an
 ordinary comment directly above a declaration, so the Go dialect's lexer hook,
 `Canon.Antlr4.Lex.Go`, makes a comment a doc comment only when it starts its

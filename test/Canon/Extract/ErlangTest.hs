@@ -18,7 +18,6 @@ import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
 import Canon.Span (Position (..), Span (..))
-import Control.Exception (bracket)
 import qualified Data.ByteString as BS
 import Data.List (sort)
 import qualified Data.List.NonEmpty as NonEmpty
@@ -27,7 +26,6 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import Hedgehog (Property, PropertyT, annotate, evalIO, failure, property, withTests, (===))
 import Canon.Scratch (withScratch)
-import System.Directory (createDirectoryIfMissing, getTemporaryDirectory, removeDirectoryRecursive)
 import System.FilePath (normalise, (</>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)

@@ -17,7 +17,7 @@ import Canon.Antlr4.Lex.Go (goLexerHooks)
 import Canon.Antlr4.Lex.HCL (hclLexerHooks)
 import Canon.Antlr4.Lex.YAML (yamlLexerHooks)
 import Canon.Antlr4.Lex.Haskell (haskellLayoutHooks)
-import Canon.Antlr4.Lex.JavaScript (javaScriptHooks, typeScriptHooks)
+import Canon.Antlr4.Lex.JavaScript (javaScriptHooks, typeScriptHooks, typeScriptJsxHooks)
 import Canon.Antlr4.Lex.Python (pythonHooks)
 import Canon.Antlr4.Lex.Rust (rustLexerHooks)
 import Canon.Antlr4.Lex.Scala (scalaLexerHooks)
@@ -73,6 +73,7 @@ antlrLexerHooks = LexerHooks OutsideRule onAction (\_ _ _ _ _ -> True) onEmit
 -- lexer and canon supplies it: ANTLR's own adaptor, Haskell layout, the JavaScript and TypeScript
 -- regex and template tracking, Python indentation, and where a Go doc comment may stand.
 -- ref:DEC-more-languages ref:DEC-go-dialect
+-- TypeScriptJsxLexerBase is the TypeScript port reading JSX, for a .tsx file. ref:DEC-javascript-jsx
 -- ScalaLexerBase supplies Scala 3's optional braces. ref:DEC-scala-indentation
 -- RustLexerBase ends each Rust line doc comment with a token. ref:DEC-rust-dialect
 hooksForGrammar :: Grammar ann -> SomeHooks
@@ -89,6 +90,7 @@ hooksForGrammarWith choice grammar =
     (Name "FSharpLexerBase" : _) -> SomeHooks (fsharpLexerHooks choice)
     (Name "JavaScriptLexerBase" : _) -> SomeHooks javaScriptHooks
     (Name "TypeScriptLexerBase" : _) -> SomeHooks typeScriptHooks
+    (Name "TypeScriptJsxLexerBase" : _) -> SomeHooks typeScriptJsxHooks
     (Name "Python3LexerBase" : _) -> SomeHooks pythonHooks
     (Name "ScalaLexerBase" : _) -> SomeHooks scalaLexerHooks
     (Name "GoLexerBase" : _) -> SomeHooks goLexerHooks
