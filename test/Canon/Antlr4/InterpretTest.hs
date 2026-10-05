@@ -52,6 +52,7 @@ tests =
     , testProperty "the JavaScript base lexer port decides whether a slash starts a regular expression" regexPredicate
     , testProperty "an empty match is allowed only when it changes mode" emptyMatchChangesMode
     , testProperty "a loop of statements that can each end two ways parses in polynomial time" loopsArePolynomial
+    , testProperty "a lexer loop whose alternatives match the same characters stays linear" prop_aLexerLoopWhoseAlternativesMatchTheSameCharactersStaysLinear
     , testProperty "a stray comment where the grammar takes none is an orphan and a syntax error is still reported where it is" prop_aStrayCommentWhereTheGrammarTakesNoneIsAnOrphanAndASyntaxErrorIsStillReportedWhereItIs
     ]
 
@@ -476,3 +477,14 @@ prop_aStrayCommentWhereTheGrammarTakesNoneIsAnOrphanAndASyntaxErrorIsStillReport
   -- A syntax error is reported where it is, with or without a stray comment before it.
   parse with "x = y + ; z = w ;" === parse without "x = y + ; z = w ;"
   parse with "x = [[ note ]] y + ; z = w ;" === Left "1:20: no parse at token SEMI@1:20 \";\""
+
+-- | Grammars written for one target often list a character under two alternatives of a loop, as an
+-- identifier part that is both a letter and a connector, and a backtracking lexer that continued
+-- once per way of reaching a position doubled its work with each such character; canon reads the
+-- grammars-v4 lexers as they are, so the loop must be linear however its alternatives overlap.
+-- ref:REQ-javascript-support ref:DEC-lexer-performance
+prop_aLexerLoopWhoseAlternativesMatchTheSameCharactersStaysLinear :: Property
+prop_aLexerLoopWhoseAlternativesMatchTheSameCharactersStaysLinear = withTests 1 $ property $ do
+  g <- grammarOrFail (T.unlines ["lexer grammar Overlap;", "ID : [a-z] ([a-z_] | '_' | [_a-z])* ;", "WS : [ ]+ -> skip ;"])
+  toks <- lexOrFail g ("a" <> T.replicate 60 "_" <> "b c")
+  map tokenText (filter (not . isEofToken) toks) === ["a" <> T.replicate 60 "_" <> "b", "c"]

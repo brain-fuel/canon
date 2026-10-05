@@ -26,6 +26,7 @@ import Data.Foldable (toList)
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
 import Data.Maybe (fromMaybe, listToMaybe)
+import qualified Data.IntSet as IntSet
 import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -342,10 +343,19 @@ withSuffix suffix m = case suffix of
   Just (EbnfSuffix Optional NonGreedy) -> \p k -> firstNonEmpty (k p) (m p k)
   Just (EbnfSuffix ZeroOrMore Greedy) -> greedyMany
   Just (EbnfSuffix ZeroOrMore NonGreedy) -> lazyMany
-  Just (EbnfSuffix OneOrMore Greedy) -> \p k -> m p (\p' -> if p' == p then k p' else greedyMany p' k)
+  Just (EbnfSuffix OneOrMore Greedy) -> \p k -> concatMap (\p' -> greedyMany p' k) (IntSet.toList (IntSet.fromList (m p (\p' -> [p']))))
   Just (EbnfSuffix OneOrMore NonGreedy) -> \p k -> m p (\p' -> if p' == p then k p' else lazyMany p' k)
   where
-    greedyMany p k = k p ++ m p (\p' -> if p' == p then [] else greedyMany p' k)
+    -- A greedy loop continues once from each position its iterations reach, however many ways
+    -- reach it, so a body whose alternatives match the same characters, as an identifier part that
+    -- is both a letter and a connector, stays linear rather than doubling with each character.
+    -- ref:DEC-lexer-performance
+    greedyMany p k = concatMap k (IntSet.toList (reach IntSet.empty [p]))
+    reach seen todo = case todo of
+      [] -> seen
+      (q : rest)
+        | IntSet.member q seen -> reach seen rest
+        | otherwise -> reach (IntSet.insert q seen) ([q' | q' <- m q (\q' -> [q']), q' /= q] ++ rest)
     lazyMany p k = firstNonEmpty (k p) (m p (\p' -> if p' == p then [] else lazyMany p' k))
     firstNonEmpty xs ys = case xs of
       [] -> ys

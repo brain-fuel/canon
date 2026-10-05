@@ -814,3 +814,12 @@ DEC-loop-memo:
   opened: 0.1.0
   decided: 0.1.0
   refs: [REQ-hcl-support]
+
+DEC-lexer-performance:
+  status: decided
+  question: canon's lexer matches by backtracking in continuation-passing style, so a greedy loop continued once for every way its iterations reached a position. Grammars written for other targets often let a loop's alternatives match the same character, as JavaScript's IdentifierPart matched an underscore both as an identifier start and as a connector punctuation, and an identifier of twenty underscores took minutes to lex. How does canon keep such loops linear without rewriting every vendored grammar?
+  answer: |
+    A greedy loop first collects the set of positions its iterations reach from where it starts, each position explored once, and then continues from each position once, so overlapping alternatives cost no more than disjoint ones. A non-greedy loop, which takes the first end that lets the rest match, is unchanged. The ends a loop gives are the same, so every token is the same; an identifier of sixty underscores under three overlapping alternatives lexes at once.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [REQ-javascript-support]
