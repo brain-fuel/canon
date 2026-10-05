@@ -3,13 +3,13 @@ module Canon.IgnoreTest (tests) where
 
 import Canon.Ignore
 import Canon.Walk (findSupportedFiles)
-import Control.Exception (bracket)
 import Data.List (sort)
 import qualified Data.Text as T
 import Hedgehog (Gen, Property, assert, evalIO, forAll, property, withTests, (===))
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
-import System.Directory (createDirectoryIfMissing, getTemporaryDirectory, removeDirectoryRecursive)
+import qualified Canon.Scratch as Scratch
+import System.Directory (createDirectoryIfMissing)
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
@@ -97,7 +97,4 @@ walkTree = withTests 1 $ property $ do
   sort found === ["a.g4", "src/b.g4", "src/deep/c.g4"]
 
 withScratch :: (FilePath -> IO a) -> IO a
-withScratch action = do
-  base <- getTemporaryDirectory
-  let root = base </> "canon-test-walk"
-  bracket (createDirectoryIfMissing True root >> pure root) removeDirectoryRecursive action
+withScratch = Scratch.withScratch "walk"

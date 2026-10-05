@@ -1,0 +1,6 @@
+decision/haskell/test/Canon/Scratch.hs/module/Canon.Scratch:
+  digest: sha256:73f2dbda0ca7e184
+  verdict: pending
+decision/haskell/test/Canon/Scratch.hs/module/Canon.Scratch/function/withScratch:
+  digest: sha256:ff2f62ff9c2d549b
+  verdict: pending

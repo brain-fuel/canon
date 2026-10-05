@@ -26,6 +26,7 @@ import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
 import Hedgehog (Property, PropertyT, annotate, evalIO, failure, property, withTests, (===))
+import Canon.Scratch (withScratch)
 import System.Directory (createDirectoryIfMissing, getTemporaryDirectory, removeDirectoryRecursive)
 import System.FilePath (normalise, (</>))
 import Test.Tasty (TestTree, testGroup)
@@ -477,10 +478,8 @@ prop_anEdocCommentBetweenErlangClausesIsAnOrphanThatHidesNeitherTheFunctionNorTh
 -- ref:REQ-erlang-support ref:DEC-source-encoding
 prop_anErlangFileInLatin1IsReadAsLatin1 :: Property
 prop_anErlangFileInLatin1IsReadAsLatin1 = withTests 1 $ property $ do
-  base <- evalIO getTemporaryDirectory
-  let root = base </> "canon-test-latin1"
-      path = root </> "latin.erl"
-  text <- evalIO $ bracket (createDirectoryIfMissing True root >> pure root) removeDirectoryRecursive $ \_ -> do
+  text <- evalIO $ withScratch "latin1" $ \root -> do
+    let path = root </> "latin.erl"
     BS.writeFile path (BS.pack (map (fromIntegral . fromEnum) "%% -*- coding: latin-1 -*-\n-module(latin).\nf() -> \"\229\".\n"))
     readSourceFile path
   T.isInfixOf "\"\229\"" text === True

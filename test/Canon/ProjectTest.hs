@@ -17,8 +17,8 @@ import Canon.Model.Yaml (decodeSorted, encodeSorted)
 import Canon.Profile
 import Canon.Project
 import Canon.Span (Located (..), Position (..), Span (..))
+import Canon.Scratch (withScratch)
 import Canon.Walk (Walked (..))
-import Control.Exception (bracket)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.ByteString.Lazy as LBS
 import qualified Hedgehog.Gen as Gen
@@ -28,7 +28,7 @@ import qualified Data.Map.Strict as Map
 import qualified Data.Set as Set
 import qualified Data.Text as T
 import Hedgehog (Property, annotate, assert, evalIO, failure, forAll, property, withTests, (===))
-import System.Directory (createDirectoryIfMissing, getCurrentDirectory, getTemporaryDirectory, removeDirectoryRecursive)
+import System.Directory (createDirectoryIfMissing, getCurrentDirectory)
 import System.FilePath ((</>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
@@ -132,12 +132,6 @@ nestedProjects = withTests 1 $ property $ do
         pure (map (drop (length root + 1)) (sort files), map (drop (length root + 1)) projects, map (drop (length root + 1)) innerFiles)
       _ -> pure ([], [], [])
   found === (["a/x.g4"], ["inner"], ["inner/source/deep/z.g4"])
-
-withScratch :: String -> (FilePath -> IO a) -> IO a
-withScratch name action = do
-  base <- getTemporaryDirectory
-  let root = base </> ("canon-test-" ++ name)
-  bracket (createDirectoryIfMissing True root >> pure root) removeDirectoryRecursive action
 
 findingRoundTrip :: Property
 findingRoundTrip = property $ do

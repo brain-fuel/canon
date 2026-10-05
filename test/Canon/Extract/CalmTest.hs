@@ -10,7 +10,7 @@ import Canon.Extract.Grammar
 import Canon.Git.Provider (staticGitProvider)
 import Canon.Model
 import Canon.Profile
-import Control.Exception (bracket)
+import Canon.Scratch (withScratch)
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -54,9 +54,7 @@ calmProfile = Profile [".calm.json"] (CombinedGrammarFile "Calm.g4") (Name "json
 calmInterpreter :: String -> PropertyT IO Interpreter
 calmInterpreter name = do
   loaded <- evalIO $ do
-    base <- getTemporaryDirectory
-    let root = base </> ("canon-test-calm-" ++ name)
-    bracket (createDirectoryIfMissing True root >> pure root) removeDirectoryRecursive $ \dir -> do
+    withScratch ("calm-" ++ name) $ \dir -> do
       writeFile (dir </> "Calm.g4") (T.unpack jsonGrammar)
       loadCombinedInterpreter (dir </> "Calm.g4")
   either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
