@@ -28,13 +28,13 @@ tests =
     ]
 
 haskellProfile :: Profile
-haskellProfile = Profile [".hs"] (SplitGrammarFiles "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4") (Name "module") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+haskellProfile = Profile [".hs"] (SplitGrammarFiles "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4") (Name "module") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 makeOverrides :: Map.Map Text [Text]
 makeOverrides = Map.fromList [("meta", ["IFEQ", "IFDEF", "ELSE", "INCLUDE", "DEFINE", "ENDEF"]), ("comment", ["HELP"]), ("string", ["VALUE"]), ("type", ["SPECIAL"]), ("plain", ["NAME"])]
 
 makeProfile :: Profile
-makeProfile = Profile ["Makefile"] (SplitGrammarFiles "grammars/make/canonically_commented/MakefileLexer.g4" "grammars/make/canonically_commented/MakefileParser.g4") (Name "makefile") [] defaultCommentSyntax Map.empty Map.empty makeOverrides
+makeProfile = Profile ["Makefile"] (SplitGrammarFiles "grammars/make/canonically_commented/MakefileLexer.g4" "grammars/make/canonically_commented/MakefileParser.g4") (Name "makefile") [] defaultCommentSyntax Map.empty Map.empty makeOverrides []
 
 interpreterOrFail :: Profile -> PropertyT IO Interpreter
 interpreterOrFail profile = do

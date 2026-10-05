@@ -83,7 +83,7 @@ profileExtraction = withTests 1 $ property $ do
   case interpreter of
     Left err -> annotate (show err) >> failure
     Right loaded -> do
-      let profile = Profile [".tiny"] (CombinedGrammarFile "Tiny.g4") (Name "file_") [UnitRule (Name "definition") "function" (NameFromToken (Name "NAME") 1) True Nothing False] (CommentSyntax (Just "#") Nothing Nothing ["\""] [] [] [] [] Nothing False []) Map.empty Map.empty Map.empty
+      let profile = Profile [".tiny"] (CombinedGrammarFile "Tiny.g4") (Name "file_") [UnitRule (Name "definition") "function" (NameFromToken (Name "NAME") 1) True Nothing False] (CommentSyntax (Just "#") Nothing Nothing ["\""] [] [] [] [] Nothing False []) Map.empty Map.empty Map.empty []
           source = "# tiny module license:MIT\n\n# why alpha ref:REQ-1\ndef alpha() { def inner() {} }\n\ndef beta() {}\ndef beta() {}\n"
       result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "tiny" profile loaded "src/x.tiny" "src/x.tiny" source)
       case result of

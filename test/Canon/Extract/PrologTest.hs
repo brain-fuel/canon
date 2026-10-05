@@ -72,7 +72,7 @@ sampleProfile = do
 -- | The canonically commented dialect of the Prolog grammar, with no units of a profile and no
 -- comment syntax, so every unit and every Why comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".pl"] (SplitGrammarFiles "grammars/prolog/canonically_commented/PrologLexer.g4" "grammars/prolog/canonically_commented/PrologParser.g4") (Name "p_text") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".pl"] (SplitGrammarFiles "grammars/prolog/canonically_commented/PrologLexer.g4" "grammars/prolog/canonically_commented/PrologParser.g4") (Name "p_text") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | An extraction of one text through a profile.
 extractThrough :: Profile -> FilePath -> Text -> PropertyT IO Extraction

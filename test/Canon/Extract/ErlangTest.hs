@@ -227,7 +227,7 @@ prop_erlangProfileBindsEdocCommentsAndDocAttributesAcrossSpecsAndHidesWhatDocFal
 
 -- | The Erlang dialect, under grammars/erlang/canonically_commented, as a project names it.
 dialectProfile :: Profile
-dialectProfile = Profile [".erl", ".hrl"] (SplitGrammarFiles "grammars/erlang/canonically_commented/ErlangLexer.g4" "grammars/erlang/canonically_commented/ErlangParser.g4") (Name "forms") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".erl", ".hrl"] (SplitGrammarFiles "grammars/erlang/canonically_commented/ErlangLexer.g4" "grammars/erlang/canonically_commented/ErlangParser.g4") (Name "forms") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | A canonically commented grammar must say in grammar form what Erlang means by documentation: an
 -- EDoc comment or an OTP 27 -doc string documents the next function, type, record, or callback

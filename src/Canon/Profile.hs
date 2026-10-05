@@ -10,9 +10,11 @@ module Canon.Profile
   , DocStyle (..)
   , defaultCommentSyntax
   , profileForPath
+  , profileOwns
   ) where
 
 import Canon.Antlr4.Syntax (Name (..))
+import Canon.Ignore (globMatches)
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
@@ -124,7 +126,8 @@ data DocStyle = DocStyle
 -- checked, the signature carries the comments and the implementation needs none. The highlight
 -- map names, per class of the highlighter, the token names the grammar's own shape does not
 -- classify, such as a directive that carries the rest of its line. ref:DEC-fsharp-signatures
--- ref:DEC-highlight-by-lexer
+-- ref:DEC-highlight-by-lexer Besides extensions, a profile may own files by name patterns, as
+-- Pulumi owns Pulumi.yaml and Main.yaml but not every YAML file. ref:DEC-pulumi-yaml-grammar
 data Profile = Profile
   { profileExtensions :: [Text]
   , profileGrammar :: GrammarSource
@@ -134,15 +137,26 @@ data Profile = Profile
   , profileSignatures :: Map Text Text
   , profileEmbeds :: Map Text Embedding
   , profileHighlight :: Map Text [Text]
+  , profileFiles :: [Text]
   }
   deriving (Eq, Show)
 
--- | The profile that owns a file's extension.
+-- | The profile that owns a file: the first whose file name patterns match its name, or else the
+-- first that owns its extension, so a profile for Pulumi.yaml is chosen over one for every YAML
+-- file. ref:DEC-pulumi-yaml-grammar
 profileForPath :: Map Text Profile -> FilePath -> Maybe (Text, Profile)
 profileForPath profiles path =
-  case [(lang, p) | (lang, p) <- Map.toList profiles, any (`T.isSuffixOf` T.pack (takeFileName path)) (profileExtensions p)] of
+  case [(lang, p) | (lang, p) <- Map.toList profiles, ownsByName p] ++ [(lang, p) | (lang, p) <- Map.toList profiles, ownsByExtension p] of
     (found : _) -> Just found
     [] -> Nothing
+  where
+    ownsByName p = any (`globMatches` T.pack (takeFileName path)) (profileFiles p)
+    ownsByExtension p = any (`T.isSuffixOf` T.pack (takeFileName path)) (profileExtensions p)
+
+-- | Whether a profile owns a file, by its name patterns or its extension, which is what the walk
+-- asks of every file it finds.
+profileOwns :: Profile -> FilePath -> Bool
+profileOwns p path = any (`T.isSuffixOf` T.pack (takeFileName path)) (profileExtensions p) || any (`globMatches` T.pack (takeFileName path)) (profileFiles p)
 
 instance ToJSON UnitName where
   toJSON n = case n of
@@ -247,6 +261,7 @@ instance ToJSON Profile where
           ++ ["signatures" .= profileSignatures p | not (Map.null (profileSignatures p))]
           ++ (if Map.null (profileEmbeds p) then [] else ["embeds" .= profileEmbeds p])
           ++ (if Map.null (profileHighlight p) then [] else ["highlight" .= profileHighlight p])
+          ++ ["files" .= profileFiles p | not (null (profileFiles p))]
           ++ case profileGrammar p of
             CombinedGrammarFile path -> ["grammar" .= path]
             SplitGrammarFiles lexer parser -> ["lexer" .= lexer, "parser" .= parser]
@@ -262,7 +277,7 @@ instance FromJSON Profile where
       (Nothing, Just l, Just p) -> pure (SplitGrammarFiles l p)
       _ -> fail "a profile names either grammar, or both lexer and parser"
     Profile
-      <$> o .: "extensions"
+      <$> (fromMaybe [] <$> o .:? "extensions")
       <*> pure source
       <*> (Name <$> o .: "start")
       <*> (fromMaybe [] <$> o .:? "units")
@@ -270,3 +285,4 @@ instance FromJSON Profile where
       <*> (fromMaybe Map.empty <$> o .:? "signatures")
       <*> (fromMaybe Map.empty <$> o .:? "embeds")
       <*> (fromMaybe Map.empty <$> o .:? "highlight")
+      <*> (fromMaybe [] <$> o .:? "files")

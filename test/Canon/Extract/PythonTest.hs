@@ -61,7 +61,7 @@ sampleProfile = do
 -- | The canonically commented dialect of the Python grammar, with no units of a profile, so every
 -- unit comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".py"] (SplitGrammarFiles "grammars/python/canonically_commented/Python3Lexer.g4" "grammars/python/canonically_commented/Python3Parser.g4") (Name "file_input") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".py"] (SplitGrammarFiles "grammars/python/canonically_commented/Python3Lexer.g4" "grammars/python/canonically_commented/Python3Parser.g4") (Name "file_input") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | An extraction of one source text through a profile.
 extractWith :: Profile -> FilePath -> Text -> PropertyT IO Extraction

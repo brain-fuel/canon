@@ -55,7 +55,7 @@ lexerPath :: FilePath
 lexerPath = "grammars/antlr4/ANTLRv4Lexer.g4"
 
 antlrProfile :: Profile
-antlrProfile = Profile [".g4"] (SplitGrammarFiles (dialectDir ++ "/ANTLRv4Lexer.g4") (dialectDir ++ "/ANTLRv4Parser.g4")) (Name "grammarSpec") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+antlrProfile = Profile [".g4"] (SplitGrammarFiles (dialectDir ++ "/ANTLRv4Lexer.g4") (dialectDir ++ "/ANTLRv4Parser.g4")) (Name "grammarSpec") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 sampleCommits :: [Commit]
 sampleCommits =
@@ -190,7 +190,7 @@ dialectPlans = withTests 1 $ property $ do
   Map.lookup (Name "ruleSpec") plans === Just [Nothing, Nothing]
 
 javaProfile :: Profile
-javaProfile = Profile [".java"] (SplitGrammarFiles "grammars/java/canonically_commented/JavaLexer.g4" "grammars/java/canonically_commented/JavaParser.g4") (Name "compilationUnit") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+javaProfile = Profile [".java"] (SplitGrammarFiles "grammars/java/canonically_commented/JavaLexer.g4" "grammars/java/canonically_commented/JavaParser.g4") (Name "compilationUnit") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 javaDialect :: Property
 javaDialect = withTests 1 $ property $ do
@@ -252,7 +252,7 @@ isAsserted ev = case ev of
   _ -> False
 
 haskellProfile :: Profile
-haskellProfile = Profile [".hs"] (SplitGrammarFiles "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4") (Name "module") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+haskellProfile = Profile [".hs"] (SplitGrammarFiles "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4") (Name "module") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 haskellDialect :: Property
 haskellDialect = withTests 1 $ property $ do
@@ -366,7 +366,7 @@ exportEntries = withTests 1 $ property $ do
   exportRequires Nothing Nothing "Named Shape" === False
 
 makeProfile :: Profile
-makeProfile = Profile ["Makefile"] (SplitGrammarFiles "grammars/make/canonically_commented/MakefileLexer.g4" "grammars/make/canonically_commented/MakefileParser.g4") (Name "makefile") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+makeProfile = Profile ["Makefile"] (SplitGrammarFiles "grammars/make/canonically_commented/MakefileLexer.g4" "grammars/make/canonically_commented/MakefileParser.g4") (Name "makefile") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 makeDialect :: Property
 makeDialect = withTests 1 $ property $ do

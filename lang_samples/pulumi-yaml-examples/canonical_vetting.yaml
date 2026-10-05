@@ -1,0 +1,117 @@
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/config/dbInstanceSize:
+  comment: sha256:b5366eff9084ccce
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/config/dbName:
+  comment: sha256:41afa70b1c3740b6
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/config/dbPassword:
+  comment: sha256:7b08a214ddc8397e
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/config/dbUsername:
+  comment: sha256:c03c1c80c45e233b
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/config/ec2InstanceSize:
+  comment: sha256:51a554df5c412b84
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/config/privateKeyPath:
+  comment: sha256:2f411abd6094e165
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/config/publicKeyPath:
+  comment: sha256:6663ceb8d2d74d5a
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/ec2-allow-rule:
+  comment: sha256:f5b00734e5e1e9e1
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/playAnsiblePlaybookCmd:
+  comment: sha256:0aba5bfe8c7db37e
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/prod-igw:
+  comment: sha256:05ffb9faf18bc43d
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/prod-public-rt:
+  comment: sha256:efedc5a6ef12e871
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/prod-subnet-private-1:
+  comment: sha256:9e83bb09efd6a6c5
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/prod-subnet-public-1:
+  comment: sha256:9fe3a87acebf3776
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/prod-vpc:
+  comment: sha256:8ddc11cdb1440977
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/rds-allow-rule:
+  comment: sha256:bf7e5757ed0f2919
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/rds-subnet-grp:
+  comment: sha256:13a28e801673d34b
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/renderPlaybookCmd:
+  comment: sha256:548bd19a36cf4231
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/updatePythonCmd:
+  comment: sha256:70aaa43ae49be3ec
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/wordpress-eip:
+  comment: sha256:79ebe38ee03db200
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/wordpress-instance:
+  comment: sha256:f76c22399c157077
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/wordpress-keypair:
+  comment: sha256:b08f42f1830071c6
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/wordpressdb:
+  comment: sha256:8ba0ea14c4bd3f6f
+  verdict: pending
+"decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/aws:region":
+  comment: sha256:03eaca1a9cd0da42
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/dbInstanceSize:
+  comment: sha256:89e9229fc6e691bc
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/dbName:
+  comment: sha256:d13462561d7dfac2
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/dbPassword:
+  comment: sha256:dda660a5dccdd71b
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/dbUsername:
+  comment: sha256:553815b549cc88ac
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/ec2InstanceSize:
+  comment: sha256:7d345fe53fd9af75
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/privateKeyPath:
+  comment: sha256:83b69741433513ba
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/publicKeyPath:
+  comment: sha256:3359010d45ff27b7
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/variable/availabilityZones:
+  comment: sha256:adbbd6e5853c0ef8
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/variable/awsLinuxAmi:
+  comment: sha256:c2042deee996ba58
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/variable/privateKey:
+  comment: sha256:3663e28c21f5df03
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/variable/publicKey:
+  comment: sha256:d437dc3221f1b850
+  verdict: pending
+"decision/pulumi/source/aws-yaml-static-website/Pulumi.yaml/templateConfig/aws-native:region":
+  comment: sha256:58fded8d48ddb887
+  verdict: pending
+"decision/pulumi/source/aws-yaml-static-website/Pulumi.yaml/templateConfig/aws:region":
+  comment: sha256:03eaca1a9cd0da42
+  verdict: pending
+ledger/DEC-sample-scope:
+  comment: sha256:2f0a9f8f13de6d97
+  verdict: pending
+registry/Apache-2.0:
+  comment: sha256:f42cc8899f7d45b9
+  verdict: pending
+registry/pulumi-examples-upstream:
+  comment: sha256:686a62889f5b5e1f
+  verdict: pending

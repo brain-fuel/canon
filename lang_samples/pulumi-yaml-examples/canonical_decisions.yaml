@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Should every resource and variable of the Pulumi examples carry a comment directly above it, given that the Pulumi YAML dialect requires a Why only on outputs and on config keys that declare a type or a default, and that the wordpress example comments each resource while the others comment none?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [pulumi-examples-upstream]

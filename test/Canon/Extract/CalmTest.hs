@@ -48,7 +48,7 @@ jsonGrammar =
 
 -- | The CALM profile: no units of its own, since the extractor reads the description's structure.
 calmProfile :: Profile
-calmProfile = Profile [".calm.json"] (CombinedGrammarFile "Calm.g4") (Name "json") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+calmProfile = Profile [".calm.json"] (CombinedGrammarFile "Calm.g4") (Name "json") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | Loads the grammar from a scratch directory of its own name, since properties run at once.
 calmInterpreter :: String -> PropertyT IO Interpreter

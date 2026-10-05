@@ -1,0 +1,8 @@
+terraform-aws-key-pair-upstream:
+  kind: package
+  title: terraform-aws-key-pair 3.0.1, a Terraform module for AWS key pairs, of which the root module, examples/complete, and wrappers are vendored under source/ at commit f3221d392c436a874f189aa2d217d4aff60eb05e
+  locator: https://github.com/terraform-aws-modules/terraform-aws-key-pair/tree/f3221d392c436a874f189aa2d217d4aff60eb05e
+Apache-2.0:
+  kind: license
+  title: Apache License 2.0
+  locator: https://spdx.org/licenses/Apache-2.0.html

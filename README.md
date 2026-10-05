@@ -182,13 +182,22 @@ element holds, or else the number of rules among its children, and adjacent unit
 named that share a kind and a name are one unit unless a later one has a Why of
 its own, as the clauses of a predicate are one predicate. A `why` element of
 the start rule outside every unit is the file's Why, as Rust's `//!` at the top
-of a file is.
+of a file is. A unit's What is the text of its `what` element; when the
+alternative itself holds several, they are joined with a dot, as a Terraform
+resource is named `aws_vpc.main` by its type and name. An element labeled
+`qualifier` on a node that is no unit is the first part of the name of every
+unit below it, as the type of a resource in Terraform's JSON syntax is a key
+above the resource's own. A `why` element inside an optional or repeated block
+is optional. A `why` element that is data rather than a comment, such as the
+`description` of a Terraform variable, is documentation written as data: its
+prose is the string without its quotes, heredoc delimiters, or block scalar
+header, and its citations are read from its text.
 Alternative labels without a `why`, such as the Java grammar's own expression
 labels, are inert. `canon` generates the extraction parser from that grammar,
 so nothing about a language's comment placement is written in Haskell. The
 ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, Groovy, JavaScript,
 TypeScript, Go, Python, Kotlin, Clojure, Prolog, Scala, Elixir, Gleam, Erlang,
-and the Folio have dialects.
+HCL, Pulumi YAML, and the Folio have dialects.
 
 ### Tests
 
@@ -217,6 +226,7 @@ whatever its visibility.
 | `kotlin` | a function marked `@Test`, `@kotlin.test.Test`, `@org.junit.Test`, or `@org.junit.jupiter.api.Test`, or any function under a `src/test` or `src/*Test` source set, since Kotlin test names are often backticked sentences |
 | `groovy` | a method marked with one of the JUnit or jqwik annotations `java` lists, or a method named `test*` under a `src/test` directory (JUnit 3), as for `java`; or a method named by a string, as Spock writes a feature method such as `def 'adds two numbers'()`, under a `src/test` directory or in a `*Spec.groovy` file |
 | `scala` | a method marked `@Test`, `@org.junit.Test`, `@org.junit.jupiter.api.Test`, `@ParameterizedTest`, `@RepeatedTest`, `@TestFactory`, or `@TestTemplate` (JUnit 4 and 5), with or without arguments; or any unit under a `src/test` or `test` directory or in a `*Suite.scala`, `*Spec.scala`, or `*Test.scala` file, since a munit, ScalaTest, or utest test is a `test("...")` call rather than a declaration |
+| `hcl` | a `run` block of a Terraform test file (`terraform test`) |
 
 Two findings fail `canon check`: a commented test whose comment cites no
 requirement, and a requirement in the registry that no test in the project
@@ -368,7 +378,9 @@ to the ambiguity it depends on.
 
 Any language with a grammar `canon` can interpret becomes a language `canon`
 models. A project's `canon.yaml` declares one under `languages`, keyed by
-name, with the file `extensions` it owns, the `grammar` file or the `lexer`
+name, with the file `extensions` it owns or the `files` it owns by name
+pattern, such as `Pulumi.*.yaml`, which win over any profile's extensions,
+the `grammar` file or the `lexer`
 and `parser` pair, the `start` rule, the comment syntax (`line`, `blockOpen`,
 `blockClose`, and the `strings` whose contents are not comments), and the
 `units`: which parse-tree rules are code units, their `kind`, where their
@@ -450,10 +462,10 @@ git submodule, sets `root` to that directory.
 
 `lang_samples/` holds real projects in other languages, each a nested project
 whose sources are a submodule under `source` (vendored, for the small Rust,
-C#, F#, Elixir, Gleam, Groovy, and Scala samples) and whose canon files sit
+C#, F#, Elixir, Gleam, Groovy, Scala, HCL, and Pulumi YAML samples) and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
-grammars-v4 or written for canon, with a `canonically_commented/` dialect
-where one exists and an empty husk where it does not. `canon check` at the repository root checks
+grammars-v4 or written for canon, each with a `canonically_commented/`
+dialect. `canon check` at the repository root checks
 canon itself and leaves the samples alone; checking a sample is its own run,
 from its directory, or with `stack exec --cwd lang_samples/<sample> canon --
 check` from the root. The samples are upstream code that is not canonically
@@ -496,6 +508,8 @@ repository holds.
 | `lang_samples/kotlin-turbine` | Kotlin | `grammars/kotlin/KotlinLexer.g4`, `KotlinParser.g4`, and `UnicodeClasses.g4` |
 | `lang_samples/groovy-spock-genesis` | Groovy | `grammars/groovy/GroovyLexer.g4` and `GroovyParser.g4` |
 | `lang_samples/scala-iron` | Scala | `grammars/scala/Scala3Lexer.g4` and `Scala3Parser.g4` |
+| `lang_samples/hcl-terraform-aws-key-pair` | HCL | `grammars/hcl/canonically_commented/HCLLexer.g4` and `HCLParser.g4` |
+| `lang_samples/pulumi-yaml-examples` | Pulumi YAML | `grammars/yaml/canonically_commented/YAMLLexer.g4` and `YAMLParser.g4` |
 
 The Rust sample is scopeguard 1.2.0, one source file, vendored under
 `source/` with its MIT and Apache-2.0 licenses instead of a submodule. Its
@@ -872,6 +886,54 @@ grammar needs the indentation rule, which upstream implements in a Java base
 lexer; `Canon.Antlr4.Lex.Scala` is that base lexer ported to a lexer hook,
 selected by the grammar's `superClass`.
 
+The HCL sample is terraform-aws-key-pair 3.0.1, its root module, complete
+example, and wrappers, vendored under `source/` with its Apache-2.0 license.
+It is checked through the HCL dialect, which needs no `units` or `comments`,
+since the grammar carries them. Its `canon.yaml` holds the profile a
+Terraform project can copy:
+
+```yaml
+languages:
+  hcl:
+    extensions: [.tf, .tfvars, .hcl]
+    files: ["*.tf.json", "*.tfvars.json"]
+    lexer: ../../grammars/hcl/canonically_commented/HCLLexer.g4
+    parser: ../../grammars/hcl/canonically_commented/HCLParser.g4
+    start: configFile
+```
+
+Each top-level block is a unit named as Terraform addresses it, such as
+`resource/aws_key_pair.this`, and each entry of a `locals` block is a unit of
+kind `local`. An aliased provider is named by its alias too, as
+`provider/aws.west`, and `moved`, `removed`, and `import` blocks by the
+addresses they name. A comment directly above a block is its Why, and so is
+the `description` of a variable or an output, which is how this module
+documents every one of them. Variables and outputs require a Why; other blocks
+may have one. A `.tf.json` file gives the same units with the same names,
+with a `//` property as a block's Why.
+
+The Pulumi YAML sample is the `Pulumi.yaml` programs of three Pulumi
+examples, vendored under `source/` with the repository's Apache-2.0 license.
+A Pulumi program is YAML, but not every YAML file is a Pulumi program, so the
+profile owns its files by name:
+
+```yaml
+languages:
+  pulumi:
+    files: [Pulumi.yaml, Pulumi.yml, "Pulumi.*.yaml", "Pulumi.*.yml", Main.yaml, Main.yml]
+    lexer: ../../grammars/yaml/canonically_commented/YAMLLexer.g4
+    parser: ../../grammars/yaml/canonically_commented/YAMLParser.g4
+    start: yamlFile
+```
+
+Each entry of a program's `resources`, `variables`, `outputs`, and `config`,
+and of its `template` section's `config`, is a unit named by its key, without
+quotes. A comment directly above an entry is its Why, and
+so is the `description` of a config key. Outputs require a Why, and so does a
+config key that declares a `type` or a `default`; the keys of a stack file,
+which only set values, may have one. Pulumi programs in TypeScript, Python,
+Go, C#, or Java are read through those languages' profiles.
+
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked
 through a canonically commented dialect rather than a profile with `units`,
@@ -1140,7 +1202,9 @@ directory contains two grammars:
 `Canon.Antlr4.Lex` and `Canon.Antlr4.Parse` modules turn any grammar value
 into a running lexer and parser, so a `.g4` file under `grammars/` becomes a
 parser without code generation. The upstream grammar is kept beside it as the
-source it is derived from. Lexer actions that upstream grammars delegate to a
+source it is derived from. The parser memoises each rule and each repeated
+element by position, so a file that does not parse fails as fast as one that
+does parses. Lexer actions that upstream grammars delegate to a
 target-language base class are resolved through a hook interface keyed by the
 grammar's `superClass` option; the ANTLR meta-grammar's own adaptor is the
 first hook implementation. Semantic predicates that a parser grammar
@@ -1341,9 +1405,32 @@ whose every rule carries a canonical comment, as the plain grammar's do, so the
 root `canon.yaml` checks it; the root profile still reads `docs/` through the
 plain grammar (`DEC-folio-dialect`).
 
-The Erlang, Elixir, and Gleam directories hold their grammars
-with an empty `canonically_commented/` husk, and their samples use the
-line-adjacency profile path until a dialect exists.
+`grammars/hcl/` holds an HCL grammar written for canon from the HCL native
+syntax specification, since the grammars-v4 Terraform grammar parsed 344 of
+554 real Terraform files and no `.tfvars` or `.hcl` file. HCL ends an
+attribute at a line break except inside brackets, so the grammar's
+`superClass` selects a lexer hook that hides line breaks there and closes each
+heredoc at its delimiter line. Under `canonically_commented/` every comment is
+a canonical comment, because HCL has no other kind, and the hook hides a
+comment after code or inside brackets and joins a comment to the line
+directly below it, so only a comment directly above a block binds to it. The
+dialect labels each top-level block a unit, joins its labels into its What,
+reads the `description` of a variable or an output as a Why, and labels
+`variable` and `output` `required`. A file in Terraform's JSON syntax gives the
+same units, with its `//` properties as Whys. `grammars/hcl/README.md` gives the design
+and the known limitations, and the ledger records them as `DEC-hcl-grammar`.
+
+`grammars/yaml/` holds a grammar of the block structure of YAML 1.2 written
+for canon, since grammars-v4 has none. A lexer hook turns indentation into
+`INDENT`, `DEDENT`, and `NEWLINE` tokens as the F# hook does and ends each
+block scalar where its lines stop being indented past its key. Under
+`canonically_commented/` the dialect reads a Pulumi program: the hook emits
+each comment just before the code directly below it, and each entry of the
+`resources`, `variables`, `outputs`, and `config` sections, and of the
+`template` section's `config`, is a unit with that comment, or a config key's
+`description`, as its Why.
+`grammars/yaml/README.md` gives the design and the known limitations, and the
+ledger records them as `DEC-pulumi-yaml-grammar`.
 
 ### `to_be_removed/`
 
@@ -1398,7 +1485,8 @@ Run with no path, or with a directory, `canon check` walks the tree and checks
 every file of a supported type it finds, and `canon files` lists what that
 walk would visit. Directories that never hold a project's own sources are
 skipped by default: version control metadata, `node_modules`,
-`bower_components`, `vendor`, `third_party`, build outputs such as
+`bower_components`, `vendor`, `third_party`, Terraform's `.terraform` cache of
+downloaded modules and providers, build outputs such as
 `.stack-work`, `dist`, `dist-newstyle`, `target`, `build`, and `out`, Python
 environments, and editor folders. `canon.yaml` adds patterns under `ignore`
 in gitignore syntax: a bare name matches at any depth, a pattern containing a

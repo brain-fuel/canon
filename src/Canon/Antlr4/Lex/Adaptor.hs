@@ -14,6 +14,8 @@ import Canon.Antlr4.Lex.Erlang (erlangPreprocessorHooks)
 import Canon.Antlr4.Lex.FSharp (fsharpLexerHooks)
 import Canon.Antlr4.Lex.Groovy (groovyLexerHooks)
 import Canon.Antlr4.Lex.Go (goLexerHooks)
+import Canon.Antlr4.Lex.HCL (hclLexerHooks)
+import Canon.Antlr4.Lex.YAML (yamlLexerHooks)
 import Canon.Antlr4.Lex.Haskell (haskellLayoutHooks)
 import Canon.Antlr4.Lex.JavaScript (javaScriptHooks, typeScriptHooks)
 import Canon.Antlr4.Lex.Python (pythonHooks)
@@ -90,6 +92,8 @@ hooksForGrammarWith choice grammar =
     (Name "GoLexerBase" : _) -> SomeHooks goLexerHooks
     (Name "AbstractLexer" : _) -> SomeHooks groovyLexerHooks
     (Name "ErlangPreprocessor" : _) -> SomeHooks erlangPreprocessorHooks
+    (Name "HCLLexerBase" : _) -> SomeHooks hclLexerHooks
+    (Name "YAMLLexerBase" : _) -> SomeHooks yamlLexerHooks
     _ -> SomeHooks noHooks
 
 -- | Whether the hook port a grammar selects reads #if directives, so a file is read once per build.

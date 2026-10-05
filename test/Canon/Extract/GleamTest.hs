@@ -219,7 +219,7 @@ prop_gleamProfileReadsPre10SyntaxAndHidesInternalItems = withTests 1 $ property 
 
 -- | The Gleam dialect, under grammars/gleam/canonically_commented, as a project names it.
 dialectProfile :: Profile
-dialectProfile = Profile [".gleam"] (SplitGrammarFiles "grammars/gleam/canonically_commented/GleamLexer.g4" "grammars/gleam/canonically_commented/GleamParser.g4") (Name "module") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".gleam"] (SplitGrammarFiles "grammars/gleam/canonically_commented/GleamLexer.g4" "grammars/gleam/canonically_commented/GleamParser.g4") (Name "module") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | A canonically commented grammar must say in grammar form what the Gleam profile says in
 -- canon.yaml, and say it as the Gleam compiler does: every /// line since the previous item documents

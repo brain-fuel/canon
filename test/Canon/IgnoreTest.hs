@@ -82,6 +82,7 @@ defaultsCoverVendors :: Property
 defaultsCoverVendors = withTests 1 $ property $ do
   let ignored path = isIgnored defaultIgnorePatterns False (T.splitOn "/" path)
   ignored "node_modules/x/y.g4" === True
+  ignored ".terraform/modules/vpc/main.tf" === True
   ignored "a/vendor/y.g4" === True
   ignored ".stack-work/dist/y.g4" === True
   ignored "grammars/antlr4/x.g4" === False

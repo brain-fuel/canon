@@ -23,6 +23,7 @@ import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token
 import Data.Foldable (toList)
 import qualified Data.IntMap.Strict as IntMap
+import Data.Traversable (mapAccumL)
 import qualified Data.IntSet as IntSet
 import qualified Data.List.NonEmpty as NonEmpty
 import Data.Map.Strict (Map)
@@ -141,8 +142,8 @@ data CompiledAtom
   | CompiledAny
 
 data CompiledElement
-  = CompiledAtomElement CompiledAtom (Maybe EbnfSuffix) (Maybe Text)
-  | CompiledBlockElement [CompiledAlternative] (Maybe EbnfSuffix) (Maybe Text)
+  = CompiledAtomElement CompiledAtom (Maybe EbnfSuffix) (Maybe Text) Int
+  | CompiledBlockElement [CompiledAlternative] (Maybe EbnfSuffix) (Maybe Text) Int
   | CompiledActionElement
   | CompiledPredicateElement Text
 
@@ -211,7 +212,25 @@ parseVisibleTokensWith hook grammar start visible
     ruleCount = length sourceRules
 
     firstTable = computeFirst sourceRules ruleIndex
-    compiled = BV.fromList (map (compileRule ruleIndex firstTable) sourceRules)
+    (_, numbered) = numberLoops (map (compileRule ruleIndex firstTable) sourceRules)
+    compiled = BV.fromList numbered
+    loops = BV.fromList (concatMap ruleLoops numbered)
+
+    -- Each loop's walks, one per position it is entered at, in a table kept like the rules' memo:
+    -- a map per position, holding only what was asked for. ref:DEC-loop-memo
+    loopMemo = newMemo LoopTable (n + 1)
+
+    loopEntry i p
+      | p > n = ([], p)
+      | otherwise = memoised loopMemo p i loopMany
+
+    -- A loop's entry at a position is the linear walk of manyStep from there, made once.
+    loopMany i p = case loops BV.! i of
+      (EbnfSuffix _ greediness, inner) -> manyStep (greediness /= NonGreedy) (innerStep inner) p
+
+    innerStep inner = case inner of
+      Left atom -> evalAtom entryOf atom
+      Right alts -> altStep [evalAlternative True entryOf a | a <- alts]
 
     -- Tokens fall into classes by type, and by text where a parser rule names a literal, and each
     -- class has its candidate rules: those nullable or whose first set admits the token. Position n,
@@ -229,7 +248,7 @@ parseVisibleTokensWith hook grammar start visible
     classSlots :: BV.Vector (V.Vector Int)
     classSlots = BV.map (\rs -> V.replicate ruleCount (-1) V.// zip rs [0 ..]) classCandidates
 
-    memo = newMemo (n + 1)
+    memo = newMemo RuleTable (n + 1)
     slotEntries r p = case ruleShapes (compiled BV.! r) of
       Nothing -> BV.singleton (compute r p)
       Just shapes -> BV.generate (length shapes + 2) (\prec -> evalLeftRecursive r shapes prec p)
@@ -268,21 +287,21 @@ parseVisibleTokensWith hook grammar start visible
 
     compute r p = case Map.lookup r groupOf of
           Just members -> Map.findWithDefault (Entry FoundNone p) r (fixTable Map.! headOf members BV.! p)
-          Nothing -> evalRule entryOf r p
+          Nothing -> evalRule True entryOf r p
 
     fixpoint members p = go (Map.fromList [(m, Entry FoundNone p) | m <- members]) (0 :: Int)
       where
         go current k =
-          let next = Map.fromList [(m, evalRule (override current) m p) | m <- members]
+          let next = Map.fromList [(m, evalRule False (override current) m p) | m <- members]
            in if signature next == signature current || k > n - p + 1 then next else go next (k + 1)
         signature = Map.map (map snd . entryResults)
         override current r q
           | q == p, Just entry <- Map.lookup r current = entry
           | otherwise = entryOf r q
 
-    evalRule look r p =
+    evalRule cached look r p =
       let rule = compiled BV.! r
-          evals = [(i, evalAlternative look alt p) | (i, alt) <- zip [0 ..] (ruleAlternatives rule)]
+          evals = [(i, evalAlternative cached look alt p) | (i, alt) <- zip [0 ..] (ruleAlternatives rule)]
        in sharedFailure
             ( toEntry
                 ( oneTreePerEnd [(node (ruleName' rule) i (children []), e) | (i, (results, _)) <- evals, (children, e) <- results]
@@ -290,18 +309,27 @@ parseVisibleTokensWith hook grammar start visible
                 )
             )
 
-    evalAlternative look alt p = evalAlternativeFrom p look alt p
+    evalAlternative cached look alt p = evalAlternativeFrom cached p look alt p
 
-    evalAlternativeFrom from look alt p = case toks BV.!? p of
+    evalAlternativeFrom cached from look alt p = case toks BV.!? p of
       Just tok | not (alternativeNullable alt) && not (canStart (alternativeFirst alt) tok) -> ([], p)
       Nothing | not (alternativeNullable alt) -> ([], p)
-      _ -> evalElements from look (compiledAlternativeElements alt) p
+      _ -> evalElements cached from look (compiledAlternativeElements alt) p
 
-    evalElements from look elements = foldr (\e rest -> seqStep (evalElement from look e) rest) emptyStep elements
+    evalElements cached from look elements = foldr (\e rest -> seqStep (evalElement cached from look e) rest) emptyStep elements
 
-    evalElement from look e = case e of
-      CompiledAtomElement atom suffix label -> labeled label (suffixed suffix (evalAtom look atom))
-      CompiledBlockElement alts suffix label -> labeled label (suffixed suffix (altStep [evalAlternativeFrom from look a | a <- alts]))
+    -- A loop outside a left-recursive group's fixpoint is read through its memo table, which holds
+    -- the linear walk of the loop from each position it is entered at, so a loop re-entered at a
+    -- position by another alternative is not walked again. ref:DEC-loop-memo ref:DEC-parser-memory
+    repeated cached loop suffix m
+      | cached && loop >= 0 = case suffix of
+          Just (EbnfSuffix OneOrMore _) -> seqStep m (loopEntry loop)
+          _ -> loopEntry loop
+      | otherwise = suffixed suffix m
+
+    evalElement cached from look e = case e of
+      CompiledAtomElement atom suffix label loop -> labeled label (repeated cached loop suffix (evalAtom look atom))
+      CompiledBlockElement alts suffix label loop -> labeled label (repeated cached loop suffix (altStep [evalAlternativeFrom cached from look a | a <- alts]))
       CompiledActionElement -> emptyStep
       CompiledPredicateElement predicate -> \p -> if hook predicate toks from p then emptyStep p else ([], p)
 
@@ -341,13 +369,13 @@ parseVisibleTokensWith hook grammar start visible
        in sharedFailure (toEntry (oneTreePerEnd climbed, maximum (pos : [f | (_, (_, f)) <- baseEvals] ++ [snd (paths IntMap.! q) | (_, q) <- base])))
 
     baseStep r sh pr = case sh of
-      ShapePrimary alt -> Just (evalAlternative entryOf alt)
-      ShapePrefix alt -> Just (seqStep (evalAlternative entryOf alt) (refStep r pr))
+      ShapePrimary alt -> Just (evalAlternative True entryOf alt)
+      ShapePrefix alt -> Just (seqStep (evalAlternative True entryOf alt) (refStep r pr))
       _ -> Nothing
 
     extensionStep r sh pr q = case sh of
-      ShapeBinary rightAssoc middle -> seqStep (evalAlternative entryOf middle) (refStep r (if rightAssoc then pr else pr + 1)) q
-      ShapeSuffix rest -> evalAlternative entryOf rest q
+      ShapeBinary rightAssoc middle -> seqStep (evalAlternative True entryOf middle) (refStep r (if rightAssoc then pr else pr + 1)) q
+      ShapeSuffix rest -> evalAlternative True entryOf rest q
       _ -> ([], q)
 
     furthest = entryFurthest (entryOf startIndex 0)
@@ -446,8 +474,8 @@ compileRule ruleIndex firstTable rule = CompiledRule (parserRuleName rule) alter
       Just (EbnfSuffix ZeroOrMore _) -> True
       _ -> False
     compileElement e = case e of
-      ElementAtom _ label atom suffix -> CompiledAtomElement (compileAtom atom) suffix (labelText label)
-      ElementBlock _ label block suffix -> CompiledBlockElement (map (compileAlternative . alternativeElements) (toList (blockAlternatives block))) suffix (labelText label)
+      ElementAtom _ label atom suffix -> CompiledAtomElement (compileAtom atom) suffix (labelText label) noLoop
+      ElementBlock _ label block suffix -> CompiledBlockElement (map (compileAlternative . alternativeElements) (toList (blockAlternatives block))) suffix (labelText label) noLoop
       ElementAction _ SemanticPredicate body _ -> CompiledPredicateElement (actionTextRaw body)
       ElementAction {} -> CompiledActionElement
     labelText = fmap (nameText . labelName)
@@ -466,10 +494,16 @@ compileRule ruleIndex firstTable rule = CompiledRule (parserRuleName rule) alter
 node :: Name -> Int -> [ParseTree] -> ParseTree
 node name i children = foldr seq () children `seq` RuleNode name i children
 
+-- | Which memo table a parse makes, the rules' or the loops'. The tables hold different types, so
+-- they must be two tables: GHC may share two equal applications of newMemo, and the tag keeps the
+-- applications apart. ref:DEC-loop-memo
+data MemoTable = RuleTable | LoopTable
+
 -- | A memo table with one map per position, filled as entries are asked for, so a rule that could
 -- start at a token but is never tried there costs nothing. ref:DEC-parser-memory
-newMemo :: Int -> MV.IOVector (IntMap.IntMap a)
-newMemo size = unsafePerformIO (MV.replicate size IntMap.empty)
+newMemo :: MemoTable -> Int -> MV.IOVector (IntMap.IntMap a)
+{-# NOINLINE newMemo #-}
+newMemo table size = unsafePerformIO (table `seq` MV.replicate size IntMap.empty)
 
 -- | The entry of a rule at a position, made on first request and shared after. The entry is stored
 -- unevaluated, so a request made while it is being evaluated finds the same thunk, as a lazy table
@@ -484,6 +518,71 @@ memoised table p r make = unsafePerformIO $ do
       let made = make r p
       MV.write table p (IntMap.insert r made entries)
       pure made
+
+-- | The id of an element that is not a loop.
+noLoop :: Int
+noLoop = -1
+
+-- | Numbers every starred or plussed element of every rule, shapes included, so that each loop
+-- has a memo table of its own: a loop re-entered at the same position is then read once, which
+-- keeps a failing parse from re-reading every way a loop can split its input. ref:DEC-loop-memo
+numberLoops :: [CompiledRule] -> (Int, [CompiledRule])
+numberLoops = mapAccumL rule 0
+  where
+    rule k r =
+      let (k1, alts) = mapAccumL alternative k (ruleAlternatives r)
+          (k2, shapes) = case ruleShapes r of
+            Nothing -> (k1, Nothing)
+            Just ss -> fmap Just (mapAccumL shapeEntry k1 ss)
+       in (k2, r {ruleAlternatives = alts, ruleShapes = shapes})
+    shapeEntry k (i, sh, pr) =
+      let (k', sh') = case sh of
+            ShapePrimary a -> fmap ShapePrimary (alternative k a)
+            ShapePrefix a -> fmap ShapePrefix (alternative k a)
+            ShapeBinary right a -> fmap (ShapeBinary right) (alternative k a)
+            ShapeSuffix a -> fmap ShapeSuffix (alternative k a)
+       in (k', (i, sh', pr))
+    alternative k a = let (k', es) = mapAccumL element k (compiledAlternativeElements a) in (k', a {compiledAlternativeElements = es})
+    element k e = case e of
+      CompiledAtomElement atom suffix label _ -> (next suffix k, CompiledAtomElement atom suffix label (idFor suffix k))
+      CompiledBlockElement alts suffix label _
+        | any predicated alts ->
+            let (k', alts') = mapAccumL alternative k alts
+             in (k', CompiledBlockElement alts' suffix label noLoop)
+        | otherwise ->
+            let (k', alts') = mapAccumL alternative (next suffix k) alts
+             in (k', CompiledBlockElement alts' suffix label (idFor suffix k))
+      CompiledActionElement -> (k, e)
+      CompiledPredicateElement _ -> (k, e)
+    -- A loop whose body asks a predicate is not memoised, since a predicate may read where the rule
+    -- around it started, which differs between entries at one position.
+    predicated a = any predicatedElement (compiledAlternativeElements a)
+    predicatedElement e = case e of
+      CompiledPredicateElement _ -> True
+      CompiledBlockElement alts _ _ _ -> any predicated alts
+      _ -> False
+    isLoop suffix = case suffix of
+      Just (EbnfSuffix ZeroOrMore _) -> True
+      Just (EbnfSuffix OneOrMore _) -> True
+      _ -> False
+    next suffix k = if isLoop suffix then k + 1 else k
+    idFor suffix k = if isLoop suffix then k else noLoop
+
+-- | The loops of a rule in id order, each with its suffix and the element it repeats.
+ruleLoops :: CompiledRule -> [(EbnfSuffix, Either CompiledAtom [CompiledAlternative])]
+ruleLoops r = concatMap alternative (ruleAlternatives r) ++ concatMap shapeLoops (maybe [] id (ruleShapes r))
+  where
+    shapeLoops (_, sh, _) = case sh of
+      ShapePrimary a -> alternative a
+      ShapePrefix a -> alternative a
+      ShapeBinary _ a -> alternative a
+      ShapeSuffix a -> alternative a
+    alternative a = concatMap element (compiledAlternativeElements a)
+    element e = case e of
+      CompiledAtomElement atom (Just suffix) _ loop | loop >= 0 -> [(suffix, Left atom)]
+      CompiledBlockElement alts suffix _ loop ->
+        [(s', Right alts) | loop >= 0, Just s' <- [suffix]] ++ concatMap alternative alts
+      _ -> []
 
 oneTreePerEnd :: [(a, Int)] -> [(a, Int)]
 oneTreePerEnd = go IntSet.empty

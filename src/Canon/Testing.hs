@@ -26,7 +26,7 @@ data TestRule = TestRule
 
 -- | The languages the table covers.
 knownLanguages :: [Text]
-knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "python", "go", "kotlin", "groovy", "scala"]
+knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "python", "go", "kotlin", "groovy", "scala", "hcl"]
 
 -- | The rules of a language. Rust's, C#'s, and F#'s rules are attributes, which their grammars label
 -- marker on every item. An F# test list bound with Expecto's [<Tests>] is the test, because the
@@ -35,7 +35,9 @@ knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csh
 -- ExUnit's test calls, and Gleam's are gleeunit's functions named for it. ref:DEC-elixir-grammar
 -- ref:DEC-gleam-grammar A Prolog test is a clause of plunit's test, which the plain profile names test
 -- and the dialect makes a unit of kind test. ref:DEC-prolog-dialect An Erlang function is named by
--- its name and arity, and EUnit runs the ones of arity 0. ref:DEC-erlang-grammar
+-- its name and arity, and EUnit runs the ones of arity 0. ref:DEC-erlang-grammar HCL's tests are
+-- the run blocks of a Terraform test file, which its dialect makes units of kind run.
+-- ref:DEC-hcl-grammar
 testRules :: Text -> [TestRule]
 testRules language = case language of
   "java" ->
@@ -75,6 +77,7 @@ testRules language = case language of
   "scala" ->
     [TestRule (Just "def") (Just marker) Nothing Nothing | marker <- junitMarkers]
       ++ [TestRule Nothing Nothing Nothing (Just path) | path <- ["**/src/test/**", "**/test/**", "**/*Suite.scala", "**/*Spec.scala", "**/*Test.scala"]]
+  "hcl" -> [TestRule (Just "run") Nothing Nothing Nothing]
   _ -> []
   where
     scriptTestPaths = ["**/test/**", "**/tests/**", "**/__tests__/**", "**/*.test.*", "**/*.spec.*"]

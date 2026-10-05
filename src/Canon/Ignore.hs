@@ -70,6 +70,7 @@ defaultIgnorePatterns =
     , "bower_components/"
     , "vendor/"
     , "third_party/"
+    , ".terraform/"
     , ".stack-work/"
     , "dist/"
     , "dist-newstyle/"

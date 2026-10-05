@@ -34,7 +34,7 @@ tests =
 -- | The canonically commented dialect of the Folio grammar, with no units of a profile and no
 -- comment syntax, so every unit and every Why comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".md"] (SplitGrammarFiles "grammars/folio/canonically_commented/FolioLexer.g4" "grammars/folio/canonically_commented/FolioParser.g4") (Name "document") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".md"] (SplitGrammarFiles "grammars/folio/canonically_commented/FolioLexer.g4" "grammars/folio/canonically_commented/FolioParser.g4") (Name "document") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | An extraction of one page through the dialect.
 extractDialect :: FilePath -> Text -> PropertyT IO Extraction

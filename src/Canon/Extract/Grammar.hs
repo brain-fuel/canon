@@ -25,7 +25,7 @@ import Canon.Antlr4.Parse (ParseTree (..), treeTokens)
 import Canon.Antlr4.Syntax (Alternative (..), Block (..), EbnfSuffix (..), Element (..), Grammar (..), Label (..), LabeledAlternative (..), Name (..), ParserRule (..), Quantifier (OneOrMore), Rule (..), nameText)
 import Canon.Antlr4.Token (Token (..), isEofToken)
 import Canon.Attach (attachPreceding, firstContentLine, topOfFileComment)
-import Canon.CanonicalComment (dialectCommentBody, licenseTokens, parseCanonicalComment, referenceTokens, toWhy)
+import Canon.CanonicalComment (dialectCommentBody, docStringBody, licenseTokens, parseCanonicalComment, referenceTokens, toWhy)
 import Canon.CommentScan (docAttributeBody, docOpenerOf, scanCommentsWith)
 import Canon.Config (Config (..))
 import Canon.Git.Fill (fillGitFromBlame)
@@ -154,6 +154,8 @@ hideTagged tagged above u =
 
 
 -- | Reads the unit alternatives out of the parser grammar: a labeled alternative with a why element.
+-- A why element inside an optional or repeated block is optional, as the comment property of a
+-- Terraform JSON block is. ref:DEC-hcl-grammar
 alternativePlans :: Grammar Span -> Map.Map Name [Maybe AlternativePlan]
 alternativePlans grammar = Map.fromList [(parserRuleName r, map plan (toList (parserRuleAlternatives r))) | RuleParser r <- grammarRules grammar]
   where
@@ -163,7 +165,7 @@ alternativePlans grammar = Map.fromList [(parserRuleName r, map plan (toList (pa
     whyElements e = case e of
       ElementAtom _ (Just (Label (Name "why") _)) _ suffix -> [mandatory suffix]
       ElementBlock _ (Just (Label (Name "why") _)) _ suffix -> [mandatory suffix]
-      ElementBlock _ _ block _ -> concatMap (concatMap whyElements . alternativeElements) (toList (blockAlternatives block))
+      ElementBlock _ _ block suffix -> (if mandatory suffix then id else map (const False)) (concatMap (concatMap whyElements . alternativeElements) (toList (blockAlternatives block)))
       _ -> []
     mandatory suffix = case suffix of
       Nothing -> True
@@ -257,6 +259,15 @@ exportRequires exports parent name = case exports of
 -- The first why element in a unit's node, outside the units nested in it, is the unit's Why wherever
 -- the grammar puts it, as the @moduledoc of an Elixir module sits among its statements; any other why
 -- element binds to nothing and is reported. ref:DEC-elixir-dialect
+--
+-- A unit whose own alternative holds what elements is named by their texts joined with a dot, as
+-- Terraform addresses a resource by its type and name; otherwise by the first what element below it.
+-- An element labeled qualifier on a node that is no unit is the first part of the name of every
+-- unit below it, as the type of a resource in Terraform's JSON syntax is a key above the resource's
+-- own. A why element that is neither a comment nor one string literal is documentation written as
+-- data, as an HCL description or a Pulumi config description is: its prose is the string's
+-- contents and its citations are also read from its text. ref:DEC-hcl-grammar
+-- ref:DEC-pulumi-yaml-grammar
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span], Set.Set UnitId)
 unitsFromTree language profile plans exportsDeclared idPath path source tree
   | language == "calm" = either (Left . GrammarArchitectureError) (\(r, ds, sps) -> Right (r, ds, sps, Set.empty)) (calmUnits idPath path source tree)
@@ -331,8 +342,8 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
       RuleNode _ _ ns | not (isUnitNode tree) -> [inner | Labeled "why" inner <- ns]
       _ -> []
     unboundBelowRoot = case tree of
-      RuleNode _ _ ns | not (isUnitNode tree) -> concatMap unboundWhys [n | n <- ns, not (isWhy n)]
-      _ -> unboundWhys tree
+      RuleNode _ _ ns | not (isUnitNode tree) -> concatMap (unboundWhys (qualified [] ns)) [n | n <- ns, not (isWhy n)]
+      _ -> unboundWhys [] tree
     isWhy node = case node of
       Labeled "why" _ -> True
       _ -> False
@@ -353,18 +364,19 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
       Labeled "orphan" inner -> [inner]
       Labeled _ inner -> orphansIn inner
       RuleNode _ _ ns -> concatMap orphansIn ns
-    unboundWhys node =
-      let (whys, units) = whysAndUnits node
-       in (if isNamedUnit node then drop 1 whys else whys) ++ concatMap unboundWhys units
-    whysAndUnits node = case node of
+    unboundWhys prefix node =
+      let (whys, units) = whysAndUnits prefix node
+       in filter isComment (if isNamedUnit prefix node then drop 1 whys else whys) ++ concatMap (\(p, u) -> unboundWhys p u) units
+    whysAndUnits prefix node = case node of
       TokenNode _ -> ([], [])
       Labeled "why" inner -> ([inner], [])
-      Labeled _ inner | isNamedUnit inner -> ([], [inner])
-      Labeled _ inner -> whysAndUnits inner
+      Labeled _ inner | isNamedUnit prefix inner -> ([], [(prefix, inner)])
+      Labeled _ inner -> whysAndUnits prefix inner
       RuleNode _ _ ns ->
-        let parts = [if isNamedUnit c then ([], [c]) else whysAndUnits c | c <- ns]
+        let inside = if isNamedUnit prefix node then [] else qualified prefix ns
+            parts = [if isNamedUnit inside c then ([], [(inside, c)]) else whysAndUnits inside c | c <- ns]
          in (concatMap fst parts, concatMap snd parts)
-    isNamedUnit node = isUnitNode node && isJust (planName node)
+    isNamedUnit prefix node = isUnitNode node && isJust (planName prefix node)
     root =
       CodeUnit
         { unitId = fileId
@@ -379,7 +391,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
         }
     collect hiddenAbove parent chain parentRequired node = collectAll hiddenAbove parent chain parentRequired [node]
     collectAll hiddenAbove parent chain parentRequired nodes =
-      let built = map (build hiddenAbove parent chain parentRequired) (uniqueNames (numberOrdinals (mergeClauses (attachBindings (concatMap found nodes)))))
+      let built = map (build hiddenAbove parent chain parentRequired) (uniqueNames (numberOrdinals (mergeClauses (attachBindings (concatMap (found []) nodes)))))
        in ([u | (u, _, _) <- built], concat [d | (_, d, _) <- built], Set.unions [h | (_, _, h) <- built])
     numberOrdinals candidates = go Map.empty candidates
       where
@@ -428,16 +440,16 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
       RuleNode _ _ ns -> ns
       Labeled _ inner -> [inner]
       TokenNode _ -> []
-    found node = case node of
+    found prefix node = case node of
       TokenNode _ -> []
-      Labeled "inherited" inner -> [inherit f | f <- found inner]
+      Labeled "inherited" inner -> [inherit f | f <- found prefix inner]
       Labeled "binding" inner -> [FoundBinding inner]
-      Labeled _ inner -> found inner
+      Labeled _ inner -> found prefix inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just (unitName, ordinal) <- planName node -> [FoundUnit (Candidate (planKind plan) unitName (hiddenOr node (if planWhyRequired plan || (isJust (labeledSubtree "required" node) && not optional) then Required else Optional)) optional False ordinal (labeledSubtree "why" node) (labeledSubtree "how" node) (labeledSubtree "signature" node) [] node (mergeKey name plan node) [])]
+        Just plan | Just (unitName, ordinal) <- planName prefix node -> [FoundUnit (Candidate (planKind plan) unitName (hiddenOr node (if planWhyRequired plan || (isJust (labeledSubtree "required" node) && not optional) then Required else Optional)) optional False ordinal (labeledSubtree "why" node) (labeledSubtree "how" node) (labeledSubtree "signature" node) [] node (mergeKey name plan node) [])]
         _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
           ((rule, unitName) : _) -> [FoundUnit (Candidate (unitRuleKind rule) (withArity node unitName) (hiddenOr node (if (unitRuleRequired rule || isJust (labeledSubtree "required" node)) && not optional then Required else Optional)) optional False (unitRuleNameSource rule == NameFromOrdinal) (pythonDoc node) Nothing Nothing [] node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) [])]
-          [] -> concatMap found nodeChildren
+          [] -> concatMap (found (qualified prefix nodeChildren)) nodeChildren
         where
           optional = isJust (labeledSubtree "optional" node)
     -- Units merge as clauses when the grammar labels an element merge, as Elixir's clauses are, or
@@ -488,9 +500,16 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
     labeledName wanted node = nameFromTokens <$> labeledSubtree wanted node
     -- A unit alternative is named by its what element, or by its position when it has an element
     -- labeled ordinal instead, as a field of a Rust tuple struct is. ref:DEC-rust-dialect
-    planName node = case labeledName "what" node of
+    planName prefix node = case qualifiedName prefix node of
       Just unitName -> Just (withArity node unitName, False)
       Nothing -> if isJust (labeledSubtree "ordinal" node) then Just ("", True) else Nothing
+    qualified prefix ns = prefix ++ [tokensText q | Labeled "qualifier" q <- ns]
+    qualifiedName prefix node = case prefix ++ maybe [] pure (whatText node) of
+      [] -> Nothing
+      parts -> Just (T.intercalate "." parts)
+    whatText node = case [inner | Labeled "what" inner <- childrenOf node] of
+      [] -> labeledName "what" node
+      whats -> Just (T.intercalate "." (map nameFromTokens whats))
     -- A unit with an element labeled arity is named name/arity. The arity is the number of arguments
     -- when the element is a bracketed list, as Erlang's arguments are; the number the element holds,
     -- as in the Prolog declaration dynamic foo/1; or else the number of rules among its children, as
@@ -602,6 +621,13 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
           )
     whyFrom _ raw | language == "python", Just body <- pythonString raw = toWhy (parseCanonicalComment body)
     whyFrom whyNode _ | Just body <- stringWhy whyNode = Why body (referenceTokens body) (licenseTokens body)
+    whyFrom whyNode raw | not (isComment whyNode) =
+      let body = docStringBody raw
+       in Why
+            { whyText = body
+            , whyReferences = dedupe (keys "ref" "ref:" whyNode ++ referenceTokens body)
+            , whyLicenses = dedupe (keys "license" "license:" whyNode ++ licenseTokens body)
+            }
     whyFrom whyNode raw =
       Why
         { whyText = dialectCommentBody raw
@@ -626,6 +652,14 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
       't' -> '\t'
       'r' -> '\r'
       _ -> c
+    -- A why element is a comment unless the grammar reads documentation as data, which it labels
+    -- with a rule of its own such as an HCL template or a YAML scalar. Documentation written as data
+    -- that a comment above the unit outranks is still the unit's data, not a misplaced comment, so
+    -- it is no orphan. ref:DEC-hcl-grammar
+    isComment n = case n of
+      RuleNode (Name r) _ _ -> r `notElem` ["templateExpr", "docScalar"]
+      Labeled _ inner -> isComment inner
+      _ -> True
     keys label prefix n = dedupe [ReferenceKey (maybe t id (T.stripPrefix prefix t)) | t <- labeledTokens label n]
     dedupe = foldr (\k acc -> k : filter (/= k) acc) []
     labeledTokens wanted n = case n of

@@ -4,6 +4,7 @@ module Canon.CanonicalComment
   ( CanonicalComment (..)
   , docCommentBody
   , dialectCommentBody
+  , docStringBody
   , referenceTokens
   , licenseTokens
   , mentionsLicense
@@ -30,10 +31,15 @@ data CanonicalComment = CanonicalComment
 -- | Strips the delimiters and line markers of every supported comment form, so the Why is prose
 -- alone. The /// and //! of Rust, C#, and F# doc lines are line markers, and so is the plain // of
 -- a Go doc comment, whose block form opens with a plain /*. ref:DEC-rust-dialect ref:DEC-go-dialect
--- The %, %%, and %! of PlDoc lines are line markers too. ref:DEC-prolog-dialect
+-- The %, %%, and %! of PlDoc lines are line markers too. ref:DEC-prolog-dialect A comment opened
+-- with a hash, two slashes, or a slash and one star, as HCL and YAML write them, may be several
+-- comment lines joined, and each line loses its own markers, with the ! of an inner Rust doc line
+-- and the | of a Make or Haddock-style line.
+-- ref:DEC-hcl-grammar ref:DEC-pulumi-yaml-grammar
 docCommentBody :: Text -> Text
-docCommentBody raw =
-  T.strip (T.intercalate "\n" (map stripLineMarker (T.lines (stripDelimiters raw))))
+docCommentBody raw
+  | plainOpener (T.stripStart raw) = T.strip (T.intercalate "\n" (map stripPlainLine (T.lines raw)))
+  | otherwise = T.strip (T.intercalate "\n" (map stripLineMarker (T.lines (stripDelimiters raw))))
   where
     stripDelimiters t = foldr dropSuffix (foldr dropPrefix (T.strip t) ["/*", "/**", "/*!", "{-|", "--|", "-- |", "#|", "# |"]) ["*/", "-}"]
     dropPrefix p t = maybe t id (T.stripPrefix p t)
@@ -47,6 +53,20 @@ docCommentBody raw =
       | Just rest <- T.stripPrefix "#" trimmed = maybe rest id (T.stripPrefix "|" (T.stripStart rest))
       | Just rest <- T.stripPrefix "%" trimmed = T.dropWhile (`elem` ("%!" :: String)) rest
       | otherwise = maybe trimmed id (T.stripPrefix "*" trimmed)
+    plainOpener t = "#" `T.isPrefixOf` t || "//" `T.isPrefixOf` t || ("/*" `T.isPrefixOf` t && not ("/**" `T.isPrefixOf` t))
+    stripPlainLine line =
+      let trimmed = T.strip line
+          unclosed = T.strip (maybe trimmed id (T.stripSuffix "*/" trimmed))
+          unopened
+            | "/*" `T.isPrefixOf` unclosed = T.drop 2 unclosed
+            | "//" `T.isPrefixOf` unclosed = T.dropWhile (== '/') unclosed
+            | "#" `T.isPrefixOf` unclosed = T.dropWhile (== '#') unclosed
+            | "*" `T.isPrefixOf` unclosed = T.drop 1 unclosed
+            | otherwise = unclosed
+          marked = unopened /= unclosed
+       in T.strip (case T.uncons (T.stripStart unopened) of
+            Just (c, rest) | marked, c `elem` ("!|" :: String) -> rest
+            _ -> unopened)
 
 -- | The prose of a canonical comment a dialect grammar matched, which is the comment's own text, so
 -- its form is known from how it opens. Documentation written as an attribute, as Elixir's @doc and
@@ -90,6 +110,41 @@ dedent ls =
   let indents = [T.length (T.takeWhile (== ' ') l) | l <- ls, not (T.null (T.strip l))]
       margin = if null indents then 0 else minimum indents
    in T.strip (T.intercalate "\n" [T.stripEnd (T.drop margin l) | l <- ls])
+
+-- | The prose of documentation written as data rather than as a comment: a quoted string, a
+-- heredoc, or a YAML block or plain scalar, as an HCL description or a Pulumi config description
+-- is, without its quotes, header, or indentation. ref:DEC-hcl-grammar ref:DEC-pulumi-yaml-grammar
+docStringBody :: Text -> Text
+docStringBody raw = case T.uncons stripped of
+  Just ('"', rest) | Just inner <- T.stripSuffix "\"" rest -> T.strip (unescape inner)
+  Just ('\'', rest) | Just inner <- T.stripSuffix "'" rest -> T.strip (T.replace "''" "'" inner)
+  Just ('<', _) | "<<" `T.isPrefixOf` stripped -> heredoc
+  Just (c, _) | c `elem` ("|>" :: String) -> blockScalar c
+  _ -> T.unwords (filter (not . T.null) (map T.strip (T.lines stripped)))
+  where
+    stripped = T.strip raw
+    bodyLines = drop 1 (T.lines stripped)
+    heredoc =
+      let word = T.strip (T.dropWhile (`elem` ("<-" :: String)) (T.takeWhile (/= '\n') stripped))
+          content = case reverse bodyLines of
+            (lastLine : before) | T.strip lastLine == word -> reverse before
+            _ -> bodyLines
+       in T.strip (T.intercalate "\n" (dedentLines content))
+    blockScalar indicator =
+      let content = dedentLines bodyLines
+       in T.strip (if indicator == '>' then T.unwords (filter (not . T.null) (map T.strip content)) else T.intercalate "\n" content)
+    dedentLines ls =
+      let indents = [T.length (T.takeWhile (== ' ') l) | l <- ls, not (T.null (T.strip l))]
+          common = if null indents then 0 else minimum indents
+       in map (T.stripEnd . T.drop common) ls
+    unescape t = case T.breakOn "\\" t of
+      (before, after) -> case T.unpack (T.take 2 after) of
+        ['\\', c] -> before <> T.singleton (escaped c) <> unescape (T.drop 2 after)
+        _ -> before <> after
+    escaped c = case c of
+      'n' -> '\n'
+      't' -> '\t'
+      other -> other
 
 referencePrefix :: Text
 referencePrefix = "ref:"

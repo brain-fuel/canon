@@ -404,7 +404,7 @@ prop_aSignatureFileCarriesTheCommentsOfItsImplementation = withTests 1 $ propert
 -- | The canonically commented dialect of the F# grammar, with no units of a profile, so every unit
 -- comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".fs"] (SplitGrammarFiles "grammars/fsharp/canonically_commented/FSharpLexer.g4" "grammars/fsharp/canonically_commented/FSharpParser.g4") (Name "file") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".fs"] (SplitGrammarFiles "grammars/fsharp/canonically_commented/FSharpLexer.g4" "grammars/fsharp/canonically_commented/FSharpParser.g4") (Name "file") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | An extraction through the F# dialect.
 extractDialect :: FilePath -> Text -> PropertyT IO Extraction

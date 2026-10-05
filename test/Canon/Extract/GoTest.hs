@@ -57,7 +57,7 @@ sampleProfile = do
 -- | The canonically commented dialect of the Go grammar, with no units of a profile, so every unit
 -- comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".go"] (SplitGrammarFiles "grammars/golang/canonically_commented/GoLexer.g4" "grammars/golang/canonically_commented/GoParser.g4") (Name "sourceFile") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".go"] (SplitGrammarFiles "grammars/golang/canonically_commented/GoLexer.g4" "grammars/golang/canonically_commented/GoParser.g4") (Name "sourceFile") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | An extraction of one source text through a profile.
 extractWith :: Profile -> FilePath -> Text -> PropertyT IO Extraction

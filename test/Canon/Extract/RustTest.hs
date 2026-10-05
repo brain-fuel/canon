@@ -319,7 +319,7 @@ prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType = withTests 1 $ property $ do
 -- | The canonically commented dialect of the Rust grammar, with no units of a profile, so every unit
 -- comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".rs"] (SplitGrammarFiles "grammars/rust/canonically_commented/RustLexer.g4" "grammars/rust/canonically_commented/RustParser.g4") (Name "crate") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".rs"] (SplitGrammarFiles "grammars/rust/canonically_commented/RustLexer.g4" "grammars/rust/canonically_commented/RustParser.g4") (Name "crate") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | An extraction through the Rust dialect.
 extractDialect :: FilePath -> Text -> PropertyT IO Extraction

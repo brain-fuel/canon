@@ -1,0 +1,10 @@
+version: 0.1.0
+registry: canonical_refs.yaml
+decisions: canonical_decisions.yaml
+root: source
+languages:
+  pulumi:
+    files: [Pulumi.yaml, Pulumi.yml, "Pulumi.*.yaml", "Pulumi.*.yml", Main.yaml, Main.yml]
+    lexer: ../../grammars/yaml/canonically_commented/YAMLLexer.g4
+    parser: ../../grammars/yaml/canonically_commented/YAMLParser.g4
+    start: yamlFile

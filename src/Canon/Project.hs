@@ -58,7 +58,7 @@ import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
 import System.Directory (doesDirectoryExist, doesFileExist, listDirectory)
-import System.FilePath (makeRelative, normalise, takeFileName, (</>))
+import System.FilePath (makeRelative, normalise, takeExtension, takeFileName, (</>))
 
 -- | A project with its three canonical files and its vetting directory loaded.
 data Project = Project
@@ -148,11 +148,11 @@ projectFiles :: Project -> Maybe FilePath -> IO Walked
 projectFiles project target = do
   let config = projectConfig project
       patterns = defaultIgnorePatterns ++ parseIgnorePatterns (configIgnore config)
-      extensions = grammarExtension : [T.unpack e | p <- Map.elems (configLanguages config), e <- profileExtensions p]
+      supported entry = takeExtension entry == grammarExtension || any (`profileOwns` entry) (Map.elems (configLanguages config))
       root = resolvePath project (maybe (configRoot config) id target)
   isDirectory <- doesDirectoryExist root
   if isDirectory
-    then walkProject patterns extensions configFileName root
+    then walkProject patterns supported configFileName root
     else pure (Walked [root] [])
 
 -- | Checks a project, with project-wide findings decided after every file has been seen.

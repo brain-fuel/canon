@@ -88,7 +88,8 @@ holdsGrammar dir = do
   present <- doesDirectoryExist dir
   if present then any ((== ".g4") . takeExtension) <$> listDirectory dir else pure False
 
--- | The parity list is LawSpec's set of target languages, so a target canon cannot read, document
+-- | The parity list is LawSpec's set of target languages, each named by its profile's key or its
+-- grammar's directory, so a target canon cannot read, document
 -- by its own conventions, or show on real code is a gap in what LawSpec can rely on. A language a
 -- branch still to be merged completes names the pieces it still lacks under pending, and a pending
 -- piece that exists is reported too, so the list never claims less than the repository holds.
@@ -98,8 +99,8 @@ prop_everyLawSpecTargetHasAGrammarAProfileADialectAndASample = withTests 1 $ pro
   parity <- readParity
   found <- projects
   let listed = parityCurrent parity ++ parityPlanned parity
-      grammarsOf lang = [g | (_, langs) <- found, Just g <- [Map.lookup lang langs]]
-      samplesOf lang = [d | (d, langs) <- found, Map.member lang langs]
+      grammarsOf lang = [g | (_, langs) <- found, (l, g) <- Map.toList langs, names lang l g]
+      samplesOf lang = [d | (d, langs) <- found, any (uncurry (names lang)) (Map.toList langs)]
   present <- forM listed $ \lang -> do
     let dirs = grammarsOf lang
     grammar <- evalIO (or <$> mapM holdsGrammarOrDialect dirs)
@@ -109,6 +110,9 @@ prop_everyLawSpecTargetHasAGrammarAProfileADialectAndASample = withTests 1 $ pro
   Map.fromList [m | m@(_, _ : _) <- missing] === Map.filter (not . null) (parityPending parity)
   Set.toList (Set.fromList listed) === sort listed
   where
+    -- A listed name names a profile by its key, or by its grammar's directory, as yaml names the
+    -- grammar the pulumi profile reads.
+    names lang l g = l == lang || g == "grammars" </> T.unpack lang
     holdsGrammarOrDialect d = (||) <$> holdsGrammar d <*> holdsGrammar (d </> "canonically_commented")
 
 -- | A grammar no listed language uses is a language canon reads that LawSpec does not target, or a
@@ -120,5 +124,5 @@ prop_everyGrammarDirectoryBelongsToALawSpecTarget = withTests 1 $ property $ do
   found <- projects
   directories <- evalIO (sort <$> listDirectory "grammars")
   let listed = Set.fromList (parityCurrent parity ++ parityPlanned parity)
-      used = Set.fromList [g | (_, langs) <- found, (lang, g) <- Map.toList langs, Set.member lang listed]
+      used = Set.fromList ([g | (_, langs) <- found, (lang, g) <- Map.toList langs, Set.member lang listed] ++ ["grammars" </> T.unpack l | l <- Set.toList listed])
   [d | d <- directories, not (Set.member ("grammars" </> d) used)] === []

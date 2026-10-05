@@ -16,7 +16,7 @@ import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
 import Canon.Walk (Walked (..), walkProject)
-import Data.List (stripPrefix)
+import Data.List (isSuffixOf, stripPrefix)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Maybe (fromMaybe)
@@ -58,12 +58,12 @@ sampleProfile = do
 -- | The canonically commented dialect of the TypeScript grammar, with no units of a profile, so every
 -- unit comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".ts", ".mts", ".cts"] (SplitGrammarFiles "grammars/typescript/canonically_commented/TypeScriptLexer.g4" "grammars/typescript/canonically_commented/TypeScriptParser.g4") (Name "program") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".ts", ".mts", ".cts"] (SplitGrammarFiles "grammars/typescript/canonically_commented/TypeScriptLexer.g4" "grammars/typescript/canonically_commented/TypeScriptParser.g4") (Name "program") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | The TypeScript files of the sample, as canon check finds them, relative to its source root.
 sampleFiles :: PropertyT IO [FilePath]
 sampleFiles = do
-  walked <- evalIO (walkProject [] [".ts", ".mts", ".cts"] "canon.yaml" root)
+  walked <- evalIO (walkProject [] (\e -> any (`isSuffixOf` e) [".ts", ".mts", ".cts"]) "canon.yaml" root)
   pure [fromMaybe path (stripPrefix (root ++ "/") path) | path <- walkedFiles walked]
   where
     root = sampleDir </> "source"

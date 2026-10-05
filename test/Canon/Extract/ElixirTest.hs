@@ -321,7 +321,7 @@ prop_elixirProfileBindsADocAcrossBlankLinesAndHidesWhatDocFalseHides = withTests
 
 -- | The Elixir dialect, under grammars/elixir/canonically_commented, as a project names it.
 dialectProfile :: Profile
-dialectProfile = Profile [".ex", ".exs"] (SplitGrammarFiles "grammars/elixir/canonically_commented/ElixirLexer.g4" "grammars/elixir/canonically_commented/ElixirParser.g4") (Name "file") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".ex", ".exs"] (SplitGrammarFiles "grammars/elixir/canonically_commented/ElixirLexer.g4" "grammars/elixir/canonically_commented/ElixirParser.g4") (Name "file") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | A canonically commented grammar must say in grammar form what the Elixir profile says in
 -- canon.yaml, so a project can check Elixir through the dialect alone: @doc and @typedoc document the

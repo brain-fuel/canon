@@ -68,7 +68,7 @@ sampleProfile = do
 -- | The canonically commented dialect of the Kotlin grammar, with no units of a profile, so every
 -- unit comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".kt"] (SplitGrammarFiles "grammars/kotlin/canonically_commented/KotlinLexer.g4" "grammars/kotlin/canonically_commented/KotlinParser.g4") (Name "kotlinFile") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".kt"] (SplitGrammarFiles "grammars/kotlin/canonically_commented/KotlinLexer.g4" "grammars/kotlin/canonically_commented/KotlinParser.g4") (Name "kotlinFile") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | Extracts every file of the sample through a profile, failing on the first that does not parse.
 extractSample :: Profile -> PropertyT IO [(FilePath, Extraction)]

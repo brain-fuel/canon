@@ -269,7 +269,7 @@ prop_theGroovyProfileBindsGroovydocAboveAnnotationsRequiresItOnPublicDeclaration
 -- | The canonically commented dialect of the Groovy grammar, with no units of a profile, so every unit
 -- comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".groovy"] (SplitGrammarFiles "grammars/groovy/canonically_commented/GroovyLexer.g4" "grammars/groovy/canonically_commented/GroovyParser.g4") (Name "compilationUnit") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+dialectProfile = Profile [".groovy"] (SplitGrammarFiles "grammars/groovy/canonically_commented/GroovyLexer.g4" "grammars/groovy/canonically_commented/GroovyParser.g4") (Name "compilationUnit") [] defaultCommentSyntax Map.empty Map.empty Map.empty []
 
 -- | An extraction through the Groovy dialect.
 extractDialect :: FilePath -> Text -> PropertyT IO Extraction
