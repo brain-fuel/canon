@@ -17,6 +17,7 @@ import Canon.Model.Check (checkModel)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
+import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -37,6 +38,7 @@ tests =
     , testProperty "the HCL dialect reads Terraform JSON with the native unit names" prop_hclDialectReadsTerraformJsonWithTheNativeUnitNames
     , testProperty "HCL templates must pair their directives" prop_hclTemplatesMustPairTheirDirectives
     , testProperty "an HCL parse failure is reported quickly" prop_hclParseFailureIsReportedQuickly
+    , testProperty "an HCL comment anywhere in a file parses and only one directly above a block binds" prop_anHclCommentAnywhereInAFileParsesAndOnlyOneDirectlyAboveABlockBinds
     ]
 
 sampleDir :: FilePath
@@ -342,7 +344,7 @@ jsonFixture =
     , "    \"region\": {\"description\": \"The region every resource lives in, as ref:REQ-region requires.\", \"type\": \"string\"},"
     , "    \"undocumented\": {\"type\": \"number\"}"
     , "  },"
-    , "  \"output\": {\"vpc_id\": {\"value\": \"${aws_vpc.main.id}\"}},"
+    , "  \"output\": {\"vpc_id\": {\"value\": \"${aws_vpc.main.id}\"}, \"both\": {\"description\": \"Shadowed.\", \"//\": \"The comment property wins.\", \"value\": 1}},"
     , "  \"locals\": {\"//\": \"Not a local.\", \"prefix\": \"${var.region}-app\"},"
     , "  \"module\": {\"network\": {\"source\": \"./network\"}},"
     , "  \"provider\": {\"aws\": [{\"region\": \"us-east-1\"}, {\"alias\": \"west\", \"region\": \"us-west-2\"}]},"
@@ -353,7 +355,7 @@ jsonFixture =
 
 -- | Terraform reads the same configuration from its JSON syntax, where a property named two slashes
 -- is a comment, so the dialect must give a .tf.json file the units and Whys it gives the native
--- syntax, and the profile must own .tf.json files, for one module to have one model however it is
+-- syntax, a comment property winning over a description wherever either is written, and the profile must own .tf.json files, for one module to have one model however it is
 -- written. ref:REQ-hcl-support ref:DEC-hcl-grammar
 prop_hclDialectReadsTerraformJsonWithTheNativeUnitNames :: Property
 prop_hclDialectReadsTerraformJsonWithTheNativeUnitNames = withTests 1 $ property $ do
@@ -371,6 +373,7 @@ prop_hclDialectReadsTerraformJsonWithTheNativeUnitNames = withTests 1 $ property
         , ("variable", "region")
         , ("variable", "undocumented")
         , ("output", "vpc_id")
+        , ("output", "both")
         , ("local", "prefix")
         , ("module", "network")
         , ("provider", "aws")
@@ -381,6 +384,7 @@ prop_hclDialectReadsTerraformJsonWithTheNativeUnitNames = withTests 1 $ property
   map whyText (whys "aws_vpc.main") === ["The network every service shares. ref:some-key"]
   map whyReferences (whys "aws_vpc.main") === [[ReferenceKey "some-key"]]
   map whyText (whys "region") === ["The region every resource lives in, as ref:REQ-region requires."]
+  map whyText (whys "both") === ["The comment property wins."]
   length [() | OrphanDocComment _ _ <- findings] === 0
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === ["hcl/main.tf.json/variable/undocumented", "hcl/main.tf.json/output/vpc_id"]
@@ -406,3 +410,41 @@ prop_hclParseFailureIsReportedQuickly = withTests 1 $ property $ do
   let source = T.unlines (["locals {", "  input = {"] ++ ["    # note " <> T.pack (show i) | i <- [1 .. 40 :: Int]] ++ ["    a = 1", "    bad = = 1", "  }", "}"])
   outcome <- evalIO (timeout 20000000 (evaluate (either (T.unpack . renderInterpretError) (const "parsed") (interpretText dialect (Name "configFile") "t.tf" source))))
   fmap (drop (length ("t.tf:" :: String))) (fmap (take 10) outcome) === Just "44:11"
+
+-- | Terraform reads a comment wherever HCL allows one, so canon must read a file with comments
+-- inside an expression, among the arguments of a call, in an object, a for expression, or an
+-- interpolation, after an attribute, and at the end of a block; only the comment directly above a
+-- block is its Why, and the others are notes, which canon accepts and does not report, since HCL
+-- has no doc comment syntax and every banner would be a finding. ref:REQ-hcl-support
+-- ref:DEC-hcl-grammar ref:DEC-stray-comments
+prop_anHclCommentAnywhereInAFileParsesAndOnlyOneDirectlyAboveABlockBinds :: Property
+prop_anHclCommentAnywhereInAFileParsesAndOnlyOneDirectlyAboveABlockBinds = withTests 1 $ property $ do
+  Extraction model findings <-
+    extracted
+      "main.tf"
+      ( T.unlines
+          [ "# The key pair a host logs in with."
+          , "resource \"aws_key_pair\" \"this\" {"
+          , "  key_name = join(\"-\", ["
+          , "    # Among the arguments."
+          , "    var.prefix,"
+          , "    /* Inside an expression. */ \"key\","
+          , "  ])"
+          , "  # After an attribute."
+          , "  tags = {"
+          , "    # In an object."
+          , "    Name = \"${"
+          , "      # In an interpolation."
+          , "      var.prefix}\""
+          , "  }"
+          , "  public_keys = [for k in var.keys :"
+          , "    # In a for expression."
+          , "    k]"
+          , "  # At the end of a block."
+          , "}"
+          , "# At the end of the file."
+          ]
+      )
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+    === [("hcl/main.tf/resource/aws_key_pair.this", "The key pair a host logs in with.")]
+  [() | OrphanDocComment _ _ <- findings] === []

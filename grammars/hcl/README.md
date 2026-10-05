@@ -130,8 +130,17 @@ files: ["*.tf.json", "*.tfvars.json"]
   property of a JSON file that is not a Terraform block type canon knows
   (`resource`, `data`, `module`, `variable`, `output`, `provider`, `locals`,
   `terraform`, `check`, `moved`, `removed`, `import`) is a unit of kind
-  `attribute`, as in a `.tfvars.json` file.
-- In a JSON file both a `//` property and a `description` are a Why, and the
-  one written first binds, since JSON has no "above".
+  `attribute`, as in a `.tfvars.json` file. A `.tf.json` file and a
+  `.tfvars.json` file are read with one grammar, which does not see the file's
+  name, and Terraform rejects an unknown block type in a `.tf.json` file, so
+  the reading only matters for files Terraform accepts, where it is right.
 - Blocks that nothing tells apart are numbered, so inserting one before
-  another renumbers it.
+  another renumbers it. Terraform itself gives such a block no address, so
+  there is no name to give it that an edit could not change.
+
+In a JSON file a variable's or an output's `//` property is its Why wherever
+it is written, and its `description` is the Why only when it has none, as a
+comment above wins over a description in the native syntax. A comment in any
+other place parses, inside an expression, among the arguments of a call, in
+an object, a `for` expression, or an interpolation, or at the end of a block,
+and is a note.

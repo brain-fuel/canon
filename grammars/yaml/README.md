@@ -89,6 +89,13 @@ a Helm template, which is not YAML until it is rendered.
 ## Known limitations
 
 - canon accepts tab indentation, which YAML forbids, counting a tab as one
-  column; it does not reject such a file.
+  column; it does not reject such a file. Pulumi refuses such a program
+  before canon would read it, and refusing it too would change no unit of a
+  program Pulumi runs.
 - canon reads `${...}` inside a flow plain scalar as part of the scalar,
-  which strict YAML 1.2 does not.
+  which strict YAML 1.2 does not, by design: Pulumi programs mean it so.
+
+A comment in any other place than above an entry parses: among a resource's
+properties, in a sequence or a flow collection, after a block scalar, or at
+the end of a section or of the file. It binds to nothing and is not reported,
+since YAML has no doc comment syntax and every banner would be a finding.

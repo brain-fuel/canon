@@ -207,6 +207,8 @@ above with XML doc comments as canonical comments, recorded as
   argument, an initializer's element, or a switch expression's arm, and after
   the last member of a body, an enum, or a file.
 
-A doc comment anywhere else inside an expression fails the parse, since the
-grammar would have to accept it between any two tokens of an expression.
+- Anywhere else, as inside an expression, the parser's `strayComment` option
+  names `canonicalComment`, so a doc comment the grammar does not accept where
+  it stands is read out of the file and reported as an `orphan`
+  (`DEC-stray-comments`). A doc comment never fails the parse.
 

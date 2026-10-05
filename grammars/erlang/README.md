@@ -71,15 +71,22 @@ above it, is its Why, and the last one wins. `-doc false`, and an EDoc comment
 with `@private` or `@hidden`, label the unit `hidden`. `-moduledoc` and an
 EDoc comment above `-module` are labeled `file`. Entries of `-export` and
 `-export_type` are labeled `export`, so an exported unit requires a comment.
-The ledger records it as `DEC-erlang-dialect`.
+A module that compiles with `export_all` exports every function, and so does
+a header, which has no `-module`; any other module exports only what its
+export lists name, and nothing when it has none. An EDoc comment the grammar
+does not accept where it stands, as inside a function, is read out of the
+file and reported as an `orphan`, since the parser's `strayComment` options
+name the comment rules (`DEC-stray-comments`). The ledger records it as
+`DEC-erlang-dialect`.
 
 ## Known limitations
 
-- A macro defined in an included header is not expanded, since canon does
-  not read headers. Such a macro parses only where an expression, a pattern,
-  a type, a record name, a string part, a list element, a form, or a clause
-  may be.
+- A macro defined in an included header is not expanded. The hook sees only
+  the text of the file it lexes, and the header's path depends on the include
+  path a build gives the compiler, which canon does not know. Such a macro
+  parses only where an expression, a pattern, a type, a record name, a string
+  part, a list element, a form, or a clause may be.
 - canon does not choose `-ifdef` branches: both parse, and a macro defined in
-  both is expanded with the later definition.
-- In the dialect a file without an export list exports everything, which fits
-  `-compile(export_all)` and header files.
+  both is expanded with the later definition. Which branch a build compiles
+  depends on macros given to the compiler with `-D` or defined in headers,
+  neither of which canon reads, so there is no build to choose by.

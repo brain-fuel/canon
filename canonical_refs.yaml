@@ -322,3 +322,7 @@ REQ-pulumi-yaml-support:
   kind: requirement
   title: canon reads Pulumi YAML programs, owning Pulumi.yaml, Main.yaml, and stack files by name, taking each resource, variable, output, and config key as a unit named by its key, binding a comment to the entry directly below it, reading the description of a config key as its Why, and requiring a Why on outputs and on config keys that declare a type or a default
   locator: README.md
+REQ-haskell-support:
+  kind: requirement
+  title: canon reads Haskell, parsing every module GHC accepts under the layout rule, including the blocks its parse-error rule closes, taking the declarations of a module as units, binding -- | and {-| to the declaration below, requiring a comment on what the export list exports, and reporting a Haddock comment that documents nothing
+  locator: README.md

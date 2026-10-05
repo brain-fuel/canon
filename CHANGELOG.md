@@ -118,6 +118,10 @@ and this project adheres to
 - HCL templates must pair `%{ if }` with `%{ endif }` and `%{ for }` with `%{ endfor }`
 - A quoted YAML key is named without its quotes; flow collections read JSON-like pairs such as `{"a":1}` and Pulumi interpolations such as `[${a}]`
 - A `why` element inside an optional or repeated block is optional
+- A parser grammar may name its comment rules in `strayComment` options: where a parse fails at such a comment, or within three tokens after one, canon reads the file again without it and reports it as an orphan, for as long as each round moves the failure forward; the Rust, C#, F#, Elixir, Gleam, Erlang, and Haskell dialects name theirs, so a doc comment never fails their parse
+- Erlang dialect: a module without an export list exports nothing unless it compiles with `export_all`; a header still exports everything
+- Gleam dialect: `///` inside a function body or other brackets is an orphan rather than a token of the body
+- HCL dialect: in Terraform JSON a variable's or an output's `//` property wins over its `description` wherever either is written
 - Rust requires a comment on what a crate exports, as rustc's `missing_docs` lint does: a bare `pub` and `#[macro_export]` are labeled `required`, the items of a trait and the variants of an enum inherit their container's requirement, and private items, `pub(crate)` items, and trait impl methods need none
 - A Rust trait impl is named by its trait and self type, as `Deref-for-Guard<T>`, rather than by its self type with an ordinal
 - A unit's name runs its tokens together with a hyphen where the source spaces a word from what follows, so a Haskell instance head `Named Shape` is named `Named-Shape`
@@ -135,6 +139,10 @@ and this project adheres to
 - `canon check` parses files concurrently, caches extractions under `.canon-cache/` keyed by content, grammar, profile, and git revision, and derives Who and When from one `git blame` per file; the Haskell sample check went from 26 seconds to 1.4 cold and 0.2 warm with identical findings
 
 ### Fixed
+- Haskell: a layout block closes at a comma of the brackets or record braces around it, at the `then` or `else` of an `if` around it, and a `let` in a function's guard at the equals sign that ends the guard, so a `case` in a tuple, a `let` in a comprehension, and a `case` between `then` and `else` on one line parse; an equals sign that is part of an operator such as `/=` closes nothing
+- Rust: `async`, `try`, and `dyn` are identifiers too, so a 2015 edition crate that uses them as names parses
+- Gleam: the tuple type `tuple(A, B)` of Gleam before v0.15 parses
+- Elixir dialect: a `@doc`, `@typedoc`, or `@moduledoc` may be an operand, where it is an orphan
 - Go dialect: a directive line inside a doc comment is no longer in its Why, a `/* */` block followed directly by a `//` comment is one doc comment instead of an orphan and a Why, and a const or var spec requires a comment when any of its names is exported, not only the first
 - Python dialect: a definition is at the top level when it is nested in no `def` or `class`, counted from `INDENT` and `DEDENT`, so one inside a module-level `if`, `try`, or `with` requires a docstring; a docstring written as adjacent strings is one docstring
 - Clojure dialect: any other head that starts with `def`, such as hiccup's `defelem`, is a unit of kind `def`, a `defmethod` is a unit of kind `method` named by multimethod and dispatch value, and a definition inside `(comment ...)` is no unit

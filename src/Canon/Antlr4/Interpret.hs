@@ -8,6 +8,8 @@ module Canon.Antlr4.Interpret
   , interpretFile
   , interpretText
   , interpretTextWith
+  , parseWithStrayComments
+  , strayCommentRules
   , renderInterpretError
   ) where
 
@@ -16,10 +18,15 @@ import Canon.Antlr4.Lex.Adaptor (hooksForGrammarWith, preprocesses)
 import Canon.Antlr4.Parse
 import Canon.Antlr4.Predicate (predicateHookFor)
 import Canon.Antlr4.Read (ReadError (..), readGrammarFile, readResultGrammar, renderReadError)
+import Canon.Antlr4.Query (grammarOptions, lookupRule, tokenReferences)
 import Canon.Antlr4.Syntax
-import Canon.Antlr4.Token (Token)
+import Canon.Antlr4.Token (Token (..), defaultChannelName, isEofToken)
 import Canon.Preprocessor (Choice)
 import Data.Foldable (toList)
+import Data.List.NonEmpty (NonEmpty (..))
+import qualified Data.List.NonEmpty as NonEmpty
+import Data.Maybe (listToMaybe)
+import qualified Data.Set as Set
 import System.FilePath (takeDirectory, (</>))
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -110,7 +117,92 @@ interpretText = interpretTextWith Nothing
 interpretTextWith :: Choice -> Interpreter -> Name -> FilePath -> Text -> Either InterpretError ParseTree
 interpretTextWith choice interpreter start path source = do
   toks <- either (Left . InterpretLexError path) Right (interpreterTokenizeWith interpreter choice source)
-  either (Left . InterpretParseError path) Right (parseTokensWith (predicateHookFor (interpreterParser interpreter)) (interpreterParser interpreter) start toks)
+  either (Left . InterpretParseError path) Right (parseWithStrayComments (predicateHookFor (interpreterParser interpreter)) (interpreterParser interpreter) start toks)
+
+-- | The comment rules a parser grammar names in its strayComment options: rules whose matches may
+-- stand anywhere in a file, as a doc comment may, though the grammar accepts them only where they
+-- document something or where it labels them orphan. ref:DEC-stray-comments
+strayCommentRules :: Grammar ann -> [Name]
+strayCommentRules grammar = [NonEmpty.last v | Option (Name "strayComment") (OptionValueName (QualifiedName v)) <- grammarOptions grammar]
+
+-- | How many tokens before the failure a stray comment may end and still be taken for its cause.
+strayWindow :: Int
+strayWindow = 3
+
+-- | Parses the tokens, and where the parse fails at a stray comment, or within strayWindow tokens
+-- after one, parses again without it and adds it to the root as an orphan, for as long as each
+-- round moves the failure forward. A doc comment may stand between any two tokens, as inside an
+-- expression, and no grammar can accept it everywhere without reading every expression
+-- differently, so one the grammar does not accept where it stands documents nothing. A failure no
+-- stray comment explains is reported where the parse stopped before the round that did not move
+-- it, which is where the first parse stopped when no stray comment comes shortly before it. A
+-- grammar that names no strayComment rule parses as before. ref:DEC-stray-comments
+parseWithStrayComments :: PredicateHook -> Grammar ann -> Name -> [Token] -> Either ParseError ParseTree
+parseWithStrayComments hook grammar start toks = case parseVisibleTokensWith hook grammar start visible of
+  Left (ParseNoParse failure) | not (null strays) -> recover (length visible) visible [] failure
+  other -> other
+  where
+    strays = strayCommentRules grammar
+    visible = filter ((== defaultChannelName) . tokenChannel) toks
+    plain = fmap (const ()) grammar
+    openers = Set.fromList [t | r <- strays, Just rule <- [lookupRule r plain], t <- Set.toList (tokenReferences rule)]
+    -- Each round drops one comment, so a file is parsed at most once more than it holds stray
+    -- comments, and a syntax error with none at it costs one parse beyond the first.
+    -- A round that drops a comment must move the failure forward, or the comment was not what
+    -- stopped the parse and the failure is reported where it is.
+    recover budget current found failure@(ParseFailure f _) = case strayAt current f of
+      Just (k, e, comment) | budget > 0 -> do
+        let rest = take k current ++ drop e current
+        case parseVisibleTokensWith hook grammar start rest of
+          Right tree -> Right (withOrphans (comment : found) tree)
+          Left (ParseNoParse next)
+            | reached next > reached failure -> recover (budget - 1) rest (comment : found) next
+            | otherwise -> Left (ParseNoParse failure)
+          Left other -> Left other
+      _ -> Left (ParseNoParse failure)
+    reached (ParseFailure _ tok) = maybe maxBound tokenStart tok
+    withOrphans found tree = case tree of
+      RuleNode name alternative children -> RuleNode name alternative (children ++ map (Labeled "orphan") (reverse found))
+      other -> other
+    -- The stray comment that starts at the failure or ends at most strayWindow tokens before it,
+    -- nearest first: a grammar whose units take an optional comment may read one as a unit's Why and
+    -- fail a token or two later, at the name of what it cannot document there.
+    strayAt current f =
+      listToMaybe
+        [ (k, k + size, comment)
+        | k <- [f, f - 1 .. max 0 (f - 400)]
+        , Just tok <- [listToMaybe (drop k current)]
+        , Set.member (tokenType tok) openers
+        , r <- strays
+        , Just comment <- [strayFrom r (takeWhile (not . isEofToken) (drop k current))]
+        , let size = length (treeTokens comment)
+        , size > 0
+        , k == f || (k + size <= f && k + size >= f - strayWindow)
+        ]
+    -- The longest match of the comment rule at the start of the tokens, read by a rule that takes
+    -- the comment and then any tokens.
+    strayFrom r rest = case parseVisibleTokensWith hook (withStrayRule r) (Name "canonStrayComment") rest of
+      Right (RuleNode _ _ (comment : _)) -> Just comment
+      _ -> Nothing
+    withStrayRule r = plain {grammarRules = grammarRules plain ++ [RuleParser (strayRule r)]}
+    strayRule r =
+      ParserRule
+        { parserRuleAnn = ()
+        , parserRuleName = Name "canonStrayComment"
+        , parserRuleModifiers = []
+        , parserRuleArguments = Nothing
+        , parserRuleReturns = Nothing
+        , parserRuleThrows = []
+        , parserRuleLocals = Nothing
+        , parserRulePrequel = []
+        , parserRuleAlternatives =
+            LabeledAlternative
+              (Alternative () [] [ElementAtom () Nothing (AtomRuleRef r Nothing []) Nothing, ElementAtom () Nothing (AtomWildcard []) (Just (EbnfSuffix ZeroOrMore Greedy))])
+              Nothing
+              :| []
+        , parserRuleHandlers = []
+        , parserRuleFinally = Nothing
+        }
 
 -- | Reads and parses a file, so callers do not repeat the read.
 interpretFile :: Interpreter -> Name -> FilePath -> IO (Either InterpretError ParseTree)

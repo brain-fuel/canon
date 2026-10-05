@@ -3,7 +3,7 @@
 module Canon.Antlr4.InterpretTest (tests) where
 
 import Canon.Antlr4.Grammar (parseGrammarText)
-import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, interpretText, loadInterpreter, renderInterpretError)
+import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, interpretText, loadInterpreter, parseWithStrayComments, renderInterpretError, strayCommentRules)
 import Canon.Antlr4.Lex
 import Canon.Antlr4.Lex.Adaptor (antlrLexerHooks)
 import Canon.Antlr4.Lex.JavaScript (javaScriptHooks)
@@ -52,6 +52,7 @@ tests =
     , testProperty "the JavaScript base lexer port decides whether a slash starts a regular expression" regexPredicate
     , testProperty "an empty match is allowed only when it changes mode" emptyMatchChangesMode
     , testProperty "a loop of statements that can each end two ways parses in polynomial time" loopsArePolynomial
+    , testProperty "a stray comment where the grammar takes none is an orphan and a syntax error is still reported where it is" prop_aStrayCommentWhereTheGrammarTakesNoneIsAnOrphanAndASyntaxErrorIsStillReportedWhereItIs
     ]
 
 grammarOrFail :: Text -> PropertyT IO (Grammar Span)
@@ -407,3 +408,63 @@ loopsArePolynomial = withTests 1 $ property $ do
   case parseTokens g (Name "program") toks of
     Left err -> annotate (T.unpack (renderParseError err)) >> failure
     Right tree -> assert (not (null (treeRuleNodes (Name "statement") tree)))
+
+-- | A grammar that names a comment rule in a strayComment option, whose orphan label accepts a
+-- comment only before a statement.
+strayGrammar :: Bool -> Text
+strayGrammar withOption =
+  T.unlines $
+    [ "grammar Stray;"
+    ]
+      ++ ["options { strayComment = doc; }" | withOption]
+      ++ [ "start : stmt* (orphan = doc)* EOF ;"
+         , "stmt : (orphan = doc)* ID EQ expr SEMI ;"
+         , "expr : ID (PLUS ID)* | why = doc ID KW ID ;"
+         , "KW : 'as' ;"
+         , "doc : OPEN ID* CLOSE ;"
+         , "OPEN : '[[' ;"
+         , "CLOSE : ']]' ;"
+         , "EQ : '=' ;"
+         , "PLUS : '+' ;"
+         , "SEMI : ';' ;"
+         , "ID : [a-z]+ ;"
+         , "WS : [ ]+ -> skip ;"
+         ]
+
+-- | A doc comment may stand between any two tokens of a file the compiler accepts, so a dialect that
+-- names its comment rule in a strayComment option must read a file with one where its grammar takes
+-- none, report that comment as an orphan, and leave every other parse and every syntax error as it
+-- was, at the token the parse stopped at; a grammar without the option is unchanged.
+-- ref:REQ-rust-support ref:REQ-csharp-support ref:DEC-stray-comments
+prop_aStrayCommentWhereTheGrammarTakesNoneIsAnOrphanAndASyntaxErrorIsStillReportedWhereItIs :: Property
+prop_aStrayCommentWhereTheGrammarTakesNoneIsAnOrphanAndASyntaxErrorIsStillReportedWhereItIs = withTests 1 $ property $ do
+  with <- grammarOrFail (strayGrammar True)
+  without <- grammarOrFail (strayGrammar False)
+  strayCommentRules with === [Name "doc"]
+  strayCommentRules without === []
+  let parse g source = case tokenize g source of
+        Left err -> Left (renderLexError err)
+        Right toks -> either (Left . renderParseError) Right (parseWithStrayComments (\_ _ _ _ -> True) g (Name "start") toks)
+      orphans tree = case tree of
+        RuleNode _ _ children -> sum (map orphans children)
+        Labeled "orphan" _ -> 1 :: Int
+        Labeled _ inner -> orphans inner
+        TokenNode _ -> 0
+      orphanTexts tree = case tree of
+        RuleNode _ _ children -> concatMap orphanTexts children
+        Labeled "orphan" inner -> [T.unwords (map tokenText (treeTokens inner))]
+        Labeled _ inner -> orphanTexts inner
+        TokenNode _ -> []
+  -- Before a statement the grammar takes the comment, with the option or without it.
+  fmap orphans (parse with "[[ a ]] x = y ;") === Right 1
+  fmap orphans (parse without "[[ a ]] x = y ;") === Right 1
+  -- Inside an expression, before a semicolon, and at the end of a statement only the option reads it.
+  fmap orphanTexts (parse with "x = y [[ inside ]] + z [[ before semi ]] ; [[ last ]]") === Right ["[[ last ]]", "[[ inside ]]", "[[ before semi ]]"]
+  assert (isLeft (parse without "x = y [[ inside ]] + z ;"))
+  -- A path that reads the comment as a Why may carry the failure a token past it, and the comment
+  -- is still taken for its cause.
+  fmap orphanTexts (parse with "x = [[ why ]] z ;") === Right ["[[ why ]]"]
+  fmap orphans (parse with "x = [[ why ]] z as w ;") === Right 0
+  -- A syntax error is reported where it is, with or without a stray comment before it.
+  parse with "x = y + ; z = w ;" === parse without "x = y + ; z = w ;"
+  parse with "x = [[ note ]] y + ; z = w ;" === Left "1:20: no parse at token SEMI@1:20 \";\""

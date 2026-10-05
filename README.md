@@ -198,6 +198,15 @@ is optional. A `why` element that is data rather than a comment, such as the
 `description` of a Terraform variable, is documentation written as data: its
 prose is the string without its quotes, heredoc delimiters, or block scalar
 header, and its citations are read from its text.
+A doc comment may stand between any two tokens of a file its compiler
+accepts, and no grammar can take it everywhere without reading every
+expression differently, so a parser grammar names its comment rules in
+`strayComment` options. Where a parse fails at a match of one of them, or
+within three tokens after one ends, `canon` reads the file again without that
+comment and reports it as an orphan, for as long as each round moves the
+failure forward; a failure no such comment explains is reported where the
+parse stopped. The Rust, C#, F#, Elixir, Gleam, Erlang, and Haskell dialects
+name their comment rules, so a doc comment never fails their parse.
 Alternative labels without a `why`, such as the Java grammar's own expression
 labels, are inert. `canon` generates the extraction parser from that grammar,
 so nothing about a language's comment placement is written in Haskell. The
@@ -968,9 +977,16 @@ adaptor. The port holds doc-comment tokens until the next code token has
 produced its virtual braces and semicolons, so a comment never counts as the
 first token of a line, and it closes implicit blocks when a `where` or a
 closing brace starts a line at or left of the block's indentation, which the
-upstream port left open. Two constructs stay out of reach because they need
-the parse-error rule of the layout algorithm: a `case` whose alternatives end
-at a closing bracket on the same line, and a `let` inside a comprehension.
+upstream port left open. The parse-error rule of the layout algorithm closes
+an implicit block at a token the block cannot hold, which needs the parser to
+tell the lexer a token was rejected, so the hook approximates it for the
+tokens real code puts there: a closing bracket, and a comma of the brackets
+or record braces around the block, close the blocks opened inside them, as
+after a `case` in a tuple or a `let` in a comprehension, unless the comma
+follows a guard's bar; `then` and `else` close the blocks opened since their
+`if`; and a `let` in a function's guard ends at the equals sign that ends the
+guard. A `let` in the guard of a `case` alternative, and any other token a
+block cannot hold, stay out of reach.
 
 JavaScript, TypeScript, Python, Go, and Kotlin are profile languages with
 `units`, checked through their grammars-v4 grammars and the samples above:
@@ -1255,14 +1271,16 @@ that it does and that it rejects a grammar without canonical comments.
 `grammars/haskell/` holds the Haskell grammar from grammars-v4 with a
 canonical comment on every rule and four fixes, each cited in the ledger:
 standard character and string literals with escapes, contextual keywords and
-pragma names accepted as identifiers, and the two layout cases above. Under
+pragma names accepted as identifiers, and the layout cases above. Under
 `canonically_commented/` the dialect sends `-- |` and `{-|` into `DocLine`
 and `DocBlock` lexer modes, keeps the line break that ends a doc line as a
 `NEWLINE` carrying the layout action, inlines each unit-bearing top-level
 form as a labeled alternative, labels export-list entries `export`, and
 absorbs a doc comment on a local binding, instance method, or constructor as
-an `orphan`. Two `-- |` comments on consecutive lines merge, as Haddock also
-reads them.
+an `orphan`. A doc comment anywhere else the grammar takes none, as inside
+an expression, is read out of the file and reported as an `orphan`, since the
+parser's `strayComment` option names `canonicalComment`. Two `-- |` comments
+on consecutive lines merge, as Haddock also reads them.
 
 `grammars/java/` holds the Java grammar from grammars-v4 and, under
 `canonically_commented/`, its dialect: the same `DocComment` lexer mode,

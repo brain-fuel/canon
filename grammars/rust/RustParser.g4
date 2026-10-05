@@ -1115,12 +1115,16 @@ visibility
 
 // technical
 // canon: union is a weak keyword, a keyword only before a union's name, so it is also an identifier,
-// as in the method call a.union(b).
+// as in the method call a.union(b). async, try, and dyn are identifiers in the 2015 edition, which
+// canon reads without knowing a crate's edition, so they are identifiers too.
 identifier
     : NON_KEYWORD_IDENTIFIER
     | RAW_IDENTIFIER
     | KW_MACRORULES
     | KW_UNION
+    | KW_ASYNC
+    | KW_TRY
+    | KW_DYN
     ;
 
 keyword

@@ -25,13 +25,36 @@
 
 parser grammar ErlangParser;
 
+// canon: a doc comment may stand between any two tokens, as inside an expression; where the grammar
+// does not accept one, canon reads the file without it and reports it as an orphan, as the strayComment
+// options say. ref:DEC-stray-comments
 options {
     tokenVocab = ErlangLexer;
+    strayComment = canonicalComment;
+    strayComment = moduleComment;
 }
 
-/** An Erlang file: its forms, its -moduledoc, labeled file because it documents the module the file is, and documentation that documents nothing, labeled orphan. ref:DEC-erlang-dialect */
+/** An Erlang file: its forms, its -moduledoc, labeled file because it documents the module the file is, and documentation that documents nothing, labeled orphan. A module that compiles with export_all exports every function; any other module exports what its export lists name, and none when it has none, so its module declaration is read as one that labels an export that names no unit. A header, without a module declaration, exports everything. ref:DEC-erlang-dialect ref:DEC-export-rule */
+// canon: a module without an export list and without export_all exports nothing.
 forms
-    : (form | file = moduleComment | orphan = canonicalComment)* EOF
+    : (form | file = moduleComment | orphan = canonicalComment)* exportAllAttribute (form | file = moduleComment | orphan = canonicalComment)* EOF
+    | (exportingForm | file = moduleComment | orphan = canonicalComment)* EOF
+    ;
+
+/** A -compile attribute whose options hold export_all, which exports every function of the module. ref:DEC-erlang-dialect */
+exportAllAttribute
+    : '-' 'compile' '(' ('export_all' | '[' (compileOption ',')* 'export_all' (',' compileOption)* ']') ')' '.'
+    ;
+
+/** One option of a -compile list. */
+compileOption
+    : expr
+    ;
+
+/** A form of a module that does not compile with export_all: the module declaration, which then labels an export, or any other form. ref:DEC-erlang-dialect ref:DEC-export-rule */
+exportingForm
+    : file = canonicalComment? export = ModuleAttrName '(' tokAtom ')' '.'
+    | form
     ;
 
 /** A form: a function, a type, a record, or a callback, each a unit, the module declaration, an export list, another attribute, or a macro call that stands for forms. */
@@ -51,7 +74,7 @@ moduleDeclaration
     : file = canonicalComment? ModuleAttrName '(' tokAtom ')' '.'
     ;
 
-/** An export list, of functions or of types, whose entries are labeled export, so a unit requires its comment when it is exported, and every unit does in a file without one. ref:DEC-export-rule ref:DEC-erlang-dialect */
+/** An export list, of functions or of types, whose entries are labeled export, so a unit requires its comment when it is exported. ref:DEC-export-rule ref:DEC-erlang-dialect */
 exportAttribute
     : ExportAttrName '[' (exportEntry (',' exportEntry)*)? ']' ')' '.'
     ;

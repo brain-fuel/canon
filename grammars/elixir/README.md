@@ -84,7 +84,12 @@ or `@opaque` only, and is an `orphan` above anything else. Public definitions la
 `required`. Function, macro, and guard clauses are labeled `merge`, so the
 clauses of one name are one unit. On the 308 files of Jason, Plug, and Phoenix
 the dialect parses every file and reports the same missing comments as the
-profile. The ledger records it as `DEC-elixir-dialect`.
+profile. A documentation attribute is an expression, so it may be an operand,
+as in `x + @doc "text"`, where it is an `orphan`, and the parser's
+`strayComment` options name the three comment rules, so one the grammar does
+not accept where it stands is read out of the file and reported as an
+`orphan` (`DEC-stray-comments`): documentation never fails the parse. The
+ledger records it as `DEC-elixir-dialect`.
 
 ## Known limitations
 
@@ -92,3 +97,5 @@ profile. The ledger records it as `DEC-elixir-dialect`.
   operator names, `@doc false`, blank lines, sigil interpolation, and test
   names. The ledger records the fixes in `DEC-elixir-grammar`.
 - Operator precedence is not modelled, by design.
+- In the dialect, `@doc("text")` written with parentheses is an attribute
+  call, not documentation; Elixir code writes `@doc "text"`.

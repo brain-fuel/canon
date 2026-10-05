@@ -55,6 +55,9 @@ classes, so every change is marked `// canon:` in the grammar and recorded as
   `missing_docs` lint asks for, recorded as `DEC-rust-visibility`.
 - A trait impl's trait and self type are one rule, `traitImplTarget`, which
   names the impl, so `impl Deref for Guard<T>` is `Deref-for-Guard<T>`.
+- `async`, `try`, and `dyn` are identifiers too, as they are in the 2015
+  edition, since canon reads a crate without knowing its edition. A later
+  edition's async blocks and `dyn` types still parse as such.
 
 Unstable syntax, such as `default fn` under specialization, is not accepted,
 since it may change in any nightly and crates published for stable Rust do not
@@ -84,4 +87,19 @@ Each change is marked `// canon:`:
   warns it is unused. An inner doc comment binds to the module whose body it
   opens, or at the top of a file to the file, and elsewhere is an `orphan`.
 - A doc comment in a macro's input or matcher is a token of it.
+- Anywhere else the grammar takes no doc comment, as inside an expression,
+  before a closing bracket, or at the end of a block, the parser's
+  `strayComment` options name `canonicalComment` and `innerComment`, so canon
+  reads the file without the comment and reports it as an `orphan`
+  (`DEC-stray-comments`). A doc comment never fails the parse.
+
+## Known limitations in canon
+
+Of the upstream limitations above, the first no longer holds for what canon
+reads: syntax of the 2015 edition parses too, the identifiers above being the
+only syntax it has that later editions do not. The second holds: a carriage
+return that no line feed follows is not rejected in a doc comment or a
+string, where rustc rejects it. Rejecting it would only turn a file rustc
+refuses into a parse failure; no unit of a file rustc compiles would change,
+so canon does not check it (`DEC-rust-grammar`).
 

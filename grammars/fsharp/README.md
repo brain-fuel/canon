@@ -101,7 +101,11 @@ Each change is marked `// canon:`:
   rule labeled `required`; `private` and `internal` are labeled `optional`,
   which wins, so the dialect requires what the profile requires.
 - A doc comment after a declaration's attributes, above a line that declares
-  nothing, or inside an expression or brackets is an `orphan`.
+  nothing, or inside an expression or brackets is an `orphan`. One the grammar
+  does not accept where it stands is read out of the file and reported as an
+  `orphan` too, since the parser's `strayComment` option names
+  `canonicalComment` (`DEC-stray-comments`), so a doc comment never fails the
+  parse.
 
 ## Known limits
 

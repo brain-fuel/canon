@@ -18,6 +18,8 @@ import Canon.Model.Finding
 import Canon.Profile
 import Canon.Signature (linkSignatures)
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
+import Canon.Span (Position (..), Span (..))
+import Data.List (sort)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
@@ -41,6 +43,7 @@ tests =
     , testProperty "a signature file carries the comments of its implementation" prop_aSignatureFileCarriesTheCommentsOfItsImplementation
     , testProperty "the F# dialect reads the Giraffe.ViewEngine sample as the profile does" prop_theFSharpDialectReadsTheViewEngineSampleAsTheProfileDoes
     , testProperty "the F# dialect binds doc comments to declarations and reports misplaced ones" prop_theFSharpDialectBindsDocCommentsToDeclarationsAndReportsMisplacedOnes
+    , testProperty "an F# doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_anFSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
     ]
 
 sampleDir :: FilePath
@@ -483,3 +486,43 @@ prop_theFSharpDialectBindsDocCommentsToDeclarationsAndReportsMisplacedOnes = wit
   length [() | OrphanDocComment _ _ <- findings] === 2
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === ["fsharp/Shapes.fs/module/Shapes/function/area", "fsharp/Shapes.fs/module/Shapes/function/shown"]
+
+-- | The F# compiler warns of a doc comment that is on no valid element and compiles the file, so
+-- canon must read a file with one inside an expression, among the arguments of a call, before a
+-- match arm, after the attributes, or at the end of a body, keep the Whys of its declarations, and
+-- report each such comment as an orphan. ref:REQ-fsharp-support ref:DEC-fsharp-dialect
+-- ref:DEC-stray-comments
+prop_anFSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan :: Property
+prop_anFSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractDialect
+      "Odd.fs"
+      ( T.unlines
+          [ "module Odd"
+          , ""
+          , "/// A function."
+          , "[<Obsolete>]"
+          , "/// After the attributes."
+          , "let f x ="
+          , "    let y ="
+          , "        x +"
+          , "        /// Inside an expression."
+          , "        1"
+          , "    let z = max (y,"
+          , "                 /// Among the arguments."
+          , "                 2)"
+          , "    match z with"
+          , "    /// Before a match arm."
+          , "    | 1 -> 2"
+          , "    | _ -> z"
+          , "    /// At the end of a body."
+          , ""
+          , "/// A type."
+          , "type T() ="
+          , "    member _.M = 1"
+          , "    /// At the end of a type."
+          ]
+      )
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+    === ["fsharp/Odd.fs/module/Odd/function/f", "fsharp/Odd.fs/module/Odd/class/T"]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [5, 9, 12, 15, 18, 23]

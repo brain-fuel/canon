@@ -17,6 +17,9 @@ import Canon.Model.Check (checkModel)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
+import Canon.Span (Position (..), Span (..))
+import Data.List (sort)
+import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -36,6 +39,7 @@ tests =
     , testProperty "the Elixir profile names operator, unquoted, and test definitions as Elixir does" prop_elixirProfileNamesOperatorUnquotedAndTestDefinitionsAsElixirDoes
     , testProperty "the Elixir profile binds a doc across blank lines and hides what @doc false hides" prop_elixirProfileBindsADocAcrossBlankLinesAndHidesWhatDocFalseHides
     , testProperty "the Elixir dialect reads @doc and @moduledoc as canonical comments as Elixir binds them" prop_elixirDialectReadsDocAndModuledocAsCanonicalCommentsAsElixirBindsThem
+    , testProperty "an Elixir doc attribute anywhere in a file parses and one that documents nothing is an orphan" prop_anElixirDocAttributeAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
     ]
 
 sampleDir :: FilePath
@@ -413,3 +417,42 @@ prop_elixirDialectReadsDocAndModuledocAsCanonicalCommentsAsElixirBindsThem = wit
   length [() | OrphanDocComment _ _ <- findings] === 2
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === ["elixir/shapes.ex/module/Shapes/function/helper", "elixir/shapes.ex/module/ShapesTest/test/uncommented"]
+
+-- | A @doc, @typedoc, or @moduledoc is an attribute, which Elixir reads as an expression wherever one
+-- may stand, so canon must read a file with one inside an expression, among the arguments of a call,
+-- before a case clause, or at the end of a block, keep the Whys of its definitions, among them a @doc
+-- after a @spec, which Elixir binds, and report each one that documents nothing as an orphan.
+-- ref:REQ-elixir-support ref:DEC-elixir-dialect ref:DEC-stray-comments
+prop_anElixirDocAttributeAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan :: Property
+prop_anElixirDocAttributeAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "defmodule Odd do"
+          , "  @moduledoc \"A module.\""
+          , ""
+          , "  @spec f(term) :: term"
+          , "  @doc \"After an attribute, so the function's.\""
+          , "  def f(x) do"
+          , "    y = x +"
+          , "      @doc \"Inside an expression.\""
+          , "    g(1,"
+          , "      @typedoc \"Among the arguments.\","
+          , "      y)"
+          , "    case y do"
+          , "      @doc \"Before a clause.\""
+          , "      1 -> 2"
+          , "      _ -> fn z ->"
+          , "        z"
+          , "        @moduledoc \"At the end of a block.\""
+          , "      end"
+          , "    end"
+          , "  end"
+          , "end"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "elixir" dialectProfile interpreter "odd.ex" "odd.ex" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+    === ["elixir/odd.ex/module/Odd", "elixir/odd.ex/module/Odd/function/f"]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [8, 10, 13, 17]

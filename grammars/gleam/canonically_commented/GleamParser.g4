@@ -23,8 +23,12 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 parser grammar GleamParser;
 
+// canon: a doc comment may stand between any two tokens, as inside an expression; where the grammar
+// does not accept one, canon reads the file without it and reports it as an orphan, as the strayComment
+// options say. ref:DEC-stray-comments
 options {
     tokenVocab = GleamLexer;
+    strayComment = canonicalComment;
 }
 
 /** A Gleam module: its items, its //// comments, labeled file because Gleam joins them all into the documentation of the module, and /// comments that document nothing, labeled orphan. ref:DEC-gleam-dialect */
@@ -153,10 +157,12 @@ typeParameters
     : OPEN_PAREN balanced* CLOSE_PAREN
     ;
 
-/** A type annotation. */
+/** A type annotation, or a tuple type in the syntax before v0.15. ref:DEC-gleam-grammar */
+// canon: tuple(A, B) is the tuple type written before Gleam v0.15 replaced it with #(A, B).
 type_
     : FN OPEN_PAREN typeList? CLOSE_PAREN ARROW_RIGHT type_
     | HASH OPEN_PAREN typeList? CLOSE_PAREN
+    | 'tuple' OPEN_PAREN typeList? CLOSE_PAREN
     | (name DOT)? UPNAME (OPEN_PAREN typeList? CLOSE_PAREN)?
     | name
     | DISCARD_NAME
@@ -199,9 +205,11 @@ body
     : OPEN_BRACE balanced* CLOSE_BRACE
     ;
 
-/** Any token, or a bracketed sequence of them, so a body is read without its expressions. */
+/** Any token, a bracketed sequence of them, so a body is read without its expressions, or /// lines inside it, which document nothing there and are labeled orphan. ref:DEC-gleam-dialect ref:DEC-stray-comments */
+// canon: /// lines inside brackets are a canonical comment, an orphan, rather than tokens of the body.
 balanced
-    : ~(OPEN_PAREN | CLOSE_PAREN | OPEN_BRACKET | CLOSE_BRACKET | OPEN_BRACE | CLOSE_BRACE)
+    : orphan = canonicalComment
+    | ~(OPEN_PAREN | CLOSE_PAREN | OPEN_BRACKET | CLOSE_BRACKET | OPEN_BRACE | CLOSE_BRACE | DOC_OPEN)
     | OPEN_PAREN balanced* CLOSE_PAREN
     | OPEN_BRACKET balanced* CLOSE_BRACKET
     | OPEN_BRACE balanced* CLOSE_BRACE

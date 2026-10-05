@@ -19,8 +19,12 @@
 
 parser grammar FSharpParser;
 
+// canon: a doc comment may stand between any two tokens, as inside an expression; where the grammar
+// does not accept one, canon reads the file without it and reports it as an orphan, as the strayComment
+// options say. ref:DEC-stray-comments
 options {
     tokenVocab = FSharpLexer;
+    strayComment = canonicalComment;
 }
 
 // A file is namespaces, a top-level module, or the declarations of an implicit module.

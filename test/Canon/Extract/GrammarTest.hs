@@ -2,7 +2,7 @@
 -- grammar declares. ref:DEC-grammar-carries-extraction-rules ref:DEC-export-rule
 module Canon.Extract.GrammarTest (tests) where
 
-import Canon.Antlr4.Interpret (Interpreter (..), renderInterpretError)
+import Canon.Antlr4.Interpret (Interpreter (..), interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (defaultConfig)
 import Canon.Decisions (emptyLedger)
@@ -16,6 +16,7 @@ import Canon.Profile
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
 import Canon.Span (Position (..), Span (..))
 import Data.Foldable (toList)
+import Data.List (sort)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Maybe (isJust)
@@ -41,6 +42,8 @@ tests =
     , testProperty "the java dialect marks public members required and misplaced comments orphan" javaDialect
     , testProperty "the haskell dialect requires comments on exported units" haskellDialect
     , testProperty "bindings attach to the signature with their name and become its How" haskellBindingsBindByName
+    , testProperty "a Haskell doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_aHaskellDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
+    , testProperty "a Haskell layout block ends at a comma, then, else, or guard equals sign it cannot hold" prop_aHaskellLayoutBlockEndsAtACommaThenElseOrGuardEqualsSignItCannotHold
     , testProperty "the make dialect requires a comment on every plain rule" makeDialect
     , testProperty "export entries parse and decide requirement" exportEntries
     ]
@@ -410,3 +413,78 @@ makeDialect = withTests 1 $ property $ do
   whyOf "PORT" === ["The port the page listens on."]
   [t | u <- byName "build", HowText t <- [answerValue (unitHow u)]] === ["stack build \\\n\t  --no-terminal"]
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["make/Makefile/rule/build"]
+
+-- | GHC skips a Haddock comment that documents nothing, and Haddock warns of it, so canon must read
+-- a module with one inside an expression, between the arguments of a call, before a case
+-- alternative, at the end of a do block, after a pragma, or at the end of the file, keep the Whys of
+-- its declarations, and report each such comment as an orphan. ref:REQ-haskell-support
+-- ref:DEC-haskell-dialect ref:DEC-stray-comments
+prop_aHaskellDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan :: Property
+prop_aHaskellDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter haskellProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "module Odd (f) where"
+          , ""
+          , "-- | A function."
+          , "f :: Int -> IO Int"
+          , "f x = do"
+          , "  let y ="
+          , "        -- | Inside an expression."
+          , "        x + 1"
+          , "  z <- g y"
+          , "    -- | Between the arguments."
+          , "    2"
+          , "  case z of"
+          , "    -- | Before an alternative."
+          , "    1 -> pure 2"
+          , "    _ -> pure [ z"
+          , "              -- | In a list."
+          , "              , 3 ] >> pure z"
+          , "  -- | At the end of a do block."
+          , ""
+          , "{-# INLINE g #-}"
+          , "-- | After a pragma, so the function's."
+          , "g :: Int -> Int -> IO Int"
+          , "g a b = pure (a + b)"
+          , "-- | At the end of the file."
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "haskell" haskellProfile interpreter "Odd.hs" "Odd.hs" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [renderUnitId u | d <- modelDecisions model, u <- toList (decisionUnits d)] === ["haskell/Odd.hs/module/Odd/function/f", "haskell/Odd.hs/module/Odd/function/g"]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [7, 10, 13, 16, 18, 24]
+
+-- | GHC closes an implicit layout block at a token the block cannot hold, by the parse-error rule of
+-- the layout algorithm, so code that writes a case in a tuple, a let in a comprehension, a case
+-- between then and else, or a let in a guard on one line compiles; canon must read it through the
+-- plain grammar and the dialect, while a comma of a guard, of a comprehension's qualifiers, or of an
+-- operator such as /= leaves the block open. ref:REQ-haskell-support ref:DEC-haskell-grammar-fixes
+-- ref:DEC-layout-parse-error-rule
+prop_aHaskellLayoutBlockEndsAtACommaThenElseOrGuardEqualsSignItCannotHold :: Property
+prop_aHaskellLayoutBlockEndsAtACommaThenElseOrGuardEqualsSignItCannotHold = withTests 1 $ property $ do
+  let source =
+        T.unlines
+          [ "module Layout where"
+          , "pair x = (case x of Just y -> y, 2)"
+          , "list x = [case x of Just y -> y, 2]"
+          , "comprehension xs = [y | x <- xs, let y = x + 1, odd y]"
+          , "two xs = [z | x <- xs, let y = x + 1; z = y, odd y]"
+          , "spread xs = [y | x <- xs, let y = x"
+          , "                              z = y, odd z]"
+          , "choose x = if x then case x of True -> 1 else 2"
+          , "guarded x | Just y <- x, let z = y = z"
+          , "          | otherwise = 0"
+          , "fold xs = foldr (\\u acc -> case u of"
+          , "              Just v | v /= 0, v == 1 -> acc"
+          , "              _ -> acc) 0 xs"
+          , "record r = r {a = case r of R -> 1, b = 2}"
+          ]
+  for' [("grammars/haskell/HaskellLexer.g4", "grammars/haskell/HaskellParser.g4"), ("grammars/haskell/canonically_commented/HaskellLexer.g4", "grammars/haskell/canonically_commented/HaskellParser.g4")] $ \(lexer, parser) -> do
+    loaded <- evalIO (loadInterpreter lexer parser)
+    interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+    case interpretText interpreter (Name "module") "Layout.hs" source of
+      Left err -> annotate (T.unpack (renderInterpretError err)) >> failure
+      Right _ -> pure ()
+  where
+    for' xs f = mapM_ f xs

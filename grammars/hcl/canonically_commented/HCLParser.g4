@@ -304,14 +304,18 @@ jsonModule
     : TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE COLON LBRACE ((TEMPLATE_OPEN '//' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember) (COMMA (TEMPLATE_OPEN '//' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember))*)? RBRACE # module
     ;
 
-/** A variable in JSON syntax, named by its label. Its comment property and its description are each a Why, and the first written binds. It requires one, which its colon is labeled to say, as the keyword is in the native syntax. ref:DEC-hcl-grammar */
+/** A variable in JSON syntax, named by its label. Its comment property is its Why wherever it is written, and its description is when it has none, as a comment above wins over a description in the native syntax. It requires one, which its colon is labeled to say, as the keyword is in the native syntax. ref:DEC-hcl-grammar */
+// canon: the alternative with a comment property comes first, so the comment property wins over a description written before it.
 jsonVariable
-    : TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE required = COLON LBRACE ((TEMPLATE_OPEN '//' TEMPLATE_CLOSE COLON why = templateExpr | TEMPLATE_OPEN 'description' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember) (COMMA (TEMPLATE_OPEN '//' TEMPLATE_CLOSE COLON why = templateExpr | TEMPLATE_OPEN 'description' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember))*)? RBRACE # variable
+    : TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE required = COLON LBRACE (jsonDescribedMember COMMA)*? TEMPLATE_OPEN '//' TEMPLATE_CLOSE COLON why = templateExpr (COMMA jsonDescribedMember)* RBRACE # variable
+    | TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE required = COLON LBRACE ((TEMPLATE_OPEN 'description' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember) (COMMA (TEMPLATE_OPEN 'description' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember))*)? RBRACE # variable
     ;
 
-/** An output in JSON syntax, named by its label, with its comment property or description as its Why. It requires one. ref:DEC-hcl-grammar */
+/** An output in JSON syntax, named by its label. Its comment property is its Why wherever it is written, and its description is when it has none. It requires one. ref:DEC-hcl-grammar */
+// canon: the alternative with a comment property comes first, so the comment property wins over a description written before it.
 jsonOutput
-    : TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE required = COLON LBRACE ((TEMPLATE_OPEN '//' TEMPLATE_CLOSE COLON why = templateExpr | TEMPLATE_OPEN 'description' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember) (COMMA (TEMPLATE_OPEN '//' TEMPLATE_CLOSE COLON why = templateExpr | TEMPLATE_OPEN 'description' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember))*)? RBRACE # output
+    : TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE required = COLON LBRACE (jsonDescribedMember COMMA)*? TEMPLATE_OPEN '//' TEMPLATE_CLOSE COLON why = templateExpr (COMMA jsonDescribedMember)* RBRACE # output
+    | TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE required = COLON LBRACE ((TEMPLATE_OPEN 'description' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember) (COMMA (TEMPLATE_OPEN 'description' TEMPLATE_CLOSE COLON why = templateExpr | jsonMember))*)? RBRACE # output
     ;
 
 /** The configurations of one provider, one object or a list of them, whose provider name, labeled qualifier, is the first part of each one's name. ref:DEC-hcl-grammar */
@@ -369,4 +373,11 @@ jsonObject
 /** A JSON property: a string key, a colon, and a value. */
 jsonMember
     : TEMPLATE_OPEN TEMPLATE_TEXT? TEMPLATE_CLOSE COLON jsonValue
+    ;
+
+/** A member of a variable or an output that has a comment property: its description, which the comment property wins over, or any other member. ref:DEC-hcl-grammar */
+// canon: a description beside a comment property is no Why.
+jsonDescribedMember
+    : TEMPLATE_OPEN 'description' TEMPLATE_CLOSE COLON templateExpr
+    | jsonMember
     ;

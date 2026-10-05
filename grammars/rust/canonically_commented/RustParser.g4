@@ -31,10 +31,15 @@ parser grammar RustParser;
 
 // canon: canon's interpreter has no port of RustParserBase; the two predicates that called into it
 // are dropped from shl and shr below.
+// canon: a doc comment of either kind may stand between any two tokens, as inside an expression; where
+// the grammar does not accept one, canon reads the file without it and reports it as an orphan, as the
+// strayComment options say. ref:DEC-stray-comments
 options
 {
     tokenVocab = RustLexer;
     superClass = RustParserBase;
+    strayComment = canonicalComment;
+    strayComment = innerComment;
 }
 
 // entry point
@@ -1139,12 +1144,16 @@ visibility
 
 // technical
 // canon: union is a weak keyword, a keyword only before a union's name, so it is also an identifier,
-// as in the method call a.union(b).
+// as in the method call a.union(b). async, try, and dyn are identifiers in the 2015 edition, which
+// canon reads without knowing a crate's edition, so they are identifiers too.
 identifier
     : NON_KEYWORD_IDENTIFIER
     | RAW_IDENTIFIER
     | KW_MACRORULES
     | KW_UNION
+    | KW_ASYNC
+    | KW_TRY
+    | KW_DYN
     ;
 
 keyword

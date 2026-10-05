@@ -16,6 +16,7 @@ import Canon.Model.Check (checkModel)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
+import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -33,6 +34,7 @@ tests =
     , testProperty "the Pulumi dialect makes units of resources, variables, outputs, and config keys" prop_pulumiDialectMakesUnitsOfResourcesVariablesOutputsAndConfigKeys
     , testProperty "the Pulumi profile owns Pulumi programs and stack files by name" prop_pulumiProfileOwnsPulumiProgramsAndStackFilesByName
     , testProperty "the Pulumi dialect reads quoted keys, flow interpolations, and template config" prop_pulumiDialectReadsQuotedKeysFlowInterpolationsAndTemplateConfig
+    , testProperty "a Pulumi comment anywhere in a program parses and only one directly above an entry binds" prop_aPulumiCommentAnywhereInAProgramParsesAndOnlyOneDirectlyAboveAnEntryBinds
     ]
 
 sampleDir :: FilePath
@@ -251,3 +253,46 @@ prop_pulumiDialectReadsQuotedKeysFlowInterpolationsAndTemplateConfig = withTests
   whyOf "index.html" === ["The page the site serves."]
   length [() | OrphanDocComment _ _ <- findings] === 0
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["pulumi/Pulumi.yaml/templateConfig/siteName"]
+
+-- | Pulumi reads a comment wherever YAML allows one, so canon must read a program with comments
+-- among a resource's properties, in a sequence, in a flow collection, after a block scalar, and at
+-- the end of a section or of the file; only the comment directly above an entry is its Why, and the
+-- others bind to nothing and are not reported, since YAML has no doc comment syntax.
+-- ref:REQ-pulumi-yaml-support ref:DEC-pulumi-yaml-grammar ref:DEC-stray-comments
+prop_aPulumiCommentAnywhereInAProgramParsesAndOnlyOneDirectlyAboveAnEntryBinds :: Property
+prop_aPulumiCommentAnywhereInAProgramParsesAndOnlyOneDirectlyAboveAnEntryBinds = withTests 1 $ property $ do
+  Extraction model findings <-
+    extracted
+      "Pulumi.yaml"
+      ( T.unlines
+          [ "name: odd"
+          , "runtime: yaml"
+          , "resources:"
+          , "  # The bucket the site is served from."
+          , "  bucket:"
+          , "    type: aws:s3:Bucket"
+          , "    properties:"
+          , "      # Among the properties."
+          , "      acl: private"
+          , "      tags: [a,"
+          , "        # In a flow collection."
+          , "        b]"
+          , "      rules:"
+          , "        # In a sequence."
+          , "        - x"
+          , "        # Between items."
+          , "        - y"
+          , "      policy: |"
+          , "        # Text of a block scalar."
+          , "      # After a block scalar."
+          , "      index: 1"
+          , "  # At the end of a section."
+          , "outputs:"
+          , "  # The name of the bucket."
+          , "  name: ${bucket.id}"
+          , "# At the end of the file."
+          ]
+      )
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+    === [("pulumi/Pulumi.yaml/resource/bucket", "The bucket the site is served from."), ("pulumi/Pulumi.yaml/output/name", "The name of the bucket.")]
+  [() | OrphanDocComment _ _ <- findings] === []

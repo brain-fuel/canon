@@ -34,8 +34,8 @@ as changed. The decision is recorded as `DEC-gleam-grammar` in canon's
 - The profile sets `joinAcrossBlankLines`, so `///` lines above an item are
   one comment even with blank lines between them, as the Gleam compiler
   joins them.
-- The syntax removed before Gleam 1.0 is read too: `external fn` and
-  `external type`, and module-level target groups written
+- The syntax removed before Gleam 1.0 is read too: the tuple type
+  `tuple(A, B)`, `external fn` and `external type`, and module-level target groups written
   `if erlang { ... }`, whose items are items of the module. `try` and a bare
   `assert` sit inside function bodies, which are balanced brackets. `external`
   and `internal` are tokens, and are names wherever Gleam allows a name.
@@ -48,9 +48,17 @@ lines. Consecutive `///` lines are one canonical comment, the Why of the item
 below its attributes, even across blank lines, as the Gleam compiler joins
 them. `////` comments are labeled `file`, and canon joins them all into the
 Why of the file. `pub` is labeled `required`, and a `///` before an import is
-an `orphan`. The ledger records it as `DEC-gleam-dialect`.
+an `orphan`. A `///` inside a function body, an argument list, or any other
+bracketed part is an `orphan` too, although the Gleam compiler would join it
+into the documentation of the next item: where it stands, it documents
+nothing. The parser's `strayComment` option names `canonicalComment`, so one
+the grammar does not accept where it stands is read out of the file and
+reported as an `orphan` (`DEC-stray-comments`). The ledger records it as
+`DEC-gleam-dialect`.
 
 ## Known limitations
 
 - Pre-1.0 syntax was tested on the stdlib at v0.18.0, v0.22.0, v0.25.0, and
-  v0.29.0. Syntax older than v0.18.0 may not be read.
+  v0.29.0. The tuple type `tuple(A, B)`, which v0.15 replaced with `#(A, B)`,
+  is read too. Other syntax older than v0.18.0 is untested, since no corpus at
+  hand holds it, and may not be read.

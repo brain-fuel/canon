@@ -33,12 +33,23 @@ data HaskellLayout = HaskellLayout
   , nestedLevel :: Int
   , queue :: [Token]
   , heldDocs :: [Token]
-  , delimiterLayouts :: [Int]
+  , delimiterLayouts :: [(Delimiter, Int)]
+  , conditionalLayouts :: [Int]
+  , guardBlock :: Maybe Int
+  , openGuard :: Maybe Int
+  , guardLet :: Maybe (Int, Bool)
+  , lastCode :: Maybe (Int, Bool)
+  , undoEquals :: Maybe (Int, (Maybe Int, Maybe Int, Maybe (Int, Bool)))
   }
   deriving (Eq, Show)
 
+-- | The bracket that opened a delimited span: a parenthesis or list bracket, or the brace of a
+-- record, which no layout keyword opened.
+data Delimiter = Bracket | RecordBrace
+  deriving (Eq, Show)
+
 initialLayout :: HaskellLayout
-initialLayout = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 [] [] []
+initialLayout = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 [] [] [] [] Nothing Nothing Nothing Nothing Nothing
 
 -- | The hooks for the Haskell grammar.
 haskellLayoutHooks :: LexerHooks HaskellLayout
@@ -180,6 +191,21 @@ stepCode before ty next = do
       held <- takeHeld
       pure (before ++ withHeld held tokens)
     Nothing -> do
+      afterKeyword <- gets prevWasKeyWord
+      -- An equals sign or arrow that touches another operator character is part of an operator, as
+      -- the equals sign of /= or ==, and neither ends a guard nor a binding; the lexer reads such an
+      -- operator as several tokens, so the hook looks at the token before and undoes what the token
+      -- after shows was an operator. ref:DEC-haskell-grammar-fixes
+      touchesOperator <- gets (\x -> case lastCode x of Just (end, True) -> end == tokenStart next; _ -> False)
+      undo <- gets undoEquals
+      case undo of
+        Just (end, (g, o, l)) | end == tokenStart next && operatorToken next -> modify (\x -> x {guardBlock = g, openGuard = o, guardLet = l})
+        _ -> pure ()
+      when (tokenChannel next /= hiddenChannelName && ty /= "NEWLINE") $
+        modify (\x -> x {undoEquals = Nothing, lastCode = Just (tokenEnd next, operatorToken next)})
+      snapshot <- gets (\x -> (guardBlock x, openGuard x, guardLet x))
+      let equalsSign = ty `elem` ["Arrow", "Eq"] && not touchesOperator
+      when equalsSign $ modify (\x -> x {undoEquals = Just (tokenEnd next, snapshot)})
       when (ty == "ClosePragmaBracket") $ modify (\s -> s {inPragmas = False})
       when (ty == "OCURLY") $ do
         s <- get
@@ -236,15 +262,70 @@ stepCode before ty next = do
               closeWith next
               modify (\x -> x {indentStack = rest, nestedLevel = nestedLevel x - 1})
             _ -> pure ()
-      when (ty == "OCURLY") $ modify (\x -> x {prevWasKeyWord = False})
+      when (ty == "OCURLY") $ do
+        -- A brace no layout keyword opened is a record's, whose fields a comma parts.
+        s11 <- get
+        when (not afterKeyword) $ put s11 {delimiterLayouts = (RecordBrace, length (indentStack s11)) : delimiterLayouts s11}
+        modify (\x -> x {prevWasKeyWord = False})
       when (ty `elem` ["OpenRoundBracket", "OpenSquareBracket"]) $
-        modify (\x -> x {delimiterLayouts = length (indentStack x) : delimiterLayouts x})
+        modify (\x -> x {delimiterLayouts = (Bracket, length (indentStack x)) : delimiterLayouts x})
       when (ty `elem` ["CloseRoundBracket", "CloseSquareBracket"]) $ do
         saved <- gets delimiterLayouts
+        case dropWhile ((/= Bracket) . fst) saved of
+          (_, depth) : rest -> do
+            closeDelimited next depth
+            modify (\x -> x {delimiterLayouts = rest})
+          [] -> pure ()
+      when (ty == "CCURLY") $ do
+        saved <- gets delimiterLayouts
+        case saved of
+          (RecordBrace, depth) : rest -> do
+            closeDelimited next depth
+            modify (\x -> x {delimiterLayouts = rest})
+          _ -> pure ()
+      -- The parse-error rule of the layout algorithm closes an implicit block at a token the block
+      -- cannot hold. Two such tokens are known here: a comma of the brackets around the block, as
+      -- after a case in a tuple or a let in a comprehension, and the then or else of an if around
+      -- it. A comma after a guard's bar in the block is the guard's own, until its arrow or equals
+      -- sign. ref:DEC-haskell-grammar-fixes ref:DEC-layout-parse-error-rule
+      when (ty == "Pipe") $ do
+        s12 <- get
+        case delimiterLayouts s12 of
+          (_, depth) : _ | length (indentStack s12) > depth -> put s12 {guardBlock = Just (length (indentStack s12))}
+          _ -> pure ()
+      when equalsSign $ modify (\x -> x {guardBlock = Nothing})
+      when (ty == "Comma") $ do
+        s13 <- get
+        case delimiterLayouts s13 of
+          (_, depth) : _ | guardBlock s13 /= Just (length (indentStack s13)) -> closeDelimited next depth
+          _ -> pure ()
+      -- A let in a guard is closed by the equals sign that ends the guard, the second one at the
+      -- level of its bindings since the binding began. ref:DEC-layout-parse-error-rule
+      -- A bar directly inside brackets is a comprehension's, not a guard's.
+      when (ty == "Pipe") $ modify (\x -> case delimiterLayouts x of
+        (_, depth) : _ | depth == length (indentStack x) -> x
+        _ -> x {openGuard = Just (length (indentStack x))})
+      when (ty == "LET") $ do
+        s14 <- get
+        when (openGuard s14 == Just (length (indentStack s14))) $ put s14 {guardLet = Just (length (indentStack s14) + 1, False)}
+      when (ty `elem` ["NEWLINE", "Semi"]) $ modify (\x -> x {guardLet = fmap (\(d, _) -> (d, False)) (guardLet x)})
+      when equalsSign $ do
+        s15 <- get
+        let n = length (indentStack s15)
+            endGuard = modify (\x -> x {openGuard = if maybe False (>= n) (openGuard x) then Nothing else openGuard x, guardLet = case guardLet x of Just (d, _) | n < d -> Nothing; other -> other})
+        case guardLet s15 of
+          Just (d, False) | n == d, ty == "Eq" -> put s15 {guardLet = Just (d, True)}
+          Just (d, True) | n == d, ty == "Eq" -> do
+            closeDelimited next (d - 1)
+            modify (\x -> x {guardLet = Nothing, openGuard = Nothing})
+          _ -> endGuard
+      when (ty == "IF") $ modify (\x -> x {conditionalLayouts = length (indentStack x) : conditionalLayouts x})
+      when (ty `elem` ["THEN", "ELSE"]) $ do
+        saved <- gets conditionalLayouts
         case saved of
           depth : rest -> do
             closeDelimited next depth
-            modify (\x -> x {delimiterLayouts = rest})
+            when (ty == "ELSE") $ modify (\x -> x {conditionalLayouts = rest})
           [] -> pure ()
       if tokenChannel next == hiddenChannelName || ty == "NEWLINE"
         then pure (before ++ [next])
@@ -277,6 +358,10 @@ stepCode before ty next = do
                   pure (Just [open, next])
                 else pure Nothing
         else pure Nothing
+
+-- | Tells a token made of operator characters, which may be part of a longer operator.
+operatorToken :: Token -> Bool
+operatorToken t = not (T.null (tokenText t)) && T.all (`elem` ("!#$%&*+./<=>?@\\^|-~:" :: String)) (tokenText t)
 
 -- | A closing parenthesis or list bracket ends only the implicit layout blocks opened
 -- inside that delimiter. Enclosing let/where blocks must stay open.

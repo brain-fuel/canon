@@ -3,7 +3,7 @@
 -- ref:DEC-gleam-grammar ref:REQ-gleam-support
 module Canon.Extract.GleamTest (tests) where
 
-import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, loadInterpreter, renderInterpretError)
+import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Parse (treeRuleNodes)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
@@ -15,6 +15,9 @@ import Canon.Model.Check (checkModel)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
+import Canon.Span (Position (..), Span (..))
+import Data.List (sort)
+import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -32,6 +35,8 @@ tests =
     , testProperty "the Gleam profile binds item and module doc comments and recognises tests" prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests
     , testProperty "the Gleam profile reads pre-1.0 syntax and hides internal items" prop_gleamProfileReadsPre10SyntaxAndHidesInternalItems
     , testProperty "the Gleam dialect reads /// and //// as canonical comments as Gleam joins them" prop_gleamDialectReadsDocAndModuleCommentsAsCanonicalCommentsAsGleamJoinsThem
+    , testProperty "a Gleam doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_aGleamDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
+    , testProperty "a Gleam tuple type written before v0.15 parses through the grammar and the dialect" prop_aGleamTupleTypeWrittenBeforeV015ParsesThroughTheGrammarAndTheDialect
     ]
 
 sampleDir :: FilePath
@@ -291,3 +296,57 @@ prop_gleamDialectReadsDocAndModuleCommentsAsCanonicalCommentsAsGleamJoinsThem = 
   whyOf "area" === ["Areas are what shapes are for."]
   length [() | OrphanDocComment _ _ <- findings] === 1
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["gleam/shapes.gleam/const/unit"]
+
+-- | The Gleam compiler parses a file whatever /// lines it holds, so canon must read a file with one
+-- inside an expression, among the arguments of a call, before a case clause, after an attribute, or
+-- at the end of a block, keep the Whys of its items, and report each one that documents nothing as
+-- an orphan. ref:REQ-gleam-support ref:DEC-gleam-dialect ref:DEC-stray-comments
+prop_aGleamDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan :: Property
+prop_aGleamDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "/// A function."
+          , "@deprecated(\"Use g.\")"
+          , "/// After an attribute."
+          , "pub fn f(x: Int) -> Int {"
+          , "  let y = x +"
+          , "    /// Inside an expression."
+          , "    1"
+          , "  let z = max(y,"
+          , "    /// Among the arguments."
+          , "    2)"
+          , "  case z {"
+          , "    /// Before a clause."
+          , "    1 -> 2"
+          , "    _ -> z"
+          , "    /// At the end of a block."
+          , "  }"
+          , "}"
+          , ""
+          , "/// A type."
+          , "pub type T {"
+          , "  A"
+          , "  /// After the last constructor."
+          , "}"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "gleam" dialectProfile interpreter "odd.gleam" "odd.gleam" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+    === ["gleam/odd.gleam/function/f", "gleam/odd.gleam/type/T"]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [3, 6, 9, 12, 15, 22]
+
+-- | Gleam wrote a tuple type as tuple(A, B) before v0.15 made it #(A, B), and packages of that age
+-- are still published, so their modules must parse through the grammar and the dialect.
+-- ref:REQ-gleam-support ref:DEC-gleam-grammar
+prop_aGleamTupleTypeWrittenBeforeV015ParsesThroughTheGrammarAndTheDialect :: Property
+prop_aGleamTupleTypeWrittenBeforeV015ParsesThroughTheGrammarAndTheDialect = withTests 1 $ property $ do
+  let source = "pub const pair: tuple(Int, Int) = tuple(1, 2)\npub fn swap(x: tuple(a, b)) -> tuple(b, a) { let tuple(a, b) = x tuple(b, a) }\n"
+  mapM_
+    ( \(lexer, parser) -> do
+        loaded <- evalIO (loadInterpreter lexer parser)
+        interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+        either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) (const (pure ())) (interpretText interpreter (Name "module") "old.gleam" source)
+    )
+    [("grammars/gleam/GleamLexer.g4", "grammars/gleam/GleamParser.g4"), ("grammars/gleam/canonically_commented/GleamLexer.g4", "grammars/gleam/canonically_commented/GleamParser.g4")]

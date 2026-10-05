@@ -6,7 +6,7 @@ module Canon.Extract.RustTest (tests) where
 import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Lex (renderLexError)
 import Canon.Antlr4.Parse (treeRuleNodes, treeTokens)
-import Canon.Antlr4.Syntax (Name (..))
+import Canon.Antlr4.Syntax (Name (..), nameText)
 import Canon.Antlr4.Token (Token (..), hiddenChannelName, isEofToken)
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
 import Canon.Extract.Grammar
@@ -16,7 +16,9 @@ import Canon.Model.Check (checkModel, checkTests)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
+import Canon.Span (Position (..), Span (..))
 import Canon.Decisions (emptyLedger)
+import Data.List (sort)
 import qualified Data.Map.Strict as Map
 import Data.Maybe (mapMaybe)
 import qualified Data.List.NonEmpty as NonEmpty
@@ -40,6 +42,8 @@ tests =
     , testProperty "a Rust trait impl is named by its trait and its self type" prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType
     , testProperty "the Rust dialect parses the scopeguard sample with its doc comments" prop_theRustDialectParsesTheScopeguardSampleWithItsDocComments
     , testProperty "the Rust dialect binds outer and inner doc comments and reports misplaced ones" prop_theRustDialectBindsOuterAndInnerDocCommentsAndReportsMisplacedOnes
+    , testProperty "a Rust doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_aRustDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
+    , testProperty "async, try, and dyn are names in a 2015 edition crate and keywords in later ones" prop_asyncTryAndDynAreNamesInA2015EditionCrateAndKeywordsInLaterOnes
     ]
 
 sampleDir :: FilePath
@@ -397,3 +401,62 @@ prop_theRustDialectBindsOuterAndInnerDocCommentsAndReportsMisplacedOnes = withTe
   length [() | OrphanDocComment _ _ <- findings] === 2
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === ["rust/lib.rs/function/plain", "rust/lib.rs/function/late", "rust/lib.rs/module/inner/enum/Choice/variant/No"]
+
+-- | rustc reads a doc comment wherever an attribute may stand and warns of one that documents
+-- nothing, so a crate with one inside an expression, before a closing bracket, or at the end of a
+-- block still compiles; canon must read it whole, keep the Whys of its items, and report each such
+-- comment as an orphan. ref:REQ-rust-support ref:DEC-rust-dialect ref:DEC-stray-comments
+prop_aRustDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan :: Property
+prop_aRustDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractDialect
+      "lib.rs"
+      ( T.unlines
+          [ "/// A function."
+          , "#[inline]"
+          , "/// After an attribute."
+          , "pub fn f(a: u8) -> u8 {"
+          , "    let x = g(1, 2,"
+          , "        /// After the last argument."
+          , "    );"
+          , "    let y = x"
+          , "        /// Inside an expression."
+          , "        + 1;"
+          , "    let z = y"
+          , "        /// Before a method call."
+          , "        .max(a);"
+          , "    match z {"
+          , "        1 => 2,"
+          , "        /// After the last arm."
+          , "    }"
+          , "    /// At the end of a block."
+          , "}"
+          , ""
+          , "/// A pair."
+          , "pub struct P {"
+          , "    /// A field."
+          , "    pub a: u8,"
+          , "    /// After the last field."
+          , "}"
+          , "/// At the end of the file."
+          ]
+      )
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+    === ["rust/lib.rs/function/f", "rust/lib.rs/struct/P", "rust/lib.rs/struct/P/field/a"]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [3, 6, 9, 12, 16, 18, 25, 27]
+
+-- | canon reads a crate without knowing its edition, and in the 2015 edition async, try, and dyn are
+-- ordinary names, so a 2015 crate must parse with them as names while a later crate's async blocks
+-- and dyn types still parse as such. ref:REQ-rust-support ref:DEC-rust-grammar
+prop_asyncTryAndDynAreNamesInA2015EditionCrateAndKeywordsInLaterOnes :: Property
+prop_asyncTryAndDynAreNamesInA2015EditionCrateAndKeywordsInLaterOnes = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let parsed source = either (Left . renderInterpretError) Right (interpretText interpreter (Name "crate") "lib.rs" source)
+  case parsed "trait T { fn f(&self, u8); }\nfn g(x: Box<T>) { let async = 1; let try = async; let dyn = try; }" of
+    Left err -> annotate (T.unpack err) >> failure
+    Right tree -> length (treeRuleNodes (Name "letStatement") tree) === 3
+  case parsed "async fn f(x: &dyn Fn()) { let y = async move { 1 }.await; }" of
+    Left err -> annotate (T.unpack err) >> failure
+    Right tree -> do
+      length (treeRuleNodes (Name "asyncBlockExpression") tree) === 1
+      [nameText (tokenType t) | node <- treeRuleNodes (Name "traitObjectTypeOneBound") tree, t <- take 1 (treeTokens node)] === ["KW_DYN"]

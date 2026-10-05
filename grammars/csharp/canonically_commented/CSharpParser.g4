@@ -16,9 +16,13 @@ parser grammar CSharpParser;
 // accepts but binds to nothing is an orphan. Every change from the plain grammar is marked canon:
 // and listed in grammars/csharp/README.md.
 
+// canon: a doc comment may stand between any two tokens, as inside an expression; where the grammar
+// does not accept one, canon reads the file without it and reports it as an orphan, as the strayComment
+// options say. ref:DEC-stray-comments
 options {
     tokenVocab = CSharpLexer;
     superClass = CSharpParserBase;
+    strayComment = canonicalComment;
 }
 
 // Insert here @header for parser.

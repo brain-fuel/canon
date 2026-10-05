@@ -17,6 +17,9 @@ import Canon.Model.Check (checkModel)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (emptyRegistry)
+import Canon.Span (Position (..), Span (..))
+import Data.List (sort)
+import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -34,6 +37,8 @@ tests =
     , testProperty "the Erlang lexer reads subtraction, triple-quoted strings, sigils, and hidden docs" prop_erlangLexerReadsSubtractionTripleQuotedStringsSigilsAndHiddenDocs
     , testProperty "the Erlang profile binds edoc comments and doc attributes across specs and hides what -doc false hides" prop_erlangProfileBindsEdocCommentsAndDocAttributesAcrossSpecsAndHidesWhatDocFalseHides
     , testProperty "the Erlang dialect reads -doc strings and EDoc comments and requires them on exported units" prop_erlangDialectReadsDocStringsAndEdocCommentsAndRequiresThemOnExportedUnits
+    , testProperty "an Erlang doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_anErlangDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
+    , testProperty "an Erlang module exports nothing without an export list unless it compiles with export_all" prop_anErlangModuleExportsNothingWithoutAnExportListUnlessItCompilesWithExportAll
     ]
 
 sampleDir :: FilePath
@@ -307,3 +312,62 @@ prop_erlangDialectReadsDocStringsAndEdocCommentsAndRequiresThemOnExportedUnits =
   length [() | OrphanDocComment _ _ <- findings] === 1
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === ["erlang/shapes.erl/callback/draw/1", "erlang/shapes.erl/function/uncommented_test/0"]
+
+-- | An EDoc comment is a comment, which the compiler skips wherever it stands, so canon must read a
+-- file with one inside an expression, among the arguments of a call, before a case clause, or at the
+-- end of a block, keep the Whys of its functions, among them an EDoc comment after a -spec, which
+-- EDoc binds, and report each one that documents nothing as an orphan. ref:REQ-erlang-support
+-- ref:DEC-erlang-dialect ref:DEC-stray-comments
+prop_anErlangDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan :: Property
+prop_anErlangDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "-module(odd)."
+          , "-export([f/1])."
+          , ""
+          , "-spec f(term()) -> term()."
+          , "%% @doc After an attribute, so the function's."
+          , "f(X) ->"
+          , "    Y = X +"
+          , "        %% @doc Inside an expression."
+          , "        1,"
+          , "    Z = max(Y,"
+          , "            %% @doc Among the arguments."
+          , "            2),"
+          , "    case Z of"
+          , "        %% @doc Before a clause."
+          , "        1 -> 2;"
+          , "        _ ->"
+          , "            begin"
+          , "                Z"
+          , "                %% @doc At the end of a block."
+          , "            end"
+          , "    end."
+          , "%% @doc At the end of the file."
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "erlang" dialectProfile interpreter "odd.erl" "odd.erl" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)] === ["erlang/odd.erl/function/f/1"]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [8, 11, 14, 19, 22]
+
+-- | The compiler exports from a module only what its export lists name, or every function under
+-- export_all, while a header has no exports and is included where its definitions are used; so a
+-- module without an export list has no public API to document, and the dialect must require a
+-- comment on its functions only when it compiles with export_all, and on everything in a header.
+-- ref:REQ-erlang-support ref:DEC-erlang-dialect ref:DEC-export-rule
+prop_anErlangModuleExportsNothingWithoutAnExportListUnlessItCompilesWithExportAll :: Property
+prop_anErlangModuleExportsNothingWithoutAnExportListUnlessItCompilesWithExportAll = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter dialectProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let required path source = do
+        result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "erlang" dialectProfile interpreter path path (T.unlines source))
+        Extraction model _ <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+        pure [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+  closed <- required "closed.erl" ["-module(closed).", "helper() -> ok."]
+  closed === []
+  open' <- required "open.erl" ["-module(open).", "-compile([debug_info, export_all]).", "helper() -> ok."]
+  open' === ["erlang/open.erl/function/helper/0"]
+  header <- required "defs.hrl" ["-type id() :: integer()."]
+  header === ["erlang/defs.hrl/type/id/0"]

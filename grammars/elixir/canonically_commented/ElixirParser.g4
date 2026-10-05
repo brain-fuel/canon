@@ -24,8 +24,14 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 parser grammar ElixirParser;
 
+// canon: a doc comment may stand between any two tokens, as inside an expression; where the grammar
+// does not accept one, canon reads the file without it and reports it as an orphan, as the strayComment
+// options say. ref:DEC-stray-comments
 options {
     tokenVocab = ElixirLexer;
+    strayComment = canonicalComment;
+    strayComment = typeComment;
+    strayComment = moduleComment;
 }
 
 /** An Elixir file is a block of statements up to end of input. */
@@ -273,7 +279,8 @@ prefix
     : (PLUS | MINUS | BANG | CARET | CAPTURE | NOT | TILDE3 | AT | KEYWORD | COLON) NL*
     ;
 
-/** A literal, a name, or a bracketed form. */
+/** A literal, a name, a bracketed form, or documentation that stands where a value does, as in x + @doc "text", which documents nothing and is labeled orphan. ref:DEC-elixir-dialect ref:DEC-stray-comments */
+// canon: a @doc, @typedoc, or @moduledoc is an attribute, an expression that may be an operand.
 primary
     : IDENTIFIER
     | TEST_MACRO
@@ -311,6 +318,9 @@ primary
     | bitstring
     | doBlock
     | anonymousFunction
+    | orphan = canonicalComment
+    | orphan = typeComment
+    | orphan = moduleComment
     ;
 
 /** A definition keyword used as a plain name, as in a quote. */

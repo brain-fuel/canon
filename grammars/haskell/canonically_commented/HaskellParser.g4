@@ -32,8 +32,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 parser grammar HaskellParser;
 
+// canon: a doc comment may stand between any two tokens, as inside an expression; where the grammar
+// does not accept one, canon reads the file without it and reports it as an orphan, as the strayComment
+// options say. ref:DEC-stray-comments
 options {
     tokenVocab = HaskellLexer;
+    strayComment = canonicalComment;
 }
 
 /** A source file: optional explicit braces and semicolons, pragmas, then either a module header with its body or a bare body, up to end of input. */

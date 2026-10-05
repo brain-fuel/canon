@@ -17,6 +17,8 @@ import Canon.Model.Check (checkModel, checkTests)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
+import Canon.Span (Position (..), Span (..))
+import Data.List (sort)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
@@ -41,6 +43,7 @@ tests =
     , testProperty "a long collection initializer parses in memory linear in its length" prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength
     , testProperty "the C# dialect parses the GuardClauses sample with its XML docs" prop_theCSharpDialectParsesTheGuardClausesSampleWithItsXmlDocs
     , testProperty "the C# dialect binds XML docs to members and reports misplaced ones" prop_theCSharpDialectBindsXmlDocsToMembersAndReportsMisplacedOnes
+    , testProperty "a C# doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_aCSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
     ]
 
 sampleDir :: FilePath
@@ -494,3 +497,52 @@ prop_theCSharpDialectBindsXmlDocsToMembersAndReportsMisplacedOnes = withTests 1 
         , "csharp/Shapes.cs/namespace/Shapes/class/Square"
         , "csharp/Shapes.cs/namespace/Shapes/class/Square/property/Area"
         ]
+
+-- | The C# compiler warns of a doc comment on no valid element and compiles the file, so canon must
+-- read a file with one inside an expression, among the arguments of a call, in a switch, after an
+-- attribute, or at the end of a block, keep the Whys of its members, and report each such comment
+-- as an orphan. ref:REQ-csharp-support ref:DEC-csharp-dialect ref:DEC-stray-comments
+prop_aCSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan :: Property
+prop_aCSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractDialect
+      "Odd.cs"
+      ( T.unlines
+          [ "/// <summary>A class.</summary>"
+          , "public class C"
+          , "{"
+          , "    [Obsolete]"
+          , "    /// <summary>After an attribute.</summary>"
+          , "    public int M(int a)"
+          , "    {"
+          , "        var x = a"
+          , "            /// <summary>Inside an expression.</summary>"
+          , "            + 1;"
+          , "        var y = Math.Max(x"
+          , "            /// <summary>After the last argument.</summary>"
+          , "            );"
+          , "        var z = y switch"
+          , "        {"
+          , "            1 => 2,"
+          , "            /// <summary>Before an arm.</summary>"
+          , "            _ => 3"
+          , "        };"
+          , "        switch (z)"
+          , "        {"
+          , "            case 1:"
+          , "                /// <summary>In a switch section.</summary>"
+          , "                return x"
+          , "                    /// <summary>Before a member access.</summary>"
+          , "                    .GetHashCode();"
+          , "        }"
+          , "        return z;"
+          , "        /// <summary>At the end of a block.</summary>"
+          , "    }"
+          , "}"
+          ]
+      )
+  [renderUnitId u | d <- modelDecisions model, u <- decisionUnitList d]
+    === ["csharp/Odd.cs/class/C"]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [5, 9, 12, 17, 23, 25, 29]
+  where
+    decisionUnitList d = case decisionUnits d of u :| more -> u : more

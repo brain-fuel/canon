@@ -144,9 +144,11 @@ typeParameters
     : OPEN_PAREN balanced* CLOSE_PAREN
     ;
 
+// canon: tuple(A, B) is the tuple type written before Gleam v0.15 replaced it with #(A, B).
 type_
     : FN OPEN_PAREN typeList? CLOSE_PAREN ARROW_RIGHT type_
     | HASH OPEN_PAREN typeList? CLOSE_PAREN
+    | 'tuple' OPEN_PAREN typeList? CLOSE_PAREN
     | (name DOT)? UPNAME (OPEN_PAREN typeList? CLOSE_PAREN)?
     | name
     | DISCARD_NAME
