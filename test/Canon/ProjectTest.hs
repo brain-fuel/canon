@@ -7,7 +7,8 @@ import Canon.Antlr4.Syntax (Name (..))
 import Canon.CommentScan (scanCommentsWith)
 import Canon.Config (defaultConfig)
 import Canon.Extract.Grammar
-import Canon.Git.Provider (staticGitProvider)
+import Canon.Git.Fill (fillGitFromBlame)
+import Canon.Git.Provider (GitError (..), GitProvider (..), staticGitProvider)
 import Canon.Model
 import Canon.Model.Finding (Finding (..))
 import Canon.Model.Gen (genFinding, genModel, genProfile)
@@ -18,6 +19,7 @@ import Canon.Project
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.Walk (Walked (..))
 import Control.Exception (bracket)
+import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.ByteString.Lazy as LBS
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
@@ -37,6 +39,7 @@ tests =
   testGroup
     "project"
     [ testProperty "profile yaml round trip" profileRoundTrip
+    , testProperty "an empty file is not blamed and raises no git finding" prop_anEmptyFileIsNotBlamedAndRaisesNoGitFinding
     , testProperty "comment scanning follows the profile's syntax" commentScanning
     , testProperty "a profile turns a parse tree into units and decisions" profileExtraction
     , testProperty "the walk stops at nested projects and the root is honoured" nestedProjects
@@ -98,6 +101,18 @@ profileExtraction = withTests 1 $ property $ do
     howText u = case answerValue (unitHow u) of
       HowText t -> t
       HowAt _ -> ""
+
+-- | git refuses to blame a file with no lines, so a file with no text, such as an empty Python
+-- __init__.py, must not be blamed, or every such file is reported as git being unavailable.
+-- ref:DEC-git-runner
+prop_anEmptyFileIsNotBlamedAndRaisesNoGitFinding :: Property
+prop_anEmptyFileIsNotBlamedAndRaisesNoGitFinding = withTests 1 $ property $ do
+  let refusing = (staticGitProvider []) {blameOf = \_ _ -> pure (Left (GitFailed 128 "fatal: file has only 0 lines"))}
+      empty = Span (Position 1 1) (Position 1 1)
+      evidence = DerivedFromParse "empty.py"
+      root = CodeUnit (UnitId ("python" :| ["empty.py"])) (Answer (What "empty.py" (UnitKind "file") Nothing) evidence) (Answer (HowAt empty) evidence) (Answer (Where "empty.py" empty [] Nothing) evidence) Nothing Nothing Optional False []
+  (_, findings) <- evalIO (fillGitFromBlame refusing "empty.py" root)
+  findings === []
 
 nestedProjects :: Property
 nestedProjects = withTests 1 $ property $ do

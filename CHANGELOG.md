@@ -110,6 +110,7 @@ and this project adheres to
 - `canon check` parses files concurrently, caches extractions under `.canon-cache/` keyed by content, grammar, profile, and git revision, and derives Who and When from one `git blame` per file; the Haskell sample check went from 26 seconds to 1.4 cold and 0.2 warm with identical findings
 
 ### Fixed
+- An empty file, such as a Python package's `__init__.py`, is not blamed; git refused it and `canon check` reported git as unavailable for it
 - The Clojure grammar reads a keyword as one token, as the Clojure reader does, so `:1.8` and `:div#foo.bar` parse and every file of the hiccup sample is read; a backslash in a Clojure string always starts an escape, so a string ending in an escaped backslash no longer runs on to the next quote
 - The Prolog grammar reads characters outside ASCII inside quotes, so marelle's `marelle.pl` parses and every file of the Prolog sample does
 - An export entry is a module export only when the word `module` is followed by a capital, so an exported name that starts with `module`, such as a Haskell `moduleName` or a Prolog `module_path/1`, is a name

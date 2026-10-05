@@ -15,11 +15,12 @@ import qualified Data.Map.Strict as Map
 import Data.Maybe (listToMaybe)
 
 -- | Fills Who and When on every unit from one blame of the file, reporting once when git is
--- unavailable.
+-- unavailable. A file with no text, such as an empty Python __init__.py, has no line git can
+-- blame, so it is left as it is rather than reported. ref:DEC-git-runner
 fillGitFromBlame :: GitProvider -> FilePath -> CodeUnit Evidence -> IO (CodeUnit Evidence, [Finding])
 fillGitFromBlame provider path root = do
   let rootSpan = whereSpan (answerValue (unitWhere root))
-  blamed <- blameOf provider path rootSpan
+  blamed <- if spanStart rootSpan == spanEnd rootSpan then pure (Right []) else blameOf provider path rootSpan
   case blamed of
     Left err -> pure (root, [GitUnavailable path err])
     Right entries -> do
