@@ -28,16 +28,90 @@
 
 grammar Clojure;
 
+// canon: the canonically commented dialect of the Clojure grammar. Clojure documents a definition
+// with the docstring after its name, or with :doc metadata on the name, so each definition form
+// that takes one is a labeled unit alternative, tried before the generic list, with the docstring
+// as its Why and the name as its What. A string can be told from a docstring only by where it
+// stands, so the string itself is labeled why. A ; comment is not documentation. Every change from
+// the plain grammar is marked canon: and recorded in canon's ledger as DEC-clojure-dialect.
+
+// canon: the docstring of a file's leading ns form, or its :doc metadata, is the file's Why.
 file_
-    : form* EOF
+    : '(' NS ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* symbol why = string_? forms ')' form* EOF
+    | form* EOF
     ;
 
+// canon: a definition form is tried before the generic list.
 form
+    : definition
+    | literal
+    | list_
+    | vector
+    | map_
+    | reader_macro
+    ;
+
+// canon: a form read as data or discarded, in which a definition form is not a definition: the
+// form of a quote, a syntax quote, or a #_ discard.
+plain_form
     : literal
     | list_
     | vector
     | map_
     | reader_macro
+    ;
+
+// canon: the definition forms that carry documentation. defn, defmacro, defmulti, and defprotocol
+// are labeled required, because a public function, macro, multimethod, or protocol is the API a
+// namespace exports; defn- is private, and ^:private and ^:no-doc metadata are labeled optional,
+// which wins. A def, a record, a type, and a test may have documentation and need none by their form,
+// though a test always needs a Why. A docstring stands after the name, and a string after the
+// parameters of a function with more body forms after it is a misplaced docstring, an orphan.
+definition
+    : '(' required = DEFN ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_? map_? function_tail ')' # function
+    | '(' DEFN_PRIVATE ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_? map_? function_tail ')' # function
+    | '(' required = DEFMACRO ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_? map_? function_tail ')' # macro
+    | '(' required = DEFMULTI ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_? map_? form+ ')' # multimethod
+    | '(' required = DEFPROTOCOL ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_? (keyword form)* inherited = protocol_methods ')' # protocol
+    | '(' DEFRECORD ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol vector form* ')' # record
+    | '(' DEFTYPE ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol vector form* ')' # type
+    | '(' DEF ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol why = string_? form ')' # var
+    | '(' DEF ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol ')' # var
+    | '(' DEFTEST ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol form* ')' # deftest
+    ;
+
+// canon: the method signatures of a protocol need a docstring when their protocol does.
+protocol_methods
+    : protocol_method*
+    ;
+
+// canon: a method signature of a protocol, with its own docstring after its parameter vectors.
+protocol_method
+    : '(' ('^' '{' metaEntry* DOC_KEYWORD why = string_? metaEntry* '}' | metaMark)* what = symbol vector+ why = string_? ')' # method
+    ;
+
+// canon: the parameters and body of a function or macro, of one arity or several. A string after
+// the parameters is the body's value when it is the last form, and a misplaced docstring otherwise.
+function_tail
+    : vector orphan = string_ form+
+    | vector forms
+    | list_+
+    ;
+
+// canon: metadata on a definition's name other than its :doc. ^:private and ^:no-doc are labeled
+// optional.
+metaMark
+    : '^' optional = PRIVATE_KEYWORD
+    | '^' optional = NO_DOC_KEYWORD
+    | '^' '{' metaEntry* '}'
+    | '^' form
+    ;
+
+// canon: one entry of a metadata map; :private and :no-doc are labeled optional.
+metaEntry
+    : optional = PRIVATE_KEYWORD form
+    | optional = NO_DOC_KEYWORD form
+    | form form
     ;
 
 forms
@@ -79,12 +153,13 @@ reader_macro
     ;
 
 // TJP added '&' (gather a variable number of arguments)
+// canon: quoted, syntax-quoted, and discarded forms are plain forms.
 quote
-    : '\'' form
+    : '\'' plain_form
     ;
 
 backtick
-    : '`' form
+    : '`' plain_form
     ;
 
 unquote
@@ -124,7 +199,7 @@ host_expr
     ;
 
 discard
-    : '#_' form
+    : '#_' plain_form
     ;
 
 dispatch
@@ -201,6 +276,9 @@ keyword
 // characters after it, which may include digits, dots, slashes, and #, as :1.8 and :div#id do.
 simple_keyword
     : KEYWORD
+    | DOC_KEYWORD
+    | PRIVATE_KEYWORD
+    | NO_DOC_KEYWORD
     ;
 
 // canon: an auto-resolved keyword, ::name, is one token too.
@@ -213,8 +291,19 @@ symbol
     | simple_sym
     ;
 
+// canon: the names of the definition forms are symbols wherever they are not a definition's head.
 simple_sym
     : SYMBOL
+    | DEFN
+    | DEFN_PRIVATE
+    | DEFMACRO
+    | DEFMULTI
+    | DEFPROTOCOL
+    | DEFRECORD
+    | DEFTYPE
+    | DEF
+    | DEFTEST
+    | NS
     ;
 
 ns_symbol
@@ -296,6 +385,48 @@ BOOLEAN
     | 'false'
     ;
 
+// canon: the heads of the definition forms, each a symbol the parser can name; a longer symbol
+// such as defnx or default is a SYMBOL by the longest match.
+DEFN
+    : 'defn'
+    ;
+
+DEFN_PRIVATE
+    : 'defn-'
+    ;
+
+DEFMACRO
+    : 'defmacro'
+    ;
+
+DEFMULTI
+    : 'defmulti'
+    ;
+
+DEFPROTOCOL
+    : 'defprotocol'
+    ;
+
+DEFRECORD
+    : 'defrecord'
+    ;
+
+DEFTYPE
+    : 'deftype'
+    ;
+
+DEF
+    : 'def'
+    ;
+
+DEFTEST
+    : 'deftest'
+    ;
+
+NS
+    : 'ns'
+    ;
+
 SYMBOL
     : '.'
     | '/'
@@ -314,6 +445,20 @@ PARAM_NAME
 // colon in it.
 MACRO_KEYWORD
     : '::' KEYWORD_CHAR+
+    ;
+
+// canon: the metadata keys a definition's documentation and visibility are read from, before
+// KEYWORD so that they win at equal length.
+DOC_KEYWORD
+    : ':doc'
+    ;
+
+PRIVATE_KEYWORD
+    : ':private'
+    ;
+
+NO_DOC_KEYWORD
+    : ':no-doc'
     ;
 
 KEYWORD

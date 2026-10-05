@@ -25,7 +25,7 @@ import Canon.Antlr4.Parse (ParseTree (..), treeTokens)
 import Canon.Antlr4.Syntax (Alternative (..), Block (..), EbnfSuffix (..), Element (..), Grammar (..), Label (..), LabeledAlternative (..), Name (..), ParserRule (..), Quantifier (OneOrMore), Rule (..), nameText)
 import Canon.Antlr4.Token (Token (..), isEofToken)
 import Canon.Attach (attachPreceding, firstContentLine, topOfFileComment)
-import Canon.CanonicalComment (docCommentBody, parseCanonicalComment, toWhy)
+import Canon.CanonicalComment (docCommentBody, licenseTokens, parseCanonicalComment, referenceTokens, toWhy)
 import Canon.CommentScan (docAttributeBody, docOpenerOf, scanCommentsWith)
 import Canon.Config (Config (..))
 import Canon.Git.Fill (fillGitFromBlame)
@@ -214,7 +214,9 @@ exportRequires exports parent name = case exports of
 -- @doc of another Elixir arity does. ref:DEC-elixir-grammar Adjacent units of a labeled alternative
 -- named with an arity merge in the same way when they share a kind and a name, as the clauses of a
 -- Prolog predicate are one predicate, and a later clause with a Why of its own starts a unit.
--- ref:DEC-prolog-dialect
+-- ref:DEC-prolog-dialect A why element that is one string literal, as a Clojure docstring is, is
+-- read without its quotes and escapes, since a string is told from a docstring only by where it
+-- stands. ref:DEC-clojure-dialect
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
 unitsFromTree language profile plans exportsDeclared idPath path source tree
   | language == "calm" = either (Left . GrammarArchitectureError) Right (calmUnits idPath path source tree)
@@ -503,12 +505,31 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
           , own ++ nestedDecisions
           )
     whyFrom _ raw | language == "python", Just body <- pythonString raw = toWhy (parseCanonicalComment body)
+    whyFrom whyNode _ | Just body <- stringWhy whyNode = Why body (referenceTokens body) (licenseTokens body)
     whyFrom whyNode raw =
       Why
         { whyText = docCommentBody raw
         , whyReferences = keys "ref" "ref:" whyNode
         , whyLicenses = keys "license" "license:" whyNode
         }
+    -- A why element that is one string literal, as a Clojure docstring is, is its contents without
+    -- the quotes and escapes, each line trimmed, and cites what its text cites.
+    stringWhy whyNode = case filter (not . isEofToken) (treeTokens whyNode) of
+      [t]
+        | T.length (tokenText t) >= 2
+        , Just inner <- T.stripPrefix "\"" (tokenText t) >>= T.stripSuffix "\"" ->
+            Just (T.strip (T.intercalate "\n" (map T.strip (T.lines (unescape inner)))))
+      _ -> Nothing
+    unescape t = case T.breakOn "\\" t of
+      (before, rest) | Just (_, after) <- T.uncons rest -> case T.uncons after of
+        Just (c, more) -> before <> T.singleton (escaped c) <> unescape more
+        Nothing -> before <> "\\"
+      (before, _) -> before
+    escaped c = case c of
+      'n' -> '\n'
+      't' -> '\t'
+      'r' -> '\r'
+      _ -> c
     keys label prefix n = dedupe [ReferenceKey (maybe t id (T.stripPrefix prefix t)) | t <- labeledTokens label n]
     dedupe = foldr (\k acc -> k : filter (/= k) acc) []
     labeledTokens wanted n = case n of

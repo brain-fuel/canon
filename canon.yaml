@@ -9,6 +9,8 @@ ignore:
   - grammars/rust/canonically_commented/
   - grammars/csharp/canonically_commented/
   - grammars/fsharp/canonically_commented/
+  - grammars/kotlin/canonically_commented/
+  - grammars/clojure/canonically_commented/
   - grammars/prolog/canonically_commented/
   - grammars/javascript/canonically_commented/
   - grammars/typescript/canonically_commented/
@@ -50,12 +52,10 @@ parity:
   current: [python, javascript, typescript, go, java, kotlin, rust, haskell]
   planned: [erlang, elixir, gleam, csharp, fsharp, scala, groovy, clojure, prolog, hcl, yaml, antlr4, make, folio]
   pending:
-    kotlin: [dialect]
     erlang: [dialect]
     elixir: [dialect]
     gleam: [dialect]
     scala: [grammar, profile, dialect, sample]
     groovy: [grammar, profile, dialect, sample]
-    clojure: [dialect]
     hcl: [grammar, profile, dialect, sample]
     yaml: [grammar, profile, dialect, sample]

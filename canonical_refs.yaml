@@ -198,3 +198,39 @@ REQ-calm-ingestion:
   kind: requirement
   title: canon reads a CALM 1.2 architecture description through a JSON grammar as units for its nodes, relationships, and flows, each required to carry its description as a Why, and refuses a description with a dangling reference or a repeated id
   locator: README.md
+kotlin-kdoc:
+  kind: article
+  title: Kotlin documentation, Document Kotlin code with KDoc, on /** comments, block tags, and where they attach
+  locator: https://kotlinlang.org/docs/kotlin-doc.html
+kotlin-explicit-api:
+  kind: article
+  title: Kotlin KEEP, Explicit API mode, on requiring explicit visibility on the public API of a library
+  locator: https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md
+kotlin-coding-conventions:
+  kind: article
+  title: Kotlin coding conventions, Documentation comments
+  locator: https://kotlinlang.org/docs/coding-conventions.html#documentation-comments
+REQ-kotlin-support:
+  kind: requirement
+  title: canon reads Kotlin, parsing every Kotlin source file, taking classes, interfaces, objects, companion objects, functions, properties, constructor properties, secondary constructors, enum entries, and type aliases as units, binding KDoc to the declaration below its annotations and modifiers, requiring it on what is public or protected, a member as its class does, but not on an override or an actual declaration, and recognising kotlin.test and JUnit tests by their annotation or their source set
+  locator: README.md
+clojure-reader:
+  kind: article
+  title: Clojure reference, The Reader, on symbols, keywords, strings, and metadata
+  locator: https://clojure.org/reference/reader
+clojure-docstrings:
+  kind: article
+  title: Clojure API, defn, on the docstring after a function's name and the attribute map after it
+  locator: https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/defn
+clojure-special-forms:
+  kind: article
+  title: Clojure reference, Special Forms, on def with a docstring and the :doc and :private metadata of a var
+  locator: https://clojure.org/reference/special_forms#def
+clj-kondo-misplaced-docstring:
+  kind: article
+  title: clj-kondo linters, Misplaced docstring, on a string after a function's parameters
+  locator: https://github.com/clj-kondo/clj-kondo/blob/master/doc/linters.md#misplaced-docstring
+REQ-clojure-support:
+  kind: requirement
+  title: canon reads Clojure, parsing every Clojure source file the reader accepts, taking each function, macro, multimethod, protocol and its methods, record, type, def, and deftest as a unit, binding the docstring after its name or its :doc metadata and the ns docstring to the file, requiring one on public functions, macros, multimethods, and protocols but not on private ones, reporting a docstring after the parameters, and recognising deftest units as tests
+  locator: README.md

@@ -56,8 +56,12 @@ testRules language = case language of
   "typescript" -> [TestRule Nothing Nothing Nothing (Just path) | path <- scriptTestPaths]
   "python" -> [TestRule (Just "function") Nothing (Just "test_*") Nothing, TestRule (Just "class") Nothing (Just "Test*") Nothing]
   "go" -> [TestRule (Just "function") Nothing (Just name) (Just "**/*_test.go") | name <- ["Test*", "Benchmark*", "Example*", "Fuzz*"]]
-  -- Kotlin test names are often backticked sentences, so the source set names the tests.
-  "kotlin" -> [TestRule (Just "function") Nothing Nothing (Just path) | path <- ["**/src/test/**", "**/src/*Test/**"]]
+  -- Kotlin test names are often backticked sentences, so the source set names the tests, and the
+  -- grammar labels annotations marker, so a function marked as a kotlin.test or JUnit test is one
+  -- wherever it lives. ref:DEC-kotlin-dialect
+  "kotlin" ->
+    [TestRule (Just "function") Nothing Nothing (Just path) | path <- ["**/src/test/**", "**/src/*Test/**"]]
+      ++ [TestRule (Just "function") (Just marker) Nothing Nothing | marker <- kotlinMarkers]
   _ -> []
   where
     scriptTestPaths = ["**/test/**", "**/tests/**", "**/__tests__/**", "**/*.test.*", "**/*.spec.*"]
@@ -89,6 +93,7 @@ testRules language = case language of
       , "DataTestMethod"
       , "Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod"
       ]
+    kotlinMarkers = ["@Test", "@kotlin.test.Test", "@org.junit.Test", "@org.junit.jupiter.api.Test"]
     fsharpMarkers =
       [ "Fact"
       , "Theory"

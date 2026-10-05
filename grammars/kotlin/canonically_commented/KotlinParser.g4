@@ -20,8 +20,29 @@ options {
     tokenVocab = KotlinLexer;
 }
 
+// canon: the canonically commented dialect of the Kotlin grammar. KDoc comments are canonical
+// comments on the default channel; each declaration KDoc documents is a labeled unit alternative
+// with its Why, its What, and its How; a KDoc comment the grammar accepts but binds to nothing is
+// an orphan. A top-level declaration is public unless it says otherwise and holds the empty rule
+// publicByDefault, labeled required; the members of a class, an interface, an object, and an enum
+// are labeled inherited; private, internal, override, and actual are labeled optional, which wins.
+// Every change from the plain grammar is marked canon: and listed in grammars/kotlin/README.md.
+
+// canon: a KDoc comment above the package directive or the file annotations is the file's Why; one
+// before an import or after the last declaration binds to nothing.
 kotlinFile
-    : shebangLine? NL* fileAnnotation* packageHeader importList topLevelObject* EOF
+    : shebangLine? NL* (
+        ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment NL*) (
+            fileAnnotation+ packageHeader
+            | packageDirective
+        )
+        | fileAnnotation* packageHeader
+    ) importList topLevelObject* (orphan = canonicalComment NL*)* EOF
+    ;
+
+// canon: a package directive that is present, which a file's Why may stand above.
+packageDirective
+    : 'package' identifier semi?
     ;
 
 script
@@ -41,7 +62,7 @@ importList
     ;
 
 importHeader
-    : 'import' identifier ('.' '*' | importAlias)? semi?
+    : (orphan = canonicalComment NL*)* 'import' identifier ('.' '*' | importAlias)? semi?
     ;
 
 importAlias
@@ -53,24 +74,32 @@ topLevelObject
     ;
 
 classDeclaration
-    : modifiers? ('class' | 'interface') NL* simpleIdentifier (NL* typeParameters)? (
+    : modifiers? ('class' | 'interface') NL* what = simpleIdentifier (NL* typeParameters)? (
         NL* primaryConstructor
     )? (NL* ':' NL* delegationSpecifiers)? (NL* typeConstraints)? (
-        NL* classBody
-        | NL* enumClassBody
+        NL* how = classBody
+        | NL* how = enumClassBody
     )?
     ;
 
+// canon: the modifiers of a primary constructor are not the class's, so a private constructor does
+// not make its class optional.
 primaryConstructor
-    : (modifiers? 'constructor' NL*)? classParameters
+    : (innerModifiers? 'constructor' NL*)? classParameters
     ;
 
 classParameters
     : '(' NL* (classParameter (NL* ',' NL* classParameter)*)? NL* ','? ')'
     ;
 
+// canon: a parameter declared val or var is a property, which a KDoc comment may document; its
+// class may document it instead with @property, so it is not inherited. A KDoc comment on a plain
+// parameter binds to nothing; the class documents it with @param.
 classParameter
-    : modifiers? ('val' | 'var')? NL* simpleIdentifier ':' NL* type_ (NL* '=' NL* expression)?
+    : ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) modifiers? ('val' | 'var') NL* what = simpleIdentifier ':' NL* type_ (
+        NL* '=' NL* expression
+    )? # property
+    | (orphan = canonicalComment NL*)* modifiers? NL* simpleIdentifier ':' NL* type_ (NL* '=' NL* expression)?
     ;
 
 delegationSpecifiers
@@ -96,19 +125,28 @@ explicitDelegation
     : (userType | functionType) NL* 'by' NL* expression
     ;
 
+// canon: the members of a class, an interface, or an object need a comment when it does.
 classBody
-    : '{' NL* classMemberDeclarations NL* '}'
+    : '{' NL* inherited = classMemberDeclarations NL* '}'
     ;
 
+// canon: a KDoc comment after the last member binds to nothing.
 classMemberDeclarations
-    : (classMemberDeclaration semis?)*
+    : (classMemberDeclaration semis?)* (orphan = canonicalComment NL*)*
     ;
 
+// canon: each kind of member is a unit alternative whose Why is the KDoc comment above its
+// annotations and modifiers, of which the last of several in a row binds. A KDoc comment before an
+// initializer block binds to nothing.
 classMemberDeclaration
-    : declaration
-    | companionObject
-    | anonymousInitializer
-    | secondaryConstructor
+    : ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) classDeclaration # class
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) objectDeclaration # object
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) functionDeclaration # function
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) propertyDeclaration # property
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) typeAlias # type
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) companionObject # object
+    | (orphan = canonicalComment NL*)* anonymousInitializer
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) secondaryConstructor # constructor
     ;
 
 anonymousInitializer
@@ -116,7 +154,7 @@ anonymousInitializer
     ;
 
 secondaryConstructor
-    : modifiers? 'constructor' NL* functionValueParameters (NL* ':' NL* constructorDelegationCall)? NL* block?
+    : modifiers? what = 'constructor' NL* functionValueParameters (NL* ':' NL* constructorDelegationCall)? NL* block?
     ;
 
 constructorDelegationCall
@@ -124,30 +162,33 @@ constructorDelegationCall
     | 'super' NL* valueArguments
     ;
 
+// canon: the entries and members of an enum need a comment when it does.
 enumClassBody
-    : '{' NL* enumEntries? (NL* ';' NL* classMemberDeclarations)? NL* '}'
+    : '{' NL* (inherited = enumEntries)? (NL* ';' NL* inherited = classMemberDeclarations)? NL* '}'
     ;
 
 enumEntries
     : enumEntry (NL* ',' NL* enumEntry)* NL* ','?
     ;
 
+// canon: an enum entry is a unit.
 enumEntry
-    : (modifiers NL*)? simpleIdentifier (NL* valueArguments)? (NL* classBody)?
+    : ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) (modifiers NL*)? what = simpleIdentifier (NL* valueArguments)? (NL* classBody)? # entry
     ;
 
 functionDeclaration
-    : modifiers? 'fun' (NL* typeParameters)? (NL* receiverType NL* '.')? NL* simpleIdentifier NL* functionValueParameters (
+    : modifiers? 'fun' (NL* typeParameters)? (NL* receiverType NL* '.')? NL* what = simpleIdentifier NL* functionValueParameters (
         NL* ':' NL* type_
-    )? (NL* typeConstraints)? (NL* functionBody)?
+    )? (NL* typeConstraints)? (NL* how = functionBody)?
     ;
 
 functionValueParameters
     : '(' NL* (functionValueParameter (NL* ',' NL* functionValueParameter)*)? NL* ','? ')'
     ;
 
+// canon: a KDoc comment on a parameter binds to nothing; the function documents it with @param.
 functionValueParameter
-    : modifiers? parameter (NL* '=' NL* expression)?
+    : (orphan = canonicalComment NL*)* modifiers? parameter (NL* '=' NL* expression)?
     ;
 
 parameter
@@ -164,18 +205,24 @@ functionBody
     ;
 
 objectDeclaration
-    : modifiers? 'object' NL* simpleIdentifier (NL* ':' NL* delegationSpecifiers)? (NL* classBody)?
+    : modifiers? 'object' NL* what = simpleIdentifier (NL* ':' NL* delegationSpecifiers)? (NL* how = classBody)?
     ;
 
+// canon: a companion object without a name is named by its companion keyword.
 companionObject
-    : modifiers? 'companion' NL* 'object' (NL* simpleIdentifier)? (
+    : modifiers? 'companion' NL* 'object' NL* what = simpleIdentifier (
         NL* ':' NL* delegationSpecifiers
-    )? (NL* classBody)?
+    )? (NL* how = classBody)?
+    | modifiers? what = 'companion' NL* 'object' (NL* ':' NL* delegationSpecifiers)? (
+        NL* how = classBody
+    )?
     ;
 
+// canon: the name a property declares is its What; a destructuring declaration, which only a
+// local may be, has none.
 propertyDeclaration
     : modifiers? ('val' | 'var') (NL* typeParameters)? (NL* receiverType NL* '.')? (
-        NL* (multiVariableDeclaration | variableDeclaration)
+        NL* (multiVariableDeclaration | annotation* NL* what = simpleIdentifier (NL* ':' NL* type_)?)
     ) (NL* typeConstraints)? (NL* ('=' NL* expression | propertyDelegate))? (NL+ ';')? NL* (
         getter? (NL* semi? setter)?
         | setter? (NL* semi? getter)?
@@ -199,20 +246,22 @@ propertyDelegate
     : 'by' NL* expression
     ;
 
+// canon: a KDoc comment on an accessor binds to nothing; the property documents it. An accessor's
+// modifiers are not the property's, so a private setter does not make its property optional.
 getter
-    : modifiers? 'get'
-    | modifiers? 'get' NL* '(' NL* ')' (NL* ':' NL* type_)? NL* functionBody
+    : (orphan = canonicalComment NL*)* innerModifiers? 'get'
+    | (orphan = canonicalComment NL*)* innerModifiers? 'get' NL* '(' NL* ')' (NL* ':' NL* type_)? NL* functionBody
     ;
 
 setter
-    : modifiers? 'set'
-    | modifiers? 'set' NL* '(' (annotation | parameterModifier)* setterParameter ')' (
+    : (orphan = canonicalComment NL*)* innerModifiers? 'set'
+    | (orphan = canonicalComment NL*)* innerModifiers? 'set' NL* '(' (annotation | parameterModifier)* setterParameter ')' (
         NL* ':' NL* type_
     )? NL* functionBody
     ;
 
 typeAlias
-    : modifiers? 'typealias' NL* simpleIdentifier (NL* typeParameters)? NL* '=' NL* type_
+    : modifiers? 'typealias' NL* what = simpleIdentifier (NL* typeParameters)? NL* '=' NL* type_
     ;
 
 typeParameters
@@ -292,19 +341,38 @@ typeConstraint
     : annotation* simpleIdentifier NL* ':' NL* type_
     ;
 
+// canon: a KDoc comment after the last statement of a block binds to nothing.
 block
-    : '{' NL* statements NL* '}'
+    : '{' NL* statements NL* (orphan = canonicalComment NL*)* '}'
     ;
 
 statements
     : (statement ((';' | NL)+ statement)* semis?)?
     ;
 
+// canon: a KDoc comment before a statement or among its annotations binds to nothing, a local
+// declaration's included, since KDoc documents only what a file or a class declares.
 statement
-    : (label | annotation)* (declaration | assignment | loopStatement | expression)
+    : (label | annotation | orphan = canonicalComment NL*)* (
+        localDeclaration
+        | assignment
+        | loopStatement
+        | expression
+    )
     ;
 
+// canon: a declaration at the top of a file is a unit alternative whose Why is the KDoc comment
+// above its annotations and modifiers, of which the last of several in a row binds.
 declaration
+    : ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) required = publicByDefault classDeclaration # class
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) required = publicByDefault objectDeclaration # object
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) required = publicByDefault functionDeclaration # function
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) required = publicByDefault propertyDeclaration # property
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) required = publicByDefault typeAlias # type
+    ;
+
+// canon: a declaration inside a function body, which is not a unit.
+localDeclaration
     : classDeclaration
     | objectDeclaration
     | functionDeclaration
@@ -542,9 +610,15 @@ functionLiteral
     | anonymousFunction
     ;
 
+// canon: the members of an object expression are local to it, so they do not inherit a requirement.
 objectLiteral
-    : 'object' NL* ':' NL* delegationSpecifiers (NL* classBody)?
-    | 'object' NL* classBody
+    : 'object' NL* ':' NL* delegationSpecifiers (NL* objectLiteralBody)?
+    | 'object' NL* objectLiteralBody
+    ;
+
+// canon: the body of an object expression.
+objectLiteralBody
+    : '{' NL* classMemberDeclarations NL* '}'
     ;
 
 thisExpression
@@ -709,8 +783,20 @@ memberAccessOperator
     | '::'
     ;
 
+// canon: a KDoc comment among a declaration's annotations and modifiers, after the first of them,
+// binds to nothing.
 modifiers
-    : (annotation | modifier)+
+    : (annotation | modifier) (annotation | modifier | orphan = canonicalComment NL*)*
+    ;
+
+// canon: the modifiers of a primary constructor or an accessor, which carry no labels.
+innerModifiers
+    : (annotation | innerModifier)+
+    ;
+
+// canon: a modifier an accessor or a primary constructor may carry.
+innerModifier
+    : ('public' | 'private' | 'internal' | 'protected' | functionModifier | inheritanceModifier | platformModifier) NL*
     ;
 
 modifier
@@ -734,15 +820,18 @@ classModifier
     | 'inner'
     ;
 
+// canon: an override is documented by the declaration it overrides, so it is labeled optional.
 memberModifier
-    : 'override'
+    : optional = 'override'
     | 'lateinit'
     ;
 
+// canon: private and internal are labeled optional, because what is not visible outside its module
+// is not the API that Kotlin's explicit API mode and Dokka document.
 visibilityModifier
     : 'public'
-    | 'private'
-    | 'internal'
+    | optional = 'private'
+    | optional = 'internal'
     | 'protected'
     ;
 
@@ -780,9 +869,11 @@ reificationModifier
     : 'reified'
     ;
 
+// canon: an actual declaration is documented by the expect declaration it implements, so it is
+// labeled optional.
 platformModifier
     : 'expect'
-    | 'actual'
+    | optional = 'actual'
     ;
 
 label
@@ -898,4 +989,24 @@ semi
 semis // writing this as "semi+" sends antlr into infinite loop or smth
     : (';' | NL)+
     | EOF
+    ;
+
+// canon: a Kotlin declaration is public unless it says otherwise, so a top-level declaration holds
+// this empty rule, labeled required; private and internal are labeled optional, which wins.
+publicByDefault
+    :
+    ;
+
+// canon: a canonical comment, a KDoc comment, holding prose, reference citations, and license
+// citations.
+canonicalComment
+    : DOC_BLOCK_OPEN docPart* DOC_BLOCK_CLOSE
+    ;
+
+// canon: one piece of a canonical comment.
+docPart
+    : ref = DOC_REF
+    | license = DOC_LICENSE
+    | DOC_WORD
+    | DOC_PUNCT
     ;

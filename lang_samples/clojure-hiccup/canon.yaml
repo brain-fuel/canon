@@ -16,3 +16,10 @@ languages:
         firstToken:
           token: SYMBOL
           oneOf: [defn, defn-, defmacro, def, defprotocol, defrecord, deftype, defmulti, defmethod, ns]
+      - rule: list_
+        kind: deftest
+        name: {token: SYMBOL, index: 2}
+        required: true
+        firstToken:
+          token: SYMBOL
+          oneOf: [deftest]

@@ -175,7 +175,7 @@ Alternative labels without a `why`, such as the Java grammar's own expression
 labels, are inert. `canon` generates the extraction parser from that grammar,
 so nothing about a language's comment placement is written in Haskell. The
 ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, JavaScript, TypeScript, Go,
-Python, Prolog, and the Folio have dialects.
+Python, Kotlin, Clojure, Prolog, and the Folio have dialects.
 
 ### Tests
 
@@ -201,7 +201,7 @@ whatever its visibility.
 | `javascript`, `typescript` | any unit under a `test`, `tests`, or `__tests__` directory or in a `*.test.*` or `*.spec.*` file, since a test in these languages is a call rather than a declaration |
 | `python` | a function named `test_*` or a class named `Test*` (pytest and unittest) |
 | `go` | a function named `Test*`, `Benchmark*`, `Example*`, or `Fuzz*` in a `*_test.go` file |
-| `kotlin` | a function under a `src/test` or `src/*Test` source set, since Kotlin test names are often backticked sentences |
+| `kotlin` | a function marked `@Test`, `@kotlin.test.Test`, `@org.junit.Test`, or `@org.junit.jupiter.api.Test`, or any function under a `src/test` or `src/*Test` source set, since Kotlin test names are often backticked sentences |
 
 Two findings fail `canon check`: a commented test whose comment cites no
 requirement, and a requirement in the registry that no test in the project
@@ -1085,8 +1085,40 @@ alternative, with what is public by default labeled `required` and `private`
 and `internal` `optional`. What it reads and what it leaves out is listed in
 `grammars/fsharp/README.md` and recorded in the ledger.
 
-The Rust, C#, and F# samples keep the profiles above, and the test suite reads
-their sources through the dialects too. The dialects bind a doc comment across
+`grammars/kotlin/` holds the Kotlin grammar from grammars-v4, with each
+annotation labeled `marker`, and its dialect. Under `canonically_commented/`
+the dialect sends `/**` into a `DocBlock` lexer mode from the default and the
+parenthesised modes, and labels each top-level declaration, member, companion
+object, secondary constructor, enum entry, and constructor property as a unit
+alternative whose Why is the KDoc comment above its annotations and modifiers;
+the comment above the package directive is the file's. A Kotlin declaration is
+public unless it says otherwise, so a top-level declaration holds the empty
+rule `publicByDefault`, labeled `required`, class bodies are `inherited`, and
+`private`, `internal`, `override`, and `actual` are `optional`, which is the
+API that explicit API mode and Dokka document. A KDoc comment after an
+annotation, before a statement, on a parameter, or on an accessor is an
+`orphan`. What it reads is listed in `grammars/kotlin/README.md` and recorded
+in the ledger as `DEC-kotlin-dialect`.
+
+`grammars/clojure/` holds the Clojure grammar from grammars-v4, which read a
+keyword as a colon and a symbol and so failed on `:1.8` and `:div#id`; a
+keyword is one token there, as the reader reads it, and a backslash in a
+string always escapes (`DEC-clojure-grammar-fixes`). Under
+`canonically_commented/` the dialect tries a definition form before the
+generic list: `defn`, `defn-`, `defmacro`, `defmulti`, `defprotocol` and its
+method signatures, `defrecord`, `deftype`, `def`, and `deftest` are unit
+alternatives whose What is the name and whose Why is the docstring after it or
+the `:doc` metadata on it, and the docstring of the leading `ns` form is the
+file's Why. A docstring is a string told from others only by where it stands,
+so the string is labeled `why` and canon reads a Why that is one string literal
+without its quotes and escapes. `defn`, `defmacro`, `defmulti`, and
+`defprotocol` are `required`, protocol methods `inherited`, and `^:private`
+and `^:no-doc` `optional`; a string after a function's parameters with more
+body after it is a misplaced docstring and an `orphan`. A `;` comment is not
+documentation (`DEC-clojure-dialect`).
+
+The Rust, C#, F#, Kotlin, and Clojure samples keep the profiles above, and the
+test suite reads their sources through the dialects too. The dialects bind a doc comment across
 a blank line and read no plain comment as a file's Why, as every dialect does
 under the open `DEC-comment-attachment`, while the profiles part a doc comment
 from its unit at a blank line and bind a plain comment on a file's first line
@@ -1123,7 +1155,7 @@ whose every rule carries a canonical comment, as the plain grammar's do, so the
 root `canon.yaml` checks it; the root profile still reads `docs/` through the
 plain grammar (`DEC-folio-dialect`).
 
-The Erlang, Clojure, Elixir, and Gleam directories hold their grammars
+The Erlang, Elixir, and Gleam directories hold their grammars
 with an empty `canonically_commented/` husk, and their samples use the
 line-adjacency profile path until a dialect exists.
 
