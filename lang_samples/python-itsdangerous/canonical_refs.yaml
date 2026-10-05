@@ -1,0 +1,4 @@
+itsdangerous-upstream:
+  kind: package
+  title: itsdangerous, safely pass trusted data to untrusted environments and back
+  locator: https://github.com/pallets/itsdangerous

@@ -1,0 +1,15 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/CompareToBuilderTest.java/package/org.apache.commons.lang3.builder/class/CompareToBuilderTest:
+  digest: sha256:58ae3e64bfa81cbf
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/CompareToBuilderTest.java/package/org.apache.commons.lang3.builder/class/CompareToBuilderTest/method/assertReflectionCompareContract:
+  digest: sha256:e44481c77d202a8c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/CompareToBuilderTest.java/package/org.apache.commons.lang3.builder/class/CompareToBuilderTest/method/reflectionCompareSignum:
+  digest: sha256:37f17f4213531556
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/CompareToBuilderTest.java/package/org.apache.commons.lang3.builder/class/CompareToBuilderTest/method/testCycleMutuallyReferentialObjectArrays:
+  digest: sha256:30203bfd12c5b113
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/CompareToBuilderTest.java/package/org.apache.commons.lang3.builder/class/CompareToBuilderTest/method/testCycleTwoDistinctSelfReferentialObjectArrays:
+  digest: sha256:3eafed3d57c42f30
+  verdict: pending

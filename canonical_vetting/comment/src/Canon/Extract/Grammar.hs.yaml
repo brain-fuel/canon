@@ -1,0 +1,45 @@
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar:
+  digest: sha256:27342035ff911cea
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/data/AlternativePlan:
+  digest: sha256:bc68019b058188c9
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/data/ExportEntry:
+  digest: sha256:1eb0fbf827d19f45
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/data/Extraction:
+  digest: sha256:917a7d23e4778083
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/data/Found:
+  digest: sha256:76988c93b185a6bf
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/data/GrammarExtractError:
+  digest: sha256:af25bc90dfc41b6f
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/alternativePlans:
+  digest: sha256:a2a0ef4da0423181
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/exportLabelsDeclared:
+  digest: sha256:0f00964697a8628a
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/exportRequires:
+  digest: sha256:71f2f1644debb907
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/extractWithProfile:
+  digest: sha256:d5b1da8d6db5028f
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/extractWithProfileText:
+  digest: sha256:5269eb823dfc836c
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/loadProfileInterpreter:
+  digest: sha256:6a657817966424a3
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/parseExportEntry:
+  digest: sha256:663d514499d453c8
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/renderGrammarExtractError:
+  digest: sha256:3229ce9fc2ef1715
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/unitsFromTree:
+  digest: sha256:378559d09c0960f2
+  verdict: pending

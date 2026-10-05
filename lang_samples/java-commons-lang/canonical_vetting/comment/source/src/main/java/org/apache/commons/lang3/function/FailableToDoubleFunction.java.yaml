@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToDoubleFunction.java/package/org.apache.commons.lang3.function/interface/FailableToDoubleFunction:
+  digest: sha256:0c67d91ebba20542
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToDoubleFunction.java/package/org.apache.commons.lang3.function/interface/FailableToDoubleFunction/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToDoubleFunction.java/package/org.apache.commons.lang3.function/interface/FailableToDoubleFunction/method/applyAsDouble:
+  digest: sha256:3fd5363300da2d5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToDoubleFunction.java/package/org.apache.commons.lang3.function/interface/FailableToDoubleFunction/method/nop:
+  digest: sha256:8d484cdfeb72c987
+  verdict: pending

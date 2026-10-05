@@ -1,0 +1,42 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection:
+  digest: sha256:b2019725292e36c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/class/AbstractBuilder:
+  digest: sha256:1c156ebbc2e22ca3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/class/AbstractBuilder/constructor/AbstractBuilder:
+  digest: sha256:0855e901d47026a5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/class/AbstractBuilder/field/forceAccessible:
+  digest: sha256:fc525e27519ecfb2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/class/AbstractBuilder/method/asThis:
+  digest: sha256:85c06bedd7e86a18
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/class/AbstractBuilder/method/setForceAccessible:
+  digest: sha256:087326dce9ef6686
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/constructor/AbstractReflection:
+  digest: sha256:0dcd9fbaadd6fa2d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/field/forceAccessible:
+  digest: sha256:eaa6d439bcd43de3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/method/getForceAccessible:
+  digest: sha256:907a9617f455c5f3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/method/isForceAccessible:
+  digest: sha256:0d31e28f49418a63
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/method/setAccessible:
+  digest: sha256:c4a6f6f819e65efb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/method/setAccessible#2:
+  digest: sha256:40e4c5ecc2f5bc95
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/method/setAccessibleTrue:
+  digest: sha256:01ba4046fbad803a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/AbstractReflection.java/package/org.apache.commons.lang3.builder/class/AbstractReflection/method/toRegisterPair:
+  digest: sha256:0f67f5ef330801d0
+  verdict: pending

@@ -1,0 +1,42 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone:
+  digest: sha256:03021fa4507570fa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/getDSTSavings:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/getDisplayName:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/getID:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/getOffset:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/getOffset#2:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/getRawOffset:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/hasSameRules:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/inDaylightTime:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/observesDaylightTime:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/setID:
+  digest: sha256:a522472f5de90f5e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/setRawOffset:
+  digest: sha256:a522472f5de90f5e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/toString:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/ImmutableTimeZone.java/package/org.apache.commons.lang3.time/class/ImmutableTimeZone/method/toZoneId:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending

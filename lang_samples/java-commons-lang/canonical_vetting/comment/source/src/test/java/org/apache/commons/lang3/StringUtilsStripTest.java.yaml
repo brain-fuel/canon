@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsStripTest.java/package/org.apache.commons.lang3/class/StringUtilsStripTest:
+  digest: sha256:418c32fd4af976c9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsStripTest.java/package/org.apache.commons.lang3/class/StringUtilsStripTest/method/testStripAccentsSymbolMath:
+  digest: sha256:23121c5eabe08f18
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsStripTest.java/package/org.apache.commons.lang3/class/StringUtilsStripTest/method/testStripAccentsUnicodeVulgarFractions:
+  digest: sha256:98dbaa79e772322e
+  verdict: pending

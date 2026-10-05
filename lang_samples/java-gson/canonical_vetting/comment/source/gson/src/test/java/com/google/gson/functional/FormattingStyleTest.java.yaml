@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/FormattingStyleTest.java/package/com.google.gson.functional/class/FormattingStyleTest:
+  digest: sha256:1c822b28e8ad6bf1
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/FormattingStyleTest.java/package/com.google.gson.functional/class/FormattingStyleTest/method/testCompactToPretty:
+  digest: sha256:bfc833c048b84c6e
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/FormattingStyleTest.java/package/com.google.gson.functional/class/FormattingStyleTest/method/testPrettyToCompact:
+  digest: sha256:1eddf7498de42b91
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/JsonReaderInternalAccess.java/package/com.google.gson.internal/class/JsonReaderInternalAccess:
+  digest: sha256:becb4a695729a2db
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/JsonReaderInternalAccess.java/package/com.google.gson.internal/class/JsonReaderInternalAccess/method/promoteNameToValue:
+  digest: sha256:c8804cfe03403472
+  verdict: pending

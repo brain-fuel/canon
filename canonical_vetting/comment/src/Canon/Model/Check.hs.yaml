@@ -1,0 +1,18 @@
+decision/haskell/src/Canon/Model/Check.hs/module/Canon.Model.Check:
+  digest: sha256:64db04f6e54f2e73
+  verdict: pending
+decision/haskell/src/Canon/Model/Check.hs/module/Canon.Model.Check/function/checkAll:
+  digest: sha256:276f2fae7a1d110b
+  verdict: pending
+decision/haskell/src/Canon/Model/Check.hs/module/Canon.Model.Check/function/checkLedger:
+  digest: sha256:ca5e206f4cad7be2
+  verdict: pending
+decision/haskell/src/Canon/Model/Check.hs/module/Canon.Model.Check/function/checkModel:
+  digest: sha256:ab8f2ce449fa5d0b
+  verdict: pending
+decision/haskell/src/Canon/Model/Check.hs/module/Canon.Model.Check/function/checkTests:
+  digest: sha256:6c1bb0e0b3438b7b
+  verdict: pending
+decision/haskell/src/Canon/Model/Check.hs/module/Canon.Model.Check/function/requirementsCitedByTests:
+  digest: sha256:b70308b21e12ab8e
+  verdict: pending

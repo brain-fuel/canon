@@ -1,0 +1,12 @@
+decision/haskell/src/Canon/Antlr4/Comment.hs/module/Canon.Antlr4.Comment:
+  digest: sha256:717c5f7640d2fc0d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Comment.hs/module/Canon.Antlr4.Comment/data/Comment:
+  digest: sha256:b4d0fa9bf2a697a9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Comment.hs/module/Canon.Antlr4.Comment/data/CommentKind:
+  digest: sha256:724869adfb526624
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Comment.hs/module/Canon.Antlr4.Comment/function/scanComments:
+  digest: sha256:1d7ba54d41f38f0e
+  verdict: pending

@@ -1,0 +1,51 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair:
+  digest: sha256:cd662821e2d6cb51
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/constructor/MutablePair:
+  digest: sha256:2ce14f895bb39ec5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/constructor/MutablePair#2:
+  digest: sha256:c5cb8597fdc7ebb4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/field/EMPTY_ARRAY:
+  digest: sha256:3f56b36cf08c7afe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/field/left:
+  digest: sha256:2cd14f1abefd864a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/field/right:
+  digest: sha256:a5b6e39ed960f679
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/emptyArray:
+  digest: sha256:7f76fdcddf52d1d7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/getLeft:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/getRight:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/of:
+  digest: sha256:0863634191a26b50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/of#2:
+  digest: sha256:8e955288388aa6ce
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/ofNonNull:
+  digest: sha256:5249d7ae835a0224
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/ofNonNull#2:
+  digest: sha256:0e7385d2e818bd06
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/setLeft:
+  digest: sha256:5488014149eb4afd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/setRight:
+  digest: sha256:ebe749de4516b313
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutablePair.java/package/org.apache.commons.lang3.tuple/class/MutablePair/method/setValue:
+  digest: sha256:a4adb7c8c59bef15
+  verdict: pending

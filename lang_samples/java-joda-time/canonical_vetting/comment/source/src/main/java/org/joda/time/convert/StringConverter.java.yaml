@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/joda/time/convert/StringConverter.java/package/org.joda.time.convert/class/StringConverter:
+  digest: sha256:f320cbd29ce3ca1e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/StringConverter.java/package/org.joda.time.convert/class/StringConverter/constructor/StringConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/StringConverter.java/package/org.joda.time.convert/class/StringConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/StringConverter.java/package/org.joda.time.convert/class/StringConverter/method/getDurationMillis:
+  digest: sha256:40889b96c4ab31de
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/StringConverter.java/package/org.joda.time.convert/class/StringConverter/method/getInstantMillis:
+  digest: sha256:2eaa1192024f730c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/StringConverter.java/package/org.joda.time.convert/class/StringConverter/method/getPartialValues:
+  digest: sha256:748bef1314962bbe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/StringConverter.java/package/org.joda.time.convert/class/StringConverter/method/getSupportedType:
+  digest: sha256:f1f18e112d953a80
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/StringConverter.java/package/org.joda.time.convert/class/StringConverter/method/setInto:
+  digest: sha256:56ea6ff968d45003
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/StringConverter.java/package/org.joda.time.convert/class/StringConverter/method/setInto#2:
+  digest: sha256:c59b11edc3e2b9d0
+  verdict: pending

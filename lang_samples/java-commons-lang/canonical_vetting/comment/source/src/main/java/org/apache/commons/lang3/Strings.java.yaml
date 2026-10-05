@@ -1,0 +1,129 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings:
+  digest: sha256:0126cf054ea2544e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/class/Builder:
+  digest: sha256:f162314f3129cba0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/class/Builder/constructor/Builder:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/class/Builder/field/ignoreCase:
+  digest: sha256:82789132c5cb2fa1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/class/Builder/field/nullIsLess:
+  digest: sha256:f02d9a20b10f236a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/class/Builder/method/get:
+  digest: sha256:24e2071f6f9a25dd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/class/Builder/method/setIgnoreCase:
+  digest: sha256:79f7f3b5b7fdebce
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/class/Builder/method/setNullIsLess:
+  digest: sha256:094da0bd02eb5f78
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/class/CiStrings:
+  digest: sha256:b44bc183b13e145a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/class/CsStrings:
+  digest: sha256:ce32d846f3f50796
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/constructor/Strings:
+  digest: sha256:570dde68585c2379
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/field/CI:
+  digest: sha256:bed13214847b5db9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/field/CS:
+  digest: sha256:8fb80deee80357b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/field/ignoreCase:
+  digest: sha256:82789132c5cb2fa1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/field/nullIsLess:
+  digest: sha256:f02d9a20b10f236a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/appendIfMissing:
+  digest: sha256:0cd4e6c86e5bf759
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/builder:
+  digest: sha256:0f0fa1ef30eaa2d9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/compare:
+  digest: sha256:d011fb19b21fa6a0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/contains:
+  digest: sha256:3dddd0f3e6035f3a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/containsAny:
+  digest: sha256:73ad7eec9ab19258
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/containsAny#2:
+  digest: sha256:3eea45954dd278da
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/endsWith:
+  digest: sha256:bef4783c1da30715
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/endsWithAny:
+  digest: sha256:0d0dc354313605a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/eq:
+  digest: sha256:8fd25b9e0106b398
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/equals:
+  digest: sha256:863f94a13d11de26
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/equals#2:
+  digest: sha256:e4989a5262331016
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/equalsAny:
+  digest: sha256:7d7a229e8a4884f7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/indexOf:
+  digest: sha256:00dfea30b8444e30
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/indexOf#2:
+  digest: sha256:065a5bb9fca82f34
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/initialCapacity:
+  digest: sha256:a87ae06786e898d9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/isCaseSensitive:
+  digest: sha256:6d185c2f8c0d684c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/isNullIsLess:
+  digest: sha256:32e8c397ac614fe0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/lastIndexOf:
+  digest: sha256:b268a0e977ca2bd0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/lastIndexOf#2:
+  digest: sha256:323598812e153b4c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/prependIfMissing:
+  digest: sha256:3e874848e32b3d74
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/remove:
+  digest: sha256:afef7fb07b2135eb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/removeEnd:
+  digest: sha256:60ac0f716cf8ffbd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/removeStart:
+  digest: sha256:63bceb85a86817a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/replace:
+  digest: sha256:68cd412c03f9c1b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/replace#2:
+  digest: sha256:4b21c6a36b876db3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/replaceOnce:
+  digest: sha256:993694044112ab04
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/startsWith:
+  digest: sha256:4c3d12bafaad14cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Strings.java/package/org.apache.commons.lang3/class/Strings/method/startsWithAny:
+  digest: sha256:012b49563ff5ed18
+  verdict: pending

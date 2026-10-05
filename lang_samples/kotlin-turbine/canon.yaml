@@ -1,0 +1,34 @@
+version: 0.1.0
+root: source
+languages:
+  kotlin:
+    extensions: [.kt, .kts]
+    lexer: ../../grammars/kotlin/KotlinLexer.g4
+    parser: ../../grammars/kotlin/KotlinParser.g4
+    start: kotlinFile
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      strings: ["\""]
+    units:
+      - rule: functionDeclaration
+        kind: function
+        name: {rule: simpleIdentifier}
+        required: true
+      - rule: classDeclaration
+        kind: class
+        name: {rule: simpleIdentifier}
+        required: true
+      - rule: objectDeclaration
+        kind: object
+        name: {rule: simpleIdentifier}
+        required: true
+      - rule: typeAlias
+        kind: type
+        name: {rule: simpleIdentifier}
+        required: true
+      - rule: propertyDeclaration
+        kind: property
+        name: {rule: simpleIdentifier}
+        required: false

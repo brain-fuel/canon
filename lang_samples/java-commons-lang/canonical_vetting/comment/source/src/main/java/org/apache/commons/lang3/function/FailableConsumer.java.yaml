@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableConsumer.java/package/org.apache.commons.lang3.function/interface/FailableConsumer:
+  digest: sha256:ab36af9d0d15baa5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableConsumer.java/package/org.apache.commons.lang3.function/interface/FailableConsumer/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableConsumer.java/package/org.apache.commons.lang3.function/interface/FailableConsumer/method/accept:
+  digest: sha256:8720dae541eab976
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableConsumer.java/package/org.apache.commons.lang3.function/interface/FailableConsumer/method/accept#2:
+  digest: sha256:7346b9e4ada905cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableConsumer.java/package/org.apache.commons.lang3.function/interface/FailableConsumer/method/andThen:
+  digest: sha256:f0a80665587d6fdd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableConsumer.java/package/org.apache.commons.lang3.function/interface/FailableConsumer/method/nop:
+  digest: sha256:d36257e3ddf0d5b5
+  verdict: pending

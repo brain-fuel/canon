@@ -1,0 +1,6 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/CollectionTest.java/package/com.google.gson.functional/class/CollectionTest:
+  digest: sha256:fe76fda11566641d
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/CollectionTest.java/package/com.google.gson.functional/class/CollectionTest/method/testCollectionWithoutNoArgsConstructor:
+  digest: sha256:013447c5f7e2f7e5
+  verdict: pending

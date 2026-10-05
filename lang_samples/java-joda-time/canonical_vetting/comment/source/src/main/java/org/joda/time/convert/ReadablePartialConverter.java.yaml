@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePartialConverter.java/package/org.joda.time.convert/class/ReadablePartialConverter:
+  digest: sha256:10f752d929b1f7fa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePartialConverter.java/package/org.joda.time.convert/class/ReadablePartialConverter/constructor/ReadablePartialConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePartialConverter.java/package/org.joda.time.convert/class/ReadablePartialConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePartialConverter.java/package/org.joda.time.convert/class/ReadablePartialConverter/method/getChronology:
+  digest: sha256:ae9a170c9fdc2307
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePartialConverter.java/package/org.joda.time.convert/class/ReadablePartialConverter/method/getChronology#2:
+  digest: sha256:8283fef70c6cb7e7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePartialConverter.java/package/org.joda.time.convert/class/ReadablePartialConverter/method/getPartialValues:
+  digest: sha256:b5207e4d45c1af8e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePartialConverter.java/package/org.joda.time.convert/class/ReadablePartialConverter/method/getSupportedType:
+  digest: sha256:27e858c5553ee063
+  verdict: pending

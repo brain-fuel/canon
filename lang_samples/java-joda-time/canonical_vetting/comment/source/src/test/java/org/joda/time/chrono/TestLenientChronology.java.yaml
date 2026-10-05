@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/joda/time/chrono/TestLenientChronology.java/package/org.joda.time.chrono/class/TestLenientChronology:
+  digest: sha256:dc106cdb3c3bbacf
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/TestLenientChronology.java/package/org.joda.time.chrono/class/TestLenientChronology/field/CUTOVER_TURK:
+  digest: sha256:2eb14a205f378204
+  verdict: pending

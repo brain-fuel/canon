@@ -1,0 +1,60 @@
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator:
+  digest: sha256:0327d0d0ce164288
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/constructor/DateTimeComparator:
+  digest: sha256:4e35fb57ff1c5401
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/field/ALL_INSTANCE:
+  digest: sha256:65a82e2829f34205
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/field/DATE_INSTANCE:
+  digest: sha256:65a82e2829f34205
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/field/TIME_INSTANCE:
+  digest: sha256:65a82e2829f34205
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/field/iLowerLimit:
+  digest: sha256:f5586a08f349822b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/field/iUpperLimit:
+  digest: sha256:809a0035c7cf2b08
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/compare:
+  digest: sha256:56f3971fc560fc04
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/equals:
+  digest: sha256:7918f122856b05a9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/getDateOnlyInstance:
+  digest: sha256:9296d2c02ae3b188
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/getInstance:
+  digest: sha256:39b94138f80eaec5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/getInstance#2:
+  digest: sha256:559f385034b4b192
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/getInstance#3:
+  digest: sha256:a0efff2268670989
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/getLowerLimit:
+  digest: sha256:a0682d2d71a1a9d6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/getTimeOnlyInstance:
+  digest: sha256:f5301e3ae8ba6aba
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/getUpperLimit:
+  digest: sha256:2e6d0f87689d89ea
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/hashCode:
+  digest: sha256:8bf86dd1ef4ae006
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/readResolve:
+  digest: sha256:2909d023677f964e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeComparator.java/package/org.joda.time/class/DateTimeComparator/method/toString:
+  digest: sha256:6c08492004540155
+  verdict: pending

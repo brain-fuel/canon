@@ -1,0 +1,30 @@
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration:
+  digest: sha256:617af2decc29b96c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration/method/equals:
+  digest: sha256:f2dc946e9e963d76
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration/method/getMillis:
+  digest: sha256:b740243b2cbd2138
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration/method/hashCode:
+  digest: sha256:185588814670920a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration/method/isEqual:
+  digest: sha256:76263a23f95246fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration/method/isLongerThan:
+  digest: sha256:7eb0d1e80194839f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration/method/isShorterThan:
+  digest: sha256:9ca9e48e61e8045b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration/method/toDuration:
+  digest: sha256:dfef0930ed06b94e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration/method/toPeriod:
+  digest: sha256:5b7ee8759607016a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDuration.java/package/org.joda.time/interface/ReadableDuration/method/toString:
+  digest: sha256:ba5afc0839a8b660
+  verdict: pending

@@ -1,0 +1,51 @@
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken:
+  digest: sha256:03e11e128f6cd791
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/constructor/TypeToken:
+  digest: sha256:fe504f376ab015d6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/constructor/TypeToken#2:
+  digest: sha256:d724528e454abc7d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/get:
+  digest: sha256:368cb5a47d377ac3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/get#2:
+  digest: sha256:c6c271fd4afd0fe1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/getArray:
+  digest: sha256:8fa6b78ea1282968
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/getParameterized:
+  digest: sha256:e36c5445f15e6e7e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/getRawType:
+  digest: sha256:6034c6a11ac70a6d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/getType:
+  digest: sha256:e40859c6caafc749
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/getTypeTokenTypeArgument:
+  digest: sha256:5716b3cf42ef5a46
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/isAssignableFrom:
+  digest: sha256:6c540e9fb3c19d0d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/isAssignableFrom#2:
+  digest: sha256:21f9d5d9d2577b6f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/isAssignableFrom#3:
+  digest: sha256:b1d36af0d3f26156
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/isAssignableFrom#4:
+  digest: sha256:e6973fb882a71d7c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/isAssignableFrom#5:
+  digest: sha256:becebdc1d5686c84
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/matches:
+  digest: sha256:9e3fbe9847becd59
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/reflect/TypeToken.java/package/com.google.gson.reflect/class/TypeToken/method/typeEquals:
+  digest: sha256:be7541b8ed4426ca
+  verdict: pending

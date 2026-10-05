@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/joda/time/TestLocalTime_Constructors.java/package/org.joda.time/class/TestLocalTime_Constructors:
+  digest: sha256:ce06e9b8882e53c3
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestLocalTime_Constructors.java/package/org.joda.time/class/TestLocalTime_Constructors/method/testConstantMidnight:
+  digest: sha256:7957a15383e7347e
+  verdict: pending

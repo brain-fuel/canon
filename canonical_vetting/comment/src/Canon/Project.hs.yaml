@@ -1,0 +1,57 @@
+decision/haskell/src/Canon/Project.hs/module/Canon.Project:
+  digest: sha256:213e93a8fde254f5
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/data/Project:
+  digest: sha256:d2899feb18e083b9
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/data/ProjectError:
+  digest: sha256:245c04c7efc23fa6
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/applyExemptions:
+  digest: sha256:d5dc44248dfc276c
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/checkProject:
+  digest: sha256:ad633e695d339871
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/extractAll:
+  digest: sha256:a64255c66e8f16b9
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/extractFile:
+  digest: sha256:f44383d8c463e2a3
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/folioExtractions:
+  digest: sha256:72015fc32d5a4299
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/folioProfiles:
+  digest: sha256:77ff73f6b6111e5d
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/ingestProject:
+  digest: sha256:db14165ca26df587
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/loadProject:
+  digest: sha256:c75b093ce2d7dfb0
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/projectAssessments:
+  digest: sha256:046d4332f1330bf9
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/projectFiles:
+  digest: sha256:d43bca3f1f5d67fe
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/projectInterpreters:
+  digest: sha256:c2661f7cf4e37461
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/projectMaterials:
+  digest: sha256:f7496a28d4c27dca
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/renderProjectError:
+  digest: sha256:ae2caedfe13b1ecd
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/resolvePath:
+  digest: sha256:6896b8d501ed8650
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/tangleProject:
+  digest: sha256:9cd3325d7a138566
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/vetProject:
+  digest: sha256:193af28eab4b42bf
+  verdict: pending

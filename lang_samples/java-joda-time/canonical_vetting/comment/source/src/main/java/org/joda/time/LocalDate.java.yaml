@@ -1,0 +1,384 @@
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate:
+  digest: sha256:664257557906de77
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property:
+  digest: sha256:605500f1557332e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/constructor/Property:
+  digest: sha256:f92a20c3aa70e931
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/field/iField:
+  digest: sha256:8e672c30f34d7401
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/field/iInstant:
+  digest: sha256:5d64cfb646e69817
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/addToCopy:
+  digest: sha256:f39f187c53453b97
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/addWrapFieldToCopy:
+  digest: sha256:2cddb9bf1c466245
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/getChronology:
+  digest: sha256:c6ef80da24c0bdb3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/getField:
+  digest: sha256:e91fc41616073b93
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/getLocalDate:
+  digest: sha256:cc4a89cdd320c6a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/getMillis:
+  digest: sha256:c635729ebf4fc469
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/readObject:
+  digest: sha256:88193bd179d3b2ab
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/roundCeilingCopy:
+  digest: sha256:e8ac9e280f26e190
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/roundFloorCopy:
+  digest: sha256:e2301068e089014b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/roundHalfCeilingCopy:
+  digest: sha256:16c8e50a7fbe1b93
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/roundHalfEvenCopy:
+  digest: sha256:10ecfa63e8fe1d86
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/roundHalfFloorCopy:
+  digest: sha256:49f7b6740dfd8738
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/setCopy:
+  digest: sha256:3fa510bf48cf7ed9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/setCopy#2:
+  digest: sha256:dc2bbe9556f1bb40
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/setCopy#3:
+  digest: sha256:98e7fbc7c7c38252
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/withMaximumValue:
+  digest: sha256:d8839890c45f6d86
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/withMinimumValue:
+  digest: sha256:b1159b7bc2219b24
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/class/Property/method/writeObject:
+  digest: sha256:0453c29e0e8117e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate:
+  digest: sha256:4e6428b1af33c519
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#10:
+  digest: sha256:6f22a3c9b5f8c1c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#11:
+  digest: sha256:8a1eed5f012fd487
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#2:
+  digest: sha256:799dc482b7450dff
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#3:
+  digest: sha256:696b97ac0abac2e7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#4:
+  digest: sha256:d63767d8f0ef6260
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#5:
+  digest: sha256:e5d548d90ea30127
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#6:
+  digest: sha256:40dffb84f6a3d4d1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#7:
+  digest: sha256:3949e8392eabaa2d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#8:
+  digest: sha256:f4e2fa1bafdf1442
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/constructor/LocalDate#9:
+  digest: sha256:84898053cabf2632
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/field/DATE_DURATION_TYPES:
+  digest: sha256:09668805ce96cb84
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/field/DAY_OF_MONTH:
+  digest: sha256:7564a41d178cfe36
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/field/MONTH_OF_YEAR:
+  digest: sha256:05c352a2cf0f1210
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/field/YEAR:
+  digest: sha256:ebaa18a2ccb14748
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/field/iChronology:
+  digest: sha256:ad009e71833fc154
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/field/iHash:
+  digest: sha256:8bc2eda9fc0f5e44
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/field/iLocalMillis:
+  digest: sha256:5c5423cddfe85462
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/centuryOfEra:
+  digest: sha256:d3ba653af3ec304d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/compareTo:
+  digest: sha256:fc00a3f9c778c2d0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/dayOfMonth:
+  digest: sha256:51b9172eae28ee04
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/dayOfWeek:
+  digest: sha256:1e82e006107acdb2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/dayOfYear:
+  digest: sha256:2f970338ea09786d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/equals:
+  digest: sha256:4ea8d85f6603721a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/era:
+  digest: sha256:e3308fe5d55c8ef1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/fromCalendarFields:
+  digest: sha256:1f0a4ddcee068d87
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/fromDateFields:
+  digest: sha256:38058e5fb79ef46c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/get:
+  digest: sha256:8a42a2de58034faa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getCenturyOfEra:
+  digest: sha256:d117f37fdc02d4c2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getChronology:
+  digest: sha256:736789a36089624b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getDayOfMonth:
+  digest: sha256:0d0aeac0d23fc182
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getDayOfWeek:
+  digest: sha256:61af860e3a340e8b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getDayOfYear:
+  digest: sha256:5980bf89f4846725
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getEra:
+  digest: sha256:26ca33d17bd17b9c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getField:
+  digest: sha256:2c841af22b7b31e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getLocalMillis:
+  digest: sha256:717aa060d7e31516
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getMonthOfYear:
+  digest: sha256:10b6249f191ddae1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getValue:
+  digest: sha256:93015bcc3659bf5d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getWeekOfWeekyear:
+  digest: sha256:5f8eeaba112ea0e6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getWeekyear:
+  digest: sha256:645fe98ef3858fbd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getYear:
+  digest: sha256:c0eb06f353424603
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getYearOfCentury:
+  digest: sha256:ac94550cd2430cc0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/getYearOfEra:
+  digest: sha256:d117f37fdc02d4c2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/hashCode:
+  digest: sha256:8d2c2dfa33eca517
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/isSupported:
+  digest: sha256:ac10a5d9d7ffb73b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/isSupported#2:
+  digest: sha256:79d6714a94d3009f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/minus:
+  digest: sha256:31a8fdff2f913943
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/minusDays:
+  digest: sha256:d7b895835d4db43f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/minusMonths:
+  digest: sha256:9813f6efdcfb308b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/minusWeeks:
+  digest: sha256:bf35da577fda517b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/minusYears:
+  digest: sha256:6b2d2d9f53f25213
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/monthOfYear:
+  digest: sha256:e1b221f3fee9820a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/now:
+  digest: sha256:105680858b3f54e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/now#2:
+  digest: sha256:974b9e7671dd7497
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/now#3:
+  digest: sha256:dd54c49e188e271a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/parse:
+  digest: sha256:c2bbfc417e524a6a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/parse#2:
+  digest: sha256:ce9c359e1b87afc7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/plus:
+  digest: sha256:a5b710503d7827f1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/plusDays:
+  digest: sha256:4c8dab24183d0389
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/plusMonths:
+  digest: sha256:1df3e7e5326afd73
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/plusWeeks:
+  digest: sha256:3e469d87bcd1e194
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/plusYears:
+  digest: sha256:5d81c9ca6ac2fbe6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/property:
+  digest: sha256:140a73968edf87a7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/readResolve:
+  digest: sha256:e22e82ea0b11765f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/size:
+  digest: sha256:7daa642c625009b5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDate:
+  digest: sha256:1f86d480ffa97932
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateMidnight:
+  digest: sha256:a4a24fe2e7930637
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateMidnight#2:
+  digest: sha256:a53bba3a20d156f2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateTime:
+  digest: sha256:b0667cfabbcf183d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateTime#2:
+  digest: sha256:9d5408b800497972
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateTimeAtCurrentTime:
+  digest: sha256:97445f916a5172d2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateTimeAtCurrentTime#2:
+  digest: sha256:1ec56168fed77086
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateTimeAtMidnight:
+  digest: sha256:18884769856332d9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateTimeAtMidnight#2:
+  digest: sha256:a98f701090039967
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateTimeAtStartOfDay:
+  digest: sha256:1df80f4b302eb400
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toDateTimeAtStartOfDay#2:
+  digest: sha256:df700bb35817c997
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toInterval:
+  digest: sha256:617d99168ea96bbe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toInterval#2:
+  digest: sha256:e82618f5b3af52ce
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toLocalDateTime:
+  digest: sha256:296b34cd331e1ecd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toString:
+  digest: sha256:70f33afcfb3b2bd6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toString#2:
+  digest: sha256:b50cad0e3a4b2cfb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/toString#3:
+  digest: sha256:96a23ba3aed1b01c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/weekOfWeekyear:
+  digest: sha256:589040a6ea69b632
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/weekyear:
+  digest: sha256:ef15c5de89c45605
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withCenturyOfEra:
+  digest: sha256:65f261e2eb76bb8d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withDayOfMonth:
+  digest: sha256:5289c723e4bff3d5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withDayOfWeek:
+  digest: sha256:a65a8acd7ae88227
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withDayOfYear:
+  digest: sha256:4f79dfe2e8536d32
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withEra:
+  digest: sha256:acd0778278b6176f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withField:
+  digest: sha256:a23e28db144285e9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withFieldAdded:
+  digest: sha256:64d2891fa331ed15
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withFields:
+  digest: sha256:47860f09eb592237
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withLocalMillis:
+  digest: sha256:d02e84a5d1477813
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withMonthOfYear:
+  digest: sha256:379840bbb3eada95
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withPeriodAdded:
+  digest: sha256:c45c36118a921ca9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withWeekOfWeekyear:
+  digest: sha256:4534a6d89aab3d8f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withWeekyear:
+  digest: sha256:dd2e81ed17fec67a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withYear:
+  digest: sha256:2012220c150a38d2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withYearOfCentury:
+  digest: sha256:46004c470edb941b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/withYearOfEra:
+  digest: sha256:f855ab28a11b97be
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/year:
+  digest: sha256:3bc86f4b436fdd08
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/yearOfCentury:
+  digest: sha256:c4155ffe1b5ca906
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalDate.java/package/org.joda.time/class/LocalDate/method/yearOfEra:
+  digest: sha256:267ed2659c87108d
+  verdict: pending

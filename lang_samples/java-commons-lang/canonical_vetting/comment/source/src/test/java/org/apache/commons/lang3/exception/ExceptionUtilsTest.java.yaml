@@ -1,0 +1,18 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/exception/ExceptionUtilsTest.java/package/org.apache.commons.lang3.exception/class/ExceptionUtilsTest:
+  digest: sha256:9a1ed607f7700031
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/exception/ExceptionUtilsTest.java/package/org.apache.commons.lang3.exception/class/ExceptionUtilsTest/class/ExceptionWithCause:
+  digest: sha256:da495489ca5a9cd9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/exception/ExceptionUtilsTest.java/package/org.apache.commons.lang3.exception/class/ExceptionUtilsTest/class/ExceptionWithoutCause:
+  digest: sha256:780a8dad10f7c6b8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/exception/ExceptionUtilsTest.java/package/org.apache.commons.lang3.exception/class/ExceptionUtilsTest/method/testGetRootCauseStackTraceMessageLinesNotMistakenForFrames:
+  digest: sha256:d4e693afd6d73632
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/exception/ExceptionUtilsTest.java/package/org.apache.commons.lang3.exception/class/ExceptionUtilsTest/method/testGetStackFrameListAcceptsAllRealFrameShapes:
+  digest: sha256:1bcbb55300f8ba23
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/exception/ExceptionUtilsTest.java/package/org.apache.commons.lang3.exception/class/ExceptionUtilsTest/method/testGetStackFrameListRejectsForgedMessageLines:
+  digest: sha256:d356fbe098ed35cc
+  verdict: pending

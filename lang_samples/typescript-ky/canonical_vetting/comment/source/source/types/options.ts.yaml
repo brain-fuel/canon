@@ -1,0 +1,12 @@
+decision/typescript/source/source/types/options.ts/interface/NormalizedOptions:
+  digest: sha256:21b22a17162e5a9e
+  verdict: pending
+decision/typescript/source/source/types/options.ts/interface/Options:
+  digest: sha256:59ebdb94932479d1
+  verdict: pending
+decision/typescript/source/source/types/options.ts/type/KyOptionsRegistry:
+  digest: sha256:276024c1258aa45c
+  verdict: pending
+decision/typescript/source/source/types/options.ts/type/SearchParamsOption:
+  digest: sha256:84f7edc1e3b94f5b
+  verdict: pending

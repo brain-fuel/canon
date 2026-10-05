@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongSupplier.java/package/org.apache.commons.lang3.function/interface/FailableLongSupplier:
+  digest: sha256:92ecd4271edccc1c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongSupplier.java/package/org.apache.commons.lang3.function/interface/FailableLongSupplier/method/getAsLong:
+  digest: sha256:971eccc05198445a
+  verdict: pending

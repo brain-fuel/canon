@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailablePredicate.java/package/org.apache.commons.lang3.function/interface/FailablePredicate:
+  digest: sha256:f409228b9cd9fd0b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailablePredicate.java/package/org.apache.commons.lang3.function/interface/FailablePredicate/constant/FALSE:
+  digest: sha256:65f9c7f2224f902f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailablePredicate.java/package/org.apache.commons.lang3.function/interface/FailablePredicate/constant/TRUE:
+  digest: sha256:aaa0a653ec960fde
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailablePredicate.java/package/org.apache.commons.lang3.function/interface/FailablePredicate/method/and:
+  digest: sha256:a2cf1b9f8ad5a37e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailablePredicate.java/package/org.apache.commons.lang3.function/interface/FailablePredicate/method/falsePredicate:
+  digest: sha256:bbe2f605d2baa879
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailablePredicate.java/package/org.apache.commons.lang3.function/interface/FailablePredicate/method/negate:
+  digest: sha256:4ead07d2f0bb127b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailablePredicate.java/package/org.apache.commons.lang3.function/interface/FailablePredicate/method/or:
+  digest: sha256:9dab96fd81a4d4cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailablePredicate.java/package/org.apache.commons.lang3.function/interface/FailablePredicate/method/test:
+  digest: sha256:6a4c103247bd0ece
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailablePredicate.java/package/org.apache.commons.lang3.function/interface/FailablePredicate/method/truePredicate:
+  digest: sha256:3a8849a561572216
+  verdict: pending

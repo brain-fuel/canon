@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/joda/time/convert/PeriodConverter.java/package/org.joda.time.convert/interface/PeriodConverter:
+  digest: sha256:d24484ffd48f9a92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/PeriodConverter.java/package/org.joda.time.convert/interface/PeriodConverter/method/getPeriodType:
+  digest: sha256:a55c643d4af76ad2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/PeriodConverter.java/package/org.joda.time.convert/interface/PeriodConverter/method/setInto:
+  digest: sha256:95183c1d954b867b
+  verdict: pending

@@ -1,0 +1,12 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/EnumTest.java/package/com.google.gson.functional/class/EnumTest:
+  digest: sha256:dd200f805b2f05e9
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/EnumTest.java/package/com.google.gson.functional/class/EnumTest/method/testEnumSubclass:
+  digest: sha256:bb909fd9079937d5
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/EnumTest.java/package/com.google.gson.functional/class/EnumTest/method/testEnumToStringReadInterchanged:
+  digest: sha256:bfaf33e89393d821
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/EnumTest.java/package/com.google.gson.functional/class/EnumTest/method/testJdkEnum:
+  digest: sha256:587b34c1962958db
+  verdict: pending

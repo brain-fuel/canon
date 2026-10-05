@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/joda/time/field/DecoratedDateTimeField.java/package/org.joda.time.field/class/DecoratedDateTimeField:
+  digest: sha256:b17f1b4d920396bf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DecoratedDateTimeField.java/package/org.joda.time.field/class/DecoratedDateTimeField/constructor/DecoratedDateTimeField:
+  digest: sha256:66354d6104c82934
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DecoratedDateTimeField.java/package/org.joda.time.field/class/DecoratedDateTimeField/field/iField:
+  digest: sha256:98bc026aeae05e3e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DecoratedDateTimeField.java/package/org.joda.time.field/class/DecoratedDateTimeField/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DecoratedDateTimeField.java/package/org.joda.time.field/class/DecoratedDateTimeField/method/getWrappedField:
+  digest: sha256:8c8589131ee6eff2
+  verdict: pending

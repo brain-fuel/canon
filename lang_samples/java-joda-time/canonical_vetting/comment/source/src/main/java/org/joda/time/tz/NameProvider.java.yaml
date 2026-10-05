@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/joda/time/tz/NameProvider.java/package/org.joda.time.tz/interface/NameProvider:
+  digest: sha256:21d396534c1335fe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/NameProvider.java/package/org.joda.time.tz/interface/NameProvider/method/getName:
+  digest: sha256:bb44da4dc92649c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/NameProvider.java/package/org.joda.time.tz/interface/NameProvider/method/getShortName:
+  digest: sha256:f244e4e72ba36862
+  verdict: pending

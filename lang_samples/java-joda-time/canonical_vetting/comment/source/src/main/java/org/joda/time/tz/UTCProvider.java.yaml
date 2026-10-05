@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/joda/time/tz/UTCProvider.java/package/org.joda.time.tz/class/UTCProvider:
+  digest: sha256:dc995d8a63bc0fa8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/UTCProvider.java/package/org.joda.time.tz/class/UTCProvider/constructor/UTCProvider:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/UTCProvider.java/package/org.joda.time.tz/class/UTCProvider/field/AVAILABLE_IDS:
+  digest: sha256:5186134e1a931b5f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/UTCProvider.java/package/org.joda.time.tz/class/UTCProvider/method/getAvailableIDs:
+  digest: sha256:40fb1ba78c0c35df
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/UTCProvider.java/package/org.joda.time.tz/class/UTCProvider/method/getZone:
+  digest: sha256:57aee45fee9b7d04
+  verdict: pending

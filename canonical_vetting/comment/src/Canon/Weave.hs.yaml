@@ -1,0 +1,36 @@
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave:
+  digest: sha256:624947af689f9e1f
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/data/Group:
+  digest: sha256:2029c07ac75555fd
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/function/embedOf:
+  digest: sha256:a9948bb538df79a2
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/function/escape:
+  digest: sha256:1be1434c6398526b
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/function/inline:
+  digest: sha256:aaab6a541fb46509
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/function/pagePath:
+  digest: sha256:15d60c76da35d69c
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/function/renderIndex:
+  digest: sha256:53195e028336fbfb
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/function/renderPage:
+  digest: sha256:168b5bb6fc341282
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/function/slug:
+  digest: sha256:abcc90796247b696
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/function/style:
+  digest: sha256:e61269baee025183
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/type/Highlight:
+  digest: sha256:26a5532c72bb81d7
+  verdict: pending
+decision/haskell/src/Canon/Weave.hs/module/Canon.Weave/type/Resolve:
+  digest: sha256:8824b4ca9f090876
+  verdict: pending

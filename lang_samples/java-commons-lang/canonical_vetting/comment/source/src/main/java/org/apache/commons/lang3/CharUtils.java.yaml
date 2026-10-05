@@ -1,0 +1,99 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils:
+  digest: sha256:d7878320545e4a23
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/constructor/CharUtils:
+  digest: sha256:910a649c08126fac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/field/CR:
+  digest: sha256:9cad2b23eb769416
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/field/LF:
+  digest: sha256:186227b394ba3da2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/field/NUL:
+  digest: sha256:fc0eae54d1e4c164
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/compare:
+  digest: sha256:b8917f464ecf53f0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isAscii:
+  digest: sha256:b6330ae7dbe8a3e0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isAsciiAlpha:
+  digest: sha256:cc4adc6b3b9f51b1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isAsciiAlphaLower:
+  digest: sha256:4dcfdde0ed509f15
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isAsciiAlphaUpper:
+  digest: sha256:0c856781630b5206
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isAsciiAlphanumeric:
+  digest: sha256:b5895063f8c3242a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isAsciiControl:
+  digest: sha256:b9ec4497d78ddc77
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isAsciiNumeric:
+  digest: sha256:1fd6a5a13eab437c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isAsciiNumeric#2:
+  digest: sha256:8ecf000e192ac9aa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isAsciiPrintable:
+  digest: sha256:293b41d77fc90b6b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isHex:
+  digest: sha256:45265d750fe7fb89
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isHex#2:
+  digest: sha256:40d58e9bcd05e7ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isOctal:
+  digest: sha256:d4a746c6a7c879b2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/isOctal#2:
+  digest: sha256:17d670907837a8ad
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toChar:
+  digest: sha256:ce52bcf9b6ac7f24
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toChar#2:
+  digest: sha256:eab65ba0c74996e0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toChar#3:
+  digest: sha256:c2e65b5c03eb0174
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toChar#4:
+  digest: sha256:2e444d125fdc8333
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toCharacterObject:
+  digest: sha256:ad775c83a25e1cd8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toCharacterObject#2:
+  digest: sha256:bb98f02628825847
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toIntValue:
+  digest: sha256:ac2de7b3852efd20
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toIntValue#2:
+  digest: sha256:d97e415f370df3d9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toIntValue#3:
+  digest: sha256:ef427da0455c4d02
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toIntValue#4:
+  digest: sha256:bedae07ef1658b6d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toString:
+  digest: sha256:eaffc88f0b11c338
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/toString#2:
+  digest: sha256:e6b4fd261abfb150
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/unicodeEscaped:
+  digest: sha256:bebeee4fdc9afd9e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharUtils.java/package/org.apache.commons.lang3/class/CharUtils/method/unicodeEscaped#2:
+  digest: sha256:6a6cf022246410f2
+  verdict: pending

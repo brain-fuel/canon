@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/PreJava9DateFormatProvider.java/package/com.google.gson.internal/class/PreJava9DateFormatProvider:
+  digest: sha256:98ba863e74f8a046
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/PreJava9DateFormatProvider.java/package/com.google.gson.internal/class/PreJava9DateFormatProvider/method/getUsDateTimeFormat:
+  digest: sha256:9dd74e8797929733
+  verdict: pending

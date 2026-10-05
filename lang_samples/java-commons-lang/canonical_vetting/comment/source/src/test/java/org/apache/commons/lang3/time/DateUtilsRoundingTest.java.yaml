@@ -1,0 +1,78 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest:
+  digest: sha256:328a98a8fde3efcd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/baseRoundTest:
+  digest: sha256:d3bf4eb022afadea
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/baseTruncateTest:
+  digest: sha256:50d5b301b52c9f38
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/roundToJanuaryFirst:
+  digest: sha256:c72815e983a23d24
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundAmPm:
+  digest: sha256:41e9375f83f83526
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundDate:
+  digest: sha256:2eff96cb84015911
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundDayOfMonth:
+  digest: sha256:41402757fdd6cc3d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundHour:
+  digest: sha256:80ea6a5c712cc23d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundHourOfDay:
+  digest: sha256:04d535f418efa2a9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundMilliSecond:
+  digest: sha256:859ac3a613f4e555
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundMinute:
+  digest: sha256:3fe445413c9d9bbe
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundMonth:
+  digest: sha256:7279c65a9c2d01cc
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundSecond:
+  digest: sha256:e7a214610aa1aa1f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundSemiMonth:
+  digest: sha256:bffba4e1d1a8d5d4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testRoundYear:
+  digest: sha256:2b3c5d85fde244b6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateAmPm:
+  digest: sha256:d3b3ae43ef61cd00
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateDate:
+  digest: sha256:252a52b6ca2ca50c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateDayOfMonth:
+  digest: sha256:78f23d28c90f5e84
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateHour:
+  digest: sha256:7a2a3c94dd916b0b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateHourOfDay:
+  digest: sha256:b291d72b49f0bced
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateMilliSecond:
+  digest: sha256:6c6afd21c043248f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateMinute:
+  digest: sha256:0f66c1422dd6d0fe
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateMonth:
+  digest: sha256:fc7717eee2b844e7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateSecond:
+  digest: sha256:e1b00cb5438bb2da
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateSemiMonth:
+  digest: sha256:33bf8c5d53d640b2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsRoundingTest.java/package/org.apache.commons.lang3.time/class/DateUtilsRoundingTest/method/testTruncateYear:
+  digest: sha256:87e6a7498e6cbe05
+  verdict: pending

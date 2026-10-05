@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/joda/time/convert/ConverterSet.java/package/org.joda.time.convert/class/ConverterSet:
+  digest: sha256:c4638859a3a17018
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterSet.java/package/org.joda.time.convert/class/ConverterSet/method/add:
+  digest: sha256:c1472d3fd4fad842
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterSet.java/package/org.joda.time.convert/class/ConverterSet/method/copyInto:
+  digest: sha256:7f29b5647445e6ae
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterSet.java/package/org.joda.time.convert/class/ConverterSet/method/remove:
+  digest: sha256:ea996edf26ce61ce
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterSet.java/package/org.joda.time.convert/class/ConverterSet/method/remove#2:
+  digest: sha256:bfbcab90c43bbf23
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterSet.java/package/org.joda.time.convert/class/ConverterSet/method/select:
+  digest: sha256:4286a5b20cd1650c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterSet.java/package/org.joda.time.convert/class/ConverterSet/method/selectSlow:
+  digest: sha256:7058edca37ef2fd5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterSet.java/package/org.joda.time.convert/class/ConverterSet/method/size:
+  digest: sha256:d06dd98c01f92832
+  verdict: pending

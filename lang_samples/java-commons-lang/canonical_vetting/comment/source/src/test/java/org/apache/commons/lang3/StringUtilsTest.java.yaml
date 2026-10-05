@@ -1,0 +1,51 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest:
+  digest: sha256:bbf5107d3157ec69
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testAppendIfMissing:
+  digest: sha256:755eb23a69e57488
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testAppendIfMissingIgnoreCase:
+  digest: sha256:2692fafd3b1c6f5e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testEMPTY:
+  digest: sha256:e0b058bbb4e99782
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testEscapeSurrogatePairsLang858:
+  digest: sha256:7703f7e4964c3b25
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testIsAllLowerCase:
+  digest: sha256:01da23888d14be0a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testIsAllLowerCaseSupplementary:
+  digest: sha256:67f9680ec1fba1a1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testIsAllUpperCase:
+  digest: sha256:c33ce908a8b81383
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testIsAllUpperCaseSupplementary:
+  digest: sha256:a1e7cd76708b6a9a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testIsMixedCase:
+  digest: sha256:ead11cb43cf34e13
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testIsMixedCaseSupplementary:
+  digest: sha256:685210ad2a9eacd6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testPrependIfMissing:
+  digest: sha256:78b7e8a2e85f7f7a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testPrependIfMissingIgnoreCase:
+  digest: sha256:c982fa3343aa8ee8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testReplace_StringStringArrayStringArray:
+  digest: sha256:dbf0868df80da0cf
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testReplace_StringStringArrayStringArrayBoolean:
+  digest: sha256:49cdbce7baa5beb7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testToEncodedString:
+  digest: sha256:20355b3b89ccbc3e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsTest.java/package/org.apache.commons.lang3/class/StringUtilsTest/method/testToString:
+  digest: sha256:a19b16167584b94d
+  verdict: pending

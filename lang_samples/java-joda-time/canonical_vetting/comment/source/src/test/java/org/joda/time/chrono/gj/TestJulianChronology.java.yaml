@@ -1,0 +1,18 @@
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestJulianChronology.java/package/org.joda.time.chrono.gj/class/TestJulianChronology:
+  digest: sha256:d9fbc45d9f74677c
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestJulianChronology.java/package/org.joda.time.chrono.gj/class/TestJulianChronology/constructor/TestJulianChronology:
+  digest: sha256:c9cdde5e0eedf0ed
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestJulianChronology.java/package/org.joda.time.chrono.gj/class/TestJulianChronology/method/fixedFromGJ:
+  digest: sha256:56f906714942205f
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestJulianChronology.java/package/org.joda.time.chrono.gj/class/TestJulianChronology/method/gjFromFixed:
+  digest: sha256:afe8f8e37e888b69
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestJulianChronology.java/package/org.joda.time.chrono.gj/class/TestJulianChronology/method/gjYearFromFixed:
+  digest: sha256:0e3928122ebaaadd
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestJulianChronology.java/package/org.joda.time.chrono.gj/class/TestJulianChronology/method/isoFromFixed:
+  digest: sha256:b27dd2e81307dc16
+  verdict: pending

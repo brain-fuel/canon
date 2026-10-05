@@ -1,0 +1,21 @@
+decision/haskell/src/Canon/Git/Provider.hs/module/Canon.Git.Provider:
+  digest: sha256:8783d91d39d440b4
+  verdict: pending
+decision/haskell/src/Canon/Git/Provider.hs/module/Canon.Git.Provider/data/GitError:
+  digest: sha256:e0a2cc2a0975cd5f
+  verdict: pending
+decision/haskell/src/Canon/Git/Provider.hs/module/Canon.Git.Provider/data/GitProvider:
+  digest: sha256:e345fc2e67a31367
+  verdict: pending
+decision/haskell/src/Canon/Git/Provider.hs/module/Canon.Git.Provider/data/StaticGit:
+  digest: sha256:2bcb8ccc56fde7fe
+  verdict: pending
+decision/haskell/src/Canon/Git/Provider.hs/module/Canon.Git.Provider/function/renderGitError:
+  digest: sha256:e650b2643526792a
+  verdict: pending
+decision/haskell/src/Canon/Git/Provider.hs/module/Canon.Git.Provider/function/staticGitProvider:
+  digest: sha256:6d067a1feb4c7718
+  verdict: pending
+decision/haskell/src/Canon/Git/Provider.hs/module/Canon.Git.Provider/function/staticGitProviderWith:
+  digest: sha256:81b8ce660455ed49
+  verdict: pending

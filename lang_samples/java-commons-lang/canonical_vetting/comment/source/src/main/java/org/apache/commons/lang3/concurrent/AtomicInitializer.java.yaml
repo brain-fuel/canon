@@ -1,0 +1,33 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer:
+  digest: sha256:8bdd5a1ac49219f5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/class/Builder:
+  digest: sha256:963532f1eacace6e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/class/Builder/constructor/Builder:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/constructor/AtomicInitializer:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/constructor/AtomicInitializer#2:
+  digest: sha256:f71f05933d5ca6cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/field/reference:
+  digest: sha256:670bc42a9ea7e299
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/method/builder:
+  digest: sha256:735e462a860af81f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/method/get:
+  digest: sha256:527773275284f5fb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/method/getNoInit:
+  digest: sha256:63897de2ef99422a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/method/getTypedException:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializer/method/isInitialized:
+  digest: sha256:7f2f8e08c5f81724
+  verdict: pending

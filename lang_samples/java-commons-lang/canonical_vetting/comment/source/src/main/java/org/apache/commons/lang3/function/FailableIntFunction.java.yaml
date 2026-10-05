@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java/package/org.apache.commons.lang3.function/interface/FailableIntFunction:
+  digest: sha256:fe53fdf496a90101
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java/package/org.apache.commons.lang3.function/interface/FailableIntFunction/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java/package/org.apache.commons.lang3.function/interface/FailableIntFunction/method/apply:
+  digest: sha256:e4af62fac1141339
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java/package/org.apache.commons.lang3.function/interface/FailableIntFunction/method/nop:
+  digest: sha256:a24b2a0c9643370f
+  verdict: pending

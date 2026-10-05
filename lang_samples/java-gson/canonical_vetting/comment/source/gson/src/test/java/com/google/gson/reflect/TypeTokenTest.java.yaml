@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/reflect/TypeTokenTest.java/package/com.google.gson.reflect/class/TypeTokenTest:
+  digest: sha256:1968f64f1cd65aee
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/reflect/TypeTokenTest.java/package/com.google.gson.reflect/class/TypeTokenTest/method/testTypeTokenSubSubClass:
+  digest: sha256:841752f411ec4cda
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/reflect/TypeTokenTest.java/package/com.google.gson.reflect/class/TypeTokenTest/method/testTypeTokenTypeVariable:
+  digest: sha256:a3f9ed813814b214
+  verdict: pending

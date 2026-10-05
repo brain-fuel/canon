@@ -1,0 +1,42 @@
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField:
+  digest: sha256:e7fec30c59d935c8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/constructor/DividedDateTimeField:
+  digest: sha256:1081a6b6da6ac04d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/constructor/DividedDateTimeField#2:
+  digest: sha256:6b12a0f8293cdc50
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/constructor/DividedDateTimeField#3:
+  digest: sha256:9eb1f0a5b8109063
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/constructor/DividedDateTimeField#4:
+  digest: sha256:69b1f2ba3bbff979
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/method/add:
+  digest: sha256:912035ea0092d19d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/method/add#2:
+  digest: sha256:912035ea0092d19d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/method/addWrapField:
+  digest: sha256:5c982aa4d652316a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/method/get:
+  digest: sha256:ea74055a66d4f02c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/method/getDivisor:
+  digest: sha256:3399f7ab2c1387ec
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/method/getDurationField:
+  digest: sha256:97c6ecd867f9ac33
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/method/getMaximumValue:
+  digest: sha256:8a9f4df0f082689f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/method/getMinimumValue:
+  digest: sha256:12bf9a96053911b1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DividedDateTimeField.java/package/org.joda.time.field/class/DividedDateTimeField/method/set:
+  digest: sha256:c47796181bea9b6d
+  verdict: pending

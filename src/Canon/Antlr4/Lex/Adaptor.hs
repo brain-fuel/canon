@@ -12,6 +12,8 @@ import Canon.Antlr4.Lex (HookEffect (..), LexerHooks (..), SomeHooks (..), noHoo
 import Canon.Antlr4.Lex.CSharp (csharpLexerHooks)
 import Canon.Antlr4.Lex.FSharp (fsharpLexerHooks)
 import Canon.Antlr4.Lex.Haskell (haskellLayoutHooks)
+import Canon.Antlr4.Lex.JavaScript (javaScriptHooks, typeScriptHooks)
+import Canon.Antlr4.Lex.Python (pythonHooks)
 import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token (..))
@@ -33,9 +35,9 @@ data AdaptorState
 
 -- | The hooks for the ANTLR meta-grammar.
 antlrLexerHooks :: LexerHooks AdaptorState
-antlrLexerHooks = LexerHooks OutsideRule onAction onEmit
+antlrLexerHooks = LexerHooks OutsideRule onAction (\_ _ _ _ _ -> True) onEmit
   where
-    onAction rule _ _ state = case nameText rule of
+    onAction rule _ _ _ state = case nameText rule of
       "BEGIN_ARGUMENT"
         | state == InLexerRule -> (state, [EffectPushMode (Name "LexerCharSet"), EffectMore])
         | otherwise -> (state, [EffectPushMode (Name "Argument")])
@@ -61,7 +63,8 @@ antlrLexerHooks = LexerHooks OutsideRule onAction onEmit
     startsUpper t = maybe False (isUpper . fst) (T.uncons t)
 
 -- | Selects the hook port named by a grammar's superClass option, so a grammar declares its base
--- lexer and canon supplies it.
+-- lexer and canon supplies it: ANTLR's own adaptor, Haskell layout, the JavaScript and TypeScript
+-- regex and template tracking, and Python indentation. ref:DEC-more-languages
 hooksForGrammar :: Grammar ann -> SomeHooks
 hooksForGrammar = hooksForGrammarWith Nothing
 
@@ -74,6 +77,9 @@ hooksForGrammarWith choice grammar =
     (Name "HaskellBaseLexer" : _) -> SomeHooks haskellLayoutHooks
     (Name "CSharpLexerBase" : _) -> SomeHooks (csharpLexerHooks choice)
     (Name "FSharpLexerBase" : _) -> SomeHooks (fsharpLexerHooks choice)
+    (Name "JavaScriptLexerBase" : _) -> SomeHooks javaScriptHooks
+    (Name "TypeScriptLexerBase" : _) -> SomeHooks typeScriptHooks
+    (Name "Python3LexerBase" : _) -> SomeHooks pythonHooks
     _ -> SomeHooks noHooks
 
 -- | Whether the hook port a grammar selects reads #if directives, so a file is read once per build.

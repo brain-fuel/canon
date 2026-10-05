@@ -1,0 +1,21 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerCloseAndExceptionsTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerCloseAndExceptionsTest:
+  digest: sha256:52a68809e48bf193
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerCloseAndExceptionsTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerCloseAndExceptionsTest/method/testCloserThrowsCheckedException:
+  digest: sha256:42020b73b962535c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerCloseAndExceptionsTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerCloseAndExceptionsTest/method/testCloserThrowsRuntimeException:
+  digest: sha256:9bee438366181b69
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerCloseAndExceptionsTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerCloseAndExceptionsTest/method/testSupplierThrowsCheckedException:
+  digest: sha256:2338b283ac693112
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerCloseAndExceptionsTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerCloseAndExceptionsTest/method/testSupplierThrowsConcurrentException:
+  digest: sha256:4db0af61121fe92b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerCloseAndExceptionsTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerCloseAndExceptionsTest/method/testSupplierThrowsRuntimeException:
+  digest: sha256:64865ed0d881893a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerCloseAndExceptionsTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerCloseAndExceptionsTest/method/testWorkingCloser:
+  digest: sha256:f431120ea6bc996b
+  verdict: pending

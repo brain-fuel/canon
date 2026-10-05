@@ -1,0 +1,162 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction:
+  digest: sha256:0623ba3291372f71
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/constructor/Fraction:
+  digest: sha256:b31f3a15bafcc09e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/FOUR_FIFTHS:
+  digest: sha256:24d9d24040ae4f1a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/ONE:
+  digest: sha256:992e21f539c68471
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/ONE_FIFTH:
+  digest: sha256:b7981d7026b6c577
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/ONE_HALF:
+  digest: sha256:52612476775f1351
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/ONE_QUARTER:
+  digest: sha256:2be2e5aed1c4e1db
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/ONE_THIRD:
+  digest: sha256:6b74a0d7a8a6f933
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/THREE_FIFTHS:
+  digest: sha256:92db87bb44e810a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/THREE_QUARTERS:
+  digest: sha256:bccf6ec87d51e961
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/TWO_FIFTHS:
+  digest: sha256:54aa96b94112793e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/TWO_QUARTERS:
+  digest: sha256:d8879238ccdfc332
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/TWO_THIRDS:
+  digest: sha256:e649f071d64589c5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/ZERO:
+  digest: sha256:454fd9d73bfb97fa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/denominator:
+  digest: sha256:f2e6ebf4d5844f4a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/hashCode:
+  digest: sha256:98c6fa253dcbad5b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/numerator:
+  digest: sha256:cb09ce33ffc78ece
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/serialVersionUID:
+  digest: sha256:c9826b945d763539
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/toProperString:
+  digest: sha256:29980395ab77cfb1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/field/toString:
+  digest: sha256:dcf1d6633802c2e1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/abs:
+  digest: sha256:3f067a42a4b3b3f0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/add:
+  digest: sha256:595d1261023e57ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/addSub:
+  digest: sha256:c8f26cb296c52e77
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/checkDenominator:
+  digest: sha256:5c3b682fa1fcac68
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/compareTo:
+  digest: sha256:eec548aeda72ac4a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/divideBy:
+  digest: sha256:3c00a8ec75349582
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/doubleValue:
+  digest: sha256:01e724da0b751a3d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/equals:
+  digest: sha256:37cd5a21b7c46e98
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/floatValue:
+  digest: sha256:06355d72d21b1a20
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/getDenominator:
+  digest: sha256:15f26d0503f7e951
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/getFraction:
+  digest: sha256:48db1427a9faab48
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/getFraction#2:
+  digest: sha256:7b1a123d48713309
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/getFraction#3:
+  digest: sha256:f1a3f01e77ed71d7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/getFraction#4:
+  digest: sha256:5175c73e33ad1007
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/getNumerator:
+  digest: sha256:d89bf2baedeb70a0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/getProperNumerator:
+  digest: sha256:9be9cb883b70693a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/getProperWhole:
+  digest: sha256:437f69754a9202dc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/getReducedFraction:
+  digest: sha256:e5e4475383d1cdc0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/greatestCommonDivisor:
+  digest: sha256:724b3bde43574431
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/hashCode:
+  digest: sha256:6ee9a0c7994b4de5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/intValue:
+  digest: sha256:69ff1cfd35b26e4e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/invert:
+  digest: sha256:6b9f2b4966402eff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/longValue:
+  digest: sha256:db27e82df5785f54
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/mulAndCheck:
+  digest: sha256:ec150a9df709bd05
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/mulPosAndCheck:
+  digest: sha256:188b487a3ffeb259
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/multiplyBy:
+  digest: sha256:00e7ebae08fb93b9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/negate:
+  digest: sha256:585fe61a3446d505
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/pow:
+  digest: sha256:fb4bcf81b56cc17b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/readObject:
+  digest: sha256:9c6982385d108578
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/reduce:
+  digest: sha256:36ad469c58a0a589
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/subtract:
+  digest: sha256:243e57de20dd47a0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/toNumberFormatException:
+  digest: sha256:e595696b8ac876b6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/toProperString:
+  digest: sha256:a00256852b6aa237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/Fraction.java/package/org.apache.commons.lang3.math/class/Fraction/method/toString:
+  digest: sha256:9ae724f463a19c1d
+  verdict: pending

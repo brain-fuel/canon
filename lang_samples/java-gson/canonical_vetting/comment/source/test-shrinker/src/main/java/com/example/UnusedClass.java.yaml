@@ -1,0 +1,3 @@
+decision/java/source/test-shrinker/src/main/java/com/example/UnusedClass.java/package/com.example/class/UnusedClass:
+  digest: sha256:4ff36d520163b18f
+  verdict: pending

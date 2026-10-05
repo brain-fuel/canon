@@ -1,0 +1,9 @@
+decision/prolog/source/02-fs.pl:
+  digest: sha256:c09c8d7be46f4cd3
+  verdict: pending
+decision/prolog/source/02-fs.pl/clause/is_symlinked:
+  digest: sha256:77e9bfc781bb9026
+  verdict: pending
+decision/prolog/source/02-fs.pl/clause/symlink:
+  digest: sha256:5578f9e0bc987fa1
+  verdict: pending

@@ -1,0 +1,27 @@
+decision/prolog/source/03-homebrew.pl:
+  digest: sha256:b3b425f084fd18a6
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/clause/pkg#2:
+  digest: sha256:9667fa6099d36feb
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/brew_tap:
+  digest: sha256:8cc00b92225c7f90
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew:
+  digest: sha256:58267ce827c2644a
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew#2:
+  digest: sha256:38d478951a4b6df9
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew#3:
+  digest: sha256:9f600f6710fa22da
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew_cask:
+  digest: sha256:c10c50fcf6cd58b7
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew_cask#2:
+  digest: sha256:cba0c999c2000c61
+  verdict: pending
+decision/prolog/source/03-homebrew.pl/directive/installs_with_brew_cask#3:
+  digest: sha256:ad87eb99766e8c0c
+  verdict: pending

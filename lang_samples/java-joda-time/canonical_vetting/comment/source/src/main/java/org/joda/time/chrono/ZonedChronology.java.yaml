@@ -1,0 +1,30 @@
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology:
+  digest: sha256:18709280e0499a0b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology/class/ZonedDateTimeField:
+  digest: sha256:8a4815c6d17f91c6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology/constructor/ZonedChronology:
+  digest: sha256:0d09b0dd888c7b81
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology/field/NEAR_ZERO:
+  digest: sha256:30cd1381b65fb775
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology/method/equals:
+  digest: sha256:0013a50097da8548
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology/method/getInstance:
+  digest: sha256:e7b5489bb72a0eb2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology/method/hashCode:
+  digest: sha256:3444e9b8a54ffe01
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology/method/localToUTC:
+  digest: sha256:9b285f83e2ac1322
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ZonedChronology.java/package/org.joda.time.chrono/class/ZonedChronology/method/toString:
+  digest: sha256:fb4549890f8bd4a6
+  verdict: pending

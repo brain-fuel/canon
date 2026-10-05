@@ -1,0 +1,84 @@
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval:
+  digest: sha256:fb31ed58226dfe11
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/constructor/AbstractInterval:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/checkInterval:
+  digest: sha256:0d6489e0223a9798
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/contains:
+  digest: sha256:790faf21ecbf3bb3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/contains#2:
+  digest: sha256:757c411c5d51c339
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/contains#3:
+  digest: sha256:58207f42659b9feb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/containsNow:
+  digest: sha256:cd0bdcb7cf9396d4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/equals:
+  digest: sha256:d00d36fff25989e4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/getEnd:
+  digest: sha256:a5ffc76489d416ee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/getStart:
+  digest: sha256:c057f612a6cfe149
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/hashCode:
+  digest: sha256:d1926e4d031a9747
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/isAfter:
+  digest: sha256:f8c7d13abfdf55e6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/isAfter#2:
+  digest: sha256:227b41f688acec52
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/isAfter#3:
+  digest: sha256:1086db0814611107
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/isAfterNow:
+  digest: sha256:2319e9da642c603d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/isBefore:
+  digest: sha256:82f9f7c1401c268d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/isBefore#2:
+  digest: sha256:f2ca3c4d08c74066
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/isBefore#3:
+  digest: sha256:db6b8dde5b4e7f67
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/isBeforeNow:
+  digest: sha256:b122ec818448ea40
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/isEqual:
+  digest: sha256:4882bc165aaa6756
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/overlaps:
+  digest: sha256:11865baffe5f74b0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/toDuration:
+  digest: sha256:3a0e6f544bf6e5d0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/toDurationMillis:
+  digest: sha256:9b1611f9bbf9b81b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/toInterval:
+  digest: sha256:f9d589c3971c5114
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/toMutableInterval:
+  digest: sha256:5866dc8dd3c4a980
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/toPeriod:
+  digest: sha256:c508d36c1a3c15f3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/toPeriod#2:
+  digest: sha256:8d72cdaa9bbc4b45
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractInterval.java/package/org.joda.time.base/class/AbstractInterval/method/toString:
+  digest: sha256:e34a256f6f4b7253
+  verdict: pending

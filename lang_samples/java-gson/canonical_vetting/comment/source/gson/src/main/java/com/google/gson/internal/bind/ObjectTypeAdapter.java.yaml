@@ -1,0 +1,12 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java/package/com.google.gson.internal.bind/class/ObjectTypeAdapter:
+  digest: sha256:31b06a122f048937
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java/package/com.google.gson.internal.bind/class/ObjectTypeAdapter/field/DOUBLE_FACTORY:
+  digest: sha256:2fed64bb71567136
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java/package/com.google.gson.internal.bind/class/ObjectTypeAdapter/method/readTerminal:
+  digest: sha256:e8d21fafd23ae91a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java/package/com.google.gson.internal.bind/class/ObjectTypeAdapter/method/tryBeginNesting:
+  digest: sha256:a3e1da4dfaff1e29
+  verdict: pending

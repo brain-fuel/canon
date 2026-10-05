@@ -1,0 +1,12 @@
+decision/java/source/gson/src/test/java/com/google/gson/JsonObjectTest.java/package/com.google.gson/class/JsonObjectTest:
+  digest: sha256:3c082b0bbf016e30
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/JsonObjectTest.java/package/com.google.gson/class/JsonObjectTest/method/testKeySet:
+  digest: sha256:a01de4ca8bb18ea0
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/JsonObjectTest.java/package/com.google.gson/class/JsonObjectTest/method/testPropertyWithQuotes:
+  digest: sha256:9579af2551f9d31f
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/JsonObjectTest.java/package/com.google.gson/class/JsonObjectTest/method/testWritePropertyWithEmptyStringName:
+  digest: sha256:c65621ae9c5650d2
+  verdict: pending

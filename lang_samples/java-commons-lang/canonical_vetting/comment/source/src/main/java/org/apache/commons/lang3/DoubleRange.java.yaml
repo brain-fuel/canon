@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/DoubleRange.java/package/org.apache.commons.lang3/class/DoubleRange:
+  digest: sha256:9d0ec234c1939123
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/DoubleRange.java/package/org.apache.commons.lang3/class/DoubleRange/constructor/DoubleRange:
+  digest: sha256:e1fef21d2624deb3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/DoubleRange.java/package/org.apache.commons.lang3/class/DoubleRange/method/fit:
+  digest: sha256:0a83d5c769933d52
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/DoubleRange.java/package/org.apache.commons.lang3/class/DoubleRange/method/of:
+  digest: sha256:325aabe50dbeae9d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/DoubleRange.java/package/org.apache.commons.lang3/class/DoubleRange/method/of#2:
+  digest: sha256:1915b639eccc02f0
+  verdict: pending

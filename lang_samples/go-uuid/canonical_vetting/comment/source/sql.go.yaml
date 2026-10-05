@@ -1,0 +1,9 @@
+decision/go/source/sql.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/sql.go/method/Scan:
+  digest: sha256:431ef38dda8f02a5
+  verdict: pending
+decision/go/source/sql.go/method/Value:
+  digest: sha256:7bd66050f5972f24
+  verdict: pending

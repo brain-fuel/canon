@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParser.java/package/org.joda.time.format/interface/DateTimeParser:
+  digest: sha256:669a30a5579f962f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParser.java/package/org.joda.time.format/interface/DateTimeParser/method/estimateParsedLength:
+  digest: sha256:064e374b947534a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParser.java/package/org.joda.time.format/interface/DateTimeParser/method/parseInto:
+  digest: sha256:040f6d6d9e49a362
+  verdict: pending

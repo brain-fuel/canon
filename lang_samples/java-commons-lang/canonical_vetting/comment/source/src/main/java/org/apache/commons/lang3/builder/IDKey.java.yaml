@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/IDKey.java/package/org.apache.commons.lang3.builder/class/IDKey:
+  digest: sha256:f6cad8a8feda8689
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/IDKey.java/package/org.apache.commons.lang3.builder/class/IDKey/constructor/IDKey:
+  digest: sha256:017db230b71a2208
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/IDKey.java/package/org.apache.commons.lang3.builder/class/IDKey/method/equals:
+  digest: sha256:f04599aee60dc7a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/IDKey.java/package/org.apache.commons.lang3.builder/class/IDKey/method/hashCode:
+  digest: sha256:5a808ae1c1258dec
+  verdict: pending

@@ -1,0 +1,27 @@
+decision/java/source/gson/src/main/java/com/google/gson/FieldAttributes.java/package/com.google.gson/class/FieldAttributes:
+  digest: sha256:8811dd9de04315e9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldAttributes.java/package/com.google.gson/class/FieldAttributes/constructor/FieldAttributes:
+  digest: sha256:eafb023a479cbbbb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldAttributes.java/package/com.google.gson/class/FieldAttributes/method/getAnnotation:
+  digest: sha256:3569e0638c143a54
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldAttributes.java/package/com.google.gson/class/FieldAttributes/method/getAnnotations:
+  digest: sha256:6c3a006e11a63ef4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldAttributes.java/package/com.google.gson/class/FieldAttributes/method/getDeclaredClass:
+  digest: sha256:636fc9085cbc3aea
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldAttributes.java/package/com.google.gson/class/FieldAttributes/method/getDeclaredType:
+  digest: sha256:08b7b8f16c450cad
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldAttributes.java/package/com.google.gson/class/FieldAttributes/method/getDeclaringClass:
+  digest: sha256:466d6e2d0f2286fc
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldAttributes.java/package/com.google.gson/class/FieldAttributes/method/getName:
+  digest: sha256:002f1381c7b42d49
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldAttributes.java/package/com.google.gson/class/FieldAttributes/method/hasModifier:
+  digest: sha256:ecab232adf5ae089
+  verdict: pending

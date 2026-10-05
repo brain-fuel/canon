@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/AccessibleObjects.java/package/org.apache.commons.lang3.reflect/class/AccessibleObjects:
+  digest: sha256:f1fdd9ead7790f79
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/AccessibleObjects.java/package/org.apache.commons.lang3.reflect/class/AccessibleObjects/method/isAccessible:
+  digest: sha256:2864a57d24edbac3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/AccessibleObjects.java/package/org.apache.commons.lang3.reflect/class/AccessibleObjects/method/setAccessible:
+  digest: sha256:16d61024c5023120
+  verdict: pending

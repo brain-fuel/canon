@@ -1,0 +1,27 @@
+decision/haskell/src/Canon/Folio.hs/module/Canon.Folio:
+  digest: sha256:3117fbcaf97da06b
+  verdict: pending
+decision/haskell/src/Canon/Folio.hs/module/Canon.Folio/data/Block:
+  digest: sha256:25a69a845295709a
+  verdict: pending
+decision/haskell/src/Canon/Folio.hs/module/Canon.Folio/data/Document:
+  digest: sha256:c0b80174d019dcd2
+  verdict: pending
+decision/haskell/src/Canon/Folio.hs/module/Canon.Folio/data/Element:
+  digest: sha256:237bb4717feb6424
+  verdict: pending
+decision/haskell/src/Canon/Folio.hs/module/Canon.Folio/function/attributes:
+  digest: sha256:2254761e4c5bd80f
+  verdict: pending
+decision/haskell/src/Canon/Folio.hs/module/Canon.Folio/function/elementsOf:
+  digest: sha256:847ee0512dd0e8ca
+  verdict: pending
+decision/haskell/src/Canon/Folio.hs/module/Canon.Folio/function/frontMatterOf:
+  digest: sha256:33d19402f3ebbbcc
+  verdict: pending
+decision/haskell/src/Canon/Folio.hs/module/Canon.Folio/function/quadrants:
+  digest: sha256:9e9a19b1e32101dc
+  verdict: pending
+decision/haskell/src/Canon/Folio.hs/module/Canon.Folio/function/scanDocument:
+  digest: sha256:98722518af5e561b
+  verdict: pending

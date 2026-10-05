@@ -1,0 +1,15 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/Streams.java/package/com.google.gson.internal/class/Streams:
+  digest: sha256:961f56a1f357ca92
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/Streams.java/package/com.google.gson.internal/class/Streams/class/AppendableWriter:
+  digest: sha256:ab54c1a6de3b44ea
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/Streams.java/package/com.google.gson.internal/class/Streams/class/AppendableWriter/class/CurrentWrite:
+  digest: sha256:29484b177208bd4a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/Streams.java/package/com.google.gson.internal/class/Streams/method/parse:
+  digest: sha256:09198738e747e137
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/Streams.java/package/com.google.gson.internal/class/Streams/method/write:
+  digest: sha256:33c96e2d1c8be246
+  verdict: pending

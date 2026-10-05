@@ -6,6 +6,8 @@ module Canon.Profile
   , UnitRule (..)
   , UnitName (..)
   , CommentSyntax (..)
+  , Embedding (..)
+  , DocStyle (..)
   , defaultCommentSyntax
   , profileForPath
   ) where
@@ -17,7 +19,7 @@ import qualified Data.Map.Strict as Map
 import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
-import System.FilePath (takeExtension)
+import System.FilePath (takeFileName)
 
 -- | A combined grammar file or a lexer and parser pair.
 data GrammarSource
@@ -25,11 +27,14 @@ data GrammarSource
   | SplitGrammarFiles FilePath FilePath
   deriving (Eq, Show)
 
--- | Where a unit's name comes from: a token by index, a child rule, or the unit's position among the
--- units of its rule in its parent, counted from zero, for a unit without a name of its own, such as
--- a field of a Rust tuple struct. ref:DEC-rust-visibility
+-- | Where a unit's name comes from: a token by index anywhere under the rule, a token by index
+-- among the rule's own tokens (so Go's method name is found past its receiver), a child rule, or
+-- the unit's position among the units of its rule in its parent, counted from zero, for a unit
+-- without a name of its own, such as a field of a Rust tuple struct. ref:DEC-rust-visibility
+-- ref:DEC-more-languages
 data UnitName
   = NameFromToken Name Int
+  | NameFromDirectToken Name Int
   | NameFromRule Name
   | NameFromOrdinal
   deriving (Eq, Show)
@@ -79,10 +84,35 @@ data CommentSyntax = CommentSyntax
 defaultCommentSyntax :: CommentSyntax
 defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] [] [] []
 
+-- | How a Folio page's fenced blocks of one language are read and tangled: the profile that parses
+-- them, the comment syntax that must not appear in a block, the width a tangled line may have,
+-- and how a generated documentation comment and banner are written. ref:DEC-folio-language
+data Embedding = Embedding
+  { embeddingLanguage :: Text
+  , embeddingComments :: CommentSyntax
+  , embeddingWidth :: Int
+  , embeddingDoc :: DocStyle
+  }
+  deriving (Eq, Show)
+
+-- | The spelling of a generated documentation comment: its opener, the prefix of every later
+-- line, the text of a blank line, the prefix of a banner line, and the markup the comment is
+-- converted to, haddock or plain. ref:DEC-tangle-output-format
+data DocStyle = DocStyle
+  { docOpen :: Text
+  , docContinue :: Text
+  , docBlank :: Text
+  , docBanner :: Text
+  , docMarkup :: Text
+  }
+  deriving (Eq, Show)
+
 -- | A language profile. Its signatures map the extension of a signature file to the extension of
 -- the implementation it declares, as F#'s .fsi declares a .fs: where both files of a name are
--- checked, the signature carries the comments and the implementation needs none.
--- ref:DEC-fsharp-signatures
+-- checked, the signature carries the comments and the implementation needs none. The highlight
+-- map names, per class of the highlighter, the token names the grammar's own shape does not
+-- classify, such as a directive that carries the rest of its line. ref:DEC-fsharp-signatures
+-- ref:DEC-highlight-by-lexer
 data Profile = Profile
   { profileExtensions :: [Text]
   , profileGrammar :: GrammarSource
@@ -90,19 +120,22 @@ data Profile = Profile
   , profileUnits :: [UnitRule]
   , profileComments :: CommentSyntax
   , profileSignatures :: Map Text Text
+  , profileEmbeds :: Map Text Embedding
+  , profileHighlight :: Map Text [Text]
   }
   deriving (Eq, Show)
 
 -- | The profile that owns a file's extension.
 profileForPath :: Map Text Profile -> FilePath -> Maybe (Text, Profile)
 profileForPath profiles path =
-  case [(lang, p) | (lang, p) <- Map.toList profiles, T.pack (takeExtension path) `elem` profileExtensions p] of
+  case [(lang, p) | (lang, p) <- Map.toList profiles, any (`T.isSuffixOf` T.pack (takeFileName path)) (profileExtensions p)] of
     (found : _) -> Just found
     [] -> Nothing
 
 instance ToJSON UnitName where
   toJSON n = case n of
     NameFromToken (Name t) index -> object ["index" .= index, "token" .= t]
+    NameFromDirectToken (Name t) index -> object ["index" .= index, "token" .= t, "direct" .= True]
     NameFromRule (Name r) -> object ["rule" .= r]
     NameFromOrdinal -> object ["ordinal" .= True]
 
@@ -112,8 +145,9 @@ instance FromJSON UnitName where
     rule <- o .:? "rule"
     ordinal <- fromMaybe False <$> o .:? "ordinal"
     index <- fromMaybe 1 <$> o .:? "index"
+    direct <- fromMaybe False <$> o .:? "direct"
     case (token, rule, ordinal) of
-      (Just t, Nothing, False) -> pure (NameFromToken (Name t) index)
+      (Just t, Nothing, False) -> pure ((if direct then NameFromDirectToken else NameFromToken) (Name t) index)
       (Nothing, Just r, False) -> pure (NameFromRule (Name r))
       (Nothing, Nothing, True) -> pure NameFromOrdinal
       _ -> fail "a unit name comes from exactly one of token, rule, or ordinal"
@@ -166,6 +200,20 @@ instance FromJSON CommentSyntax where
       <*> (fromMaybe [] <$> o .:? "docAttributes")
       <*> (fromMaybe [] <$> o .:? "directives")
 
+instance ToJSON DocStyle where
+  toJSON (DocStyle open continue blank banner markup) = object ["banner" .= banner, "blank" .= blank, "continue" .= continue, "markup" .= markup, "open" .= open]
+
+instance FromJSON DocStyle where
+  parseJSON = withObject "DocStyle" $ \o ->
+    DocStyle <$> o .: "open" <*> o .: "continue" <*> o .: "blank" <*> o .: "banner" <*> (fromMaybe "plain" <$> o .:? "markup")
+
+instance ToJSON Embedding where
+  toJSON (Embedding language comments width doc) = object ["comments" .= comments, "doc" .= doc, "language" .= language, "width" .= width]
+
+instance FromJSON Embedding where
+  parseJSON = withObject "Embedding" $ \o ->
+    Embedding <$> o .: "language" <*> (fromMaybe defaultCommentSyntax <$> o .:? "comments") <*> (fromMaybe 98 <$> o .:? "width") <*> o .: "doc"
+
 instance ToJSON Profile where
   toJSON p =
     object
@@ -175,6 +223,8 @@ instance ToJSON Profile where
         , "units" .= profileUnits p
         ]
           ++ ["signatures" .= profileSignatures p | not (Map.null (profileSignatures p))]
+          ++ (if Map.null (profileEmbeds p) then [] else ["embeds" .= profileEmbeds p])
+          ++ (if Map.null (profileHighlight p) then [] else ["highlight" .= profileHighlight p])
           ++ case profileGrammar p of
             CombinedGrammarFile path -> ["grammar" .= path]
             SplitGrammarFiles lexer parser -> ["lexer" .= lexer, "parser" .= parser]
@@ -196,3 +246,5 @@ instance FromJSON Profile where
       <*> (fromMaybe [] <$> o .:? "units")
       <*> (fromMaybe defaultCommentSyntax <$> o .:? "comments")
       <*> (fromMaybe Map.empty <$> o .:? "signatures")
+      <*> (fromMaybe Map.empty <$> o .:? "embeds")
+      <*> (fromMaybe Map.empty <$> o .:? "highlight")

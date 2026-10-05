@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormattableUtils.java/package/org.apache.commons.lang3.text/class/FormattableUtils:
+  digest: sha256:65f06fc320085419
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormattableUtils.java/package/org.apache.commons.lang3.text/class/FormattableUtils/constructor/FormattableUtils:
+  digest: sha256:62661503430bc317
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormattableUtils.java/package/org.apache.commons.lang3.text/class/FormattableUtils/field/SIMPLEST_FORMAT:
+  digest: sha256:1a6117b3d543bd0a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormattableUtils.java/package/org.apache.commons.lang3.text/class/FormattableUtils/method/append:
+  digest: sha256:da2ab81fa99ce9b1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormattableUtils.java/package/org.apache.commons.lang3.text/class/FormattableUtils/method/append#2:
+  digest: sha256:14f43d8a9e9ad0f4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormattableUtils.java/package/org.apache.commons.lang3.text/class/FormattableUtils/method/append#3:
+  digest: sha256:531af0cc95eb80e4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormattableUtils.java/package/org.apache.commons.lang3.text/class/FormattableUtils/method/append#4:
+  digest: sha256:2b779eeebb7807fa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormattableUtils.java/package/org.apache.commons.lang3.text/class/FormattableUtils/method/toString:
+  digest: sha256:bbdf8d6d75213310
+  verdict: pending

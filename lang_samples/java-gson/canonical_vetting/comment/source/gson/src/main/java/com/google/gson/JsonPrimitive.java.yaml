@@ -1,0 +1,72 @@
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive:
+  digest: sha256:2a35f8136669bd65
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/constructor/JsonPrimitive:
+  digest: sha256:eb5d6f6937115a8f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/constructor/JsonPrimitive#2:
+  digest: sha256:3ae87a393a8feba5
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/constructor/JsonPrimitive#3:
+  digest: sha256:4ec156d45c5813e7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/constructor/JsonPrimitive#4:
+  digest: sha256:ce69b6aba749ab71
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/deepCopy:
+  digest: sha256:8a631bcba6ac3571
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/equals:
+  digest: sha256:0f2d2a3233cd5629
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsBigDecimal:
+  digest: sha256:01cdcd1b64d29cf6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsBigInteger:
+  digest: sha256:01cdcd1b64d29cf6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsBoolean:
+  digest: sha256:35cd9fca563b5c18
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsByte:
+  digest: sha256:01cdcd1b64d29cf6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsCharacter:
+  digest: sha256:a2de22be0a41f75a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsDouble:
+  digest: sha256:01cdcd1b64d29cf6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsFloat:
+  digest: sha256:01cdcd1b64d29cf6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsInt:
+  digest: sha256:01cdcd1b64d29cf6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsLong:
+  digest: sha256:adda109849ccc73c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsNumber:
+  digest: sha256:5db86fccb4183b4b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/getAsShort:
+  digest: sha256:01cdcd1b64d29cf6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/hashCode:
+  digest: sha256:4aed50ea1453b7b9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/hashOfDoubleValue:
+  digest: sha256:9517cb5932dd5aec
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/isBoolean:
+  digest: sha256:5a558f4f83c339c1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/isIntegral:
+  digest: sha256:73f600597cb3becb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/isNumber:
+  digest: sha256:7445b6792e525364
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonPrimitive.java/package/com.google.gson/class/JsonPrimitive/method/isString:
+  digest: sha256:3567cd28cc29b992
+  verdict: pending

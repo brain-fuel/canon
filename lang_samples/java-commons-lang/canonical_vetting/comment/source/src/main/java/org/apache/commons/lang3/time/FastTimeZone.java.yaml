@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/time/FastTimeZone.java/package/org.apache.commons.lang3.time/class/FastTimeZone:
+  digest: sha256:8a5ebd75c92eb28f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/FastTimeZone.java/package/org.apache.commons.lang3.time/class/FastTimeZone/method/getGmtTimeZone:
+  digest: sha256:49e8e5bf7e5afb11
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/FastTimeZone.java/package/org.apache.commons.lang3.time/class/FastTimeZone/method/getGmtTimeZone#2:
+  digest: sha256:c4ddde9adbe4f394
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/FastTimeZone.java/package/org.apache.commons.lang3.time/class/FastTimeZone/method/getTimeZone:
+  digest: sha256:8a7cbbfec65bb516
+  verdict: pending

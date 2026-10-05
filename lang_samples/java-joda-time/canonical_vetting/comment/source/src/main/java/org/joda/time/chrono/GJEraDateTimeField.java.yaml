@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/joda/time/chrono/GJEraDateTimeField.java/package/org.joda.time.chrono/class/GJEraDateTimeField:
+  digest: sha256:78c8b11576ee5143
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJEraDateTimeField.java/package/org.joda.time.chrono/class/GJEraDateTimeField/constructor/GJEraDateTimeField:
+  digest: sha256:37f6fb73f9f40ed8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJEraDateTimeField.java/package/org.joda.time.chrono/class/GJEraDateTimeField/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJEraDateTimeField.java/package/org.joda.time.chrono/class/GJEraDateTimeField/method/get:
+  digest: sha256:46c1d89e30e9ff4c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJEraDateTimeField.java/package/org.joda.time.chrono/class/GJEraDateTimeField/method/readResolve:
+  digest: sha256:b94ab54735a4fc8f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJEraDateTimeField.java/package/org.joda.time.chrono/class/GJEraDateTimeField/method/set:
+  digest: sha256:b408281812d6c407
+  verdict: pending

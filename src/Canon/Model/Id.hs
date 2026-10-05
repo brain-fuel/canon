@@ -11,6 +11,7 @@ module Canon.Model.Id
   , decisionIdFor
   , renderDecisionId
   , parseDecisionId
+  , isKindWord
   , isIdSegment
   , isReferenceKey
   ) where
@@ -24,7 +25,7 @@ import Data.Aeson
   , withText
   )
 import Data.Aeson.Types (toJSONKeyText)
-import Data.Char (isAlphaNum, isAscii, isSpace)
+import Data.Char (isAlphaNum, isAscii, isAsciiLower, isDigit, isSpace)
 import Data.List.NonEmpty (NonEmpty)
 import qualified Data.List.NonEmpty as NonEmpty
 import Data.Text (Text)
@@ -100,27 +101,41 @@ instance ToJSON ReferenceKey where
 instance FromJSON ReferenceKey where
   parseJSON = withText "ReferenceKey" parseKey
 
--- | What a verdict is about: a canonical comment, a ledger entry, or a registry entry, so one
--- vetting file signs off every kind of canonical material. ref:DEC-human-sign-off
+-- | What a verdict is about: a canonical comment, a ledger entry, a registry entry, or a row of
+-- a kind another tool raises, such as a surviving mutant, so one vetting directory signs off
+-- every kind of canonical material. ref:DEC-human-sign-off ref:DEC-vetting-kinds
 data VettingKey
   = CommentKey DecisionId
   | LedgerKey ReferenceKey
   | RegistryKey ReferenceKey
+  | KindKey Text Text
+  | DocKey FilePath
   deriving (Eq, Ord, Show)
 
--- | Renders a vetting key; a comment key is its decision id, the others carry a prefix.
+-- | Renders a vetting key; a comment key is its decision id, the others carry their kind as a
+-- prefix.
 renderVettingKey :: VettingKey -> Text
 renderVettingKey k = case k of
   CommentKey d -> renderDecisionId d
   LedgerKey (ReferenceKey r) -> "ledger/" <> r
   RegistryKey (ReferenceKey r) -> "registry/" <> r
+  KindKey kind i -> kind <> "/" <> i
+  DocKey path -> "doc/" <> T.pack path
 
--- | Parses a vetting key by its prefix.
+-- | Parses a vetting key by its prefix; a prefix canon does not own names a declared kind.
 parseVettingKey :: Text -> Maybe VettingKey
 parseVettingKey t
   | Just r <- T.stripPrefix "ledger/" t, isReferenceKey r = Just (LedgerKey (ReferenceKey r))
   | Just r <- T.stripPrefix "registry/" t, isReferenceKey r = Just (RegistryKey (ReferenceKey r))
-  | otherwise = CommentKey <$> parseDecisionId t
+  | Just d <- T.stripPrefix "doc/" t, not (T.null d), not (T.any isSpace d) = Just (DocKey (T.unpack d))
+  | decisionPrefix `T.isPrefixOf` t = CommentKey <$> parseDecisionId t
+  | (kind, rest) <- T.breakOn "/" t, isKindWord kind, Just i <- T.stripPrefix "/" rest, not (T.null i), not (T.any isSpace i) = Just (KindKey kind i)
+  | otherwise = Nothing
+
+-- | A kind is named like a verdict word, and never by one of canon's own prefixes.
+-- ref:DEC-vetting-kinds
+isKindWord :: Text -> Bool
+isKindWord k = not (T.null k) && T.all (\c -> isAsciiLower c || isDigit c || c == '-') k && k `notElem` ["decision", "ledger", "registry", "doc"]
 
 instance ToJSON VettingKey where
   toJSON = toJSON . renderVettingKey

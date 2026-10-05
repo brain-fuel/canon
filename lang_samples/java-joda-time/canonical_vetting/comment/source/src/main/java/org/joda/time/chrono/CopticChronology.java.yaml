@@ -1,0 +1,48 @@
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology:
+  digest: sha256:28427d73343aed16
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/constructor/CopticChronology:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/field/AM:
+  digest: sha256:80a512e3b79aec57
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/field/ERA_FIELD:
+  digest: sha256:4ad4d27453a8d3e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/field/INSTANCE_UTC:
+  digest: sha256:6f78680f51995a04
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/field/MAX_YEAR:
+  digest: sha256:f705db893fc8831f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/field/MIN_YEAR:
+  digest: sha256:6cab2cbec0819e41
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/field/cCache:
+  digest: sha256:d602f4cb50fd1e33
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/method/getInstance:
+  digest: sha256:0811359776078570
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/method/getInstance#2:
+  digest: sha256:1ec778e06b8cb519
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/method/getInstance#3:
+  digest: sha256:87e57f2f14173f53
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/method/getInstanceUTC:
+  digest: sha256:78c0de37f5dde280
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/method/readResolve:
+  digest: sha256:553aad01d0579294
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/method/withUTC:
+  digest: sha256:99dcb7f0dee1ffdc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/CopticChronology.java/package/org.joda.time.chrono/class/CopticChronology/method/withZone:
+  digest: sha256:203c6515a26e0e74
+  verdict: pending

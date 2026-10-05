@@ -1,0 +1,51 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair:
+  digest: sha256:ac7312e342e90ce2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/constructor/ImmutablePair:
+  digest: sha256:234f011db2e9c9c7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/field/EMPTY_ARRAY:
+  digest: sha256:3f56b36cf08c7afe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/field/NULL:
+  digest: sha256:a2e2ee3f5c38abc1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/field/left:
+  digest: sha256:e6531108d6427320
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/field/right:
+  digest: sha256:cffa0e0742f6690a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/emptyArray:
+  digest: sha256:c5f3e7fcbe43a8f4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/getLeft:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/getRight:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/left:
+  digest: sha256:d94428c9212343f0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/nullPair:
+  digest: sha256:a3d5754f12185f5c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/of:
+  digest: sha256:ef87656af6017480
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/of#2:
+  digest: sha256:3f0054a336200707
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/ofNonNull:
+  digest: sha256:ef8b124dce74cfb8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/right:
+  digest: sha256:5fb08502f03915be
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java/package/org.apache.commons.lang3.tuple/class/ImmutablePair/method/setValue:
+  digest: sha256:f5a19a9b3ffbddc6
+  verdict: pending

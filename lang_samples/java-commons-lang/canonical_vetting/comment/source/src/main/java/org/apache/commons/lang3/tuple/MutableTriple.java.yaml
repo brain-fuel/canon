@@ -1,0 +1,51 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple:
+  digest: sha256:27d7cfe7a4cc52ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/constructor/MutableTriple:
+  digest: sha256:eae22f94d33e9bda
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/constructor/MutableTriple#2:
+  digest: sha256:01d05c5fb4234c34
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/field/EMPTY_ARRAY:
+  digest: sha256:0c7beaf252f00404
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/field/left:
+  digest: sha256:2cd14f1abefd864a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/field/middle:
+  digest: sha256:4dfc9cb321ddec6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/field/right:
+  digest: sha256:a5b6e39ed960f679
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/method/emptyArray:
+  digest: sha256:f19895458fd1dc52
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/method/getLeft:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/method/getMiddle:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/method/getRight:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/method/of:
+  digest: sha256:be62cac5675224a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/method/ofNonNull:
+  digest: sha256:76853920a6393268
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/method/setLeft:
+  digest: sha256:575ad75fc063186e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/method/setMiddle:
+  digest: sha256:a006e9db5c30b53d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java/package/org.apache.commons.lang3.tuple/class/MutableTriple/method/setRight:
+  digest: sha256:834c679b25752774
+  verdict: pending

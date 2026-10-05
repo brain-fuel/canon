@@ -1,0 +1,105 @@
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson:
+  digest: sha256:31686ac98ba82a86
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/class/FutureTypeAdapter:
+  digest: sha256:97b8b82a38f97ca0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/constructor/Gson:
+  digest: sha256:4a6422b4ba76fe46
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/field/threadLocalAdapterResults:
+  digest: sha256:8f1d00eaa93b852e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/excluder:
+  digest: sha256:8783ddf76161d6d8
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fieldNamingStrategy:
+  digest: sha256:0a6086b3b49313de
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson:
+  digest: sha256:41116f20c01e14eb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#10:
+  digest: sha256:aa1b303c473c3bfe
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#11:
+  digest: sha256:fb353ba414cdcc2c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#2:
+  digest: sha256:937a97bbd227ba45
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#3:
+  digest: sha256:d546780e83bb937d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#4:
+  digest: sha256:8ab3cb6379de98dd
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#5:
+  digest: sha256:91ae8dd7fe081dda
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#6:
+  digest: sha256:8fb5d084c35e256e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#7:
+  digest: sha256:803a8197bb9e7c6c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#8:
+  digest: sha256:861e0ca8ce29eb26
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/fromJson#9:
+  digest: sha256:625615d1d5fc59a7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/getAdapter:
+  digest: sha256:d795dd88bf457a42
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/getAdapter#2:
+  digest: sha256:a0dfe03852fd79fa
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/getDelegateAdapter:
+  digest: sha256:a1e5241159b718f3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/htmlSafe:
+  digest: sha256:e241af74e8189210
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/newBuilder:
+  digest: sha256:fa572e4fa109957d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/newJsonReader:
+  digest: sha256:bac064a085c2c2f9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/newJsonWriter:
+  digest: sha256:a02d6fbd04161f64
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/serializeNulls:
+  digest: sha256:ee9d1852a75eadbd
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJson:
+  digest: sha256:cb029e9d57fd9157
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJson#2:
+  digest: sha256:f2bbacebb2417a99
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJson#3:
+  digest: sha256:ec0a234a22a3534a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJson#4:
+  digest: sha256:e1d8465711edc8b7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJson#5:
+  digest: sha256:11421a153d513c8b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJson#6:
+  digest: sha256:0b935675dd4fc3e1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJson#7:
+  digest: sha256:a9bf67bf9baa85a3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJson#8:
+  digest: sha256:4a2d8a38c763f3df
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJsonTree:
+  digest: sha256:ae5e6e457d44ac7f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Gson.java/package/com.google.gson/class/Gson/method/toJsonTree#2:
+  digest: sha256:647e79e481dd38d4
+  verdict: pending

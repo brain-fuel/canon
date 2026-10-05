@@ -1,0 +1,15 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/JsonAdapterAnnotationTypeAdapterFactory:
+  digest: sha256:b4e495a73b690da4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/JsonAdapterAnnotationTypeAdapterFactory/field/TREE_TYPE_CLASS_DUMMY_FACTORY:
+  digest: sha256:b2c595bed3e1e91d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/JsonAdapterAnnotationTypeAdapterFactory/field/TREE_TYPE_FIELD_DUMMY_FACTORY:
+  digest: sha256:c9aef52524d8c384
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/JsonAdapterAnnotationTypeAdapterFactory/field/adapterFactoryMap:
+  digest: sha256:1dadc6a8b1153764
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonAdapterAnnotationTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/JsonAdapterAnnotationTypeAdapterFactory/method/isClassJsonAdapterFactory:
+  digest: sha256:7b30787d5d74f90d
+  verdict: pending

@@ -1,0 +1,12 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsEqualsIndexOfTest.java/package/org.apache.commons.lang3/class/StringUtilsEqualsIndexOfTest:
+  digest: sha256:2e1e86f79b2563d6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsEqualsIndexOfTest.java/package/org.apache.commons.lang3/class/StringUtilsEqualsIndexOfTest/method/testIndexOfAny_StringCharArrayWithSharedLowSurrogate:
+  digest: sha256:44f2a35c191df763
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsEqualsIndexOfTest.java/package/org.apache.commons.lang3/class/StringUtilsEqualsIndexOfTest/method/testIndexOfAny_StringCharArrayWithSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsEqualsIndexOfTest.java/package/org.apache.commons.lang3/class/StringUtilsEqualsIndexOfTest/method/testIndexOfAny_StringStringWithSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending

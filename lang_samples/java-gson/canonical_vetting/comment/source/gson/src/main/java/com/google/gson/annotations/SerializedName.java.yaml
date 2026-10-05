@@ -1,0 +1,9 @@
+decision/java/source/gson/src/main/java/com/google/gson/annotations/SerializedName.java/package/com.google.gson.annotations/annotationType/SerializedName:
+  digest: sha256:d8f368d6d9cea128
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/annotations/SerializedName.java/package/com.google.gson.annotations/annotationType/SerializedName/annotationElement/alternate:
+  digest: sha256:c10f5f3cfc69ab6c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/annotations/SerializedName.java/package/com.google.gson.annotations/annotationType/SerializedName/annotationElement/value:
+  digest: sha256:7d4d3d5e81d2d09c
+  verdict: pending

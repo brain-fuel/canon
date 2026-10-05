@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/LazyInitializerSimpleTest.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializerSimpleTest:
+  digest: sha256:a9fe0a6e5836d3bb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/LazyInitializerSimpleTest.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializerSimpleTest/class/LazyInitializerTestImpl:
+  digest: sha256:46d440a9bf30cfc7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/LazyInitializerSimpleTest.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializerSimpleTest/method/createInitializer:
+  digest: sha256:d90325a32c134368
+  verdict: pending

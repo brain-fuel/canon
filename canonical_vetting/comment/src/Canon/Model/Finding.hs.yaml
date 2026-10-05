@@ -1,0 +1,15 @@
+decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding:
+  digest: sha256:8dcf8f9a7d3b9e41
+  verdict: pending
+decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/data/Finding:
+  digest: sha256:3cfe0d4568921376
+  verdict: pending
+decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/data/Severity:
+  digest: sha256:bc8de0f7dcdafbb8
+  verdict: pending
+decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/function/findingSeverity:
+  digest: sha256:f331cfc3f8f2ac20
+  verdict: pending
+decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/function/renderFinding:
+  digest: sha256:e691ef5aaa05e134
+  verdict: pending

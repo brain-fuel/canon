@@ -1,0 +1,15 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/ArrayTest.java/package/com.google.gson.functional/class/ArrayTest:
+  digest: sha256:ad79bd91f10140cb
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ArrayTest.java/package/com.google.gson.functional/class/ArrayTest/method/testArrayElementsAreArrays:
+  digest: sha256:4c3bcc2ca2b3bca7
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ArrayTest.java/package/com.google.gson.functional/class/ArrayTest/method/testMixingTypesInObjectArraySerialization:
+  digest: sha256:88dbe8e39ea2dc06
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ArrayTest.java/package/com.google.gson.functional/class/ArrayTest/method/testMultidimensionalArraysDeserialization:
+  digest: sha256:e680b6321c074fcd
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ArrayTest.java/package/com.google.gson.functional/class/ArrayTest/method/testMultidimensionalArraysSerialization:
+  digest: sha256:e680b6321c074fcd
+  verdict: pending

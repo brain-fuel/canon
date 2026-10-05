@@ -1,0 +1,15 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java/package/org.apache.commons.lang3.time/class/FastDateParserTest:
+  digest: sha256:121455617b93f822
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java/package/org.apache.commons.lang3.time/class/FastDateParserTest/method/getInstance#4:
+  digest: sha256:b7b94e71f9c56d67
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java/package/org.apache.commons.lang3.time/class/FastDateParserTest/method/testLowYearPadding:
+  digest: sha256:909b04a7a668509a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java/package/org.apache.commons.lang3.time/class/FastDateParserTest/method/testParsesKnownJava16Ea25Failure:
+  digest: sha256:d4cdda1dd45b4d1d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserTest.java/package/org.apache.commons.lang3.time/class/FastDateParserTest/method/testShortDateStyleWithLocales:
+  digest: sha256:ddcb207ab62c0162
+  verdict: pending

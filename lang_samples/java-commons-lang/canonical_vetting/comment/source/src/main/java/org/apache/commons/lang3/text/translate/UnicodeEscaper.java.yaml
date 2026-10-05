@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeEscaper:
+  digest: sha256:33952dea69d78ecb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeEscaper/constructor/UnicodeEscaper:
+  digest: sha256:e82632b19aa69b08
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeEscaper/constructor/UnicodeEscaper#2:
+  digest: sha256:7ad6cd4f7bc909ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeEscaper/method/above:
+  digest: sha256:955285ef8adcad46
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeEscaper/method/below:
+  digest: sha256:e591caaeba6401a2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeEscaper/method/between:
+  digest: sha256:b4f81bee56087474
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeEscaper/method/outsideOf:
+  digest: sha256:76f90af39386c80a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeEscaper/method/toUtf16Escape:
+  digest: sha256:844ff83f4b3301a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeEscaper/method/translate:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending

@@ -1,0 +1,36 @@
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial:
+  digest: sha256:9303c11d5f6dfa44
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/equals:
+  digest: sha256:33b2eaf7544955a7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/get:
+  digest: sha256:39f489e1828cbf5c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/getChronology:
+  digest: sha256:c746edc22826c2e1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/getField:
+  digest: sha256:c2a4b100d8bf71cd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/getFieldType:
+  digest: sha256:a9de049e6116c54c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/getValue:
+  digest: sha256:f09de587eadf2492
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/hashCode:
+  digest: sha256:3619c75d72fe994d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/isSupported:
+  digest: sha256:83659ba7aaf28f68
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/size:
+  digest: sha256:18ffeb4459550ce0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/toDateTime:
+  digest: sha256:f7fccade6b3ee9b4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePartial.java/package/org.joda.time/interface/ReadablePartial/method/toString:
+  digest: sha256:6c1b4dadc003eaf7
+  verdict: pending

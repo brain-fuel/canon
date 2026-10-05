@@ -1,0 +1,9 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/JavaVersion.java/package/com.google.gson.internal/class/JavaVersion:
+  digest: sha256:74bc077ac91ea8a3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/JavaVersion.java/package/com.google.gson.internal/class/JavaVersion/method/getMajorJavaVersion:
+  digest: sha256:757c69244ba853a9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/JavaVersion.java/package/com.google.gson.internal/class/JavaVersion/method/isJava9OrLater:
+  digest: sha256:47bee1c3902229b4
+  verdict: pending

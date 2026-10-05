@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/InstanceCreator.java/package/com.google.gson/interface/InstanceCreator:
+  digest: sha256:b80feb1148ce6691
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/InstanceCreator.java/package/com.google.gson/interface/InstanceCreator/method/createInstance:
+  digest: sha256:77786999c51b7858
+  verdict: pending

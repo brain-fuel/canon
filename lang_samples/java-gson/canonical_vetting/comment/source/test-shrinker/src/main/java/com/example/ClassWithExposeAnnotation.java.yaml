@@ -1,0 +1,3 @@
+decision/java/source/test-shrinker/src/main/java/com/example/ClassWithExposeAnnotation.java/package/com.example/class/ClassWithExposeAnnotation:
+  digest: sha256:e033c1fb2c054149
+  verdict: pending

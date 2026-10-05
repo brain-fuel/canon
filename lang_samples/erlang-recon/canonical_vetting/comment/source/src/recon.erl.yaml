@@ -1,0 +1,111 @@
+decision/erlang/source/src/recon.erl:
+  digest: sha256:c1637df2de87a079
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/bin_leak:
+  digest: sha256:4e68ae741ca53e18
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/files:
+  digest: sha256:b488e4ad5dc06a4e
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/get_state:
+  digest: sha256:7a82c22c18781a95
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/get_state#2:
+  digest: sha256:7b650dd7110147ab
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/inet_count:
+  digest: sha256:7f52f6e3864918c4
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/inet_window:
+  digest: sha256:c36791ade872605c
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/info:
+  digest: sha256:4ad8ba8a24850670
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/info#2:
+  digest: sha256:a35212acfc6fef1a
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/info#3:
+  digest: sha256:adcdeae6e9032bb3
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/info#4:
+  digest: sha256:a54db6c921f4b6f6
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/info_type:
+  digest: sha256:ed6406e34ac8c764
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/named_rpc:
+  digest: sha256:1d5b0d413cf2bf0a
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/named_rpc#2:
+  digest: sha256:ef286314cd1c17f2
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/named_rpc#3:
+  digest: sha256:5f407eae5f0f672c
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/node_stats:
+  digest: sha256:7f2941e9b254f1b1
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/node_stats_list:
+  digest: sha256:23553276e41016d3
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/node_stats_print:
+  digest: sha256:1d81ac31e385bd62
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/port_info:
+  digest: sha256:1f9676eab4ba8b62
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/port_info#2:
+  digest: sha256:8b7a6d69311dc656
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/port_types:
+  digest: sha256:21b997a49b4ed662
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/proc_count:
+  digest: sha256:d47a332e8be12765
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/proc_window:
+  digest: sha256:4f76c8ebb83c15e6
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/remote_load:
+  digest: sha256:dd3aa83c75f614b3
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/remote_load#2:
+  digest: sha256:b8bfc295c0329f26
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/rpc:
+  digest: sha256:5038157f039f56a2
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/rpc#2:
+  digest: sha256:c66ece72ce54804b
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/rpc#3:
+  digest: sha256:663a9336785a7825
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/scheduler_usage:
+  digest: sha256:401fbbfff12c2831
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/sctp:
+  digest: sha256:c2daa7b5a24a6f54
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/source:
+  digest: sha256:c39b3fa22df03d2d
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/tcp:
+  digest: sha256:11bf636e4f9457ac
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/type:
+  digest: sha256:2f55fb62243b4e3d
+  verdict: pending
+decision/erlang/source/src/recon.erl/attribute/udp:
+  digest: sha256:32f53b94857fff11
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/port_info_type:
+  digest: sha256:1220380f6007290a
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/proc_info:
+  digest: sha256:cf5b5c0eebb0182d
+  verdict: pending
+decision/erlang/source/src/recon.erl/function/replace:
+  digest: sha256:779a1cf8fba9eebf
+  verdict: pending

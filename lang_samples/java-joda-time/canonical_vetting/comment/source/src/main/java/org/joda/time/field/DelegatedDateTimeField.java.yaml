@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDateTimeField.java/package/org.joda.time.field/class/DelegatedDateTimeField:
+  digest: sha256:2cc9541f09356465
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDateTimeField.java/package/org.joda.time.field/class/DelegatedDateTimeField/constructor/DelegatedDateTimeField:
+  digest: sha256:e0f8752e46213ba6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDateTimeField.java/package/org.joda.time.field/class/DelegatedDateTimeField/constructor/DelegatedDateTimeField#2:
+  digest: sha256:c2920f2e9fafef30
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDateTimeField.java/package/org.joda.time.field/class/DelegatedDateTimeField/constructor/DelegatedDateTimeField#3:
+  digest: sha256:8d486eae0f7649cd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDateTimeField.java/package/org.joda.time.field/class/DelegatedDateTimeField/field/iField:
+  digest: sha256:c74def7e1c728f76
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDateTimeField.java/package/org.joda.time.field/class/DelegatedDateTimeField/field/iRangeDurationField:
+  digest: sha256:2f44e1d8ed3aca7e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDateTimeField.java/package/org.joda.time.field/class/DelegatedDateTimeField/field/iType:
+  digest: sha256:f144dbd73fe80df6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDateTimeField.java/package/org.joda.time.field/class/DelegatedDateTimeField/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDateTimeField.java/package/org.joda.time.field/class/DelegatedDateTimeField/method/getWrappedField:
+  digest: sha256:8c8589131ee6eff2
+  verdict: pending

@@ -1,0 +1,36 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest:
+  digest: sha256:9a42a3443d5c63f5
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testDelegatingAdapterFactory:
+  digest: sha256:c1342b5259e59ea2
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testDelegatingAdapterFactory_Delayed:
+  digest: sha256:5ae23d495db37d08
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testExcludeDeserializePrecedence:
+  digest: sha256:582d6e635d600ffd
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testExcludePrecedence:
+  digest: sha256:1495ec322878f165
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testExcludeSerializePrecedence:
+  digest: sha256:d19d4b9cd736e5df
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testGetAdapterDelegation:
+  digest: sha256:0c108a606758e616
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testJsonDeserializer:
+  digest: sha256:b7dd0e9bf9a04f15
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testJsonSerializer:
+  digest: sha256:52d1f9a99f3bb2b7
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testNonPrimitiveFieldAnnotationTakesPrecedenceOverDefault:
+  digest: sha256:d9fab71e0923f1dd
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testOverwriteBuiltIn:
+  digest: sha256:0d9237c2757059a1
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnFieldsTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnFieldsTest/method/testPrimitiveFieldAnnotationTakesPrecedenceOverDefault:
+  digest: sha256:d9fab71e0923f1dd
+  verdict: pending

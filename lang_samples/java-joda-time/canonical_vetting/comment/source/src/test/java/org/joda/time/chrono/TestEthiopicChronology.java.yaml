@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/joda/time/chrono/TestEthiopicChronology.java/package/org.joda.time.chrono/class/TestEthiopicChronology:
+  digest: sha256:5ccc1067e794c390
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/TestEthiopicChronology.java/package/org.joda.time.chrono/class/TestEthiopicChronology/method/testCalendar:
+  digest: sha256:eaaeef9b4aa8d36f
+  verdict: pending

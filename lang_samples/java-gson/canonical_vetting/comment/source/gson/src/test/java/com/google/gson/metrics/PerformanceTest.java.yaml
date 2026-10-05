@@ -1,0 +1,15 @@
+decision/java/source/gson/src/test/java/com/google/gson/metrics/PerformanceTest.java/package/com.google.gson.metrics/class/PerformanceTest:
+  digest: sha256:57a6522c782513d0
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/metrics/PerformanceTest.java/package/com.google.gson.metrics/class/PerformanceTest/method/testByteArrayDeserialization:
+  digest: sha256:201d6cd39ee7caef
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/metrics/PerformanceTest.java/package/com.google.gson.metrics/class/PerformanceTest/method/testByteArraySerialization:
+  digest: sha256:201d6cd39ee7caef
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/metrics/PerformanceTest.java/package/com.google.gson.metrics/class/PerformanceTest/method/testLargeCollectionDeserialization:
+  digest: sha256:201d6cd39ee7caef
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/metrics/PerformanceTest.java/package/com.google.gson.metrics/class/PerformanceTest/method/testLargeCollectionSerialization:
+  digest: sha256:201d6cd39ee7caef
+  verdict: pending

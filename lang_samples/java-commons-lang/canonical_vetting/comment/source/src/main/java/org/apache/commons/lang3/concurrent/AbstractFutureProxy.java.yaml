@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractFutureProxy.java/package/org.apache.commons.lang3.concurrent/class/AbstractFutureProxy:
+  digest: sha256:8f78a14e6ae2320f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractFutureProxy.java/package/org.apache.commons.lang3.concurrent/class/AbstractFutureProxy/constructor/AbstractFutureProxy:
+  digest: sha256:063f8b0add32909a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractFutureProxy.java/package/org.apache.commons.lang3.concurrent/class/AbstractFutureProxy/method/getFuture:
+  digest: sha256:31d10bad81e14174
+  verdict: pending

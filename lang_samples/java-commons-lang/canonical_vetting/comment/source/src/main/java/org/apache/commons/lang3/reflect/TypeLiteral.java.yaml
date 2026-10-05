@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeLiteral.java/package/org.apache.commons.lang3.reflect/class/TypeLiteral:
+  digest: sha256:0b29c52925fe6113
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeLiteral.java/package/org.apache.commons.lang3.reflect/class/TypeLiteral/constructor/TypeLiteral:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeLiteral.java/package/org.apache.commons.lang3.reflect/class/TypeLiteral/field/value:
+  digest: sha256:f529c521b601b9dd
+  verdict: pending

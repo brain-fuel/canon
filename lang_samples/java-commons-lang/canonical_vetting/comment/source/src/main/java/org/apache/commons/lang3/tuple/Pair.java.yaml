@@ -1,0 +1,57 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair:
+  digest: sha256:17dbff9b3cfba0f1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/constructor/Pair:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/field/EMPTY_ARRAY:
+  digest: sha256:3f56b36cf08c7afe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/accept:
+  digest: sha256:7c05e44e5ec44641
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/apply:
+  digest: sha256:a721f6b1718da678
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/compareTo:
+  digest: sha256:9d258971ffc2c59d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/emptyArray:
+  digest: sha256:7f76fdcddf52d1d7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/equals:
+  digest: sha256:289feae7052f1e8d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/getKey:
+  digest: sha256:51c7163b35068b21
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/getLeft:
+  digest: sha256:3fadf7870c3eefad
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/getRight:
+  digest: sha256:f8cdc1ee054404e7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/getValue:
+  digest: sha256:9040007b4c5db664
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/hashCode:
+  digest: sha256:1ceb5b4bc246f3b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/of:
+  digest: sha256:0c884f3d22c9488e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/of#2:
+  digest: sha256:8feb8b47ffddf38a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/ofNonNull:
+  digest: sha256:bc3c76258ffd88b1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/toString:
+  digest: sha256:e1c26ef3fcc2afe1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Pair.java/package/org.apache.commons.lang3.tuple/class/Pair/method/toString#2:
+  digest: sha256:52c3f0c3faf9fa3c
+  verdict: pending

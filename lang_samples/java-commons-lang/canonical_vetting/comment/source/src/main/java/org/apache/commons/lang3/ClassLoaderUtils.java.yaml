@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassLoaderUtils.java/package/org.apache.commons.lang3/class/ClassLoaderUtils:
+  digest: sha256:2d34033bc77e2c6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassLoaderUtils.java/package/org.apache.commons.lang3/class/ClassLoaderUtils/constructor/ClassLoaderUtils:
+  digest: sha256:1b940f3b8dad4f09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassLoaderUtils.java/package/org.apache.commons.lang3/class/ClassLoaderUtils/method/getSystemURLs:
+  digest: sha256:d648d2cce1cd329a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassLoaderUtils.java/package/org.apache.commons.lang3/class/ClassLoaderUtils/method/getThreadURLs:
+  digest: sha256:0d48588c9568c9eb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassLoaderUtils.java/package/org.apache.commons.lang3/class/ClassLoaderUtils/method/toString:
+  digest: sha256:18f91e8fb6c8739e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassLoaderUtils.java/package/org.apache.commons.lang3/class/ClassLoaderUtils/method/toString#2:
+  digest: sha256:f22da83d618bf346
+  verdict: pending

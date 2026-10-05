@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/joda/time/chrono/BasicSingleEraDateTimeField.java/package/org.joda.time.chrono/class/BasicSingleEraDateTimeField:
+  digest: sha256:d602dcbd6ab6e0c6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicSingleEraDateTimeField.java/package/org.joda.time.chrono/class/BasicSingleEraDateTimeField/constructor/BasicSingleEraDateTimeField:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicSingleEraDateTimeField.java/package/org.joda.time.chrono/class/BasicSingleEraDateTimeField/field/ERA_VALUE:
+  digest: sha256:29343dffd2305cf9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicSingleEraDateTimeField.java/package/org.joda.time.chrono/class/BasicSingleEraDateTimeField/field/iEraText:
+  digest: sha256:f84a9d63d957c486
+  verdict: pending

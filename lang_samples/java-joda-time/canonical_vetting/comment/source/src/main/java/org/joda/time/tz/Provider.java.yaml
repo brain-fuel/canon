@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/joda/time/tz/Provider.java/package/org.joda.time.tz/interface/Provider:
+  digest: sha256:8ee1ebb346093579
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/Provider.java/package/org.joda.time.tz/interface/Provider/method/getAvailableIDs:
+  digest: sha256:9eb440152363696f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/Provider.java/package/org.joda.time.tz/interface/Provider/method/getZone:
+  digest: sha256:297a8f0fdd19f08a
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/CircularReferenceTest.java/package/com.google.gson.functional/class/CircularReferenceTest:
+  digest: sha256:253397b66839e21b
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/CircularReferenceTest.java/package/com.google.gson.functional/class/CircularReferenceTest/method/assertThrowsStackOverflow:
+  digest: sha256:b823a1e9da4082db
+  verdict: pending

@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/PublicSubBean.java/package/org.apache.commons.lang3.reflect/class/PublicSubBean:
+  digest: sha256:6935ffa496aac0a2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/PublicSubBean.java/package/org.apache.commons.lang3.reflect/class/PublicSubBean/constructor/PublicSubBean:
+  digest: sha256:ef790a43071bb072
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/PublicSubBean.java/package/org.apache.commons.lang3.reflect/class/PublicSubBean/field/foo:
+  digest: sha256:7387245a20f4dda3
+  verdict: pending

@@ -1,0 +1,15 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java/package/com.google.gson.internal.bind/class/JsonTreeReader:
+  digest: sha256:be91a5395978c580
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java/package/com.google.gson.internal.bind/class/JsonTreeReader/field/stack:
+  digest: sha256:b399432312865f0d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java/package/com.google.gson.internal.bind/class/JsonTreeReader/field/stackSize:
+  digest: sha256:bc7705b994a5f986
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java/package/com.google.gson.internal.bind/class/JsonTreeReader/method/isAllAscii:
+  digest: sha256:7b86d4460aaca23e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java/package/com.google.gson.internal.bind/class/JsonTreeReader/method/numberFormatException:
+  digest: sha256:45fbf77505e70b93
+  verdict: pending

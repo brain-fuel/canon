@@ -1,0 +1,63 @@
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField:
+  digest: sha256:d1416d965979be0b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/add:
+  digest: sha256:9f9b7aeaeb8c5c9a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/add#2:
+  digest: sha256:9f9b7aeaeb8c5c9a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getDifference:
+  digest: sha256:69e3eebb4bf5b0ed
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getDifferenceAsLong:
+  digest: sha256:035074e02d991d4e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getMillis:
+  digest: sha256:c0c65d82dbda00c5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getMillis#2:
+  digest: sha256:c0c65d82dbda00c5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getMillis#3:
+  digest: sha256:f1e65cc1fc4c7bd4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getMillis#4:
+  digest: sha256:f1e65cc1fc4c7bd4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getName:
+  digest: sha256:2c7b034cc915a543
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getType:
+  digest: sha256:3158cdc738a60d16
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getUnitMillis:
+  digest: sha256:f734cb1697182381
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getValue:
+  digest: sha256:d4882743b332fb20
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getValue#2:
+  digest: sha256:eab7c99f275021c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getValueAsLong:
+  digest: sha256:881d5d5c6efee9fd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/getValueAsLong#2:
+  digest: sha256:f6161588413817f5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/isPrecise:
+  digest: sha256:7373a23de862906b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/isSupported:
+  digest: sha256:156e4f99afb19acf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/subtract:
+  digest: sha256:e4b2c5249b54ee83
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/subtract#2:
+  digest: sha256:e4b2c5249b54ee83
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationField.java/package/org.joda.time/class/DurationField/method/toString:
+  digest: sha256:ce41ecc1d74f6f78
+  verdict: pending

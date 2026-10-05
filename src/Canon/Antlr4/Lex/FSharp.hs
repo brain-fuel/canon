@@ -46,7 +46,7 @@ data Held = Held
 
 -- | The hooks for the F# grammar, reading the branches a build selects. ref:DEC-preprocessor-builds
 fsharpLexerHooks :: Choice -> LexerHooks FSharpLayout
-fsharpLexerHooks choice = LexerHooks (FSharpLayout [] [] 0 Nothing "" choice Nothing []) (\_ _ _ s -> (s, [])) onEmit
+fsharpLexerHooks choice = LexerHooks (FSharpLayout [] [] 0 Nothing "" choice Nothing []) (\_ _ _ _ s -> (s, [])) (\_ _ _ _ _ -> True) onEmit
 
 -- | A less-than sign touching the name before it may open a type application, as in
 -- f< ^a when ... > or List<int>, whose angle brackets F# lets span lines like any brackets. The hook

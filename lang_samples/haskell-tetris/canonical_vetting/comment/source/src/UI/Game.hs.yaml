@@ -1,0 +1,12 @@
+decision/haskell/source/src/UI/Game.hs/module/UI.Game/data/Tick:
+  digest: sha256:0e2ffbfa4fe151d7
+  verdict: pending
+decision/haskell/source/src/UI/Game.hs/module/UI.Game/function/exec:
+  digest: sha256:574d36ed71633642
+  verdict: pending
+decision/haskell/source/src/UI/Game.hs/module/UI.Game/function/restart:
+  digest: sha256:a2f072e8832409c9
+  verdict: pending
+decision/haskell/source/src/UI/Game.hs/module/UI.Game/type/Name:
+  digest: sha256:129d46fcde30fcc3
+  verdict: pending

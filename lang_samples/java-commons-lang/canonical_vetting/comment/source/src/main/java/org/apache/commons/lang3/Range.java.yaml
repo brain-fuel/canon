@@ -1,0 +1,114 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range:
+  digest: sha256:95148b4524bfdd7f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/constructor/Range:
+  digest: sha256:16313b4f2890257c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/enum/ComparableComparator/method/compare:
+  digest: sha256:ce3a4a84366cbd05
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/field/comparator:
+  digest: sha256:7f7d45242e015f07
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/field/hashCode:
+  digest: sha256:98c6fa253dcbad5b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/field/maximum:
+  digest: sha256:abbf72c6523e8f2f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/field/minimum:
+  digest: sha256:fb5071484f185b06
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/field/serialVersionUID:
+  digest: sha256:f7916885cd5b52bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/field/toString:
+  digest: sha256:dcf1d6633802c2e1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/between:
+  digest: sha256:34e42055780eff4c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/between#2:
+  digest: sha256:75a07e02ac445e94
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/contains:
+  digest: sha256:f715b5dcbccf0a57
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/containsRange:
+  digest: sha256:aa268b6350a22ee3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/elementCompareTo:
+  digest: sha256:c7925d47124397e6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/equals:
+  digest: sha256:9be04f9184836f00
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/fit:
+  digest: sha256:28d44570c991a523
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/getComparator:
+  digest: sha256:ea0b6274cf5e3170
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/getMaximum:
+  digest: sha256:844bbfbbfe6c7993
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/getMinimum:
+  digest: sha256:9451982a23de79ab
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/hashCode:
+  digest: sha256:657074276a3c4dd9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/intersectionWith:
+  digest: sha256:1bd5fd91866d4359
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/is:
+  digest: sha256:7dc8c69a1b77318d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/is#2:
+  digest: sha256:ebee517b4438bc74
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/isAfter:
+  digest: sha256:ebc1d00b1347f5db
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/isAfterRange:
+  digest: sha256:96a881b66f51a17e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/isBefore:
+  digest: sha256:c84e3ab13884e052
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/isBeforeRange:
+  digest: sha256:28532a3bc32ecbb8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/isEndedBy:
+  digest: sha256:d272dc6e5b4ce73a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/isNaN:
+  digest: sha256:f0c425acd7c49530
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/isNaturalOrdering:
+  digest: sha256:f98aa617ff3280a1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/isOverlappedBy:
+  digest: sha256:795cd727df8ea303
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/isStartedBy:
+  digest: sha256:57e1cf5941aef70d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/of:
+  digest: sha256:23df485b9d4285e3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/of#2:
+  digest: sha256:a9f13043f8920cee
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/readObject:
+  digest: sha256:28bfda0f28041c8b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/requireNotNaN:
+  digest: sha256:dc0c0e1325311b77
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/toString:
+  digest: sha256:66eb83da21b6917a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Range.java/package/org.apache.commons.lang3/class/Range/method/toString#2:
+  digest: sha256:162ba5c4330beef3
+  verdict: pending

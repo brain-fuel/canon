@@ -1,0 +1,36 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers:
+  digest: sha256:94200aa2a6a6443d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/constructor/MethodInvokers:
+  digest: sha256:3cbaac35aef91d6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/asBiConsumer:
+  digest: sha256:353c3cf851c1da07
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/asBiFunction:
+  digest: sha256:ec6c703695102f11
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/asFailableBiConsumer:
+  digest: sha256:46362e356baf5029
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/asFailableBiFunction:
+  digest: sha256:b80138e244435370
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/asFailableFunction:
+  digest: sha256:47b48553d9e8eca1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/asFailableSupplier:
+  digest: sha256:6ceb6335c6762c48
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/asFunction:
+  digest: sha256:06ae3f8f9b57a8f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/asInterfaceInstance:
+  digest: sha256:9798aac9f7c1ae45
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/asSupplier:
+  digest: sha256:c56297edeccca995
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/MethodInvokers.java/package/org.apache.commons.lang3.function/class/MethodInvokers/method/requireMethod:
+  digest: sha256:900e7dd9264808dc
+  verdict: pending

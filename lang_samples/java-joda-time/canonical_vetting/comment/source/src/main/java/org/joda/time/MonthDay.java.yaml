@@ -1,0 +1,192 @@
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay:
+  digest: sha256:794e18ac2bdf8724
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property:
+  digest: sha256:ce5ad6554aeacfe1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/constructor/Property:
+  digest: sha256:bfb8d71316e7e638
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/field/iBase:
+  digest: sha256:d2120484400e2e65
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/field/iFieldIndex:
+  digest: sha256:8748affef5a6dc77
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/method/addToCopy:
+  digest: sha256:1ac40725a73fd996
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/method/addWrapFieldToCopy:
+  digest: sha256:c97ed8eaea236e7d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/method/get:
+  digest: sha256:7aa3dac13f7b6a68
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/method/getField:
+  digest: sha256:bfe4e226255836b0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/method/getMonthDay:
+  digest: sha256:d60c64bdbc31ea3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/method/getReadablePartial:
+  digest: sha256:d60c64bdbc31ea3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/method/setCopy:
+  digest: sha256:d7caed9a12ee2fee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/method/setCopy#2:
+  digest: sha256:0bd60908c4e773cc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/class/Property/method/setCopy#3:
+  digest: sha256:2eba605741ed3c5b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay:
+  digest: sha256:dea35e3ee430933a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#10:
+  digest: sha256:ab4da5214d6a1ca6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#11:
+  digest: sha256:8253b5ce88c977c7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#2:
+  digest: sha256:60b367a761a3cbfa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#3:
+  digest: sha256:46619250abe1b965
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#4:
+  digest: sha256:7b9a11472dec8475
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#5:
+  digest: sha256:7678c063d48eff1a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#6:
+  digest: sha256:8725371007d2396f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#7:
+  digest: sha256:85d3f8855d28b842
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#8:
+  digest: sha256:8f8ea7ea18070c5d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/constructor/MonthDay#9:
+  digest: sha256:26c645132c777ad4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/field/DAY_OF_MONTH:
+  digest: sha256:bf94b15efa05c362
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/field/FIELD_TYPES:
+  digest: sha256:1286358604e5ac2e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/field/MONTH_OF_YEAR:
+  digest: sha256:05c352a2cf0f1210
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/field/PARSER:
+  digest: sha256:1286358604e5ac2e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/dayOfMonth:
+  digest: sha256:b5dfa223b5d2b373
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/fromCalendarFields:
+  digest: sha256:4c416237d3cf1abc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/fromDateFields:
+  digest: sha256:aa33572c349af951
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/getDayOfMonth:
+  digest: sha256:f627624da8757bb7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/getField:
+  digest: sha256:abfaff1f833ebafd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/getFieldType:
+  digest: sha256:62fc9ac255a0c26d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/getFieldTypes:
+  digest: sha256:bb1a34a4701d2e66
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/getMonthOfYear:
+  digest: sha256:10b6249f191ddae1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/minus:
+  digest: sha256:c8d12b53d8c7f4e8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/minusDays:
+  digest: sha256:57a00e90e9f45562
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/minusMonths:
+  digest: sha256:edcb7e9d6b9e8e05
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/monthOfYear:
+  digest: sha256:39b43901ff2a77a3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/now:
+  digest: sha256:fbb72544a297de62
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/now#2:
+  digest: sha256:3ac46ac19011ed4e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/now#3:
+  digest: sha256:3adbdef6a4b7ceb4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/parse:
+  digest: sha256:ca336a2a20fff4ef
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/parse#2:
+  digest: sha256:a70e69b2ee0b778f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/plus:
+  digest: sha256:efc132204da95a16
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/plusDays:
+  digest: sha256:2c998d9c3dbc5388
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/plusMonths:
+  digest: sha256:c50220f5a76292f9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/property:
+  digest: sha256:1a9e9a30ab158f72
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/readResolve:
+  digest: sha256:e22e82ea0b11765f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/size:
+  digest: sha256:6fa00d821499a0af
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/toLocalDate:
+  digest: sha256:a6f20f39865656e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/toString:
+  digest: sha256:c9ed782c9429da5f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/toString#2:
+  digest: sha256:e80bfa7708ead45d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/toString#3:
+  digest: sha256:beb58d00d2e1693d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/withChronologyRetainFields:
+  digest: sha256:13ea794c8e0f2f34
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/withDayOfMonth:
+  digest: sha256:782202880a053ebd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/withField:
+  digest: sha256:fa2aacc55719696a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/withFieldAdded:
+  digest: sha256:d2417b93b93cfabd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/withMonthOfYear:
+  digest: sha256:15cf60799ad78eeb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MonthDay.java/package/org.joda.time/class/MonthDay/method/withPeriodAdded:
+  digest: sha256:2ec18381bb597859
+  verdict: pending

@@ -1,0 +1,30 @@
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField:
+  digest: sha256:c3f5cb8cc8800503
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField/constructor/ZeroIsMaxDateTimeField:
+  digest: sha256:7965377f21d3e3f8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField/method/getMaximumValue:
+  digest: sha256:b3d824df7ae37f9a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField/method/getMaximumValue#2:
+  digest: sha256:b3d824df7ae37f9a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField/method/getMaximumValue#3:
+  digest: sha256:b3d824df7ae37f9a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField/method/getMaximumValue#4:
+  digest: sha256:b3d824df7ae37f9a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField/method/getMinimumValue:
+  digest: sha256:809135bc3f48f835
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField/method/getMinimumValue#2:
+  digest: sha256:809135bc3f48f835
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField/method/getMinimumValue#3:
+  digest: sha256:809135bc3f48f835
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ZeroIsMaxDateTimeField.java/package/org.joda.time.field/class/ZeroIsMaxDateTimeField/method/getMinimumValue#4:
+  digest: sha256:809135bc3f48f835
+  verdict: pending

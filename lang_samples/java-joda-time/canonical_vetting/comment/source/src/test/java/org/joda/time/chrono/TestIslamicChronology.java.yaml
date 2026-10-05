@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/joda/time/chrono/TestIslamicChronology.java/package/org.joda.time.chrono/class/TestIslamicChronology:
+  digest: sha256:96ed94601f7d55ae
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/TestIslamicChronology.java/package/org.joda.time.chrono/class/TestIslamicChronology/method/testCalendar:
+  digest: sha256:eaaeef9b4aa8d36f
+  verdict: pending

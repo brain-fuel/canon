@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/InheritanceUtils.java/package/org.apache.commons.lang3.reflect/class/InheritanceUtils:
+  digest: sha256:130cd7e3bb03775e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/InheritanceUtils.java/package/org.apache.commons.lang3.reflect/class/InheritanceUtils/constructor/InheritanceUtils:
+  digest: sha256:39929d64611f20f4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/InheritanceUtils.java/package/org.apache.commons.lang3.reflect/class/InheritanceUtils/method/distance:
+  digest: sha256:a7aaed44bc9478d4
+  verdict: pending

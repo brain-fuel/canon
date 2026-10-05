@@ -1,0 +1,9 @@
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingStrategy.java/package/com.google.gson/interface/FieldNamingStrategy:
+  digest: sha256:2fba44753fa5bc25
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingStrategy.java/package/com.google.gson/interface/FieldNamingStrategy/method/alternateNames:
+  digest: sha256:328bb532c45089b2
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingStrategy.java/package/com.google.gson/interface/FieldNamingStrategy/method/translateName:
+  digest: sha256:35123380ef05368e
+  verdict: pending

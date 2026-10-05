@@ -1,0 +1,15 @@
+decision/go/source/version7.go:
+  digest: sha256:e3c0177bb3c33e6c
+  verdict: pending
+decision/go/source/version7.go/function/NewV7:
+  digest: sha256:b425752e843c81b6
+  verdict: pending
+decision/go/source/version7.go/function/NewV7FromReader:
+  digest: sha256:94052c09aeddf4e6
+  verdict: pending
+decision/go/source/version7.go/function/getV7Time:
+  digest: sha256:42e2924a1d820489
+  verdict: pending
+decision/go/source/version7.go/function/makeV7:
+  digest: sha256:aa4a148aa3a2f500
+  verdict: pending

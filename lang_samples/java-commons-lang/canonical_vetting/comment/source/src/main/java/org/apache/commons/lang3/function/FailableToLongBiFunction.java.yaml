@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToLongBiFunction.java/package/org.apache.commons.lang3.function/interface/FailableToLongBiFunction:
+  digest: sha256:38269d8999c4c37d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToLongBiFunction.java/package/org.apache.commons.lang3.function/interface/FailableToLongBiFunction/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToLongBiFunction.java/package/org.apache.commons.lang3.function/interface/FailableToLongBiFunction/method/applyAsLong:
+  digest: sha256:172c12555bdabcc3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToLongBiFunction.java/package/org.apache.commons.lang3.function/interface/FailableToLongBiFunction/method/nop:
+  digest: sha256:cb9e17dafedf6051
+  verdict: pending

@@ -1,0 +1,18 @@
+decision/typescript/source/source/utils/type-guards.ts/function/isForceRetryError:
+  digest: sha256:8a165f0923bb1927
+  verdict: pending
+decision/typescript/source/source/utils/type-guards.ts/function/isHTTPError:
+  digest: sha256:8220fde2668604aa
+  verdict: pending
+decision/typescript/source/source/utils/type-guards.ts/function/isKyError:
+  digest: sha256:0c5f7d6c063bd5ec
+  verdict: pending
+decision/typescript/source/source/utils/type-guards.ts/function/isNetworkError:
+  digest: sha256:bcf33ea1da76de4b
+  verdict: pending
+decision/typescript/source/source/utils/type-guards.ts/function/isResponseSizeError:
+  digest: sha256:40b13a66f49283e8
+  verdict: pending
+decision/typescript/source/source/utils/type-guards.ts/function/isTimeoutError:
+  digest: sha256:6ce35adf4baed91a
+  verdict: pending

@@ -1,0 +1,45 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes:
+  digest: sha256:4eaa4214a78198ee
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/class/WildcardTypeImpl:
+  digest: sha256:9db758b7fee5e976
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/arrayOf:
+  digest: sha256:f2f2e8921cd2ace1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/canonicalize:
+  digest: sha256:014a8974961cd638
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/declaringClassOf:
+  digest: sha256:56fae01ebe3f9b5f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/equals:
+  digest: sha256:615a898c7f1090a1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/getArrayComponentType:
+  digest: sha256:78c74a3849338027
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/getCollectionElementType:
+  digest: sha256:926fe63b9fb9499b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/getGenericSupertype:
+  digest: sha256:0008c38557dba3ae
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/getMapKeyAndValueTypes:
+  digest: sha256:42d3ee53dde3af02
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/getSupertype:
+  digest: sha256:fd100833ae7a661d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/newParameterizedTypeWithOwner:
+  digest: sha256:744b0db956eae31f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/requiresOwnerType:
+  digest: sha256:a241ab330884ef9b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/subtypeOf:
+  digest: sha256:5f3832be2015665e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/GsonTypes.java/package/com.google.gson.internal/class/GsonTypes/method/supertypeOf:
+  digest: sha256:a373090c087ce09d
+  verdict: pending

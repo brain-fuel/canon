@@ -1,0 +1,36 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest:
+  digest: sha256:26eb8779f0ba573f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/field/VALUE:
+  digest: sha256:a2aadf39c34a9f30
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/field/init:
+  digest: sha256:b0d95ba62dbbd5f2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/method/checkEquals:
+  digest: sha256:b32351592191b05a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/method/testEqualsFalse:
+  digest: sha256:81e7fad76ce598df
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/method/testEqualsTrue:
+  digest: sha256:645a582c1fc8de28
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/method/testEqualsWithOtherObjects:
+  digest: sha256:419a735e36367691
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/method/testGet:
+  digest: sha256:56a7db0c70dfb4c3
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/method/testGetObject:
+  digest: sha256:16bcf499280db1e9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/method/testToString:
+  digest: sha256:bcc49b13017e67bf
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/method/testToStringNull:
+  digest: sha256:337367907a630809
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConstantInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializerTest/method/testisInitialized:
+  digest: sha256:4e4cd9ff3f1428ef
+  verdict: pending

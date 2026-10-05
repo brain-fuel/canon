@@ -1,0 +1,66 @@
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval:
+  digest: sha256:b8d6c9b091e08c7b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/contains:
+  digest: sha256:6452afc38cbf9b89
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/contains#2:
+  digest: sha256:b05d953c9941f277
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/equals:
+  digest: sha256:ec89355591043f72
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/getChronology:
+  digest: sha256:a32492a7c948ccbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/getEnd:
+  digest: sha256:a5ffc76489d416ee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/getEndMillis:
+  digest: sha256:4923b52405d4ca65
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/getStart:
+  digest: sha256:c057f612a6cfe149
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/getStartMillis:
+  digest: sha256:69e2861098f6344e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/hashCode:
+  digest: sha256:f31ec624e2e1741e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/isAfter:
+  digest: sha256:227b41f688acec52
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/isAfter#2:
+  digest: sha256:123b01065d3eee7a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/isBefore:
+  digest: sha256:f2ca3c4d08c74066
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/isBefore#2:
+  digest: sha256:6d11514981837622
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/overlaps:
+  digest: sha256:11865baffe5f74b0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/toDuration:
+  digest: sha256:bd2218b52cdd91bf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/toDurationMillis:
+  digest: sha256:bd2218b52cdd91bf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/toInterval:
+  digest: sha256:b6fcaf96cf0ac22e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/toMutableInterval:
+  digest: sha256:5866dc8dd3c4a980
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/toPeriod:
+  digest: sha256:b2fc0733039fa55d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/toPeriod#2:
+  digest: sha256:916e741b3f85d495
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInterval.java/package/org.joda.time/interface/ReadableInterval/method/toString:
+  digest: sha256:ff17f74fe4f006c5
+  verdict: pending

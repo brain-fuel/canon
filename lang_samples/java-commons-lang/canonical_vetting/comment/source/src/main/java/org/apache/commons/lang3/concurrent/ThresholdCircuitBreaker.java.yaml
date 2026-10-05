@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreaker:
+  digest: sha256:24ec5c18069b555c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreaker/constructor/ThresholdCircuitBreaker:
+  digest: sha256:8ecbadb047d49bed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreaker/field/INITIAL_COUNT:
+  digest: sha256:a22c34f83c5543b1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreaker/field/threshold:
+  digest: sha256:196007ea84001bce
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreaker/field/used:
+  digest: sha256:143afca325e2d719
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreaker/method/checkState:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreaker/method/close:
+  digest: sha256:1eb2c1e037a81b83
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreaker/method/getThreshold:
+  digest: sha256:75ff24c7b56ffabe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreaker/method/incrementAndCheckState:
+  digest: sha256:c038105c56212e07
+  verdict: pending

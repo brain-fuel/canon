@@ -1,0 +1,15 @@
+decision/prolog/source/09-freebsd.pl:
+  digest: sha256:8ebd1e6ea86e7be5
+  verdict: pending
+decision/prolog/source/09-freebsd.pl/directive/installs_with_pkgng:
+  digest: sha256:8f44d348d7cd66a8
+  verdict: pending
+decision/prolog/source/09-freebsd.pl/directive/installs_with_pkgng#2:
+  digest: sha256:269dc6d7bd476dc9
+  verdict: pending
+decision/prolog/source/09-freebsd.pl/directive/installs_with_ports:
+  digest: sha256:8fa9f37087b1cd53
+  verdict: pending
+decision/prolog/source/09-freebsd.pl/directive/installs_with_ports#2:
+  digest: sha256:1e8cd3a55d839fb3
+  verdict: pending

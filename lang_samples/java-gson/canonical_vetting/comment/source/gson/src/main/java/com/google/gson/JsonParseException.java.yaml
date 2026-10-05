@@ -1,0 +1,12 @@
+decision/java/source/gson/src/main/java/com/google/gson/JsonParseException.java/package/com.google.gson/class/JsonParseException:
+  digest: sha256:e70fa377c8cc4dfb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParseException.java/package/com.google.gson/class/JsonParseException/constructor/JsonParseException:
+  digest: sha256:7693965655f9efd8
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParseException.java/package/com.google.gson/class/JsonParseException/constructor/JsonParseException#2:
+  digest: sha256:31feea869beb0557
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParseException.java/package/com.google.gson/class/JsonParseException/constructor/JsonParseException#3:
+  digest: sha256:916fcf34811c7070
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/extras/src/main/java/com/google/gson/interceptors/JsonPostDeserializer.java/package/com.google.gson.interceptors/interface/JsonPostDeserializer:
+  digest: sha256:c760f935bb925e68
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/interceptors/JsonPostDeserializer.java/package/com.google.gson.interceptors/interface/JsonPostDeserializer/method/postDeserialize:
+  digest: sha256:22897252fb711224
+  verdict: pending

@@ -1,0 +1,129 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle:
+  digest: sha256:e2e1eef3a28903cd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/constructor/StandardToStringStyle:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getArrayEnd:
+  digest: sha256:5bef4453237c8935
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getArraySeparator:
+  digest: sha256:802a11f9fe3ba595
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getArrayStart:
+  digest: sha256:1a00a536133447ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getContentEnd:
+  digest: sha256:488aa20374b48749
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getContentStart:
+  digest: sha256:0977982cee1dd6aa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getFieldNameValueSeparator:
+  digest: sha256:833af99e1af95610
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getFieldSeparator:
+  digest: sha256:70690e66d8f68802
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getNullText:
+  digest: sha256:f37ec62f48fd6418
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getSizeEndText:
+  digest: sha256:2033374df48d31df
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getSizeStartText:
+  digest: sha256:d3920cdf3b497661
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getSummaryObjectEndText:
+  digest: sha256:8e81dde54ee8317a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/getSummaryObjectStartText:
+  digest: sha256:0429bbb720b6d100
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/isArrayContentDetail:
+  digest: sha256:fdac11d545dcc839
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/isDefaultFullDetail:
+  digest: sha256:324aac2623744c74
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/isFieldSeparatorAtEnd:
+  digest: sha256:9791e9ee2073ecf8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/isFieldSeparatorAtStart:
+  digest: sha256:a7e111eff7f2c64b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/isUseClassName:
+  digest: sha256:27b59e1c31ee6426
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/isUseFieldNames:
+  digest: sha256:a671b7bd734715e8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/isUseIdentityHashCode:
+  digest: sha256:8d25ce0495ab3a33
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/isUseShortClassName:
+  digest: sha256:5e488ddd8682526e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setArrayContentDetail:
+  digest: sha256:94dba114f78614b6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setArrayEnd:
+  digest: sha256:b191a1b09180fedc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setArraySeparator:
+  digest: sha256:27052c3754e72d40
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setArrayStart:
+  digest: sha256:adebc75572c47045
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setContentEnd:
+  digest: sha256:3d85497af66fdefd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setContentStart:
+  digest: sha256:5418831038750469
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setDefaultFullDetail:
+  digest: sha256:442381258906294f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setFieldNameValueSeparator:
+  digest: sha256:f92639da59e74158
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setFieldSeparator:
+  digest: sha256:d776c5d5f96c4dc6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setFieldSeparatorAtEnd:
+  digest: sha256:a389b7481c486004
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setFieldSeparatorAtStart:
+  digest: sha256:87e80c4061455721
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setNullText:
+  digest: sha256:f6e128b94f3ecf03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setSizeEndText:
+  digest: sha256:c28a75f7ae573427
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setSizeStartText:
+  digest: sha256:7821307a42b977bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setSummaryObjectEndText:
+  digest: sha256:0c3b68f3e2daf4fb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setSummaryObjectStartText:
+  digest: sha256:8d022a75bce805c5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setUseClassName:
+  digest: sha256:aea48e0de874457f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setUseFieldNames:
+  digest: sha256:16214b2ddb34275b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setUseIdentityHashCode:
+  digest: sha256:4763e4cb300c9123
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/StandardToStringStyle.java/package/org.apache.commons.lang3.builder/class/StandardToStringStyle/method/setUseShortClassName:
+  digest: sha256:d00f8510d84c0a96
+  verdict: pending

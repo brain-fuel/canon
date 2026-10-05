@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/Memoizer.java/package/org.apache.commons.lang3.concurrent/class/Memoizer:
+  digest: sha256:0c024e000ea0f86a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/Memoizer.java/package/org.apache.commons.lang3.concurrent/class/Memoizer/constructor/Memoizer:
+  digest: sha256:66ff3de18f9f056a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/Memoizer.java/package/org.apache.commons.lang3.concurrent/class/Memoizer/constructor/Memoizer#2:
+  digest: sha256:87627ecce538ac27
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/Memoizer.java/package/org.apache.commons.lang3.concurrent/class/Memoizer/constructor/Memoizer#3:
+  digest: sha256:4ddb178171b8061d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/Memoizer.java/package/org.apache.commons.lang3.concurrent/class/Memoizer/constructor/Memoizer#4:
+  digest: sha256:9495943b7a52b36a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/Memoizer.java/package/org.apache.commons.lang3.concurrent/class/Memoizer/method/compute:
+  digest: sha256:c6e7e30705a8b32b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/Memoizer.java/package/org.apache.commons.lang3.concurrent/class/Memoizer/method/launderException:
+  digest: sha256:3959e5cf3c7761c8
+  verdict: pending

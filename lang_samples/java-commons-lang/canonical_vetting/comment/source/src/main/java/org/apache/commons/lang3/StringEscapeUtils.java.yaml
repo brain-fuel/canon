@@ -1,0 +1,102 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils:
+  digest: sha256:91f52a81fbbc036a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/constructor/StringEscapeUtils:
+  digest: sha256:653eee421a68d2c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/ESCAPE_CSV:
+  digest: sha256:0b21c220ccbbd065
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/ESCAPE_ECMASCRIPT:
+  digest: sha256:1fa751647c6a94c2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/ESCAPE_HTML3:
+  digest: sha256:ff0975a6a3a6609c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/ESCAPE_HTML4:
+  digest: sha256:4ba084dd08904584
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/ESCAPE_JAVA:
+  digest: sha256:dbafe284ccc2e8fe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/ESCAPE_JSON:
+  digest: sha256:bc4850edb2690bb1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/ESCAPE_XML:
+  digest: sha256:6cc3392b4d292efc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/ESCAPE_XML10:
+  digest: sha256:eadbac59bba1d91e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/ESCAPE_XML11:
+  digest: sha256:067c29bb9a2e9c83
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/UNESCAPE_CSV:
+  digest: sha256:11eb78e60e120471
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/UNESCAPE_ECMASCRIPT:
+  digest: sha256:b3c6f99c0572f439
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/UNESCAPE_HTML3:
+  digest: sha256:23daa5d0a3613ea1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/UNESCAPE_HTML4:
+  digest: sha256:76d415c281c9bd46
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/UNESCAPE_JAVA:
+  digest: sha256:495e5018235c7dae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/UNESCAPE_JSON:
+  digest: sha256:b1ad505c7091106a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/field/UNESCAPE_XML:
+  digest: sha256:a00496b2b6a5abb5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/escapeCsv:
+  digest: sha256:a59ca5fc9e27139a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/escapeEcmaScript:
+  digest: sha256:01a74cc646b391c6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/escapeHtml3:
+  digest: sha256:cd3e2d83ef903feb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/escapeHtml4:
+  digest: sha256:b49ac13701eba439
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/escapeJava:
+  digest: sha256:aba11607dad9f6e4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/escapeJson:
+  digest: sha256:5161f16fe7b29433
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/escapeXml:
+  digest: sha256:a109028f334d4a22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/escapeXml10:
+  digest: sha256:974168dc06d52b67
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/escapeXml11:
+  digest: sha256:a97c5549a8a4bbca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/unescapeCsv:
+  digest: sha256:65e9bc4ed3116af1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/unescapeEcmaScript:
+  digest: sha256:cecc9710a6c390de
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/unescapeHtml3:
+  digest: sha256:3c188e8d372c07f1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/unescapeHtml4:
+  digest: sha256:ebe87c3b84da8bc2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/unescapeJava:
+  digest: sha256:7be7b16ca1212d77
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/unescapeJson:
+  digest: sha256:4a35c8c4fd3edd25
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/StringEscapeUtils.java/package/org.apache.commons.lang3/class/StringEscapeUtils/method/unescapeXml:
+  digest: sha256:f4952524246c1601
+  verdict: pending

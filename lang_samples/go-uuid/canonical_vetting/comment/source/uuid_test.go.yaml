@@ -1,0 +1,18 @@
+decision/go/source/uuid_test.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/uuid_test.go/function/TestValidate:
+  digest: sha256:6f4a955a5debb595
+  verdict: pending
+decision/go/source/uuid_test.go/function/TestVersion7:
+  digest: sha256:8399ede2a9819218
+  verdict: pending
+decision/go/source/uuid_test.go/function/TestVersion7_pooled:
+  digest: sha256:8399ede2a9819218
+  verdict: pending
+decision/go/source/uuid_test.go/function/parseBytesCopy:
+  digest: sha256:f8739272e427dc29
+  verdict: pending
+decision/go/source/uuid_test.go/function/parseBytesUnsafe:
+  digest: sha256:e22ac8e85d3d35c4
+  verdict: pending

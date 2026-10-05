@@ -1,0 +1,15 @@
+decision/java/source/gson/src/main/java/com/google/gson/ToNumberPolicy.java/package/com.google.gson/enum/ToNumberPolicy:
+  digest: sha256:ffdd20747c51c822
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ToNumberPolicy.java/package/com.google.gson/enum/ToNumberPolicy/enumConstant/BIG_DECIMAL:
+  digest: sha256:16b6057ae8d2a8ef
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ToNumberPolicy.java/package/com.google.gson/enum/ToNumberPolicy/enumConstant/DOUBLE:
+  digest: sha256:606382e8cbb7a90e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ToNumberPolicy.java/package/com.google.gson/enum/ToNumberPolicy/enumConstant/LAZILY_PARSED_NUMBER:
+  digest: sha256:dbb23aa3b47da450
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ToNumberPolicy.java/package/com.google.gson/enum/ToNumberPolicy/enumConstant/LONG_OR_DOUBLE:
+  digest: sha256:6b6e2f299b1d049d
+  verdict: pending

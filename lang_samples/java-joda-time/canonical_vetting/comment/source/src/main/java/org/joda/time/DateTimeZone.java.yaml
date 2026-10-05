@@ -1,0 +1,180 @@
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone:
+  digest: sha256:c6077b1307bd6513
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/class/LazyInit:
+  digest: sha256:c762385f0a160fbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/class/LazyInit/field/CONVERSION_MAP:
+  digest: sha256:b67a9e45eeeec5aa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/class/LazyInit/field/OFFSET_FORMATTER:
+  digest: sha256:5944d4316a5dd2f9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/class/Stub:
+  digest: sha256:00df49c2d2ed3c16
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/class/Stub/constructor/Stub:
+  digest: sha256:357374ea04c53141
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/class/Stub/field/iID:
+  digest: sha256:2eff2ead32c0857f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/class/Stub/field/serialVersionUID:
+  digest: sha256:60a2c7d22dc312fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/constructor/DateTimeZone:
+  digest: sha256:4a3c758dfadaef8a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/field/DEFAULT_TZ_DATA_PATH:
+  digest: sha256:92c6cbcef6c7afd0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/field/MAX_MILLIS:
+  digest: sha256:fab1daa3a5c7e783
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/field/UTC:
+  digest: sha256:76f601818c86e333
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/field/cDefault:
+  digest: sha256:aabaf2a3847470e9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/field/cNameProvider:
+  digest: sha256:6e2df31717513444
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/field/cProvider:
+  digest: sha256:868e370dc69f291c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/field/serialVersionUID:
+  digest: sha256:fcdf71a4d7975811
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/adjustOffset:
+  digest: sha256:f560702ff515ef61
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/convertLocalToUTC:
+  digest: sha256:29ce7a88629a61b4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/convertLocalToUTC#2:
+  digest: sha256:fb9b71654c67fa37
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/convertUTCToLocal:
+  digest: sha256:d05fe451f5227428
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/equals:
+  digest: sha256:00f17a796f28e960
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/fixedOffsetZone:
+  digest: sha256:4fd64418492fba4b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/forID:
+  digest: sha256:b246a6a1070c533d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/forOffsetHours:
+  digest: sha256:d7fe2f59ed6bb208
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/forOffsetHoursMinutes:
+  digest: sha256:faa701fff90022e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/forOffsetMillis:
+  digest: sha256:f75222c11beaa0d1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/forTimeZone:
+  digest: sha256:8c2ad9677b452c23
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getAvailableIDs:
+  digest: sha256:4d8962037dbd48c5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getConvertedId:
+  digest: sha256:245657522853d73d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getDefault:
+  digest: sha256:6985d101e1edd163
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getDefaultNameProvider:
+  digest: sha256:bee0e995b12e34fe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getDefaultProvider:
+  digest: sha256:ea2620ae15603b5f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getID:
+  digest: sha256:905e08a2c492a272
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getMillisKeepLocal:
+  digest: sha256:8e49e7465dfb242f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getName:
+  digest: sha256:53b4090f16bca5c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getName#2:
+  digest: sha256:0949402cea69c47a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getNameKey:
+  digest: sha256:88f52e59b6e3d8b2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getNameProvider:
+  digest: sha256:768c2c9fc058d4fa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getOffset:
+  digest: sha256:50821ef74a2ef1e5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getOffset#2:
+  digest: sha256:7a977822d8c4bbd9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getOffsetFromLocal:
+  digest: sha256:da7e61775007cb72
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getProvider:
+  digest: sha256:43b7238f2d9559f1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getShortName:
+  digest: sha256:ed8e1ea5d0e442b0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getShortName#2:
+  digest: sha256:2e9e2471f5048e35
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/getStandardOffset:
+  digest: sha256:d926b43c93b6350d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/hashCode:
+  digest: sha256:da628d12565947af
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/isFixed:
+  digest: sha256:7fd5a9d09118139f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/isLocalDateTimeGap:
+  digest: sha256:fcddd4f9f8b264eb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/isStandardOffset:
+  digest: sha256:a9aab26ebb0dba4d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/nextTransition:
+  digest: sha256:96c35997538df50e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/parseOffset:
+  digest: sha256:6d7a6af89011a43f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/previousTransition:
+  digest: sha256:2e312c451a083852
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/printOffset:
+  digest: sha256:3d3c7293a37630fe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/setDefault:
+  digest: sha256:dcf3371eaf86d573
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/setNameProvider:
+  digest: sha256:ed95f11cf6be8622
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/setProvider:
+  digest: sha256:2ba507ca319b4a64
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/toString:
+  digest: sha256:b7a48d7f8403b858
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/toTimeZone:
+  digest: sha256:b4bc92f3d459e9fe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/validateProvider:
+  digest: sha256:a9431da70dfa9321
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeZone.java/package/org.joda.time/class/DateTimeZone/method/writeReplace:
+  digest: sha256:d1adb458531e849e
+  verdict: pending

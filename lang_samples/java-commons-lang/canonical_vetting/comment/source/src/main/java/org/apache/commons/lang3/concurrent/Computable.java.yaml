@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/Computable.java/package/org.apache.commons.lang3.concurrent/interface/Computable:
+  digest: sha256:bdc0ffff915b60a0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/Computable.java/package/org.apache.commons.lang3.concurrent/interface/Computable/method/compute:
+  digest: sha256:da3e2cf9900ee2a9
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/UncheckedExecutionException.java/package/org.apache.commons.lang3.concurrent/class/UncheckedExecutionException:
+  digest: sha256:38b212c46d3a4a57
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/UncheckedExecutionException.java/package/org.apache.commons.lang3.concurrent/class/UncheckedExecutionException/constructor/UncheckedExecutionException:
+  digest: sha256:90ec4fe2582aa67b
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/joda/time/chrono/TestCopticChronology.java/package/org.joda.time.chrono/class/TestCopticChronology:
+  digest: sha256:fc0712bd2db84676
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/TestCopticChronology.java/package/org.joda.time.chrono/class/TestCopticChronology/method/testCalendar:
+  digest: sha256:eaaeef9b4aa8d36f
+  verdict: pending

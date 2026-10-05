@@ -1,0 +1,15 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/ReflectionAccessFilterTest.java/package/com.google.gson.functional/class/ReflectionAccessFilterTest/method/testBlockAllCollectionImplementation:
+  digest: sha256:91cc497b710f57d2
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ReflectionAccessFilterTest.java/package/com.google.gson.functional/class/ReflectionAccessFilterTest/method/testBlockAllCollectionInterface:
+  digest: sha256:41f3cb0e0ca02a4b
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ReflectionAccessFilterTest.java/package/com.google.gson.functional/class/ReflectionAccessFilterTest/method/testBlockAllPartial:
+  digest: sha256:d344ff671750ca7e
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ReflectionAccessFilterTest.java/package/com.google.gson.functional/class/ReflectionAccessFilterTest/method/testBlockInaccessibleInterface:
+  digest: sha256:57d3a44e2f670f80
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ReflectionAccessFilterTest.java/package/com.google.gson.functional/class/ReflectionAccessFilterTest/method/testConstantsToString:
+  digest: sha256:943c2124c841b06f
+  verdict: pending

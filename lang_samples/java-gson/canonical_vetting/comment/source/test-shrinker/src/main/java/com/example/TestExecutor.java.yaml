@@ -1,0 +1,6 @@
+decision/java/source/test-shrinker/src/main/java/com/example/TestExecutor.java/package/com.example/class/TestExecutor/method/run:
+  digest: sha256:ffe4f84f83979959
+  verdict: pending
+decision/java/source/test-shrinker/src/main/java/com/example/TestExecutor.java/package/com.example/class/TestExecutor/method/same:
+  digest: sha256:703b2a56ca8d0aa9
+  verdict: pending

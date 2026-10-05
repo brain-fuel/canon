@@ -1,0 +1,12 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/MethodUtilsAnnotationsTest.java/package/org.apache.commons.lang3.reflect/class/MethodUtilsAnnotationsTest:
+  digest: sha256:dce81fd925e4a427
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/MethodUtilsAnnotationsTest.java/package/org.apache.commons.lang3.reflect/class/MethodUtilsAnnotationsTest/class/ProcessorImpl:
+  digest: sha256:256043ca9f0d1757
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/MethodUtilsAnnotationsTest.java/package/org.apache.commons.lang3.reflect/class/MethodUtilsAnnotationsTest/interface/Processor:
+  digest: sha256:01d5339bc3b23178
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/MethodUtilsAnnotationsTest.java/package/org.apache.commons.lang3.reflect/class/MethodUtilsAnnotationsTest/method/testAnnotationLookupDoesNotMatchAssignableOverload:
+  digest: sha256:b8676bdb7f6137d0
+  verdict: pending

@@ -1,0 +1,28 @@
+version: 0.1.0
+root: source
+ignore:
+  - node_modules
+languages:
+  javascript:
+    extensions: [.js, .mjs, .cjs]
+    lexer: ../../grammars/javascript/JavaScriptLexer.g4
+    parser: ../../grammars/javascript/JavaScriptParser.g4
+    start: program
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      strings: ["\"", "'", "`"]
+    units:
+      - rule: functionDeclaration
+        kind: function
+        name: {rule: identifier}
+        required: true
+      - rule: classDeclaration
+        kind: class
+        name: {rule: identifier}
+        required: true
+      - rule: methodDefinition
+        kind: method
+        name: {rule: classElementName}
+        required: true

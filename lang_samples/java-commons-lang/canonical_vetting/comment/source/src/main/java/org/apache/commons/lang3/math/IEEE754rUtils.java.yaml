@@ -1,0 +1,42 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils:
+  digest: sha256:824f3359186c07bd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/constructor/IEEE754rUtils:
+  digest: sha256:1b940f3b8dad4f09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/max:
+  digest: sha256:63db4b4bd6e4f163
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/max#2:
+  digest: sha256:56b7cbd6661428df
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/max#3:
+  digest: sha256:beb31c5d9be2c61d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/max#4:
+  digest: sha256:6257c99dade059c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/max#5:
+  digest: sha256:5e4096d71962b569
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/max#6:
+  digest: sha256:1373e63e1b65a7f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/min:
+  digest: sha256:702d74580d483604
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/min#2:
+  digest: sha256:6906268e4d6788be
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/min#3:
+  digest: sha256:7b6233c41a5c7a8a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/min#4:
+  digest: sha256:63cb8317acd100c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/min#5:
+  digest: sha256:a0857fa47082c7bd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java/package/org.apache.commons.lang3.math/class/IEEE754rUtils/method/min#6:
+  digest: sha256:fd0270a01d12e828
+  verdict: pending

@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/LangCollectors.java/package/org.apache.commons.lang3.stream/class/LangCollectors:
+  digest: sha256:a76adc87697c76a9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/LangCollectors.java/package/org.apache.commons.lang3.stream/class/LangCollectors/class/SimpleCollector:
+  digest: sha256:602e5e97553248bd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/LangCollectors.java/package/org.apache.commons.lang3.stream/class/LangCollectors/method/collect:
+  digest: sha256:65ee1be29b19b632
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/LangCollectors.java/package/org.apache.commons.lang3.stream/class/LangCollectors/method/joining:
+  digest: sha256:12f46909dae9398c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/LangCollectors.java/package/org.apache.commons.lang3.stream/class/LangCollectors/method/joining#2:
+  digest: sha256:0e0800df23fcf1ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/LangCollectors.java/package/org.apache.commons.lang3.stream/class/LangCollectors/method/joining#3:
+  digest: sha256:07c2cb04524d7ac3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/LangCollectors.java/package/org.apache.commons.lang3.stream/class/LangCollectors/method/joining#4:
+  digest: sha256:f94792d11384c98d
+  verdict: pending

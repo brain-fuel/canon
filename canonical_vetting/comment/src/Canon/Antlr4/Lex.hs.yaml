@@ -1,0 +1,39 @@
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex:
+  digest: sha256:4bcb5d58e8085c70
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/Env:
+  digest: sha256:f1c15eb5f831e58d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/HookEffect:
+  digest: sha256:0b276d453f8cb335
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/LexError:
+  digest: sha256:b8fe8591f5298ec2
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/LexerHooks:
+  digest: sha256:cc27ef837fb90793
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/LexerTable:
+  digest: sha256:739ed88f76d21f6f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/SomeHooks:
+  digest: sha256:dc0e986e588bee71
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/buildLexerTable:
+  digest: sha256:b7ee0a793681e98b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/noHooks:
+  digest: sha256:95a9ebea08e73d66
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/propertyMatches:
+  digest: sha256:12ea9c96f2801bda
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/renderLexError:
+  digest: sha256:ff0a15d9c09c255b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/tokenize:
+  digest: sha256:df34b90b04bc5225
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/tokenizeWith:
+  digest: sha256:53ac0f2bfe878171
+  verdict: pending

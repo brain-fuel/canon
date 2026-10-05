@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/util/IterableStringTokenizer.java/package/org.apache.commons.lang3.util/class/IterableStringTokenizer:
+  digest: sha256:d142d792c8555608
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/IterableStringTokenizer.java/package/org.apache.commons.lang3.util/class/IterableStringTokenizer/constructor/IterableStringTokenizer:
+  digest: sha256:22e1b09aae7565ba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/IterableStringTokenizer.java/package/org.apache.commons.lang3.util/class/IterableStringTokenizer/constructor/IterableStringTokenizer#2:
+  digest: sha256:cc95eb2fc7256625
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/IterableStringTokenizer.java/package/org.apache.commons.lang3.util/class/IterableStringTokenizer/constructor/IterableStringTokenizer#3:
+  digest: sha256:8274dc3c65a96e71
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/IterableStringTokenizer.java/package/org.apache.commons.lang3.util/class/IterableStringTokenizer/method/toArray:
+  digest: sha256:d800582a9453f94e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/IterableStringTokenizer.java/package/org.apache.commons.lang3.util/class/IterableStringTokenizer/method/toList:
+  digest: sha256:1471bf1f3367d89a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/IterableStringTokenizer.java/package/org.apache.commons.lang3.util/class/IterableStringTokenizer/method/toStream:
+  digest: sha256:f581e10f03c24f33
+  verdict: pending

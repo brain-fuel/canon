@@ -1,0 +1,18 @@
+decision/haskell/src/Canon/Attach.hs/module/Canon.Attach:
+  digest: sha256:588d1dfa1fc4f8b8
+  verdict: pending
+decision/haskell/src/Canon/Attach.hs/module/Canon.Attach/function/attachPreceding:
+  digest: sha256:55565764837007b0
+  verdict: pending
+decision/haskell/src/Canon/Attach.hs/module/Canon.Attach/function/attachPrecedingBruteForce:
+  digest: sha256:6229b0c76fec79b4
+  verdict: pending
+decision/haskell/src/Canon/Attach.hs/module/Canon.Attach/function/firstContentLine:
+  digest: sha256:b0c5481c554c0eec
+  verdict: pending
+decision/haskell/src/Canon/Attach.hs/module/Canon.Attach/function/precedesImmediately:
+  digest: sha256:a496cf38eec1a140
+  verdict: pending
+decision/haskell/src/Canon/Attach.hs/module/Canon.Attach/function/topOfFileComment:
+  digest: sha256:1f92cb99e369a3e9
+  verdict: pending

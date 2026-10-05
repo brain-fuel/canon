@@ -1,5 +1,7 @@
 -- | Extractions are cached by content so that a second check re-reads only what changed, and the key
--- holds everything that reaches the model so a stale entry cannot lie. ref:DEC-extraction-cache
+-- holds everything that reaches the model so a stale entry cannot lie. A failed parse is cached
+-- too, because a file the grammar rejects is the most expensive parse there is and the answer
+-- does not change until the file or the grammar does. ref:DEC-extraction-cache
 module Canon.Cache
   ( CacheKey (..)
   , cacheDirectoryName
@@ -13,7 +15,7 @@ import Canon.Model (schemaVersion)
 import Canon.Model.Yaml (decodeSorted, encodeSorted)
 import Control.Exception (IOException, try)
 import Crypto.Hash.SHA256 (hashlazy)
-import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.=))
+import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Base16 as Base16
 import qualified Data.ByteString.Lazy as LBS
@@ -34,21 +36,26 @@ cacheDirectoryName = ".canon-cache"
 -- | Digests the parts of a key in order.
 cacheKey :: [LBS.ByteString] -> CacheKey
 cacheKey parts =
-  CacheKey (TE.decodeUtf8 (Base16.encode (hashlazy (LBS.concat (LBS.pack (map (fromIntegral . fromEnum) (show schemaVersion)) : parts)))))
+  CacheKey (TE.decodeUtf8 (Base16.encode (hashlazy (LBS.concat ("extraction-4:" : LBS.pack (map (fromIntegral . fromEnum) (show schemaVersion)) : parts)))))
 
-newtype CachedExtraction = CachedExtraction Extraction
+newtype CachedExtraction = CachedExtraction (Either Text Extraction)
 
 instance ToJSON CachedExtraction where
-  toJSON (CachedExtraction (Extraction model findings)) = object ["findings" .= findings, "model" .= model]
+  toJSON (CachedExtraction (Right (Extraction model findings))) = object ["findings" .= findings, "model" .= model]
+  toJSON (CachedExtraction (Left message)) = object ["failed" .= message]
 
 instance FromJSON CachedExtraction where
-  parseJSON = withObject "CachedExtraction" $ \o -> CachedExtraction <$> (Extraction <$> o .: "model" <*> o .: "findings")
+  parseJSON = withObject "CachedExtraction" $ \o -> do
+    failed <- o .:? "failed"
+    case failed of
+      Just message -> pure (CachedExtraction (Left message))
+      Nothing -> CachedExtraction . Right <$> (Extraction <$> o .: "model" <*> o .: "findings")
 
 cachePath :: FilePath -> CacheKey -> FilePath
 cachePath directory (CacheKey key) = directory </> cacheDirectoryName </> (T.unpack key ++ ".yaml")
 
 -- | Reads an extraction back, treating any unreadable entry as a miss.
-lookupCached :: FilePath -> CacheKey -> IO (Maybe Extraction)
+lookupCached :: FilePath -> CacheKey -> IO (Maybe (Either Text Extraction))
 lookupCached directory key = do
   let path = cachePath directory key
   present <- doesFileExist path
@@ -61,7 +68,7 @@ lookupCached directory key = do
         Right content -> either (const Nothing) (\(CachedExtraction e) -> Just e) (decodeSorted content)
 
 -- | Writes an extraction under its key.
-storeCached :: FilePath -> CacheKey -> Extraction -> IO ()
+storeCached :: FilePath -> CacheKey -> Either Text Extraction -> IO ()
 storeCached directory key extraction = do
   createDirectoryIfMissing True (directory </> cacheDirectoryName)
   result <- try (BS.writeFile (cachePath directory key) (encodeSorted (CachedExtraction extraction)))

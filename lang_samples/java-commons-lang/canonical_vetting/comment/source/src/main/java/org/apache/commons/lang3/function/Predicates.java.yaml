@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Predicates.java/package/org.apache.commons.lang3.function/class/Predicates:
+  digest: sha256:b61b651858a3d652
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Predicates.java/package/org.apache.commons.lang3.function/class/Predicates/constructor/Predicates:
+  digest: sha256:8d130e857dcb3eea
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Predicates.java/package/org.apache.commons.lang3.function/class/Predicates/method/falsePredicate:
+  digest: sha256:3eb637c3640a99d0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Predicates.java/package/org.apache.commons.lang3.function/class/Predicates/method/truePredicate:
+  digest: sha256:c2b28342e7030656
+  verdict: pending

@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/joda/time/base/BaseLocal.java/package/org.joda.time.base/class/BaseLocal:
+  digest: sha256:fbf2812023a971c2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseLocal.java/package/org.joda.time.base/class/BaseLocal/constructor/BaseLocal:
+  digest: sha256:0f4786ce78207bf6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseLocal.java/package/org.joda.time.base/class/BaseLocal/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseLocal.java/package/org.joda.time.base/class/BaseLocal/method/getLocalMillis:
+  digest: sha256:2df1a1503ecfd2f3
+  verdict: pending

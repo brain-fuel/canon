@@ -1,0 +1,12 @@
+decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor:
+  digest: sha256:2a9f52692b0b78b0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/data/AdaptorState:
+  digest: sha256:7ab06187a54f5a39
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/antlrLexerHooks:
+  digest: sha256:b91d4ee164f008f0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/hooksForGrammar:
+  digest: sha256:9495dd6e3e588181
+  verdict: pending

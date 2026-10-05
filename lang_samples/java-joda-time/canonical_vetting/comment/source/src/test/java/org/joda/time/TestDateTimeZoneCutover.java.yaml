@@ -1,0 +1,27 @@
+decision/java/source/src/test/java/org/joda/time/TestDateTimeZoneCutover.java/package/org.joda.time/class/TestDateTimeZoneCutover:
+  digest: sha256:a657a31a0923fb38
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeZoneCutover.java/package/org.joda.time/class/TestDateTimeZoneCutover/field/CUTOVER_GAZA:
+  digest: sha256:132e3f36fd8f05f1
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeZoneCutover.java/package/org.joda.time/class/TestDateTimeZoneCutover/field/CUTOVER_GUATEMALA_AUTUMN:
+  digest: sha256:eca52cebcfd060c1
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeZoneCutover.java/package/org.joda.time/class/TestDateTimeZoneCutover/field/CUTOVER_MOSCOW_AUTUMN:
+  digest: sha256:bcf835783ab62bdd
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeZoneCutover.java/package/org.joda.time/class/TestDateTimeZoneCutover/field/CUTOVER_MOSCOW_SPRING:
+  digest: sha256:ee8f32d9daee67f3
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeZoneCutover.java/package/org.joda.time/class/TestDateTimeZoneCutover/field/CUTOVER_NEW_YORK_AUTUMN:
+  digest: sha256:bac1df26d7a84d3c
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeZoneCutover.java/package/org.joda.time/class/TestDateTimeZoneCutover/field/CUTOVER_NEW_YORK_SPRING:
+  digest: sha256:800e344fcf522bb2
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeZoneCutover.java/package/org.joda.time/class/TestDateTimeZoneCutover/field/CUTOVER_RIO_BRANCO_AUTUMN:
+  digest: sha256:96fc7564f1519116
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeZoneCutover.java/package/org.joda.time/class/TestDateTimeZoneCutover/field/CUTOVER_TURK:
+  digest: sha256:2eb14a205f378204
+  verdict: pending

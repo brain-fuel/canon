@@ -1,0 +1,30 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat:
+  digest: sha256:58e1552a43fabba7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat/constructor/CompositeFormat:
+  digest: sha256:e9706a83305ca5fc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat/field/formatter:
+  digest: sha256:d68c038f6029a259
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat/field/parser:
+  digest: sha256:04c8558ebfa767f4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat/method/format:
+  digest: sha256:cbfe6040e610e81b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat/method/getFormatter:
+  digest: sha256:a77d2e4397fe7775
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat/method/getParser:
+  digest: sha256:6eda8265e29e959c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat/method/parseObject:
+  digest: sha256:289d6ccf8f62b1b5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/CompositeFormat.java/package/org.apache.commons.lang3.text/class/CompositeFormat/method/reformat:
+  digest: sha256:08ac1958b8bec0a3
+  verdict: pending

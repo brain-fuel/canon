@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/joda/time/tz/TestFixedDateTimeZone.java/package/org.joda.time.tz/class/TestFixedDateTimeZone:
+  digest: sha256:8efd4f5cf54b95db
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/tz/TestFixedDateTimeZone.java/package/org.joda.time.tz/class/TestFixedDateTimeZone/method/getOffset:
+  digest: sha256:e8ab7cb43432fabb
+  verdict: pending

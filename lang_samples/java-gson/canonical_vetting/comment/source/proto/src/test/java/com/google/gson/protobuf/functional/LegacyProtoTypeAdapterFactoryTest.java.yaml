@@ -1,0 +1,30 @@
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/field/TRANSIENT_FIELDS:
+  digest: sha256:1932ece32b8f8f0b
+  verdict: pending
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/method/legacyCompatOutputsSameJsonAsRtaf:
+  digest: sha256:5fe030fde94b6d24
+  verdict: pending
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/method/legacyCompatToRtaf:
+  digest: sha256:a62f27eb45997116
+  verdict: pending
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/method/legacyCompatToRtafWithTargetTypeMessage:
+  digest: sha256:e887ee0df4ede7d8
+  verdict: pending
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/method/legacyCompat_canOnlyDeserializeStringOneof:
+  digest: sha256:1047db1d56a7f3d4
+  verdict: pending
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/method/legacyCompat_serializeOneof:
+  digest: sha256:27e2ab3d201f3191
+  verdict: pending
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/method/rtafToLegacyCompat:
+  digest: sha256:a4b7e1e818d0c917
+  verdict: pending
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/method/rtafToLegacyCompatWithTargetTypeMessage:
+  digest: sha256:b5ef5ae22b4d0f87
+  verdict: pending
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/method/rtaf_cannotDeserializeOneof:
+  digest: sha256:b075c90be9bf536a
+  verdict: pending
+decision/java/source/proto/src/test/java/com/google/gson/protobuf/functional/LegacyProtoTypeAdapterFactoryTest.java/package/com.google.gson.protobuf.functional/class/LegacyProtoTypeAdapterFactoryTest/method/serializeMap:
+  digest: sha256:aa88826fa63b158c
+  verdict: pending

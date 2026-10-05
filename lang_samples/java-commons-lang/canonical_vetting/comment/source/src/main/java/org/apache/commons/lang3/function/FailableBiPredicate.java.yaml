@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java/package/org.apache.commons.lang3.function/interface/FailableBiPredicate:
+  digest: sha256:ee7bb2f315b7a123
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java/package/org.apache.commons.lang3.function/interface/FailableBiPredicate/constant/FALSE:
+  digest: sha256:65f9c7f2224f902f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java/package/org.apache.commons.lang3.function/interface/FailableBiPredicate/constant/TRUE:
+  digest: sha256:aaa0a653ec960fde
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java/package/org.apache.commons.lang3.function/interface/FailableBiPredicate/method/and:
+  digest: sha256:a60afe6ddc7ce61f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java/package/org.apache.commons.lang3.function/interface/FailableBiPredicate/method/falsePredicate:
+  digest: sha256:6f7bd8a9cce67c5d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java/package/org.apache.commons.lang3.function/interface/FailableBiPredicate/method/negate:
+  digest: sha256:4ead07d2f0bb127b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java/package/org.apache.commons.lang3.function/interface/FailableBiPredicate/method/or:
+  digest: sha256:2e90b871bbd2690d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java/package/org.apache.commons.lang3.function/interface/FailableBiPredicate/method/test:
+  digest: sha256:80a9d49302770380
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java/package/org.apache.commons.lang3.function/interface/FailableBiPredicate/method/truePredicate:
+  digest: sha256:c1a1db8318600e25
+  verdict: pending

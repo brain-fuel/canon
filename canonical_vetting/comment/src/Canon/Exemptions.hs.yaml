@@ -1,0 +1,30 @@
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions:
+  digest: sha256:b6edcd17c5d1ced7
+  verdict: pending
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions/data/Exemption:
+  digest: sha256:193057372a509fe8
+  verdict: pending
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions/data/ExemptionsError:
+  digest: sha256:6d0459fbd5b78737
+  verdict: pending
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions/function/emptyExemptions:
+  digest: sha256:5b041095885de06b
+  verdict: pending
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions/function/exemptionFindings:
+  digest: sha256:26fcb3b99f97b319
+  verdict: pending
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions/function/exemptionFor:
+  digest: sha256:8a4598c108f02df3
+  verdict: pending
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions/function/readExemptionsFile:
+  digest: sha256:ace08b70816b2136
+  verdict: pending
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions/function/renderExemptionsError:
+  digest: sha256:9fd7413543154844
+  verdict: pending
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions/function/revisitLines:
+  digest: sha256:bfbfc405589272a8
+  verdict: pending
+decision/haskell/src/Canon/Exemptions.hs/module/Canon.Exemptions/newtype/Exemptions:
+  digest: sha256:c9b9c41870ae793b
+  verdict: pending

@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/joda/time/format/PeriodPrinter.java/package/org.joda.time.format/interface/PeriodPrinter:
+  digest: sha256:d6d4b1a994a94982
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodPrinter.java/package/org.joda.time.format/interface/PeriodPrinter/method/calculatePrintedLength:
+  digest: sha256:d289f35b2b4b0ddf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodPrinter.java/package/org.joda.time.format/interface/PeriodPrinter/method/countFieldsToPrint:
+  digest: sha256:1e4b213c0070bdb4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodPrinter.java/package/org.joda.time.format/interface/PeriodPrinter/method/printTo:
+  digest: sha256:8235211193572d2d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodPrinter.java/package/org.joda.time.format/interface/PeriodPrinter/method/printTo#2:
+  digest: sha256:0ee56351bc99dce1
+  verdict: pending

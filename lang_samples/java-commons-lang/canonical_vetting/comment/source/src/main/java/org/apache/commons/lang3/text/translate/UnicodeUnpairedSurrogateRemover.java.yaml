@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeUnpairedSurrogateRemover.java/package/org.apache.commons.lang3.text.translate/class/UnicodeUnpairedSurrogateRemover:
+  digest: sha256:b447a9fa26ec37ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeUnpairedSurrogateRemover.java/package/org.apache.commons.lang3.text.translate/class/UnicodeUnpairedSurrogateRemover/constructor/UnicodeUnpairedSurrogateRemover:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeUnpairedSurrogateRemover.java/package/org.apache.commons.lang3.text.translate/class/UnicodeUnpairedSurrogateRemover/method/translate:
+  digest: sha256:2bb0c61695576503
+  verdict: pending

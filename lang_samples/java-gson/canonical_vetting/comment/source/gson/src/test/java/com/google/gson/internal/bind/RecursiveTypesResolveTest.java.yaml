@@ -1,0 +1,12 @@
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/RecursiveTypesResolveTest.java/package/com.google.gson.internal.bind/class/RecursiveTypesResolveTest:
+  digest: sha256:25ee998500263b3c
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/RecursiveTypesResolveTest.java/package/com.google.gson.internal.bind/class/RecursiveTypesResolveTest/class/TestType:
+  digest: sha256:cb9e9e11cb301331
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/RecursiveTypesResolveTest.java/package/com.google.gson.internal.bind/class/RecursiveTypesResolveTest/method/testDoubleSupertype:
+  digest: sha256:1369b59d82455596
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/RecursiveTypesResolveTest.java/package/com.google.gson.internal.bind/class/RecursiveTypesResolveTest/method/testRecursiveResolveSimple:
+  digest: sha256:d7047119e854c1b6
+  verdict: pending

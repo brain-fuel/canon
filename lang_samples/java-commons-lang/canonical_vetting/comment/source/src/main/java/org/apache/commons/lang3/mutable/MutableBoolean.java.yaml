@@ -1,0 +1,57 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean:
+  digest: sha256:edf9691ed5c8cc29
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/constructor/MutableBoolean:
+  digest: sha256:f2bf462f68ad6ece
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/constructor/MutableBoolean#2:
+  digest: sha256:be1a3f9d17b91897
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/constructor/MutableBoolean#3:
+  digest: sha256:e72601f7b1831fd9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/field/value:
+  digest: sha256:aeb04f8f0a2f3660
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/booleanValue:
+  digest: sha256:076413e8fa3083b1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/compareTo:
+  digest: sha256:b6831244714ee895
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/equals:
+  digest: sha256:90b219a2199e4005
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/getValue:
+  digest: sha256:09cee2637a8cfffa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/hashCode:
+  digest: sha256:3351245181db44ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/isFalse:
+  digest: sha256:529d82895aaad19c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/isTrue:
+  digest: sha256:1447a2f31097e3d6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/setFalse:
+  digest: sha256:60589fa3d3a7b25b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/setTrue:
+  digest: sha256:0a1e522a563c0b39
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/setValue:
+  digest: sha256:eff23725ce4f1fe4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/setValue#2:
+  digest: sha256:fe8bc584e76c910f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/toBoolean:
+  digest: sha256:c014f56b25dbb000
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java/package/org.apache.commons.lang3.mutable/class/MutableBoolean/method/toString:
+  digest: sha256:4c3968c8eda676a5
+  verdict: pending

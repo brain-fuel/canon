@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrLookupTest.java/package/org.apache.commons.lang3.text/class/StrLookupTest:
+  digest: sha256:33b3f591d0e140cb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrLookupTest.java/package/org.apache.commons.lang3.text/class/StrLookupTest/method/testSystemPropertiesLookupReplacedProperties:
+  digest: sha256:8a560813335c7975
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrLookupTest.java/package/org.apache.commons.lang3.text/class/StrLookupTest/method/testSystemPropertiesLookupUpdatedProperty:
+  digest: sha256:d7154f54c325b7fe
+  verdict: pending

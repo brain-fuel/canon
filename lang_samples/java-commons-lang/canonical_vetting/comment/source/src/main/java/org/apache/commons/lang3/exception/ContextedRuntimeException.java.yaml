@@ -1,0 +1,51 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException:
+  digest: sha256:fac182da905a9aae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/constructor/ContextedRuntimeException:
+  digest: sha256:797fa14423b0a98b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/constructor/ContextedRuntimeException#2:
+  digest: sha256:7e1e15050b6f22bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/constructor/ContextedRuntimeException#3:
+  digest: sha256:7db796d265f58f16
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/constructor/ContextedRuntimeException#4:
+  digest: sha256:dd6e980357a8a6fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/constructor/ContextedRuntimeException#5:
+  digest: sha256:df7b3f210acd7f1d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/field/exceptionContext:
+  digest: sha256:2c8541af7c41fc75
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/field/serialVersionUID:
+  digest: sha256:5698ddfa976b09b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/method/addContextValue:
+  digest: sha256:58c8c3606edda898
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/method/getContextEntries:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/method/getContextLabels:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/method/getContextValues:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/method/getFirstContextValue:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/method/getFormattedExceptionMessage:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/method/getMessage:
+  digest: sha256:51aec77569c07451
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/method/getRawMessage:
+  digest: sha256:94bb2fe987fb4dae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java/package/org.apache.commons.lang3.exception/class/ContextedRuntimeException/method/setContextValue:
+  digest: sha256:53ac3ad55076603c
+  verdict: pending

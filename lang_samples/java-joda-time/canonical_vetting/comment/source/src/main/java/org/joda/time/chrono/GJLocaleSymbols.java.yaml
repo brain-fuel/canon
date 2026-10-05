@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/joda/time/chrono/GJLocaleSymbols.java/package/org.joda.time.chrono/class/GJLocaleSymbols:
+  digest: sha256:7101679dbff2bed1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJLocaleSymbols.java/package/org.joda.time.chrono/class/GJLocaleSymbols/constructor/GJLocaleSymbols:
+  digest: sha256:d3a291f66477d64d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJLocaleSymbols.java/package/org.joda.time.chrono/class/GJLocaleSymbols/method/forLocale:
+  digest: sha256:344e2e1227742e74
+  verdict: pending

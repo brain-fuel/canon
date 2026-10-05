@@ -1,0 +1,4 @@
+turbine-upstream:
+  kind: package
+  title: Turbine, a testing library for kotlinx.coroutines Flow
+  locator: https://github.com/cashapp/turbine

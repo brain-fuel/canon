@@ -1,0 +1,57 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest:
+  digest: sha256:f0a3fd2b34f5c0bf
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableBiConsumer_Object_Throwable:
+  digest: sha256:8d2ffe53ebedc6fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableBiConsumer_String_IOException:
+  digest: sha256:0eaa8a627d41524f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableBiFunction_Object_Throwable:
+  digest: sha256:8d2ffe53ebedc6fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableBiFunction_String_IOException:
+  digest: sha256:0eaa8a627d41524f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableBiPredicate_Object_Throwable:
+  digest: sha256:8d2ffe53ebedc6fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableBiPredicate_String_IOException:
+  digest: sha256:0eaa8a627d41524f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableCallable_Object_Throwable:
+  digest: sha256:8d2ffe53ebedc6fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableCallable_String_IOException:
+  digest: sha256:0eaa8a627d41524f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableConsumer_Object_Throwable:
+  digest: sha256:8d2ffe53ebedc6fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableConsumer_String_IOException:
+  digest: sha256:0eaa8a627d41524f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableFunction_Object_Throwable:
+  digest: sha256:8d2ffe53ebedc6fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableFunction_String_IOException:
+  digest: sha256:0eaa8a627d41524f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailablePredicate_Object_Throwable:
+  digest: sha256:8d2ffe53ebedc6fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailablePredicate_String_IOException:
+  digest: sha256:0eaa8a627d41524f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableRunnable_Object_Throwable:
+  digest: sha256:8d2ffe53ebedc6fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableRunnable_String_IOException:
+  digest: sha256:0eaa8a627d41524f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableSupplier_Object_Throwable:
+  digest: sha256:8d2ffe53ebedc6fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/FunctionsTest.java/package/org.apache.commons.lang3/class/FunctionsTest/method/testThrows_FailableSupplier_String_IOException:
+  digest: sha256:0eaa8a627d41524f
+  verdict: pending

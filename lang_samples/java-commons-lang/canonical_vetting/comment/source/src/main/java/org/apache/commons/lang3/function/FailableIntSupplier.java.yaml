@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntSupplier.java/package/org.apache.commons.lang3.function/interface/FailableIntSupplier:
+  digest: sha256:874673e3cce56411
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntSupplier.java/package/org.apache.commons.lang3.function/interface/FailableIntSupplier/method/getAsInt:
+  digest: sha256:ca952a12c6df76f1
+  verdict: pending

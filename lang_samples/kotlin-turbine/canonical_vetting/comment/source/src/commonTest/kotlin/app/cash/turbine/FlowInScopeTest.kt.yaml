@@ -1,0 +1,15 @@
+decision/kotlin/source/src/commonTest/kotlin/app/cash/turbine/FlowInScopeTest.kt/class/FlowInScopeTest/function/unconsumedCompleteThrows/property/exceptionHandler:
+  digest: sha256:1f8e4e1c2f2ffe27
+  verdict: pending
+decision/kotlin/source/src/commonTest/kotlin/app/cash/turbine/FlowInScopeTest.kt/class/FlowInScopeTest/function/unconsumedErrorThrows/property/exceptionHandler:
+  digest: sha256:1f8e4e1c2f2ffe27
+  verdict: pending
+decision/kotlin/source/src/commonTest/kotlin/app/cash/turbine/FlowInScopeTest.kt/class/FlowInScopeTest/function/unconsumedItemThrows/property/exceptionHandler:
+  digest: sha256:1f8e4e1c2f2ffe27
+  verdict: pending
+decision/kotlin/source/src/commonTest/kotlin/app/cash/turbine/FlowInScopeTest.kt/class/FlowInScopeTest/function/unconsumedItemThrowsWhenCancelledExternally/property/exceptionHandler:
+  digest: sha256:1f8e4e1c2f2ffe27
+  verdict: pending
+decision/kotlin/source/src/commonTest/kotlin/app/cash/turbine/FlowInScopeTest.kt/class/FlowInScopeTest/function/unconsumedItemThrowsWithName/property/exceptionHandler:
+  digest: sha256:1f8e4e1c2f2ffe27
+  verdict: pending

@@ -1,0 +1,18 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/DiffBuilderTest.java/package/org.apache.commons.lang3.builder/class/DiffBuilderTest:
+  digest: sha256:267dbbe9c7c0dbb7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/DiffBuilderTest.java/package/org.apache.commons.lang3.builder/class/DiffBuilderTest/class/NestedTypeTestClass:
+  digest: sha256:493111b411ce4a77
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/DiffBuilderTest.java/package/org.apache.commons.lang3.builder/class/DiffBuilderTest/class/TypeTestClass:
+  digest: sha256:493111b411ce4a77
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/DiffBuilderTest.java/package/org.apache.commons.lang3.builder/class/DiffBuilderTest/method/testObjectsNotSameButEqual:
+  digest: sha256:6641f2cb1730d184
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/DiffBuilderTest.java/package/org.apache.commons.lang3.builder/class/DiffBuilderTest/method/testObjectsNotSameNorEqual:
+  digest: sha256:28e0dbb129863d0d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/DiffBuilderTest.java/package/org.apache.commons.lang3.builder/class/DiffBuilderTest/method/testObjectsSameAndEqual:
+  digest: sha256:e0f9534daee42aec
+  verdict: pending

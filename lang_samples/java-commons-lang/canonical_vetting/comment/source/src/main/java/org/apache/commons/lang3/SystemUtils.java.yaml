@@ -1,0 +1,462 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils:
+  digest: sha256:88c5940c87a35d24
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/constructor/SystemUtils:
+  digest: sha256:c611dad9313cb8b0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/AWT_TOOLKIT:
+  digest: sha256:d55ccf27f2247755
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/FILE_ENCODING:
+  digest: sha256:765f8c43b80ad0bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/FILE_SEPARATOR:
+  digest: sha256:eb6592b2c6ad0601
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_10:
+  digest: sha256:0c9e585ad57db5a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_11:
+  digest: sha256:cdfcef6cea224ddf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_12:
+  digest: sha256:59039d5c4056a96d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_13:
+  digest: sha256:c0596ea137ac3507
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_14:
+  digest: sha256:9bfb51d110fb7ace
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_15:
+  digest: sha256:6cd07fc6555c1c69
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_16:
+  digest: sha256:20c245b02b8c8f1f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_17:
+  digest: sha256:97c4c8fc5f7d09bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_18:
+  digest: sha256:2d60a4eaf7239ba7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_19:
+  digest: sha256:e17aab496a197d3c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_1_1:
+  digest: sha256:a1f0db9741741481
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_1_2:
+  digest: sha256:c9d6b5dd3653d1d9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_1_3:
+  digest: sha256:7f7c5040fc2f2b3c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_1_4:
+  digest: sha256:cd052926c628ecf1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_1_5:
+  digest: sha256:f63b63059b275deb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_1_6:
+  digest: sha256:8d679ad4a3479ca7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_1_7:
+  digest: sha256:caa7ba51315c810f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_1_8:
+  digest: sha256:04157419df74364b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_1_9:
+  digest: sha256:4b8c5fd92bf75457
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_20:
+  digest: sha256:610f48b44a077f14
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_21:
+  digest: sha256:3fad7f3955f23d83
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_22:
+  digest: sha256:ee8d3a9868eceabf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_23:
+  digest: sha256:191fb239410ef415
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_24:
+  digest: sha256:d252bf95dd839c42
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_25:
+  digest: sha256:6076e923a06b9355
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_26:
+  digest: sha256:a42b053ff910d65a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_27:
+  digest: sha256:e5a978b1fc3c9641
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_JAVA_9:
+  digest: sha256:6ab9bbf2e75a2247
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_400:
+  digest: sha256:65fab4e6d6acfa9b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_AIX:
+  digest: sha256:68ad516356ffb2c5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_ANDROID:
+  digest: sha256:2ac48b479b4f23fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_FREE_BSD:
+  digest: sha256:54f5f9b4c24b202d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_HP_UX:
+  digest: sha256:2d19581a8e99d2e8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_IRIX:
+  digest: sha256:07283b2b21ee9726
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_LINUX:
+  digest: sha256:3689afe63e6b419f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC:
+  digest: sha256:0b88729d90ad5218
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX:
+  digest: sha256:0b88729d90ad5218
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_BIG_SUR:
+  digest: sha256:a554ea48cb762588
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_CATALINA:
+  digest: sha256:f05783d7584a08bf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_CHEETAH:
+  digest: sha256:1ee39b5e4aab2711
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_EL_CAPITAN:
+  digest: sha256:21d41d8af028e45f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_HIGH_SIERRA:
+  digest: sha256:8b8a3ab5f2193d8e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_JAGUAR:
+  digest: sha256:73ec48ee6bb4b088
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_LEOPARD:
+  digest: sha256:c9858a1d21c5cb30
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_LION:
+  digest: sha256:352a6400c890edb4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_MAVERICKS:
+  digest: sha256:81ce768aee4f18ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_MOJAVE:
+  digest: sha256:36ddc8a3b5d4db44
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_MONTEREY:
+  digest: sha256:7ece73914d3516c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_MOUNTAIN_LION:
+  digest: sha256:e3836c782ff4ab4b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_PANTHER:
+  digest: sha256:6e1653ba2350c578
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_PUMA:
+  digest: sha256:58ae47c53ec2ee05
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_SEQUOIA:
+  digest: sha256:cd99db5e93250992
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_SIERRA:
+  digest: sha256:5e8d7af9ff3e970b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_SNOW_LEOPARD:
+  digest: sha256:dd3780b1e5d60b6a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_SONOMA:
+  digest: sha256:e483845006743d03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_TIGER:
+  digest: sha256:9c5be518287b4ea4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_VENTURA:
+  digest: sha256:be5bcf8d33ce2d09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_MAC_OSX_YOSEMITE:
+  digest: sha256:6b59e468fc7a885e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_NETWARE:
+  digest: sha256:0dfe632a927ddfd7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_NET_BSD:
+  digest: sha256:73716ff3b9529e90
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_OPEN_BSD:
+  digest: sha256:321125f04a857ef0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_OS2:
+  digest: sha256:fb5042c7fea5f039
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_SOLARIS:
+  digest: sha256:1ad109a68816d350
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_SUN_OS:
+  digest: sha256:73a21dc85b99d930
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_UNIX:
+  digest: sha256:82d6065d046d5f25
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS:
+  digest: sha256:f93f0ab32aa0e59e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_10:
+  digest: sha256:f51178c5ae97ef1a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_11:
+  digest: sha256:276741d564d5fa7a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_2000:
+  digest: sha256:f3d5e7387c014014
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_2003:
+  digest: sha256:b3ca037694af078d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_2008:
+  digest: sha256:3cb479a6898e4fd7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_2012:
+  digest: sha256:3843ebbff1ab4768
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_7:
+  digest: sha256:b2ac186a1d87016f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_8:
+  digest: sha256:ce83911adefae158
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_95:
+  digest: sha256:f6a1043b4c562e12
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_98:
+  digest: sha256:427b5dc2c78c59a7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_ME:
+  digest: sha256:47fc1f12148b4ed6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_NT:
+  digest: sha256:79a69dde5936348d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_VISTA:
+  digest: sha256:d3dea6769d90a884
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_WINDOWS_XP:
+  digest: sha256:a385dd11262e5ed1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/IS_OS_ZOS:
+  digest: sha256:6ca0848a8358caba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_AWT_FONTS:
+  digest: sha256:6860152d018a267d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_AWT_GRAPHICSENV:
+  digest: sha256:93a673dfa9078358
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_AWT_HEADLESS:
+  digest: sha256:5c47ea2ad19a3ee6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_AWT_PRINTERJOB:
+  digest: sha256:82e5657e9b6a6df7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_CLASS_PATH:
+  digest: sha256:124fc3a26046e847
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_CLASS_VERSION:
+  digest: sha256:dbc27a60ee58fd62
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_COMPILER:
+  digest: sha256:3c7771e7f42a0f76
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_ENDORSED_DIRS:
+  digest: sha256:93dfacd1040cdcd9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_EXT_DIRS:
+  digest: sha256:ba857350decc0759
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_HOME:
+  digest: sha256:ac6768610eb46989
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_HOME_KEY:
+  digest: sha256:75b3a7be55a2bebc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_IO_TMPDIR:
+  digest: sha256:309eb2723108a9b5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_IO_TMPDIR_KEY:
+  digest: sha256:a991e906e683377e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_LIBRARY_PATH:
+  digest: sha256:e6fffc474059bc81
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_RUNTIME_NAME:
+  digest: sha256:bc099070d7aca061
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_RUNTIME_VERSION:
+  digest: sha256:7effc5a9c6d86aa3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_SPECIFICATION_NAME:
+  digest: sha256:519ef0e267c45394
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_SPECIFICATION_VENDOR:
+  digest: sha256:d61e8fb30b1d3966
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_SPECIFICATION_VERSION:
+  digest: sha256:3e77cabe9a4e7646
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_SPECIFICATION_VERSION_ENUM:
+  digest: sha256:fc76482567aa37b5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_UTIL_PREFS_PREFERENCES_FACTORY:
+  digest: sha256:749130a56d898b2c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VENDOR:
+  digest: sha256:d769314c2f4d5b7e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VENDOR_URL:
+  digest: sha256:f84ffabf4eab1969
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VERSION:
+  digest: sha256:f76efbf2382fc674
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VM_INFO:
+  digest: sha256:75eff603fb46b3cc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VM_NAME:
+  digest: sha256:79e3ad87e9f381c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VM_SPECIFICATION_NAME:
+  digest: sha256:992174f1b7d4ca7b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VM_SPECIFICATION_VENDOR:
+  digest: sha256:cb8570ab6520c72a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VM_SPECIFICATION_VERSION:
+  digest: sha256:b7b5710302fda1f1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VM_VENDOR:
+  digest: sha256:7b3a7c1bc95032d0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/JAVA_VM_VERSION:
+  digest: sha256:2d1de9f1cb205197
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/LINE_SEPARATOR:
+  digest: sha256:d62d2af64e8f7412
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/OS_ARCH:
+  digest: sha256:9745dcebe920b4bf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/OS_NAME:
+  digest: sha256:fc631e38da67f812
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/OS_NAME_WINDOWS_PREFIX:
+  digest: sha256:68c15aa5b9292d5c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/OS_VERSION:
+  digest: sha256:8388340d7280099f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/PATH_SEPARATOR:
+  digest: sha256:731386b1d132dbaa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/USER_COUNTRY:
+  digest: sha256:f823f87eb355320f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/USER_DIR:
+  digest: sha256:c71b91f9d865943f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/USER_DIR_KEY:
+  digest: sha256:81618ce8696b4fcf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/USER_HOME:
+  digest: sha256:9aed1807047e74b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/USER_HOME_KEY:
+  digest: sha256:b2bfc0a159bdd20f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/USER_LANGUAGE:
+  digest: sha256:b416ae4485d04d22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/USER_NAME:
+  digest: sha256:c240d07e27ddf28e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/USER_NAME_KEY:
+  digest: sha256:23a05bd7cfa33570
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/field/USER_TIMEZONE:
+  digest: sha256:26df5b14fcce02fc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getEnvironmentVariable:
+  digest: sha256:39687e0c67f1aa1d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getHostName:
+  digest: sha256:d71f7cbaeedfdc7e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getJavaHome:
+  digest: sha256:7d7c47ede424d6cf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getJavaHomePath:
+  digest: sha256:0b4d4e88684ce5ea
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getJavaIoTmpDir:
+  digest: sha256:66b73d0294bb59c3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getJavaIoTmpDirPath:
+  digest: sha256:5dbeeb37a0a8c23e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getJavaVersionMatches:
+  digest: sha256:522092934951b9e6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getOsMatches:
+  digest: sha256:a65cb0266dc22f9f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getOsNameMatches:
+  digest: sha256:0a7667daf7583874
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getUserDir:
+  digest: sha256:a177234a73690e77
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getUserDirPath:
+  digest: sha256:3a02d05152158b29
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getUserHome:
+  digest: sha256:a1121f254346cd8c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getUserHomePath:
+  digest: sha256:cf4c253678a11b14
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getUserName:
+  digest: sha256:9b9719eec7b5efe8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/getUserName#2:
+  digest: sha256:d8cf0d9d378b23fc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/isJavaAwtHeadless:
+  digest: sha256:5b3476d03b389b46
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/isJavaVersionAtLeast:
+  digest: sha256:a44d54863e7b68c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/isJavaVersionAtMost:
+  digest: sha256:5290e37ca7f492fa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/isJavaVersionMatch:
+  digest: sha256:8d9426b03098ce0a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/isOsMatch:
+  digest: sha256:c42c6418824137ba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/isOsNameMatch:
+  digest: sha256:fc0ccd3f8fd0ea09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemUtils.java/package/org.apache.commons.lang3/class/SystemUtils/method/isOsVersionMatch:
+  digest: sha256:2123287e2c5bb612
+  verdict: pending

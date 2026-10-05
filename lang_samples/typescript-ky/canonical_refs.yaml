@@ -1,0 +1,4 @@
+ky-upstream:
+  kind: package
+  title: ky, a tiny HTTP client based on fetch
+  locator: https://github.com/sindresorhus/ky

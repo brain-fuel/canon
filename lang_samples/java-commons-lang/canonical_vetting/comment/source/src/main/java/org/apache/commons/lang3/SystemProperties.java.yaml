@@ -1,0 +1,1194 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties:
+  digest: sha256:4e85480d3f03df20
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/constructor/SystemProperties:
+  digest: sha256:1b940f3b8dad4f09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/APPLE_AWT_ENABLE_TEMPLATE_IMAGES:
+  digest: sha256:f0baf06a3e49efe6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/AWT_TOOLKIT:
+  digest: sha256:7966b5f50bf74d22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/COM_SUN_JNDI_LDAP_OBJECT_TRUST_SERIAL_DATA:
+  digest: sha256:f6bec0ec02de23a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/COM_SUN_NET_HTTP_SERVER_HTTP_SERVER_PROVIDER:
+  digest: sha256:9778e8aa658eb48d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/FILE_ENCODING:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/FILE_SEPARATOR:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/FTP_NON_PROXY_HOST:
+  digest: sha256:2efff7427e7a1aca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/FTP_PROXY_HOST:
+  digest: sha256:1ff5341f68226999
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/FTP_PROXY_PORT:
+  digest: sha256:7839c87fcb3e7887
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTPS_PROXY_HOST:
+  digest: sha256:54685212db26c10c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTPS_PROXY_PORT:
+  digest: sha256:345c0b17d3df679e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_AGENT:
+  digest: sha256:980aa9541fe6ef51
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_AUTH_DIGEST_CNONCE_REPEAT:
+  digest: sha256:07dfe3bb6e587cdb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_AUTH_DIGEST_RE_ENABLED_ALGORITHMS:
+  digest: sha256:e52adf65d2564731
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_AUTH_DIGEST_VALIDATE_PROXY:
+  digest: sha256:2ed0af89af46a81d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_AUTH_DIGEST_VALIDATE_SERVER:
+  digest: sha256:b22d97abd6d3db48
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_AUTH_NTLM_DOMAIN:
+  digest: sha256:54f5d549aadf3c5c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_KEEP_ALIVE:
+  digest: sha256:94e524de83b7a764
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_KEEP_ALIVE_TIME_PROXY:
+  digest: sha256:f805df6155ac825c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_KEEP_ALIVE_TIME_SERVER:
+  digest: sha256:3c405694ced1f212
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_MAX_CONNECTIONS:
+  digest: sha256:d55b79582ecbb94a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_MAX_REDIRECTS:
+  digest: sha256:5b7190d08ad3b6bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_NON_PROXY_HOSTS:
+  digest: sha256:acda6ee60c24009f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_PROXY_HOST:
+  digest: sha256:4e6d30066107ea0c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/HTTP_PROXY_PORT:
+  digest: sha256:16ae95bfea1ab2a0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVAX_ACCESSIBILITY_ASSISTIVE_TECHNOLOGIES:
+  digest: sha256:7e89f7ff1bccfc63
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVAX_NET_SSL_SESSION_CACHE_SIZE:
+  digest: sha256:599345fc785da19d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVAX_RMI_SSL_CLIENT_ENABLED_CIPHER_SUITES:
+  digest: sha256:f387365779c5455c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVAX_RMI_SSL_CLIENT_ENABLED_PROTOCOLS:
+  digest: sha256:c1c1f611f9fe5bbd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVAX_SECURITY_AUTH_USE_SUBJECT_CREDS_ONLY:
+  digest: sha256:14a9f2f35b9ada7e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVAX_SMART_CARD_IO_TERMINAL_FACTORY_DEFAULT_TYPE:
+  digest: sha256:f598cdcc046c47b5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_AWT_FONTS:
+  digest: sha256:7966b5f50bf74d22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_AWT_GRAPHICSENV:
+  digest: sha256:7966b5f50bf74d22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_AWT_HEADLESS:
+  digest: sha256:7966b5f50bf74d22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_AWT_PRINTERJOB:
+  digest: sha256:7966b5f50bf74d22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_CLASS_PATH:
+  digest: sha256:7aeb91c42153e58c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_CLASS_VERSION:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_COMPILER:
+  digest: sha256:e8d364eb1a68405e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_CONTENT_HANDLER_PKGS:
+  digest: sha256:9aaeb83348feb95d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_ENDORSED_DIRS:
+  digest: sha256:7966b5f50bf74d22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_EXT_DIRS:
+  digest: sha256:7966b5f50bf74d22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_HOME:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_IO_TMPDIR:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_LIBRARY_PATH:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_LOCALE_PROVIDERS:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_LOCALE_USE_OLD_ISO_CODES:
+  digest: sha256:5628620ec9e2a69f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NET_PREFER_IPV4_STACK:
+  digest: sha256:a224c108fb8e52a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NET_PREFER_IPV6_ADDRESSES:
+  digest: sha256:2ed7060ba95fe4cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NET_SOCKS_PASSWORD:
+  digest: sha256:bb697faca22600ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NET_SOCKS_USER_NAME:
+  digest: sha256:ecc955921b85f774
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NET_USE_SYSTEM_PROXIES:
+  digest: sha256:bd38d08649c9a16a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NIO_CHANNELS_DEFAULT_THREAD_POOL_INITIAL_SIZE:
+  digest: sha256:9bdf0e0dafae0711
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NIO_CHANNELS_DEFAULT_THREAD_POOL_THREAD_FACTORY:
+  digest: sha256:3a92eba1bfb2ee4a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NIO_CHANNELS_SPI_ASYNCHRONOUS_CHANNEL_PROVIDER:
+  digest: sha256:9bdf0e0dafae0711
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NIO_CHANNELS_SPI_SELECTOR_PROVIDER:
+  digest: sha256:2e2380258f818f77
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_NIO_FILE_SPI_DEFAULT_FILE_SYSTEM_PROVIDER:
+  digest: sha256:b1da271349f6d63c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_PROPERTIES_DATE:
+  digest: sha256:d5f76f50f7ab5c8b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_PROTOCOL_HANDLER_PKGS:
+  digest: sha256:780eae4ff6011a71
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_RMI_SERVER_CODEBASE:
+  digest: sha256:2c8a1aaf04e6e693
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_RMI_SERVER_HOST_NAME:
+  digest: sha256:e8217a3d868148b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_RMI_SERVER_RANDOM_IDS:
+  digest: sha256:e18b14684aba3d82
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_RMI_SERVER_RMI_CLASS_LOADER_SPI:
+  digest: sha256:badbd556d7b1a381
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_RUNTIME_NAME:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_RUNTIME_VERSION:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SECURITY_AUTH_LOGIN_CONFIG:
+  digest: sha256:e47701ba736d2e4d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SECURITY_DEBUG:
+  digest: sha256:0ba454a18a8d73f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SECURITY_KERBEROS_CONF:
+  digest: sha256:420dbc92f6d79953
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SECURITY_KERBEROS_KDC:
+  digest: sha256:2fa92a5955a3befc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SECURITY_KERBEROS_REALM:
+  digest: sha256:accad3e212429062
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SECURITY_MANAGER:
+  digest: sha256:7d4070faf1a04107
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SPECIFICATION_MAINTENANCE_VERSION:
+  digest: sha256:89e45b839a95ce16
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SPECIFICATION_NAME:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SPECIFICATION_VENDOR:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SPECIFICATION_VERSION:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_SYSTEM_CLASS_LOADER:
+  digest: sha256:bbbb4ef0bf8f0c3a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_TIME_ZONE_DEFAULT_ZONE_RULES_PROVIDER:
+  digest: sha256:ad9fda8e1cb19737
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_EXCEPTION_HANDLER:
+  digest: sha256:45580980d500c3f3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_MAXIMUM_SPARES:
+  digest: sha256:d623f02bd272ae69
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_PARALLELISM:
+  digest: sha256:120f2adcf6e3e413
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_CONCURRENT_FORK_JOIN_POOL_COMMON_THREAD_FACTORY:
+  digest: sha256:a4bad6300ddafadb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_CURRENCY_DATA:
+  digest: sha256:b0424518b61a6e18
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_LOGGING_CONFIG_CLASS:
+  digest: sha256:cb213780f7c2bca0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_LOGGING_CONFIG_FILE:
+  digest: sha256:b539c356f0169426
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_LOGGING_SIMPLE_FORMATTER_FORMAT:
+  digest: sha256:59548af4b602498b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_PREFS_PREFERENCES_FACTORY:
+  digest: sha256:5a02d1eff7cf04fb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_UTIL_PROPERTY_RESOURCE_BUNDLE_ENCODING:
+  digest: sha256:9e5d4e9fc79602df
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VENDOR:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VENDOR_URL:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VENDOR_VERSION:
+  digest: sha256:8b14652cbef8a562
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VERSION:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VERSION_DATE:
+  digest: sha256:22efe2a0432f27b7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VM_INFO:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VM_NAME:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VM_SPECIFICATION_NAME:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VM_SPECIFICATION_VENDOR:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VM_SPECIFICATION_VERSION:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VM_VENDOR:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_VM_VERSION:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JAVA_XML_CONFIG_FILE:
+  digest: sha256:6ed5660e44fd3b85
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDBC_DRIVERS:
+  digest: sha256:7f3013e540f2f317
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTPS_NEGOTIATE_CBT:
+  digest: sha256:ee48bc6cf2946e4a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_AUTH_PROXYING_DISABLED_SCHEMES:
+  digest: sha256:ef9c50e62171e5eb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_AUTH_TUNNELING_DISABLED_SCHEMES:
+  digest: sha256:1ffb9aab4d245d1c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_ALLOW_RESTRICTED_HEADERS:
+  digest: sha256:d644dfb00f1f539e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_AUTH_RETRY_LIMIT:
+  digest: sha256:17e923f481b556ae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_BUF_SIZE:
+  digest: sha256:bd1a1df7cfcc5a35
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_CONNECTION_POOL_SIZE:
+  digest: sha256:eea0413e34204402
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_CONNECTION_WINDOW_SIZE:
+  digest: sha256:df120d184ce29769
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_DISABLE_RETRY_CONNECT:
+  digest: sha256:64b6ae6ff7275b30
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_ENABLE_ALL_METHOD_RETRY:
+  digest: sha256:3efeda9d054ee8b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_ENABLE_PUSH:
+  digest: sha256:4a5752f0dd9b79fa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_HPACK_MAX_HEADER_TABLE_SIZE:
+  digest: sha256:3e9e723911ea84a5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_HTTP_CLIENT_LOG:
+  digest: sha256:59067d3faf961b57
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_KEEP_ALIVE_TIMEOUT:
+  digest: sha256:43f92c16b4d8d071
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_KEEP_ALIVE_TIMEOUT_H2:
+  digest: sha256:18d50c11b1339bbf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_MAX_FRAME_SIZE:
+  digest: sha256:9d4f3c7f3fc19d52
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_MAX_STREAMS:
+  digest: sha256:436aefcc8801bf27
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_RECEIVE_BUFFER_SIZE:
+  digest: sha256:d509eb9376098e10
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_REDIRECTS_RETRY_LIMIT:
+  digest: sha256:01878e0366712e26
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_SEND_BUFFER_SIZE:
+  digest: sha256:6a31e5e4b144db95
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_WEB_SOCKET_WRITE_BUFFER_SIZE:
+  digest: sha256:152eee91ea415d65
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_CLIENT_WINDOW_SIZE:
+  digest: sha256:295521f41be032a2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_HTTP_SERVER_MAX_CONNECTIONS:
+  digest: sha256:ee9eff65a0ea37b6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_INCLUDE_IN_EXCEPTIONS:
+  digest: sha256:4b2c013e6a626c07
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_INTERNAL_HTTP_CLIENT_DISABLE_HOST_NAME_VERIFICATION:
+  digest: sha256:634dcba145c368e8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_IO_PERMISSIONS_USE_CANONICAL_PATH:
+  digest: sha256:4fb7128791508fe9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_JNDI_LDAP_OBJECT_FACTORIES_FILTER:
+  digest: sha256:7fbf3038509e3cb9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_JNDI_OBJECT_FACTORIES_FILTER:
+  digest: sha256:660b0a76f0d53f9b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_JNDI_RMI_OBJECT_FACTORIES_FILTER:
+  digest: sha256:25cf317cf30de087
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_MODULE_MAIN:
+  digest: sha256:69aaa8850fc42991
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_MODULE_MAIN_CLASS:
+  digest: sha256:e61d0a08d8f1aca0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_MODULE_PATH:
+  digest: sha256:a79f74b0876b0f0b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_MODULE_UPGRADE_PATH:
+  digest: sha256:f084a379335e8770
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_NET_UNIX_DOMAIN_TMPDIR:
+  digest: sha256:43fd8d7f7985e5ec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_NET_URL_CLASS_PATH_SHOW_IGNORED_CLASS_PATH_ENTRIES:
+  digest: sha256:c0fc1e0c1470fdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_SERIAL_FILTER:
+  digest: sha256:fdd2d83032f5eec4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_SERIAL_FILTER_FACTORY:
+  digest: sha256:89a3d69998c8ea5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_TLS_CLIENT_SIGNATURE_SCHEMES:
+  digest: sha256:dbc609444c270a62
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_TLS_NAMED_GROUPS:
+  digest: sha256:dc836d383f41610e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_TLS_SERVER_SIGNATURE_SCHEMES:
+  digest: sha256:a0659b2c007f84b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_VIRTUAL_THREAD_SCHEDULER_MAXPOOLSIZE:
+  digest: sha256:3de07c24a36d2597
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_VIRTUAL_THREAD_SCHEDULER_PARALLELISM:
+  digest: sha256:8ece4e7e3b2dbdc6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_CDATA_CHUNK_SIZE:
+  digest: sha256:d0a9c86fa4f19a7a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_DTD_SUPPORT:
+  digest: sha256:193a84771763ddf9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_ELEMENT_ATTRIBUTE_LIMIT:
+  digest: sha256:5a46b70966a95a32
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_ENABLE_EXTENSION_FUNCTIONS:
+  digest: sha256:dbdd7edd740d3c97
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_ENTITY_EXPANSION_LIMIT:
+  digest: sha256:61367f7efd05d351
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_ENTITY_REPLACEMENT_LIMIT:
+  digest: sha256:e49c429b85a78f9c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_IS_STANDALONE:
+  digest: sha256:69ea8c6218f89d3a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_JDK_CATALOG_RESOLVE:
+  digest: sha256:306c58f3b13b9598
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_MAX_ELEMENT_DEPTH:
+  digest: sha256:744e3744fffd1129
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT:
+  digest: sha256:e8f0e5521ddd641d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_MAX_OCCUR_LIMIT:
+  digest: sha256:d298d6dbb37e9fd5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT:
+  digest: sha256:b76c7eddfdb3f6ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_MAX_XML_NAME_LIMIT:
+  digest: sha256:e7a22dd14b5a07f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_OVERRIDE_DEFAULT_PARSER:
+  digest: sha256:7d7d043790403d43
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_RESET_SYMBOL_TABLE:
+  digest: sha256:c206ecbec18db4af
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_TOTAL_ENTITY_SIZE_LIMIT:
+  digest: sha256:58fdc69c639221be
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/JDK_XML_XSLTC_IS_STANDALONE:
+  digest: sha256:c34e876da1c22933
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/LINE_SEPARATOR:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/NATIVE_ENCODING:
+  digest: sha256:5169d6422ca7e0e7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/NETWORK_ADDRESS_CACHE_NEGATIVE_TTL:
+  digest: sha256:46df9327b72b7aa0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/NETWORK_ADDRESS_CACHE_STALE_TTL:
+  digest: sha256:376d08c0eba3fa16
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/NETWORK_ADDRESS_CACHE_TTL:
+  digest: sha256:e2ccba3844d024ad
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/ORG_JCP_XML_DSIG_SECURE_VALIDATION:
+  digest: sha256:e562598b060020c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/ORG_OPENJDK_JAVA_UTIL_STREAM_TRIPWIRE:
+  digest: sha256:ad24afdf5ed1db9b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/OS_ARCH:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/OS_NAME:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/OS_VERSION:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/PATH_SEPARATOR:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SOCKS_PROXY_HOST:
+  digest: sha256:c0fc1e0c1470fdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SOCKS_PROXY_PORT:
+  digest: sha256:c0fc1e0c1470fdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SOCKS_PROXY_VERSION:
+  digest: sha256:c0fc1e0c1470fdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/STDERR_ENCODING:
+  digest: sha256:c0fc1e0c1470fdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/STDOUT_ENCODING:
+  digest: sha256:c0fc1e0c1470fdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SUN_NET_HTTP_SERVER_DRAIN_AMOUNT:
+  digest: sha256:79b9ca636b407ffc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SUN_NET_HTTP_SERVER_IDLE_INTERVAL:
+  digest: sha256:722a28eed6780c01
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SUN_NET_HTTP_SERVER_MAX_IDLE_CONNECTIONS:
+  digest: sha256:e6c8623305e365db
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SUN_NET_HTTP_SERVER_MAX_REQ_HEADERS:
+  digest: sha256:194053248b2836c2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SUN_NET_HTTP_SERVER_MAX_REQ_TIME:
+  digest: sha256:36811505cfa17248
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SUN_NET_HTTP_SERVER_MAX_RSP_TIME:
+  digest: sha256:99350699f0532b8c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SUN_NET_HTTP_SERVER_NO_DELAY:
+  digest: sha256:80199f195a8c90dc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/SUN_SECURITY_KRB5_PRINCIPAL:
+  digest: sha256:291799e4952e81a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_COUNTRY:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_DIR:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_EXTENSIONS:
+  digest: sha256:c0fc1e0c1470fdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_HOME:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_LANGUAGE:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_NAME:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_REGION:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_SCRIPT:
+  digest: sha256:c0fc1e0c1470fdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_TIMEZONE:
+  digest: sha256:16ceda9fc0a3c781
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/field/USER_VARIANT:
+  digest: sha256:c0fc1e0c1470fdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getAppleAwtEnableTemplateImages:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getAwtToolkit:
+  digest: sha256:9db136741a7986ec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getBoolean:
+  digest: sha256:7ff8360736b5c0bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getBoolean#2:
+  digest: sha256:96af4a22155bd3a1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getComSunJndiLdapObjectTrustSerialData:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getComSunNetHttpServerHttpServerProvider:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getFileEncoding:
+  digest: sha256:703599dec93f09e7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getFileSeparator:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getFtpNonProxyHost:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getFtpProxyHost:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getFtpProxyPort:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpAgent:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpAuthDigestCnonceRepeat:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpAuthDigestReenabledAlgorithms:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpAuthDigestValidateProxy:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpAuthDigestValidateServer:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpAuthNtlmDomain:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpKeepAlive:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpKeepAliveTimeProxy:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpKeepAliveTimeServer:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpMaxConnections:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpMaxRedirects:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpNonProxyHosts:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpProxyHost:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpProxyPort:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpsProxyHost:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getHttpsProxyPort:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getInt:
+  digest: sha256:340f4246d4fe6e58
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getInt#2:
+  digest: sha256:671f5dff22afdc9e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaAwtFonts:
+  digest: sha256:c2877af82e0e0fec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaAwtGraphicsenv:
+  digest: sha256:e342651c17f6b8b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaAwtHeadless:
+  digest: sha256:ca56f02383436426
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaAwtPrinterjob:
+  digest: sha256:8adac91883b56ef2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaClassPath:
+  digest: sha256:39c53888dc0ab6d0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaClassVersion:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaCompiler:
+  digest: sha256:b3b8d9ed0103c7c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaContentHandlerPkgs:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaEndorsedDirs:
+  digest: sha256:e342651c17f6b8b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaExtDirs:
+  digest: sha256:9810664f3f4af0e1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaHome:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaIoTmpdir:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaLibraryPath:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaLocaleProviders:
+  digest: sha256:a6d78bbd558e2641
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaLocaleUseOldIsoCodes:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNetPreferIpv4Stack:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNetPreferIpv6Addresses:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNetSocksPassword:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNetSocksUserName:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNetUseSystemProxies:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNioChannelsDefaultThreadPoolInitialSize:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNioChannelsDefaultThreadPoolThreadFactory:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNioChannelsSpiAsynchronousChannelProvider:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNioChannelsSpiSelectorProvider:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaNioFileSpiDefaultFileSystemProvider:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaPropertiesDate:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaProtocolHandlerPkgs:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaRmiServerCodebase:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaRmiServerHostName:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaRmiServerRandomIds:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaRmiServerRmiClassLoaderSpi:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaRuntimeName:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaRuntimeVersion:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaSecurityAuthLoginConfig:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaSecurityManager:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaSpecificationMaintenanceVersion:
+  digest: sha256:8f955647e6fd3f50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaSpecificationName:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaSpecificationVendor:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaSpecificationVersion:
+  digest: sha256:156642eed02f8237
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaSpecificationVersion#2:
+  digest: sha256:9de3354aedf24439
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaSystemClassLoader:
+  digest: sha256:a824da37ca718269
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaTimeZoneDefaultZoneRulesProvider:
+  digest: sha256:981ab957b3a9b86a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilConcurrentForkJoinPoolCommonExceptionHandler:
+  digest: sha256:8a728ef61a0b9644
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilConcurrentForkJoinPoolCommonMaximumSpares:
+  digest: sha256:851fd01235cda43b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilConcurrentForkJoinPoolCommonParallelism:
+  digest: sha256:543a34dd182b448a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilConcurrentForkJoinPoolCommonThreadFactory:
+  digest: sha256:f8b16b0a18506b8e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilCurrencyData:
+  digest: sha256:d29c960895440b13
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilLoggingConfigClass:
+  digest: sha256:28ffce5613fb0e62
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilLoggingConfigFile:
+  digest: sha256:b5ec893de3078316
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilLoggingSimpleFormatterFormat:
+  digest: sha256:4ea34a91eb4abe63
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilPrefsPreferencesFactory:
+  digest: sha256:9ba2e9fd7cc3779e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaUtilPropertyResourceBundleEncoding:
+  digest: sha256:048bdf30cfe5b9dc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVendor:
+  digest: sha256:4fcea10d8f6155aa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVendorUrl:
+  digest: sha256:143291a411e12d60
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVendorVersion:
+  digest: sha256:9318c0c38b4561a1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVersion:
+  digest: sha256:3b284ceabebdac81
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVersionDate:
+  digest: sha256:701e3abf52ec91a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVmInfo:
+  digest: sha256:7d26dda0465ff9d6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVmName:
+  digest: sha256:de6cb1e4a03ac076
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVmSpecificationName:
+  digest: sha256:f7a73eb39fff6fc7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVmSpecificationVendor:
+  digest: sha256:21b389cde2a9065e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVmSpecificationVersion:
+  digest: sha256:3c213d2f04dbdc73
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVmVendor:
+  digest: sha256:d55d2536cdc9ec8d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaVmVersion:
+  digest: sha256:9646dbb39dd02af0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaXmlConfigFile:
+  digest: sha256:4fbc99783d72622d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaxAccessibilityAssistiveTechnologies:
+  digest: sha256:c60c3d0e8adf677e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaxNetSslSessionCacheSize:
+  digest: sha256:be052bd6c60ceaef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaxRmiSslClientEnabledCipherSuites:
+  digest: sha256:81c60d1b486b4c0b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaxRmiSslClientEnabledProtocols:
+  digest: sha256:432cba8604e7a288
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaxSecurityAuthUseSubjectCredsOnly:
+  digest: sha256:ebdf0e0d09c63890
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJavaxSmartCardIoTerminalFactoryDefaultType:
+  digest: sha256:852817a4eb88f04c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdbcDrivers:
+  digest: sha256:d9a5d7013e28aed8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpAuthProxyingDisabledSchemes:
+  digest: sha256:b105bda882dc93ff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpAuthTunnelingDisabledSchemes:
+  digest: sha256:f81872c8741559c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientAllowRestrictedHeaders:
+  digest: sha256:67835c41cb2beb46
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientAuthRetryLimit:
+  digest: sha256:b837ae8af8572d91
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientBufSize:
+  digest: sha256:b6d1f89742052552
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientConnectionPoolSize:
+  digest: sha256:479aa8f162e8267a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientConnectionWindowSize:
+  digest: sha256:9a8f873ae1304ae0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientDisableRetryConnect:
+  digest: sha256:fa7f53351eed9a09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientEnableAllMethodRetry:
+  digest: sha256:45476d46015cefdb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientEnablePush:
+  digest: sha256:51dc0143d959ec50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientHpackMaxHeaderTableSize:
+  digest: sha256:dded49896ebacdb5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientHttpClientLog:
+  digest: sha256:99b1a021821734d2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientKeepAliveTimeout:
+  digest: sha256:7974b277c5ef02cf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientKeepAliveTimeoutH2:
+  digest: sha256:592b35ce298d866e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientMaxFrameSize:
+  digest: sha256:1cd8a1bb50e80aa1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientMaxStreams:
+  digest: sha256:ed9f18e469eaabe4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientReceiveBufferSize:
+  digest: sha256:ac84add8ad89a13d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientRedirectsRetryLimit:
+  digest: sha256:bcaec6b35b4bd9c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientSendBufferSize:
+  digest: sha256:e03fa0718bac3825
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientWebSocketWriteBufferSize:
+  digest: sha256:f88f0e5f8ac63f1e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpClientWindowSize:
+  digest: sha256:9cfe8b15b76d0e53
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpServerMaxConnections:
+  digest: sha256:151d82a0c4ade188
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkHttpsNegotiateCbt:
+  digest: sha256:0ccca898a96daab5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkIncludeInExceptions:
+  digest: sha256:58f94b4d35c2f9f7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkInternalHttpClientDisableHostNameVerification:
+  digest: sha256:84d77bd92ed13251
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkIoPermissionsUseCanonicalPath:
+  digest: sha256:20620617dc3fb4c2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkJndiLdapObjectFactoriesFilter:
+  digest: sha256:6af90e278fd8e2ff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkJndiObjectFactoriesFilter:
+  digest: sha256:492a00264b1e976d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkJndiRmiObjectFactoriesFilter:
+  digest: sha256:e04a0d0a26ddf3dc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkModuleMain:
+  digest: sha256:e885ef130a58cd57
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkModuleMainClass:
+  digest: sha256:a619b7611517f679
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkModulePath:
+  digest: sha256:dcc2c6c260f0fc0b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkModuleUpgradePath:
+  digest: sha256:fa017ca367bb4062
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkNetUnixDomainTmpDir:
+  digest: sha256:9f6359deba9e00fa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkNetUrlClassPathShowIgnoredClassPathEntries:
+  digest: sha256:ef0aa63277f4f112
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkSerialFilter:
+  digest: sha256:d2a2fb2cae7c1c73
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkSerialFilterFactory:
+  digest: sha256:308613852a3e5c42
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkTlsClientSignatureSchemes:
+  digest: sha256:5190689eedc32f18
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkTlsNamedGroups:
+  digest: sha256:d3151e3aa3450745
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkTlsServerSignatureSchemes:
+  digest: sha256:4565072a7f5b6eef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkVirtualThreadSchedulerMaxPoolSize:
+  digest: sha256:89eccb1fa302478a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkVirtualThreadSchedulerParallelism:
+  digest: sha256:38dc766890dac065
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlCdataChunkSize:
+  digest: sha256:18e56bdf7a455ed7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlDtdSupport:
+  digest: sha256:d78abe70ff49ae11
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlElementAttributeLimit:
+  digest: sha256:657edb7e0701a8a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlEnableExtensionFunctions:
+  digest: sha256:c56761a122fa417e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlEntityExpansionLimit:
+  digest: sha256:2bc9aae7c275f642
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlEntityReplacementLimit:
+  digest: sha256:2de79534a94f1803
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlIsStandalone:
+  digest: sha256:abfb461fa367dcde
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlJdkCatalogResolve:
+  digest: sha256:c6ed0749f7231298
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlMaxElementDepth:
+  digest: sha256:acef569a3eae9c19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlMaxGeneralEntitySizeLimit:
+  digest: sha256:fecc26b03264acdc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlMaxOccurLimit:
+  digest: sha256:727454b44bf731dd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlMaxParameterEntitySizeLimit:
+  digest: sha256:e0ae3498d331b743
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlMaxXmlNameLimit:
+  digest: sha256:c5563a5c4f590714
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlOverrideDefaultParser:
+  digest: sha256:a2c60962104acefa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlResetSymbolTable:
+  digest: sha256:6eeb21783654e0c6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlTotalEntitySizeLimit:
+  digest: sha256:d849a7c3a816dc17
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getJdkXmlXsltcIsStandalone:
+  digest: sha256:43a5702e78fbb3d5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getLineSeparator:
+  digest: sha256:1bbd364d0072a234
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getLineSeparator#2:
+  digest: sha256:bbb5fc05074bedab
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getLong:
+  digest: sha256:2a9daaffa7d6b230
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getLong#2:
+  digest: sha256:1d89f9a4554c4f51
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getNativeEncoding:
+  digest: sha256:1bc17f9ad42541b6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getNetworkAddressCacheNegativeTtl:
+  digest: sha256:6693ce5efdb4982d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getNetworkAddressCacheStaleTtl:
+  digest: sha256:fa6db36b5290cd08
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getNetworkAddressCacheTtl:
+  digest: sha256:7bdc7f58156e6d3d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getOrgJcpXmlDsigSecureValidation:
+  digest: sha256:02f2710af35d5859
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getOrgOpenJdkJavaUtilStreamTripwire:
+  digest: sha256:1575d59e543f9e24
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getOsArch:
+  digest: sha256:260dd6b7451ea312
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getOsName:
+  digest: sha256:28569be78d7f7faa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getOsVersion:
+  digest: sha256:72efe66c0ddee49e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getPath:
+  digest: sha256:687f717706b31dc1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getPathSeparator:
+  digest: sha256:20e975b2a8f9ac65
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getProperty:
+  digest: sha256:e4ec41794983f032
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getProperty#2:
+  digest: sha256:d79c038500c6d3bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getProperty#3:
+  digest: sha256:40588265dacf83d9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSocksProxyHost:
+  digest: sha256:2b8923b051d1119b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSocksProxyPort:
+  digest: sha256:df9be804e50f0fa9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSocksProxyVersion:
+  digest: sha256:a07d98bd718098dc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getStdErrEncoding:
+  digest: sha256:b6dab3f4c1718915
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getStdOutEncoding:
+  digest: sha256:a519c84b7321c45e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSunNetHttpServerDrainAmount:
+  digest: sha256:9872a6d2740e5380
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSunNetHttpServerIdleInterval:
+  digest: sha256:163189f07ee16060
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSunNetHttpServerMaxIdleConnections:
+  digest: sha256:263ed4431bbbc292
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSunNetHttpServerMaxReqHeaders:
+  digest: sha256:eaabcad589e2bb58
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSunNetHttpServerMaxReqTime:
+  digest: sha256:fa3d3be232afc0ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSunNetHttpServerMaxRspTime:
+  digest: sha256:b779232f67320db7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSunNetHttpServerNoDelay:
+  digest: sha256:1b1d65177ff81e8a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getSunSecurityKrb5Principal:
+  digest: sha256:fdae897836450680
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserCountry:
+  digest: sha256:2e0232578849f363
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserDir:
+  digest: sha256:fd2b5fcee5dbe145
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserExtensions:
+  digest: sha256:9b66ee376d85cd16
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserHome:
+  digest: sha256:937558d3aeb49fe2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserLanguage:
+  digest: sha256:8dd29fe34f6577cd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserName:
+  digest: sha256:59006ecb6c113094
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserName#2:
+  digest: sha256:12eef799910e625c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserRegion:
+  digest: sha256:f1f8e32449de11e8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserScript:
+  digest: sha256:5c7b38b4dcf56568
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserTimezone:
+  digest: sha256:829d63d07af9efea
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/getUserVariant:
+  digest: sha256:3517bdfb1c4f14d4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SystemProperties.java/package/org.apache.commons.lang3/class/SystemProperties/method/isPropertySet:
+  digest: sha256:6dd533ab93d38b86
+  verdict: pending

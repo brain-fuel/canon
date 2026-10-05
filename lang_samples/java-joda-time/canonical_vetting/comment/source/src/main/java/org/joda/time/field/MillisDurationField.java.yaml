@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/joda/time/field/MillisDurationField.java/package/org.joda.time.field/class/MillisDurationField:
+  digest: sha256:285fe1b0fb52e3db
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/MillisDurationField.java/package/org.joda.time.field/class/MillisDurationField/constructor/MillisDurationField:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/MillisDurationField.java/package/org.joda.time.field/class/MillisDurationField/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/MillisDurationField.java/package/org.joda.time.field/class/MillisDurationField/field/serialVersionUID:
+  digest: sha256:60a2c7d22dc312fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/MillisDurationField.java/package/org.joda.time.field/class/MillisDurationField/method/getUnitMillis:
+  digest: sha256:b4cc7e6b43ed12e2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/MillisDurationField.java/package/org.joda.time.field/class/MillisDurationField/method/isPrecise:
+  digest: sha256:9b7f8bbc850a7b38
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/MillisDurationField.java/package/org.joda.time.field/class/MillisDurationField/method/isSupported:
+  digest: sha256:5ce53a42ad42b416
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/MillisDurationField.java/package/org.joda.time.field/class/MillisDurationField/method/readResolve:
+  digest: sha256:c8b9f1b2978181c6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/MillisDurationField.java/package/org.joda.time.field/class/MillisDurationField/method/toString:
+  digest: sha256:ce41ecc1d74f6f78
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/haskell/test/Canon/IgnoreTest.hs/module/Canon.IgnoreTest:
+  digest: sha256:87a7d452fd23348b
+  verdict: pending
+decision/haskell/test/Canon/IgnoreTest.hs/module/Canon.IgnoreTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

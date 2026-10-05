@@ -1,0 +1,45 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple:
+  digest: sha256:795f3ee0002f1ad5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/constructor/ImmutableTriple:
+  digest: sha256:7359d34c1266f245
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/field/EMPTY_ARRAY:
+  digest: sha256:3f56b36cf08c7afe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/field/NULL:
+  digest: sha256:357281998f6ddc0c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/field/left:
+  digest: sha256:2cd14f1abefd864a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/field/middle:
+  digest: sha256:4dfc9cb321ddec6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/field/right:
+  digest: sha256:a5b6e39ed960f679
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/field/serialVersionUID:
+  digest: sha256:fcdf71a4d7975811
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/method/emptyArray:
+  digest: sha256:d18823a4ce3908f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/method/getLeft:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/method/getMiddle:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/method/getRight:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/method/nullTriple:
+  digest: sha256:2a3a93969df293fc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/method/of:
+  digest: sha256:4289d36e405b0c87
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java/package/org.apache.commons.lang3.tuple/class/ImmutableTriple/method/ofNonNull:
+  digest: sha256:588a78297ea2c4b8
+  verdict: pending

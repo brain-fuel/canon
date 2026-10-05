@@ -1,0 +1,45 @@
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils:
+  digest: sha256:ce03f6b76220f60f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/constructor/FormatUtils:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/appendPaddedInteger:
+  digest: sha256:b7ee01cd406be4fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/appendPaddedInteger#2:
+  digest: sha256:c02c9b48ce5ffa6b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/appendPaddedInteger#3:
+  digest: sha256:b7ee01cd406be4fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/appendPaddedInteger#4:
+  digest: sha256:3e6c91155d759b53
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/appendUnpaddedInteger:
+  digest: sha256:64cf212749a62c30
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/appendUnpaddedInteger#2:
+  digest: sha256:b4a3225b7fd60bd3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/appendUnpaddedInteger#3:
+  digest: sha256:64cf212749a62c30
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/appendUnpaddedInteger#4:
+  digest: sha256:6d02ecfee2ef7371
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/calculateDigitCount:
+  digest: sha256:30d59210697666eb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/writePaddedInteger:
+  digest: sha256:c4531b768a7abade
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/writePaddedInteger#2:
+  digest: sha256:c4531b768a7abade
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/writeUnpaddedInteger:
+  digest: sha256:c408234ea098711e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/FormatUtils.java/package/org.joda.time.format/class/FormatUtils/method/writeUnpaddedInteger#2:
+  digest: sha256:c408234ea098711e
+  verdict: pending

@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java/package/org.apache.commons.lang3.function/interface/FailableDoublePredicate:
+  digest: sha256:369e5d2def5ee67a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java/package/org.apache.commons.lang3.function/interface/FailableDoublePredicate/constant/FALSE:
+  digest: sha256:65f9c7f2224f902f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java/package/org.apache.commons.lang3.function/interface/FailableDoublePredicate/constant/TRUE:
+  digest: sha256:aaa0a653ec960fde
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java/package/org.apache.commons.lang3.function/interface/FailableDoublePredicate/method/and:
+  digest: sha256:2d31d50cdfcca9f4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java/package/org.apache.commons.lang3.function/interface/FailableDoublePredicate/method/falsePredicate:
+  digest: sha256:6e649028879ab4bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java/package/org.apache.commons.lang3.function/interface/FailableDoublePredicate/method/negate:
+  digest: sha256:4ead07d2f0bb127b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java/package/org.apache.commons.lang3.function/interface/FailableDoublePredicate/method/or:
+  digest: sha256:dcc08b93cbd6d0b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java/package/org.apache.commons.lang3.function/interface/FailableDoublePredicate/method/test:
+  digest: sha256:17686ef629de69eb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java/package/org.apache.commons.lang3.function/interface/FailableDoublePredicate/method/truePredicate:
+  digest: sha256:ece8abed08afa930
+  verdict: pending

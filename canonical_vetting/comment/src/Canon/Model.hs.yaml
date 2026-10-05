@@ -1,0 +1,15 @@
+decision/haskell/src/Canon/Model.hs/module/Canon.Model:
+  digest: sha256:87842a82af649102
+  verdict: pending
+decision/haskell/src/Canon/Model.hs/module/Canon.Model/data/Model:
+  digest: sha256:a250fbb765a4da15
+  verdict: pending
+decision/haskell/src/Canon/Model.hs/module/Canon.Model/function/decisionsFor:
+  digest: sha256:426856262b7c1c38
+  verdict: pending
+decision/haskell/src/Canon/Model.hs/module/Canon.Model/function/modelAllUnits:
+  digest: sha256:571068e6ccd39f37
+  verdict: pending
+decision/haskell/src/Canon/Model.hs/module/Canon.Model/function/schemaVersion:
+  digest: sha256:aa90dd4ebdf83993
+  verdict: pending

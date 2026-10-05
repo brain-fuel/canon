@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/Charsets.java/package/org.apache.commons.lang3/class/Charsets:
+  digest: sha256:ae3ef6c0da6b6c42
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Charsets.java/package/org.apache.commons.lang3/class/Charsets/method/toCharset:
+  digest: sha256:a0c2e47287815864
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Charsets.java/package/org.apache.commons.lang3/class/Charsets/method/toCharset#2:
+  digest: sha256:c4b7fb4682619ff6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Charsets.java/package/org.apache.commons.lang3/class/Charsets/method/toCharsetName:
+  digest: sha256:b35ca2d5101ced1f
+  verdict: pending

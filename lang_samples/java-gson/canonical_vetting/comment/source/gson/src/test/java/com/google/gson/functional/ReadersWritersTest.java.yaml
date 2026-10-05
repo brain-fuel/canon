@@ -1,0 +1,6 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/ReadersWritersTest.java/package/com.google.gson.functional/class/ReadersWritersTest:
+  digest: sha256:ba88415ac907dc8b
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ReadersWritersTest.java/package/com.google.gson.functional/class/ReadersWritersTest/method/testToJsonAppendable:
+  digest: sha256:467c69ec3798e4e5
+  verdict: pending

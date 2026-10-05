@@ -1,0 +1,12 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/LazilyParsedNumber.java/package/com.google.gson.internal/class/LazilyParsedNumber:
+  digest: sha256:8c73cbe8cd160aeb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LazilyParsedNumber.java/package/com.google.gson.internal/class/LazilyParsedNumber/constructor/LazilyParsedNumber:
+  digest: sha256:ef1770f10df0ab3f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LazilyParsedNumber.java/package/com.google.gson.internal/class/LazilyParsedNumber/method/compareTo:
+  digest: sha256:5cf53bfec0579afd
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LazilyParsedNumber.java/package/com.google.gson.internal/class/LazilyParsedNumber/method/writeReplace:
+  digest: sha256:532ab103558ed4d7
+  verdict: pending

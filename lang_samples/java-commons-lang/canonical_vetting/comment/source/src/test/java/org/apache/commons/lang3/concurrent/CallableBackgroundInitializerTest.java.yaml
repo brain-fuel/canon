@@ -1,0 +1,27 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializerTest:
+  digest: sha256:3f947298fa8acceb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializerTest/class/TestCallable:
+  digest: sha256:1be6e2129230ddf6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializerTest/class/TestCallable/field/callCount:
+  digest: sha256:33c6b78b1beb4330
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializerTest/class/TestCallable/method/call:
+  digest: sha256:de0707061a3a1f1c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializerTest/field/RESULT:
+  digest: sha256:94e3734643593164
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializerTest/method/testInitExecutor:
+  digest: sha256:4ff0892e5e33da64
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializerTest/method/testInitExecutorNullCallable:
+  digest: sha256:97124f05b86a1cfc
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializerTest/method/testInitNullCallable:
+  digest: sha256:a610f102f28b1794
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializerTest/method/testInitialize:
+  digest: sha256:18a3d90bd52d81a4
+  verdict: pending

@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Which of turbine's functions, classes, objects, and properties are public API in canon's sense, and which of its test units cite a requirement, given that upstream carries no canonical comments?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [turbine-upstream]

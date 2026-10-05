@@ -1,0 +1,51 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer:
+  digest: sha256:4047d9685a8478ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/class/AbstractBuilder:
+  digest: sha256:f1ef753702fa3f69
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/class/AbstractBuilder/constructor/AbstractBuilder:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/class/AbstractBuilder/field/closer:
+  digest: sha256:76834a12e858dfd9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/class/AbstractBuilder/field/initializer:
+  digest: sha256:c7eddbbc762749c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/class/AbstractBuilder/method/getCloser:
+  digest: sha256:ad68f1a820ec612b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/class/AbstractBuilder/method/getInitializer:
+  digest: sha256:bc4b030ba45819fc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/class/AbstractBuilder/method/setCloser:
+  digest: sha256:70a81bdb70941f28
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/class/AbstractBuilder/method/setInitializer:
+  digest: sha256:c3da49ec3ae60551
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/constructor/AbstractConcurrentInitializer:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/constructor/AbstractConcurrentInitializer#2:
+  digest: sha256:f71f05933d5ca6cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/field/closer:
+  digest: sha256:76834a12e858dfd9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/field/initializer:
+  digest: sha256:c7eddbbc762749c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/method/close:
+  digest: sha256:9fe50e315d3cad2d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/method/getTypedException:
+  digest: sha256:a5124910f6157dd3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/method/initialize:
+  digest: sha256:c4a31f20d0c719d3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializer.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializer/method/isInitialized:
+  digest: sha256:bbaac98111de0512
+  verdict: pending

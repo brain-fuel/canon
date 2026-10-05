@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/RuntimeEnvironment.java/package/org.apache.commons.lang3/class/RuntimeEnvironment:
+  digest: sha256:ccf46824aaeef3a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RuntimeEnvironment.java/package/org.apache.commons.lang3/class/RuntimeEnvironment/constructor/RuntimeEnvironment:
+  digest: sha256:5d806021dcbc9276
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RuntimeEnvironment.java/package/org.apache.commons.lang3/class/RuntimeEnvironment/method/inContainer:
+  digest: sha256:9ec0e116c95fbb33
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RuntimeEnvironment.java/package/org.apache.commons.lang3/class/RuntimeEnvironment/method/inContainer#2:
+  digest: sha256:45015423a5f835e1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RuntimeEnvironment.java/package/org.apache.commons.lang3/class/RuntimeEnvironment/method/readFile:
+  digest: sha256:667a95fbe8d63506
+  verdict: pending

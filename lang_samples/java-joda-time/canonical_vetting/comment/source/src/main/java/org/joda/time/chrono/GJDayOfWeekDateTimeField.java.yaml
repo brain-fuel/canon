@@ -1,0 +1,36 @@
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField:
+  digest: sha256:363839d76306350f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/constructor/GJDayOfWeekDateTimeField:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/method/convertText:
+  digest: sha256:6abd3442805ab001
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/method/get:
+  digest: sha256:74fe25da3e248953
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/method/getAsShortText:
+  digest: sha256:ecdb3bf9bd344e95
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/method/getAsText:
+  digest: sha256:d58969d6f75f1611
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/method/getMaximumShortTextLength:
+  digest: sha256:a46eef7bf788965d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/method/getMaximumTextLength:
+  digest: sha256:6f842ffdcdb9bb70
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/method/getMaximumValue:
+  digest: sha256:49ac7c75c2b402f6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/method/getMinimumValue:
+  digest: sha256:b13f325200a53cf5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJDayOfWeekDateTimeField.java/package/org.joda.time.chrono/class/GJDayOfWeekDateTimeField/method/readResolve:
+  digest: sha256:b94ab54735a4fc8f
+  verdict: pending

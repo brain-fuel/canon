@@ -1,0 +1,24 @@
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment:
+  digest: sha256:04a3f56d83902f76
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/data/CanonicalComment:
+  digest: sha256:5443bfa992934b00
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/docCommentBody:
+  digest: sha256:eda9afe36d2e1b5b
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/licenseTokens:
+  digest: sha256:ff1da5a8768f7724
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/mentionsLicense:
+  digest: sha256:ec91fb2f35e1a8c1
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/parseCanonicalComment:
+  digest: sha256:ca861dcb9bcbf3e6
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/referenceTokens:
+  digest: sha256:9d6bb0ef2650add6
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/toWhy:
+  digest: sha256:76b63bd514cdc299
+  verdict: pending

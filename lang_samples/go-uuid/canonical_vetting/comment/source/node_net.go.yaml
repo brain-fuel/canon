@@ -1,0 +1,6 @@
+decision/go/source/node_net.go:
+  digest: sha256:4f2fb8d7caf1d449
+  verdict: pending
+decision/go/source/node_net.go/function/getHardwareInterface:
+  digest: sha256:423dee1e59311674
+  verdict: pending

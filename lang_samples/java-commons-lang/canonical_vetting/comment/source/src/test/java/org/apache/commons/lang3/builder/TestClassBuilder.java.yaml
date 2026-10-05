@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/TestClassBuilder.java/package/org.apache.commons.lang3.builder/class/TestClassBuilder:
+  digest: sha256:f0077c50df1b3e2b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/TestClassBuilder.java/package/org.apache.commons.lang3.builder/class/TestClassBuilder/class/DynamicClassLoader:
+  digest: sha256:c55cff00a8b7374c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/TestClassBuilder.java/package/org.apache.commons.lang3.builder/class/TestClassBuilder/method/defineSimpleClass:
+  digest: sha256:476198352bc63bf1
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/extras/src/main/java/com/google/gson/interceptors/Intercept.java/package/com.google.gson.interceptors/annotationType/Intercept:
+  digest: sha256:c8011f3840953d04
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/interceptors/Intercept.java/package/com.google.gson.interceptors/annotationType/Intercept/annotationElement/postDeserialize:
+  digest: sha256:f210dbd1b92a1247
+  verdict: pending

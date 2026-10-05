@@ -1,0 +1,33 @@
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter:
+  digest: sha256:f9592ade799749f3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/constant/BLOCK_ALL_ANDROID:
+  digest: sha256:fd32a8837314589f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/constant/BLOCK_ALL_JAVA:
+  digest: sha256:68cb0744d17327f7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/constant/BLOCK_ALL_PLATFORM:
+  digest: sha256:aebf763607dd471e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/constant/BLOCK_INACCESSIBLE_JAVA:
+  digest: sha256:589eba77b1804973
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/enum/FilterResult:
+  digest: sha256:0bd865064f82ead9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/enum/FilterResult/enumConstant/ALLOW:
+  digest: sha256:1643cd428a75cc7d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/enum/FilterResult/enumConstant/BLOCK_ALL:
+  digest: sha256:f2b9e7757214d9e3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/enum/FilterResult/enumConstant/BLOCK_INACCESSIBLE:
+  digest: sha256:239cf3ead470ae35
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/enum/FilterResult/enumConstant/INDECISIVE:
+  digest: sha256:0aa898704e12fa10
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ReflectionAccessFilter.java/package/com.google.gson/interface/ReflectionAccessFilter/method/check:
+  digest: sha256:85fbe216721e55e7
+  verdict: pending

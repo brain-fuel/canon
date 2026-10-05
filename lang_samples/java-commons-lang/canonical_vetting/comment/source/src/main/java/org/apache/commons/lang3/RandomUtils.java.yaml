@@ -1,0 +1,78 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils:
+  digest: sha256:88f098325171a124
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/constructor/RandomUtils:
+  digest: sha256:ac073adfd7fa12f2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/insecure:
+  digest: sha256:9110a7a0f9020cdb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextBoolean:
+  digest: sha256:d966f452549a608c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextBytes:
+  digest: sha256:7514e2d809136eb7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextDouble:
+  digest: sha256:0642c6474250921a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextDouble#2:
+  digest: sha256:3212068306d19487
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextFloat:
+  digest: sha256:7f52762eb210654f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextFloat#2:
+  digest: sha256:97fcadafec5b99cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextInt:
+  digest: sha256:2036d60ded905221
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextInt#2:
+  digest: sha256:8802be0bdc5ed5f3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextLong:
+  digest: sha256:c6109a31391da33c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/nextLong#2:
+  digest: sha256:64a8d113d1dc2634
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomBoolean:
+  digest: sha256:f8c4fd29e27d1229
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomBytes:
+  digest: sha256:11e5249e04fadf01
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomDouble:
+  digest: sha256:6a898c555a21e579
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomDouble#2:
+  digest: sha256:b251e820b66b5df2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomFloat:
+  digest: sha256:041c5920d265437b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomFloat#2:
+  digest: sha256:4cbbf5174941fbfd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomInt:
+  digest: sha256:4fbcd40ac481da98
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomInt#2:
+  digest: sha256:9a52ff679be7d338
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomLong:
+  digest: sha256:e3328731ee1ba1c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomLong#2:
+  digest: sha256:f35990f1ad373007
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/randomLong#3:
+  digest: sha256:a148b159140c749b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/secure:
+  digest: sha256:adfead93dd64d158
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RandomUtils.java/package/org.apache.commons.lang3/class/RandomUtils/method/secureStrong:
+  digest: sha256:15acd2f0853d412b
+  verdict: pending

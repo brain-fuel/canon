@@ -1,0 +1,33 @@
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration:
+  digest: sha256:f56d1ac5e2d3f3a6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/constructor/AbstractDuration:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/method/compareTo:
+  digest: sha256:8d84f9fe7b2dda92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/method/equals:
+  digest: sha256:b1c61d10793ff13e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/method/hashCode:
+  digest: sha256:38bcec828b941391
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/method/isEqual:
+  digest: sha256:4f7b828329f08b79
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/method/isLongerThan:
+  digest: sha256:a66c79b3fa69ed85
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/method/isShorterThan:
+  digest: sha256:2d26b5f3ec8e4330
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/method/toDuration:
+  digest: sha256:702c7d25263812c4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/method/toPeriod:
+  digest: sha256:5b7ee8759607016a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractDuration.java/package/org.joda.time.base/class/AbstractDuration/method/toString:
+  digest: sha256:ad0841ea81e7713e
+  verdict: pending

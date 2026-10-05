@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionContext.java/package/org.apache.commons.lang3.exception/interface/ExceptionContext:
+  digest: sha256:ba0f353827a2df45
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionContext.java/package/org.apache.commons.lang3.exception/interface/ExceptionContext/method/addContextValue:
+  digest: sha256:db23b5a12f9efaa0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionContext.java/package/org.apache.commons.lang3.exception/interface/ExceptionContext/method/getContextEntries:
+  digest: sha256:2c41ab162a5fa9e0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionContext.java/package/org.apache.commons.lang3.exception/interface/ExceptionContext/method/getContextLabels:
+  digest: sha256:90772a65cff6acbe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionContext.java/package/org.apache.commons.lang3.exception/interface/ExceptionContext/method/getContextValues:
+  digest: sha256:9dfac9abbf6e7a6e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionContext.java/package/org.apache.commons.lang3.exception/interface/ExceptionContext/method/getFirstContextValue:
+  digest: sha256:cc566958b0286a19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionContext.java/package/org.apache.commons.lang3.exception/interface/ExceptionContext/method/getFormattedExceptionMessage:
+  digest: sha256:e92a29a0948a70ee
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionContext.java/package/org.apache.commons.lang3.exception/interface/ExceptionContext/method/setContextValue:
+  digest: sha256:12dc323ceb1f6173
+  verdict: pending

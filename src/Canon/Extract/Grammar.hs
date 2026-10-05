@@ -17,11 +17,12 @@ module Canon.Extract.Grammar
   , unitsFromTree
   ) where
 
+import Canon.Extract.Calm (calmUnits)
 import Canon.Antlr4.Comment (Comment (..))
 import Canon.Antlr4.Interpret
 import Canon.Antlr4.Lexical (lineTable, positionAt)
 import Canon.Antlr4.Parse (ParseTree (..), treeTokens)
-import Canon.Antlr4.Syntax (Alternative (..), Block (..), EbnfSuffix (..), Element (..), Grammar (..), Label (..), LabeledAlternative (..), Name (..), ParserRule (..), Quantifier (OneOrMore), Rule (..))
+import Canon.Antlr4.Syntax (Alternative (..), Block (..), EbnfSuffix (..), Element (..), Grammar (..), Label (..), LabeledAlternative (..), Name (..), ParserRule (..), Quantifier (OneOrMore), Rule (..), nameText)
 import Canon.Antlr4.Token (Token (..), isEofToken)
 import Canon.Attach (attachPreceding, firstContentLine, topOfFileComment)
 import Canon.CanonicalComment (docCommentBody, parseCanonicalComment, toWhy)
@@ -54,6 +55,7 @@ import System.FilePath (splitDirectories)
 data GrammarExtractError
   = GrammarInterpretError InterpretError
   | GrammarDuplicateUnitIds [UnitId]
+  | GrammarArchitectureError Text
   deriving (Eq, Show)
 
 -- | A model with the findings produced while building it.
@@ -74,6 +76,7 @@ data AlternativePlan = AlternativePlan
 renderGrammarExtractError :: GrammarExtractError -> Text
 renderGrammarExtractError e = case e of
   GrammarInterpretError err -> renderInterpretError err
+  GrammarArchitectureError message -> message
   GrammarDuplicateUnitIds ids -> "duplicate unit ids: " <> T.intercalate ", " (map renderUnitId ids)
 
 -- | Loads the interpreter a profile names.
@@ -208,7 +211,9 @@ exportRequires exports parent name = case exports of
 -- doc comment ends on the line above a later clause, which then starts a unit of its own, as the
 -- @doc of another Elixir arity does. ref:DEC-elixir-grammar
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
-unitsFromTree language profile plans exportsDeclared idPath path source tree =
+unitsFromTree language profile plans exportsDeclared idPath path source tree
+  | language == "calm" = either (Left . GrammarArchitectureError) Right (calmUnits idPath path source tree)
+  | otherwise =
   case [i | i@(_ : _ : _) <- group (sort (map unitId (allUnits root)))] of
     [] -> Right (root, fileDecisions ++ decisions, unbound)
     duplicates -> Left (GrammarDuplicateUnitIds (map NonEmpty.head (map NonEmpty.fromList duplicates)))
@@ -237,7 +242,12 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
             mergeClauses (a {candidateClauses = candidateClauses a ++ candidateNode b : candidateClauses b} : rest)
       (a : rest) -> a : mergeClauses rest
       [] -> []
-    (children, decisions) = collect fileId [] False tree
+    (children, unitDecisions) = collect fileId [] False tree
+    decisions = unitDecisions ++ case pythonDoc tree of
+      Just doc | language == "python" ->
+        let sp = treeSpan doc
+         in [Decision (decisionIdFor fileId) (fileId :| []) (Answer (whyFrom doc (slice sp)) (Asserted (Assertion path sp))) (Where path sp [] Nothing) Nothing]
+      _ -> []
     exportEntries = if exportsDeclared then Just (map (parseExportEntry . tokensText) (exportedIn tree)) else Nothing
     exportedIn node = case node of
       TokenNode _ -> []
@@ -286,7 +296,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
     root =
       CodeUnit
         { unitId = fileId
-        , unitWhat = Answer (What (T.pack path) (UnitKind "file")) evidence
+        , unitWhat = Answer (What (T.pack path) (UnitKind "file") Nothing) evidence
         , unitHow = Answer (HowAt (treeSpan tree)) evidence
         , unitWhere = Answer (Where path (treeSpan tree) [] Nothing) evidence
         , unitWho = Nothing
@@ -297,7 +307,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
         }
     collect parent chain parentRequired node = collectAll parent chain parentRequired [node]
     collectAll parent chain parentRequired nodes =
-      let built = map (build parent chain parentRequired) (uniqueNames (numberOrdinals (mergeClauses (concatMap found nodes))))
+      let built = map (build parent chain parentRequired) (uniqueNames (numberOrdinals (mergeClauses (attachBindings (concatMap found nodes)))))
        in (map fst built, concatMap snd built)
     numberOrdinals candidates = go Map.empty candidates
       where
@@ -307,6 +317,35 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
               let k = Map.findWithDefault (0 :: Int) (candidateKind c) counts
                in c {candidateName = T.pack (show k)} : go (Map.insert (candidateKind c) (k + 1) counts) rest
           | otherwise = c : go counts rest
+    -- A labeled binding belongs to the nearest unit before it, at the same level, with its name;
+    -- a binding that matches no unit is not a unit, as before. ref:DEC-binding-label
+    attachBindings = go []
+      where
+        go acc [] = reverse acc
+        go acc (FoundUnit c : rest) = go (c : acc) rest
+        go acc (FoundBinding b : rest) = case bindingHead b of
+          Just name | (before, c : after) <- break ((== name) . candidateName) acc -> go (before ++ c {candidateBindings = candidateBindings c ++ [b]} : after) rest
+          _ -> go acc rest
+    -- The name a binding defines: the first word, the operator run between the first word and
+    -- the equals sign (an operator lexes as adjacent single symbols), or the word in backticks.
+    bindingHead b = case takeWhile ((`notElem` ["=", "|"]) . tokenText) [t | t <- treeTokens b, not (isEofToken t), not (isVirtual t)] of
+      [] -> Nothing
+      lhs@(first : rest)
+        | tokenText first == "(" -> Just (T.concat (map tokenText (takeWhile ((/= ")") . tokenText) lhs) ++ [")"]))
+        | (run : _) <- operatorRuns rest -> Just (T.concat ["(", run, ")"])
+        | (name : _) <- [tokenText n | (tick, n) <- zip lhs rest, tokenText tick == "`"] -> Just name
+        | otherwise -> Just (tokenText first)
+    operatorRuns toks = case dropWhile (not . isOperator . tokenText) toks of
+      [] -> []
+      (t : more) ->
+        let (adjacent, rest) = spanAdjacent t more
+         in T.concat (map tokenText (t : adjacent)) : operatorRuns rest
+    spanAdjacent prev toks = case toks of
+      (t : more) | isOperator (tokenText t), tokenStart t == tokenEnd prev -> let (a, r) = spanAdjacent t more in (t : a, r)
+      _ -> ([], toks)
+    -- A layout hook's virtual token carries its own kind as its text.
+    isVirtual t = tokenText t == nameText (tokenType t) && nameText (tokenType t) `elem` ["VOCURLY", "VCCURLY", "SEMI"]
+    isOperator t = not (T.null t) && T.all (`elem` ("!#$%&*+./<=>?@\\^|-~:" :: String)) t
     exported chain name = case fileExports of
       Nothing -> False
       Just entries -> exportRequires entries (parentName chain) name
@@ -319,15 +358,40 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       TokenNode _ -> []
     found node = case node of
       TokenNode _ -> []
-      Labeled "inherited" inner -> [c {candidateInherits = True} | c <- found inner]
+      Labeled "inherited" inner -> [inherit f | f <- found inner]
+      Labeled "binding" inner -> [FoundBinding inner]
       Labeled _ inner -> found inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just (unitName, ordinal) <- planName node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || (isJust (labeledSubtree "required" node) && not optional) then Required else Optional) optional False ordinal (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
+        Just plan | Just (unitName, ordinal) <- planName node -> [FoundUnit (Candidate (planKind plan) unitName (if planWhyRequired plan || (isJust (labeledSubtree "required" node) && not optional) then Required else Optional) optional False ordinal (labeledSubtree "why" node) (labeledSubtree "how" node) (labeledSubtree "signature" node) [] node Nothing [])]
         _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
-          ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule || isJust (labeledSubtree "required" node)) && not optional then Required else Optional) optional False (unitRuleNameSource rule == NameFromOrdinal) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
+          ((rule, unitName) : _) -> [FoundUnit (Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule || isJust (labeledSubtree "required" node)) && not optional then Required else Optional) optional False (unitRuleNameSource rule == NameFromOrdinal) (pythonDoc node) Nothing Nothing [] node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) [])]
           [] -> concatMap found nodeChildren
         where
           optional = isJust (labeledSubtree "optional" node)
+    inherit f = case f of
+      FoundUnit c -> FoundUnit c {candidateInherits = True}
+      FoundBinding b -> FoundBinding b
+    -- A docstring is a string expression in the first statement of this declaration's suite.
+    pythonDoc node
+      | language /= "python" = Nothing
+      | otherwise = do
+          block <- case node of
+            RuleNode (Name "file_input") _ _ -> Just node
+            _ -> listToMaybe [b | b@(RuleNode (Name "block") _ _) <- childrenOf node]
+          statement <- firstStatement block
+          case filter (\t -> nameText (tokenType t) `notElem` ["NEWLINE", "INDENT", "DEDENT"] && not (isEofToken t)) (treeTokens statement) of
+            [t] | nameText (tokenType t) == "STRING", isJust (pythonString (tokenText t)) -> Just (TokenNode t)
+            _ -> Nothing
+    firstStatement node = case node of
+      RuleNode (Name "simple_stmt") _ _ -> Just node
+      RuleNode (Name "stmt") _ ns -> listToMaybe ns >>= firstStatement
+      RuleNode (Name "simple_stmts") _ ns -> listToMaybe ns >>= firstStatement
+      RuleNode (Name "block") _ ns -> listToMaybe [n | n@RuleNode {} <- ns] >>= firstStatement
+      RuleNode (Name "file_input") _ ns -> listToMaybe [n | n@RuleNode {} <- ns] >>= firstStatement
+      _ -> Nothing
+    pythonString raw =
+      let plain = if "r" `T.isPrefixOf` T.toLower raw || "u" `T.isPrefixOf` T.toLower raw then T.drop 1 raw else raw
+       in listToMaybe [body | delimiter <- ["\"\"\"", "'''", "\"", "'"], Just middle <- [T.stripPrefix delimiter plain], Just body <- [T.stripSuffix delimiter middle]]
     planFor name alternative = Map.lookup name plans >>= \alts -> listToMaybe (drop alternative alts) >>= id
     isUnitNode node = case node of
       RuleNode name alternative _ -> isJust (planFor name alternative) || Map.member name rulesByName
@@ -372,8 +436,22 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       let uid = UnitId (NonEmpty.fromList (NonEmpty.toList (unitIdSegments parent) ++ [candidateKind c, segment]))
           node = candidateNode c
           clauses = node : candidateClauses c
-          sp = Span (spanStart (treeSpan node)) (spanEnd (treeSpan (last clauses)))
-          howSpan = maybe sp treeSpan (candidateHow c)
+          ownSpan = Span (spanStart (treeSpan node)) (spanEnd (treeSpan (last clauses)))
+          -- A binding's span ends at its last real token, not at the virtual brace the layout
+          -- hook places on the next line.
+          bindingSpans = [Span (spanStart (treeSpan b)) (maybe (spanEnd (treeSpan b)) (spanEnd . treeSpan . TokenNode) (lastReal b)) | b <- candidateBindings c]
+          lastReal b = case reverse [t | t <- treeTokens b, not (isEofToken t), not (isVirtual t)] of
+            (t : _) -> Just t
+            [] -> Nothing
+          sp = case bindingSpans of
+            [] -> ownSpan
+            _ -> Span (spanStart ownSpan) (maximum (spanEnd ownSpan : map spanEnd bindingSpans))
+          -- The How is the bindings when there are any, else the labeled how, else the unit's own
+          -- text after its comment, so a How never contains the Why.
+          howSpan = case (bindingSpans, candidateHow c) of
+            (b : bs, _) -> Span (spanStart b) (maximum (map spanEnd (b : bs)))
+            ([], Just h) -> treeSpan h
+            ([], Nothing) -> maybe ownSpan (\w -> Span (spanEnd (treeSpan w)) (spanEnd ownSpan)) (candidateWhy c)
           (nested, nestedDecisions) = collectAll uid (chain ++ [candidateName c]) required (concatMap childrenOf clauses)
           markers = [T.concat (T.words (tokensText m)) | clause <- clauses, m <- labeledSubtrees "marker" clause]
           test = isTestUnit language (candidateKind c) (candidateName c) idPath markers
@@ -393,8 +471,10 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
                   ]
        in ( CodeUnit
               { unitId = uid
-              , unitWhat = Answer (What (candidateName c) (UnitKind (candidateKind c))) evidence
-              , unitHow = Answer (HowText (slice howSpan)) evidence
+              , unitWhat = Answer (What (candidateName c) (UnitKind (candidateKind c)) (T.strip . slice . treeSpan <$> candidateSignature c)) evidence
+              , unitHow = Answer (HowText (T.strip (case candidateWhy c of
+                    Just why | language == "python" -> slice (Span (spanStart ownSpan) (spanStart (treeSpan why))) <> slice (Span (spanEnd (treeSpan why)) (spanEnd ownSpan))
+                    _ -> slice howSpan))) evidence
               , unitWhere = Answer (Where path sp chain Nothing) evidence
               , unitWho = Nothing
               , unitWhen = Nothing
@@ -404,6 +484,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
               }
           , own ++ nestedDecisions
           )
+    whyFrom whyNode raw | language == "python", Just body <- pythonString raw = toWhy (parseCanonicalComment body)
     whyFrom whyNode raw =
       Why
         { whyText = docCommentBody raw
@@ -424,11 +505,19 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
         [] -> False
     nameOf rule node = case unitRuleNameSource rule of
       NameFromToken tokenName index -> tokenText <$> listToMaybe (drop (index - 1) [t | t <- treeTokens node, tokenType t == tokenName])
+      NameFromDirectToken tokenName index -> tokenText <$> listToMaybe (drop (index - 1) [t | t <- directTokens node, tokenType t == tokenName])
       NameFromRule ruleName -> listToMaybe (mapMaybe (ruleText ruleName) (directChildrenDeep node))
       NameFromOrdinal -> Just ""
     ruleText wanted node = case node of
       RuleNode name _ _ | name == wanted -> Just (nameFromTokens node)
       _ -> Nothing
+    directTokens node = case node of
+      RuleNode _ _ ns -> concatMap ownToken ns
+      _ -> []
+    ownToken node = case node of
+      TokenNode t -> [t]
+      Labeled _ inner -> ownToken inner
+      RuleNode {} -> []
     directChildrenDeep node = case node of
       RuleNode _ _ ns -> ns ++ concatMap directChildrenDeep ns
       Labeled _ inner -> directChildrenDeep inner
@@ -451,10 +540,15 @@ data Candidate = Candidate
   , candidateOrdinal :: Bool
   , candidateWhy :: Maybe ParseTree
   , candidateHow :: Maybe ParseTree
+  , candidateSignature :: Maybe ParseTree
+  , candidateBindings :: [ParseTree]
   , candidateNode :: ParseTree
   , candidateMerge :: Maybe Text
   , candidateClauses :: [ParseTree]
   }
+
+-- | What a walk of the tree finds: a unit, or a labeled binding that belongs to one.
+data Found = FoundUnit Candidate | FoundBinding ParseTree
 
 offsetFromPosition :: Text -> Position -> Int
 offsetFromPosition source (Position line column) =

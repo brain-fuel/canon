@@ -407,7 +407,7 @@ prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength = withTests 1 $ p
 -- | The canonically commented dialect of the C# grammar, with no units of a profile, so every unit
 -- comes from the grammar's labels.
 dialectProfile :: Profile
-dialectProfile = Profile [".cs"] (SplitGrammarFiles "grammars/csharp/canonically_commented/CSharpLexer.g4" "grammars/csharp/canonically_commented/CSharpParser.g4") (Name "compilation_unit") [] defaultCommentSyntax Map.empty
+dialectProfile = Profile [".cs"] (SplitGrammarFiles "grammars/csharp/canonically_commented/CSharpLexer.g4" "grammars/csharp/canonically_commented/CSharpParser.g4") (Name "compilation_unit") [] defaultCommentSyntax Map.empty Map.empty Map.empty
 
 -- | An extraction through the C# dialect.
 extractDialect :: FilePath -> Text -> PropertyT IO Extraction

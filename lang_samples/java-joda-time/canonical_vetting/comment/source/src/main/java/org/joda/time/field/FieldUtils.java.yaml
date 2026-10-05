@@ -1,0 +1,57 @@
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils:
+  digest: sha256:b919ea9ae7d2ad33
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/constructor/FieldUtils:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/equals:
+  digest: sha256:f8de08abbecbce60
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/getWrappedValue:
+  digest: sha256:6f44a5f31fce83d5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/getWrappedValue#2:
+  digest: sha256:0547a2aaa7ad33f2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeAdd:
+  digest: sha256:d58ffef4f5deca23
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeAdd#2:
+  digest: sha256:d58ffef4f5deca23
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeDivide:
+  digest: sha256:7d6bc884281616e9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeDivide#2:
+  digest: sha256:2860bc7d8fa59641
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeMultiply:
+  digest: sha256:304543fa1f201e4e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeMultiply#2:
+  digest: sha256:304543fa1f201e4e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeMultiply#3:
+  digest: sha256:cfae96b696f9fbb1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeMultiplyToInt:
+  digest: sha256:9cf5cf8a7eccf594
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeNegate:
+  digest: sha256:a6792a6e7be7df4a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeSubtract:
+  digest: sha256:9770335da56f709a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/safeToInt:
+  digest: sha256:48b9f37ec5626dba
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/verifyValueBounds:
+  digest: sha256:82fb6c6c54cb5d13
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/verifyValueBounds#2:
+  digest: sha256:a0833a3ff7e46065
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/FieldUtils.java/package/org.joda.time.field/class/FieldUtils/method/verifyValueBounds#3:
+  digest: sha256:3c9c8bcc9ab2d198
+  verdict: pending

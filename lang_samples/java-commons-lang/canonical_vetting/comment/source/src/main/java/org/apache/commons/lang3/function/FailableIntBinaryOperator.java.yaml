@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntBinaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableIntBinaryOperator:
+  digest: sha256:47955dd5ad693f81
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntBinaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableIntBinaryOperator/method/applyAsInt:
+  digest: sha256:425854e3294439b1
+  verdict: pending

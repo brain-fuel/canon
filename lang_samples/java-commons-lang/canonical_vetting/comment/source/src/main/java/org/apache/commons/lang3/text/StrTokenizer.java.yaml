@@ -1,0 +1,222 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer:
+  digest: sha256:7a51e4a0ae11c74b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer:
+  digest: sha256:b3fadfb1d360211e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#10:
+  digest: sha256:b47c1d0f201351f7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#11:
+  digest: sha256:0e2dbe0c3eba7177
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#12:
+  digest: sha256:d759c0d225142557
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#13:
+  digest: sha256:535d0352df408e20
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#2:
+  digest: sha256:47764fa09fde0ca2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#3:
+  digest: sha256:c0cc197034c0add8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#4:
+  digest: sha256:c62a4ab35f124a80
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#5:
+  digest: sha256:62b617bfdecb843c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#6:
+  digest: sha256:210f1c52d4461d7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#7:
+  digest: sha256:2b08a222fda6a437
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#8:
+  digest: sha256:98df9083712e5d61
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/constructor/StrTokenizer#9:
+  digest: sha256:17eeb5d6db3d4efa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/field/chars:
+  digest: sha256:1fe4a54f848d72a2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/field/delimMatcher:
+  digest: sha256:662bf8ceff71c8e7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/field/emptyAsNull:
+  digest: sha256:bf56370980f72aa8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/field/ignoreEmptyTokens:
+  digest: sha256:d8d84d4902430e41
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/field/ignoredMatcher:
+  digest: sha256:d195de7ca4d84d95
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/field/quoteMatcher:
+  digest: sha256:a6974d382fd02679
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/field/tokenPos:
+  digest: sha256:b05c8f5e99e1f581
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/field/tokens:
+  digest: sha256:d5ca86461bb03d9a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/field/trimmerMatcher:
+  digest: sha256:b494d262065bda8f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/add:
+  digest: sha256:2d5c4a5981fe7d05
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/addToken:
+  digest: sha256:bb3a36816365ab29
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/checkTokenized:
+  digest: sha256:50ae37744c43e6a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/clone:
+  digest: sha256:9c9b11cd6dbd8519
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/cloneReset:
+  digest: sha256:7c42eed0efb408a5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getCSVClone:
+  digest: sha256:4242a9139a624edc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getCSVInstance:
+  digest: sha256:f8f25e4ab7a7b7a2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getCSVInstance#2:
+  digest: sha256:cd307060120f3761
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getCSVInstance#3:
+  digest: sha256:cd307060120f3761
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getContent:
+  digest: sha256:1be4d9b8b7bfc43f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getDelimiterMatcher:
+  digest: sha256:4479df714dcb71f9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getIgnoredMatcher:
+  digest: sha256:42f5459f13302e29
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getQuoteMatcher:
+  digest: sha256:3262ab58eb486f6a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getTSVClone:
+  digest: sha256:60994bf2786c44fb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getTSVInstance:
+  digest: sha256:eb8952ad1f5bf401
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getTSVInstance#2:
+  digest: sha256:bf89acfe34f26bec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getTSVInstance#3:
+  digest: sha256:bf89acfe34f26bec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getTokenArray:
+  digest: sha256:4b09dc26bbf05b03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getTokenList:
+  digest: sha256:0d210810a431ddad
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/getTrimmerMatcher:
+  digest: sha256:6f5d229f4c96d656
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/hasNext:
+  digest: sha256:6a0b1b9cc92c5b4f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/hasPrevious:
+  digest: sha256:71fdb33037bd7b35
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/isEmptyTokenAsNull:
+  digest: sha256:4e85d95d9287033a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/isIgnoreEmptyTokens:
+  digest: sha256:d4e8406aa5916a3d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/isQuote:
+  digest: sha256:3a4ab1824905e693
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/next:
+  digest: sha256:dae8059db55bfc16
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/nextIndex:
+  digest: sha256:d5a11d2baea43ca6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/nextToken:
+  digest: sha256:d577e041ec08869c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/previous:
+  digest: sha256:26fdb2867061f424
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/previousIndex:
+  digest: sha256:9c1ae9076973fbf3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/previousToken:
+  digest: sha256:51d61b9bd101ebb9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/readNextToken:
+  digest: sha256:1c55da9bc6142818
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/readWithQuotes:
+  digest: sha256:1a45dd13e74a6259
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/remove:
+  digest: sha256:9791ad179f3f98d7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/reset:
+  digest: sha256:40bed38a50fbb967
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/reset#2:
+  digest: sha256:b54be6f804c35f48
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/reset#3:
+  digest: sha256:189460dc1506365e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/set:
+  digest: sha256:2d5c4a5981fe7d05
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setDelimiterChar:
+  digest: sha256:aa3b97de87b4569b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setDelimiterMatcher:
+  digest: sha256:9470501649678b8b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setDelimiterString:
+  digest: sha256:768176461a45c783
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setEmptyTokenAsNull:
+  digest: sha256:5f7517739d7a9b37
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setIgnoreEmptyTokens:
+  digest: sha256:09f2cc2ffe35b2d6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setIgnoredChar:
+  digest: sha256:1593f87f908af343
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setIgnoredMatcher:
+  digest: sha256:dd80df37b61b1963
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setQuoteChar:
+  digest: sha256:8d72b49a82a55101
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setQuoteMatcher:
+  digest: sha256:a49134f6517aa7f2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/setTrimmerMatcher:
+  digest: sha256:33c6ce265f8f075d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/size:
+  digest: sha256:4dc1904b160edacb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/toString:
+  digest: sha256:1be4d9b8b7bfc43f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrTokenizer.java/package/org.apache.commons.lang3.text/class/StrTokenizer/method/tokenize:
+  digest: sha256:b09a7d3eed6272cf
+  verdict: pending

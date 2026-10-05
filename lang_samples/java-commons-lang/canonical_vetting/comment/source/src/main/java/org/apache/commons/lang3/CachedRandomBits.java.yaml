@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/CachedRandomBits.java/package/org.apache.commons.lang3/class/CachedRandomBits:
+  digest: sha256:7476bdcdb04dd243
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CachedRandomBits.java/package/org.apache.commons.lang3/class/CachedRandomBits/constructor/CachedRandomBits:
+  digest: sha256:673ff6104be659f0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CachedRandomBits.java/package/org.apache.commons.lang3/class/CachedRandomBits/field/BITS_PER_BYTE:
+  digest: sha256:1021a7b8c86b3c11
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CachedRandomBits.java/package/org.apache.commons.lang3/class/CachedRandomBits/field/BIT_INDEX_MASK:
+  digest: sha256:4bdd8fc3bb8cfa38
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CachedRandomBits.java/package/org.apache.commons.lang3/class/CachedRandomBits/field/MAX_BITS:
+  digest: sha256:0cae75824d292077
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CachedRandomBits.java/package/org.apache.commons.lang3/class/CachedRandomBits/field/MAX_CACHE_SIZE:
+  digest: sha256:a8e78387fff03763
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CachedRandomBits.java/package/org.apache.commons.lang3/class/CachedRandomBits/field/bitIndex:
+  digest: sha256:2eefe66ac3e5f95d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CachedRandomBits.java/package/org.apache.commons.lang3/class/CachedRandomBits/method/nextBits:
+  digest: sha256:32c7accf85f08712
+  verdict: pending

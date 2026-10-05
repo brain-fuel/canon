@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java/package/org.apache.commons.lang3.text.translate/class/CharSequenceTranslator:
+  digest: sha256:b0826a0764638ebc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java/package/org.apache.commons.lang3.text.translate/class/CharSequenceTranslator/constructor/CharSequenceTranslator:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java/package/org.apache.commons.lang3.text.translate/class/CharSequenceTranslator/method/hex:
+  digest: sha256:cc4ab908ea269778
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java/package/org.apache.commons.lang3.text.translate/class/CharSequenceTranslator/method/translate:
+  digest: sha256:ecc2e88f369bdfd4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java/package/org.apache.commons.lang3.text.translate/class/CharSequenceTranslator/method/translate#2:
+  digest: sha256:c77b5a3368ae939a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java/package/org.apache.commons.lang3.text.translate/class/CharSequenceTranslator/method/translate#3:
+  digest: sha256:3021c860e3972fbe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java/package/org.apache.commons.lang3.text.translate/class/CharSequenceTranslator/method/with:
+  digest: sha256:c661f1edc64fbada
+  verdict: pending

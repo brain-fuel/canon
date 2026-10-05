@@ -1,0 +1,24 @@
+decision/go/source/time.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/time.go/function/ClockSequence:
+  digest: sha256:ab5d8ff346c8927d
+  verdict: pending
+decision/go/source/time.go/function/GetTime:
+  digest: sha256:baea1a7b79be636c
+  verdict: pending
+decision/go/source/time.go/function/SetClockSequence:
+  digest: sha256:027212c5d74a6e15
+  verdict: pending
+decision/go/source/time.go/method/ClockSequence:
+  digest: sha256:3ae41a514da7ae15
+  verdict: pending
+decision/go/source/time.go/method/Time:
+  digest: sha256:fe7ced75b56a0eba
+  verdict: pending
+decision/go/source/time.go/method/UnixTime:
+  digest: sha256:e50f0a4ef7bda120
+  verdict: pending
+decision/go/source/time.go/type/Time:
+  digest: sha256:5fb48c69db2221a9
+  verdict: pending

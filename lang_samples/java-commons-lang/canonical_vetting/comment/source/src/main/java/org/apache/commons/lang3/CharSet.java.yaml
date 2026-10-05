@@ -1,0 +1,54 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet:
+  digest: sha256:4ed9855c0f347e7f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/constructor/CharSet:
+  digest: sha256:fc4117b715b5f815
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/field/ASCII_ALPHA:
+  digest: sha256:d564514617b85883
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/field/ASCII_ALPHA_LOWER:
+  digest: sha256:70d02656e1f81dc5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/field/ASCII_ALPHA_UPPER:
+  digest: sha256:3fcccdff20dd5926
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/field/ASCII_NUMERIC:
+  digest: sha256:03f405fe896fecde
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/field/COMMON:
+  digest: sha256:f9c2f5a2832ce225
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/field/EMPTY:
+  digest: sha256:db21ec945c41ad3c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/field/lock:
+  digest: sha256:b69b5a87d6ce8915
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/field/serialVersionUID:
+  digest: sha256:801ebe937291aea0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/field/set:
+  digest: sha256:98db150d342f9064
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/method/add:
+  digest: sha256:70330ee4728a579f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/method/contains:
+  digest: sha256:01ebeff40700360f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/method/equals:
+  digest: sha256:d8633217698e255b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/method/getCharRanges:
+  digest: sha256:a41dad177f376dfe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/method/getInstance:
+  digest: sha256:53958129365cc081
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/method/hashCode:
+  digest: sha256:7b24c716984c4e7c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSet.java/package/org.apache.commons.lang3/class/CharSet/method/toString:
+  digest: sha256:61fb090f76996aa0
+  verdict: pending

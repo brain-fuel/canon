@@ -1,0 +1,36 @@
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology:
+  digest: sha256:72edf0de71684641
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/class/LimitException:
+  digest: sha256:1022cbd0557a6d65
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/constructor/LimitChronology:
+  digest: sha256:d062ab7ecf2c1943
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/method/equals:
+  digest: sha256:bb93bca8200311ef
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/method/getInstance:
+  digest: sha256:a575b51f964b2f0e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/method/getLowerLimit:
+  digest: sha256:e4399598c7041c61
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/method/getUpperLimit:
+  digest: sha256:c0d00bada04f0fb0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/method/hashCode:
+  digest: sha256:3444e9b8a54ffe01
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/method/toString:
+  digest: sha256:fb4549890f8bd4a6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/method/withUTC:
+  digest: sha256:f542b38609c79f48
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LimitChronology.java/package/org.joda.time.chrono/class/LimitChronology/method/withZone:
+  digest: sha256:7cd50612c3206492
+  verdict: pending

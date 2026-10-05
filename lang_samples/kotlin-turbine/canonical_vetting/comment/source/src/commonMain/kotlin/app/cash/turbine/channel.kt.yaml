@@ -1,0 +1,36 @@
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt:
+  digest: sha256:d935d3605afc799e
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/awaitComplete:
+  digest: sha256:9cd91a3c948bcf6f
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/awaitError:
+  digest: sha256:be452ca6243d40c9
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/awaitEvent:
+  digest: sha256:357d8ba670a6ccd7
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/awaitItem:
+  digest: sha256:940aeebb712671e4
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/expectMostRecentItem:
+  digest: sha256:35200a9217816044
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/expectNoEvents:
+  digest: sha256:9cbcaf23c00c9e4f
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/skipItems:
+  digest: sha256:0d519462abc4619e
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/takeComplete:
+  digest: sha256:ba29b56225aa370e
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/takeError:
+  digest: sha256:b1f82c490266f577
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/takeEvent:
+  digest: sha256:efe4c0f9625d0428
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/channel.kt/function/takeItem:
+  digest: sha256:0f40146046f06ce9
+  verdict: pending

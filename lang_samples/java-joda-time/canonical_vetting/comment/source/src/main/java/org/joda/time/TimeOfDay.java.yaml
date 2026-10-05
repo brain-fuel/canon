@@ -1,0 +1,237 @@
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay:
+  digest: sha256:b723053506d7228f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property:
+  digest: sha256:11c853997d12d844
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/constructor/Property:
+  digest: sha256:bfb8d71316e7e638
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/field/iFieldIndex:
+  digest: sha256:8748affef5a6dc77
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/field/iTimeOfDay:
+  digest: sha256:d2120484400e2e65
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/addNoWrapToCopy:
+  digest: sha256:e92a7aecbdffbc53
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/addToCopy:
+  digest: sha256:ae5438f05235401a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/addWrapFieldToCopy:
+  digest: sha256:72df8b9774ec0f0b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/get:
+  digest: sha256:7aa3dac13f7b6a68
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/getField:
+  digest: sha256:bfe4e226255836b0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/getReadablePartial:
+  digest: sha256:d60c64bdbc31ea3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/getTimeOfDay:
+  digest: sha256:d60c64bdbc31ea3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/setCopy:
+  digest: sha256:058559811ea7ccdb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/setCopy#2:
+  digest: sha256:e920c54d8b3b368b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/setCopy#3:
+  digest: sha256:d8c887ff2d07f97d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/withMaximumValue:
+  digest: sha256:2eb6bdfc94018fdd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/class/Property/method/withMinimumValue:
+  digest: sha256:0ee947cf394754e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay:
+  digest: sha256:d1e67e0fcdfeefb8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#10:
+  digest: sha256:7230fcd7d9a3c610
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#11:
+  digest: sha256:44bc9c8f4c271dbb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#12:
+  digest: sha256:d893000b87e07de9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#13:
+  digest: sha256:aa46ea141c5618a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#14:
+  digest: sha256:c27b11ca634dbb4d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#15:
+  digest: sha256:bb03df2211d3ad52
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#2:
+  digest: sha256:e6be504a2593255c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#3:
+  digest: sha256:738c34131eebf2df
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#4:
+  digest: sha256:1ec4e740a0a8ce44
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#5:
+  digest: sha256:b2232107b53527db
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#6:
+  digest: sha256:12a0f9518b79a222
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#7:
+  digest: sha256:3720ff528985046b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#8:
+  digest: sha256:50096be3015bea0f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/constructor/TimeOfDay#9:
+  digest: sha256:080fc19b14ca15f5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/field/FIELD_TYPES:
+  digest: sha256:1286358604e5ac2e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/field/HOUR_OF_DAY:
+  digest: sha256:8b949f6b84120ddb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/field/MIDNIGHT:
+  digest: sha256:e3c7dad96121a06c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/field/MILLIS_OF_SECOND:
+  digest: sha256:8c4c8db1b1ef967b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/field/MINUTE_OF_HOUR:
+  digest: sha256:d82597d88d5f5c04
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/field/SECOND_OF_MINUTE:
+  digest: sha256:7a2f68efbc60414d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/fromCalendarFields:
+  digest: sha256:7c2215ce894b0c86
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/fromDateFields:
+  digest: sha256:f5b24fd5bfaf25a5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/fromMillisOfDay:
+  digest: sha256:a154392e3fa86673
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/fromMillisOfDay#2:
+  digest: sha256:d60ef2c502f8ae98
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/getField:
+  digest: sha256:2c841af22b7b31e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/getFieldType:
+  digest: sha256:a9de049e6116c54c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/getFieldTypes:
+  digest: sha256:997233ff225dac1f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/getHourOfDay:
+  digest: sha256:3f7ab5c869fa05ba
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/getMillisOfSecond:
+  digest: sha256:8fa514938c12d265
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/getMinuteOfHour:
+  digest: sha256:b547b4741cf45c66
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/getSecondOfMinute:
+  digest: sha256:a3fbabca0f42ba24
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/hourOfDay:
+  digest: sha256:b9ef14f3853d05cc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/millisOfSecond:
+  digest: sha256:6f19362d7bae674c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/minus:
+  digest: sha256:0b708220e0eafa67
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/minusHours:
+  digest: sha256:bda544c589a20fe6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/minusMillis:
+  digest: sha256:e6d08ecc3604a21a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/minusMinutes:
+  digest: sha256:9bd334929033f4e1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/minusSeconds:
+  digest: sha256:e5136d6143295645
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/minuteOfHour:
+  digest: sha256:e3e2b45d05f404ed
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/plus:
+  digest: sha256:3d6663c792a92408
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/plusHours:
+  digest: sha256:f116b490d3981d96
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/plusMillis:
+  digest: sha256:f1071cf041ae0d07
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/plusMinutes:
+  digest: sha256:1e477d640e74968c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/plusSeconds:
+  digest: sha256:a2d71ec3d3bf6c55
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/property:
+  digest: sha256:1a9e9a30ab158f72
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/secondOfMinute:
+  digest: sha256:4480e0b7a06841f5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/size:
+  digest: sha256:1ee1eb03ef3cf1d8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/toDateTimeToday:
+  digest: sha256:b897898e9bb7af41
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/toDateTimeToday#2:
+  digest: sha256:1d41cb1ddf6e6f11
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/toLocalTime:
+  digest: sha256:a13ad40c2b3c420b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/toString:
+  digest: sha256:bfe932db27ad21b5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/withChronologyRetainFields:
+  digest: sha256:23c07a9b5a1b9b60
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/withField:
+  digest: sha256:2daa909d75b278e7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/withFieldAdded:
+  digest: sha256:fb100bf5c1c1594f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/withHourOfDay:
+  digest: sha256:7ab375b1616a4130
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/withMillisOfSecond:
+  digest: sha256:ff58d5fb67c91860
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/withMinuteOfHour:
+  digest: sha256:94167aaad60683c8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/withPeriodAdded:
+  digest: sha256:ca772409e19c9e6d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/TimeOfDay.java/package/org.joda.time/class/TimeOfDay/method/withSecondOfMinute:
+  digest: sha256:1ba92420748eb981
+  verdict: pending

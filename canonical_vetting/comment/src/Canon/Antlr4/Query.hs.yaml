@@ -1,0 +1,123 @@
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query:
+  digest: sha256:f32e6a5f81acb1f2
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/data/KnownLexerCommand:
+  digest: sha256:0e1d372071c51a70
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/data/WellFormednessIssue:
+  digest: sha256:9fda92810c8a7e8d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/allRules:
+  digest: sha256:b40b2cf7b55f0f2f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/channelNames:
+  digest: sha256:fb5e547ca7b3977c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/declaredTokens:
+  digest: sha256:87b081f5577c4908
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/defaultModeName:
+  digest: sha256:bb80e20b824b7165
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/duplicateRuleNames:
+  digest: sha256:2d05c5a711e6f4ea
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/elementLabels:
+  digest: sha256:8d401a9d1e5198cc
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/embeddedActions:
+  digest: sha256:632b3d74ef81c430
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/fragmentRules:
+  digest: sha256:d6d344195e09101a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/grammarImports:
+  digest: sha256:9510e94055e0f441
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/grammarOptions:
+  digest: sha256:9032e4f5a91f44a3
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/implicitLiteralTokens:
+  digest: sha256:ab61a69b3ae4fc95
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/knownLexerCommand:
+  digest: sha256:16eeece73c5943c7
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/labeledAlternatives:
+  digest: sha256:0d4c16943df315ef
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/lexerRuleElements:
+  digest: sha256:4a2c3625269ee9c6
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/lexerRules:
+  digest: sha256:aaa2e5a14f538e5e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/literalTokenTypes:
+  digest: sha256:6a00b220beb47a89
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/literals:
+  digest: sha256:cdd8121c434608ea
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/lookupRule:
+  digest: sha256:07bfb12278c20998
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/modeNames:
+  digest: sha256:f57e2e30a971d61c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/modeOfLexerRule:
+  digest: sha256:28980c7598400596
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/namedActions:
+  digest: sha256:e9dd4bb28976d36f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/parserRuleElements:
+  digest: sha256:a022205ff8b0a31e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/parserRules:
+  digest: sha256:60cfcafb29c058f6
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/referencesByRule:
+  digest: sha256:5700d0a206d8426d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/ruleAnn:
+  digest: sha256:fc050c2cd288a0a1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/ruleIndex:
+  digest: sha256:37ba22b34f70ff41
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/ruleName:
+  digest: sha256:009cf8e6d11307a2
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/ruleNames:
+  digest: sha256:809585102771d42d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/ruleReferences:
+  digest: sha256:fd374c6840c7b5ea
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/rulesInMode:
+  digest: sha256:60e0f83f7834f82b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/semanticPredicates:
+  digest: sha256:9b74ce1fc8a0f14b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/tokenNames:
+  digest: sha256:094404104846ad80
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/tokenReferences:
+  digest: sha256:2e2dc3538b25c0a7
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/tokenReferencesUndefinedIn:
+  digest: sha256:8f6b850e05f51574
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/tokenTypes:
+  digest: sha256:7528f4434161da3a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/undefinedRuleReferences:
+  digest: sha256:dd6b64caf93abd73
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/undefinedTokenReferences:
+  digest: sha256:94c4cab82b4dbda7
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Query.hs/module/Canon.Antlr4.Query/function/wellFormed:
+  digest: sha256:27ab814642d9a01f
+  verdict: pending

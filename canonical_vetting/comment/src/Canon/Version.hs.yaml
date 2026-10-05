@@ -1,0 +1,21 @@
+decision/haskell/src/Canon/Version.hs/module/Canon.Version:
+  digest: sha256:aed5e921ffb6bff4
+  verdict: pending
+decision/haskell/src/Canon/Version.hs/module/Canon.Version/data/PreReleaseIdentifier:
+  digest: sha256:f7726aba31ca742e
+  verdict: pending
+decision/haskell/src/Canon/Version.hs/module/Canon.Version/data/Version:
+  digest: sha256:131dfab15ede9bb1
+  verdict: pending
+decision/haskell/src/Canon/Version.hs/module/Canon.Version/function/canonVersion:
+  digest: sha256:bef3ecc22ee151f6
+  verdict: pending
+decision/haskell/src/Canon/Version.hs/module/Canon.Version/function/parseVersion:
+  digest: sha256:f5ee3fab8ce06899
+  verdict: pending
+decision/haskell/src/Canon/Version.hs/module/Canon.Version/function/precedence:
+  digest: sha256:518c02ad86ecacf5
+  verdict: pending
+decision/haskell/src/Canon/Version.hs/module/Canon.Version/function/renderVersion:
+  digest: sha256:bb0d24886ba2d0b2
+  verdict: pending

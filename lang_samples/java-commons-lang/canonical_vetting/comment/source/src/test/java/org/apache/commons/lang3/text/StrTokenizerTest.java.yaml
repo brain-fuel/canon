@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrTokenizerTest.java/package/org.apache.commons.lang3.text/class/StrTokenizerTest:
+  digest: sha256:a652a38dce67bb34
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrTokenizerTest.java/package/org.apache.commons.lang3.text/class/StrTokenizerTest/method/testCloneNotSupportedException:
+  digest: sha256:27f9d8325bef0da5
+  verdict: pending

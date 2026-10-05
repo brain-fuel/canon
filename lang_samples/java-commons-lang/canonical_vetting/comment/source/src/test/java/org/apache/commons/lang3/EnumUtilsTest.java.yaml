@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/EnumUtilsTest.java/package/org.apache.commons.lang3/class/EnumUtilsTest:
+  digest: sha256:e3b0c44298fc1c14
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/EnumUtilsTest.java/package/org.apache.commons.lang3/class/EnumUtilsTest/method/testGetEnumIgnoreCase_nonEnumClass:
+  digest: sha256:99839dc159625464
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/EnumUtilsTest.java/package/org.apache.commons.lang3/class/EnumUtilsTest/method/testGetEnum_nonEnumClass:
+  digest: sha256:99839dc159625464
+  verdict: pending

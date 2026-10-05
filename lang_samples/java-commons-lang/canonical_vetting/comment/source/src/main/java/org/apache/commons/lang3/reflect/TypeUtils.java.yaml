@@ -1,0 +1,258 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils:
+  digest: sha256:ffcfa3222d287abe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/GenericArrayTypeImpl:
+  digest: sha256:726d3546c384d79a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/GenericArrayTypeImpl/constructor/GenericArrayTypeImpl:
+  digest: sha256:8305b6fbcbd45c92
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/GenericArrayTypeImpl/method/equals:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/GenericArrayTypeImpl/method/getGenericComponentType:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/GenericArrayTypeImpl/method/hashCode:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/GenericArrayTypeImpl/method/toString:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/ParameterizedTypeImpl:
+  digest: sha256:e58c39597fa76303
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/ParameterizedTypeImpl/constructor/ParameterizedTypeImpl:
+  digest: sha256:2335ff08b48b6d19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/ParameterizedTypeImpl/method/equals:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/ParameterizedTypeImpl/method/getActualTypeArguments:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/ParameterizedTypeImpl/method/getOwnerType:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/ParameterizedTypeImpl/method/getRawType:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/ParameterizedTypeImpl/method/hashCode:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/ParameterizedTypeImpl/method/toString:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeBuilder:
+  digest: sha256:22b313c410449b5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeBuilder/constructor/WildcardTypeBuilder:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeBuilder/method/build:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeBuilder/method/withLowerBounds:
+  digest: sha256:2177ad3d3c63f53a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeBuilder/method/withUpperBounds:
+  digest: sha256:7a2dd915af860ebc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeImpl:
+  digest: sha256:1821f15951714ac8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeImpl/constructor/WildcardTypeImpl:
+  digest: sha256:9f61f2f829dfb06b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeImpl/method/equals:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeImpl/method/getLowerBounds:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeImpl/method/getUpperBounds:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeImpl/method/hashCode:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/class/WildcardTypeImpl/method/toString:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/constructor/TypeUtils:
+  digest: sha256:d99915e0c11e561a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/field/AMP_JOINER:
+  digest: sha256:a9d75b68e02bbdd2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/field/GT_JOINER:
+  digest: sha256:3b4b04de0492ca19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/field/TYPE_ARG_JOINER:
+  digest: sha256:ac42bf51bfd4be3b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/field/WILDCARD_ALL:
+  digest: sha256:a68ba93066fa5611
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/classToString:
+  digest: sha256:7f2520e2af4d80ba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/containsTypeVariables:
+  digest: sha256:22cfca118651ffdc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/determineTypeArguments:
+  digest: sha256:7d7f5be97d824b10
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/equals:
+  digest: sha256:aba84efba69ae2d3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/equals#2:
+  digest: sha256:046fde0ede733c5a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/equals#3:
+  digest: sha256:ed4a6e2ad3cda459
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/equals#4:
+  digest: sha256:307802a49a8df6aa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/equals#5:
+  digest: sha256:e0362592a576989f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/extractTypeArgumentsFrom:
+  digest: sha256:4b53efdc295b138c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/genericArrayType:
+  digest: sha256:4b3b8140bd5cad1a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/genericArrayTypeToString:
+  digest: sha256:8b3e33632457394b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getArrayComponentType:
+  digest: sha256:e949c72a9aff6f7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getClosestParentType:
+  digest: sha256:68e27422b8379847
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getImplicitBounds:
+  digest: sha256:c707e2be119cb572
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getImplicitLowerBounds:
+  digest: sha256:adac79702b140fee
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getImplicitUpperBounds:
+  digest: sha256:c177472e74112e5b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getRawType:
+  digest: sha256:a63f04648af2bffb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getRawType#2:
+  digest: sha256:146b34b14f32a92e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getTypeArguments:
+  digest: sha256:e6ed0f1be38f9a9b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getTypeArguments#2:
+  digest: sha256:bdb1e17cf087bbb1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getTypeArguments#3:
+  digest: sha256:6fa09d8e4ff9809e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getTypeArguments#4:
+  digest: sha256:b27a6230abe2a025
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/getTypeArguments#5:
+  digest: sha256:5a1568d862c00ed5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isArrayType:
+  digest: sha256:fcf3cc63edfd2474
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isAssignable:
+  digest: sha256:23304ce4cc038d6d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isAssignable#2:
+  digest: sha256:8793731014940360
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isAssignable#3:
+  digest: sha256:19358976312827ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isAssignable#4:
+  digest: sha256:30cb44196278bd5d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isAssignable#5:
+  digest: sha256:2a93071ca120af06
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isAssignable#6:
+  digest: sha256:82a2d6d8097d5345
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isAssignable#7:
+  digest: sha256:1c870e4b5b7061a0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isCyclical:
+  digest: sha256:983762de1ccf3d4e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/isInstance:
+  digest: sha256:4cc2a97fe71b6ca2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/mapTypeVariablesToArguments:
+  digest: sha256:4dfb6a51daed49d7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/normalizeUpperBounds:
+  digest: sha256:084528f3565b4df8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/normalizeUpperToObject:
+  digest: sha256:1fa83b26439fd230
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/parameterize:
+  digest: sha256:cc95f5357b781275
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/parameterize#2:
+  digest: sha256:a7cc823034f05198
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/parameterizeWithOwner:
+  digest: sha256:c3c56a9158d2bd3b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/parameterizeWithOwner#2:
+  digest: sha256:db517706d853c2df
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/parameterizedTypeToString:
+  digest: sha256:8cd8ba6ed2b0ef17
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/substituteTypeVariables:
+  digest: sha256:2646b34a1694f6f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/toLongString:
+  digest: sha256:b0e60cad3d86bccd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/toReferenceString:
+  digest: sha256:d855c10cffdfd460
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/toString:
+  digest: sha256:2289ed7d582b6284
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/typeVariableToString:
+  digest: sha256:a8df6cc17b4d71ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/typesSatisfyVariables:
+  digest: sha256:438ce8749772f25d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/unrollBounds:
+  digest: sha256:1319d867b62da156
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/unrollVariableAssignments:
+  digest: sha256:9d646e34a9a070bf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/unrollVariables:
+  digest: sha256:56f15089c58ac184
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/wildcardType:
+  digest: sha256:6d529c2aae397c9d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/wildcardTypeToString:
+  digest: sha256:0065b090e0739e92
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/wrap:
+  digest: sha256:383e6b66c0a31b6b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java/package/org.apache.commons.lang3.reflect/class/TypeUtils/method/wrap#2:
+  digest: sha256:fa0e442f6f8493e5
+  verdict: pending

@@ -1,0 +1,30 @@
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField:
+  digest: sha256:e39c2bdf45fec599
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField/field/iType:
+  digest: sha256:96e1162c6b7477e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField/field/serialVersionUID:
+  digest: sha256:60a2c7d22dc312fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField/method/getMillis:
+  digest: sha256:c0c65d82dbda00c5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField/method/getMillis#2:
+  digest: sha256:c0c65d82dbda00c5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField/method/getValue:
+  digest: sha256:881d5d5c6efee9fd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField/method/getValue#2:
+  digest: sha256:e4dc64d5f0914201
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField/method/getValueAsLong:
+  digest: sha256:881d5d5c6efee9fd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField/method/isSupported:
+  digest: sha256:2fed0f68e90fcad4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/BaseDurationField.java/package/org.joda.time.field/class/BaseDurationField/method/toString:
+  digest: sha256:ce41ecc1d74f6f78
+  verdict: pending

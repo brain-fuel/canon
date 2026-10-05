@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/joda/time/convert/CalendarConverter.java/package/org.joda.time.convert/class/CalendarConverter:
+  digest: sha256:529db48261668201
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/CalendarConverter.java/package/org.joda.time.convert/class/CalendarConverter/constructor/CalendarConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/CalendarConverter.java/package/org.joda.time.convert/class/CalendarConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/CalendarConverter.java/package/org.joda.time.convert/class/CalendarConverter/method/getChronology:
+  digest: sha256:e27fbe25de87c9fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/CalendarConverter.java/package/org.joda.time.convert/class/CalendarConverter/method/getChronology#2:
+  digest: sha256:c0815ec8ccc8840f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/CalendarConverter.java/package/org.joda.time.convert/class/CalendarConverter/method/getInstantMillis:
+  digest: sha256:8ebfbacc11077e3d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/CalendarConverter.java/package/org.joda.time.convert/class/CalendarConverter/method/getSupportedType:
+  digest: sha256:a2a5970aa1487c61
+  verdict: pending

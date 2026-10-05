@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeUnescaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeUnescaper:
+  digest: sha256:794f8e860e15d180
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeUnescaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeUnescaper/constructor/UnicodeUnescaper:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/UnicodeUnescaper.java/package/org.apache.commons.lang3.text.translate/class/UnicodeUnescaper/method/translate:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending

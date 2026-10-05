@@ -1,0 +1,15 @@
+decision/haskell/src/Canon/Model/Yaml.hs/module/Canon.Model.Yaml:
+  digest: sha256:e9b4b2cd16dc66e1
+  verdict: pending
+decision/haskell/src/Canon/Model/Yaml.hs/module/Canon.Model.Yaml/function/decodeModel:
+  digest: sha256:9fb34375462f86a7
+  verdict: pending
+decision/haskell/src/Canon/Model/Yaml.hs/module/Canon.Model.Yaml/function/decodeSorted:
+  digest: sha256:bd12df5e1f066f2a
+  verdict: pending
+decision/haskell/src/Canon/Model/Yaml.hs/module/Canon.Model.Yaml/function/encodeModel:
+  digest: sha256:3b018d77d25ad1e6
+  verdict: pending
+decision/haskell/src/Canon/Model/Yaml.hs/module/Canon.Model.Yaml/function/encodeSorted:
+  digest: sha256:6756548a4e9aa20c
+  verdict: pending

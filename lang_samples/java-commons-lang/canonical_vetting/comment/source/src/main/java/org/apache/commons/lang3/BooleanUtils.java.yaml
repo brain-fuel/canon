@@ -1,0 +1,162 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils:
+  digest: sha256:fd3c6923234d5538
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/constructor/BooleanUtils:
+  digest: sha256:1fc248020272b3da
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/field/FALSE:
+  digest: sha256:90e1dde034187cfc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/field/NO:
+  digest: sha256:05f8a99676a3609d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/field/OFF:
+  digest: sha256:605c2bc13d68faa6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/field/ON:
+  digest: sha256:657edded7f7b4b49
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/field/TRUE:
+  digest: sha256:115b512313fa2ff6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/field/YES:
+  digest: sha256:062cd048e1c1cca2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/and:
+  digest: sha256:072b3f561f69d4ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/and#2:
+  digest: sha256:3699e89a63e496ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/booleanValues:
+  digest: sha256:fbcbefc476642487
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/compare:
+  digest: sha256:a330b4d8b4686adf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/forEach:
+  digest: sha256:fc6e17cdb948a722
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/isFalse:
+  digest: sha256:5ac4264eb5fd59d4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/isNotFalse:
+  digest: sha256:302338daf1ba293b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/isNotTrue:
+  digest: sha256:db9b3df043b67dc5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/isTrue:
+  digest: sha256:17ab8333140eb173
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/negate:
+  digest: sha256:440852a712bba331
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/oneHot:
+  digest: sha256:9e1ba64dd0eeeaad
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/oneHot#2:
+  digest: sha256:3e7df973192445f1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/or:
+  digest: sha256:f89c6af976a1b968
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/or#2:
+  digest: sha256:2672dfa2cd8375ab
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/primitiveValues:
+  digest: sha256:fbcbefc476642487
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBoolean:
+  digest: sha256:9323b9999ebf1ae2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBoolean#2:
+  digest: sha256:d76f54ac2a677e9d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBoolean#3:
+  digest: sha256:ef03d16d0ee6bf19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBoolean#4:
+  digest: sha256:e13c749111e56e25
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBoolean#5:
+  digest: sha256:7ac79909fff5544f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBoolean#6:
+  digest: sha256:8c03d955c2c860fc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBooleanDefaultIfNull:
+  digest: sha256:5dbdec484d047463
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBooleanObject:
+  digest: sha256:873fc903d3728043
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBooleanObject#2:
+  digest: sha256:e468700e60347559
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBooleanObject#3:
+  digest: sha256:b1c274ec6580f4c1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBooleanObject#4:
+  digest: sha256:21d00949952f6b04
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBooleanObject#5:
+  digest: sha256:13c9c99b968a8910
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toBooleanObject#6:
+  digest: sha256:8c388a0890c71f00
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toInteger:
+  digest: sha256:58e28a0864d2971f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toInteger#2:
+  digest: sha256:93efcab0a6e4d9a1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toInteger#3:
+  digest: sha256:7d1b09584969e039
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toIntegerObject:
+  digest: sha256:11f31b9d50442974
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toIntegerObject#2:
+  digest: sha256:392198ba20c9e20f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toIntegerObject#3:
+  digest: sha256:e634f81439910d57
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toIntegerObject#4:
+  digest: sha256:4794c823f8abaed0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toString:
+  digest: sha256:257747fb7851e85b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toString#2:
+  digest: sha256:c6b4eb0d5766a1f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toStringOnOff:
+  digest: sha256:e14d19f8b9793c9b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toStringOnOff#2:
+  digest: sha256:95bd3fb9ee38547f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toStringTrueFalse:
+  digest: sha256:6310f66febd0843b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toStringTrueFalse#2:
+  digest: sha256:f4e4d3955f15e042
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toStringYesNo:
+  digest: sha256:ff3d5eae0e530935
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/toStringYesNo#2:
+  digest: sha256:bc023a832f5b7bb3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/values:
+  digest: sha256:3470e99a98e41e2d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/xor:
+  digest: sha256:037a660906025e33
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BooleanUtils.java/package/org.apache.commons.lang3/class/BooleanUtils/method/xor#2:
+  digest: sha256:808a2970bbaa22dc
+  verdict: pending

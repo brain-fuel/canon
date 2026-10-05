@@ -1,0 +1,15 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/ConcurrencyTest.java/package/com.google.gson.functional/class/ConcurrencyTest:
+  digest: sha256:d38138344f3220d7
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ConcurrencyTest.java/package/com.google.gson.functional/class/ConcurrencyTest/method/testMultiThreadDeserialization:
+  digest: sha256:27c017edcc693d7a
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ConcurrencyTest.java/package/com.google.gson.functional/class/ConcurrencyTest/method/testMultiThreadSerialization:
+  digest: sha256:27c017edcc693d7a
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ConcurrencyTest.java/package/com.google.gson.functional/class/ConcurrencyTest/method/testSingleThreadDeserialization:
+  digest: sha256:27c017edcc693d7a
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ConcurrencyTest.java/package/com.google.gson.functional/class/ConcurrencyTest/method/testSingleThreadSerialization:
+  digest: sha256:27c017edcc693d7a
+  verdict: pending

@@ -1,0 +1,39 @@
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt:
+  digest: sha256:d935d3605afc799e
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/asChannel:
+  digest: sha256:83936ffe4c0e2200
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/awaitComplete:
+  digest: sha256:5030994b9564d084
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/awaitError:
+  digest: sha256:f498a36d971a8888
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/awaitEvent:
+  digest: sha256:a81efec825cfaa11
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/awaitItem:
+  digest: sha256:b3064f0987f7fb28
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/cancel:
+  digest: sha256:feeb69b9653294df
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/cancelAndConsumeRemainingEvents:
+  digest: sha256:968d3e6520bfbda0
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/cancelAndIgnoreRemainingEvents:
+  digest: sha256:61d40a9c68d66246
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/ensureAllEventsConsumed:
+  digest: sha256:9e3f35a296f1a6d9
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/expectMostRecentItem:
+  digest: sha256:8021699434bdc1bf
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/expectNoEvents:
+  digest: sha256:0fc09130dc6bbe2f
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/ReceiveTurbine.kt/class/ReceiveTurbine/function/skipItems:
+  digest: sha256:0d519462abc4619e
+  verdict: pending

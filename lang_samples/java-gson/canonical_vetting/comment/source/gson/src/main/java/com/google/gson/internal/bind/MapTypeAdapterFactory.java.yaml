@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/MapTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/MapTypeAdapterFactory:
+  digest: sha256:00f8f18268fceb89
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/MapTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/MapTypeAdapterFactory/method/getKeyAdapter:
+  digest: sha256:de2c88cdea085bf8
+  verdict: pending

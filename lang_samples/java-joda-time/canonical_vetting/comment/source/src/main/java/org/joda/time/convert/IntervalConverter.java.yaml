@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/joda/time/convert/IntervalConverter.java/package/org.joda.time.convert/interface/IntervalConverter:
+  digest: sha256:5a517c69b59bc058
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/IntervalConverter.java/package/org.joda.time.convert/interface/IntervalConverter/method/isReadableInterval:
+  digest: sha256:3c56dd8b0959ec6a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/IntervalConverter.java/package/org.joda.time.convert/interface/IntervalConverter/method/setInto:
+  digest: sha256:f32550d1edc265b7
+  verdict: pending

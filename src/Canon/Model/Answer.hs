@@ -15,6 +15,7 @@ module Canon.Model.Answer
   , Assessment (..)
   , verdictText
   , parseVerdict
+  , isVerdictWord
   ) where
 
 import Canon.Git.Commit (CommitHash, Person)
@@ -22,7 +23,9 @@ import Canon.Model.Id (ReferenceKey)
 import Canon.Span (Span)
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, withText, (.:), (.:?), (.=))
 import Data.Maybe (fromMaybe)
+import Data.Char (isAsciiLower, isDigit)
 import Data.Text (Text)
+import qualified Data.Text as T
 import Data.Time (UTCTime)
 
 -- | A value with the evidence of how it is known.
@@ -36,10 +39,12 @@ data Answer a ev = Answer
 newtype UnitKind = UnitKind {unitKindText :: Text}
   deriving (Eq, Ord, Show)
 
--- | A name and a kind.
+-- | A name, a kind, and the signature when the language declares one apart from the body, so a
+-- name and its type can be judged together. ref:DEC-binding-label
 data What = What
   { whatName :: Text
   , whatKind :: UnitKind
+  , whatSignature :: Maybe Text
   }
   deriving (Eq, Show)
 
@@ -95,9 +100,11 @@ data When = When
   }
   deriving (Eq, Show)
 
--- | The states of a vetted comment: pending, good, bad, or deferred. ref:DEC-comment-vetting
-data Verdict = Pending | Good | Bad | Deferred
-  deriving (Eq, Ord, Show, Enum, Bounded)
+-- | The states of a vetted comment, pending, good, bad, or deferred, or the word of a kind that
+-- canon.yaml declares, whose meaning the declaration gives rather than canon.
+-- ref:DEC-comment-vetting ref:DEC-vetting-kinds
+data Verdict = Pending | Good | Bad | Deferred | Word Text
+  deriving (Eq, Ord, Show)
 
 -- | The text of a verdict as written in the vetting file.
 verdictText :: Verdict -> Text
@@ -106,12 +113,22 @@ verdictText v = case v of
   Good -> "good"
   Bad -> "bad"
   Deferred -> "deferred"
+  Word w -> w
 
--- | Parses a verdict from that text.
+-- | Parses a verdict from that text; any other lower-case hyphenated word is a kind's own word.
 parseVerdict :: Text -> Maybe Verdict
-parseVerdict t = case [v | v <- [minBound .. maxBound], verdictText v == t] of
-  (v : _) -> Just v
-  [] -> Nothing
+parseVerdict t = case t of
+  "pending" -> Just Pending
+  "good" -> Just Good
+  "bad" -> Just Bad
+  "deferred" -> Just Deferred
+  _ | isVerdictWord t -> Just (Word t)
+  _ -> Nothing
+
+-- | A verdict word is lower-case letters, digits, and hyphens, so it reads as one token on its
+-- line. ref:DEC-vetting-kinds
+isVerdictWord :: Text -> Bool
+isVerdictWord t = not (T.null t) && T.all (\c -> isAsciiLower c || isDigit c || c == '-') t
 
 -- | A verdict with the person, time, and commit that made it, read from git, and the co-authors
 -- the commit names, so an assisted sign-off is visible as such. ref:DEC-comment-vetting ref:DEC-human-sign-off
@@ -149,10 +166,10 @@ instance FromJSON UnitKind where
   parseJSON v = UnitKind <$> parseJSON v
 
 instance ToJSON What where
-  toJSON (What name kind) = object ["kind" .= kind, "name" .= name]
+  toJSON (What name kind signature) = object (["kind" .= kind, "name" .= name] ++ maybe [] (\s -> ["signature" .= s]) signature)
 
 instance FromJSON What where
-  parseJSON = withObject "What" $ \o -> What <$> o .: "name" <*> o .: "kind"
+  parseJSON = withObject "What" $ \o -> What <$> o .: "name" <*> o .: "kind" <*> o .:? "signature"
 
 instance ToJSON How where
   toJSON h = case h of

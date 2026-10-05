@@ -1,0 +1,117 @@
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days:
+  digest: sha256:2309266bdafb503c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/constructor/Days:
+  digest: sha256:69c50a455a2140eb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/FIVE:
+  digest: sha256:39d14f364a39a93f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/FOUR:
+  digest: sha256:5f8ac09e58322ec3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/MAX_VALUE:
+  digest: sha256:34678295d73f7537
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/MIN_VALUE:
+  digest: sha256:d77f07714220d1f8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/ONE:
+  digest: sha256:f61da89e2af2687a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/PARSER:
+  digest: sha256:20499c8bdbe0586f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/SEVEN:
+  digest: sha256:1ea548ee28b0f2ac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/SIX:
+  digest: sha256:c904f4414f23bc3e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/THREE:
+  digest: sha256:52d0c9ce56f9c2ee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/TWO:
+  digest: sha256:6d4f1287b61e80e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/ZERO:
+  digest: sha256:06a0f33bac9ee958
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/field/serialVersionUID:
+  digest: sha256:fcdf71a4d7975811
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/days:
+  digest: sha256:cb486184984c9bda
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/daysBetween:
+  digest: sha256:35ef054de5935a1a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/daysBetween#2:
+  digest: sha256:2f736055f1a197aa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/daysIn:
+  digest: sha256:598b80d8e2ac1c2b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/dividedBy:
+  digest: sha256:d920c5791daf1f3c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/getDays:
+  digest: sha256:6a0e29e159188344
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/getFieldType:
+  digest: sha256:327e956acf609610
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/getPeriodType:
+  digest: sha256:ffe56a3951768097
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/isGreaterThan:
+  digest: sha256:148ff3f6756f27cf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/isLessThan:
+  digest: sha256:9f5f4fc1d1443232
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/minus:
+  digest: sha256:1913c756b26b51b1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/minus#2:
+  digest: sha256:7f4dbdd4d90fb910
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/multipliedBy:
+  digest: sha256:5de541e502763b30
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/negated:
+  digest: sha256:d3ee8b12fd25c117
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/parseDays:
+  digest: sha256:26f3d52bec37b2b4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/plus:
+  digest: sha256:05b34882d3b2edf1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/plus#2:
+  digest: sha256:7745a7b6a9124382
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/readResolve:
+  digest: sha256:f1d57fe2267b9da4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/standardDaysIn:
+  digest: sha256:03c37a3df08c4bb7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/toStandardDuration:
+  digest: sha256:1a8978a8ad3dc331
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/toStandardHours:
+  digest: sha256:0becddfffd3862b6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/toStandardMinutes:
+  digest: sha256:a1785ac2b2045c20
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/toStandardSeconds:
+  digest: sha256:004879b8c71109c2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/toStandardWeeks:
+  digest: sha256:cab5769ae4f413fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Days.java/package/org.joda.time/class/Days/method/toString:
+  digest: sha256:971f365af897cfa0
+  verdict: pending

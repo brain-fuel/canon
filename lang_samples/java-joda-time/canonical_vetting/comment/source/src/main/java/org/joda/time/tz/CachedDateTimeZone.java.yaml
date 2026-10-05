@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/joda/time/tz/CachedDateTimeZone.java/package/org.joda.time.tz/class/CachedDateTimeZone:
+  digest: sha256:a68ace2f67f27e96
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/CachedDateTimeZone.java/package/org.joda.time.tz/class/CachedDateTimeZone/method/forZone:
+  digest: sha256:06e9016eba95797c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/CachedDateTimeZone.java/package/org.joda.time.tz/class/CachedDateTimeZone/method/getUncachedZone:
+  digest: sha256:1dc268594bd5c297
+  verdict: pending

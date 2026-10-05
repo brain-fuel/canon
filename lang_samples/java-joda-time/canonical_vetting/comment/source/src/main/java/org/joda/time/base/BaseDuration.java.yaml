@@ -1,0 +1,54 @@
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration:
+  digest: sha256:c5e7a757a33ef817
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/constructor/BaseDuration:
+  digest: sha256:7c898925269599db
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/constructor/BaseDuration#2:
+  digest: sha256:550272baa45f5e39
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/constructor/BaseDuration#3:
+  digest: sha256:69abdeb9c8369c11
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/constructor/BaseDuration#4:
+  digest: sha256:b71242485d502e2c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/field/iMillis:
+  digest: sha256:f107396f2a2a867d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/getMillis:
+  digest: sha256:0aa4450110bdddf6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/setMillis:
+  digest: sha256:8746296773fa5047
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/toIntervalFrom:
+  digest: sha256:9de9962e31ba2817
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/toIntervalTo:
+  digest: sha256:ec6226377d821bde
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/toPeriod:
+  digest: sha256:78f3077bcf432d5a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/toPeriod#2:
+  digest: sha256:10932baf18dc7082
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/toPeriod#3:
+  digest: sha256:e223480f98a58abd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/toPeriodFrom:
+  digest: sha256:c73248cc6c7496cb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/toPeriodFrom#2:
+  digest: sha256:2c27633721db8089
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/toPeriodTo:
+  digest: sha256:7a4b2f3c180176b5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseDuration.java/package/org.joda.time.base/class/BaseDuration/method/toPeriodTo#2:
+  digest: sha256:0d346d6ab459e5a4
+  verdict: pending

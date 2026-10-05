@@ -1,0 +1,54 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest:
+  digest: sha256:e98fae19be1d3534
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/class/CloneableString:
+  digest: sha256:49caac25daa32e55
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/class/NonComparableCharSequence/constructor/NonComparableCharSequence:
+  digest: sha256:7c676da6eb1bb89d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/class/UncloneableString:
+  digest: sha256:5e17891b784c97da
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testAllNotNull:
+  digest: sha256:662446ab8d4f3fce
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testAllNull:
+  digest: sha256:475bc44ec6cc1d37
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testAnyNotNull:
+  digest: sha256:e59a1c5bd56c771d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testAnyNull:
+  digest: sha256:ba0c6f09bf8e37a3
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testArray:
+  digest: sha256:f270a84b35b2a6e9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testCloneOfCloneable:
+  digest: sha256:89e77682744392ec
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testCloneOfNotCloneable:
+  digest: sha256:29d7e697d873b6c0
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testCloneOfPrimitiveArray:
+  digest: sha256:087f5ad60e044c2a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testCloneOfStringArray:
+  digest: sha256:1e1f3c34ed776a16
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testCloneOfUncloneable:
+  digest: sha256:c752732824703297
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testCompare:
+  digest: sha256:b5c5904f371bfc03
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testPossibleCloneOfCloneable:
+  digest: sha256:680c5f7bc51a7a44
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testPossibleCloneOfNotCloneable:
+  digest: sha256:1d7557e8cfd35bc4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ObjectUtilsTest.java/package/org.apache.commons.lang3/class/ObjectUtilsTest/method/testPossibleCloneOfUncloneable:
+  digest: sha256:44b49a10b2b7e532
+  verdict: pending

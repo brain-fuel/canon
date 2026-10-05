@@ -1,0 +1,75 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils:
+  digest: sha256:eaef4fba3da1ad92
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token:
+  digest: sha256:27ca84d15defb873
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token/constructor/Token:
+  digest: sha256:3c81cb42c9f87787
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token/field/EMPTY_ARRAY:
+  digest: sha256:4ff8294b06f40d2e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token/method/containsTokenWithValue:
+  digest: sha256:1a7b4c539a487e0a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token/method/equals:
+  digest: sha256:f5c948697d0022ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token/method/getCount:
+  digest: sha256:dfc7840d5966c9e1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token/method/getValue:
+  digest: sha256:99510491065bdf9c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token/method/hashCode:
+  digest: sha256:2ceb24e9b86e3c1f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token/method/increment:
+  digest: sha256:8cfb421cf1d29456
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/class/Token/method/toString:
+  digest: sha256:9eed28e93681fcff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/constructor/DurationFormatUtils:
+  digest: sha256:4f82709c3aaa2b9d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/field/ISO_EXTENDED_FORMAT_PATTERN:
+  digest: sha256:7bb7ccd25eec1b8c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/format:
+  digest: sha256:ec62e9b214842592
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/formatDuration:
+  digest: sha256:faf524df3e9ccce3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/formatDuration#2:
+  digest: sha256:77ed2b316e46f277
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/formatDurationHMS:
+  digest: sha256:aa12c4c747e5b880
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/formatDurationISO:
+  digest: sha256:51c20193d95da67d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/formatDurationWords:
+  digest: sha256:928af25507cd44a9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/formatPeriod:
+  digest: sha256:812302190fb41212
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/formatPeriod#2:
+  digest: sha256:abed2f4bce815114
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/formatPeriodISO:
+  digest: sha256:fc40e64396a63bd4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/lexx:
+  digest: sha256:8352ebc98bf53226
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/localEpochDay:
+  digest: sha256:1a3ce1f75848edfc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java/package/org.apache.commons.lang3.time/class/DurationFormatUtils/method/paddedValue:
+  digest: sha256:778333f137ad9351
+  verdict: pending

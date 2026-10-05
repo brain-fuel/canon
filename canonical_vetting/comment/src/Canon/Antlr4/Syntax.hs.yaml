@@ -1,0 +1,141 @@
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax:
+  digest: sha256:91a33c6af44a0825
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/ActionForm:
+  digest: sha256:d3d72d1b0081d2e8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Alternative:
+  digest: sha256:f346644933e6a176
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Atom:
+  digest: sha256:1197a5d719db7d3c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Block:
+  digest: sha256:04b711cdc455a006
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/CharRange:
+  digest: sha256:65113a7bd01d6d48
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/EbnfSuffix:
+  digest: sha256:c26f550f3179d8a2
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Element:
+  digest: sha256:5281be3551bd60f0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/ElementOption:
+  digest: sha256:6a124c2fdc1a843e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/ExceptionHandler:
+  digest: sha256:24e7a733e403a005
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Grammar:
+  digest: sha256:7b6d1a59e25d0649
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/GrammarKind:
+  digest: sha256:93a6a830eb610594
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Greediness:
+  digest: sha256:b74c0d44360eb50e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Import:
+  digest: sha256:763c29b0e46375de
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Label:
+  digest: sha256:ef2e9dac31a5eb61
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/LabelKind:
+  digest: sha256:d868c353810566a3
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/LabeledAlternative:
+  digest: sha256:71880ce4ca18c35b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/LexerAlternative:
+  digest: sha256:dde515e1265e3168
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/LexerAtom:
+  digest: sha256:a3b81981582ca481
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/LexerCommand:
+  digest: sha256:25f7650a1fb3a0d9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/LexerCommandArgument:
+  digest: sha256:678bafc2c907cccd
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/LexerElement:
+  digest: sha256:fcd0d9e846fc5d67
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/LexerRule:
+  digest: sha256:c5d02f7b7ed63cb3
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Mode:
+  digest: sha256:89f21742032c117a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/NamedAction:
+  digest: sha256:2b14f83cab0699b6
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Option:
+  digest: sha256:5cc9079870172a29
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/OptionValue:
+  digest: sha256:628c8ebe8064d4d6
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/ParserRule:
+  digest: sha256:eb698f990438214c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Prequel:
+  digest: sha256:3d454fd749bd613d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Quantifier:
+  digest: sha256:22d3fe957586ac25
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Rule:
+  digest: sha256:385d016c32cecfb9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/RuleModifier:
+  digest: sha256:f3244a95526355e9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/RulePrequel:
+  digest: sha256:7170c3ad93d3204d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/SetElement:
+  digest: sha256:3f7028687601a7d6
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/data/Terminal:
+  digest: sha256:85bc9ae73f5be8a4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/function/isNameChar:
+  digest: sha256:53c37df0dcb543db
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/function/isNameStartChar:
+  digest: sha256:b5cffcdc9249b094
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/function/isValidName:
+  digest: sha256:b525b421270bf945
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/function/nameIsTokenName:
+  digest: sha256:9017cf0122e29df0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/function/reservedWords:
+  digest: sha256:48122710f0d9c72a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/newtype/ActionText:
+  digest: sha256:05d99b802b9f6ab4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/newtype/ArgumentText:
+  digest: sha256:8fe1cbbd519313b0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/newtype/CharSet:
+  digest: sha256:1974becfa01f3dba
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/newtype/Name:
+  digest: sha256:a7fadce82200194e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/newtype/NotSet:
+  digest: sha256:77b31d198420915e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/newtype/QualifiedName:
+  digest: sha256:3b0c332e0a641fae
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Syntax.hs/module/Canon.Antlr4.Syntax/newtype/StringLiteral:
+  digest: sha256:991e8f1a3269734e
+  verdict: pending

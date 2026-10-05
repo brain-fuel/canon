@@ -1,0 +1,150 @@
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology:
+  digest: sha256:0ee5ed0d76552421
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/add:
+  digest: sha256:5b303dcba9557715
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/add#2:
+  digest: sha256:4aa37ed656be3391
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/centuries:
+  digest: sha256:f7faa17048dbfae6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/centuryOfEra:
+  digest: sha256:ee49dbda85383a05
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/clockhourOfDay:
+  digest: sha256:709f082a2d838f51
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/clockhourOfHalfday:
+  digest: sha256:43cbf1c2fbde7648
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/dayOfMonth:
+  digest: sha256:9067b4a373ec87d0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/dayOfWeek:
+  digest: sha256:0ec5e9d1aa532262
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/dayOfYear:
+  digest: sha256:e375ce950d33f95e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/days:
+  digest: sha256:6c546902a7c5d921
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/era:
+  digest: sha256:b7bd91f38135165b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/eras:
+  digest: sha256:5ca7beb6b9bd2f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/get:
+  digest: sha256:29d1f2d55bd034a0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/get#2:
+  digest: sha256:cf5fdf9f1a8b053d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/get#3:
+  digest: sha256:48d4bb0307b07202
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/getDateTimeMillis:
+  digest: sha256:c813a46fa6db46e8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/getDateTimeMillis#2:
+  digest: sha256:fa41cc21a4ac3cf3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/getDateTimeMillis#3:
+  digest: sha256:a7b2850fdb81423c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/getZone:
+  digest: sha256:7fa5e469864d8886
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/halfdayOfDay:
+  digest: sha256:3fecc4ac2620f0b6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/halfdays:
+  digest: sha256:f13e6b54cafb605a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/hourOfDay:
+  digest: sha256:0f7f1e9a78b0c394
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/hourOfHalfday:
+  digest: sha256:d53232817401d628
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/hours:
+  digest: sha256:04b0059bf0e5d5f8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/millis:
+  digest: sha256:a4d4e6a35d21e3b2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/millisOfDay:
+  digest: sha256:c49c704429d93585
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/millisOfSecond:
+  digest: sha256:7e2fd232efd14423
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/minuteOfDay:
+  digest: sha256:9db420b189db380a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/minuteOfHour:
+  digest: sha256:cf1bc8c8b2887d23
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/minutes:
+  digest: sha256:fbddbf5efb106b41
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/monthOfYear:
+  digest: sha256:a5716762032db67b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/months:
+  digest: sha256:28ee9e406d37fb53
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/secondOfDay:
+  digest: sha256:df62f0fa3a26d55d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/secondOfMinute:
+  digest: sha256:ba6845cd6a8d057f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/seconds:
+  digest: sha256:ee27ff397654b7eb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/set:
+  digest: sha256:4c4a61b3bedfc2fa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/toString:
+  digest: sha256:919dead22e1ebafa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/validate:
+  digest: sha256:e3c24dfc0fd29f85
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/weekOfWeekyear:
+  digest: sha256:1212c3bed7b71ff9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/weeks:
+  digest: sha256:35b853753e222462
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/weekyear:
+  digest: sha256:b7987247ec40c250
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/weekyearOfCentury:
+  digest: sha256:9f6117f0da537e55
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/weekyears:
+  digest: sha256:97ddd39bfd24afb1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/withUTC:
+  digest: sha256:4a43feb77f404b53
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/withZone:
+  digest: sha256:0879d50d2e0b6683
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/year:
+  digest: sha256:28bca298216455e1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/yearOfCentury:
+  digest: sha256:126b5d06b7ad6852
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/yearOfEra:
+  digest: sha256:ffe4b1ade817b846
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Chronology.java/package/org.joda.time/class/Chronology/method/years:
+  digest: sha256:8a87cb94d85d4121
+  verdict: pending

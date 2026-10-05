@@ -1,0 +1,72 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner:
+  digest: sha256:a45842884019ca33
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder:
+  digest: sha256:8132ed5922381b99
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/constructor/Builder:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/field/appender:
+  digest: sha256:f3539c5d587a09a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/field/delimiter:
+  digest: sha256:158bb405ce7c341d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/field/prefix:
+  digest: sha256:ae54e6bc480c77d1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/field/suffix:
+  digest: sha256:a496074fac813525
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/method/get:
+  digest: sha256:3c63c67034251c80
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/method/setDelimiter:
+  digest: sha256:00805c1fe4dd3df5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/method/setElementAppender:
+  digest: sha256:488ff9e798acd0eb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/method/setPrefix:
+  digest: sha256:81b7281226af13f4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/class/Builder/method/setSuffix:
+  digest: sha256:d4259312f92882e3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/constructor/AppendableJoiner:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/field/delimiter:
+  digest: sha256:158bb405ce7c341d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/field/prefix:
+  digest: sha256:ae54e6bc480c77d1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/field/suffix:
+  digest: sha256:a496074fac813525
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/method/builder:
+  digest: sha256:44da3f3779a58038
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/method/join:
+  digest: sha256:17c62441658e4554
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/method/join#2:
+  digest: sha256:afa01e2fa246fddc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/method/joinA:
+  digest: sha256:42f8aad243f7cb2b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/method/joinA#2:
+  digest: sha256:2a44fc66d414db0c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/method/joinA#3:
+  digest: sha256:69b8e95d8fd4e295
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/method/joinI:
+  digest: sha256:42f8aad243f7cb2b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AppendableJoiner.java/package/org.apache.commons.lang3/class/AppendableJoiner/method/joinSB:
+  digest: sha256:42f8aad243f7cb2b
+  verdict: pending

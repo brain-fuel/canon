@@ -1,0 +1,6 @@
+decision/haskell/test/Canon/Antlr4/VendoredTest.hs/module/Canon.Antlr4.VendoredTest:
+  digest: sha256:af220cf484e59806
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/VendoredTest.hs/module/Canon.Antlr4.VendoredTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

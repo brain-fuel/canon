@@ -1,0 +1,27 @@
+decision/java/source/src/test/java/org/joda/time/field/TestUnsupportedDateTimeField.java/package/org.joda.time.field/class/TestUnsupportedDateTimeField:
+  digest: sha256:d333578b29867713
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/field/TestUnsupportedDateTimeField.java/package/org.joda.time.field/class/TestUnsupportedDateTimeField/method/testAlwaysFalseReturnTypes:
+  digest: sha256:de69e4b65de54706
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/field/TestUnsupportedDateTimeField.java/package/org.joda.time.field/class/TestUnsupportedDateTimeField/method/testDelegatedMethods:
+  digest: sha256:213354744177d1b0
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/field/TestUnsupportedDateTimeField.java/package/org.joda.time.field/class/TestUnsupportedDateTimeField/method/testDifferentDurationReturnDifferentObjects:
+  digest: sha256:a38c1a92f65fbd81
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/field/TestUnsupportedDateTimeField.java/package/org.joda.time.field/class/TestUnsupportedDateTimeField/method/testMethodsThatShouldAlwaysReturnNull:
+  digest: sha256:02787bd722476a74
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/field/TestUnsupportedDateTimeField.java/package/org.joda.time.field/class/TestUnsupportedDateTimeField/method/testNullValuesToGetInstanceThrowsException:
+  digest: sha256:03fbb1f42382c81e
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/field/TestUnsupportedDateTimeField.java/package/org.joda.time.field/class/TestUnsupportedDateTimeField/method/testPublicGetNameMethod:
+  digest: sha256:e3d5ee8652fcdf3b
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/field/TestUnsupportedDateTimeField.java/package/org.joda.time.field/class/TestUnsupportedDateTimeField/method/testToString:
+  digest: sha256:70f3c0915fbc4904
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/field/TestUnsupportedDateTimeField.java/package/org.joda.time.field/class/TestUnsupportedDateTimeField/method/testUnsupportedMethods:
+  digest: sha256:f85e4fc2a424f1ec
+  verdict: pending

@@ -1,0 +1,4 @@
+uuid-upstream:
+  kind: package
+  title: google/uuid, RFC 9562 UUIDs for Go
+  locator: https://github.com/google/uuid

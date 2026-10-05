@@ -1,0 +1,108 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable:
+  digest: sha256:1ade1ab421fe249c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/accept:
+  digest: sha256:757ab7b021195d9f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/accept#2:
+  digest: sha256:f42964f78c12e273
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/accept#3:
+  digest: sha256:cac98991468afbf2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/accept#4:
+  digest: sha256:cac98991468afbf2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/accept#5:
+  digest: sha256:cac98991468afbf2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/apply:
+  digest: sha256:b294790ad3f8b628
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/apply#2:
+  digest: sha256:dbc5987f66aaccdc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/applyAsDouble:
+  digest: sha256:1c8f2b1725ea4e56
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/applyNonNull:
+  digest: sha256:d0a1125e3dd442ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/applyNonNull#2:
+  digest: sha256:262439f0814d7125
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/applyNonNull#3:
+  digest: sha256:cca341f9634682c5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/asBiConsumer:
+  digest: sha256:efec3f7762ca3710
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/asBiFunction:
+  digest: sha256:6411526e28307c6e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/asBiPredicate:
+  digest: sha256:abd4c0cee8a0329c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/asCallable:
+  digest: sha256:5faf1b85307b0b63
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/asConsumer:
+  digest: sha256:b242763768cdc8f9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/asFunction:
+  digest: sha256:2adf2f38f4f822d0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/asPredicate:
+  digest: sha256:9d552fac3b3714ea
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/asRunnable:
+  digest: sha256:605421f07c609d04
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/asSupplier:
+  digest: sha256:2f2647817d269955
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/call:
+  digest: sha256:c3e02e281e36c7f7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/get:
+  digest: sha256:0a616e7fc5e72766
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/getAsBoolean:
+  digest: sha256:2d44c9762f80ac51
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/getAsDouble:
+  digest: sha256:5f9f9f51d6de7f8e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/getAsInt:
+  digest: sha256:8dcced1c2bae2ab0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/getAsLong:
+  digest: sha256:24ade4f389dc0b73
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/getAsShort:
+  digest: sha256:300beedd9e3d6d8d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/rethrow:
+  digest: sha256:7f7c81a4e4b06522
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/run:
+  digest: sha256:59f071a28af57417
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/stream:
+  digest: sha256:51121ae5b7a41ef3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/stream#2:
+  digest: sha256:cd4bf20f67fd8695
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/test:
+  digest: sha256:48d985169c61bccd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/test#2:
+  digest: sha256:0b50c56e16997199
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/tryWithResources:
+  digest: sha256:376a231d6636ae92
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Failable.java/package/org.apache.commons.lang3.function/class/Failable/method/tryWithResources#2:
+  digest: sha256:a4589684b216ec5e
+  verdict: pending

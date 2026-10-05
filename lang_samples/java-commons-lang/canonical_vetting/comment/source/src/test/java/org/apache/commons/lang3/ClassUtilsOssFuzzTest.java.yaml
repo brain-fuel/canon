@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsOssFuzzTest.java/package/org.apache.commons.lang3/class/ClassUtilsOssFuzzTest:
+  digest: sha256:8c12432528e2af2b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsOssFuzzTest.java/package/org.apache.commons.lang3/class/ClassUtilsOssFuzzTest/method/testGetClassLongIllegalName:
+  digest: sha256:0792f17d5c2f5d6d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsOssFuzzTest.java/package/org.apache.commons.lang3/class/ClassUtilsOssFuzzTest/method/testGetClassLongName:
+  digest: sha256:81c00fc8d1c0c5ac
+  verdict: pending

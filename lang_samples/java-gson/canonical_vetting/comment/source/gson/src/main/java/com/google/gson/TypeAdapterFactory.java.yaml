@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapterFactory.java/package/com.google.gson/interface/TypeAdapterFactory:
+  digest: sha256:3cb51319ef1cde75
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapterFactory.java/package/com.google.gson/interface/TypeAdapterFactory/method/create:
+  digest: sha256:597ddbd7b35049b2
+  verdict: pending

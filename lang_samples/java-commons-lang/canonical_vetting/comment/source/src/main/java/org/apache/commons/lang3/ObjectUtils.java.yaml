@@ -1,0 +1,174 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils:
+  digest: sha256:cbfbca6d4a4cac46
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/class/Null:
+  digest: sha256:8ccab9dadcecd74d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/class/Null/constructor/Null:
+  digest: sha256:05a70da9cb3abe70
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/class/Null/field/serialVersionUID:
+  digest: sha256:bb6940b54f8f608c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/class/Null/method/readResolve:
+  digest: sha256:acf8dd4ab4354d6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/constructor/ObjectUtils:
+  digest: sha256:478a872d62ee3a34
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/field/NULL:
+  digest: sha256:11f633ff07c9fbfd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST:
+  digest: sha256:f9a3c7949048a02c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST#2:
+  digest: sha256:96d0b76890fb594e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST#3:
+  digest: sha256:46be07f19d6d6dbb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST#4:
+  digest: sha256:3691ece25921ba6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST#5:
+  digest: sha256:05d21a642e63e4f2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST#6:
+  digest: sha256:a4e52c837d345dc3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST#7:
+  digest: sha256:f81412647e004a85
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST#8:
+  digest: sha256:feb547ff391bf74f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST#9:
+  digest: sha256:e05db8ba737b3a07
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST_BYTE:
+  digest: sha256:500f23461d945a7f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/CONST_SHORT:
+  digest: sha256:721f91b34c8c8aa8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/allNotNull:
+  digest: sha256:3a10be60f43cf07e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/allNull:
+  digest: sha256:cd001673698ead75
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/anyNotNull:
+  digest: sha256:4accabfae399f4ec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/anyNull:
+  digest: sha256:ae6c19a9016a5d42
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/clone:
+  digest: sha256:b0b9430b27efd5c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/cloneIfPossible:
+  digest: sha256:7275ce0ddbfb112d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/compare:
+  digest: sha256:426a4c71f49f24ec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/compare#2:
+  digest: sha256:e990fa3eb9079269
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/defaultIfNull:
+  digest: sha256:e08af583b11eafc2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/equals:
+  digest: sha256:4b276303ba0b8a0e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/firstNonNull:
+  digest: sha256:d76029bd199740c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/getClass:
+  digest: sha256:be6b7fd0217b1f0c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/getFirstNonNull:
+  digest: sha256:fd51572499697d29
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/getIfNull:
+  digest: sha256:a1084d4cbc58a886
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/getIfNull#2:
+  digest: sha256:2ea4d1482a7a117f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/hashCode:
+  digest: sha256:c91524912ead37a9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/hashCodeHex:
+  digest: sha256:edc386e7928c7b5c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/hashCodeMulti:
+  digest: sha256:b30b326efeb53748
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/identityHashCodeHex:
+  digest: sha256:d47c2f1e38d0e8fe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/identityToString:
+  digest: sha256:fbfdfb67001b6ccc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/identityToString#2:
+  digest: sha256:38a1b370ed4488c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/identityToString#3:
+  digest: sha256:f503e1ce1206848b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/identityToString#4:
+  digest: sha256:835482932e17023d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/identityToString#5:
+  digest: sha256:309d2b7e61c50228
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/isArray:
+  digest: sha256:67cdde9158087130
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/isEmpty:
+  digest: sha256:dc9c24f72058ee83
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/isNotEmpty:
+  digest: sha256:988e14cf0db9ac3f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/max:
+  digest: sha256:0473be8cdf1b0098
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/median:
+  digest: sha256:3b49987577212ef4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/median#2:
+  digest: sha256:937e4731a0bae368
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/min:
+  digest: sha256:6bda9dff14f25d7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/mode:
+  digest: sha256:51ed5bd4c86dc580
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/notEqual:
+  digest: sha256:2fda5c34bc8e1857
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/requireNonEmpty:
+  digest: sha256:2a7719fccd3fc74a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/requireNonEmpty#2:
+  digest: sha256:937f8affd96f90e2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/toString:
+  digest: sha256:96b013f2bbd485b0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/toString#2:
+  digest: sha256:bdd8919ecd7b67d0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/toString#3:
+  digest: sha256:c06ba9cfe497b8e1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/toString#4:
+  digest: sha256:334ceb78f9c67c3e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ObjectUtils.java/package/org.apache.commons.lang3/class/ObjectUtils/method/wait:
+  digest: sha256:56ed392bd28c97cd
+  verdict: pending

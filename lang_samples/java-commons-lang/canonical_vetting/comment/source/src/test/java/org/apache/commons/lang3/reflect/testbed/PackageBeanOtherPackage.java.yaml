@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/testbed/PackageBeanOtherPackage.java/package/org.apache.commons.lang3.reflect.testbed/class/PackageBeanOtherPackage:
+  digest: sha256:58d85689b319f825
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/testbed/PackageBeanOtherPackage.java/package/org.apache.commons.lang3.reflect.testbed/class/PackageBeanOtherPackage/constructor/PackageBeanOtherPackage:
+  digest: sha256:ef790a43071bb072
+  verdict: pending

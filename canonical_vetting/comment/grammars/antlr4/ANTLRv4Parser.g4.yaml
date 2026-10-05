@@ -1,0 +1,204 @@
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser:
+  digest: sha256:01c310a41aec2a50
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/actionBlock:
+  digest: sha256:ef462354d5b52b6a
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/actionScopeName:
+  digest: sha256:ab9e87f967367702
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/action_:
+  digest: sha256:888c869122ac21dc
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/altList:
+  digest: sha256:d1a4437bf6c649c0
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/alternative:
+  digest: sha256:5faf505d390ae7ca
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/argActionBlock:
+  digest: sha256:cd7fb39e4d020b1b
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/atom:
+  digest: sha256:8903225d700e75f6
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/block:
+  digest: sha256:dc88a34469ffd2af
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/blockSet:
+  digest: sha256:018895d004f7fca6
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/blockSuffix:
+  digest: sha256:d58447155c6d5aaa
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/channelsSpec:
+  digest: sha256:50668c3089999584
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/characterRange:
+  digest: sha256:a4dace9e742aaa12
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/delegateGrammar:
+  digest: sha256:33c728c308222082
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/delegateGrammars:
+  digest: sha256:8425dbfacc3e19e5
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ebnf:
+  digest: sha256:d43d684ff9be3970
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ebnfSuffix:
+  digest: sha256:e7ee8142de3f5044
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/element:
+  digest: sha256:57bcad47281f4828
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/elementOption:
+  digest: sha256:c304eef3996837d3
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/elementOptions:
+  digest: sha256:a307edb6a7608a7c
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/exceptionGroup:
+  digest: sha256:43ba24869e9202a3
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/exceptionHandler:
+  digest: sha256:02c0c1c4dbb0b72a
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/finallyClause:
+  digest: sha256:b4999a57fabe953a
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/grammarDecl:
+  digest: sha256:184a8c6873ddacd6
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/grammarSpec:
+  digest: sha256:6203baee50bb50e0
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/grammarType:
+  digest: sha256:f0f1068092a6c5d7
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/idList:
+  digest: sha256:166fbb62fb08e368
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/identifier:
+  digest: sha256:61bb3801f39737f3
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/labeledAlt:
+  digest: sha256:76fa99a74967c0c4
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/labeledElement:
+  digest: sha256:27df15a834af745d
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerAlt:
+  digest: sha256:cf0e727dce680abe
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerAltList:
+  digest: sha256:54190572b903b38b
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerAtom:
+  digest: sha256:9968f9136261a0f7
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerBlock:
+  digest: sha256:12d8437b609c4efa
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerCommand:
+  digest: sha256:08a6d05892be0efc
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerCommandExpr:
+  digest: sha256:60833e5cedce96e3
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerCommandName:
+  digest: sha256:77f068a13db2bf42
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerCommands:
+  digest: sha256:d538c7e1394e5cc6
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerElement:
+  digest: sha256:c5c8e5e753f91496
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerElements:
+  digest: sha256:4f34931191502307
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerRuleBlock:
+  digest: sha256:533db7ee35c4b8ee
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/lexerRuleSpec:
+  digest: sha256:7019e1931913343c
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/localsSpec:
+  digest: sha256:67f50ae41beb54ab
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/modeSpec:
+  digest: sha256:f04ef82602e21658
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/notSet:
+  digest: sha256:e95d48097337f48f
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/option:
+  digest: sha256:a1b16197260c9e77
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/optionValue:
+  digest: sha256:beb13b10f5e1289d
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/optionsSpec:
+  digest: sha256:a71f7d3003110c1c
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/parserRuleSpec:
+  digest: sha256:651b4fb2a90cfa2b
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/predicateOption:
+  digest: sha256:0b1c849291a0c752
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/predicateOptions:
+  digest: sha256:12397191f6a1dee0
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/prequelConstruct:
+  digest: sha256:8ae0ee2b754f5631
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/qualifiedIdentifier:
+  digest: sha256:c05d1b3baef40841
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ruleAction:
+  digest: sha256:2fd12885d83a795a
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ruleAltList:
+  digest: sha256:7ff3f0b5f0a38e36
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ruleBlock:
+  digest: sha256:f082f5e080d84054
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ruleModifier:
+  digest: sha256:3b9702fc00aa1293
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ruleModifiers:
+  digest: sha256:e960674a8a3a1c15
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/rulePrequel:
+  digest: sha256:40a4a5ee8f87bafd
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ruleReturns:
+  digest: sha256:99f7077fdf15bef0
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ruleSpec:
+  digest: sha256:7735a42b63b2b262
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ruleref:
+  digest: sha256:d89337fc3f1caa09
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/rules:
+  digest: sha256:83a86fe711f3588b
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/setElement:
+  digest: sha256:0eb75a1b35956300
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/terminalDef:
+  digest: sha256:caa5920c44eb1a2f
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/throwsSpec:
+  digest: sha256:3996c70a46157f26
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/tokensSpec:
+  digest: sha256:7fdf9987f4d55d8c
+  verdict: pending
+decision/antlr4/grammars/antlr4/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/wildcard:
+  digest: sha256:2512a78e9362075e
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/StructTypeAdapter.java/package/com.google.gson.protobuf/class/StructTypeAdapter:
+  digest: sha256:4d4183b1a8aff39d
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/StructTypeAdapter.java/package/com.google.gson.protobuf/class/StructTypeAdapter/method/fromStruct:
+  digest: sha256:253b1a8f811e8953
+  verdict: pending

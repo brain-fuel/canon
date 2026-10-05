@@ -1,0 +1,21 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java/package/org.apache.commons.lang3.time/class/FastDatePrinterTest:
+  digest: sha256:1bbed160cc68133f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java/package/org.apache.commons.lang3.time/class/FastDatePrinterTest/method/getInstance#4:
+  digest: sha256:2142f68957bfba6f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java/package/org.apache.commons.lang3.time/class/FastDatePrinterTest/method/testLang916:
+  digest: sha256:f35fe088a0cc2c42
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java/package/org.apache.commons.lang3.time/class/FastDatePrinterTest/method/testLowYearPadding:
+  digest: sha256:63b4f272286dccd1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java/package/org.apache.commons.lang3.time/class/FastDatePrinterTest/method/testMilleniumBug:
+  digest: sha256:4b55fe7e5fcfbc0d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java/package/org.apache.commons.lang3.time/class/FastDatePrinterTest/method/testShortDateStyleWithLocales:
+  digest: sha256:31ddcbfc89d72051
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDatePrinterTest.java/package/org.apache.commons.lang3.time/class/FastDatePrinterTest/method/testSimpleDate:
+  digest: sha256:a959580f548bb762
+  verdict: pending

@@ -1,0 +1,87 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField:
+  digest: sha256:084edfeb17bc4235
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/constructor/BitField:
+  digest: sha256:9896ac335b6bea23
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/constructor/BitField#2:
+  digest: sha256:cdb2a5fc913d3ef6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/clear:
+  digest: sha256:fec900b83335d85a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/clear#2:
+  digest: sha256:b38b63305ed5e6a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/clearByte:
+  digest: sha256:c16ff47bb48c7e6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/clearShort:
+  digest: sha256:32b71f9712170a6d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/getRawValue:
+  digest: sha256:42e8d31df72ff62b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/getRawValue#2:
+  digest: sha256:da0c849af9bbb50f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/getShortRawValue:
+  digest: sha256:73a9bf6692a430f1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/getShortValue:
+  digest: sha256:408011a86ad4cbad
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/getValue:
+  digest: sha256:3a69b44758e3a98e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/getValue#2:
+  digest: sha256:fcb121956833b661
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/intMask:
+  digest: sha256:331936e247a7ca61
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/isAllSet:
+  digest: sha256:49aadd31900588c2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/isAllSet#2:
+  digest: sha256:ce7bb607fd126116
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/isSet:
+  digest: sha256:74baf10243cf68c0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/isSet#2:
+  digest: sha256:b54ac815a0c06d41
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/set:
+  digest: sha256:853add9dadf57e6f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/set#2:
+  digest: sha256:a932fa6907ad9589
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/setBoolean:
+  digest: sha256:6cf18433ce330bb6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/setBoolean#2:
+  digest: sha256:21816393c4cb7af9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/setByte:
+  digest: sha256:ae8272e85fe9f8f3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/setByteBoolean:
+  digest: sha256:cce3140fd86b23c2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/setShort:
+  digest: sha256:a5ab6d299f21ce5a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/setShortBoolean:
+  digest: sha256:b6486319c087f686
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/setShortValue:
+  digest: sha256:fb5e99b8dc62a6df
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/setValue:
+  digest: sha256:ccadebf5dbbcc89d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/BitField.java/package/org.apache.commons.lang3/class/BitField/method/setValue#2:
+  digest: sha256:7548ee6fc24023db
+  verdict: pending

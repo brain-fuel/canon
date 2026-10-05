@@ -1,0 +1,69 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest:
+  digest: sha256:220b159ba54f62d2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/assertCalendarsEquals:
+  digest: sha256:142b4a6ebba11119
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/assertWeekIterator:
+  digest: sha256:6a1be866ffeee2e4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/assertWeekIterator#2:
+  digest: sha256:31e5b2954d6d197a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/assertWeekIterator#3:
+  digest: sha256:826cb0fd2f68ea22
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testCeiling:
+  digest: sha256:29304377d2f98544
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testCeiling_Bugzilla_31395:
+  digest: sha256:29304377d2f98544
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testCeiling_MET:
+  digest: sha256:29304377d2f98544
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testFailedTimeZonePatternDoesNotPoisonNextPatternInstant:
+  digest: sha256:f680597383041b4f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testIteratorEx:
+  digest: sha256:c25ad140b33794c7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testLANG799_DE_FAIL:
+  digest: sha256:1e8049d86798d5bb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testLANG799_EN_WITH_DE_LOCALE:
+  digest: sha256:27a45158f0d6e778
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testLang530:
+  digest: sha256:ccb083966c2b4ada
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testMonthIterator:
+  digest: sha256:b19afd1517f30cee
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testParseDateWithLeniency:
+  digest: sha256:ac4a3e5909602ee1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testRound:
+  digest: sha256:0562e03f84a57a94
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testRoundLang346:
+  digest: sha256:e061271b89906bbe
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testRound_MET:
+  digest: sha256:0562e03f84a57a94
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testTruncate:
+  digest: sha256:2b9bb51bea1ebe83
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testTruncateLang59:
+  digest: sha256:b374d4aab4b18c55
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testTruncate_Bugzilla_25560:
+  digest: sha256:f7ffbdf061edf7ad
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testTruncate_Bugzilla_31395:
+  digest: sha256:f7ffbdf061edf7ad
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DateUtilsTest.java/package/org.apache.commons.lang3.time/class/DateUtilsTest/method/testWeekIterator:
+  digest: sha256:8807498148f2fd84
+  verdict: pending

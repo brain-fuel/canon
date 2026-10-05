@@ -1,0 +1,6 @@
+decision/go/source/version1.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/version1.go/function/NewUUID:
+  digest: sha256:7cb6e4368b45fa1f
+  verdict: pending

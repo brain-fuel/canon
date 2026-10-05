@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/joda/time/chrono/AssembledChronology.java/package/org.joda.time.chrono/class/AssembledChronology:
+  digest: sha256:d3799c1006859e0a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/AssembledChronology.java/package/org.joda.time.chrono/class/AssembledChronology/class/Fields:
+  digest: sha256:d843b9075a0d2b0c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/AssembledChronology.java/package/org.joda.time.chrono/class/AssembledChronology/class/Fields/method/copyFieldsFrom:
+  digest: sha256:cf909241cdd555a0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/AssembledChronology.java/package/org.joda.time.chrono/class/AssembledChronology/constructor/AssembledChronology:
+  digest: sha256:7c17ea0cba34d4ae
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/AssembledChronology.java/package/org.joda.time.chrono/class/AssembledChronology/method/assemble:
+  digest: sha256:9955a551aa57746d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/AssembledChronology.java/package/org.joda.time.chrono/class/AssembledChronology/method/getBase:
+  digest: sha256:0ccecd16ce863ea6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/AssembledChronology.java/package/org.joda.time.chrono/class/AssembledChronology/method/getParam:
+  digest: sha256:3df1553e68afa8df
+  verdict: pending

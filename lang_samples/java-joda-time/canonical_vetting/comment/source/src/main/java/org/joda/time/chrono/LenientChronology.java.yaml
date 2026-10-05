@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/joda/time/chrono/LenientChronology.java/package/org.joda.time.chrono/class/LenientChronology:
+  digest: sha256:3a244d6d1af563ca
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LenientChronology.java/package/org.joda.time.chrono/class/LenientChronology/constructor/LenientChronology:
+  digest: sha256:9100978a7509bbe9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LenientChronology.java/package/org.joda.time.chrono/class/LenientChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LenientChronology.java/package/org.joda.time.chrono/class/LenientChronology/method/equals:
+  digest: sha256:d4bcd353efadaa09
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LenientChronology.java/package/org.joda.time.chrono/class/LenientChronology/method/getInstance:
+  digest: sha256:2d3003b1562e2ab7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LenientChronology.java/package/org.joda.time.chrono/class/LenientChronology/method/hashCode:
+  digest: sha256:3444e9b8a54ffe01
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/LenientChronology.java/package/org.joda.time.chrono/class/LenientChronology/method/toString:
+  digest: sha256:fb4549890f8bd4a6
+  verdict: pending

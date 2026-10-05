@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/MultilineRecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/MultilineRecursiveToStringStyle:
+  digest: sha256:e29ec3bd9c644f4b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/MultilineRecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/MultilineRecursiveToStringStyle/constructor/MultilineRecursiveToStringStyle:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/MultilineRecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/MultilineRecursiveToStringStyle/field/INDENT:
+  digest: sha256:7d4cd97bb1881ae5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/MultilineRecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/MultilineRecursiveToStringStyle/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/MultilineRecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/MultilineRecursiveToStringStyle/field/spaces:
+  digest: sha256:5dc9e0a01dcb17ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/MultilineRecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/MultilineRecursiveToStringStyle/method/resetIndent:
+  digest: sha256:5db32dda659aad5c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/MultilineRecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/MultilineRecursiveToStringStyle/method/spacer:
+  digest: sha256:3dabdc90bd344d1a
+  verdict: pending

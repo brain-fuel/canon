@@ -1,0 +1,396 @@
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser:
+  digest: sha256:fb0945b6e86b4d25
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/altAnnotationQualifiedName:
+  digest: sha256:fa71a3a8f06bccc6
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotation:
+  digest: sha256:c4294b7816fe1e81
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationConstantRest:
+  digest: sha256:f3d72d0ecf9d8e81
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationFieldValue:
+  digest: sha256:0597459ac95907a5
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationFieldValues:
+  digest: sha256:665e4da9664bc4e0
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationMethodOrConstantRest:
+  digest: sha256:b3bec9b889eaeb3e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationMethodRest:
+  digest: sha256:e9f204c407cd521d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationTypeBody:
+  digest: sha256:2bdfa644b04b5988
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationTypeDeclaration:
+  digest: sha256:89c1d8797f981d27
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationTypeElementDeclaration:
+  digest: sha256:ea9bf578c18572b8
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationTypeElementRest:
+  digest: sha256:adcbfcb1d22a8c1d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/annotationValue:
+  digest: sha256:b2fd60749a452edb
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/arguments:
+  digest: sha256:eefb0a27c0d2891f
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/arrayCreatorRest:
+  digest: sha256:ffaeaf712b1be8ec
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/arrayInitializer:
+  digest: sha256:4133763f71fd460c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/block:
+  digest: sha256:e2403cb23a891707
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/blockStatement:
+  digest: sha256:00884ac2afc0e6e1
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/canonicalComment:
+  digest: sha256:4f23718782341161
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/casePattern:
+  digest: sha256:798b2c99bf3cbd1e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/catchClause:
+  digest: sha256:8bf7b539f55a20e2
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/catchType:
+  digest: sha256:b992eb778acb5d65
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/classBody:
+  digest: sha256:ab9bebed23b7c16d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/classBodyDeclaration:
+  digest: sha256:3597c0b1248fb7f7
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/classCreatorRest:
+  digest: sha256:fee6ccee85db6aad
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/classDeclaration:
+  digest: sha256:a72a42cbc87b4954
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/classOrInterfaceModifier:
+  digest: sha256:b61d4b132b4ee18a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/classOrInterfaceType:
+  digest: sha256:01a5f099e9542076
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/classType:
+  digest: sha256:98142b940ee0dade
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/compactConstructorDeclaration:
+  digest: sha256:a830488426c4074d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/compilationUnit:
+  digest: sha256:717f8e6e0d45c108
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/componentPattern:
+  digest: sha256:ca75ca5393d69b93
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/componentPatternList:
+  digest: sha256:05b696a610abf8da
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/constDeclaration:
+  digest: sha256:71fcf3eb4c43bcc5
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/constantDeclarator:
+  digest: sha256:29be1741bcd39332
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/constructorDeclaration:
+  digest: sha256:9b50953dfaa48ff6
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/createdName:
+  digest: sha256:77d5b8908c427fee
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/creator:
+  digest: sha256:3e3b947a3e62ae46
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/defaultValue:
+  digest: sha256:6a67080ab4c2231c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/docPart:
+  digest: sha256:bb6b6c5e8cb9923b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/elementValue:
+  digest: sha256:7a60b219e63ca265
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/elementValueArrayInitializer:
+  digest: sha256:d9fdab9504ab33f2
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/enhancedForControl:
+  digest: sha256:03bc60d21e9d3f07
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/enumBodyDeclarations:
+  digest: sha256:5430e4ad9d735ff4
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/enumConstant:
+  digest: sha256:f87de56e613313bb
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/enumConstants:
+  digest: sha256:b7119dde3d88a20d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/enumDeclaration:
+  digest: sha256:566c79bae78e8fc9
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/explicitGenericInvocation:
+  digest: sha256:8ef482b7d0fb0458
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/explicitGenericInvocationSuffix:
+  digest: sha256:e35ad741c8365915
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/expression:
+  digest: sha256:b7ac47a577bca41c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/expressionList:
+  digest: sha256:54e064d4644545ca
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/fieldDeclaration:
+  digest: sha256:8b88c55ea6eb84ca
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/finallyBlock:
+  digest: sha256:b783bd5d6dd50f06
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/floatLiteral:
+  digest: sha256:dbd28f33a47e9d1d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/forControl:
+  digest: sha256:fde8439cc1a98fc1
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/forInit:
+  digest: sha256:28b745a56227f79c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/formalParameter:
+  digest: sha256:363d0962315382f7
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/formalParameterList:
+  digest: sha256:73c4c773f97997ac
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/formalParameters:
+  digest: sha256:1212e36a789976e4
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/genericConstructorDeclaration:
+  digest: sha256:8bfd975efdfb8465
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/genericInterfaceMethodDeclaration:
+  digest: sha256:a8729c4fdf876534
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/genericMethodDeclaration:
+  digest: sha256:398c25f65e74de76
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/guard:
+  digest: sha256:a23d6e674b96754d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/identifier:
+  digest: sha256:3b579523559ce9be
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/importDeclaration:
+  digest: sha256:2f7f04802791114f
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/innerCreator:
+  digest: sha256:b853bebb6732d04f
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/integerLiteral:
+  digest: sha256:87c0d09b3f8e121a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/interfaceBody:
+  digest: sha256:5bf37b9fb877baed
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/interfaceBodyDeclaration:
+  digest: sha256:00360c10583b8972
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/interfaceCommonBodyDeclaration:
+  digest: sha256:e5aa0ab384dce399
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/interfaceDeclaration:
+  digest: sha256:e8206c9a0ddf5f65
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/interfaceMemberDeclaration:
+  digest: sha256:084231aa0c7f2f0c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/interfaceMethodDeclaration:
+  digest: sha256:67f52077b1f6b102
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/interfaceMethodModifier:
+  digest: sha256:474c5344c111f8d3
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/lambdaBody:
+  digest: sha256:cbe2d3a27826bd69
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/lambdaExpression:
+  digest: sha256:cc04f24f51176870
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/lambdaLVTIList:
+  digest: sha256:b62be7b5fa7980e7
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/lambdaLVTIParameter:
+  digest: sha256:34a4390891f0dc3c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/lambdaParameters:
+  digest: sha256:88ea242a36d2269f
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/literal:
+  digest: sha256:66ebcba8934ce181
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/localTypeDeclaration:
+  digest: sha256:1938666f8c203c96
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/localVariableDeclaration:
+  digest: sha256:71db7b8b02ed0593
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/memberDeclaration:
+  digest: sha256:cd12d81b791b053c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/methodBody:
+  digest: sha256:0755ac353081f595
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/methodCall:
+  digest: sha256:3f15f1620a942d96
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/methodDeclaration:
+  digest: sha256:baf78f7395fcb0db
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/modifier:
+  digest: sha256:afcb1eda5c2334a8
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/modularCompulationUnit:
+  digest: sha256:4e3258a68db9962e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/moduleDeclaration:
+  digest: sha256:ede4144a79a5ce82
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/moduleDirective:
+  digest: sha256:71c3ca514d73c2c2
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/nonWildcardTypeArguments:
+  digest: sha256:972efc4d7fd5e1fd
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/nonWildcardTypeArgumentsOrDiamond:
+  digest: sha256:001676ce7b87120d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/packageDeclaration:
+  digest: sha256:7e8c021107b9fe82
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/packageName:
+  digest: sha256:c428ad3dd91a8470
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/pattern:
+  digest: sha256:29656af061e74dc0
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/primary:
+  digest: sha256:24a8c4f37d64ba2b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/primitiveType:
+  digest: sha256:cad4a2e33c4f7786
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/qualifiedName:
+  digest: sha256:72672e91734599a3
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/qualifiedNameList:
+  digest: sha256:8549280ffe84c2ef
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/receiverParameter:
+  digest: sha256:03bad435569e9d87
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/recordBody:
+  digest: sha256:6cba89088f53e9cd
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/recordComponent:
+  digest: sha256:cc2e20ab14381e25
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/recordComponentList:
+  digest: sha256:a8c11f4c27d8c375
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/recordDeclaration:
+  digest: sha256:f5ef6f0825e3660b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/recordHeader:
+  digest: sha256:4f2c0f56d43a9707
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/requiresModifier:
+  digest: sha256:0bb40b950173370b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/resource:
+  digest: sha256:08d471b246f5544f
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/resourceSpecification:
+  digest: sha256:1c801546359dfff4
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/resources:
+  digest: sha256:50b31e99c2764984
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/statement:
+  digest: sha256:42ac5986b06d4ad0
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/superSuffix:
+  digest: sha256:b37dff21aa82daa2
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/switchBlockStatementGroup:
+  digest: sha256:822b470c3a90081e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/switchExpression:
+  digest: sha256:de9d59cd35120d68
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/switchLabel:
+  digest: sha256:7cd7f1899c5ac3a8
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/switchLabeledRule:
+  digest: sha256:bf22ed386687c7aa
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/switchRuleOutcome:
+  digest: sha256:7b5a2131f1576d67
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeArgument:
+  digest: sha256:53d70db01124decf
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeArguments:
+  digest: sha256:53c02319a88cf1e3
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeArgumentsOrDiamond:
+  digest: sha256:a52510f360b1e267
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeBound:
+  digest: sha256:4c51d99fb5657b57
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeDeclaration:
+  digest: sha256:8dc390496f62bd7c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeIdentifier:
+  digest: sha256:b5715faeb5cf5029
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeList:
+  digest: sha256:f8a8d4660d022988
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeParameter:
+  digest: sha256:e30fdc9e379becd8
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeParameters:
+  digest: sha256:2319be768e7623e9
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeType:
+  digest: sha256:8a985ad828164b27
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/typeTypeOrVoid:
+  digest: sha256:f8c9c2a197581905
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/variableDeclarator:
+  digest: sha256:2f88b4d48e57d58e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/variableDeclaratorId:
+  digest: sha256:f0dd0b5b0c6f37a4
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/variableDeclarators:
+  digest: sha256:d6d3408bee1c76ba
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/variableInitializer:
+  digest: sha256:7bb188f11e9b4dbb
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/variableModifier:
+  digest: sha256:89403e4af526acd1
+  verdict: pending

@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableByteConsumer.java/package/org.apache.commons.lang3.function/interface/FailableByteConsumer:
+  digest: sha256:17a37b58c298d766
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableByteConsumer.java/package/org.apache.commons.lang3.function/interface/FailableByteConsumer/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableByteConsumer.java/package/org.apache.commons.lang3.function/interface/FailableByteConsumer/method/accept:
+  digest: sha256:0b5f8c58307947b5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableByteConsumer.java/package/org.apache.commons.lang3.function/interface/FailableByteConsumer/method/andThen:
+  digest: sha256:c5b06f89b782fd2b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableByteConsumer.java/package/org.apache.commons.lang3.function/interface/FailableByteConsumer/method/nop:
+  digest: sha256:80e2fe1bb96b9053
+  verdict: pending

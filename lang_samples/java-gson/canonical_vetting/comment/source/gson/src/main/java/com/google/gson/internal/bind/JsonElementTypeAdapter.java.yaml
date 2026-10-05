@@ -1,0 +1,9 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonElementTypeAdapter.java/package/com.google.gson.internal.bind/class/JsonElementTypeAdapter:
+  digest: sha256:8303c91ed84d882c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonElementTypeAdapter.java/package/com.google.gson.internal.bind/class/JsonElementTypeAdapter/method/readTerminal:
+  digest: sha256:9dbcaaabd72f2751
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonElementTypeAdapter.java/package/com.google.gson.internal.bind/class/JsonElementTypeAdapter/method/tryBeginNesting:
+  digest: sha256:a3e1da4dfaff1e29
+  verdict: pending

@@ -1,0 +1,15 @@
+decision/go/source/marshal.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/marshal.go/method/MarshalBinary:
+  digest: sha256:d723faf8c6f1eb52
+  verdict: pending
+decision/go/source/marshal.go/method/MarshalText:
+  digest: sha256:c773a972a3161100
+  verdict: pending
+decision/go/source/marshal.go/method/UnmarshalBinary:
+  digest: sha256:4907659300d98695
+  verdict: pending
+decision/go/source/marshal.go/method/UnmarshalText:
+  digest: sha256:4329e6a3b8c80893
+  verdict: pending

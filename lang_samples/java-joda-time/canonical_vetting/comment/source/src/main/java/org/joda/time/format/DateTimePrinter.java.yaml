@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/joda/time/format/DateTimePrinter.java/package/org.joda.time.format/interface/DateTimePrinter:
+  digest: sha256:cdf38f026d553161
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimePrinter.java/package/org.joda.time.format/interface/DateTimePrinter/method/estimatePrintedLength:
+  digest: sha256:130c678fb22de43a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimePrinter.java/package/org.joda.time.format/interface/DateTimePrinter/method/printTo:
+  digest: sha256:3abb2643d8129ff0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimePrinter.java/package/org.joda.time.format/interface/DateTimePrinter/method/printTo#2:
+  digest: sha256:da234de9b040abd7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimePrinter.java/package/org.joda.time.format/interface/DateTimePrinter/method/printTo#3:
+  digest: sha256:5ca6da50f7e9e5f0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimePrinter.java/package/org.joda.time.format/interface/DateTimePrinter/method/printTo#4:
+  digest: sha256:fc8e8d1a6c95a7cc
+  verdict: pending

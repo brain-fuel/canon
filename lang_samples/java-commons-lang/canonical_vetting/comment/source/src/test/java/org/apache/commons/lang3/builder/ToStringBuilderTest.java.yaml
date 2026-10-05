@@ -1,0 +1,72 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest:
+  digest: sha256:3f10bf67d3b2d476
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/class/InheritedReflectionStaticFieldsFixture:
+  digest: sha256:9415435a908e2b8e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/class/MultiLineTestObject:
+  digest: sha256:77e812e09ce6ef33
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/class/ReflectionStaticFieldsFixture:
+  digest: sha256:d20a845c695d90c1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/class/ReflectionTestCycleA:
+  digest: sha256:3d9fa91c956965b5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/class/ReflectionTestCycleB:
+  digest: sha256:3d9fa91c956965b5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/class/SimpleReflectionStaticFieldsFixture:
+  digest: sha256:9415435a908e2b8e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/class/SimpleReflectionTestFixture:
+  digest: sha256:3d9fa91c956965b5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testInheritedReflectionStatics:
+  digest: sha256:d20a845c695d90c1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testReflectionArrayAndObjectCycle:
+  digest: sha256:f4b88b00cbb814fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testReflectionArrayCycle:
+  digest: sha256:4be87910ec4df175
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testReflectionArrayCycleLevel2:
+  digest: sha256:4be87910ec4df175
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testReflectionBoolean:
+  digest: sha256:42e2768d1e7f6cce
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testReflectionCharacter:
+  digest: sha256:c352ce75c5036548
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testReflectionInteger:
+  digest: sha256:e141ec845bacff1c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testReflectionObjectCycle:
+  digest: sha256:0d5760e98a46851a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testReflectionStatics:
+  digest: sha256:d20a845c695d90c1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testSelfInstanceTwoVarsReflectionObjectCycle:
+  digest: sha256:ca6597f77413e3ba
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testSelfInstanceVarReflectionObjectCycle:
+  digest: sha256:4438aea62a2ff3b3
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/testSimpleReflectionObjectCycle:
+  digest: sha256:afee4b3a273a828a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/test_setUpToClass_invalid:
+  digest: sha256:d0ec050dcce75154
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/test_setUpToClass_valid:
+  digest: sha256:d0ec050dcce75154
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/toBaseString:
+  digest: sha256:81c665bec3a27243
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringBuilderTest.java/package/org.apache.commons.lang3.builder/class/ToStringBuilderTest/method/toStringWithStatics:
+  digest: sha256:3a5a5b38e27abf40
+  verdict: pending

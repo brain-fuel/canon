@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/joda/time/convert/NullConverter.java/package/org.joda.time.convert/class/NullConverter:
+  digest: sha256:2cdb205d273353d7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/NullConverter.java/package/org.joda.time.convert/class/NullConverter/constructor/NullConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/NullConverter.java/package/org.joda.time.convert/class/NullConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/NullConverter.java/package/org.joda.time.convert/class/NullConverter/method/getDurationMillis:
+  digest: sha256:3d09876df1cd0f71
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/NullConverter.java/package/org.joda.time.convert/class/NullConverter/method/getSupportedType:
+  digest: sha256:103d3d23a4e1da69
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/NullConverter.java/package/org.joda.time.convert/class/NullConverter/method/setInto:
+  digest: sha256:a00fa1274d888d5e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/NullConverter.java/package/org.joda.time.convert/class/NullConverter/method/setInto#2:
+  digest: sha256:47c9b91efc9218d3
+  verdict: pending

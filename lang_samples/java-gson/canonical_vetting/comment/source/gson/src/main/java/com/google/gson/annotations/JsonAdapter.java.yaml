@@ -1,0 +1,9 @@
+decision/java/source/gson/src/main/java/com/google/gson/annotations/JsonAdapter.java/package/com.google.gson.annotations/annotationType/JsonAdapter:
+  digest: sha256:ac473372075fe99a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/annotations/JsonAdapter.java/package/com.google.gson.annotations/annotationType/JsonAdapter/annotationElement/nullSafe:
+  digest: sha256:cb669033e87e38cc
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/annotations/JsonAdapter.java/package/com.google.gson.annotations/annotationType/JsonAdapter/annotationElement/value:
+  digest: sha256:4dced824d00aafd6
+  verdict: pending

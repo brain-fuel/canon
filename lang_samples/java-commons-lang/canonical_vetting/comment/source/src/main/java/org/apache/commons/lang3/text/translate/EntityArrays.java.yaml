@@ -1,0 +1,39 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays:
+  digest: sha256:76537cd9b4ff6cf7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/constructor/EntityArrays:
+  digest: sha256:5d806021dcbc9276
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/APOS_ESCAPE:
+  digest: sha256:94fd6e90111d2819
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/APOS_UNESCAPE:
+  digest: sha256:70b3978ec820fbf1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/BASIC_ESCAPE:
+  digest: sha256:e53cb76644e9002a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/BASIC_UNESCAPE:
+  digest: sha256:b15c810157d96f20
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/HTML40_EXTENDED_ESCAPE:
+  digest: sha256:52214177e808f3f6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/HTML40_EXTENDED_UNESCAPE:
+  digest: sha256:b95664b6e981e525
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/ISO8859_1_ESCAPE:
+  digest: sha256:443bea38dea513c2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/ISO8859_1_UNESCAPE:
+  digest: sha256:f86e90a307e781f2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/JAVA_CTRL_CHARS_ESCAPE:
+  digest: sha256:fbe069ee450f99aa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/JAVA_CTRL_CHARS_UNESCAPE:
+  digest: sha256:69cb5c2622df6491
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java/package/org.apache.commons.lang3.text.translate/class/EntityArrays/method/invert:
+  digest: sha256:71b76e45a907c67b
+  verdict: pending

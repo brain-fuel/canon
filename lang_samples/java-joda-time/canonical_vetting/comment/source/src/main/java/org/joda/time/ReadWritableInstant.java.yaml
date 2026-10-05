@@ -1,0 +1,39 @@
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant:
+  digest: sha256:e5c3da9ea0f9b4cb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/add:
+  digest: sha256:fce83d2de27da728
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/add#2:
+  digest: sha256:017015bf2c694ad3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/add#3:
+  digest: sha256:2ae08d2c450f5320
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/add#4:
+  digest: sha256:fa49db062cab044c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/add#5:
+  digest: sha256:64f57fc23691cef4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/add#6:
+  digest: sha256:fe119fc4c0371b05
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/set:
+  digest: sha256:d1d6671c19291e36
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/setChronology:
+  digest: sha256:672938aa1953475e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/setMillis:
+  digest: sha256:767520fbba2015b2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/setMillis#2:
+  digest: sha256:bf3d579d71f6a4ca
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/setZone:
+  digest: sha256:26a0c957ed057fc7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInstant.java/package/org.joda.time/interface/ReadWritableInstant/method/setZoneRetainFields:
+  digest: sha256:24bf398a1cd61426
+  verdict: pending

@@ -1,0 +1,33 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer:
+  digest: sha256:12796bdcceb2f7c6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/class/Builder:
+  digest: sha256:963532f1eacace6e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/class/Builder/constructor/Builder:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/constructor/LazyInitializer:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/constructor/LazyInitializer#2:
+  digest: sha256:f71f05933d5ca6cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/field/NO_INIT:
+  digest: sha256:bf3bc241cc597bc8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/field/object:
+  digest: sha256:471dfd6144778da0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/method/builder:
+  digest: sha256:735e462a860af81f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/method/get:
+  digest: sha256:434a47141b6eafc7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/method/getTypedException:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java/package/org.apache.commons.lang3.concurrent/class/LazyInitializer/method/isInitialized:
+  digest: sha256:7f2f8e08c5f81724
+  verdict: pending

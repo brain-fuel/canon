@@ -1,0 +1,54 @@
+decision/haskell/src/Canon/Config.hs/module/Canon.Config:
+  digest: sha256:54fcbe229f434909
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/data/Config:
+  digest: sha256:d700a82e87170058
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/data/ConfigError:
+  digest: sha256:458563b34989665f
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/data/Disposition:
+  digest: sha256:a3b19a60fe8a1366
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/data/Runtime:
+  digest: sha256:684ea8cd00953cad
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/builtinKinds:
+  digest: sha256:92b4ccdc538bf3b1
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/configFileName:
+  digest: sha256:c1027c2b9812332b
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/defaultConfig:
+  digest: sha256:e26192042cec9613
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/defaultDecisionsFileName:
+  digest: sha256:1f6161bf368b4001
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/defaultExemptionsFileName:
+  digest: sha256:d415274ff0e2711f
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/defaultRegistryFileName:
+  digest: sha256:ec9b88cd71bd6cee
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/defaultRunsFileName:
+  digest: sha256:06a105fc416b71c4
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/defaultVettingDirectory:
+  digest: sha256:ce47f73ff0c27a12
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/dispositionText:
+  digest: sha256:972e2034d5078138
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/loadConfig:
+  digest: sha256:4580a8cf2d568bb9
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/parseDisposition:
+  digest: sha256:11b0280d19014db3
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/readConfigFile:
+  digest: sha256:3847740608962e0d
+  verdict: pending
+decision/haskell/src/Canon/Config.hs/module/Canon.Config/function/renderConfigError:
+  digest: sha256:4dbfc3bd2df64297
+  verdict: pending

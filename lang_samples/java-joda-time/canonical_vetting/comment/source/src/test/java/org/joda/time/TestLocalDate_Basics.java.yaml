@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/joda/time/TestLocalDate_Basics.java/package/org.joda.time/class/TestLocalDate_Basics:
+  digest: sha256:77ea5a85a32b5195
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestLocalDate_Basics.java/package/org.joda.time/class/TestLocalDate_Basics/field/CUTOVER_GAZA:
+  digest: sha256:132e3f36fd8f05f1
+  verdict: pending

@@ -1,0 +1,201 @@
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer:
+  digest: sha256:5517a9c540c35164
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/Argument/lexerRule/ARGUMENT_CHAR_LITERAL:
+  digest: sha256:c2b08e33d5252489
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/Argument/lexerRule/ARGUMENT_CONTENT:
+  digest: sha256:097805a1a838470f
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/Argument/lexerRule/ARGUMENT_ESCAPE:
+  digest: sha256:bc9f0a4daf3f76e7
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/Argument/lexerRule/ARGUMENT_STRING_LITERAL:
+  digest: sha256:9c256f2375efd975
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/Argument/lexerRule/END_ARGUMENT:
+  digest: sha256:ebc5690b5058229f
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/Argument/lexerRule/NESTED_ARGUMENT:
+  digest: sha256:d3a30b5e392b9c57
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/Argument/lexerRule/UNTERMINATED_ARGUMENT:
+  digest: sha256:d858d1222629dac9
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/DocComment/lexerRule/DocClose:
+  digest: sha256:78e83818b803335c
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/DocComment/lexerRule/DocLicense:
+  digest: sha256:0514a8ba60c25181
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/DocComment/lexerRule/DocPunct:
+  digest: sha256:59520fd8461ccddb
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/DocComment/lexerRule/DocRef:
+  digest: sha256:184879afc5dd5fb7
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/DocComment/lexerRule/DocStar:
+  digest: sha256:a74298e8c6536fc2
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/DocComment/lexerRule/DocWord:
+  digest: sha256:9f60c711fd0c495b
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/DocComment/lexerRule/DocWs:
+  digest: sha256:b6e4ac9a687de8ba
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/LexerCharSet/lexerRule/LEXER_CHAR_SET:
+  digest: sha256:f67b5e047b153d8e
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/LexerCharSet/lexerRule/LEXER_CHAR_SET_BODY:
+  digest: sha256:0421850bf56ccc90
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerMode/LexerCharSet/lexerRule/UNTERMINATED_CHAR_SET:
+  digest: sha256:c086cabf41c4d31d
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/ACTION:
+  digest: sha256:af8191a4daa7a51e
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/ASSIGN:
+  digest: sha256:5eb551bd8d9c77b6
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/AT:
+  digest: sha256:783b90d44750482c
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/BEGIN_ARGUMENT:
+  digest: sha256:1932443f1a7cab28
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/BLOCK_COMMENT:
+  digest: sha256:b3379726369ec392
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/CATCH:
+  digest: sha256:04c743b125363e55
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/CHANNELS:
+  digest: sha256:97dd904db2c6f0f2
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/COLON:
+  digest: sha256:5f25b97e91936902
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/COLONCOLON:
+  digest: sha256:2b2dddace6dd6a72
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/COMMA:
+  digest: sha256:a99f9f85f6df0092
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/DOLLAR:
+  digest: sha256:33e2d43e173033be
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/DOT:
+  digest: sha256:d22505ec19a08cac
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/DocOpen:
+  digest: sha256:f5c2b058d8801d68
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/FINALLY:
+  digest: sha256:cf481f5d49bc7715
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/FRAGMENT:
+  digest: sha256:232d8ebee0219160
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/GRAMMAR:
+  digest: sha256:9f95bf2be0168e38
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/GT:
+  digest: sha256:ea767540e10b3d0e
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/ID:
+  digest: sha256:cb5f362ef4e43463
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/IMPORT:
+  digest: sha256:f3203fdf8dc97835
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/INT:
+  digest: sha256:dbac19aa0b849e55
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/LEXER:
+  digest: sha256:6e7fba21fa663a9f
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/LINE_COMMENT:
+  digest: sha256:14be4808ea552dd9
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/LOCALS:
+  digest: sha256:a24b0a8257530278
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/LPAREN:
+  digest: sha256:6aef4b60d3ab8f2e
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/LT:
+  digest: sha256:5ae52dea862f02d2
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/MODE:
+  digest: sha256:4ac95b7e1614a984
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/NOT:
+  digest: sha256:bbe62a304a8de8f3
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/OPTIONS:
+  digest: sha256:49cba51ef3f26348
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/OR:
+  digest: sha256:8aa90e48485429a8
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/PARSER:
+  digest: sha256:a3c26abfe2006469
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/PLUS:
+  digest: sha256:9556047471788626
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/PLUS_ASSIGN:
+  digest: sha256:fdfcde24098e74c3
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/POUND:
+  digest: sha256:a3893e9d3c2aad18
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/PRIVATE:
+  digest: sha256:094fb87b27967171
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/PROTECTED:
+  digest: sha256:399e5a10d58c569f
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/PUBLIC:
+  digest: sha256:ed5ae6c875612cde
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/QUESTION:
+  digest: sha256:191f1b30f7c8b3b2
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/RANGE:
+  digest: sha256:b2a8403c7c03c6cb
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/RARROW:
+  digest: sha256:1e2c4d13ed5e13ca
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/RBRACE:
+  digest: sha256:9bc303be9fb3b473
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/RETURNS:
+  digest: sha256:97383244e7d88431
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/RPAREN:
+  digest: sha256:5f4d18e3fca052b8
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/SEMI:
+  digest: sha256:4034123f8922eda3
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/STAR:
+  digest: sha256:d59836aae606e5c8
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/STRING_LITERAL:
+  digest: sha256:a408c8e8d149f053
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/THROWS:
+  digest: sha256:ae6b7cce006b2e36
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/TOKENS:
+  digest: sha256:554bf191dbfe200c
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/UNTERMINATED_STRING_LITERAL:
+  digest: sha256:6b43cf14082e4e16
+  verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/WS:
+  digest: sha256:9495eed8e4197821
+  verdict: pending

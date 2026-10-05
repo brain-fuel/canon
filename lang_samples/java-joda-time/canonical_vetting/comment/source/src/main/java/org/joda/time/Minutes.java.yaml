@@ -1,0 +1,105 @@
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes:
+  digest: sha256:edb048a344ebcd75
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/constructor/Minutes:
+  digest: sha256:88b90c0fabfe8e96
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/field/MAX_VALUE:
+  digest: sha256:48ba1db8334a49d5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/field/MIN_VALUE:
+  digest: sha256:6e5c567b51e67f0b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/field/ONE:
+  digest: sha256:d9084c3976ce2f47
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/field/PARSER:
+  digest: sha256:20499c8bdbe0586f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/field/THREE:
+  digest: sha256:671463a6a04f2262
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/field/TWO:
+  digest: sha256:e4c9dd1aea394eae
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/field/ZERO:
+  digest: sha256:704caf6459438e2e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/field/serialVersionUID:
+  digest: sha256:fcdf71a4d7975811
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/dividedBy:
+  digest: sha256:432451cbda4d0129
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/getFieldType:
+  digest: sha256:68653dbbb607cc4a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/getMinutes:
+  digest: sha256:ff9840c5a730786c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/getPeriodType:
+  digest: sha256:ca8da51c59a824ff
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/isGreaterThan:
+  digest: sha256:8b2e2c10d58d1321
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/isLessThan:
+  digest: sha256:36328dce745a4ae5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/minus:
+  digest: sha256:f05600a85ceb6e89
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/minus#2:
+  digest: sha256:ec321ef616a1c9f4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/minutes:
+  digest: sha256:37bff32f6fa9bdcc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/minutesBetween:
+  digest: sha256:ec1be8937aea448c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/minutesBetween#2:
+  digest: sha256:8eab093bbceed730
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/minutesIn:
+  digest: sha256:3dec6bd16ef9df4b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/multipliedBy:
+  digest: sha256:b57d4cda0171854f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/negated:
+  digest: sha256:e8ac1cb0198d09d1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/parseMinutes:
+  digest: sha256:6a8de6ec070b5198
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/plus:
+  digest: sha256:757990dc7d0683ca
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/plus#2:
+  digest: sha256:0abe30d59f503172
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/readResolve:
+  digest: sha256:f1d57fe2267b9da4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/standardMinutesIn:
+  digest: sha256:ac1d8d6225709d68
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/toStandardDays:
+  digest: sha256:1519ccaafad437ba
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/toStandardDuration:
+  digest: sha256:b1c05de4a7d5f8c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/toStandardHours:
+  digest: sha256:12b56e22a6f4234e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/toStandardSeconds:
+  digest: sha256:e13c34f8ca889783
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/toStandardWeeks:
+  digest: sha256:36bba645eafbdb5f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Minutes.java/package/org.joda.time/class/Minutes/method/toString:
+  digest: sha256:0a1018126484e56b
+  verdict: pending

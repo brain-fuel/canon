@@ -1,0 +1,60 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder:
+  digest: sha256:036d2e87d58c8f7c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/class/Builder:
+  digest: sha256:ab882b421c7fe2e5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/class/Builder/constructor/Builder:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/class/Builder/method/build:
+  digest: sha256:6f24a92ac9a2e4f0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/class/Builder/method/setDiffBuilder:
+  digest: sha256:0747293dac6bd986
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/class/Builder/method/setExcludeFieldNames:
+  digest: sha256:89d2517435ff46c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/constructor/ReflectionDiffBuilder:
+  digest: sha256:7ca33df14eb5059a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/constructor/ReflectionDiffBuilder#2:
+  digest: sha256:bd1841c84183dcb0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/constructor/ReflectionDiffBuilder#3:
+  digest: sha256:78b0b934668ac017
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/field/REGISTRY:
+  digest: sha256:46ba36d041dd3190
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/field/excludeFieldNames:
+  digest: sha256:356d1d1913fcb81e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/method/appendFields:
+  digest: sha256:d166e8dc823d2bd8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/method/build:
+  digest: sha256:5c9948b9f545d589
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/method/builder:
+  digest: sha256:2f33ffda4a0d242e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/method/getExcludeFieldNames:
+  digest: sha256:043730c7771f3222
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/method/getRegistry:
+  digest: sha256:ef0e0decc988d4ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/method/isRegistered:
+  digest: sha256:074d6ab34a9f737f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/method/register:
+  digest: sha256:5fb7a37b7a2ae0c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/method/setExcludeFieldNames:
+  digest: sha256:9d2cafe696409fed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionDiffBuilder/method/unregister:
+  digest: sha256:f7ed148ce919015a
+  verdict: pending

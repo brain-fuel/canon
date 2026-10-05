@@ -1,0 +1,60 @@
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial:
+  digest: sha256:7bac1d46c7f4d122
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/constructor/BasePartial:
+  digest: sha256:0f4786ce78207bf6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/constructor/BasePartial#2:
+  digest: sha256:4f1d571ad809c210
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/constructor/BasePartial#3:
+  digest: sha256:ccd9f5c5fbbe290b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/constructor/BasePartial#4:
+  digest: sha256:5cb8e89811f84153
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/constructor/BasePartial#5:
+  digest: sha256:57788b25b0666bf7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/constructor/BasePartial#6:
+  digest: sha256:f6bd5050ade0e890
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/constructor/BasePartial#7:
+  digest: sha256:e16abe1436a680e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/constructor/BasePartial#8:
+  digest: sha256:bb8ee749e835f748
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/constructor/BasePartial#9:
+  digest: sha256:4001ac30bf7cc795
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/field/iChronology:
+  digest: sha256:cbcf281b49782cb9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/field/iValues:
+  digest: sha256:c99525f60a7a808d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/method/getChronology:
+  digest: sha256:c746edc22826c2e1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/method/getValue:
+  digest: sha256:c3881b4846f0df8e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/method/getValues:
+  digest: sha256:f76b9931dabb309f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/method/setValue:
+  digest: sha256:1c74a208c40e8a6f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/method/setValues:
+  digest: sha256:1fd3b235bd379aec
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/method/toString:
+  digest: sha256:265d838d8ef4badb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePartial.java/package/org.joda.time.base/class/BasePartial/method/toString#2:
+  digest: sha256:33798b6ac08902ae
+  verdict: pending

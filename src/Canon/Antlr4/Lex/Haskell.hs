@@ -11,7 +11,7 @@ import Canon.Antlr4.Syntax (ActionText (..), Name (..))
 import Canon.Antlr4.Token
 import Canon.Span (Position (..))
 import Control.Monad (when)
-import Control.Monad.State.Strict (State, get, modify, put, runState)
+import Control.Monad.State.Strict (State, get, gets, modify, put, runState)
 import Data.Text (Text)
 import qualified Data.Text as T
 
@@ -33,21 +33,22 @@ data HaskellLayout = HaskellLayout
   , nestedLevel :: Int
   , queue :: [Token]
   , heldDocs :: [Token]
+  , delimiterLayouts :: [Int]
   }
   deriving (Eq, Show)
 
 initialLayout :: HaskellLayout
-initialLayout = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 [] []
+initialLayout = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 [] [] []
 
 -- | The hooks for the Haskell grammar.
 haskellLayoutHooks :: LexerHooks HaskellLayout
-haskellLayoutHooks = LexerHooks initialLayout onAction onEmit
+haskellLayoutHooks = LexerHooks initialLayout onAction (\_ _ _ _ _ -> True) onEmit
 
 hidden :: HookEffect
 hidden = EffectChannel hiddenChannelName
 
-onAction :: Name -> ActionText -> Text -> HaskellLayout -> (HaskellLayout, [HookEffect])
-onAction _ action matched s
+onAction :: Name -> ActionText -> Text -> Text -> HaskellLayout -> (HaskellLayout, [HookEffect])
+onAction _ action matched _ s
   | calls "processNEWLINEToken" = (s {indentCount = 0, initialIndent = Nothing}, [hidden | pendingDent s])
   | calls "processTABToken" = (s {indentCount = if pendingDent s then indentCount s + 8 * T.length matched else indentCount s}, [hidden])
   | calls "processWSToken" = (s {indentCount = if pendingDent s then indentCount s + T.length matched else indentCount s}, [hidden])
@@ -109,14 +110,18 @@ closeToIndentInclusive next = do
     closeWith next
     closeToIndentInclusive next
 
+-- | Closes a block per level of indentation lost, and only while there is a block to close: a
+-- line indented less than the first token of the text, as a fragment cut from the middle of a
+-- file often has, closes nothing, where looping on it would emit virtual braces without end.
 closeToIndent :: Token -> Layout ()
 closeToIndent next = do
   s <- get
-  when (indentCount s < savedIndent s) $ do
-    when (not (null (indentStack s)) && nestedLevel s > 0) $
-      put s {indentStack = drop 1 (indentStack s), nestedLevel = nestedLevel s - 1}
-    closeWith next
-    closeToIndent next
+  case indentStack s of
+    (_ : rest) | indentCount s < savedIndent s -> do
+      put s {indentStack = rest, nestedLevel = max 0 (nestedLevel s - 1)}
+      closeWith next
+      closeToIndent next
+    _ -> pure ()
 
 processIn :: Token -> Layout ()
 processIn next = do
@@ -232,6 +237,15 @@ stepCode before ty next = do
               modify (\x -> x {indentStack = rest, nestedLevel = nestedLevel x - 1})
             _ -> pure ()
       when (ty == "OCURLY") $ modify (\x -> x {prevWasKeyWord = False})
+      when (ty `elem` ["OpenRoundBracket", "OpenSquareBracket"]) $
+        modify (\x -> x {delimiterLayouts = length (indentStack x) : delimiterLayouts x})
+      when (ty `elem` ["CloseRoundBracket", "CloseSquareBracket"]) $ do
+        saved <- gets delimiterLayouts
+        case saved of
+          depth : rest -> do
+            closeDelimited next depth
+            modify (\x -> x {delimiterLayouts = rest})
+          [] -> pure ()
       if tokenChannel next == hiddenChannelName || ty == "NEWLINE"
         then pure (before ++ [next])
         else do
@@ -263,3 +277,13 @@ stepCode before ty next = do
                   pure (Just [open, next])
                 else pure Nothing
         else pure Nothing
+
+-- | A closing parenthesis or list bracket ends only the implicit layout blocks opened
+-- inside that delimiter. Enclosing let/where blocks must stay open.
+closeDelimited :: Token -> Int -> Layout ()
+closeDelimited next depth = do
+  s <- get
+  when (length (indentStack s) > depth) $ do
+    closeWith next
+    modify (\x -> x {indentStack = drop 1 (indentStack x), nestedLevel = max 0 (nestedLevel x - 1)})
+    closeDelimited next depth

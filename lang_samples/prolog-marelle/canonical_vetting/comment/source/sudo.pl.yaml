@@ -1,0 +1,9 @@
+decision/prolog/source/sudo.pl:
+  digest: sha256:c5e735b8d3685e9e
+  verdict: pending
+decision/prolog/source/sudo.pl/clause/sudo_or_empty:
+  digest: sha256:829064cde9d35418
+  verdict: pending
+decision/prolog/source/sudo.pl/clause/sudo_tell:
+  digest: sha256:50fcf5b6990be0f8
+  verdict: pending

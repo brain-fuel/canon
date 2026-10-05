@@ -1,0 +1,15 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/ToStringStyleTest:
+  digest: sha256:df47a486a30c3d6d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/ToStringStyleTest/class/Person:
+  digest: sha256:261cbbc2bfc1f480
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/ToStringStyleTest/class/Person/field/age:
+  digest: sha256:16cbe085130b2e37
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/ToStringStyleTest/class/Person/field/name:
+  digest: sha256:44c61e134fc5ab22
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/ToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/ToStringStyleTest/class/Person/field/smoker:
+  digest: sha256:dffb3f32508ed672
+  verdict: pending

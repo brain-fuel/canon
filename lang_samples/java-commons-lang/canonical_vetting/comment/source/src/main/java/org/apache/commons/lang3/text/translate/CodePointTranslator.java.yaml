@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CodePointTranslator.java/package/org.apache.commons.lang3.text.translate/class/CodePointTranslator:
+  digest: sha256:320caa6e1a9b0cac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CodePointTranslator.java/package/org.apache.commons.lang3.text.translate/class/CodePointTranslator/constructor/CodePointTranslator:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CodePointTranslator.java/package/org.apache.commons.lang3.text.translate/class/CodePointTranslator/method/translate:
+  digest: sha256:ac91e3f10860d111
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/CodePointTranslator.java/package/org.apache.commons.lang3.text.translate/class/CodePointTranslator/method/translate#2:
+  digest: sha256:78069da97d96bbb5
+  verdict: pending

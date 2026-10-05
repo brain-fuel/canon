@@ -1,0 +1,549 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder:
+  digest: sha256:d0b7b9a2063d464e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader:
+  digest: sha256:87865aa824a65927
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/constructor/StrBuilderReader:
+  digest: sha256:7d131f983138870c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/field/mark:
+  digest: sha256:a044fda502610e69
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/field/pos:
+  digest: sha256:6dbf24393e23ed2a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/method/close:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/method/mark:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/method/markSupported:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/method/read:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/method/read#2:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/method/ready:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/method/reset:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderReader/method/skip:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderTokenizer:
+  digest: sha256:cb503805f07bae9d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderTokenizer/constructor/StrBuilderTokenizer:
+  digest: sha256:7d131f983138870c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderTokenizer/method/getContent:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderTokenizer/method/tokenize:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderWriter:
+  digest: sha256:abcdf665dfde052c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderWriter/constructor/StrBuilderWriter:
+  digest: sha256:7d131f983138870c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderWriter/method/close:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderWriter/method/flush:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderWriter/method/write:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderWriter/method/write#2:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderWriter/method/write#3:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderWriter/method/write#4:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/class/StrBuilderWriter/method/write#5:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/constructor/StrBuilder:
+  digest: sha256:5857973d283565af
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/constructor/StrBuilder#2:
+  digest: sha256:144db9565119e2bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/constructor/StrBuilder#3:
+  digest: sha256:7b4396d9cc2cc2e8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/field/CAPACITY:
+  digest: sha256:6be146a98fa9bb0c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/field/buffer:
+  digest: sha256:7c1d046c9bf50b71
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/field/newLine:
+  digest: sha256:e03f1222a124cf3c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/field/nullText:
+  digest: sha256:13851394ab8cbdb1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/field/size:
+  digest: sha256:1fd4096b189ad928
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append:
+  digest: sha256:b7f162de652bd327
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#10:
+  digest: sha256:a79935dda53c1121
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#11:
+  digest: sha256:521edb8fe7248004
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#12:
+  digest: sha256:88184ee988f556e6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#13:
+  digest: sha256:4bcdc2cd6a7b3d4d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#14:
+  digest: sha256:e8cbbe8c86edf3d3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#15:
+  digest: sha256:8722e10cc1c572c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#16:
+  digest: sha256:94a4ad32520d54e1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#17:
+  digest: sha256:d9bfca0fe2432326
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#18:
+  digest: sha256:61d3c4e624d6e264
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#19:
+  digest: sha256:4aa47da84618f481
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#2:
+  digest: sha256:39f70330b7ded595
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#20:
+  digest: sha256:29fd4d1399fe9dc4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#21:
+  digest: sha256:1dfb1c2ab19c10ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#22:
+  digest: sha256:9f1ae7efe63e8971
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#3:
+  digest: sha256:7b631f4b6b1ff059
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#4:
+  digest: sha256:5d64617b3d4ebd8e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#5:
+  digest: sha256:0a071238ab6578ff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#6:
+  digest: sha256:31cfb62f1f3c3789
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#7:
+  digest: sha256:270a374b98c5e5ad
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#8:
+  digest: sha256:929409009827abf4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/append#9:
+  digest: sha256:976763b482e63d28
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendAll:
+  digest: sha256:f80badecc688e94c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendAll#2:
+  digest: sha256:87cc3dc8a8354075
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendAll#3:
+  digest: sha256:92816d73718c6776
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendFixedWidthPadLeft:
+  digest: sha256:3d8471dbb6ad7522
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendFixedWidthPadLeft#2:
+  digest: sha256:eafa0e66bcb42f2a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendFixedWidthPadRight:
+  digest: sha256:05342e1c2f8964fc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendFixedWidthPadRight#2:
+  digest: sha256:9032d991bd392095
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendNewLine:
+  digest: sha256:5dea80c15385cd80
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendNull:
+  digest: sha256:3791ddd82792b052
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendPadding:
+  digest: sha256:d4b0b5a3cea929c6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendSeparator:
+  digest: sha256:87410b520dbce559
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendSeparator#2:
+  digest: sha256:b0f1fb22f72c6722
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendSeparator#3:
+  digest: sha256:80a944c5c0637168
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendSeparator#4:
+  digest: sha256:8f8e5db50935cc34
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendSeparator#5:
+  digest: sha256:ad850a7314674b9e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendSeparator#6:
+  digest: sha256:c68dab493ff576fb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendTo:
+  digest: sha256:093f144cc5381560
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendWithSeparators:
+  digest: sha256:4365c3c8fa26d282
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendWithSeparators#2:
+  digest: sha256:e3f8368e8efca945
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendWithSeparators#3:
+  digest: sha256:e814647e536bb1e1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln:
+  digest: sha256:5792940e3ae9c8ba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#10:
+  digest: sha256:bb5d20d0c7d5cf4e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#11:
+  digest: sha256:2560ce62a3daa5bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#12:
+  digest: sha256:8ce0f76d419e53fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#13:
+  digest: sha256:00d5218ff636e610
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#14:
+  digest: sha256:61d3c4e624d6e264
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#15:
+  digest: sha256:bcdb9bd41d1296d5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#16:
+  digest: sha256:fb3ea819f13d1477
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#17:
+  digest: sha256:2a781c0f2f2a23f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#18:
+  digest: sha256:973b9d4de0151f8c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#2:
+  digest: sha256:66302944bf5710f3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#3:
+  digest: sha256:3354e7bf113fd481
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#4:
+  digest: sha256:d4627ecac76d07af
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#5:
+  digest: sha256:dce0fe754a2a9d8d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#6:
+  digest: sha256:df017ae100700756
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#7:
+  digest: sha256:09f0f79fca8388db
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#8:
+  digest: sha256:eacaf190b7f7bab9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/appendln#9:
+  digest: sha256:927c020092892884
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/asReader:
+  digest: sha256:ff28e9e8cc15c92b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/asTokenizer:
+  digest: sha256:c39c881054950afc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/asWriter:
+  digest: sha256:f4cea1d06f9527b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/build:
+  digest: sha256:6fd6fa77beba07c5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/capacity:
+  digest: sha256:774f89e72af3ccc9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/charAt:
+  digest: sha256:9cd658b5a02f700e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/clear:
+  digest: sha256:9f7e7c51c5fd239b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/contains:
+  digest: sha256:a1ce0d65a7ed63d1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/contains#2:
+  digest: sha256:4029106fa3159f4a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/contains#3:
+  digest: sha256:0d952e908c8fa8f6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/delete:
+  digest: sha256:47641fd6896aebf7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/deleteAll:
+  digest: sha256:998a44a33cedc54c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/deleteAll#2:
+  digest: sha256:4268225ca20b28c2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/deleteAll#3:
+  digest: sha256:7343f35b35e7d66e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/deleteCharAt:
+  digest: sha256:55a926a11b78f890
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/deleteFirst:
+  digest: sha256:998a44a33cedc54c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/deleteFirst#2:
+  digest: sha256:4268225ca20b28c2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/deleteFirst#3:
+  digest: sha256:62d18601882798c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/deleteImpl:
+  digest: sha256:a7b3e64326b9fc7b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/endsWith:
+  digest: sha256:fd0f73ea79419a02
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/ensureCapacity:
+  digest: sha256:8106218b39bb95ee
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/equals:
+  digest: sha256:5844c82baffdf4d8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/equals#2:
+  digest: sha256:2cd4815bb1f17bf8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/equalsIgnoreCase:
+  digest: sha256:2e901b11e0a1c207
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/getBuffer:
+  digest: sha256:cf7998375a4a4efe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/getChars:
+  digest: sha256:ee25b2be743c46a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/getChars#2:
+  digest: sha256:ed1fc55462c62f4d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/getNewLineText:
+  digest: sha256:6c3efb10e975aaa3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/getNullText:
+  digest: sha256:1a36929be9f337be
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/hashCode:
+  digest: sha256:3b478f5ad18f6bb0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/indexOf:
+  digest: sha256:13662870ff1eb7bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/indexOf#2:
+  digest: sha256:ac754c2b5502d679
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/indexOf#3:
+  digest: sha256:b5d07bf17747577b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/indexOf#4:
+  digest: sha256:ec41e8f8b28b7765
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/indexOf#5:
+  digest: sha256:5ad21b4ce424daf5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/indexOf#6:
+  digest: sha256:84cd7a5f81de03fa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert:
+  digest: sha256:461ee85ca37fdf5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert#10:
+  digest: sha256:17697eff0e140c40
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert#2:
+  digest: sha256:461ee85ca37fdf5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert#3:
+  digest: sha256:cf6863da985a181f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert#4:
+  digest: sha256:3ce601bccfee6eac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert#5:
+  digest: sha256:461ee85ca37fdf5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert#6:
+  digest: sha256:461ee85ca37fdf5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert#7:
+  digest: sha256:461ee85ca37fdf5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert#8:
+  digest: sha256:461ee85ca37fdf5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/insert#9:
+  digest: sha256:18c07ac317abc5d0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/isEmpty:
+  digest: sha256:b9ce60f36993c069
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/isNotEmpty:
+  digest: sha256:25d70bdd300d97f5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/lastIndexOf:
+  digest: sha256:4af566c2a96131c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/lastIndexOf#2:
+  digest: sha256:0a1be5fb5d8bb5ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/lastIndexOf#3:
+  digest: sha256:e341428ac920ac82
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/lastIndexOf#4:
+  digest: sha256:aeebf3ec2c420008
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/lastIndexOf#5:
+  digest: sha256:013e795ac9823630
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/lastIndexOf#6:
+  digest: sha256:4eeafb53bb0f5004
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/leftString:
+  digest: sha256:2d1636935a092a41
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/length:
+  digest: sha256:1837a23c99658bf2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/midString:
+  digest: sha256:a30daf5da65f4257
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/minimizeCapacity:
+  digest: sha256:908909248caa18ec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/readFrom:
+  digest: sha256:02ebc1211e8fa41d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replace:
+  digest: sha256:cec957586f109ec5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replace#2:
+  digest: sha256:b4dfa09b269d1c9a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replaceAll:
+  digest: sha256:472bf6419e1389ee
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replaceAll#2:
+  digest: sha256:3200c09e3574c415
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replaceAll#3:
+  digest: sha256:d6ee367a72110fef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replaceFirst:
+  digest: sha256:341a565804fc5f54
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replaceFirst#2:
+  digest: sha256:3ca3664e33fe5c3e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replaceFirst#3:
+  digest: sha256:bbb3a7ea2652b739
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replaceImpl:
+  digest: sha256:bfb517f8ca453029
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/replaceImpl#2:
+  digest: sha256:50ced5cb3eb2a618
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/reverse:
+  digest: sha256:fd6522100bf1b81c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/rightString:
+  digest: sha256:1746759c1dccbbd0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/setCharAt:
+  digest: sha256:b093934a7782147b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/setLength:
+  digest: sha256:4d42c19b38add59f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/setNewLineText:
+  digest: sha256:cfa781e4ac6a5869
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/setNullText:
+  digest: sha256:91440f4a94ef9427
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/size:
+  digest: sha256:6c3f2b1f32386650
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/startsWith:
+  digest: sha256:296d0a8006544082
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/subSequence:
+  digest: sha256:a89adcfd451ca0a2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/substring:
+  digest: sha256:67cfbac8383936cd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/substring#2:
+  digest: sha256:f6557d4014204756
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/toCharArray:
+  digest: sha256:c6c90f6c35cf0bc4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/toCharArray#2:
+  digest: sha256:f0d729902c81b4cc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/toString:
+  digest: sha256:853c7666400258c6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/toStringBuffer:
+  digest: sha256:2458dcfeea6f44bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/toStringBuilder:
+  digest: sha256:90b0c26cd8ed61b0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/trim:
+  digest: sha256:e2fed35e865790bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/validateIndex:
+  digest: sha256:5c7ce7693f56ef46
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrBuilder.java/package/org.apache.commons.lang3.text/class/StrBuilder/method/validateRange:
+  digest: sha256:14a98ac4edcf186d
+  verdict: pending

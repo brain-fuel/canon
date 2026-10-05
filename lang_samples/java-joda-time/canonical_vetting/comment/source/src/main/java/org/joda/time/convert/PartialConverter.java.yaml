@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/joda/time/convert/PartialConverter.java/package/org.joda.time.convert/interface/PartialConverter:
+  digest: sha256:09e11534afce6f30
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/PartialConverter.java/package/org.joda.time.convert/interface/PartialConverter/method/getChronology:
+  digest: sha256:c013e88172d4ac8b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/PartialConverter.java/package/org.joda.time.convert/interface/PartialConverter/method/getChronology#2:
+  digest: sha256:daa0333486bd9979
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/PartialConverter.java/package/org.joda.time.convert/interface/PartialConverter/method/getPartialValues:
+  digest: sha256:b5207e4d45c1af8e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/PartialConverter.java/package/org.joda.time.convert/interface/PartialConverter/method/getPartialValues#2:
+  digest: sha256:78e114869a7e1e01
+  verdict: pending

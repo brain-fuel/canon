@@ -1,0 +1,60 @@
+decision/go/source/uuid.go:
+  digest: sha256:55ed271b59c0f2b6
+  verdict: pending
+decision/go/source/uuid.go/function/DisableRandPool:
+  digest: sha256:329512c6f27f2a13
+  verdict: pending
+decision/go/source/uuid.go/function/EnableRandPool:
+  digest: sha256:3772c323e63014b4
+  verdict: pending
+decision/go/source/uuid.go/function/FromBytes:
+  digest: sha256:9f535fe51acb55c5
+  verdict: pending
+decision/go/source/uuid.go/function/IsInvalidLengthError:
+  digest: sha256:3284b6302f6dbb47
+  verdict: pending
+decision/go/source/uuid.go/function/Must:
+  digest: sha256:832a7a494465f774
+  verdict: pending
+decision/go/source/uuid.go/function/MustParse:
+  digest: sha256:c1c7847f9d9c8436
+  verdict: pending
+decision/go/source/uuid.go/function/Parse:
+  digest: sha256:728e541cdb3f1b7d
+  verdict: pending
+decision/go/source/uuid.go/function/ParseBytes:
+  digest: sha256:47746be20922a683
+  verdict: pending
+decision/go/source/uuid.go/function/SetRand:
+  digest: sha256:19868da4fd48bc86
+  verdict: pending
+decision/go/source/uuid.go/function/Validate:
+  digest: sha256:5088de4f50f73fc6
+  verdict: pending
+decision/go/source/uuid.go/method/String:
+  digest: sha256:caf7f242e454e869
+  verdict: pending
+decision/go/source/uuid.go/method/Strings:
+  digest: sha256:863c27b762bf74ca
+  verdict: pending
+decision/go/source/uuid.go/method/URN:
+  digest: sha256:8df6ec9d5305e672
+  verdict: pending
+decision/go/source/uuid.go/method/Variant:
+  digest: sha256:2255993a377783fb
+  verdict: pending
+decision/go/source/uuid.go/method/Version:
+  digest: sha256:f80ea5910a64b0fe
+  verdict: pending
+decision/go/source/uuid.go/type/UUID:
+  digest: sha256:db5cc97b2958948e
+  verdict: pending
+decision/go/source/uuid.go/type/UUIDs:
+  digest: sha256:fa92d19ca5106019
+  verdict: pending
+decision/go/source/uuid.go/type/Variant:
+  digest: sha256:111eaccc6c1f3134
+  verdict: pending
+decision/go/source/uuid.go/type/Version:
+  digest: sha256:45d3d9029b1d4a13
+  verdict: pending

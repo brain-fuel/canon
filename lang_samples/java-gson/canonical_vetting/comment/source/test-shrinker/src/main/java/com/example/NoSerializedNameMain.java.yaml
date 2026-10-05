@@ -1,0 +1,12 @@
+decision/java/source/test-shrinker/src/main/java/com/example/NoSerializedNameMain.java/package/com.example/class/NoSerializedNameMain:
+  digest: sha256:163c45956852c5e6
+  verdict: pending
+decision/java/source/test-shrinker/src/main/java/com/example/NoSerializedNameMain.java/package/com.example/class/NoSerializedNameMain/method/runTestHasArgsConstructor:
+  digest: sha256:c264d9df09f79b5a
+  verdict: pending
+decision/java/source/test-shrinker/src/main/java/com/example/NoSerializedNameMain.java/package/com.example/class/NoSerializedNameMain/method/runTestNoArgsConstructor:
+  digest: sha256:f5ecb679400b2190
+  verdict: pending
+decision/java/source/test-shrinker/src/main/java/com/example/NoSerializedNameMain.java/package/com.example/class/NoSerializedNameMain/method/runTestNoJdkUnsafe:
+  digest: sha256:98b6b9d8ed49d2ae
+  verdict: pending

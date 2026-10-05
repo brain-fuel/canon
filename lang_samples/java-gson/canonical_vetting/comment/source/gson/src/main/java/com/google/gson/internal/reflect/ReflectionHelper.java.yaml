@@ -1,0 +1,30 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/class/RecordHelper:
+  digest: sha256:e3bfbc412d661309
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/class/RecordNotSupportedHelper:
+  digest: sha256:540237f7db72dc9d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/method/constructorToString:
+  digest: sha256:5f092ee6fc901c37
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/method/fieldToString:
+  digest: sha256:57551e59f1529656
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/method/getAccessibleObjectDescription:
+  digest: sha256:494ee6bf7dbe9ea0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/method/getAccessor:
+  digest: sha256:952987c1270733ed
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/method/isAnonymousOrNonStaticLocal:
+  digest: sha256:18f3bfec80876831
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/method/isRecord:
+  digest: sha256:261020c3382aaecc
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/method/makeAccessible:
+  digest: sha256:053c93d56c6bb7d5
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/reflect/ReflectionHelper.java/package/com.google.gson.internal.reflect/class/ReflectionHelper/method/tryMakeAccessible:
+  digest: sha256:bb2461d8b69d8bb0
+  verdict: pending

@@ -1,0 +1,54 @@
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical:
+  digest: sha256:1760311d6a8e5c1c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/isDocCommentStart:
+  digest: sha256:a96ce03f1a1eb761
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/lineTable:
+  digest: sha256:0db92060e58c7188
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/positionAt:
+  digest: sha256:7cc46475e0739d7a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanAction:
+  digest: sha256:2acf5a85efdbe77a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanArgument:
+  digest: sha256:9dcfcd9d3ccd74ea
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanBacktickLiteral:
+  digest: sha256:ceca3ce7de99db38
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanBlockComment:
+  digest: sha256:20013f3dcdee0180
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanCharSet:
+  digest: sha256:ad692dbd1760715e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanDoubleQuoteLiteral:
+  digest: sha256:4f46f1c92390f619
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanEscape:
+  digest: sha256:b9e226a9d49a0dff
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanInt:
+  digest: sha256:ccb452eff99afd80
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanLineComment:
+  digest: sha256:1fcc1d4cdef3c00d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanName:
+  digest: sha256:c38afe0b5031bdfd
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanStringLiteral:
+  digest: sha256:286c019b42e3b8f8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/scanTripleQuoteLiteral:
+  digest: sha256:036370408df01b00
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/function/spanBetween:
+  digest: sha256:8b8f94802ddb4a4b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lexical.hs/module/Canon.Antlr4.Lexical/newtype/LineTable:
+  digest: sha256:4ac09c116dfb43e7
+  verdict: pending

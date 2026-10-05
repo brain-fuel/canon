@@ -1,0 +1,105 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder:
+  digest: sha256:7e5ac92d145b0451
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/class/Builder:
+  digest: sha256:ab882b421c7fe2e5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/class/Builder/constructor/Builder:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/class/Builder/method/build:
+  digest: sha256:f15d1c6e2624e235
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/class/Builder/method/setLeft:
+  digest: sha256:4ac8216161dc8fa0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/class/Builder/method/setRight:
+  digest: sha256:403613795c616e20
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/class/Builder/method/setStyle:
+  digest: sha256:f340af64e1e7d1c5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/class/Builder/method/setTestObjectsEquals:
+  digest: sha256:3d60130121bd0a40
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/class/Builder/method/setToStringFormat:
+  digest: sha256:b24a9d7ef04a418b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/constructor/DiffBuilder:
+  digest: sha256:6b61f7d169e4f861
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/constructor/DiffBuilder#2:
+  digest: sha256:8e7c71c00fdf1a13
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/interface/SerializableSupplier:
+  digest: sha256:ba12b34c4390cc00
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append:
+  digest: sha256:a18ddd2dba3f7aae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#10:
+  digest: sha256:3177195ad1b1ec77
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#11:
+  digest: sha256:ea94e6efed7d22fa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#12:
+  digest: sha256:dee1233e48ad0263
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#13:
+  digest: sha256:55ed674ec2161933
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#14:
+  digest: sha256:21dee2840c2d0ab9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#15:
+  digest: sha256:ba4acb9ece7dbd04
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#16:
+  digest: sha256:905863d9f406b3b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#17:
+  digest: sha256:6749ea5696e7a923
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#18:
+  digest: sha256:d0e8ef3002f2ff14
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#19:
+  digest: sha256:fb7efdb3be0fbde0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#2:
+  digest: sha256:e2ed872a3709d047
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#3:
+  digest: sha256:c5487a17d47d2215
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#4:
+  digest: sha256:ffeca9fec02076df
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#5:
+  digest: sha256:cbb5032e407360a1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#6:
+  digest: sha256:96c4e00ba9b84830
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#7:
+  digest: sha256:ab8a6b21305a521e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#8:
+  digest: sha256:6d5db6dbe327aeee
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/append#9:
+  digest: sha256:32bcdc06f935936b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/build:
+  digest: sha256:e16d8b1131cb38b0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/builder:
+  digest: sha256:2f33ffda4a0d242e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/getLeft:
+  digest: sha256:da5e3576a2f6d21e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java/package/org.apache.commons.lang3.builder/class/DiffBuilder/method/getRight:
+  digest: sha256:604fe478dd6edce5
+  verdict: pending

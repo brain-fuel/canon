@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongBinaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableLongBinaryOperator:
+  digest: sha256:e894fcb1a53498d5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongBinaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableLongBinaryOperator/method/applyAsLong:
+  digest: sha256:425854e3294439b1
+  verdict: pending

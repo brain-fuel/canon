@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/joda/time/field/ScaledDurationField.java/package/org.joda.time.field/class/ScaledDurationField:
+  digest: sha256:24fa1834599d8ff7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ScaledDurationField.java/package/org.joda.time.field/class/ScaledDurationField/constructor/ScaledDurationField:
+  digest: sha256:7b9bdeb57d19b52b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ScaledDurationField.java/package/org.joda.time.field/class/ScaledDurationField/method/equals:
+  digest: sha256:56495814313faa9c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ScaledDurationField.java/package/org.joda.time.field/class/ScaledDurationField/method/getScalar:
+  digest: sha256:71e442ec57f7bba5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ScaledDurationField.java/package/org.joda.time.field/class/ScaledDurationField/method/hashCode:
+  digest: sha256:6fd611d503d0db5e
+  verdict: pending

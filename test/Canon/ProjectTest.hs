@@ -80,7 +80,7 @@ profileExtraction = withTests 1 $ property $ do
   case interpreter of
     Left err -> annotate (show err) >> failure
     Right loaded -> do
-      let profile = Profile [".tiny"] (CombinedGrammarFile "Tiny.g4") (Name "file_") [UnitRule (Name "definition") "function" (NameFromToken (Name "NAME") 1) True Nothing False] (CommentSyntax (Just "#") Nothing Nothing ["\""] [] [] [] []) Map.empty
+      let profile = Profile [".tiny"] (CombinedGrammarFile "Tiny.g4") (Name "file_") [UnitRule (Name "definition") "function" (NameFromToken (Name "NAME") 1) True Nothing False] (CommentSyntax (Just "#") Nothing Nothing ["\""] [] [] [] []) Map.empty Map.empty Map.empty
           source = "# tiny module license:MIT\n\n# why alpha ref:REQ-1\ndef alpha() { def inner() {} }\n\ndef beta() {}\ndef beta() {}\n"
       result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "tiny" profile loaded "src/x.tiny" "src/x.tiny" source)
       case result of
@@ -137,9 +137,9 @@ cacheRoundTrip = property $ do
   let extraction = Extraction model findings
       key = cacheKey (map LBS.fromStrict parts)
   found <- evalIO $ withScratch "cache" $ \root -> do
-    storeCached root key extraction
+    storeCached root key (Right extraction)
     lookupCached root key
-  found === Just extraction
+  found === Just (Right extraction)
   other <- forAll (Gen.bytes (Range.linear 21 30))
   assert (cacheKey [LBS.fromStrict other] /= key)
 
@@ -167,13 +167,16 @@ materialPending = withTests 1 $ property $ do
     writeFile (root </> "canonical_refs.yaml") (unlines ["paper-1:", "  kind: paper", "  title: A paper", "  locator: here"])
     writeFile (root </> "canonical_decisions.yaml") (unlines ["DEC-x:", "  status: decided", "  question: Why?", "  answer: Because.", "  opened: 0.1.0", "  decided: 0.1.0"])
     before <- either (const []) id <$> (loadProject root >>= either (const (pure (Right []))) (\p -> Right <$> checkProject p Nothing))
-    ingested <- loadProject root >>= either (const (pure ("", 0, [], ["load"]))) ingestProject
+    ingested <- loadProject root >>= either (const (pure ("", 0, 0, [], ["load"]))) ingestProject
     afterIngest <- loadProject root >>= either (const (pure [])) (\p -> checkProject p Nothing)
-    signedFile <- readFile (root </> "canonical_vetting.yaml")
-    let signed = concatMap (\l -> if l == "  verdict: pending" then "  verdict: good\n" else l ++ "\n") (lines signedFile)
-    length signed `seq` writeFile (root </> "canonical_vetting.yaml") signed
+    let sign path = do
+          signedFile <- readFile path
+          let signed = concatMap (\l -> if l == "  verdict: pending" then "  verdict: good\n" else l ++ "\n") (lines signedFile)
+          length signed `seq` writeFile path signed
+    sign (root </> "canonical_vetting/ledger/canonical_decisions.yaml")
+    sign (root </> "canonical_vetting/registry/canonical_refs.yaml")
     afterSigning <- loadProject root >>= either (const (pure [])) (\p -> checkProject p Nothing)
-    pure ([k | MaterialPending k <- before], (\(_, _, fresh, _) -> fresh) ingested, [k | MaterialPending k <- afterIngest], [k | MaterialPending k <- afterSigning], [k | VerdictUncommitted k <- afterSigning])
+    pure ([k | MaterialPending k <- before], (\(_, _, _, fresh, _) -> fresh) ingested, [k | MaterialPending k <- afterIngest], [k | MaterialPending k <- afterSigning], [k | VerdictUncommitted k <- afterSigning])
   let (before, fresh, pending, signedPending, uncommitted) = found
   before === []
   Set.fromList fresh === Set.fromList [LedgerKey (ReferenceKey "DEC-x"), RegistryKey (ReferenceKey "paper-1")]

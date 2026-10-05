@@ -1,0 +1,27 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java/package/org.apache.commons.lang3.reflect/class/AAAAClass:
+  digest: sha256:85c52a646b40ad3a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java/package/org.apache.commons.lang3.reflect/class/AAClass:
+  digest: sha256:f9098b5435966b7b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java/package/org.apache.commons.lang3.reflect/class/AAClass/class/BBClass:
+  digest: sha256:00cab453758cc4ed
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java/package/org.apache.commons.lang3.reflect/class/TypeUtilsTest:
+  digest: sha256:f9cf2832e326e80c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java/package/org.apache.commons.lang3.reflect/class/TypeUtilsTest/class/MyInnerClass:
+  digest: sha256:ef552d9219d14383
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java/package/org.apache.commons.lang3.reflect/class/TypeUtilsTest/method/aMethod:
+  digest: sha256:f5cac655bd520804
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java/package/org.apache.commons.lang3.reflect/class/TypeUtilsTest/method/testGetRawType_LANG_1697:
+  digest: sha256:0e881ddd51e7b5e6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java/package/org.apache.commons.lang3.reflect/class/TypeUtilsTest/method/test_LANG_1698:
+  digest: sha256:927070c2e6a8a40d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/reflect/TypeUtilsTest.java/package/org.apache.commons.lang3.reflect/class/TypeUtilsTest/method/test_LANG_1700:
+  digest: sha256:d61a88879abcb1f6
+  verdict: pending

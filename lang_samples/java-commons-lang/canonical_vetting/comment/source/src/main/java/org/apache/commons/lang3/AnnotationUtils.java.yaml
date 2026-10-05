@@ -1,0 +1,45 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils:
+  digest: sha256:51b32d9faedf9393
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/constructor/AnnotationUtils:
+  digest: sha256:7cebc2de21b30d5d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/field/TO_STRING_STYLE:
+  digest: sha256:b95cdd280622b9d7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/field/TO_STRING_STYLE/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/field/TO_STRING_STYLE/method/appendDetail:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/field/TO_STRING_STYLE/method/getShortClassName:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/method/annotationArrayMemberEquals:
+  digest: sha256:aa3bb77f4c0bdd6f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/method/arrayMemberEquals:
+  digest: sha256:c146bcef5a98bccf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/method/arrayMemberHash:
+  digest: sha256:d39cb1599ad1ca16
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/method/equals:
+  digest: sha256:3e2ad143dbe98cf7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/method/hashCode:
+  digest: sha256:2ea65dc3581185ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/method/hashMember:
+  digest: sha256:c8525efcedef1f59
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/method/isValidAnnotationMemberType:
+  digest: sha256:96281a293d391b76
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/method/memberEquals:
+  digest: sha256:e24a427fa8bee0b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AnnotationUtils.java/package/org.apache.commons.lang3/class/AnnotationUtils/method/toString:
+  digest: sha256:81e2ea9c833ec9cd
+  verdict: pending

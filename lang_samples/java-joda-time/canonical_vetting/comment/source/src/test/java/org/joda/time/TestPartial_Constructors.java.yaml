@@ -1,0 +1,72 @@
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors:
+  digest: sha256:d380fe984ac5cb6e
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/assertMessageContains:
+  digest: sha256:d4b7cb4487ae185f
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/assertMessageContains#2:
+  digest: sha256:e535b847e03840b9
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructor:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructor2_TypeArray_intArray:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx1_TypeArray_intArray:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx1_Type_int:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx2_Type_int:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx2_Type_int_Chrono:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx3_TypeArray_intArray:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx5_TypeArray_intArray:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx6_TypeArray_intArray:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx7_TypeArray_intArray_inOrder:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx8_TypeArray_intArray_duplicate:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx9_TypeArray_intArray:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx_Partial:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructorEx_Type_int_Chrono:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructor_Chrono:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructor_Partial:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructor_TypeArray_intArray:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructor_TypeArray_intArray_Chrono:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructor_TypeArray_intArray_year_weekyear:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructor_Type_int:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPartial_Constructors.java/package/org.joda.time/class/TestPartial_Constructors/method/testConstructor_Type_int_Chrono:
+  digest: sha256:d694d2f97ccac20d
+  verdict: pending

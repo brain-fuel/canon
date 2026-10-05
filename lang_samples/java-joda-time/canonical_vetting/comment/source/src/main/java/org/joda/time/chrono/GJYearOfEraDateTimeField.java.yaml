@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/joda/time/chrono/GJYearOfEraDateTimeField.java/package/org.joda.time.chrono/class/GJYearOfEraDateTimeField:
+  digest: sha256:c05c99cd7431e85f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJYearOfEraDateTimeField.java/package/org.joda.time.chrono/class/GJYearOfEraDateTimeField/constructor/GJYearOfEraDateTimeField:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJYearOfEraDateTimeField.java/package/org.joda.time.chrono/class/GJYearOfEraDateTimeField/method/readResolve:
+  digest: sha256:b94ab54735a4fc8f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GJYearOfEraDateTimeField.java/package/org.joda.time.chrono/class/GJYearOfEraDateTimeField/method/set:
+  digest: sha256:c09b448c38b94deb
+  verdict: pending

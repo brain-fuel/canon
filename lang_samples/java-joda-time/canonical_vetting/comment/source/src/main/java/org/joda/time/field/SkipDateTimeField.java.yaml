@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/joda/time/field/SkipDateTimeField.java/package/org.joda.time.field/class/SkipDateTimeField:
+  digest: sha256:ae58a4651fc9e072
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/SkipDateTimeField.java/package/org.joda.time.field/class/SkipDateTimeField/constructor/SkipDateTimeField:
+  digest: sha256:c7b5a78ffc3de680
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/SkipDateTimeField.java/package/org.joda.time.field/class/SkipDateTimeField/constructor/SkipDateTimeField#2:
+  digest: sha256:fdfebe3cbbb0f1f0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/SkipDateTimeField.java/package/org.joda.time.field/class/SkipDateTimeField/field/iChronology:
+  digest: sha256:de3cd7d66177309f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/SkipDateTimeField.java/package/org.joda.time.field/class/SkipDateTimeField/field/iMinValue:
+  digest: sha256:c195c8911dd5dc76
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/SkipDateTimeField.java/package/org.joda.time.field/class/SkipDateTimeField/field/iSkip:
+  digest: sha256:c5bbf9289316329b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/SkipDateTimeField.java/package/org.joda.time.field/class/SkipDateTimeField/field/serialVersionUID:
+  digest: sha256:fcdf71a4d7975811
+  verdict: pending

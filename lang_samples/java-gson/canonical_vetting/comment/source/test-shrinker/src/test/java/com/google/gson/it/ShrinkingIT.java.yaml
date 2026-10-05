@@ -1,0 +1,6 @@
+decision/java/source/test-shrinker/src/test/java/com/google/gson/it/ShrinkingIT.java/package/com.google.gson.it/class/ShrinkingIT:
+  digest: sha256:e17fece629dda86a
+  verdict: pending
+decision/java/source/test-shrinker/src/test/java/com/google/gson/it/ShrinkingIT.java/package/com.google.gson.it/class/ShrinkingIT/method/isTestingProGuard:
+  digest: sha256:744a4fd7bf38b520
+  verdict: pending

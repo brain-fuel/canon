@@ -1,0 +1,54 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils:
+  digest: sha256:a0a0a07c066cc1f3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/constructor/DurationUtils:
+  digest: sha256:1b940f3b8dad4f09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/field/LONG_TO_INT_RANGE:
+  digest: sha256:ab052e6d028f1dc4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/accept:
+  digest: sha256:0ca8db7ea7aba447
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/get:
+  digest: sha256:493eee3d23ef9c35
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/getMillis:
+  digest: sha256:66bb6ff714ac47d2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/getNanosOfMiili:
+  digest: sha256:01ddb69e5a54abe2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/getNanosOfMilli:
+  digest: sha256:c1df1e477cbfce70
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/getSeconds:
+  digest: sha256:b3337c93678bd4e4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/isPositive:
+  digest: sha256:f5b48f2cef5acc22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/of:
+  digest: sha256:87e3b4c9777a5186
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/of#2:
+  digest: sha256:7eb52ed0d232796e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/since:
+  digest: sha256:9b8515c1250b43e9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/toChronoUnit:
+  digest: sha256:2b88eed086da9c15
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/toDuration:
+  digest: sha256:41b26e12c2f06159
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/toMillisInt:
+  digest: sha256:15de7cfe8afcf1ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/toMillisLong:
+  digest: sha256:e5d0fc76c137b54f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/DurationUtils.java/package/org.apache.commons.lang3.time/class/DurationUtils/method/zeroIfNull:
+  digest: sha256:64cb9a2ef7d615a9
+  verdict: pending

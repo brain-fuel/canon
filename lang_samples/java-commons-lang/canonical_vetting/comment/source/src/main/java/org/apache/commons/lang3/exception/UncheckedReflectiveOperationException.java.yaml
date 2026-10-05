@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/UncheckedReflectiveOperationException.java/package/org.apache.commons.lang3.exception/class/UncheckedReflectiveOperationException:
+  digest: sha256:f9478143ad113f1c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/UncheckedReflectiveOperationException.java/package/org.apache.commons.lang3.exception/class/UncheckedReflectiveOperationException/constructor/UncheckedReflectiveOperationException:
+  digest: sha256:90ec4fe2582aa67b
+  verdict: pending

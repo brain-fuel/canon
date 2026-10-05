@@ -1,0 +1,21 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java/package/com.google.gson.internal.bind/class/TreeTypeAdapter:
+  digest: sha256:95b5e2154d3b3dee
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java/package/com.google.gson.internal.bind/class/TreeTypeAdapter/field/delegate:
+  digest: sha256:e9a2babfca83e248
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java/package/com.google.gson.internal.bind/class/TreeTypeAdapter/field/skipPastForGetDelegateAdapter:
+  digest: sha256:ed9e0ae634bbabce
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java/package/com.google.gson.internal.bind/class/TreeTypeAdapter/method/getSerializationDelegate:
+  digest: sha256:21dac9b1fd094b7b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java/package/com.google.gson.internal.bind/class/TreeTypeAdapter/method/newFactory:
+  digest: sha256:7fc4e902859bf3a6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java/package/com.google.gson.internal.bind/class/TreeTypeAdapter/method/newFactoryWithMatchRawType:
+  digest: sha256:edb34b24905b6cf9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java/package/com.google.gson.internal.bind/class/TreeTypeAdapter/method/newTypeHierarchyFactory:
+  digest: sha256:32a6c7ba59431bc9
+  verdict: pending

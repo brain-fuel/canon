@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/internal/ConstructorConstructorTest.java/package/com.google.gson.internal/class/ConstructorConstructorTest/method/testCustomCollectionCreation:
+  digest: sha256:ea520c3624d7fa0c
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/ConstructorConstructorTest.java/package/com.google.gson.internal/class/ConstructorConstructorTest/method/testCustomMapCreation:
+  digest: sha256:aa35fb6a875b0f63
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/ConstructorConstructorTest.java/package/com.google.gson.internal/class/ConstructorConstructorTest/method/testGet_AbstractClassNoArgConstructor:
+  digest: sha256:63d5606dab62c765
+  verdict: pending

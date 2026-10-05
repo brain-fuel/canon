@@ -1,0 +1,51 @@
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology:
+  digest: sha256:79d4f95c39c1626a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/constructor/BuddhistChronology:
+  digest: sha256:0ef37390edcee5e6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/field/BE:
+  digest: sha256:52f218bb14a2880f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/field/BUDDHIST_OFFSET:
+  digest: sha256:f90c51b368d49260
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/field/ERA_FIELD:
+  digest: sha256:4ad4d27453a8d3e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/field/INSTANCE_UTC:
+  digest: sha256:accef1f4344d3fda
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/field/cCache:
+  digest: sha256:dd116eafc56e9c5e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/method/equals:
+  digest: sha256:f40756d213f1f283
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/method/getInstance:
+  digest: sha256:19cbc0836ec167ba
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/method/getInstance#2:
+  digest: sha256:95adefdcc5c32fc9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/method/getInstanceUTC:
+  digest: sha256:6b496808ac38aa57
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/method/hashCode:
+  digest: sha256:b15b995d5c85dc7a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/method/readResolve:
+  digest: sha256:b94ab54735a4fc8f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/method/toString:
+  digest: sha256:919dead22e1ebafa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/method/withUTC:
+  digest: sha256:99dcb7f0dee1ffdc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BuddhistChronology.java/package/org.joda.time.chrono/class/BuddhistChronology/method/withZone:
+  digest: sha256:203c6515a26e0e74
+  verdict: pending

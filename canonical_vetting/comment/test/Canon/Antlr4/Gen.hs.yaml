@@ -1,0 +1,93 @@
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen:
+  digest: sha256:84b0f896fa7698c2
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/data/GenEnv:
+  digest: sha256:85beae3c0c6ac2e8
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genActionText:
+  digest: sha256:27015cf7fce64905
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genAlternative:
+  digest: sha256:e162878f519e069a
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genAnyName:
+  digest: sha256:681d95b1ec72bec2
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genArgumentText:
+  digest: sha256:a3c67a2749227d31
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genAtom:
+  digest: sha256:4acf854f71558e54
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genBlock:
+  digest: sha256:e910d6ad3cfbe5d0
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genCharSet:
+  digest: sha256:d904c2983f5d64e0
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genClosedGrammar:
+  digest: sha256:0e0bb947d85a603b
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genEbnfSuffix:
+  digest: sha256:4fa5ac13055a395d
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genElement:
+  digest: sha256:e6542325870e29fd
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genElementOption:
+  digest: sha256:b5a947b0f4c32eb5
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genGrammar:
+  digest: sha256:e1c6866b4658154f
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genGrammarOfKind:
+  digest: sha256:6107939c5cda1f77
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genInteger:
+  digest: sha256:6ef279a6933464cf
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genLexerAlternative:
+  digest: sha256:6f0ff77c562b1ad5
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genLexerAtom:
+  digest: sha256:1a036b4832d792d3
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genLexerCommand:
+  digest: sha256:7003f1242314bb9b
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genLexerElement:
+  digest: sha256:ba13a9dab8445e69
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genLexerRule:
+  digest: sha256:6a4689adea3bbc49
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genMode:
+  digest: sha256:5fe8d259ca446aad
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genOption:
+  digest: sha256:a455713591e2b665
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genOptionValue:
+  digest: sha256:141380b1b42670fc
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genParserRule:
+  digest: sha256:dbd5f4358cff8d71
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genPrequel:
+  digest: sha256:9467402999592a3f
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genQualifiedName:
+  digest: sha256:2090ad6266816c54
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genRuleName:
+  digest: sha256:794ab079c4311e86
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genStringLiteral:
+  digest: sha256:35cf9d7874315d2f
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/genTokenName:
+  digest: sha256:73e22b2a057265c7
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/Gen.hs/module/Canon.Antlr4.Gen/function/openEnv:
+  digest: sha256:81033a4aae713dd3
+  verdict: pending

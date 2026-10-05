@@ -1,0 +1,18 @@
+decision/haskell/src/Canon/Cache.hs/module/Canon.Cache:
+  digest: sha256:18efc2b37c4be125
+  verdict: pending
+decision/haskell/src/Canon/Cache.hs/module/Canon.Cache/function/cacheDirectoryName:
+  digest: sha256:8440d926431b2d0d
+  verdict: pending
+decision/haskell/src/Canon/Cache.hs/module/Canon.Cache/function/cacheKey:
+  digest: sha256:d2926005fb75ea37
+  verdict: pending
+decision/haskell/src/Canon/Cache.hs/module/Canon.Cache/function/lookupCached:
+  digest: sha256:7498aea10c3bf7c6
+  verdict: pending
+decision/haskell/src/Canon/Cache.hs/module/Canon.Cache/function/storeCached:
+  digest: sha256:8f21bd74ae19eef1
+  verdict: pending
+decision/haskell/src/Canon/Cache.hs/module/Canon.Cache/newtype/CacheKey:
+  digest: sha256:7dc820e5b05fc68c
+  verdict: pending

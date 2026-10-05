@@ -1,0 +1,30 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer:
+  digest: sha256:319a56f358ad2868
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer/constructor/ConstantInitializer:
+  digest: sha256:91dbc3d606d3f9d4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer/field/FMT_TO_STRING:
+  digest: sha256:6ef0475b5a42f0d1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer/field/object:
+  digest: sha256:471dfd6144778da0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer/method/equals:
+  digest: sha256:7b757a389a5ea5e0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer/method/get:
+  digest: sha256:8bb37bb11552d84c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer/method/getObject:
+  digest: sha256:11b9ed96a91bbb16
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer/method/hashCode:
+  digest: sha256:b12bab5cfdda28a9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer/method/isInitialized:
+  digest: sha256:37bffe74af94e3e5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java/package/org.apache.commons.lang3.concurrent/class/ConstantInitializer/method/toString:
+  digest: sha256:85c2ad3ba4d48e08
+  verdict: pending

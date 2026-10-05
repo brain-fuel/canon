@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/TriConsumer.java/package/org.apache.commons.lang3.function/interface/TriConsumer:
+  digest: sha256:d49ac7fb6fd1a45b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/TriConsumer.java/package/org.apache.commons.lang3.function/interface/TriConsumer/method/accept:
+  digest: sha256:569872012f4c3ab5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/TriConsumer.java/package/org.apache.commons.lang3.function/interface/TriConsumer/method/andThen:
+  digest: sha256:1cd7349e5eca2907
+  verdict: pending

@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSetUtils.java/package/org.apache.commons.lang3/class/CharSetUtils:
+  digest: sha256:4b973370fda2c0d1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSetUtils.java/package/org.apache.commons.lang3/class/CharSetUtils/constructor/CharSetUtils:
+  digest: sha256:555458406ce677a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSetUtils.java/package/org.apache.commons.lang3/class/CharSetUtils/method/containsAny:
+  digest: sha256:5971539bee393119
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSetUtils.java/package/org.apache.commons.lang3/class/CharSetUtils/method/count:
+  digest: sha256:e2a6a53c1cd6ef66
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSetUtils.java/package/org.apache.commons.lang3/class/CharSetUtils/method/deepEmpty:
+  digest: sha256:c4547572197dfcb1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSetUtils.java/package/org.apache.commons.lang3/class/CharSetUtils/method/delete:
+  digest: sha256:a7cd1a84215560be
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSetUtils.java/package/org.apache.commons.lang3/class/CharSetUtils/method/keep:
+  digest: sha256:94e21811538f91e2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSetUtils.java/package/org.apache.commons.lang3/class/CharSetUtils/method/modify:
+  digest: sha256:8765297f6ebfb73e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSetUtils.java/package/org.apache.commons.lang3/class/CharSetUtils/method/squeeze:
+  digest: sha256:f1c2307fdc893342
+  verdict: pending

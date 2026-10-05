@@ -1,0 +1,24 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParser_TimeZoneStrategyTest.java/package/org.apache.commons.lang3.time/class/FastDateParser_TimeZoneStrategyTest:
+  digest: sha256:121455617b93f822
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParser_TimeZoneStrategyTest.java/package/org.apache.commons.lang3.time/class/FastDateParser_TimeZoneStrategyTest/method/testJava25DeprecatedZoneId:
+  digest: sha256:bc5792a5b2a6e089
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParser_TimeZoneStrategyTest.java/package/org.apache.commons.lang3.time/class/FastDateParser_TimeZoneStrategyTest/method/testJava25DeprecatedZoneIds:
+  digest: sha256:0d0e79931eb24cde
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParser_TimeZoneStrategyTest.java/package/org.apache.commons.lang3.time/class/FastDateParser_TimeZoneStrategyTest/method/testTimeZoneStrategyPatternPortugal_PT:
+  digest: sha256:f4afa76c8d62079d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParser_TimeZoneStrategyTest.java/package/org.apache.commons.lang3.time/class/FastDateParser_TimeZoneStrategyTest/method/testTimeZoneStrategyPatternPortugal_ST:
+  digest: sha256:6f26aa0d84af51fd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParser_TimeZoneStrategyTest.java/package/org.apache.commons.lang3.time/class/FastDateParser_TimeZoneStrategyTest/method/testTimeZoneStrategyPatternPortugal_TL:
+  digest: sha256:eb292e6ff67e690e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParser_TimeZoneStrategyTest.java/package/org.apache.commons.lang3.time/class/FastDateParser_TimeZoneStrategyTest/method/testTimeZoneStrategyPatternSuriname:
+  digest: sha256:8332f08fffc32b43
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParser_TimeZoneStrategyTest.java/package/org.apache.commons.lang3.time/class/FastDateParser_TimeZoneStrategyTest/method/testTimeZoneStrategyPattern_TimeZone_getAvailableIDs:
+  digest: sha256:9e27b6bad321feaf
+  verdict: pending

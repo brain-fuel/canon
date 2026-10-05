@@ -1,0 +1,63 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer:
+  digest: sha256:9d8e9faaee8af184
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults:
+  digest: sha256:2bda3e2f4e73819a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/constructor/MultiBackgroundInitializerResults:
+  digest: sha256:6c48391f9fc80780
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/field/exceptions:
+  digest: sha256:015dc9335907efe1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/field/initializers:
+  digest: sha256:cb532dea5d1155c3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/field/resultObjects:
+  digest: sha256:3206532ff6e144ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/method/checkName:
+  digest: sha256:f2120767c2793a2e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/method/getException:
+  digest: sha256:72fc3c066a4dc30c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/method/getInitializer:
+  digest: sha256:eaf7c22f3fd57037
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/method/getResultObject:
+  digest: sha256:d81df98e2fa2d49d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/method/initializerNames:
+  digest: sha256:c75a513eeb45d9e4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/method/isException:
+  digest: sha256:69d527463c173713
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/class/MultiBackgroundInitializerResults/method/isSuccessful:
+  digest: sha256:abd0820047992dda
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/constructor/MultiBackgroundInitializer:
+  digest: sha256:a5ef769ab966e32e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/constructor/MultiBackgroundInitializer#2:
+  digest: sha256:14d774dd4d9aff06
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/field/childInitializers:
+  digest: sha256:cb532dea5d1155c3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/method/addInitializer:
+  digest: sha256:dcf05cf9f6c15602
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/method/close:
+  digest: sha256:da983e6b80a909b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/method/getTaskCount:
+  digest: sha256:4c5b6b1a14953879
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/method/initialize:
+  digest: sha256:5e0ff6d2f119536e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializer/method/isInitialized:
+  digest: sha256:55565d4d2afd8095
+  verdict: pending

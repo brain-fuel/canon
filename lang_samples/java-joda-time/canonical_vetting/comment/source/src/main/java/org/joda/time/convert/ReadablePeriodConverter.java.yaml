@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePeriodConverter.java/package/org.joda.time.convert/class/ReadablePeriodConverter:
+  digest: sha256:4ede13de00b3eebb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePeriodConverter.java/package/org.joda.time.convert/class/ReadablePeriodConverter/constructor/ReadablePeriodConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePeriodConverter.java/package/org.joda.time.convert/class/ReadablePeriodConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePeriodConverter.java/package/org.joda.time.convert/class/ReadablePeriodConverter/method/getPeriodType:
+  digest: sha256:8c6d3d57948fdea8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePeriodConverter.java/package/org.joda.time.convert/class/ReadablePeriodConverter/method/getSupportedType:
+  digest: sha256:42d52369de7a3df2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadablePeriodConverter.java/package/org.joda.time.convert/class/ReadablePeriodConverter/method/setInto:
+  digest: sha256:2a3604ae6ddd7268
+  verdict: pending

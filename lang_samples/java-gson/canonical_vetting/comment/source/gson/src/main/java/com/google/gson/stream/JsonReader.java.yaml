@@ -1,0 +1,138 @@
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader:
+  digest: sha256:4d3d4a4f0aef704d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/constructor/JsonReader:
+  digest: sha256:32b19e89e6ed16db
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/field/PEEKED_BUFFERED:
+  digest: sha256:d8ee5975bbdc80a1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/field/PEEKED_LONG:
+  digest: sha256:b813da42349b3005
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/field/buffer:
+  digest: sha256:f83bbc8a22d1e575
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/field/in:
+  digest: sha256:4bd596b4b930a038
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/field/peekedLong:
+  digest: sha256:b6167418b203efc4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/field/peekedNumberLength:
+  digest: sha256:304849554200016a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/field/peekedString:
+  digest: sha256:acf1ca7b0cf935c7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/field/promotedName:
+  digest: sha256:6cbb22be6654e654
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/field/stack:
+  digest: sha256:b399432312865f0d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/beginArray:
+  digest: sha256:1dc498f6d480bda3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/beginObject:
+  digest: sha256:9351e552b809ba70
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/close:
+  digest: sha256:f60ead0a0ac18726
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/consumeNonExecutePrefix:
+  digest: sha256:8164f0e2064b9c82
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/endArray:
+  digest: sha256:95f2cab559233e31
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/endObject:
+  digest: sha256:81e701fbb0049760
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/fillBuffer:
+  digest: sha256:99d3650748accd28
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/getCharacterOffset:
+  digest: sha256:f5ebe2349003c05f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/getNestingLimit:
+  digest: sha256:225290006be0ebde
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/getPath#2:
+  digest: sha256:306acc1cb98abd9a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/getPreviousPath:
+  digest: sha256:916d1b717f44c171
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/getStrictness:
+  digest: sha256:f16bf52bfba8a57b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/hasNext:
+  digest: sha256:e3310e9869861d13
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/isLenient:
+  digest: sha256:b0c5ba2881fa6f0a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextBoolean:
+  digest: sha256:6dcfc38a1695aad7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextDouble:
+  digest: sha256:561b7b7915abc034
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextInt:
+  digest: sha256:169c0cf5ce853f8f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextLong:
+  digest: sha256:47c22531dba375ad
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextName:
+  digest: sha256:5d29dee5a9fc640b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextNonWhitespace:
+  digest: sha256:ed24e4b3fc850103
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextNull:
+  digest: sha256:1070467795fbe62a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextQuotedValue:
+  digest: sha256:0378401e39015be1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextString:
+  digest: sha256:e523d15dcc739c98
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/nextUnquotedValue:
+  digest: sha256:f89194b6b8e5a8e0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/peek:
+  digest: sha256:98890d787b32d754
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/readEscapeCharacter:
+  digest: sha256:59843a5cfb42a58f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/recordPromotedName:
+  digest: sha256:791ba4348ecf1a55
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/setLenient:
+  digest: sha256:9ba1007b219b06ef
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/setNestingLimit:
+  digest: sha256:3a867fd72f9f92f1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/setStrictness:
+  digest: sha256:f73a0d4ccd129e72
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/skipTo:
+  digest: sha256:0fb65aaa614c9ec9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/skipToEndOfLine:
+  digest: sha256:3b08e9f2292cf1fd
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/skipValue:
+  digest: sha256:3e03ba46e41b82bf
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/syntaxError:
+  digest: sha256:f141965a618c6a9c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonReader.java/package/com.google.gson.stream/class/JsonReader/method/validateString:
+  digest: sha256:9e2c37857f1a269f
+  verdict: pending

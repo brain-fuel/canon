@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/SystemPropertiesTest.java/package/org.apache.commons.lang3/class/SystemPropertiesTest/method/testConstants:
+  digest: sha256:054e659e007fda47
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/SystemPropertiesTest.java/package/org.apache.commons.lang3/class/SystemPropertiesTest/method/testEntityReplacementLimitConstantName:
+  digest: sha256:b0fc9c0647d00d69
+  verdict: pending

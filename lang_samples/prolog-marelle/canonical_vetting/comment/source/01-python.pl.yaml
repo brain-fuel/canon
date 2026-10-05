@@ -1,0 +1,48 @@
+decision/prolog/source/01-python.pl:
+  digest: sha256:7de98a2671a348c0
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/depends:
+  digest: sha256:7bfaa742ace8624c
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/depends#2:
+  digest: sha256:b871cecb2cbfa200
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/install_pip:
+  digest: sha256:7a82abb8f1232919
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/installs_with_pip:
+  digest: sha256:860e1266eb89407f
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/meet:
+  digest: sha256:0a01e04602ed3542
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/met:
+  digest: sha256:89359a4eebde67d0
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/pkg:
+  digest: sha256:3db9a76622c57713
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/pkg#2:
+  digest: sha256:d16a82437d12ea6b
+  verdict: pending
+decision/prolog/source/01-python.pl/clause/python_import:
+  digest: sha256:6077e40760c2bd0b
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/installs_with_pip:
+  digest: sha256:f22bccfe8a2277fc
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/pip_pkg:
+  digest: sha256:7182a4d9e8f71904
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/pip_pkg#2:
+  digest: sha256:9994bd66851bf357
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/pip_pkg#3:
+  digest: sha256:5cd037d4bc7d08dc
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/python_pkg:
+  digest: sha256:235b580010665db0
+  verdict: pending
+decision/prolog/source/01-python.pl/directive/python_pkg#2:
+  digest: sha256:a91e6446515228c1
+  verdict: pending

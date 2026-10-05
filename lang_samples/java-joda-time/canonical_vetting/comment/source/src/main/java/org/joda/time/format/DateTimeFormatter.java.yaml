@@ -1,0 +1,171 @@
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter:
+  digest: sha256:0a040c680f3c99fe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/constructor/DateTimeFormatter:
+  digest: sha256:84958c5bdca7fd90
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/constructor/DateTimeFormatter#2:
+  digest: sha256:84958c5bdca7fd90
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/constructor/DateTimeFormatter#3:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/field/iChrono:
+  digest: sha256:74d1f9d50e90bba3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/field/iDefaultYear:
+  digest: sha256:e8600b2841f8b45c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/field/iLocale:
+  digest: sha256:279ffd94f1705130
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/field/iOffsetParsed:
+  digest: sha256:bfa883b3ed2e90dd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/field/iParser:
+  digest: sha256:1cf46047054a6a39
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/field/iPivotYear:
+  digest: sha256:e2affd2d955d55c1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/field/iPrinter:
+  digest: sha256:81ab8d05c26a6041
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/field/iZone:
+  digest: sha256:420f0473c9f85462
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/getChronolgy:
+  digest: sha256:dea91ab6a1b9cf60
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/getChronology:
+  digest: sha256:720ffb9d441563dd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/getDefaultYear:
+  digest: sha256:9e3c287c3cd3c5b3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/getLocale:
+  digest: sha256:53fde2ada6549314
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/getParser:
+  digest: sha256:77ed62590f7597fe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/getPivotYear:
+  digest: sha256:d7e4e9a3560f00f5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/getPrinter:
+  digest: sha256:d11809419bc99450
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/getPrinter0:
+  digest: sha256:d11809419bc99450
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/getZone:
+  digest: sha256:067ed4e87923e10e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/isOffsetParsed:
+  digest: sha256:0b64ccea3c1e7543
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/isParser:
+  digest: sha256:1fe948690b58f03c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/isPrinter:
+  digest: sha256:326764898a052ad3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/parseDateTime:
+  digest: sha256:3d5ce2c5db8e7a44
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/parseInto:
+  digest: sha256:38c72b49c54b19b5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/parseLocalDate:
+  digest: sha256:ff4f2f63480dd40b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/parseLocalDateTime:
+  digest: sha256:5e1000fa9d532b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/parseLocalTime:
+  digest: sha256:a49c0a0e195b4acd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/parseMillis:
+  digest: sha256:f90751d3477fd49a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/parseMutableDateTime:
+  digest: sha256:b98687474d4c20ad
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/print:
+  digest: sha256:cf7368d74d248098
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/print#2:
+  digest: sha256:ed32348384521b71
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/print#3:
+  digest: sha256:982cf3f764d58787
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo:
+  digest: sha256:eceda5c8db6eccce
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#10:
+  digest: sha256:770b9def2342d387
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#11:
+  digest: sha256:788d263efd3619bc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#12:
+  digest: sha256:9c9fb830c9e5c64a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#2:
+  digest: sha256:eceda5c8db6eccce
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#3:
+  digest: sha256:0a9f7dc02bcd65ea
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#4:
+  digest: sha256:10da878f7845e786
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#5:
+  digest: sha256:38fe20e1c011da6f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#6:
+  digest: sha256:38fe20e1c011da6f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#7:
+  digest: sha256:eb5c518398024c0b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#8:
+  digest: sha256:5d6bff98a494183b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/printTo#9:
+  digest: sha256:770b9def2342d387
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/requireParser:
+  digest: sha256:19666cbddaa74700
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/requirePrinter:
+  digest: sha256:d2046a194db4f448
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/selectChronology:
+  digest: sha256:f77a63c233f58efa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/withChronology:
+  digest: sha256:e813b6608f545de6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/withDefaultYear:
+  digest: sha256:7b88fd8c3a56e636
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/withLocale:
+  digest: sha256:5cb5c1669395d7fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/withOffsetParsed:
+  digest: sha256:fc92b3718ea5c84b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/withPivotYear:
+  digest: sha256:09dcc84c00ce275a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/withPivotYear#2:
+  digest: sha256:d65896039ac92b2b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/withZone:
+  digest: sha256:eb4a6bc2d8bd1256
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeFormatter.java/package/org.joda.time.format/class/DateTimeFormatter/method/withZoneUTC:
+  digest: sha256:f3092fa299624c8d
+  verdict: pending

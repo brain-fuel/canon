@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ObjectToStringComparator.java/package/org.apache.commons.lang3.compare/class/ObjectToStringComparator:
+  digest: sha256:40122ec400c39ff2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ObjectToStringComparator.java/package/org.apache.commons.lang3.compare/class/ObjectToStringComparator/constructor/ObjectToStringComparator:
+  digest: sha256:11bacd8bcfc56ed8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ObjectToStringComparator.java/package/org.apache.commons.lang3.compare/class/ObjectToStringComparator/field/INSTANCE:
+  digest: sha256:08817fc8cf2a312f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ObjectToStringComparator.java/package/org.apache.commons.lang3.compare/class/ObjectToStringComparator/field/serialVersionUID:
+  digest: sha256:aa22b215f3237d38
+  verdict: pending

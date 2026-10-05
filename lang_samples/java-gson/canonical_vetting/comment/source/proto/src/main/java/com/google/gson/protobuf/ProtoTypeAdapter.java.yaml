@@ -1,0 +1,42 @@
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter:
+  digest: sha256:6115a8a099522dc6
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/class/Builder:
+  digest: sha256:4167648831e5fd7c
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/class/Builder/method/addSerializedEnumValueExtension:
+  digest: sha256:4007e4f6d525224c
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/class/Builder/method/addSerializedNameExtension:
+  digest: sha256:60ea166088db2d89
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/class/Builder/method/setFieldNameSerializationFormat:
+  digest: sha256:eac8be914746654e
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/class/Builder/method/setShouldUseJsonNameFieldOption:
+  digest: sha256:4323eaad1dbb54f7
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/enum/EnumSerialization:
+  digest: sha256:2c6d5fe1dc63b01c
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/enum/EnumSerialization/enumConstant/NAME:
+  digest: sha256:4fc0a0b798073d08
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/enum/EnumSerialization/enumConstant/NUMBER:
+  digest: sha256:34fc443413978e5a
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/method/findValueByNameAndExtension:
+  digest: sha256:6590f0093d4852db
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/method/getCustSerializedEnumValue:
+  digest: sha256:499a9c902a3780f0
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/method/getCustSerializedName:
+  digest: sha256:a86f8cad30d1ac0b
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/method/getEnumValue:
+  digest: sha256:ccdccc3308cef941
+  verdict: pending
+decision/java/source/proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java/package/com.google.gson.protobuf/class/ProtoTypeAdapter/method/newBuilder:
+  digest: sha256:9ae78c91739c1802
+  verdict: pending

@@ -1,0 +1,24 @@
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/JsonTreeReaderTest.java/package/com.google.gson.internal.bind/class/JsonTreeReaderTest/method/testNestingLimitIgnored:
+  digest: sha256:2e6ef7d71105f73c
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/JsonTreeReaderTest.java/package/com.google.gson.internal.bind/class/JsonTreeReaderTest/method/testNextDoubleNumberFormatExceptionContainsLocation:
+  digest: sha256:d5aff718a8af7d4f
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/JsonTreeReaderTest.java/package/com.google.gson.internal.bind/class/JsonTreeReaderTest/method/testNextIntAndLongAcceptAsciiDigitsInString:
+  digest: sha256:5c39a315b9eeec67
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/JsonTreeReaderTest.java/package/com.google.gson.internal.bind/class/JsonTreeReaderTest/method/testNextIntNumberFormatExceptionContainsLocation:
+  digest: sha256:2a401e5abe37c09d
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/JsonTreeReaderTest.java/package/com.google.gson.internal.bind/class/JsonTreeReaderTest/method/testNextIntRejectsNonAsciiDigits:
+  digest: sha256:9de32f9761be8754
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/JsonTreeReaderTest.java/package/com.google.gson.internal.bind/class/JsonTreeReaderTest/method/testNextLongNumberFormatExceptionContainsLocation:
+  digest: sha256:2a401e5abe37c09d
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/JsonTreeReaderTest.java/package/com.google.gson.internal.bind/class/JsonTreeReaderTest/method/testNextLongRejectsNonAsciiDigits:
+  digest: sha256:8efbb82b971ff073
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/bind/JsonTreeReaderTest.java/package/com.google.gson.internal.bind/class/JsonTreeReaderTest/method/testOverrides:
+  digest: sha256:7fc6a675eb668bdb
+  verdict: pending

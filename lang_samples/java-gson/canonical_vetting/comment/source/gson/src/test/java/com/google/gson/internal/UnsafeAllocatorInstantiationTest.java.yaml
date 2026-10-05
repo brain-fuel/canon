@@ -1,0 +1,12 @@
+decision/java/source/gson/src/test/java/com/google/gson/internal/UnsafeAllocatorInstantiationTest.java/package/com.google.gson.internal/class/UnsafeAllocatorInstantiationTest:
+  digest: sha256:894b1512b4a346a8
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/UnsafeAllocatorInstantiationTest.java/package/com.google.gson.internal/class/UnsafeAllocatorInstantiationTest/method/testAbstractClassInstantiation:
+  digest: sha256:65f8198536930390
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/UnsafeAllocatorInstantiationTest.java/package/com.google.gson.internal/class/UnsafeAllocatorInstantiationTest/method/testConcreteClassInstantiation:
+  digest: sha256:4ec9e4c2644009c6
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/internal/UnsafeAllocatorInstantiationTest.java/package/com.google.gson.internal/class/UnsafeAllocatorInstantiationTest/method/testInterfaceInstantiation:
+  digest: sha256:89d2eba977f5465b
+  verdict: pending

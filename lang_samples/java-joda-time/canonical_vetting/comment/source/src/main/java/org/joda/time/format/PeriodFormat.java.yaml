@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormat.java/package/org.joda.time.format/class/PeriodFormat:
+  digest: sha256:f664b35657a32e41
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormat.java/package/org.joda.time.format/class/PeriodFormat/class/DynamicWordBased:
+  digest: sha256:d65a9dee561ffd99
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormat.java/package/org.joda.time.format/class/PeriodFormat/class/DynamicWordBased/field/iFormatter:
+  digest: sha256:ec9a31156f206a22
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormat.java/package/org.joda.time.format/class/PeriodFormat/constructor/PeriodFormat:
+  digest: sha256:de9d9ab65129fcb4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormat.java/package/org.joda.time.format/class/PeriodFormat/field/BUNDLE_NAME:
+  digest: sha256:033c9ee191abbd7c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormat.java/package/org.joda.time.format/class/PeriodFormat/field/FORMATTERS:
+  digest: sha256:324b3e525b879625
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormat.java/package/org.joda.time.format/class/PeriodFormat/method/getDefault:
+  digest: sha256:0d6b27398308fd95
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormat.java/package/org.joda.time.format/class/PeriodFormat/method/wordBased:
+  digest: sha256:40853cb047fcf652
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormat.java/package/org.joda.time.format/class/PeriodFormat/method/wordBased#2:
+  digest: sha256:5944e202295de1e3
+  verdict: pending

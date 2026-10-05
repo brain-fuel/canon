@@ -1,0 +1,102 @@
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty:
+  digest: sha256:5a8922f19a21007d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/constructor/AbstractReadableInstantFieldProperty:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/field/serialVersionUID:
+  digest: sha256:fcdf71a4d7975811
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/compareTo:
+  digest: sha256:7b63ba90b4f99cd9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/compareTo#2:
+  digest: sha256:8edafc584218b9b7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/equals:
+  digest: sha256:b6871726ccf1fe00
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/get:
+  digest: sha256:067444b4870f8cb6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getAsShortText:
+  digest: sha256:8582940b32a00263
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getAsShortText#2:
+  digest: sha256:1d8fbc822b2c2827
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getAsString:
+  digest: sha256:3441e11fb248c4b8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getAsText:
+  digest: sha256:be39ed6325586f6d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getAsText#2:
+  digest: sha256:d067f6aa167b531b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getChronology:
+  digest: sha256:50ca9b263ce46676
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getDifference:
+  digest: sha256:f0272494240f5ab7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getDifferenceAsLong:
+  digest: sha256:f0272494240f5ab7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getDurationField:
+  digest: sha256:06325c1f57a00240
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getField:
+  digest: sha256:e91fc41616073b93
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getFieldType:
+  digest: sha256:f40b85325ccc81ed
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getLeapAmount:
+  digest: sha256:c7f2e47bed36b25e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getLeapDurationField:
+  digest: sha256:784a6c6f21665f81
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getMaximumShortTextLength:
+  digest: sha256:531327fe0236963b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getMaximumTextLength:
+  digest: sha256:a0495ef58f885f07
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getMaximumValue:
+  digest: sha256:31d0e08923acd113
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getMaximumValueOverall:
+  digest: sha256:a124a80c132d54c7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getMillis:
+  digest: sha256:df36505b241709f7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getMinimumValue:
+  digest: sha256:502bdab13403e81a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getMinimumValueOverall:
+  digest: sha256:60e238865bcc17fd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getName:
+  digest: sha256:06ea879626b7acd8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/getRangeDurationField:
+  digest: sha256:9d5bf67159603848
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/hashCode:
+  digest: sha256:d81f016c138d3d7d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/isLeap:
+  digest: sha256:1ddb3f8a0426d92c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/remainder:
+  digest: sha256:380143b68248dbb8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/toInterval:
+  digest: sha256:8105ebd1f3944285
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractReadableInstantFieldProperty.java/package/org.joda.time.field/class/AbstractReadableInstantFieldProperty/method/toString:
+  digest: sha256:e269750e89cfa366
+  verdict: pending

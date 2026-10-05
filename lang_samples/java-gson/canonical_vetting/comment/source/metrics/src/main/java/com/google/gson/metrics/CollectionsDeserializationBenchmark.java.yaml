@@ -1,0 +1,12 @@
+decision/java/source/metrics/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenchmark.java/package/com.google.gson.metrics/class/CollectionsDeserializationBenchmark:
+  digest: sha256:129a07fc2118bd7c
+  verdict: pending
+decision/java/source/metrics/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenchmark.java/package/com.google.gson.metrics/class/CollectionsDeserializationBenchmark/method/timeCollectionsDefault:
+  digest: sha256:392c67862fb967a9
+  verdict: pending
+decision/java/source/metrics/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenchmark.java/package/com.google.gson.metrics/class/CollectionsDeserializationBenchmark/method/timeCollectionsReflectionStreaming:
+  digest: sha256:6486b6aece81e175
+  verdict: pending
+decision/java/source/metrics/src/main/java/com/google/gson/metrics/CollectionsDeserializationBenchmark.java/package/com.google.gson.metrics/class/CollectionsDeserializationBenchmark/method/timeCollectionsStreaming:
+  digest: sha256:1cc790d21ea6a58b
+  verdict: pending

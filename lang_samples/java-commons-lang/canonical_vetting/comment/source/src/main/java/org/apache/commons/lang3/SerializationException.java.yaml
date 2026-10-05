@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationException.java/package/org.apache.commons.lang3/class/SerializationException:
+  digest: sha256:f8eae79c2984c564
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationException.java/package/org.apache.commons.lang3/class/SerializationException/constructor/SerializationException:
+  digest: sha256:d3b2ab559acbdb84
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationException.java/package/org.apache.commons.lang3/class/SerializationException/constructor/SerializationException#2:
+  digest: sha256:e2aaf5d5a040820e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationException.java/package/org.apache.commons.lang3/class/SerializationException/constructor/SerializationException#3:
+  digest: sha256:f2814026db6fd3a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationException.java/package/org.apache.commons.lang3/class/SerializationException/constructor/SerializationException#4:
+  digest: sha256:5563acb29817f262
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationException.java/package/org.apache.commons.lang3/class/SerializationException/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending

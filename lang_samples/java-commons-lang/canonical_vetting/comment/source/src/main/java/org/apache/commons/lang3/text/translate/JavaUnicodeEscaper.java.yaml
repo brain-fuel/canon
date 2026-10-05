@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/JavaUnicodeEscaper:
+  digest: sha256:3a70ae46314b835f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/JavaUnicodeEscaper/constructor/JavaUnicodeEscaper:
+  digest: sha256:1c2768024d061b43
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/JavaUnicodeEscaper/method/above:
+  digest: sha256:adc75fbf13cb355c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/JavaUnicodeEscaper/method/below:
+  digest: sha256:4d06faacf93f1042
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/JavaUnicodeEscaper/method/between:
+  digest: sha256:c4313e5bb54f5b8d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/JavaUnicodeEscaper/method/outsideOf:
+  digest: sha256:b4d7809fb64970b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java/package/org.apache.commons.lang3.text.translate/class/JavaUnicodeEscaper/method/toUtf16Escape:
+  digest: sha256:e534805f8b746e46
+  verdict: pending

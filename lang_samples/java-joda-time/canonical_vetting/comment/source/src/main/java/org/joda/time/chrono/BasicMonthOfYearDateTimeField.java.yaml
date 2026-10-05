@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/joda/time/chrono/BasicMonthOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicMonthOfYearDateTimeField:
+  digest: sha256:39859f8ef4e99a7c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicMonthOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicMonthOfYearDateTimeField/constructor/BasicMonthOfYearDateTimeField:
+  digest: sha256:b042a637cb40cf21
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicMonthOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicMonthOfYearDateTimeField/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicMonthOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicMonthOfYearDateTimeField/method/add:
+  digest: sha256:54556fe3f674f6ac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicMonthOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicMonthOfYearDateTimeField/method/addWrapField:
+  digest: sha256:9e40aa20fdbfd7e2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicMonthOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicMonthOfYearDateTimeField/method/get:
+  digest: sha256:6bdce64dff47cab6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicMonthOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicMonthOfYearDateTimeField/method/readResolve:
+  digest: sha256:b94ab54735a4fc8f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicMonthOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicMonthOfYearDateTimeField/method/set:
+  digest: sha256:83c949e01d55db24
+  verdict: pending

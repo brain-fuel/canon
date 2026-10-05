@@ -1,0 +1,132 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet:
+  digest: sha256:8b954005d6eabb2c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/constructor/FluentBitSet:
+  digest: sha256:f238255176860cc7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/constructor/FluentBitSet#2:
+  digest: sha256:98cfbfb3f480c7fe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/constructor/FluentBitSet#3:
+  digest: sha256:82debc25a2dba236
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/field/bitSet:
+  digest: sha256:db235b893e92d8c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/and:
+  digest: sha256:7adef4b0a3a0d8cd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/and#2:
+  digest: sha256:7adef4b0a3a0d8cd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/andNot:
+  digest: sha256:daa3dafac7b2082a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/andNot#2:
+  digest: sha256:daa3dafac7b2082a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/bitSet:
+  digest: sha256:6656f7cb943f5787
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/cardinality:
+  digest: sha256:082ee4cc8396e104
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/clear:
+  digest: sha256:2fe33ba59c96e59b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/clear#2:
+  digest: sha256:b01f3f03ebfa0664
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/clear#3:
+  digest: sha256:e6dc6acdc113c116
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/clear#4:
+  digest: sha256:09d7c11a4e7e17d5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/clone:
+  digest: sha256:78095e6c1e00f3f6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/flip:
+  digest: sha256:3adda1c871acf661
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/flip#2:
+  digest: sha256:ec088e8c1e4647b2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/get:
+  digest: sha256:fd3ab034283c1ab4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/get#2:
+  digest: sha256:3a43f34dbe78f557
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/intersects:
+  digest: sha256:c3d18fc016d178e8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/intersects#2:
+  digest: sha256:c3d18fc016d178e8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/isEmpty:
+  digest: sha256:70572c01d0de1ccd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/length:
+  digest: sha256:0dc232804d4d8d5e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/nextClearBit:
+  digest: sha256:ab3e40598701ebfd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/nextSetBit:
+  digest: sha256:c5c336fe29866731
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/or:
+  digest: sha256:9bfa1bb6b1f9b212
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/or#2:
+  digest: sha256:4301f9c557e3d358
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/or#3:
+  digest: sha256:9bfa1bb6b1f9b212
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/previousClearBit:
+  digest: sha256:fae1e9bfb7df8a68
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/previousSetBit:
+  digest: sha256:6667edfa030d915c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/readObject:
+  digest: sha256:27f00bbee3111e9a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/set:
+  digest: sha256:11ce4cc9ed907b89
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/set#2:
+  digest: sha256:97f7fc14e465ebd9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/set#3:
+  digest: sha256:a6eec117c18bdaa9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/set#4:
+  digest: sha256:3f96bb19dca8a1ee
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/set#5:
+  digest: sha256:6781a4d01f78b241
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/setInclusive:
+  digest: sha256:a20fa92b8117eeef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/size:
+  digest: sha256:f3b273484eaec84b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/stream:
+  digest: sha256:f74fd0075cc97870
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/toByteArray:
+  digest: sha256:769930c35b16beb8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/toLongArray:
+  digest: sha256:61fba91539d0f664
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/xor:
+  digest: sha256:94ceb082a9c2e453
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/util/FluentBitSet.java/package/org.apache.commons.lang3.util/class/FluentBitSet/method/xor#2:
+  digest: sha256:94ceb082a9c2e453
+  verdict: pending

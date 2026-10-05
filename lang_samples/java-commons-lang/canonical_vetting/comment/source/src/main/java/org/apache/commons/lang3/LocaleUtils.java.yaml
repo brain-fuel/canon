@@ -1,0 +1,90 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils:
+  digest: sha256:7aa8e94fe99608fb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/class/SyncAvoid:
+  digest: sha256:4368bd7e638ce3f3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/class/SyncAvoid/field/AVAILABLE_LOCALE_ULIST:
+  digest: sha256:cfe71b968912b10f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/class/SyncAvoid/field/AVAILABLE_LOCALE_USET:
+  digest: sha256:857ea054ced22fc6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/constructor/LocaleUtils:
+  digest: sha256:68b62a619f30738c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/field/DASH:
+  digest: sha256:3517524c89a5928c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/field/UNDERSCORE:
+  digest: sha256:9cd744ce953e9f9f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/field/UNDETERMINED:
+  digest: sha256:4c4af1b10c35bb60
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/field/ccToLocalesMap:
+  digest: sha256:0c97a87335bff3b9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/field/lcToLocalesMap:
+  digest: sha256:58091a909628229a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/availableLocaleList:
+  digest: sha256:ba7d175a878eb8ce
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/availableLocaleSet:
+  digest: sha256:ececa73520a79523
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/countriesByLanguage:
+  digest: sha256:122b0483d03f2e7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/getLcToLocalesMap:
+  digest: sha256:a9cd783b2b467f08
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/hasCountry:
+  digest: sha256:ae618f6d3b3145fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/hasVariant:
+  digest: sha256:328ea3ecbce357a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/isAlpha2Len:
+  digest: sha256:750cc824fb66b572
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/isAlpha3Len:
+  digest: sha256:48dcfcfd68215b00
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/isAvailableLocale:
+  digest: sha256:731551224a78f24e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/isISO3166CountryCode:
+  digest: sha256:235c22a6f8a923b1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/isISO639LanguageCode:
+  digest: sha256:9a28e6ad678d9180
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/isLanguageUndetermined:
+  digest: sha256:2e9f2eeec09df045
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/isNumericAreaCode:
+  digest: sha256:a292cac5b90fe1d5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/languagesByCountry:
+  digest: sha256:1ec0937384f01371
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/localeLookupList:
+  digest: sha256:8a07d949af2cf109
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/localeLookupList#2:
+  digest: sha256:9e7c494136867bc7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/ofCountry:
+  digest: sha256:305dd469e07879c7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/parseLocale:
+  digest: sha256:30732ba417abf5c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/toLocale:
+  digest: sha256:d9c95666ae78625e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LocaleUtils.java/package/org.apache.commons.lang3/class/LocaleUtils/method/toLocale#2:
+  digest: sha256:3bb6b9e36a55951d
+  verdict: pending

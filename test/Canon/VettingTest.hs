@@ -1,13 +1,14 @@
--- | The vetting file must round-trip, and verdicts, digests, and assessors must behave as rule 7
--- says. ref:DEC-comment-vetting
+-- | Each vetting file must round-trip, and verdicts, digests, and assessors must behave as rule 7
+-- says. ref:DEC-comment-vetting ref:DEC-vetting-layout
 module Canon.VettingTest (tests) where
 
 import Canon.Git.Commit
 import Canon.Git.Provider (StaticGit (..), staticGitProvider, staticGitProviderWith)
 import Canon.Model
 import Canon.Model.Finding (Finding (..), Severity (..), findingSeverity)
+import Canon.Config (Config (..), Disposition (..), defaultConfig)
 import Canon.Decisions (DecisionEntry (entryQuestion), Ledger (..), emptyLedger)
-import Canon.Model.Gen (genDecisionEntry, genDecisionId, genModel, genReference, genVetting, genVersion, genWhere, genWhy)
+import Canon.Model.Gen (genDecisionEntry, genDecisionId, genModel, genReference, genVetting, genVettingEntries, genVersion, genWhere, genWhy)
 import Canon.Registry (Reference (..), Registry (..), emptyRegistry)
 import Canon.Model.Yaml (decodeSorted)
 import Canon.Span (Position (..), Span (..))
@@ -37,7 +38,26 @@ tests =
     , testProperty "an entry whose decision no longer exists is an orphan verdict" orphanVerdicts
     , testProperty "ledger and registry entries are material: pending until signed, stale when edited" materialSignOff
     , testProperty "the old comment-only key form still reads" legacyKeys
+    , testProperty "rows of a declared kind are pending while open and reported when unknown" declaredKinds
     ]
+
+declaredKinds :: Property
+declaredKinds = withTests 1 $ property $ do
+  let kinds = Map.singleton "mutant" (Map.fromList [("unreviewed", DispositionOpen), ("logical-equivalency", DispositionClosed), ("inadequate-testing", DispositionWork)])
+      row w = (KindKey "mutant" w, VettingEntry (maybe Pending id (parseVerdict w)) "sha256:0123456789abcdef" Nothing Nothing Nothing)
+      vetting = Vetting (Map.fromList [("mutant/a.hs.yaml", Map.fromList [row "unreviewed", row "logical-equivalency", row "inadequate-testing", row "nonsense"]), ("other/x.yaml", Map.singleton (KindKey "other" "1") (VettingEntry Pending "sha256:0123456789abcdef" Nothing Nothing Nothing))])
+      found = kindFindings kinds vetting Map.empty
+  [k | KindPending k <- found] === [KindKey "mutant" "unreviewed"]
+  [k | VerdictUnknown k _ <- found] === [KindKey "mutant" "nonsense"]
+  [k | KindUndeclared k <- found] === [KindKey "other" "1"]
+  -- The name kind is known to every project without a declaration. ref:DEC-name-kind
+  let names = Vetting (Map.singleton "name/a.hs.yaml" (Map.singleton (KindKey "name" "haskell/a.hs/function/f") (VettingEntry Pending "sha256:0123456789abcdef" Nothing Nothing Nothing)))
+      withBuiltin = kindFindings (configKinds defaultConfig) names Map.empty
+  [k | KindPending k <- withBuiltin] === [KindKey "name" "haskell/a.hs/function/f"]
+  [k | KindUndeclared k <- withBuiltin] === []
+  [k | VerdictOrphan k <- orphanVerdictFindings vetting Set.empty] === []
+  parseVerdict "logical-equivalency" === Just (Word "logical-equivalency")
+  parseVerdict "Bad Word" === Nothing
 
 materialSignOff :: Property
 materialSignOff = property $ do
@@ -47,13 +67,14 @@ materialSignOff = property $ do
       refKey = ReferenceKey "paper-x"
       ledger = Ledger (Map.singleton key entry)
       registry = Registry (Map.singleton refKey reference)
-      items = materials [] ledger registry
+      items = materials "canonical_decisions.yaml" "canonical_refs.yaml" [] ledger registry
   map materialKey items === [LedgerKey key, RegistryKey refKey]
+  map materialFile items === ["ledger/canonical_decisions.yaml", "registry/canonical_refs.yaml"]
   map materialText items === [entryQuestion entry, referenceTitle reference]
   let (ingested, fresh) = ingest emptyVetting items
   Set.fromList fresh === Set.fromList [LedgerKey key, RegistryKey refKey]
   [k | MaterialPending k <- materialFindings Nothing ingested Map.empty ledger registry] === [LedgerKey key, RegistryKey refKey]
-  let signed = Vetting (Map.map (\e -> e {entryVerdict = Good}) (vettingEntries ingested))
+  let signed = mapEntries (\e -> e {entryVerdict = Good}) ingested
   materialFindings Nothing signed Map.empty ledger registry === []
   let edited = Ledger (Map.singleton key entry {entryQuestion = entryQuestion entry <> "?"})
   [k | MaterialStale k <- materialFindings Nothing signed Map.empty edited registry] === [LedgerKey key]
@@ -65,27 +86,31 @@ legacyKeys = withTests 1 $ property $ do
   parseVettingKey "decision/java/A.java/class/A" === Just (CommentKey d)
   parseVettingKey "ledger/DEC-x" === Just (LedgerKey (ReferenceKey "DEC-x"))
   parseVettingKey "registry/paper-1" === Just (RegistryKey (ReferenceKey "paper-1"))
-  parseVettingKey "elsewhere/x" === Nothing
+  parseVettingKey "elsewhere/x" === Just (KindKey "elsewhere" "x")
+  parseVettingKey "mutant/60dc5db9fbf6" === Just (KindKey "mutant" "60dc5db9fbf6")
+  parseVettingKey "nokey" === Nothing
+  parseVettingKey "Mutant/x" === Nothing
   renderVettingKey (LedgerKey (ReferenceKey "DEC-x")) === "ledger/DEC-x"
+  renderVettingKey (KindKey "mutant" "abc") === "mutant/abc"
 
 renderRoundTrip :: Property
 renderRoundTrip = property $ do
-  vetting <- forAll genVetting
-  decodeSorted (TE.encodeUtf8 (renderVetting vetting)) === Right vetting
+  entries <- forAll genVettingEntries
+  decodeSorted (TE.encodeUtf8 (renderVetting entries)) === Right entries
 
 verdictLineScan :: Property
 verdictLineScan = property $ do
-  vetting <- forAll genVetting
-  let rendered = renderVetting vetting
+  entries <- forAll genVettingEntries
+  let rendered = renderVetting entries
       found = verdictLines rendered
-  Map.keysSet found === Map.keysSet (vettingEntries vetting)
+  Map.keysSet found === Map.keysSet entries
   assert (all (\n -> "verdict:" `T.isPrefixOf` T.stripStart (T.lines rendered !! (n - 1))) (Map.elems found))
 
 ingestPending :: Property
 ingestPending = property $ do
   model <- forAll genModel
   existing <- forAll genVetting
-  let items = materials (modelDecisions model) emptyLedger emptyRegistry
+  let items = materials "canonical_decisions.yaml" "canonical_refs.yaml" (modelDecisions model) emptyLedger emptyRegistry
       (once, fresh) = ingest existing items
       (twice, again) = ingest once items
   again === []
@@ -93,6 +118,7 @@ ingestPending = property $ do
   Set.fromList fresh === Set.difference (Set.fromList (map (CommentKey . decisionId) (modelDecisions model))) (Map.keysSet (vettingEntries existing))
   assert (all (\d -> fmap entryVerdict (Map.lookup d (vettingEntries once)) == Just Pending) fresh)
   assert (all (\d -> Map.lookup d (vettingEntries once) == Map.lookup d (vettingEntries existing)) (Map.keys (vettingEntries existing)))
+  assert (all (\m -> Map.member (materialKey m) (Map.findWithDefault Map.empty (materialFile m) (vettingFiles once))) [m | m <- items, materialKey m `elem` fresh])
 
 decisionWith :: DecisionId -> Why -> Where -> Decision Evidence
 decisionWith d why w = Decision d (UnitId ("x" :| []) :| []) (Answer why (Asserted (Assertion "f" (whereSpan w)))) w Nothing
@@ -109,15 +135,15 @@ verdictFindings = property $ do
   let decision = decisionWith d why w
       model = modelOf [decision]
       digest = commentDigest why
-      entry verdict = Vetting (Map.singleton (CommentKey d) (VettingEntry verdict digest Nothing Nothing))
+      entry verdict = single (CommentKey d) (VettingEntry verdict digest Nothing Nothing Nothing)
       kinds vetting = map kindOf (vettingFindings (Just "0.2.0") vetting Map.empty model)
   kinds emptyVetting === ["pending"]
   kinds (entry Pending) === ["pending"]
   kinds (entry Good) === []
   kinds (entry Bad) === ["bad"]
-  kinds (Vetting (Map.singleton (CommentKey d) (VettingEntry Good (T.reverse digest <> "x") Nothing Nothing))) === ["stale"]
+  kinds (single (CommentKey d) (VettingEntry Good (T.reverse digest <> "x") Nothing Nothing Nothing)) === ["stale"]
   kinds (entry Deferred) === ["withoutRevisit"]
-  let deferredUntil v = Vetting (Map.singleton (CommentKey d) (VettingEntry Deferred digest (Just v) Nothing))
+  let deferredUntil v = single (CommentKey d) (VettingEntry Deferred digest (Just v) Nothing Nothing)
       now = maybe (error "version") id (parseVersion "0.2.0")
   kinds (deferredUntil revisit) === [if revisit <= now then "pastRevisit" else "deferred"]
   map findingSeverity (vettingFindings (Just "0.2.0") (deferredUntil revisit) Map.empty model) === [if revisit <= now then Failing else Informational]
@@ -138,11 +164,12 @@ assessorFromBlame = withTests 1 $ property $ do
       uncommitted = Commit (CommitHash (T.replicate 40 "0")) (Person "Not Committed Yet" "not.committed.yet") (posixSecondsToUTCTime 0) alice (posixSecondsToUTCTime 0) ""
       d1 = DecisionId (UnitId ("a" :| ["one"]))
       d2 = DecisionId (UnitId ("a" :| ["two"]))
-      vetting = Vetting (Map.fromList [(CommentKey d1, VettingEntry Good "0123456789abcdef" Nothing Nothing), (CommentKey d2, VettingEntry Bad "0123456789abcdef" Nothing (Just "wrong"))])
-      rendered = renderVetting vetting
+      entries = Map.fromList [(CommentKey d1, VettingEntry Good "0123456789abcdef" Nothing Nothing Nothing), (CommentKey d2, VettingEntry Bad "0123456789abcdef" Nothing (Just "wrong") Nothing)]
+      vetting = Vetting (Map.singleton "comment/a.yaml" entries)
+      sources = Map.singleton "comment/a.yaml" (renderVetting entries)
       helper = Person "Claude" "noreply@anthropic.com"
       withMessages = staticGitProviderWith (StaticGit [committed] Map.empty Nothing (Map.singleton (commitHash committed) "vet\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n"))
-  assessed <- evalIO (assess withMessages "canonical_vetting.yaml" rendered vetting)
+  assessed <- evalIO (assess withMessages "canonical_vetting" sources vetting)
   case Map.lookup (CommentKey d1) assessed of
     Just (Answer a ev) -> do
       assessmentVerdict a === Good
@@ -151,7 +178,7 @@ assessorFromBlame = withTests 1 $ property $ do
       assessmentCoAuthors a === [helper]
       assert (isDerivedFromGit ev)
     Nothing -> failure
-  unassessed <- evalIO (assess (staticGitProvider [uncommitted]) "canonical_vetting.yaml" rendered vetting)
+  unassessed <- evalIO (assess (staticGitProvider [uncommitted]) "canonical_vetting" sources vetting)
   case Map.lookup (CommentKey d2) unassessed of
     Just (Answer a ev) -> do
       assessmentVerdict a === Bad
@@ -159,7 +186,7 @@ assessorFromBlame = withTests 1 $ property $ do
       assert (isAsserted ev)
     Nothing -> failure
   let model = modelOf [decisionWith d2 (Why "" [] []) (Where "f" (Span (Position 1 1) (Position 1 1)) [] Nothing)]
-      entry = Vetting (Map.singleton (CommentKey d2) (VettingEntry Bad (commentDigest (Why "" [] [])) Nothing (Just "wrong")))
+      entry = single (CommentKey d2) (VettingEntry Bad (commentDigest (Why "" [] [])) Nothing (Just "wrong") Nothing)
   [k | VerdictUncommitted k <- vettingFindings Nothing entry unassessed model] === [CommentKey d2]
   [k | VerdictUncommitted k <- vettingFindings Nothing entry assessed model] === []
 
@@ -169,6 +196,9 @@ orphanVerdicts = property $ do
   seen <- forAll (Gen.subsequence (Map.keys (vettingEntries vetting)))
   let orphans = [k | VerdictOrphan k <- orphanVerdictFindings vetting (Set.fromList seen)]
   Set.fromList orphans === Set.difference (Map.keysSet (vettingEntries vetting)) (Set.fromList seen)
+
+single :: VettingKey -> VettingEntry -> Vetting
+single k e = Vetting (Map.singleton "comment/f.yaml" (Map.singleton k e))
 
 isAsserted :: Evidence -> Bool
 isAsserted ev = case ev of

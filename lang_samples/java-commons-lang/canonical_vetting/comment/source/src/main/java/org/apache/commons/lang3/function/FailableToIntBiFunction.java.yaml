@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToIntBiFunction.java/package/org.apache.commons.lang3.function/interface/FailableToIntBiFunction:
+  digest: sha256:64245a1e799fd5d7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToIntBiFunction.java/package/org.apache.commons.lang3.function/interface/FailableToIntBiFunction/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToIntBiFunction.java/package/org.apache.commons.lang3.function/interface/FailableToIntBiFunction/method/applyAsInt:
+  digest: sha256:172c12555bdabcc3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToIntBiFunction.java/package/org.apache.commons.lang3.function/interface/FailableToIntBiFunction/method/nop:
+  digest: sha256:cb9e17dafedf6051
+  verdict: pending

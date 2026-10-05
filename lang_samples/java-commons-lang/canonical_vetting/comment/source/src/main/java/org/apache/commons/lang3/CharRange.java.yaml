@@ -1,0 +1,90 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange:
+  digest: sha256:9ab21a3312269dee
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/class/CharacterIterator:
+  digest: sha256:905e172abaf1fca1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/class/CharacterIterator/constructor/CharacterIterator:
+  digest: sha256:400a35c782da21b5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/class/CharacterIterator/field/current:
+  digest: sha256:c92bc656e0194f56
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/class/CharacterIterator/method/hasNext:
+  digest: sha256:b958ba3b2f130d05
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/class/CharacterIterator/method/next:
+  digest: sha256:ba871a40c1c92a72
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/class/CharacterIterator/method/prepareNext:
+  digest: sha256:d8244eb026c069d8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/class/CharacterIterator/method/remove:
+  digest: sha256:63760b35433c2752
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/constructor/CharRange:
+  digest: sha256:424f8f949e806858
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/field/EMPTY_ARRAY:
+  digest: sha256:4ff8294b06f40d2e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/field/end:
+  digest: sha256:e0062c1ceca24588
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/field/iToString:
+  digest: sha256:6cf950cc7bba8fa0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/field/negated:
+  digest: sha256:c5c690d7261f534c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/field/serialVersionUID:
+  digest: sha256:7ed6b073c4feda58
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/field/start:
+  digest: sha256:8e3c2ee10e3e9c25
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/contains:
+  digest: sha256:cc42d0ae306c4d41
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/contains#2:
+  digest: sha256:fc575b7eeac84f0f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/equals:
+  digest: sha256:74eafcccdc920fd1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/getEnd:
+  digest: sha256:6add6ea365375d61
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/getStart:
+  digest: sha256:14e7879952a35529
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/hashCode:
+  digest: sha256:c7ce07c1c6fe6ca1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/is:
+  digest: sha256:5c8fa844b9eb88c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/isEmpty:
+  digest: sha256:3c9a0fc49e192b64
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/isIn:
+  digest: sha256:5a8a9545770c7718
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/isNegated:
+  digest: sha256:64e9de9534c7b9be
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/isNot:
+  digest: sha256:c4e03d3c58bc4fe7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/isNotIn:
+  digest: sha256:69ec5d45ef52625f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/iterator:
+  digest: sha256:29e7b3e163f7000b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/readObject:
+  digest: sha256:86130c99f96085fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharRange.java/package/org.apache.commons.lang3/class/CharRange/method/toString:
+  digest: sha256:00a966c94bfd9689
+  verdict: pending

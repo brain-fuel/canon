@@ -1,0 +1,60 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest:
+  digest: sha256:086e39732e977eec
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/class/LowerCaseFormat:
+  digest: sha256:cac061c2fa69ead5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/class/LowerCaseFormatFactory:
+  digest: sha256:7408e8cce890ef43
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/class/OtherExtendedMessageFormat:
+  digest: sha256:f23ad12b6b857608
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/class/OverrideShortDateFormatFactory:
+  digest: sha256:aca6ded3be44e299
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/class/UpperCaseFormat:
+  digest: sha256:87f0b49cf32faf8a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/class/UpperCaseFormatFactory:
+  digest: sha256:9a2e6e492d9535af
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/checkBuiltInFormat:
+  digest: sha256:8426e6e62fc40bb7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/createMessageFormat:
+  digest: sha256:0196c64bc604c320
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testBuiltInChoiceFormat:
+  digest: sha256:1f2157c72cf05977
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testBuiltInDateTimeFormat:
+  digest: sha256:5a5d9058f0d2a171
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testBuiltInNumberFormat:
+  digest: sha256:133e7dc471d99231
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testEmbeddedPatternInChoice:
+  digest: sha256:fbc21cd54a8eb99a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testEqualsHashcode:
+  digest: sha256:8b5282267bfef161
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testEscapedBraces_LANG_948:
+  digest: sha256:2a0f57129910662b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testEscapedQuote_LANG_477:
+  digest: sha256:b0b3faa54223ed96
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testExtendedAndBuiltInFormatsWithAvailableLocales:
+  digest: sha256:9547af217b4633af
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testExtendedAndBuiltInFormatsWithDefaultLocale:
+  digest: sha256:10bb6687f73c56a6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testExtendedFormats:
+  digest: sha256:b7851e11f4a09460
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/ExtendedMessageFormatTest.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormatTest/method/testQuotedLiteralAtEndOfFormatElement:
+  digest: sha256:fc6c9e2b4cf2d529
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableCallable.java/package/org.apache.commons.lang3.function/interface/FailableCallable:
+  digest: sha256:a306300a38fb2be3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableCallable.java/package/org.apache.commons.lang3.function/interface/FailableCallable/method/call:
+  digest: sha256:1326fca01354cf52
+  verdict: pending

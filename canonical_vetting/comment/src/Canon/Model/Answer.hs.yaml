@@ -1,0 +1,48 @@
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer:
+  digest: sha256:c010d0a1f188af42
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/Answer:
+  digest: sha256:3ff84e8738f7f926
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/Assessment:
+  digest: sha256:4255dadff9476639
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/Attribution:
+  digest: sha256:aa28d62bcb063100
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/Change:
+  digest: sha256:381d9a3a6ca38bbc
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/How:
+  digest: sha256:9687d73e3df1daca
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/Verdict:
+  digest: sha256:80de0bdec70a8675
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/What:
+  digest: sha256:59e379a1d1ae1d5d
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/When:
+  digest: sha256:689b092c781991d2
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/Where:
+  digest: sha256:88016eaa548701df
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/Who:
+  digest: sha256:8eb284dcda002a98
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/data/Why:
+  digest: sha256:842aa15f309858b7
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/function/isVerdictWord:
+  digest: sha256:18d0a062888cb984
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/function/parseVerdict:
+  digest: sha256:17d362ac5bdf40cf
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/function/verdictText:
+  digest: sha256:216e3adacb962529
+  verdict: pending
+decision/haskell/src/Canon/Model/Answer.hs/module/Canon.Model.Answer/newtype/UnitKind:
+  digest: sha256:e3da397466c90fdf
+  verdict: pending

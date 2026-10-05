@@ -1,0 +1,33 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle:
+  digest: sha256:e99ea3e000c1b36e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/class/Builder:
+  digest: sha256:8df59ec1417991ba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/class/Builder/method/setMaxOutputLength:
+  digest: sha256:188817db6d872bc0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/constructor/RecursiveToStringStyle:
+  digest: sha256:49e645d75c5a34bf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/constructor/RecursiveToStringStyle#3:
+  digest: sha256:0f72f20f11f4b3cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/field/TRUNCATED_TEXT:
+  digest: sha256:430fd42d96566274
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/field/maxOutputLength:
+  digest: sha256:dd308c6cad77ea62
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/method/accept:
+  digest: sha256:013c74905897e3f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/method/appendInternal:
+  digest: sha256:1a4ba0072d337d17
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/RecursiveToStringStyle.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyle/method/builder:
+  digest: sha256:129de2626e166514
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/go/source/seq_test.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/seq_test.go/function/TestClockSeqRace:
+  digest: sha256:6b028a0285755de9
+  verdict: pending

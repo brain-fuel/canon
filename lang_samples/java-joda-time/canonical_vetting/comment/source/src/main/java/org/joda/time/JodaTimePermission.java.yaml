@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/joda/time/JodaTimePermission.java/package/org.joda.time/class/JodaTimePermission:
+  digest: sha256:f815432b5d1dc461
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/JodaTimePermission.java/package/org.joda.time/class/JodaTimePermission/constructor/JodaTimePermission:
+  digest: sha256:263b2b6b63faa65a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/JodaTimePermission.java/package/org.joda.time/class/JodaTimePermission/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending

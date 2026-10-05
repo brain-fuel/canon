@@ -1,0 +1,18 @@
+decision/haskell/src/Canon/Testing.hs/module/Canon.Testing:
+  digest: sha256:78921b71bca2fc7e
+  verdict: pending
+decision/haskell/src/Canon/Testing.hs/module/Canon.Testing/data/TestRule:
+  digest: sha256:ba9b933ebf75f1bf
+  verdict: pending
+decision/haskell/src/Canon/Testing.hs/module/Canon.Testing/function/isTestUnit:
+  digest: sha256:2397fafbd37659ba
+  verdict: pending
+decision/haskell/src/Canon/Testing.hs/module/Canon.Testing/function/knownLanguages:
+  digest: sha256:b246c166c362b7d8
+  verdict: pending
+decision/haskell/src/Canon/Testing.hs/module/Canon.Testing/function/matchesRule:
+  digest: sha256:fd4e17b13811611a
+  verdict: pending
+decision/haskell/src/Canon/Testing.hs/module/Canon.Testing/function/testRules:
+  digest: sha256:3a3bff6eeb2718f1
+  verdict: pending

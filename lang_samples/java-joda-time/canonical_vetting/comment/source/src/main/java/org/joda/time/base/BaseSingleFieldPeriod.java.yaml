@@ -1,0 +1,66 @@
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod:
+  digest: sha256:880c9b09491cf779
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/constructor/BaseSingleFieldPeriod:
+  digest: sha256:85dffecf61de16ed
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/field/START_1972:
+  digest: sha256:86447c182d1f7bb0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/field/iPeriod:
+  digest: sha256:54a464f17f8e68d0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/field/serialVersionUID:
+  digest: sha256:fcdf71a4d7975811
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/between:
+  digest: sha256:aadf055363871953
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/between#2:
+  digest: sha256:0b79e22f32a954a8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/compareTo:
+  digest: sha256:8e2268a6b94e84f9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/equals:
+  digest: sha256:2976277fff267353
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/get:
+  digest: sha256:4cd22fe8b383dc66
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/getFieldType:
+  digest: sha256:1da3c9b4a4a9ee5a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/getFieldType#2:
+  digest: sha256:ffa57050625b0c58
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/getPeriodType:
+  digest: sha256:17d709fe55d3a52e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/getValue:
+  digest: sha256:b363bd95bbefd0a2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/getValue#2:
+  digest: sha256:765602429c5390e2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/hashCode:
+  digest: sha256:e60ffda43c6742c1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/isSupported:
+  digest: sha256:41524954a5852387
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/setValue:
+  digest: sha256:647a75040f5ff14f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/size:
+  digest: sha256:053c6e1cca7a698b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/standardPeriodIn:
+  digest: sha256:f85b83ee2b437f93
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/toMutablePeriod:
+  digest: sha256:a599a014abf5d4e6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BaseSingleFieldPeriod.java/package/org.joda.time.base/class/BaseSingleFieldPeriod/method/toPeriod:
+  digest: sha256:b832bb23a8fb229d
+  verdict: pending

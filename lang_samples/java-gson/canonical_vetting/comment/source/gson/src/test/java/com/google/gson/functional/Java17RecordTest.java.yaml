@@ -1,0 +1,27 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/Java17RecordTest.java/package/com.google.gson.functional/class/Java17RecordTest/method/testEmptyRecord:
+  digest: sha256:51cf2312b5d2fcec
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/Java17RecordTest.java/package/com.google.gson.functional/class/Java17RecordTest/method/testObjectDefaultValue:
+  digest: sha256:b7a55abc2dd096f8
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/Java17RecordTest.java/package/com.google.gson.functional/class/Java17RecordTest/method/testPrimitiveAdapterNullValue:
+  digest: sha256:87a8dbf278ee315c
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/Java17RecordTest.java/package/com.google.gson.functional/class/Java17RecordTest/method/testRecordBaseClass:
+  digest: sha256:e93ce55bcf8c7c72
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/Java17RecordTest.java/package/com.google.gson.functional/class/Java17RecordTest/method/testRecordNull:
+  digest: sha256:afa2cdb38a3b4fc0
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/Java17RecordTest.java/package/com.google.gson.functional/class/Java17RecordTest/method/testStaticFieldDeserialization:
+  digest: sha256:b33289c9c3504ac1
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/Java17RecordTest.java/package/com.google.gson.functional/class/Java17RecordTest/method/testStaticFieldSerialization:
+  digest: sha256:6989c39abe8b5a75
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/Java17RecordTest.java/package/com.google.gson.functional/class/Java17RecordTest/method/testThrowingAccessor:
+  digest: sha256:3301a6adea4abb92
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/Java17RecordTest.java/package/com.google.gson.functional/class/Java17RecordTest/method/testThrowingConstructor:
+  digest: sha256:141a5228232c40cb
+  verdict: pending

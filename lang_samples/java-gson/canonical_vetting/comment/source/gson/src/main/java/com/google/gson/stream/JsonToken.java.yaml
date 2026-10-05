@@ -1,0 +1,33 @@
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken:
+  digest: sha256:e8d84a3d50d6b7f2
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/BEGIN_ARRAY:
+  digest: sha256:d9f3814b43f9e163
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/BEGIN_OBJECT:
+  digest: sha256:744ccb72bbcb5276
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/BOOLEAN:
+  digest: sha256:a672ec9627e8b7b1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/END_ARRAY:
+  digest: sha256:75de0156d97a2507
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/END_DOCUMENT:
+  digest: sha256:ec4d5087cd317cd9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/END_OBJECT:
+  digest: sha256:b1986bd275148c37
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/NAME:
+  digest: sha256:4e71d087f00fe925
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/NULL:
+  digest: sha256:16226564a33e630c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/NUMBER:
+  digest: sha256:c8426da12352b589
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonToken.java/package/com.google.gson.stream/enum/JsonToken/enumConstant/STRING:
+  digest: sha256:af0bda410722f3ae
+  verdict: pending

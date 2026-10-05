@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializer:
+  digest: sha256:9d12234d071de5d2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializer/constructor/CallableBackgroundInitializer:
+  digest: sha256:bba05ea2ea9f5236
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializer/constructor/CallableBackgroundInitializer#2:
+  digest: sha256:e5f8332550de134c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializer/field/callable:
+  digest: sha256:4e371303a3458069
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializer/method/checkCallable:
+  digest: sha256:70a1e190b091ac5b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializer/method/getTypedException:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CallableBackgroundInitializer.java/package/org.apache.commons.lang3.concurrent/class/CallableBackgroundInitializer/method/initialize:
+  digest: sha256:ba6bdb442586c01a
+  verdict: pending

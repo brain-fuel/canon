@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java-templates/com/google/gson/internal/GsonBuildConfig.java/package/com.google.gson.internal/class/GsonBuildConfig:
+  digest: sha256:3179e3ae490d7c03
+  verdict: pending
+decision/java/source/gson/src/main/java-templates/com/google/gson/internal/GsonBuildConfig.java/package/com.google.gson.internal/class/GsonBuildConfig/field/VERSION:
+  digest: sha256:953a781581a4d46f
+  verdict: pending

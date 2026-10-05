@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableByteSupplier.java/package/org.apache.commons.lang3.function/interface/FailableByteSupplier:
+  digest: sha256:017afbcfa5ea506b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableByteSupplier.java/package/org.apache.commons.lang3.function/interface/FailableByteSupplier/method/getAsByte:
+  digest: sha256:e3893d392d005ad5
+  verdict: pending

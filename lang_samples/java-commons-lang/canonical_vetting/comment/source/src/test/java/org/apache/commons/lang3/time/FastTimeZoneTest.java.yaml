@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastTimeZoneTest.java/package/org.apache.commons.lang3.time/class/FastTimeZoneTest:
+  digest: sha256:dec4dc9943b34f5a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastTimeZoneTest.java/package/org.apache.commons.lang3.time/class/FastTimeZoneTest/method/testJavadocReflectsLenientBehavior:
+  digest: sha256:0b447d7acd8d1f9e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastTimeZoneTest.java/package/org.apache.commons.lang3.time/class/FastTimeZoneTest/method/testOutOfRangeOffsetReturnsNull:
+  digest: sha256:9db586e7b1ea56de
+  verdict: pending

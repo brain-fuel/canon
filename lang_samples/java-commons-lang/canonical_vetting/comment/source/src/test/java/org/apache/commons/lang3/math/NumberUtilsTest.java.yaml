@@ -1,0 +1,87 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest:
+  digest: sha256:c0bda188a29fda0c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testBigIntegerToDoubleBigInteger:
+  digest: sha256:c56967106e0cb8ef
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testBigIntegerToDoubleBigIntegerD:
+  digest: sha256:9a07c4922ddb8b36
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testCreateNumberZero:
+  digest: sha256:4b1bcbf4c3df57d6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testIsCreatable:
+  digest: sha256:7069bc1a18b4e0bd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testIsNumber:
+  digest: sha256:7069bc1a18b4e0bd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testIsParsableFullWidthUnicodeJDK8326627:
+  digest: sha256:3b85a708c1bd5d23
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testLang1821:
+  digest: sha256:b959a64d0951331a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testStringCreateNumberEnsureNoPrecisionLoss:
+  digest: sha256:48f7a905fafc3ea7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testStringToDoubleString:
+  digest: sha256:30926843f34fd8bc
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testStringToDoubleStringD:
+  digest: sha256:e85260ab430fca1f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToByteString:
+  digest: sha256:ccd63c754a79eda9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToByteStringI:
+  digest: sha256:93af34b024570262
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToFloatString:
+  digest: sha256:f637a4c7a91083da
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToFloatStringF:
+  digest: sha256:0f11f8ce5908e213
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToIntString:
+  digest: sha256:f56defa26318e281
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToIntStringI:
+  digest: sha256:10b7655c20c35d60
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToLongString:
+  digest: sha256:07cc57ab33946a30
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToLongStringL:
+  digest: sha256:537bcb2e89a2463b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToScaledBigDecimalBigDecimal:
+  digest: sha256:3928781c5d0364bf
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToScaledBigDecimalBigDecimalIRM:
+  digest: sha256:3fe25ae933ee7e79
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToScaledBigDecimalDouble:
+  digest: sha256:b641dda50dee1364
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToScaledBigDecimalDoubleIRM:
+  digest: sha256:b1556b9a4d098e9e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToScaledBigDecimalFloat:
+  digest: sha256:88118fa74d9cb5be
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToScaledBigDecimalFloatIRM:
+  digest: sha256:2324c2972f960db7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToScaledBigDecimalString:
+  digest: sha256:b641dda50dee1364
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToScaledBigDecimalStringIRM:
+  digest: sha256:b1556b9a4d098e9e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToShortString:
+  digest: sha256:2669e9a27fe45805
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/NumberUtilsTest.java/package/org.apache.commons.lang3.math/class/NumberUtilsTest/method/testToShortStringI:
+  digest: sha256:2ab0b8fd0ba974c5
+  verdict: pending

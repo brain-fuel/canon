@@ -1,0 +1,12 @@
+decision/java/source/src/test/java/org/joda/time/chrono/gj/MainTest.java/package/org.joda.time.chrono.gj/class/MainTest:
+  digest: sha256:d3209e2b82429d54
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/MainTest.java/package/org.joda.time.chrono.gj/class/MainTest/constructor/MainTest:
+  digest: sha256:3d945a8298521170
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/MainTest.java/package/org.joda.time.chrono.gj/class/MainTest/method/main:
+  digest: sha256:4096dd8f2431fcce
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/MainTest.java/package/org.joda.time.chrono.gj/class/MainTest/method/testChronology:
+  digest: sha256:6ec10a6834acc553
+  verdict: pending

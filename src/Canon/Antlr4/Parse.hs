@@ -22,6 +22,7 @@ import Canon.Antlr4.RuleGraph (leftCornerGraph, stronglyConnectedRuleGroups)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token
 import Data.Foldable (toList)
+import qualified Data.IntMap.Strict as IntMap
 import qualified Data.IntSet as IntSet
 import qualified Data.List.NonEmpty as NonEmpty
 import Data.Map.Strict (Map)
@@ -325,13 +326,20 @@ parseVisibleTokensWith hook grammar start visible
       let name = ruleName' (compiled BV.! r)
           baseEvals = [(i, step pos) | (i, sh, pr) <- shapes, Just step <- [baseStep r sh pr]]
           base = oneTreePerEnd [(node name i (children []), q) | (i, (rs, _)) <- baseEvals, (children, q) <- rs]
-          climbed = map climb base
-          climb (tree, q) =
-            let attempts = [(i, extensionStep r sh pr q) | (i, sh, pr) <- shapes, pr >= prec, isExtension sh]
-                extended = oneTreePerEnd [(node name i (tree : children []), q') | (i, (rs, _)) <- attempts, (children, q') <- rs, q' > q]
-                deeper = map climb extended
-             in (oneTreePerEnd (concatMap fst deeper ++ [(tree, q)]), maximum (q : [f | (_, (_, f)) <- attempts] ++ map snd deeper))
-       in sharedFailure (toEntry (oneTreePerEnd (concatMap fst climbed), maximum (pos : [f | (_, (_, f)) <- baseEvals] ++ map snd climbed)))
+          -- How a tree ending at a position can be extended is the same for every tree ending
+          -- there, so the climb is memoised by position as paths from the tree.
+          paths = foldl' climbFrom IntMap.empty (map snd base)
+          climbed = [(wrap tree, e) | (tree, q) <- base, (wrap, e) <- fst (paths IntMap.! q)]
+          climbFrom memo q
+            | IntMap.member q memo = memo
+            | otherwise =
+                let attempts = [(i, extensionStep r sh pr q) | (i, sh, pr) <- shapes, pr >= prec, isExtension sh]
+                    extended = oneTreePerEnd [(\tree -> node name i (tree : children []), q') | (i, (rs, _)) <- attempts, (children, q') <- rs, q' > q]
+                    memo' = foldl' climbFrom memo (map snd extended)
+                    deeper = [(wrap . step, e) | (step, q') <- extended, (wrap, e) <- fst (memo' IntMap.! q')]
+                    reach = maximum (q : [f | (_, (_, f)) <- attempts] ++ [snd (memo' IntMap.! q') | (_, q') <- extended])
+                 in IntMap.insert q (oneTreePerEnd (deeper ++ [(id, q)]), reach) memo'
+       in sharedFailure (toEntry (oneTreePerEnd climbed, maximum (pos : [f | (_, (_, f)) <- baseEvals] ++ [snd (paths IntMap.! q) | (_, q) <- base])))
 
     baseStep r sh pr = case sh of
       ShapePrimary alt -> Just (evalAlternative entryOf alt)

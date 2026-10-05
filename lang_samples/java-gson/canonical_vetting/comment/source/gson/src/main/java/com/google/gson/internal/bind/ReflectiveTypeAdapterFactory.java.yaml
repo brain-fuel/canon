@@ -1,0 +1,39 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory:
+  digest: sha256:a28441a5320a73fe
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/Adapter:
+  digest: sha256:bf35c564fd2a578f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/Adapter/method/createAccumulator:
+  digest: sha256:785fec2a4b709735
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/Adapter/method/finalize:
+  digest: sha256:e387e4bb9bd14eb5
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/Adapter/method/readField:
+  digest: sha256:1fe79173c0f58b14
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/BoundField/field/fieldName:
+  digest: sha256:f6a523762cefa80c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/BoundField/field/serializedName:
+  digest: sha256:b60b8958ddb06370
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/BoundField/method/readIntoArray:
+  digest: sha256:bb3d01b2f4c5788b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/BoundField/method/readIntoField:
+  digest: sha256:2206e9df9f8f6317
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/BoundField/method/write:
+  digest: sha256:81518d4399adff19
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/class/FieldsData/field/deserializedFields:
+  digest: sha256:eeedc37f60655a0c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/method/createBoundField/field/knownAccessible:
+  digest: sha256:310810974b964df4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java/package/com.google.gson.internal.bind/class/ReflectiveTypeAdapterFactory/method/getFieldNames:
+  digest: sha256:2c77c421854537b2
+  verdict: pending

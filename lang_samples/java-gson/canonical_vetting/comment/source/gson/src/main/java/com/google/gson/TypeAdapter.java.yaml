@@ -1,0 +1,30 @@
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter:
+  digest: sha256:78adb45c3c8353bf
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter/method/fromJson:
+  digest: sha256:66deb0a3293f3131
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter/method/fromJson#2:
+  digest: sha256:139557ef0bc2d736
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter/method/fromJsonTree:
+  digest: sha256:44cb11c2bfbb04bc
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter/method/nullSafe:
+  digest: sha256:6b9de7b589066ca8
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter/method/read:
+  digest: sha256:37ef420059a02077
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter/method/toJson:
+  digest: sha256:d739e52ae6379e83
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter/method/toJson#2:
+  digest: sha256:629eb4c51caecb59
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter/method/toJsonTree:
+  digest: sha256:dbc8253cd7ad26a0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/TypeAdapter.java/package/com.google.gson/class/TypeAdapter/method/write:
+  digest: sha256:4b93b0eee61b2196
+  verdict: pending

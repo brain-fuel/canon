@@ -1,0 +1,6 @@
+decision/haskell/test/Canon/ExemptionsTest.hs/module/Canon.ExemptionsTest:
+  digest: sha256:9d434f5212d07f04
+  verdict: pending
+decision/haskell/test/Canon/ExemptionsTest.hs/module/Canon.ExemptionsTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

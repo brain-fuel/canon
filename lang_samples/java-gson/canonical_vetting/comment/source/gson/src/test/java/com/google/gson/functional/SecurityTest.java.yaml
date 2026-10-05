@@ -1,0 +1,12 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/SecurityTest.java/package/com.google.gson.functional/class/SecurityTest:
+  digest: sha256:db32df9a173492c6
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/SecurityTest.java/package/com.google.gson.functional/class/SecurityTest/field/JSON_NON_EXECUTABLE_PREFIX:
+  digest: sha256:96eb859300362eca
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/SecurityTest.java/package/com.google.gson.functional/class/SecurityTest/method/testJsonWithNonExecutableTokenWithConfiguredGsonDeserialization:
+  digest: sha256:fbcc7ea2dabe0fdd
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/SecurityTest.java/package/com.google.gson.functional/class/SecurityTest/method/testJsonWithNonExecutableTokenWithRegularGsonDeserialization:
+  digest: sha256:57b71ea21567e024
+  verdict: pending

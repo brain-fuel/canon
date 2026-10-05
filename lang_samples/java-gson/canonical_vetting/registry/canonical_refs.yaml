@@ -1,0 +1,6 @@
+registry/REQ-module-not-opened:
+  digest: sha256:61851e6a86761f9d
+  verdict: pending
+registry/gson:
+  digest: sha256:b868ef4b67110875
+  verdict: pending

@@ -1,0 +1,3 @@
+decision/python/source/tests/test_itsdangerous/test_serializer.py/class/TestSerializer/function/test_loads_unsafe/class/BadUnsign/function/unsign:
+  digest: sha256:652a73c43ff5e914
+  verdict: pending

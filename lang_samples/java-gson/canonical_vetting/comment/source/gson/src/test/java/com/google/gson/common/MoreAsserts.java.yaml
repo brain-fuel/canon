@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/common/MoreAsserts.java/package/com.google.gson.common/class/MoreAsserts:
+  digest: sha256:62d875bb9edc6695
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/common/MoreAsserts.java/package/com.google.gson.common/class/MoreAsserts/method/assertContains:
+  digest: sha256:dd7867b9e4baa965
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/common/MoreAsserts.java/package/com.google.gson.common/class/MoreAsserts/method/assertOverridesMethods:
+  digest: sha256:2ad0f2a80958bde2
+  verdict: pending

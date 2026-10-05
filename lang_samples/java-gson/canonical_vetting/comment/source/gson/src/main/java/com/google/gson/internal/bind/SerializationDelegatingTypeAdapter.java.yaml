@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/SerializationDelegatingTypeAdapter.java/package/com.google.gson.internal.bind/class/SerializationDelegatingTypeAdapter:
+  digest: sha256:79e1b3f9cd7e4174
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/SerializationDelegatingTypeAdapter.java/package/com.google.gson.internal.bind/class/SerializationDelegatingTypeAdapter/method/getSerializationDelegate:
+  digest: sha256:44737e7be04bbcde
+  verdict: pending

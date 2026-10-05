@@ -1,0 +1,138 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest:
+  digest: sha256:36993cc6c7fe3a15
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/beforeEach:
+  digest: sha256:b4de173a68dc55e3
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_Constructor:
+  digest: sha256:5c6f0b80d0beff8e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_ConstructorInt:
+  digest: sha256:6ec0ed01bdf13391
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_and:
+  digest: sha256:4903856b722f3993
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_andNot:
+  digest: sha256:355872f9b521aa55
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_andNot_BitSet:
+  digest: sha256:355872f9b521aa55
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_and_BitSet:
+  digest: sha256:ddeb297a637d3010
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_cardinality:
+  digest: sha256:18b89c6333bbff15
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_clear:
+  digest: sha256:6cf59e4cb1e042ca
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_clearI:
+  digest: sha256:6ce28fa97adec1d5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_clearII:
+  digest: sha256:7aa5d240be9f7db3
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_clearIntArray:
+  digest: sha256:274e5334d73f8983
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_clone:
+  digest: sha256:8851159d1959516c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_equals:
+  digest: sha256:2ac0736cc274ce1c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_flipI:
+  digest: sha256:91dc9a7a5e62aede
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_flipII:
+  digest: sha256:7aa5d240be9f7db3
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_getI:
+  digest: sha256:6b406ef4ddbdd530
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_getII:
+  digest: sha256:3c36788bec41290b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_hashCode:
+  digest: sha256:d275420df057858f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_intersects:
+  digest: sha256:5f6a03009faaf962
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_intersects_BitSet:
+  digest: sha256:64e03c6d1b6f91a2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_isEmpty:
+  digest: sha256:0e9b67867aeb6495
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_length:
+  digest: sha256:b45854a6ab345516
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_nextClearBitI:
+  digest: sha256:bdf70ea4e8d6aa52
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_nextSetBitI:
+  digest: sha256:7908139c4809063c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_or:
+  digest: sha256:570ae82eb165bd8d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_or_BitSet:
+  digest: sha256:269bf9486b149683
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_or_FluentBitSetArray:
+  digest: sha256:570ae82eb165bd8d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_previousClearBit:
+  digest: sha256:82230623e9a287d2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_previousSetBit:
+  digest: sha256:7dae47ddc0ec9368
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_setII:
+  digest: sha256:c929dc408c9fc237
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_setIIZ:
+  digest: sha256:b26c3c07b78bd66c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_setIZ:
+  digest: sha256:38a194b5767770c3
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_setInclusive:
+  digest: sha256:bf24ceb36fabe945
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_setInclusive_maxValue:
+  digest: sha256:3e4bbfee74210196
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_setInt:
+  digest: sha256:c083f47594aa6596
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_setIntArray:
+  digest: sha256:1d2334bcab16790c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_setRangeInclusive:
+  digest: sha256:bf24ceb36fabe945
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_size:
+  digest: sha256:3bde6441e87d697b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_stream:
+  digest: sha256:7dae47ddc0ec9368
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_toByteArray:
+  digest: sha256:7dae47ddc0ec9368
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_toLongArray:
+  digest: sha256:7dae47ddc0ec9368
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_toString:
+  digest: sha256:50bae505290a7337
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_xor:
+  digest: sha256:dbb59f9d06f85637
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetTest/method/test_xor_BitSet:
+  digest: sha256:7d38feb0627f87a7
+  verdict: pending

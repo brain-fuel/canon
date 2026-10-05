@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/Mutable.java/package/org.apache.commons.lang3.mutable/interface/Mutable:
+  digest: sha256:521fdbb152e6121a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/Mutable.java/package/org.apache.commons.lang3.mutable/interface/Mutable/method/get:
+  digest: sha256:e5e0707832bfbc38
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/Mutable.java/package/org.apache.commons.lang3.mutable/interface/Mutable/method/getValue:
+  digest: sha256:065660e0a39c9c27
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/Mutable.java/package/org.apache.commons.lang3.mutable/interface/Mutable/method/setValue:
+  digest: sha256:03ee4f4b7d1cb784
+  verdict: pending

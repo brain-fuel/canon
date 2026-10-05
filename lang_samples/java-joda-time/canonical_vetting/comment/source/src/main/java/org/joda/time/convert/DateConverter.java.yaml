@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/joda/time/convert/DateConverter.java/package/org.joda.time.convert/class/DateConverter:
+  digest: sha256:e4c0e0c571552ff8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/DateConverter.java/package/org.joda.time.convert/class/DateConverter/constructor/DateConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/DateConverter.java/package/org.joda.time.convert/class/DateConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/DateConverter.java/package/org.joda.time.convert/class/DateConverter/method/getInstantMillis:
+  digest: sha256:7a8472b3b6c1bb54
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/DateConverter.java/package/org.joda.time.convert/class/DateConverter/method/getSupportedType:
+  digest: sha256:e7716d5abac82e87
+  verdict: pending

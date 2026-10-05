@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Functions.java/package/org.apache.commons.lang3.function/class/Functions:
+  digest: sha256:4df37b3b46c4f06d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Functions.java/package/org.apache.commons.lang3.function/class/Functions/method/apply:
+  digest: sha256:5f62331b53144bb5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Functions.java/package/org.apache.commons.lang3.function/class/Functions/method/applyNonNull:
+  digest: sha256:bcecd166607f5ca0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Functions.java/package/org.apache.commons.lang3.function/class/Functions/method/applyNonNull#2:
+  digest: sha256:a361de71150f15a5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Functions.java/package/org.apache.commons.lang3.function/class/Functions/method/applyNonNull#3:
+  digest: sha256:629bbf88861677a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Functions.java/package/org.apache.commons.lang3.function/class/Functions/method/function:
+  digest: sha256:75d2c1cfa40e14f5
+  verdict: pending

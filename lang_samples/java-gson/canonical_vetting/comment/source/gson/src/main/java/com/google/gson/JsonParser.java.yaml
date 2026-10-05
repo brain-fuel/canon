@@ -1,0 +1,24 @@
+decision/java/source/gson/src/main/java/com/google/gson/JsonParser.java/package/com.google.gson/class/JsonParser:
+  digest: sha256:bd6368834084078c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParser.java/package/com.google.gson/class/JsonParser/constructor/JsonParser:
+  digest: sha256:228393581a34a4aa
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParser.java/package/com.google.gson/class/JsonParser/method/parse:
+  digest: sha256:fa198de21c415171
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParser.java/package/com.google.gson/class/JsonParser/method/parse#2:
+  digest: sha256:41bd40c01a846aaa
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParser.java/package/com.google.gson/class/JsonParser/method/parse#3:
+  digest: sha256:64744ef61286489b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParser.java/package/com.google.gson/class/JsonParser/method/parseReader:
+  digest: sha256:dda35a678333a222
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParser.java/package/com.google.gson/class/JsonParser/method/parseReader#2:
+  digest: sha256:5c2b2ae4621f5827
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonParser.java/package/com.google.gson/class/JsonParser/method/parseString:
+  digest: sha256:0d2256158b87cbfa
+  verdict: pending

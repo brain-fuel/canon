@@ -1,0 +1,12 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/MoreSpecificTypeSerializationTest.java/package/com.google.gson.functional/class/MoreSpecificTypeSerializationTest:
+  digest: sha256:5e845a7165e45953
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MoreSpecificTypeSerializationTest.java/package/com.google.gson.functional/class/MoreSpecificTypeSerializationTest/method/testListOfParameterizedSubclassFields:
+  digest: sha256:63e08ff3b5b4cde1
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MoreSpecificTypeSerializationTest.java/package/com.google.gson.functional/class/MoreSpecificTypeSerializationTest/method/testMapOfParameterizedSubclassFields:
+  digest: sha256:bf7a6c2640eba9d3
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MoreSpecificTypeSerializationTest.java/package/com.google.gson.functional/class/MoreSpecificTypeSerializationTest/method/testParameterizedSubclassFields:
+  digest: sha256:e868e7bfc5f844e1
+  verdict: pending

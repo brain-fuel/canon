@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/AggregateTranslator.java/package/org.apache.commons.lang3.text.translate/class/AggregateTranslator:
+  digest: sha256:e1e8ffea053931fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/AggregateTranslator.java/package/org.apache.commons.lang3.text.translate/class/AggregateTranslator/constructor/AggregateTranslator:
+  digest: sha256:648efcf9caed2afe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/AggregateTranslator.java/package/org.apache.commons.lang3.text.translate/class/AggregateTranslator/method/translate:
+  digest: sha256:c1b1614c0fa61a20
+  verdict: pending

@@ -1,0 +1,12 @@
+decision/java/source/src/test/java/org/joda/time/TestDateTimeConstants.java/package/org.joda.time/class/TestDateTimeConstants:
+  digest: sha256:319e21e8352803ff
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeConstants.java/package/org.joda.time/class/TestDateTimeConstants/constructor/TestDateTimeConstants:
+  digest: sha256:a822693de4a054e4
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeConstants.java/package/org.joda.time/class/TestDateTimeConstants/method/main:
+  digest: sha256:2e7ec3012272fdca
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDateTimeConstants.java/package/org.joda.time/class/TestDateTimeConstants/method/suite:
+  digest: sha256:96459ff5606df3bc
+  verdict: pending

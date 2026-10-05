@@ -1,0 +1,21 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/TypeAdapterRuntimeTypeWrapperTest.java/package/com.google.gson.functional/class/TypeAdapterRuntimeTypeWrapperTest/method/testGsonFutureAdapter:
+  digest: sha256:4bb9be33682169ca
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/TypeAdapterRuntimeTypeWrapperTest.java/package/com.google.gson.functional/class/TypeAdapterRuntimeTypeWrapperTest/method/testJsonDeserializer_CustomSerializerDelegate:
+  digest: sha256:43c398ddb6f35b42
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/TypeAdapterRuntimeTypeWrapperTest.java/package/com.google.gson.functional/class/TypeAdapterRuntimeTypeWrapperTest/method/testJsonDeserializer_JsonSerializerDelegate:
+  digest: sha256:d43d4622c8742b34
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/TypeAdapterRuntimeTypeWrapperTest.java/package/com.google.gson.functional/class/TypeAdapterRuntimeTypeWrapperTest/method/testJsonDeserializer_ReflectiveSerializerDelegate:
+  digest: sha256:a174f8da848378c1
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/TypeAdapterRuntimeTypeWrapperTest.java/package/com.google.gson.functional/class/TypeAdapterRuntimeTypeWrapperTest/method/testJsonDeserializer_ReflectiveTreeSerializerDelegate:
+  digest: sha256:07ff8324705a18fd
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/TypeAdapterRuntimeTypeWrapperTest.java/package/com.google.gson.functional/class/TypeAdapterRuntimeTypeWrapperTest/method/testJsonDeserializer_SubclassBackwardCompatibility:
+  digest: sha256:ad2b1604626bc8fd
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/TypeAdapterRuntimeTypeWrapperTest.java/package/com.google.gson.functional/class/TypeAdapterRuntimeTypeWrapperTest/method/testJsonSerializer:
+  digest: sha256:b96b4dd2cf95e5c9
+  verdict: pending

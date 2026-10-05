@@ -1,0 +1,36 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils:
+  digest: sha256:07fed176c93a0d6d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/class/ClassLoaderAwareObjectInputStream:
+  digest: sha256:86626f4ecbf4fe5c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/class/ClassLoaderAwareObjectInputStream/constructor/ClassLoaderAwareObjectInputStream:
+  digest: sha256:9003288824c9ef6d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/class/ClassLoaderAwareObjectInputStream/method/resolveClass:
+  digest: sha256:0dfbba26257b53fe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/constructor/SerializationUtils:
+  digest: sha256:34a245fdc2dc34a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/method/clone:
+  digest: sha256:1bebff532c0a378a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/method/deserialize:
+  digest: sha256:e3a205504b55d663
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/method/deserialize#2:
+  digest: sha256:456c3a1632ac8be0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/method/requireNonNull:
+  digest: sha256:78c2b847fe2f2854
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/method/roundtrip:
+  digest: sha256:cbedb79b31af68e5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/method/serialize:
+  digest: sha256:37b349a4a77e6872
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/SerializationUtils.java/package/org.apache.commons.lang3/class/SerializationUtils/method/serialize#2:
+  digest: sha256:a5ad473727fdb48f
+  verdict: pending

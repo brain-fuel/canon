@@ -1,0 +1,135 @@
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType:
+  digest: sha256:d5427c46e526e75e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/constructor/PeriodType:
+  digest: sha256:47e65c821fae3782
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/field/cTypes:
+  digest: sha256:a4b3ef0b3a0161e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/field/iIndices:
+  digest: sha256:a743a00ae16b755e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/field/iName:
+  digest: sha256:edafd1042bcaf4d3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/field/iTypes:
+  digest: sha256:6a04dc6eafa01da6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/addIndexedField:
+  digest: sha256:7826dd7716b1c2a8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/dayTime:
+  digest: sha256:95a8aecc4a8c1400
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/days:
+  digest: sha256:73532de5faa2647f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/equals:
+  digest: sha256:47595c705397fda4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/forFields:
+  digest: sha256:48e3c9ec75378e9e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/getFieldType:
+  digest: sha256:5a487b1255aaa061
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/getIndexedField:
+  digest: sha256:a867841e6626ce5f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/getName:
+  digest: sha256:71a51b2f1637b08c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/hashCode:
+  digest: sha256:421ff9cba4f0e89d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/hours:
+  digest: sha256:39ff40f9c4f46486
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/indexOf:
+  digest: sha256:09f42eee11f5ae5c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/isSupported:
+  digest: sha256:dac56c3039542357
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/millis:
+  digest: sha256:f008000b18027feb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/minutes:
+  digest: sha256:1b78624044fc56fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/months:
+  digest: sha256:1de5d1f37aeac424
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/seconds:
+  digest: sha256:e038aa0bbb196e4a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/setIndexedField:
+  digest: sha256:cf6fed451b97577d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/size:
+  digest: sha256:01170c745f40e421
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/standard:
+  digest: sha256:a806c7d72936fa06
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/time:
+  digest: sha256:a539d7ba6f521c8d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/toString:
+  digest: sha256:6470dee52f0f97f9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/weeks:
+  digest: sha256:74a46232ce385b50
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/withDaysRemoved:
+  digest: sha256:89f73e77473310d8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/withFieldRemoved:
+  digest: sha256:be779a91b6187113
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/withHoursRemoved:
+  digest: sha256:543bb228d71f8d92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/withMillisRemoved:
+  digest: sha256:89bd1e67c40363db
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/withMinutesRemoved:
+  digest: sha256:62d35288ad573638
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/withMonthsRemoved:
+  digest: sha256:c18aa1e4643eeab1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/withSecondsRemoved:
+  digest: sha256:3d257622c5c19cab
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/withWeeksRemoved:
+  digest: sha256:d136fcbf7b34462a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/withYearsRemoved:
+  digest: sha256:689a01a51acc60c4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/yearDay:
+  digest: sha256:65e9dc7befdafc73
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/yearDayTime:
+  digest: sha256:55c0678c9b68a298
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/yearMonthDay:
+  digest: sha256:8306adcc3d7774b9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/yearMonthDayTime:
+  digest: sha256:8811c0af5f258d0e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/yearWeekDay:
+  digest: sha256:b2e8a595233a1651
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/yearWeekDayTime:
+  digest: sha256:3b82b24bb2c6cf0f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/PeriodType.java/package/org.joda.time/class/PeriodType/method/years:
+  digest: sha256:5ef6a126e7d6bf0e
+  verdict: pending

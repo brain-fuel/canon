@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/UncategorizedTest.java/package/com.google.gson.functional/class/UncategorizedTest:
+  digest: sha256:aea18e7c1512bce7
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/UncategorizedTest.java/package/com.google.gson.functional/class/UncategorizedTest/method/testReturningDerivedClassesDuringDeserialization:
+  digest: sha256:96b022accf8c3b3e
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/UncategorizedTest.java/package/com.google.gson.functional/class/UncategorizedTest/method/testTrailingWhitespace:
+  digest: sha256:130404f3d6682c25
+  verdict: pending

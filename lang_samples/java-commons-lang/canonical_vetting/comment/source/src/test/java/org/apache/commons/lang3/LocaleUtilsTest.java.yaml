@@ -1,0 +1,78 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest:
+  digest: sha256:afec6040643cc921
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/assertCountriesByLanguage:
+  digest: sha256:cb818f4855a1abb5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/assertLanguageByCountry:
+  digest: sha256:416db42211da82f0
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/assertLocaleLookupList:
+  digest: sha256:7b4c3c8c7a081deb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/assertUnmodifiableCollection:
+  digest: sha256:ed4224a2085e9f2d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/assertValidToLocale:
+  digest: sha256:d5fd1856ca143610
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/assertValidToLocale#2:
+  digest: sha256:71f09c9b17fb2d72
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/assertValidToLocale#3:
+  digest: sha256:eaf4d5b1c8117c18
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testAvailableLocaleList:
+  digest: sha256:f416fb7c03f51886
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testAvailableLocaleSet:
+  digest: sha256:defdb4ca362a37e4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testConstructor:
+  digest: sha256:c66eb0bc37d6a0a4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testCountriesByLanguage:
+  digest: sha256:759714e247d671d5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testIsAvailableLocale:
+  digest: sha256:defdb4ca362a37e4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testLang1823:
+  digest: sha256:27fafea978904fba
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testLang328:
+  digest: sha256:950312f5881ef8be
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testLang865:
+  digest: sha256:8da2eabe1872772e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testLanguagesByCountry:
+  digest: sha256:bd5d684df0753f29
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testLocaleLookupList_Locale:
+  digest: sha256:73d2105e9184815f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testLocaleLookupList_LocaleLocale:
+  digest: sha256:73d2105e9184815f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testSpecialCases:
+  digest: sha256:dee051e8f0201643
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testThreeCharsLocale:
+  digest: sha256:102488db813b4156
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testToLocale_1Part:
+  digest: sha256:e4c077a4af6fcdd8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testToLocale_2Part:
+  digest: sha256:c613af6588c9c52e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testToLocale_3Part:
+  digest: sha256:c613af6588c9c52e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testToLocale_Locale_defaults:
+  digest: sha256:8f801b14878973a8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LocaleUtilsTest.java/package/org.apache.commons.lang3/class/LocaleUtilsTest/method/testToLocales:
+  digest: sha256:8f801b14878973a8
+  verdict: pending

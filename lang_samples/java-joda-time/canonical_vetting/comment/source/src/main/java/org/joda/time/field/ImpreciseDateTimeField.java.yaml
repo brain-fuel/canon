@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/joda/time/field/ImpreciseDateTimeField.java/package/org.joda.time.field/class/ImpreciseDateTimeField:
+  digest: sha256:eb836fe215e65fd0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ImpreciseDateTimeField.java/package/org.joda.time.field/class/ImpreciseDateTimeField/constructor/ImpreciseDateTimeField:
+  digest: sha256:fa5d38273ea85f85
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ImpreciseDateTimeField.java/package/org.joda.time.field/class/ImpreciseDateTimeField/method/getDifference:
+  digest: sha256:300a7e0d37712af7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/ImpreciseDateTimeField.java/package/org.joda.time.field/class/ImpreciseDateTimeField/method/getDifferenceAsLong:
+  digest: sha256:f0a82d55da7c121c
+  verdict: pending

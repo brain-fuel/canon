@@ -1,0 +1,9 @@
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell:
+  digest: sha256:b396482ed5426dc3
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/data/HaskellLayout:
+  digest: sha256:c063a4732d392618
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/haskellLayoutHooks:
+  digest: sha256:fbe26fb2fdc28d26
+  verdict: pending

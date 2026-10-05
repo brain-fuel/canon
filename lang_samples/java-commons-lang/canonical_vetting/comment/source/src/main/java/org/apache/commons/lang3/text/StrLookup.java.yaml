@@ -1,0 +1,42 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup:
+  digest: sha256:874c3997e7b674ff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/class/MapStrLookup:
+  digest: sha256:8c81231d047237ea
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/class/MapStrLookup/constructor/MapStrLookup:
+  digest: sha256:61b6d8aecb752bc4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/class/MapStrLookup/field/map:
+  digest: sha256:70ceca9d0c93cce8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/class/MapStrLookup/method/lookup:
+  digest: sha256:369b2ee860769a3b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/class/SystemPropertiesStrLookup:
+  digest: sha256:f6c47206bce69c6d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/class/SystemPropertiesStrLookup/method/lookup:
+  digest: sha256:80cbb31b02526aad
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/constructor/StrLookup:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/field/NONE_LOOKUP:
+  digest: sha256:ccd8174f0e2fc982
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/field/SYSTEM_PROPERTIES_LOOKUP:
+  digest: sha256:f2f47dac16709e27
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/method/lookup:
+  digest: sha256:8238fdd39ab503a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/method/mapLookup:
+  digest: sha256:c0fb0bcc115c8a7b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/method/noneLookup:
+  digest: sha256:a8845e74acb83668
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrLookup.java/package/org.apache.commons.lang3.text/class/StrLookup/method/systemPropertiesLookup:
+  digest: sha256:5fd8e803ea944393
+  verdict: pending

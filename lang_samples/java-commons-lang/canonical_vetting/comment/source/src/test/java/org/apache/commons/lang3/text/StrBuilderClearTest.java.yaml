@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrBuilderClearTest.java/package/org.apache.commons.lang3.text/class/StrBuilderClearTest:
+  digest: sha256:07295d2f0c69c4d5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrBuilderClearTest.java/package/org.apache.commons.lang3.text/class/StrBuilderClearTest/class/SpyReader:
+  digest: sha256:82ee624d2449b35b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrBuilderClearTest.java/package/org.apache.commons.lang3.text/class/StrBuilderClearTest/method/containsUtf16Be:
+  digest: sha256:ac5aed3a3b879198
+  verdict: pending

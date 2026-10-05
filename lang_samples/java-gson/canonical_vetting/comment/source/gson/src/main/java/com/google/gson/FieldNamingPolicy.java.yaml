@@ -1,0 +1,30 @@
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy:
+  digest: sha256:22dcb358d1ad1041
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy/enumConstant/IDENTITY:
+  digest: sha256:deab8589cc2e8112
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy/enumConstant/LOWER_CASE_WITH_DASHES:
+  digest: sha256:c9800488b975b721
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy/enumConstant/LOWER_CASE_WITH_DOTS:
+  digest: sha256:57b35e31085fee1d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy/enumConstant/LOWER_CASE_WITH_UNDERSCORES:
+  digest: sha256:1d5a2ca2519e1da5
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy/enumConstant/UPPER_CAMEL_CASE:
+  digest: sha256:3d4d06602aec131f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy/enumConstant/UPPER_CAMEL_CASE_WITH_SPACES:
+  digest: sha256:7bee7d0942f0c54e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy/enumConstant/UPPER_CASE_WITH_UNDERSCORES:
+  digest: sha256:398807adbc3434d6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy/method/separateCamelCase:
+  digest: sha256:3828f3414ae4d477
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FieldNamingPolicy.java/package/com.google.gson/enum/FieldNamingPolicy/method/upperCaseFirstLetter:
+  digest: sha256:1c5941a82a25008e
+  verdict: pending

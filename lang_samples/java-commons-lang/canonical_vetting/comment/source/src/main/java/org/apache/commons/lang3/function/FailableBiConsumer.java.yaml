@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java/package/org.apache.commons.lang3.function/interface/FailableBiConsumer:
+  digest: sha256:0ee900436e664a62
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java/package/org.apache.commons.lang3.function/interface/FailableBiConsumer/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java/package/org.apache.commons.lang3.function/interface/FailableBiConsumer/method/accept:
+  digest: sha256:782c83820be4651f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java/package/org.apache.commons.lang3.function/interface/FailableBiConsumer/method/andThen:
+  digest: sha256:90d573ad08993d20
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java/package/org.apache.commons.lang3.function/interface/FailableBiConsumer/method/nop:
+  digest: sha256:93b43e580de68df1
+  verdict: pending

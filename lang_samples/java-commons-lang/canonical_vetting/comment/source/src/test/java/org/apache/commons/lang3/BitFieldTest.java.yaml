@@ -1,0 +1,57 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest:
+  digest: sha256:8b59243d0939404f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testClearInt:
+  digest: sha256:5c1871bcf44e0a82
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testClearLong:
+  digest: sha256:5c1871bcf44e0a82
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testClearShort:
+  digest: sha256:e540f71f7d35e79a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testGetRawValue:
+  digest: sha256:31e7b5ebab325327
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testGetShortRawValue:
+  digest: sha256:e0e881d833f1d7c4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testGetShortValue:
+  digest: sha256:9d8db87ccb00a51c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testGetValue:
+  digest: sha256:ec110694799962d2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testGetValueTopBit:
+  digest: sha256:29294c3a1b3c583c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testIntMaskHighBitOnLongHolder:
+  digest: sha256:0647351f315b4332
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testIsAllSet:
+  digest: sha256:0f212aecee183ea8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testIsSet:
+  digest: sha256:888fd31451d50f21
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testSet:
+  digest: sha256:27ebccc3c1e20c04
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testSetBoolean:
+  digest: sha256:1df4b7a2b11a3875
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testSetShort:
+  digest: sha256:39044178d7e0708a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testSetShortBoolean:
+  digest: sha256:ab695c3e2a7f5276
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testSetShortValue:
+  digest: sha256:366e8b4e40c58365
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testSetValue:
+  digest: sha256:6acdc41cc1956985
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldTest.java/package/org.apache.commons.lang3/class/BitFieldTest/method/testWideMaskRejectsNarrowHolderAccessors:
+  digest: sha256:6c94c63f7753f633
+  verdict: pending

@@ -1,0 +1,33 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest:
+  digest: sha256:819004b06edb7f98
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testClassWithObjectFieldSerialization:
+  digest: sha256:eb59cab94de2f80e
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testNullArraysDeserialization:
+  digest: sha256:10326354085b1dbe
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testNullObjectFieldsDeserialization:
+  digest: sha256:10326354085b1dbe
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testNullPrimitiveFieldsDeserialization:
+  digest: sha256:10326354085b1dbe
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testObjectFieldNamesWithoutQuotesDeserialization:
+  digest: sha256:4560d95a9292e154
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testSingletonLists:
+  digest: sha256:8d9d8cb1f62c152d
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testStaticFieldDeserialization:
+  digest: sha256:9418ba6962658e14
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testStaticFieldSerialization:
+  digest: sha256:3161499e9765c17f
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testStringFieldWithEmptyValueDeserialization:
+  digest: sha256:cd8fef546fda5efb
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ObjectTest.java/package/com.google.gson.functional/class/ObjectTest/method/testStringFieldWithEmptyValueSerialization:
+  digest: sha256:cd8fef546fda5efb
+  verdict: pending

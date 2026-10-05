@@ -1,0 +1,6 @@
+decision/java/source/gson/src/test/java/com/google/gson/ParameterizedTypeFixtures.java/package/com.google.gson/class/ParameterizedTypeFixtures:
+  digest: sha256:2539d29488f1061b
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/ParameterizedTypeFixtures.java/package/com.google.gson/class/ParameterizedTypeFixtures/class/MyParameterizedTypeInstanceCreator/constructor/MyParameterizedTypeInstanceCreator:
+  digest: sha256:c18ac6b3f6528b55
+  verdict: pending

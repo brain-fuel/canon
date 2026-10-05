@@ -1,0 +1,21 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserReadObjectTest.java/package/org.apache.commons.lang3.time/class/FastDateParserReadObjectTest:
+  digest: sha256:135ab158d8e4804d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserReadObjectTest.java/package/org.apache.commons.lang3.time/class/FastDateParserReadObjectTest/class/FastDateParserForge:
+  digest: sha256:b945bab80f15b4e4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserReadObjectTest.java/package/org.apache.commons.lang3.time/class/FastDateParserReadObjectTest/class/FastDateParserForge/field/serialVersionUID:
+  digest: sha256:252a5e3dded61e18
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserReadObjectTest.java/package/org.apache.commons.lang3.time/class/FastDateParserReadObjectTest/method/deserialize:
+  digest: sha256:0fc98e6a7ba0359f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserReadObjectTest.java/package/org.apache.commons.lang3.time/class/FastDateParserReadObjectTest/method/forgeStream:
+  digest: sha256:a87687e3a761a185
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserReadObjectTest.java/package/org.apache.commons.lang3.time/class/FastDateParserReadObjectTest/method/testNullPatternRejected:
+  digest: sha256:5c0eeb0359e12936
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateParserReadObjectTest.java/package/org.apache.commons.lang3.time/class/FastDateParserReadObjectTest/method/testNullTimeZoneRejected:
+  digest: sha256:95592edf2536f881
+  verdict: pending

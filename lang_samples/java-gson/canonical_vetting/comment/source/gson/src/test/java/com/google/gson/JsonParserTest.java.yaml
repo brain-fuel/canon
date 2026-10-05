@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/JsonParserTest.java/package/com.google.gson/class/JsonParserTest:
+  digest: sha256:67b42bd1a5fc0e86
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/JsonParserTest.java/package/com.google.gson/class/JsonParserTest/method/testParseDeeplyNestedArrays:
+  digest: sha256:df7d2b6e0403b261
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/JsonParserTest.java/package/com.google.gson/class/JsonParserTest/method/testParseDeeplyNestedObjects:
+  digest: sha256:43c03fea720114ec
+  verdict: pending

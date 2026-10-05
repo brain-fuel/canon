@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/joda/time/chrono/BasicGJChronology.java/package/org.joda.time.chrono/class/BasicGJChronology:
+  digest: sha256:f128177ef5356beb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicGJChronology.java/package/org.joda.time.chrono/class/BasicGJChronology/constructor/BasicGJChronology:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicGJChronology.java/package/org.joda.time.chrono/class/BasicGJChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicGJChronology.java/package/org.joda.time.chrono/class/BasicGJChronology/method/getDaysInYearMonth:
+  digest: sha256:bbe16b5e1a7120b2
+  verdict: pending

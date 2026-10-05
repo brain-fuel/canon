@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/joda/time/IllegalInstantException.java/package/org.joda.time/class/IllegalInstantException:
+  digest: sha256:26fded5862b833f4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/IllegalInstantException.java/package/org.joda.time/class/IllegalInstantException/constructor/IllegalInstantException:
+  digest: sha256:301c85fd1158e0c1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/IllegalInstantException.java/package/org.joda.time/class/IllegalInstantException/constructor/IllegalInstantException#2:
+  digest: sha256:aad471aeb5efecfd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/IllegalInstantException.java/package/org.joda.time/class/IllegalInstantException/field/serialVersionUID:
+  digest: sha256:60a2c7d22dc312fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/IllegalInstantException.java/package/org.joda.time/class/IllegalInstantException/method/isIllegalInstant:
+  digest: sha256:a06e93842814077c
+  verdict: pending

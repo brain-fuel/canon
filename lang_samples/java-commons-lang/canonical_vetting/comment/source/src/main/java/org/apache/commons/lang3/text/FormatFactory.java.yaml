@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormatFactory.java/package/org.apache.commons.lang3.text/interface/FormatFactory:
+  digest: sha256:09452d577611a92b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/FormatFactory.java/package/org.apache.commons.lang3.text/interface/FormatFactory/method/getFormat:
+  digest: sha256:24f39c04084131d0
+  verdict: pending

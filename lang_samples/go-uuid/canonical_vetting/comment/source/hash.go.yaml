@@ -1,0 +1,12 @@
+decision/go/source/hash.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/hash.go/function/NewHash:
+  digest: sha256:d0b9c44c6875b21c
+  verdict: pending
+decision/go/source/hash.go/function/NewMD5:
+  digest: sha256:a7c2b1fee9efe42a
+  verdict: pending
+decision/go/source/hash.go/function/NewSHA1:
+  digest: sha256:28d1e936f5a5acd2
+  verdict: pending

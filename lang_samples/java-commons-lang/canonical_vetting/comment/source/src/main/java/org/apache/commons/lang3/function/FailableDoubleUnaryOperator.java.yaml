@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableDoubleUnaryOperator:
+  digest: sha256:dda1dbfc77a19b54
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableDoubleUnaryOperator/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableDoubleUnaryOperator/method/andThen:
+  digest: sha256:629ae6569db3b5c7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableDoubleUnaryOperator/method/applyAsDouble:
+  digest: sha256:7baa353fdfc89207
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableDoubleUnaryOperator/method/compose:
+  digest: sha256:d6ffd7af1d867e17
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableDoubleUnaryOperator/method/identity:
+  digest: sha256:b2460a1fc84046e2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableDoubleUnaryOperator/method/nop:
+  digest: sha256:80e2fe1bb96b9053
+  verdict: pending

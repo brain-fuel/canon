@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/CharEncoding.java/package/org.apache.commons.lang3/class/CharEncoding:
+  digest: sha256:eaf312b18fb8df37
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharEncoding.java/package/org.apache.commons.lang3/class/CharEncoding/constructor/CharEncoding:
+  digest: sha256:5d806021dcbc9276
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharEncoding.java/package/org.apache.commons.lang3/class/CharEncoding/field/ISO_8859_1:
+  digest: sha256:223abac505d5cb62
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharEncoding.java/package/org.apache.commons.lang3/class/CharEncoding/field/US_ASCII:
+  digest: sha256:33cabcbdc8565f02
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharEncoding.java/package/org.apache.commons.lang3/class/CharEncoding/field/UTF_16:
+  digest: sha256:28a8f07039b6cbf1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharEncoding.java/package/org.apache.commons.lang3/class/CharEncoding/field/UTF_16BE:
+  digest: sha256:555a85bd451acc61
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharEncoding.java/package/org.apache.commons.lang3/class/CharEncoding/field/UTF_16LE:
+  digest: sha256:30b3b8d69985179d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharEncoding.java/package/org.apache.commons.lang3/class/CharEncoding/field/UTF_8:
+  digest: sha256:9b99686f221e7a3e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharEncoding.java/package/org.apache.commons.lang3/class/CharEncoding/method/isSupported:
+  digest: sha256:a49fcaa99502a7fb
+  verdict: pending

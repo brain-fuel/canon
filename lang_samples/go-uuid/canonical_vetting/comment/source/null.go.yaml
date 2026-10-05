@@ -1,0 +1,30 @@
+decision/go/source/null.go:
+  digest: sha256:db1ff5df18a9e9ad
+  verdict: pending
+decision/go/source/null.go/method/MarshalBinary:
+  digest: sha256:d723faf8c6f1eb52
+  verdict: pending
+decision/go/source/null.go/method/MarshalJSON:
+  digest: sha256:f0fdb0c61d8c3362
+  verdict: pending
+decision/go/source/null.go/method/MarshalText:
+  digest: sha256:c773a972a3161100
+  verdict: pending
+decision/go/source/null.go/method/Scan:
+  digest: sha256:1fe07028615fa616
+  verdict: pending
+decision/go/source/null.go/method/UnmarshalBinary:
+  digest: sha256:4907659300d98695
+  verdict: pending
+decision/go/source/null.go/method/UnmarshalJSON:
+  digest: sha256:fd40255c8cc86299
+  verdict: pending
+decision/go/source/null.go/method/UnmarshalText:
+  digest: sha256:4329e6a3b8c80893
+  verdict: pending
+decision/go/source/null.go/method/Value:
+  digest: sha256:fb51707398857e32
+  verdict: pending
+decision/go/source/null.go/type/NullUUID:
+  digest: sha256:82367570d09ba64d
+  verdict: pending

@@ -1,0 +1,33 @@
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/reader:
+  digest: sha256:68a5f1ba170df544
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testHighPrecisionLong:
+  digest: sha256:f3c50b61e4389a15
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testNegativeZero:
+  digest: sha256:adce38887ef2ede6
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testNextDoubleNumberFormatExceptionContainsLocation:
+  digest: sha256:7ebe6256cf12af9a
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testNextIntNumberFormatExceptionContainsLocation:
+  digest: sha256:7ebe6256cf12af9a
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testNextLongNumberFormatExceptionContainsLocation:
+  digest: sha256:7ebe6256cf12af9a
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testNumberLongAccumulatorOverflowsToZero:
+  digest: sha256:cb17dcc147b9e492
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testPeekLargerThanLongMaxValue:
+  digest: sha256:1b67411f679414d4
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testPeekLargerThanLongMinValue:
+  digest: sha256:4db532774dbaf8f6
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testReadAcrossBuffers:
+  digest: sha256:99391665ed151e4d
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java/package/com.google.gson.stream/class/JsonReaderTest/method/testUnterminatedStringFailure:
+  digest: sha256:3348fac1e2e584a7
+  verdict: pending

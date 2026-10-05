@@ -1,0 +1,312 @@
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime:
+  digest: sha256:90caa58572ccacf3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property:
+  digest: sha256:84d90626c0857d5b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/constructor/Property:
+  digest: sha256:f92a20c3aa70e931
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/field/iField:
+  digest: sha256:8e672c30f34d7401
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/field/iInstant:
+  digest: sha256:5d64cfb646e69817
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/addCopy:
+  digest: sha256:b6a04b25bfc9c920
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/addCopy#2:
+  digest: sha256:f3a663b83dcfc7c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/addNoWrapToCopy:
+  digest: sha256:ee5e642c08f9faca
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/addWrapFieldToCopy:
+  digest: sha256:1a54a077c75228fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/getChronology:
+  digest: sha256:c6ef80da24c0bdb3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/getField:
+  digest: sha256:e91fc41616073b93
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/getLocalTime:
+  digest: sha256:e0762fe5e172a8ec
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/getMillis:
+  digest: sha256:472ca1d73c3c3798
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/readObject:
+  digest: sha256:88193bd179d3b2ab
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/roundCeilingCopy:
+  digest: sha256:3c163d8f27e50a89
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/roundFloorCopy:
+  digest: sha256:d36ef03f99c5ba8f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/roundHalfCeilingCopy:
+  digest: sha256:a328ef60df4f98d2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/roundHalfEvenCopy:
+  digest: sha256:e0e884c3574672e6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/roundHalfFloorCopy:
+  digest: sha256:4e41d6b661bc38a9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/setCopy:
+  digest: sha256:fb3848297b59e950
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/setCopy#2:
+  digest: sha256:ef510912d66f6e73
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/setCopy#3:
+  digest: sha256:6f78dda979135209
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/withMaximumValue:
+  digest: sha256:e8ec9612257f833f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/withMinimumValue:
+  digest: sha256:41debf4a8868c8ac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/class/Property/method/writeObject:
+  digest: sha256:0453c29e0e8117e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime:
+  digest: sha256:4e6428b1af33c519
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#10:
+  digest: sha256:53376ec43d188634
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#11:
+  digest: sha256:389f0626a9d4db3f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#12:
+  digest: sha256:6773bd5ab93981a5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#13:
+  digest: sha256:c8cf8748d67f3ec3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#2:
+  digest: sha256:799dc482b7450dff
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#3:
+  digest: sha256:3dfc236ee242dfc0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#4:
+  digest: sha256:d63767d8f0ef6260
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#5:
+  digest: sha256:e5d548d90ea30127
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#6:
+  digest: sha256:40dffb84f6a3d4d1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#7:
+  digest: sha256:bf402300e3e6c7c6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#8:
+  digest: sha256:d75ea8573459d519
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/constructor/LocalTime#9:
+  digest: sha256:ee5f5352b615c88e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/field/HOUR_OF_DAY:
+  digest: sha256:8b949f6b84120ddb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/field/MIDNIGHT:
+  digest: sha256:e3c7dad96121a06c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/field/MILLIS_OF_SECOND:
+  digest: sha256:8c4c8db1b1ef967b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/field/MINUTE_OF_HOUR:
+  digest: sha256:d82597d88d5f5c04
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/field/SECOND_OF_MINUTE:
+  digest: sha256:7a2f68efbc60414d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/field/TIME_DURATION_TYPES:
+  digest: sha256:09668805ce96cb84
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/field/iChronology:
+  digest: sha256:a4222f0ebdb3578d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/field/iLocalMillis:
+  digest: sha256:5c5423cddfe85462
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/compareTo:
+  digest: sha256:fc00a3f9c778c2d0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/equals:
+  digest: sha256:4ea8d85f6603721a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/fromCalendarFields:
+  digest: sha256:01671303979e4c2d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/fromDateFields:
+  digest: sha256:54929c3dc4293234
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/fromMillisOfDay:
+  digest: sha256:2507c98187db4469
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/fromMillisOfDay#2:
+  digest: sha256:07ec816a181cb073
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/get:
+  digest: sha256:f1548393fc324269
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/getChronology:
+  digest: sha256:a1f39e2091b960c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/getField:
+  digest: sha256:2c841af22b7b31e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/getHourOfDay:
+  digest: sha256:a1ad5446320772a2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/getLocalMillis:
+  digest: sha256:717aa060d7e31516
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/getMillisOfDay:
+  digest: sha256:20150cde5c5346f2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/getMillisOfSecond:
+  digest: sha256:8fa514938c12d265
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/getMinuteOfHour:
+  digest: sha256:b547b4741cf45c66
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/getSecondOfMinute:
+  digest: sha256:a3fbabca0f42ba24
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/getValue:
+  digest: sha256:b34b83b369bf4eb0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/hourOfDay:
+  digest: sha256:b9ef14f3853d05cc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/isSupported:
+  digest: sha256:2e910826b53188b4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/isSupported#2:
+  digest: sha256:10a038be8063a08b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/millisOfDay:
+  digest: sha256:ebe36c32cb0b4705
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/millisOfSecond:
+  digest: sha256:6f19362d7bae674c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/minus:
+  digest: sha256:3571592a50bb6c9a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/minusHours:
+  digest: sha256:74474f2be1d655f8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/minusMillis:
+  digest: sha256:06aa219352a3f4e4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/minusMinutes:
+  digest: sha256:f7b325ed96e19552
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/minusSeconds:
+  digest: sha256:beeb27588dc3ed7c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/minuteOfHour:
+  digest: sha256:e3e2b45d05f404ed
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/now:
+  digest: sha256:1d02fa93656e2438
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/now#2:
+  digest: sha256:c575edcc1cf1a6ae
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/now#3:
+  digest: sha256:05bbd5d0b1cfc31a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/parse:
+  digest: sha256:a97fa3ee3e03239c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/parse#2:
+  digest: sha256:d6cc09af5a4bdbdc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/plus:
+  digest: sha256:cb7147d8f54f3787
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/plusHours:
+  digest: sha256:b77f084183fdb618
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/plusMillis:
+  digest: sha256:22eef9b1b2137d43
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/plusMinutes:
+  digest: sha256:de4f8c016fc5d4eb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/plusSeconds:
+  digest: sha256:804780d4066fb4d1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/property:
+  digest: sha256:0c5097e9c0ad30f1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/readResolve:
+  digest: sha256:e22e82ea0b11765f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/secondOfMinute:
+  digest: sha256:4480e0b7a06841f5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/size:
+  digest: sha256:1bd7c5c6bd5a0669
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/toDateTimeToday:
+  digest: sha256:2a9895acc14d6b74
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/toDateTimeToday#2:
+  digest: sha256:4ae9484d45d58771
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/toString:
+  digest: sha256:1427b298df92d61e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/toString#2:
+  digest: sha256:c26c7e33f9803e62
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/toString#3:
+  digest: sha256:60faafb3f5b0f389
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withField:
+  digest: sha256:82ce9ddf0c7e1fda
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withFieldAdded:
+  digest: sha256:936eb79b5a247305
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withFields:
+  digest: sha256:4e89098128f219e1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withHourOfDay:
+  digest: sha256:f1847a3da51d68bb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withLocalMillis:
+  digest: sha256:7d1c10fda4febf6c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withMillisOfDay:
+  digest: sha256:26eab64d841d7295
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withMillisOfSecond:
+  digest: sha256:86f4227a54702d56
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withMinuteOfHour:
+  digest: sha256:b3a9d9e88b32a314
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withPeriodAdded:
+  digest: sha256:c4f0d4d4c818744a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/LocalTime.java/package/org.joda.time/class/LocalTime/method/withSecondOfMinute:
+  digest: sha256:89165de7740536ea
+  verdict: pending

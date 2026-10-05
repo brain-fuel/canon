@@ -1,0 +1,18 @@
+decision/java/source/gson/src/main/java/com/google/gson/JsonNull.java/package/com.google.gson/class/JsonNull:
+  digest: sha256:25042c21fe13a4d2
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonNull.java/package/com.google.gson/class/JsonNull/constructor/JsonNull:
+  digest: sha256:07912675d66f052b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonNull.java/package/com.google.gson/class/JsonNull/field/INSTANCE:
+  digest: sha256:a4852b08e9081a85
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonNull.java/package/com.google.gson/class/JsonNull/method/deepCopy:
+  digest: sha256:3ccdc5d1336436d2
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonNull.java/package/com.google.gson/class/JsonNull/method/equals:
+  digest: sha256:5ac19cf272194038
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonNull.java/package/com.google.gson/class/JsonNull/method/hashCode:
+  digest: sha256:e3e17d0dbdb9db35
+  verdict: pending

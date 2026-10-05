@@ -1,0 +1,138 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils:
+  digest: sha256:0636b003db574f84
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/constructor/ExceptionUtils:
+  digest: sha256:3af2c1dc98ddc8a0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/field/CAUSE_METHOD_NAMES:
+  digest: sha256:be9b5167d39df4ce
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/field/WRAPPED_MARKER:
+  digest: sha256:e4e6f82fa9fbde3e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/asRuntimeException:
+  digest: sha256:a89b05a4a1f306dd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/eraseType:
+  digest: sha256:e48a2fb9936b6e1b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/forEach:
+  digest: sha256:59122aee2b269f76
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getCause:
+  digest: sha256:7e5578cd779ff693
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getCause#2:
+  digest: sha256:13ea766e8e5a26fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getCauseUsingMethodName:
+  digest: sha256:18bfced5d74f53fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getDefaultCauseMethodNames:
+  digest: sha256:f466dea66c0cc907
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getMessage:
+  digest: sha256:844101b8104b594f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getRootCause:
+  digest: sha256:d71436b1854c1815
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getRootCauseMessage:
+  digest: sha256:a95e5c12118dc873
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getRootCauseStackTrace:
+  digest: sha256:370827d632e44e74
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getRootCauseStackTraceList:
+  digest: sha256:02278e93ba69912e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getStackFrameList:
+  digest: sha256:fc580d5a26b7d82f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getStackFrames:
+  digest: sha256:f25e2b2e6cc5f901
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getStackFrames#2:
+  digest: sha256:afad187ea7d1877c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getStackTrace:
+  digest: sha256:41971b630f7cdf70
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getThrowableCount:
+  digest: sha256:71277c06f42ba059
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getThrowableList:
+  digest: sha256:1c00c0ffe84d9c89
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/getThrowables:
+  digest: sha256:b6b41fec023fcb4d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/hasCause:
+  digest: sha256:87d683bb8c295dc6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/indexOf:
+  digest: sha256:fb5f47b38c7c2161
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/indexOfThrowable:
+  digest: sha256:04b60a88497a67ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/indexOfThrowable#2:
+  digest: sha256:ef90562f1bd47b78
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/indexOfType:
+  digest: sha256:32708078a5cb7bfa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/indexOfType#2:
+  digest: sha256:42ed61e12b0a348a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/isChecked:
+  digest: sha256:66fd64dbc632337f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/isStackFrame:
+  digest: sha256:2936fdfa729c6f5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/isUnchecked:
+  digest: sha256:669b7119b2c5492c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/printRootCauseStackTrace:
+  digest: sha256:78f4cd0f3cd463f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/printRootCauseStackTrace#2:
+  digest: sha256:cc98220b6e345747
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/printRootCauseStackTrace#3:
+  digest: sha256:dc7d734d5caa93f0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/removeCommonFrames:
+  digest: sha256:1d11e2202efa80ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/rethrow:
+  digest: sha256:86844b60979b41a2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/stream:
+  digest: sha256:8e7f3ed8778f0460
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/throwUnchecked:
+  digest: sha256:9c00c24a0a092d6b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/throwUnchecked#2:
+  digest: sha256:9c169c6abec06895
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/throwableOf:
+  digest: sha256:c4b827a2efde7743
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/throwableOfThrowable:
+  digest: sha256:e73b745c8062e76c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/throwableOfThrowable#2:
+  digest: sha256:61b5cca67d3da2c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/throwableOfType:
+  digest: sha256:1f4ffaaaa5761a70
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/throwableOfType#2:
+  digest: sha256:38db89321355571f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java/package/org.apache.commons.lang3.exception/class/ExceptionUtils/method/wrapAndThrow:
+  digest: sha256:43f34a7721215cc2
+  verdict: pending

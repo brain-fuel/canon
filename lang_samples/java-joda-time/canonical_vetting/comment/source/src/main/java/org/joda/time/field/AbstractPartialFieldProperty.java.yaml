@@ -1,0 +1,75 @@
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty:
+  digest: sha256:fe464bee4a266cd0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/constructor/AbstractPartialFieldProperty:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/compareTo:
+  digest: sha256:712b0ab3d1529e73
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/compareTo#2:
+  digest: sha256:6d496550c8aca357
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/equals:
+  digest: sha256:b6871726ccf1fe00
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/get:
+  digest: sha256:64c99433a577566c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getAsShortText:
+  digest: sha256:8582940b32a00263
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getAsShortText#2:
+  digest: sha256:1d8fbc822b2c2827
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getAsString:
+  digest: sha256:3441e11fb248c4b8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getAsText:
+  digest: sha256:be39ed6325586f6d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getAsText#2:
+  digest: sha256:d067f6aa167b531b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getDurationField:
+  digest: sha256:06325c1f57a00240
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getField:
+  digest: sha256:e91fc41616073b93
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getFieldType:
+  digest: sha256:f40b85325ccc81ed
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getMaximumShortTextLength:
+  digest: sha256:531327fe0236963b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getMaximumTextLength:
+  digest: sha256:a0495ef58f885f07
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getMaximumValue:
+  digest: sha256:6b51b41e04871c84
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getMaximumValueOverall:
+  digest: sha256:a124a80c132d54c7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getMinimumValue:
+  digest: sha256:e03bcdee88d3f2c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getMinimumValueOverall:
+  digest: sha256:60e238865bcc17fd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getName:
+  digest: sha256:06ea879626b7acd8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getRangeDurationField:
+  digest: sha256:9d5bf67159603848
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/getReadablePartial:
+  digest: sha256:9e02b207df1b2515
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/hashCode:
+  digest: sha256:0b05679a7e0a29a6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/AbstractPartialFieldProperty.java/package/org.joda.time.field/class/AbstractPartialFieldProperty/method/toString:
+  digest: sha256:e269750e89cfa366
+  verdict: pending

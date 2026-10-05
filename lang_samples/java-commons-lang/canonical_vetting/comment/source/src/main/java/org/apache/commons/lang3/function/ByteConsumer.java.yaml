@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/ByteConsumer.java/package/org.apache.commons.lang3.function/interface/ByteConsumer:
+  digest: sha256:beed0fda4f366079
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/ByteConsumer.java/package/org.apache.commons.lang3.function/interface/ByteConsumer/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/ByteConsumer.java/package/org.apache.commons.lang3.function/interface/ByteConsumer/method/accept:
+  digest: sha256:bb682fcb81105de1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/ByteConsumer.java/package/org.apache.commons.lang3.function/interface/ByteConsumer/method/andThen:
+  digest: sha256:3725c8b1cc7659f3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/ByteConsumer.java/package/org.apache.commons.lang3.function/interface/ByteConsumer/method/nop:
+  digest: sha256:5b080d046149f57e
+  verdict: pending

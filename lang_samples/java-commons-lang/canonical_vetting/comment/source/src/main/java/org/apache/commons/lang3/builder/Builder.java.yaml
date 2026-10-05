@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Builder.java/package/org.apache.commons.lang3.builder/interface/Builder:
+  digest: sha256:c6065fe0417ad6b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Builder.java/package/org.apache.commons.lang3.builder/interface/Builder/method/build:
+  digest: sha256:442b40086167f64b
+  verdict: pending

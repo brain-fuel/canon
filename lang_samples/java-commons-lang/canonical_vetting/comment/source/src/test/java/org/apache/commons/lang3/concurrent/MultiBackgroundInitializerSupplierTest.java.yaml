@@ -1,0 +1,21 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializerSupplierTest:
+  digest: sha256:5fe6a4883e88e31a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializerSupplierTest/class/SupplierChildBackgroundInitializer:
+  digest: sha256:83ea8164a6b07db3
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializerSupplierTest/method/createChildBackgroundInitializer:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializerSupplierTest/method/testClose:
+  digest: sha256:d7341331a6a25d64
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializerSupplierTest/method/testCloseWithCheckedException:
+  digest: sha256:844c88b289bdcbf0
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializerSupplierTest/method/testCloseWithRuntimeException:
+  digest: sha256:04d48f9d003c5300
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/MultiBackgroundInitializerSupplierTest/method/testCloseWithTwoExceptions:
+  digest: sha256:2a7da4dc09ba112e
+  verdict: pending

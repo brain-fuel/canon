@@ -1,0 +1,12 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/BackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/BackgroundInitializerSupplierTest/class/SupplierBackgroundInitializerTestImpl:
+  digest: sha256:bd6532c5c4b23167
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/BackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/BackgroundInitializerSupplierTest/method/testClose:
+  digest: sha256:d7341331a6a25d64
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/BackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/BackgroundInitializerSupplierTest/method/testCloseWithCheckedException:
+  digest: sha256:c74cf35d698341ff
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/BackgroundInitializerSupplierTest.java/package/org.apache.commons.lang3.concurrent/class/BackgroundInitializerSupplierTest/method/testCloseWithRuntimeException:
+  digest: sha256:81748b09a1262629
+  verdict: pending

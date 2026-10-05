@@ -1,0 +1,78 @@
+decision/haskell/source/src/Tetris.hs/module/Tetris/data/Block:
+  digest: sha256:4f73a1000e7fefaa
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/data/Game:
+  digest: sha256:df1128707bb7f1fe
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/data/Tetrimino:
+  digest: sha256:85cb03db97315f39
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/bagFourTetriminoEach:
+  digest: sha256:7f8a9ba734f25b6b
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/boardWidth:
+  digest: sha256:717dbd7681f42607
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/clearFullRows:
+  digest: sha256:4d3f7c86ba3f7eba
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/coords:
+  digest: sha256:f6d03e9ae1259e42
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/freezeBlock:
+  digest: sha256:e33cc127cf4d007b
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/gravitate:
+  digest: sha256:39ba71c8467eed7a
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/initGame:
+  digest: sha256:c1e28db96eb643e5
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/isFree:
+  digest: sha256:5eead5d344e96d25
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/isInBounds:
+  digest: sha256:c0caf0b22c8b040e
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/isStopped:
+  digest: sha256:7e2db19a0dbd63fc
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/isValidBlockPosition:
+  digest: sha256:2a7513071ae33876
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/levelFinished:
+  digest: sha256:1686c54c3a1a3635
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/nextBlock:
+  digest: sha256:07001d6043f59df0
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/nextLevel:
+  digest: sha256:6bb225a566d88fe8
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/rotate:
+  digest: sha256:0479bca03d428ad0
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/rotateRaw:
+  digest: sha256:041400c8309e4b10
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/shift:
+  digest: sha256:03c6b09510caae9c
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/shuffle:
+  digest: sha256:c1a6680dc544c6d1
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/startOrigin:
+  digest: sha256:6d8ea2630fd11a6b
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/timeStep:
+  digest: sha256:4dfed74159798f7c
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/function/updateScore:
+  digest: sha256:9657e2273fb281c8
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/type/Board:
+  digest: sha256:a739956413e43520
+  verdict: pending
+decision/haskell/source/src/Tetris.hs/module/Tetris/type/Coord:
+  digest: sha256:117c132e939b9f65
+  verdict: pending

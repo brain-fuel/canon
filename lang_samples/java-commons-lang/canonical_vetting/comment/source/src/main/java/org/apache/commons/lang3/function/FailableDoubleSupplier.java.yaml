@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleSupplier.java/package/org.apache.commons.lang3.function/interface/FailableDoubleSupplier:
+  digest: sha256:c1f174f5437e0ba6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleSupplier.java/package/org.apache.commons.lang3.function/interface/FailableDoubleSupplier/method/getAsDouble:
+  digest: sha256:46542a581733345f
+  verdict: pending

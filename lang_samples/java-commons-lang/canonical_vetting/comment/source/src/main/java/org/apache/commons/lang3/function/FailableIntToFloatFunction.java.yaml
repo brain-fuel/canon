@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntToFloatFunction.java/package/org.apache.commons.lang3.function/interface/FailableIntToFloatFunction:
+  digest: sha256:13cae1e5e2ea4e95
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntToFloatFunction.java/package/org.apache.commons.lang3.function/interface/FailableIntToFloatFunction/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntToFloatFunction.java/package/org.apache.commons.lang3.function/interface/FailableIntToFloatFunction/method/applyAsFloat:
+  digest: sha256:dd890998f2f05fa1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntToFloatFunction.java/package/org.apache.commons.lang3.function/interface/FailableIntToFloatFunction/method/nop:
+  digest: sha256:80e2fe1bb96b9053
+  verdict: pending

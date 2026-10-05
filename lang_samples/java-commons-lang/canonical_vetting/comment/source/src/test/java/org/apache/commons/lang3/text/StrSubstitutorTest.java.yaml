@@ -1,0 +1,123 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest:
+  digest: sha256:354c376c7b020118
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testConstructorMapFull:
+  digest: sha256:9f9210af0d9e4f81
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testConstructorMapPrefixSuffix:
+  digest: sha256:9f9210af0d9e4f81
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testConstructorNoArgs:
+  digest: sha256:9f9210af0d9e4f81
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testCyclicReplacement:
+  digest: sha256:20f90ec611a56901
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testDeeplyNestedReplacementThrowsIllegalStateException:
+  digest: sha256:343ca7035e05e8de
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testExponentialFanOutReplacementThrowsIllegalStateException:
+  digest: sha256:20ab9060a7c713b9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testGetSetEscape:
+  digest: sha256:2b5874a5c6dc4f13
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testGetSetPrefix:
+  digest: sha256:2b5874a5c6dc4f13
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testGetSetSuffix:
+  digest: sha256:2b5874a5c6dc4f13
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testGetSetValueDelimiter:
+  digest: sha256:2b5874a5c6dc4f13
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testLANG1055:
+  digest: sha256:67a9ead3c917fad7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceAdjacentAtEnd:
+  digest: sha256:b6ca8c0fcd833dfc
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceAdjacentAtStart:
+  digest: sha256:b6ca8c0fcd833dfc
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceChangedMap:
+  digest: sha256:fc1226a664dfc9c1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceComplexEscaping:
+  digest: sha256:672b1da669ff40fa
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceEmpty:
+  digest: sha256:3ee17e20e0d9cb12
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceEmptyKeys:
+  digest: sha256:d4b00e4690a6f1f2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceEscaping:
+  digest: sha256:1f5842dd90616503
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceInVariable:
+  digest: sha256:ca8178f3ccbb9252
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceInVariableDisabled:
+  digest: sha256:7414003944a022c4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceInVariableRecursive:
+  digest: sha256:8127e23786853ae8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceIncompletePrefix:
+  digest: sha256:8a7a7595983776b1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceNoPrefixNoSuffix:
+  digest: sha256:9fd84513fd6635f0
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceNoPrefixSuffix:
+  digest: sha256:11bfc5d690813ec7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceNoVariables:
+  digest: sha256:711d43558115f5ea
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceNull:
+  digest: sha256:3ee17e20e0d9cb12
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplacePartialString_noReplace:
+  digest: sha256:8c33e239242a0ae4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplacePrefixNoSuffix:
+  digest: sha256:7911d22405f3c598
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceRecursive:
+  digest: sha256:6965ec1792594339
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceSimple:
+  digest: sha256:8c33e239242a0ae4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceSolo:
+  digest: sha256:8c33e239242a0ae4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceSoloEscaping:
+  digest: sha256:1f5842dd90616503
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceToIdentical:
+  digest: sha256:e9689a0082a5c911
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceUnknownKey:
+  digest: sha256:ae68037d697c67be
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testReplaceWeirdPattens:
+  digest: sha256:78c13da92c4fa36e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testResolveVariable:
+  digest: sha256:435709e7a1a786b9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testStaticReplace:
+  digest: sha256:2f27462b2090c635
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testStaticReplacePrefixSuffix:
+  digest: sha256:2f27462b2090c635
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testStaticReplaceSystemProperties:
+  digest: sha256:3c6e512e21dbfdce
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrSubstitutorTest.java/package/org.apache.commons.lang3.text/class/StrSubstitutorTest/method/testSubstituteDefaultProperties:
+  digest: sha256:fd6f784777e52510
+  verdict: pending

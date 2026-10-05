@@ -1,0 +1,45 @@
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id:
+  digest: sha256:65894ed67919e82b
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/data/VettingKey:
+  digest: sha256:4128f6c70c3b46ed
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/decisionIdFor:
+  digest: sha256:45660413005e9db5
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/isIdSegment:
+  digest: sha256:93debb730fa943a8
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/isKindWord:
+  digest: sha256:ac67c49d61bda046
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/isReferenceKey:
+  digest: sha256:7d61575e5ff9b703
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/parseDecisionId:
+  digest: sha256:6f119e437266ad49
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/parseUnitId:
+  digest: sha256:00dee01d3418b4b7
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/parseVettingKey:
+  digest: sha256:84b40542e59d92df
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/renderDecisionId:
+  digest: sha256:2116062065081b80
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/renderUnitId:
+  digest: sha256:33cd6f9854c6ba58
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/renderVettingKey:
+  digest: sha256:39ffcf6c7ef78ae1
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/newtype/DecisionId:
+  digest: sha256:c28b6c30820318e1
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/newtype/ReferenceKey:
+  digest: sha256:ab05e8946ca4d640
+  verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/newtype/UnitId:
+  digest: sha256:b50e1357bc2ca878
+  verdict: pending

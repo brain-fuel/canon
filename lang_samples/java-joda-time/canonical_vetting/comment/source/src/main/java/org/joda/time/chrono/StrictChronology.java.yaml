@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/joda/time/chrono/StrictChronology.java/package/org.joda.time.chrono/class/StrictChronology:
+  digest: sha256:3ca8f27faf1bbd3f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/StrictChronology.java/package/org.joda.time.chrono/class/StrictChronology/constructor/StrictChronology:
+  digest: sha256:4b9eea99677f2597
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/StrictChronology.java/package/org.joda.time.chrono/class/StrictChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/StrictChronology.java/package/org.joda.time.chrono/class/StrictChronology/method/equals:
+  digest: sha256:b4510dade10f67d5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/StrictChronology.java/package/org.joda.time.chrono/class/StrictChronology/method/getInstance:
+  digest: sha256:bc759598d85fdb9a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/StrictChronology.java/package/org.joda.time.chrono/class/StrictChronology/method/hashCode:
+  digest: sha256:3444e9b8a54ffe01
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/StrictChronology.java/package/org.joda.time.chrono/class/StrictChronology/method/toString:
+  digest: sha256:fb4549890f8bd4a6
+  verdict: pending

@@ -1,0 +1,114 @@
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType:
+  digest: sha256:8a4401e73ba43eb3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/class/StandardDurationFieldType/constructor/StandardDurationFieldType:
+  digest: sha256:df31adda673cfd1e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/class/StandardDurationFieldType/field/iOrdinal:
+  digest: sha256:b6baa9c39df36b0d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/class/StandardDurationFieldType/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/class/StandardDurationFieldType/method/equals:
+  digest: sha256:847cbe356c6c8fbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/class/StandardDurationFieldType/method/hashCode:
+  digest: sha256:847cbe356c6c8fbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/class/StandardDurationFieldType/method/readResolve:
+  digest: sha256:c8a56830abb644b6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/constructor/DurationFieldType:
+  digest: sha256:e3acba6eb036d7bf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/CENTURIES_TYPE:
+  digest: sha256:7ce392e1182a69da
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/DAYS_TYPE:
+  digest: sha256:795d97780c7a641e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/ERAS_TYPE:
+  digest: sha256:d84c851e7422e32f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/HALFDAYS_TYPE:
+  digest: sha256:f1dfb622f975ab40
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/HOURS_TYPE:
+  digest: sha256:7f73199bf5e5a14c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/MILLIS_TYPE:
+  digest: sha256:8cc89da626f07676
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/MINUTES_TYPE:
+  digest: sha256:0df616e222426134
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/MONTHS_TYPE:
+  digest: sha256:8872a6f055b2b898
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/SECONDS_TYPE:
+  digest: sha256:e733341827028b7d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/WEEKS_TYPE:
+  digest: sha256:7cb6b7e580967834
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/WEEKYEARS_TYPE:
+  digest: sha256:012270c9b834e8f9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/YEARS_TYPE:
+  digest: sha256:bec26a7e322f9217
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/iName:
+  digest: sha256:5aab221e19bf13b5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/centuries:
+  digest: sha256:afc3d590ff23178a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/days:
+  digest: sha256:0142ff6c0df11c13
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/eras:
+  digest: sha256:af1069e05f3d2a49
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/getField:
+  digest: sha256:103152f2418c7ebb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/getName:
+  digest: sha256:792adddfcfb6602a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/halfdays:
+  digest: sha256:e0ce0a52ca4a841a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/hours:
+  digest: sha256:1ea5d770f6370e45
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/isSupported:
+  digest: sha256:97171ec53f366910
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/millis:
+  digest: sha256:f125bbf0029e7aee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/minutes:
+  digest: sha256:0cddee1af20a8272
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/months:
+  digest: sha256:4a7dd039cc865da5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/seconds:
+  digest: sha256:a19520bc9463881c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/toString:
+  digest: sha256:ce41ecc1d74f6f78
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/weeks:
+  digest: sha256:be8e383d40907dfa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/weekyears:
+  digest: sha256:c4032926f4b1d786
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DurationFieldType.java/package/org.joda.time/class/DurationFieldType/method/years:
+  digest: sha256:e8de19711f100192
+  verdict: pending

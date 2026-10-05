@@ -1,0 +1,108 @@
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder:
+  digest: sha256:914d3dfe94b26919
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/constructor/GsonBuilder:
+  digest: sha256:40a09eeb4ed26d42
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/constructor/GsonBuilder#2:
+  digest: sha256:dac35e5d604a84e7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/field/DEFAULT:
+  digest: sha256:9f76c6aaa248576c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/field/hierarchyFactories:
+  digest: sha256:7a6d5e1a7df5d9f7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/addDeserializationExclusionStrategy:
+  digest: sha256:585edbcb10f18c51
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/addReflectionAccessFilter:
+  digest: sha256:96051c0f1ca131be
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/addSerializationExclusionStrategy:
+  digest: sha256:dddc9c7c42df1d08
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/create:
+  digest: sha256:22225422c76fffb3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/disableHtmlEscaping:
+  digest: sha256:dd98cf82d8ba96fe
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/disableInnerClassSerialization:
+  digest: sha256:42ce24e3f6e8e343
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/disableJdkUnsafe:
+  digest: sha256:6109a3d4948707b1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/enableComplexMapKeySerialization:
+  digest: sha256:d2dff7f52268d160
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/excludeFieldsWithModifiers:
+  digest: sha256:19029259c98aeab5
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/excludeFieldsWithoutExposeAnnotation:
+  digest: sha256:7c87c1455a46911d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/generateNonExecutableJson:
+  digest: sha256:48ea5bea484a1ecc
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/hasNonOverridableAdapter:
+  digest: sha256:c1e199f67f345673
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/registerTypeAdapter:
+  digest: sha256:4812332e8373ba73
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/registerTypeAdapterFactory:
+  digest: sha256:231f5e157b1ad560
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/registerTypeHierarchyAdapter:
+  digest: sha256:76bdc8dde33e9a0b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/serializeNulls:
+  digest: sha256:b2307b812975a6cf
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/serializeSpecialFloatingPointValues:
+  digest: sha256:6d903b18cec9f1e4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setDateFormat:
+  digest: sha256:ef89cff231da3058
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setDateFormat#2:
+  digest: sha256:90c145bf6a388ff3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setDateFormat#3:
+  digest: sha256:15c0e6e3b652ece9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setExclusionStrategies:
+  digest: sha256:67df9959aee6c354
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setFieldNamingPolicy:
+  digest: sha256:b7b089a6368e87a9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setFieldNamingStrategy:
+  digest: sha256:766972792bd903ee
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setFormattingStyle:
+  digest: sha256:5145beb5a159290e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setLenient:
+  digest: sha256:9c82ca78c4194852
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setLongSerializationPolicy:
+  digest: sha256:01b90619aaf0e1f4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setNumberToNumberStrategy:
+  digest: sha256:3873868f3b05b10a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setObjectToNumberStrategy:
+  digest: sha256:ef596c6aa24a14ae
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setPrettyPrinting:
+  digest: sha256:971da8ca5175c0fb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setStrictness:
+  digest: sha256:5e13402293da2fa2
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/GsonBuilder.java/package/com.google.gson/class/GsonBuilder/method/setVersion:
+  digest: sha256:4d6dbadad32133f1
+  verdict: pending

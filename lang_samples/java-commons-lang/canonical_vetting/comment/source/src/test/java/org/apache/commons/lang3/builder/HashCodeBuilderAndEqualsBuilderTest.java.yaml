@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderAndEqualsBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderAndEqualsBuilderTest:
+  digest: sha256:6870f722bf63bba8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderAndEqualsBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderAndEqualsBuilderTest/method/assertEqualsAndHashCodeContract:
+  digest: sha256:257cf4b9cfee0606
+  verdict: pending

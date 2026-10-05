@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/math/FractionReadObjectTest.java/package/org.apache.commons.lang3.math/class/FractionReadObjectTest:
+  digest: sha256:012f22b7e331a28b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/FractionReadObjectTest.java/package/org.apache.commons.lang3.math/class/FractionReadObjectTest/method/testForgedZeroDenominatorDividesByZero:
+  digest: sha256:7bc09cf76f9710f1
+  verdict: pending

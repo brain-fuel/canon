@@ -1,0 +1,12 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsGetShortClassNameTest.java/package/org.apache.commons.lang3/class/ClassUtilsGetShortClassNameTest:
+  digest: sha256:560dd50c896cdda7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsGetShortClassNameTest.java/package/org.apache.commons.lang3/class/ClassUtilsGetShortClassNameTest/method/compileOuterWithInner:
+  digest: sha256:a91f1252a16d3f9d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsGetShortClassNameTest.java/package/org.apache.commons.lang3/class/ClassUtilsGetShortClassNameTest/method/innerOnlyLoader:
+  digest: sha256:c91224bd6e05199d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsGetShortClassNameTest.java/package/org.apache.commons.lang3/class/ClassUtilsGetShortClassNameTest/method/testAnonymousAndLocalClassesUseSeparatePath:
+  digest: sha256:f37d7ef5500340b9
+  verdict: pending

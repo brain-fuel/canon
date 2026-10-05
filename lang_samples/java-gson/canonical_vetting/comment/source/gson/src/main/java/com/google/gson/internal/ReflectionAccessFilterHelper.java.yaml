@@ -1,0 +1,9 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/ReflectionAccessFilterHelper.java/package/com.google.gson.internal/class/ReflectionAccessFilterHelper:
+  digest: sha256:d419810075730d5e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/ReflectionAccessFilterHelper.java/package/com.google.gson.internal/class/ReflectionAccessFilterHelper/method/canAccess:
+  digest: sha256:23e01ac6cb9fe436
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/ReflectionAccessFilterHelper.java/package/com.google.gson.internal/class/ReflectionAccessFilterHelper/method/getFilterResult:
+  digest: sha256:646ee9a6f53bb3a9
+  verdict: pending

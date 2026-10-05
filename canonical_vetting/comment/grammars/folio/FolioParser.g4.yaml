@@ -1,0 +1,30 @@
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser:
+  digest: sha256:ea50207d28f9429d
+  verdict: pending
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser/parserRule/blank:
+  digest: sha256:ac4d19f0c0432cd3
+  verdict: pending
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser/parserRule/codeBlock:
+  digest: sha256:dd7cdd0e39234d9d
+  verdict: pending
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser/parserRule/codeLine:
+  digest: sha256:e0010d8a0bf91859
+  verdict: pending
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser/parserRule/document:
+  digest: sha256:3d1f867d59e3d5f9
+  verdict: pending
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser/parserRule/element:
+  digest: sha256:610e564a994d7bca
+  verdict: pending
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser/parserRule/frontMatter:
+  digest: sha256:164014860a36ab12
+  verdict: pending
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser/parserRule/heading:
+  digest: sha256:fdc6a7456cac47c4
+  verdict: pending
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser/parserRule/prose:
+  digest: sha256:7d03746caacc1771
+  verdict: pending
+decision/antlr4/grammars/folio/FolioParser.g4/grammarDefinition/FolioParser/parserRule/rule:
+  digest: sha256:e82ff1bfcbc6fff1
+  verdict: pending

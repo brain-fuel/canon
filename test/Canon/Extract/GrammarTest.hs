@@ -14,6 +14,7 @@ import Canon.Model.Check (checkModel, checkTests)
 import Canon.Model.Finding
 import Canon.Profile
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
+import Canon.Span (Position (..), Span (..))
 import Data.Foldable (toList)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
@@ -39,6 +40,8 @@ tests =
     , testProperty "the dialect grammar's extraction rules are labeled alternatives" dialectPlans
     , testProperty "the java dialect marks public members required and misplaced comments orphan" javaDialect
     , testProperty "the haskell dialect requires comments on exported units" haskellDialect
+    , testProperty "bindings attach to the signature with their name and become its How" haskellBindingsBindByName
+    , testProperty "the make dialect requires a comment on every plain rule" makeDialect
     , testProperty "export entries parse and decide requirement" exportEntries
     ]
 
@@ -52,7 +55,7 @@ lexerPath :: FilePath
 lexerPath = "grammars/antlr4/ANTLRv4Lexer.g4"
 
 antlrProfile :: Profile
-antlrProfile = Profile [".g4"] (SplitGrammarFiles (dialectDir ++ "/ANTLRv4Lexer.g4") (dialectDir ++ "/ANTLRv4Parser.g4")) (Name "grammarSpec") [] defaultCommentSyntax Map.empty
+antlrProfile = Profile [".g4"] (SplitGrammarFiles (dialectDir ++ "/ANTLRv4Lexer.g4") (dialectDir ++ "/ANTLRv4Parser.g4")) (Name "grammarSpec") [] defaultCommentSyntax Map.empty Map.empty Map.empty
 
 sampleCommits :: [Commit]
 sampleCommits =
@@ -187,7 +190,7 @@ dialectPlans = withTests 1 $ property $ do
   Map.lookup (Name "ruleSpec") plans === Just [Nothing, Nothing]
 
 javaProfile :: Profile
-javaProfile = Profile [".java"] (SplitGrammarFiles "grammars/java/canonically_commented/JavaLexer.g4" "grammars/java/canonically_commented/JavaParser.g4") (Name "compilationUnit") [] defaultCommentSyntax Map.empty
+javaProfile = Profile [".java"] (SplitGrammarFiles "grammars/java/canonically_commented/JavaLexer.g4" "grammars/java/canonically_commented/JavaParser.g4") (Name "compilationUnit") [] defaultCommentSyntax Map.empty Map.empty Map.empty
 
 javaDialect :: Property
 javaDialect = withTests 1 $ property $ do
@@ -249,7 +252,7 @@ isAsserted ev = case ev of
   _ -> False
 
 haskellProfile :: Profile
-haskellProfile = Profile [".hs"] (SplitGrammarFiles "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4") (Name "module") [] defaultCommentSyntax Map.empty
+haskellProfile = Profile [".hs"] (SplitGrammarFiles "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4") (Name "module") [] defaultCommentSyntax Map.empty Map.empty Map.empty
 
 haskellDialect :: Property
 haskellDialect = withTests 1 $ property $ do
@@ -303,8 +306,48 @@ haskellDialect = withTests 1 $ property $ do
   whyOf "Shape" === ["A shape is either a circle or a box\nand nothing else."]
   whyOf "Named" === ["Names exist so that shapes can be reported."]
   whyOf "name" === ["The reported name."]
+  let howOf n = [t | u <- byName n, HowText t <- [answerValue (unitHow u)]]
+      signatureOf n = [whatSignature (answerValue (unitWhat u)) | u <- byName n]
+      endLineOf n = [positionLine (spanEnd (whereSpan (answerValue (unitWhere u)))) | u <- byName n]
+  howOf "area" === ["area s = go s\n  where\n    -- | not a unit\n    go _ = 1"]
+  signatureOf "area" === [Just "Shape -> Double"]
+  endLineOf "area" === [26]
+  howOf "(+.+)" === ["a +.+ b = a + b"]
+  howOf "helper" === ["helper = 2"]
+  howOf "name" === ["name :: a -> Text"]
+  signatureOf "Shape" === [Nothing]
   length [() | OrphanDocComment _ _ <- findings] === 1
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["haskell/Fixture.hs/module/Fixture/function/area", "haskell/Fixture.hs/module/Fixture/function/(+.+)"]
+
+haskellBindingsBindByName :: Property
+haskellBindingsBindByName = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter haskellProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "module Fixture (f, g) where"
+          , ""
+          , "-- | Counts down."
+          , "f :: Int -> Int"
+          , "{-# INLINE f #-}"
+          , "f 0 = 1"
+          , "f n = n"
+          , ""
+          , "helper = 2"
+          , ""
+          , "g :: Int"
+          , "g = 3"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "haskell" haskellProfile interpreter "Fixture.hs" "Fixture.hs" source)
+  Extraction model _ <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  let units = modelAllUnits model
+      byName n = [u | u <- units, whatName (answerValue (unitWhat u)) == n]
+      howOf n = [t | u <- byName n, HowText t <- [answerValue (unitHow u)]]
+      spanOf n = [whereSpan (answerValue (unitWhere u)) | u <- byName n]
+  howOf "f" === ["f 0 = 1\nf n = n"]
+  spanOf "f" === [Span (Position 3 1) (Position 7 8)]
+  byName "helper" === []
+  howOf "g" === ["g = 3"]
 
 exportEntries :: Property
 exportEntries = withTests 1 $ property $ do
@@ -321,3 +364,49 @@ exportEntries = withTests 1 $ property $ do
   exportRequires entries Nothing "helper" === False
   exportRequires Nothing Nothing "helper" === True
   exportRequires Nothing Nothing "Named Shape" === False
+
+makeProfile :: Profile
+makeProfile = Profile ["Makefile"] (SplitGrammarFiles "grammars/make/canonically_commented/MakefileLexer.g4" "grammars/make/canonically_commented/MakefileParser.g4") (Name "makefile") [] defaultCommentSyntax Map.empty Map.empty Map.empty
+
+makeDialect :: Property
+makeDialect = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter makeProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "# | The port the page listens on."
+          , "PORT ?= 8080"
+          , "BIN = $$(stack path --local-install-root)/bin/x"
+          , ".DEFAULT_GOAL := help"
+          , ".PHONY: help build"
+          , ""
+          , "# | What you can ask for, so the list"
+          , "# cannot drift. ref:some-key"
+          , "help: ## what you can ask for"
+          , "\t@grep -hE '^[a-z-]+:.*##' $(MAKEFILE_LIST)"
+          , ""
+          , "build: deps | order ## compile"
+          , "\tstack build \\"
+          , "\t  --no-terminal"
+          , ""
+          , "%.o: %.c"
+          , "\t$(CC) -c $< -o $@"
+          , ""
+          , "ifeq ($(OS),Windows_NT)"
+          , "SHELL := cmd"
+          , "else"
+          , "SHELL := bash"
+          , "endif"
+          , "export PORT"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "make" makeProfile interpreter "Makefile" "Makefile" source)
+  Extraction model _ <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  let units = modelAllUnits model
+      byName n = [u | u <- units, whatName (answerValue (unitWhat u)) == n]
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- byName n, d <- decisionsFor (unitId u) model]
+  map kindOf (filter ((/= "file") . kindOf) units) === ["variable", "variable", "variable", "specialRule", "rule", "rule", "patternRule", "variable", "variable"]
+  map unitRequirement (byName "help" ++ byName "build" ++ byName ".PHONY" ++ byName "%.o" ++ byName "PORT") === [Required, Required, Optional, Optional, Optional]
+  whyOf "help" === ["What you can ask for, so the list\ncannot drift. ref:some-key"]
+  whyOf "PORT" === ["The port the page listens on."]
+  [t | u <- byName "build", HowText t <- [answerValue (unitHow u)]] === ["stack build \\\n\t  --no-terminal"]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["make/Makefile/rule/build"]

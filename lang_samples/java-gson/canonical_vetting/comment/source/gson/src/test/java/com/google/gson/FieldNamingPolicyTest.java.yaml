@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/FieldNamingPolicyTest.java/package/com.google.gson/class/FieldNamingPolicyTest:
+  digest: sha256:32954fce38d63d91
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/FieldNamingPolicyTest.java/package/com.google.gson/class/FieldNamingPolicyTest/method/testLowerCasingLocaleIndependent:
+  digest: sha256:c40b1401e64c80a6
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/FieldNamingPolicyTest.java/package/com.google.gson/class/FieldNamingPolicyTest/method/testUpperCasingLocaleIndependent:
+  digest: sha256:d26cedcd7e04daf1
+  verdict: pending

@@ -1,0 +1,120 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore:
+  digest: sha256:548de8a483b2d5bf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/class/Builder:
+  digest: sha256:f2422f4f7ceea715
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/class/Builder/constructor/Builder:
+  digest: sha256:b255d42f8e49ae04
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/class/Builder/method/setLimit:
+  digest: sha256:7b9a32b05e2e9239
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/class/Builder/method/setPeriod:
+  digest: sha256:84b004d60fcf377f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/class/Builder/method/setService:
+  digest: sha256:509985e958901825
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/class/Builder/method/setTimeUnit:
+  digest: sha256:6e30aae460db5f1d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/constructor/TimedSemaphore#2:
+  digest: sha256:49ebc7ddde32c4f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/constructor/TimedSemaphore#3:
+  digest: sha256:36286d6253b755d9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/NO_LIMIT:
+  digest: sha256:b3224c6686daa73c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/THREAD_POOL_SIZE:
+  digest: sha256:63d2263f593069e2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/acquireCount:
+  digest: sha256:1b333b9387be0fc7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/executorService:
+  digest: sha256:6ef7034e410fa899
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/lastCallsPerPeriod:
+  digest: sha256:0a8b03870c653a3e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/limit:
+  digest: sha256:a4b2490910d60f99
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/ownExecutor:
+  digest: sha256:a36413422db8c737
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/period:
+  digest: sha256:4ad748a930f92816
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/periodCount:
+  digest: sha256:6960327e805c55d1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/shutdown:
+  digest: sha256:435f15681b5074f4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/task:
+  digest: sha256:4e375a9421ce1bd7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/totalAcquireCount:
+  digest: sha256:53d06776707f21a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/field/unit:
+  digest: sha256:f90304e696849a7c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/acquire:
+  digest: sha256:e349b6535ad4e552
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/acquirePermit:
+  digest: sha256:9f645d732f469c5d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/builder:
+  digest: sha256:7df327b740cf7be9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/endOfPeriod:
+  digest: sha256:218834a0e5cd5329
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/getAcquireCount:
+  digest: sha256:3deea9d75d4648dc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/getAvailablePermits:
+  digest: sha256:df7c49d4f0df4409
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/getAverageCallsPerPeriod:
+  digest: sha256:91340de9fbee44e5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/getExecutorService:
+  digest: sha256:2a5ce370272e316a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/getLastAcquiresPerPeriod:
+  digest: sha256:85ec3dd798aeff08
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/getLimit:
+  digest: sha256:e93130daed8df49d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/getPeriod:
+  digest: sha256:7cd4a397b535f98a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/getUnit:
+  digest: sha256:58a9eec87005f35d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/isShutdown:
+  digest: sha256:ae312c88f52d8ba5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/prepareAcquire:
+  digest: sha256:0308bcf9986742ab
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/setLimit:
+  digest: sha256:ac22231d3c67e96a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/shutdown:
+  digest: sha256:f385ada8419d13a1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/startTimer:
+  digest: sha256:9505f08ccb0813b9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java/package/org.apache.commons.lang3.concurrent/class/TimedSemaphore/method/tryAcquire:
+  digest: sha256:3638c02da6199bc8
+  verdict: pending

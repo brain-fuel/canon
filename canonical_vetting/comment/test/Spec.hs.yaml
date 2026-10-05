@@ -1,0 +1,6 @@
+decision/haskell/test/Spec.hs/module/Main:
+  digest: sha256:5a99cf4dc6db301c
+  verdict: pending
+decision/haskell/test/Spec.hs/module/Main/function/main:
+  digest: sha256:1f80db519f5ebbd0
+  verdict: pending

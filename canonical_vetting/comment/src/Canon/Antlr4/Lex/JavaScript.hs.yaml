@@ -1,0 +1,15 @@
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript:
+  digest: sha256:644071bd45babe4b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/data/JavaScriptState:
+  digest: sha256:60c41eed53a176f8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/javaScriptHooks:
+  digest: sha256:1904bb50c7d32b90
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/regexPossible:
+  digest: sha256:69436356ad93ea37
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/typeScriptHooks:
+  digest: sha256:ca8987f995ea2b4a
+  verdict: pending

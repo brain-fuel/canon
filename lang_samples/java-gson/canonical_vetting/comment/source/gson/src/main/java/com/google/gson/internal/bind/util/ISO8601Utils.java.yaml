@@ -1,0 +1,33 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils:
+  digest: sha256:2873f27206e5a979
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/field/TIMEZONE_UTC:
+  digest: sha256:ac6844439578c1bb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/field/UTC_ID:
+  digest: sha256:01093cb03fb5bab0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/method/checkOffset:
+  digest: sha256:56a619ccf4dcb068
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/method/format:
+  digest: sha256:c3bef69289c51180
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/method/format#2:
+  digest: sha256:ab599dee65483a42
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/method/format#3:
+  digest: sha256:b2c2a358becd4533
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/method/indexOfNonDigit:
+  digest: sha256:7c795990b10c355a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/method/padInt:
+  digest: sha256:deaa3dbd2d23bb5e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/method/parse:
+  digest: sha256:dbb469ad06565868
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java/package/com.google.gson.internal.bind.util/class/ISO8601Utils/method/parseInt:
+  digest: sha256:c8440f1d6a77be62
+  verdict: pending

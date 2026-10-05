@@ -1,0 +1,51 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException:
+  digest: sha256:dd116bb7949c4659
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/constructor/ContextedException:
+  digest: sha256:16ecd9363c237d69
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/constructor/ContextedException#2:
+  digest: sha256:3f218a1d622c6d28
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/constructor/ContextedException#3:
+  digest: sha256:4a4de805e722a67f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/constructor/ContextedException#4:
+  digest: sha256:84185bbc1ec74dce
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/constructor/ContextedException#5:
+  digest: sha256:7f7bd885c9a3a3e2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/field/exceptionContext:
+  digest: sha256:2c8541af7c41fc75
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/field/serialVersionUID:
+  digest: sha256:5698ddfa976b09b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/method/addContextValue:
+  digest: sha256:58c8c3606edda898
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/method/getContextEntries:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/method/getContextLabels:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/method/getContextValues:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/method/getFirstContextValue:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/method/getFormattedExceptionMessage:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/method/getMessage:
+  digest: sha256:51aec77569c07451
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/method/getRawMessage:
+  digest: sha256:94bb2fe987fb4dae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/ContextedException.java/package/org.apache.commons.lang3.exception/class/ContextedException/method/setContextValue:
+  digest: sha256:53ac3ad55076603c
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/gson/src/test/java/com/google/gson/CommentsTest.java/package/com.google.gson/class/CommentsTest:
+  digest: sha256:934e20a9a099116b
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/CommentsTest.java/package/com.google.gson/class/CommentsTest/method/testParseComments:
+  digest: sha256:55b54f2a435124e1
+  verdict: pending

@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassPathUtils.java/package/org.apache.commons.lang3/class/ClassPathUtils:
+  digest: sha256:2c5377d87900aa62
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassPathUtils.java/package/org.apache.commons.lang3/class/ClassPathUtils/constructor/ClassPathUtils:
+  digest: sha256:1ce6685f2170be26
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassPathUtils.java/package/org.apache.commons.lang3/class/ClassPathUtils/method/packageToPath:
+  digest: sha256:45e5959ee85a7aef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassPathUtils.java/package/org.apache.commons.lang3/class/ClassPathUtils/method/pathToPackage:
+  digest: sha256:84a30fe3b88ce885
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassPathUtils.java/package/org.apache.commons.lang3/class/ClassPathUtils/method/toFullyQualifiedName:
+  digest: sha256:6a419f7e0187dd7b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassPathUtils.java/package/org.apache.commons.lang3/class/ClassPathUtils/method/toFullyQualifiedName#2:
+  digest: sha256:907e6b74024c2884
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassPathUtils.java/package/org.apache.commons.lang3/class/ClassPathUtils/method/toFullyQualifiedPath:
+  digest: sha256:18409e668530a366
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassPathUtils.java/package/org.apache.commons.lang3/class/ClassPathUtils/method/toFullyQualifiedPath#2:
+  digest: sha256:8201f02d7b766de8
+  verdict: pending

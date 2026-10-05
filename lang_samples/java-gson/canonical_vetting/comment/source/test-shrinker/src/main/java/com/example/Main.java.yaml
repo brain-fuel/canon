@@ -1,0 +1,9 @@
+decision/java/source/test-shrinker/src/main/java/com/example/Main.java/package/com.example/class/Main/method/fromJson:
+  digest: sha256:01a4de8b867f4aa2
+  verdict: pending
+decision/java/source/test-shrinker/src/main/java/com/example/Main.java/package/com.example/class/Main/method/runTests:
+  digest: sha256:327193110bab0c76
+  verdict: pending
+decision/java/source/test-shrinker/src/main/java/com/example/Main.java/package/com.example/class/Main/method/toJson:
+  digest: sha256:69696d118583ae55
+  verdict: pending

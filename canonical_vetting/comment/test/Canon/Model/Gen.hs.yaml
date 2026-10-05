@@ -1,0 +1,108 @@
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen:
+  digest: sha256:680a66431ad2d2c7
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genAnswer:
+  digest: sha256:80456fd53dc89a15
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genAssessment:
+  digest: sha256:ed22e4b3fea1db74
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genCodeUnit:
+  digest: sha256:cbef9b8715e8fd27
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genConfig:
+  digest: sha256:d793d340000c2af7
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genDecisionEntry:
+  digest: sha256:8909e9a23e3d7f51
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genDecisionId:
+  digest: sha256:90c41930f28a3644
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genDecisionOver:
+  digest: sha256:429dfaf3d705fe28
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genEvidence:
+  digest: sha256:58d546f36bfa5776
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genFinding:
+  digest: sha256:e510de4dc17fb1b1
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genHow:
+  digest: sha256:37754f7041189087
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genIdSegment:
+  digest: sha256:a94a0a8cf52b8605
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genKindWord:
+  digest: sha256:c29dc2f0c45a1cb2
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genLedger:
+  digest: sha256:632588ea9bab2c18
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genModel:
+  digest: sha256:6674a2cb47f58e63
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genPath:
+  digest: sha256:1aaff652fdead9cc
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genPlainText:
+  digest: sha256:82d284a827136cde
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genPosition:
+  digest: sha256:c351075cc9f2a23b
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genProfile:
+  digest: sha256:32c72a906feccdaf
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genReference:
+  digest: sha256:ac34088fc6b0537a
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genReferenceKey:
+  digest: sha256:31ad8dd7b7d2f1fc
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genRegistry:
+  digest: sha256:87e71a9bafe3e468
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genSpan:
+  digest: sha256:b9f7588c03202c91
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genUTCTime:
+  digest: sha256:ed6c209a7cf05731
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genUnitId:
+  digest: sha256:d8632507702a5e4e
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genVerdict:
+  digest: sha256:8d4387a3a7334e0c
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genVersion:
+  digest: sha256:6f20823fbbf35b8c
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genVetting:
+  digest: sha256:564008c1bb4406e8
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genVettingEntries:
+  digest: sha256:13962b265f30e8ae
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genVettingEntry:
+  digest: sha256:a1a2a3199c937023
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genVettingKey:
+  digest: sha256:0fe81fc2a99687d8
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genWhat:
+  digest: sha256:a86727ffb0075ea2
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genWhen:
+  digest: sha256:ae79213a6d101be0
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genWhere:
+  digest: sha256:0878964fc69599af
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genWho:
+  digest: sha256:ebf986b39b45153f
+  verdict: pending
+decision/haskell/test/Canon/Model/Gen.hs/module/Canon.Model.Gen/function/genWhy:
+  digest: sha256:8d0bd38325b9d973
+  verdict: pending

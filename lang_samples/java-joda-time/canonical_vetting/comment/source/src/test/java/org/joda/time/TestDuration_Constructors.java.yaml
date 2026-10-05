@@ -1,0 +1,12 @@
+decision/java/source/src/test/java/org/joda/time/TestDuration_Constructors.java/package/org.joda.time/class/TestDuration_Constructors:
+  digest: sha256:279b2b2e25cd2537
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDuration_Constructors.java/package/org.joda.time/class/TestDuration_Constructors/method/testConstructor_Object1:
+  digest: sha256:a54a95ae12a6bdcd
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDuration_Constructors.java/package/org.joda.time/class/TestDuration_Constructors/method/testConstructor_Overflow1:
+  digest: sha256:17fd7d38a70a9530
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestDuration_Constructors.java/package/org.joda.time/class/TestDuration_Constructors/method/testZERO:
+  digest: sha256:7957a15383e7347e
+  verdict: pending

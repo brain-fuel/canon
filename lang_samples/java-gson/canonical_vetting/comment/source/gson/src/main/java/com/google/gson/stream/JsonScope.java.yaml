@@ -1,0 +1,27 @@
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonScope.java/package/com.google.gson.stream/class/JsonScope:
+  digest: sha256:4805ef0c1380e884
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonScope.java/package/com.google.gson.stream/class/JsonScope/field/CLOSED:
+  digest: sha256:6f7fab7a0510350f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonScope.java/package/com.google.gson.stream/class/JsonScope/field/DANGLING_NAME:
+  digest: sha256:a6c1f3249dfd7a51
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonScope.java/package/com.google.gson.stream/class/JsonScope/field/EMPTY_ARRAY:
+  digest: sha256:44dbdcfa95859bb4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonScope.java/package/com.google.gson.stream/class/JsonScope/field/EMPTY_DOCUMENT:
+  digest: sha256:6f959d9fa34e265f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonScope.java/package/com.google.gson.stream/class/JsonScope/field/EMPTY_OBJECT:
+  digest: sha256:a98d8a554cb020af
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonScope.java/package/com.google.gson.stream/class/JsonScope/field/NONEMPTY_ARRAY:
+  digest: sha256:37f1c3c9292a0f42
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonScope.java/package/com.google.gson.stream/class/JsonScope/field/NONEMPTY_DOCUMENT:
+  digest: sha256:4ee9e76c3792a391
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonScope.java/package/com.google.gson.stream/class/JsonScope/field/NONEMPTY_OBJECT:
+  digest: sha256:261e1abc74fdc835
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/haskell/test/Canon/RegistryTest.hs/module/Canon.RegistryTest:
+  digest: sha256:936522bab634a4ec
+  verdict: pending
+decision/haskell/test/Canon/RegistryTest.hs/module/Canon.RegistryTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

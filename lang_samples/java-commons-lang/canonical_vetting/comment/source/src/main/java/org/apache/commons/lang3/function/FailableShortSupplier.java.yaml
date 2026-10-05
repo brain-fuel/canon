@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableShortSupplier.java/package/org.apache.commons.lang3.function/interface/FailableShortSupplier:
+  digest: sha256:89906a4d7a31161e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableShortSupplier.java/package/org.apache.commons.lang3.function/interface/FailableShortSupplier/method/getAsShort:
+  digest: sha256:ca952a12c6df76f1
+  verdict: pending

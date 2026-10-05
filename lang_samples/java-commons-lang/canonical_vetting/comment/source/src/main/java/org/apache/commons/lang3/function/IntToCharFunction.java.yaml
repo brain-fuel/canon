@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/IntToCharFunction.java/package/org.apache.commons.lang3.function/interface/IntToCharFunction:
+  digest: sha256:89416ec091fdb836
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/IntToCharFunction.java/package/org.apache.commons.lang3.function/interface/IntToCharFunction/method/applyAsChar:
+  digest: sha256:d9a6e6417e2904ea
+  verdict: pending

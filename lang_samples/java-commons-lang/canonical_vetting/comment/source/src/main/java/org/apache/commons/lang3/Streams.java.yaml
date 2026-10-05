@@ -1,0 +1,60 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams:
+  digest: sha256:c3e068416e166f3a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/ArrayCollector:
+  digest: sha256:d8f4567411305ae0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/ArrayCollector/constructor/ArrayCollector:
+  digest: sha256:eec692e1d324854b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream:
+  digest: sha256:8749b01024f86399
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/constructor/FailableStream:
+  digest: sha256:4be7e13bc2ee0806
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/allMatch:
+  digest: sha256:b1c77ba460590764
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/anyMatch:
+  digest: sha256:d7aa3bfc77dd31f4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/assertNotTerminated:
+  digest: sha256:0f9c13bb187f8f57
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/collect:
+  digest: sha256:507eef014a667a87
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/collect#2:
+  digest: sha256:7e85981b18cb15e5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/filter:
+  digest: sha256:fdb65149674ccaca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/forEach:
+  digest: sha256:c1aec763cb0f291f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/makeTerminated:
+  digest: sha256:46e9849d67530910
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/map:
+  digest: sha256:a6e831cfad5e7db2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/reduce:
+  digest: sha256:da8f4bdf23638688
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/class/FailableStream/method/stream:
+  digest: sha256:b59e38ba8d40590b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/constructor/Streams:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/method/stream:
+  digest: sha256:68e3a427eaa4174f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/method/stream#2:
+  digest: sha256:d6ac0aba1b8419bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Streams.java/package/org.apache.commons.lang3/class/Streams/method/toArray:
+  digest: sha256:dc85a1863eee9c3c
+  verdict: pending

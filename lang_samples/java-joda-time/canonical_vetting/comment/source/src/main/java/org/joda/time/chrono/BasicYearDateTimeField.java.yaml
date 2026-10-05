@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/joda/time/chrono/BasicYearDateTimeField.java/package/org.joda.time.chrono/class/BasicYearDateTimeField:
+  digest: sha256:3c78a378014ccd4c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicYearDateTimeField.java/package/org.joda.time.chrono/class/BasicYearDateTimeField/constructor/BasicYearDateTimeField:
+  digest: sha256:d37c46f418b3ed97
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicYearDateTimeField.java/package/org.joda.time.chrono/class/BasicYearDateTimeField/field/iChronology:
+  digest: sha256:4d007f6558a1dccc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicYearDateTimeField.java/package/org.joda.time.chrono/class/BasicYearDateTimeField/field/serialVersionUID:
+  digest: sha256:fcdf71a4d7975811
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicYearDateTimeField.java/package/org.joda.time.chrono/class/BasicYearDateTimeField/method/readResolve:
+  digest: sha256:b94ab54735a4fc8f
+  verdict: pending

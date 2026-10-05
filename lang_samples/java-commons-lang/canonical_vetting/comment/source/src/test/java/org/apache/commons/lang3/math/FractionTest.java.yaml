@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/math/FractionTest.java/package/org.apache.commons.lang3.math/class/FractionTest:
+  digest: sha256:495c82b22f42741b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/FractionTest.java/package/org.apache.commons.lang3.math/class/FractionTest/method/testFactory_String_unrepresentableThrowsNumberFormatException:
+  digest: sha256:4d90acb8f46747ea
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/math/FractionTest.java/package/org.apache.commons.lang3.math/class/FractionTest/method/testHashCodeNotEquals:
+  digest: sha256:8b8788570bb602ac
+  verdict: pending

@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/joda/time/chrono/BasicDayOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicDayOfYearDateTimeField:
+  digest: sha256:f72910bf809024c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicDayOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicDayOfYearDateTimeField/constructor/BasicDayOfYearDateTimeField:
+  digest: sha256:37f6fb73f9f40ed8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicDayOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicDayOfYearDateTimeField/method/get:
+  digest: sha256:ee6d827e12577c99
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicDayOfYearDateTimeField.java/package/org.joda.time.chrono/class/BasicDayOfYearDateTimeField/method/readResolve:
+  digest: sha256:b94ab54735a4fc8f
+  verdict: pending

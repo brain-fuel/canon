@@ -114,3 +114,11 @@ REQ-gleam-support:
   kind: requirement
   title: canon reads Gleam, parsing every Gleam module, taking functions, types, constructors, labelled fields, and constants as units, requiring a comment on public functions, types, and constants, binding /// to the item below its attributes and //// to the file, and recognising gleeunit test functions by their _test suffix
   locator: README.md
+rices-tax:
+  kind: discussion
+  title: Rice's Tax, the review tool over canon's vetting and wavelet's mutation review
+  locator: ../rices-tax/README.md
+diataxis:
+  kind: article
+  title: Diátaxis, a systematic approach to technical documentation authoring
+  locator: https://diataxis.fr

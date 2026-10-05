@@ -49,7 +49,8 @@ data HookEffect
 -- handler.
 data LexerHooks s = LexerHooks
   { hooksInitial :: s
-  , hooksOnAction :: Name -> ActionText -> Text -> s -> (s, [HookEffect])
+  , hooksOnAction :: Name -> ActionText -> Text -> Text -> s -> (s, [HookEffect])
+  , hooksOnPredicate :: Name -> ActionText -> Text -> Int -> s -> Bool
   , hooksOnEmit :: Token -> s -> ([Token], s)
   }
 
@@ -58,7 +59,7 @@ data SomeHooks = forall s. SomeHooks (LexerHooks s)
 
 -- | The hooks for a grammar with no base lexer, which do nothing.
 noHooks :: LexerHooks ()
-noHooks = LexerHooks () (\_ _ _ s -> (s, [])) (\t s -> ([t], s))
+noHooks = LexerHooks () (\_ _ _ _ s -> (s, [])) (\_ _ _ _ _ -> True) (\t s -> ([t], s))
 
 -- | Lexing fails at a position when no rule matches, and that position is what a user sees.
 data LexError
@@ -104,6 +105,7 @@ data CompiledElement
   = CompiledAtomElement CompiledAtom (Maybe EbnfSuffix)
   | CompiledBlock [[CompiledElement]] (Maybe EbnfSuffix)
   | CompiledAction
+  | CompiledPredicate ActionText
 
 data CompiledAlternative = CompiledAlternative
   { compiledElements :: [CompiledElement]
@@ -168,11 +170,12 @@ compileRule ci indexOf rule =
       CompiledAlternative
         (map compileElement (lexerAlternativeElements alt))
         (lexerAlternativeCommands alt)
-        [t | LexerElementAction _ _ t <- alternativeElementsDeep alt]
+        [t | LexerElementAction _ EmbeddedAction t <- alternativeElementsDeep alt]
     compileElement e = case e of
       LexerElementAtom _ atom suffix -> CompiledAtomElement (compileAtom atom) suffix
       LexerElementBlock _ alts suffix -> CompiledBlock [map compileElement (lexerAlternativeElements a) | a <- toList alts] suffix
-      LexerElementAction {} -> CompiledAction
+      LexerElementAction _ SemanticPredicate t -> CompiledPredicate t
+      LexerElementAction _ EmbeddedAction _ -> CompiledAction
     compileAtom atom = case atom of
       LexerAtomTerminal (TerminalLiteral lit _) -> CompiledLiteral (V.fromList (T.unpack (decodedText lit)))
       LexerAtomTerminal (TerminalToken name _)
@@ -216,7 +219,7 @@ charSetPredicate cs = case decodeCharSet cs of
 
 -- | A Unicode property class in a character set, by general category or by the few named
 -- properties the grammars-v4 lexers use, so a grammar written for identifiers in any script, such
--- as Rust's, lexes as its author meant. ref:DEC-rust-grammar
+-- as Rust's or Kotlin's, lexes as its author meant. ref:DEC-rust-grammar ref:DEC-more-languages
 propertyMatches :: Text -> Char -> Bool
 propertyMatches name c = case name of
   "L" -> cat `elem` [UppercaseLetter, LowercaseLetter, TitlecaseLetter, ModifierLetter, OtherLetter]
@@ -289,6 +292,7 @@ startPredicate rules index = case startOfRule Set.empty index of
       _ -> False
     startOfElement visited e = case e of
       CompiledAction -> Just (Set.empty, True)
+      CompiledPredicate _ -> Just (Set.empty, True)
       CompiledBlock alts _ -> unionAlternatives (map (startOfElements visited) alts)
       CompiledAtomElement atom _ -> case atom of
         CompiledLiteral t -> case V.toList (V.take 1 t) of
@@ -300,10 +304,13 @@ startPredicate rules index = case startOfRule Set.empty index of
         CompiledNotSet _ -> Nothing
         CompiledFail -> Just (Set.empty, False)
 
+-- | A semantic predicate is decided where it sits in the rule, by the position reached, so a
+-- predicate inside one alternative of a block gates only that alternative, as in ANTLR.
 data Env = Env
   { envInput :: V.Vector Char
   , envRules :: BV.Vector CompiledRule
   , envCaseInsensitive :: Bool
+  , envPredicate :: ActionText -> Int -> Bool
   }
 
 type Match = Int -> (Int -> [Int]) -> [Int]
@@ -322,6 +329,7 @@ matchElement env e = case e of
   CompiledAtomElement atom suffix -> withSuffix suffix (matchAtom env atom)
   CompiledBlock alts suffix -> withSuffix suffix (\p k -> concatMatches [matchElements env a p k | a <- alts])
   CompiledAction -> \p k -> k p
+  CompiledPredicate t -> \p k -> if envPredicate env t p then k p else []
 
 -- | Applies an EBNF suffix to a match. A greedy loop lists the shorter end first: the caller takes
 -- the longest match, so the order of ends does not matter, and appending the deeper ends last keeps
@@ -416,7 +424,7 @@ tokenizeWith :: LexerHooks s -> LexerTable -> Text -> Either LexError [Token]
 tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksInitial hooks))
   where
     input = V.fromList (T.unpack source)
-    env = Env input (tableRules table) (tableCaseInsensitive table)
+    env = Env input (tableRules table) (tableCaseInsensitive table) (\_ _ -> True)
     lines' = lineTable source
     n = V.length input
 
@@ -435,13 +443,15 @@ tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksIni
                 , let rule = tableRules table BV.! index
                 , not (compiledFragment rule)
                 , compiledCanStart rule current
-                , (e, i) <- matchRuleAlternatives env rule p
+                , (e, i) <- matchRuleAlternatives (envFor st rule p) rule p
                 ]
           case longest candidates of
             Nothing -> Left (LexNoMatch (positionAt lines' p) mode)
-            Just (e, altIndex, rule)
-              | e == p -> Left (LexEmptyMatch (positionAt lines' p) (compiledName rule))
-              | otherwise -> emit st rule altIndex e
+            Just (e, altIndex, rule) -> emit st rule altIndex e
+
+    -- A semantic predicate is asked of the hooks, which know the base lexer's state, with the text
+    -- matched up to the predicate; a grammar without hooks has every predicate hold, as before.
+    envFor st rule s = env {envPredicate = \predicate q -> hooksOnPredicate hooks (compiledName rule) predicate (T.pack (V.toList (V.slice s (q - s) input))) s (stateHooks st)}
 
     longest candidates = foldl' better Nothing candidates
       where
@@ -455,10 +465,16 @@ tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksIni
       let alternative = compiledAlternatives rule !! altIndex
           start = fromMaybe (stateOffset st) (stateMoreStart st)
           matched = T.pack (V.toList (V.slice start (end - start) input))
+          lookahead = T.pack (V.toList (V.slice end (min 2 (n - end)) input))
           (hookState, actionEffects) = foldl' runAction (stateHooks st, []) (compiledActions alternative)
-          runAction (s, effects) text = let (s', more) = hooksOnAction hooks (compiledName rule) text matched s in (s', effects ++ more)
+          runAction (s, effects) text = let (s', more) = hooksOnAction hooks (compiledName rule) text matched lookahead s in (s', effects ++ more)
       commandEffects <- mapM (commandEffect (compiledName rule)) (compiledCommands alternative)
       applied <- applyEffects (positionAt lines' (stateOffset st)) (actionEffects ++ commandEffects) (Applied (compiledName rule) defaultChannelName False False (stateModes st))
+      -- An empty match is progress only if it changes mode, as Go's grammar relies on; otherwise
+      -- it would repeat forever.
+      if end == stateOffset st && appliedModes applied == stateModes st
+        then Left (LexEmptyMatch (positionAt lines' (stateOffset st)) (compiledName rule))
+        else Right ()
       let text = T.pack (V.toList (V.slice start (end - start) input))
           token = mkToken lines' input (appliedType applied) start end (appliedChannel applied)
           next more = LexState end (appliedModes applied) more

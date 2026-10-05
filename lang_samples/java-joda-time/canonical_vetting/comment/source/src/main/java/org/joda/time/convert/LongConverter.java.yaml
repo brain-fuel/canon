@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/joda/time/convert/LongConverter.java/package/org.joda.time.convert/class/LongConverter:
+  digest: sha256:eb23e4a05a0edd74
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/LongConverter.java/package/org.joda.time.convert/class/LongConverter/constructor/LongConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/LongConverter.java/package/org.joda.time.convert/class/LongConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/LongConverter.java/package/org.joda.time.convert/class/LongConverter/method/getDurationMillis:
+  digest: sha256:1e81e7badf7445d8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/LongConverter.java/package/org.joda.time.convert/class/LongConverter/method/getInstantMillis:
+  digest: sha256:bd5f36b57ceaa9e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/LongConverter.java/package/org.joda.time.convert/class/LongConverter/method/getSupportedType:
+  digest: sha256:c4d1bd8abf7f6b82
+  verdict: pending

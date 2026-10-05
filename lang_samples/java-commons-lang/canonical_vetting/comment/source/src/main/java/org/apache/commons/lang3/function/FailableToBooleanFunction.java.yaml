@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToBooleanFunction.java/package/org.apache.commons.lang3.function/interface/FailableToBooleanFunction:
+  digest: sha256:bbb03e7d3372f101
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToBooleanFunction.java/package/org.apache.commons.lang3.function/interface/FailableToBooleanFunction/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToBooleanFunction.java/package/org.apache.commons.lang3.function/interface/FailableToBooleanFunction/method/applyAsBoolean:
+  digest: sha256:3fd5363300da2d5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToBooleanFunction.java/package/org.apache.commons.lang3.function/interface/FailableToBooleanFunction/method/nop:
+  digest: sha256:8d484cdfeb72c987
+  verdict: pending

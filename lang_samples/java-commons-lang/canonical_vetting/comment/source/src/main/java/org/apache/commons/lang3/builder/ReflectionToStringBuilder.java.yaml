@@ -1,0 +1,126 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder:
+  digest: sha256:a71d5d1db0ecbdb2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/constructor/ReflectionToStringBuilder:
+  digest: sha256:44bd878b6ef8cf7f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/constructor/ReflectionToStringBuilder#2:
+  digest: sha256:38efa183dcdc1894
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/constructor/ReflectionToStringBuilder#3:
+  digest: sha256:fc74de5244c24372
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/constructor/ReflectionToStringBuilder#4:
+  digest: sha256:56cd67eed455b209
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/constructor/ReflectionToStringBuilder#5:
+  digest: sha256:bffd76c94718972e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/field/appendStatics:
+  digest: sha256:17628a49b0206574
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/field/appendTransients:
+  digest: sha256:dee953fac349f63f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/field/excludeFieldNames:
+  digest: sha256:44042ae00ad6b64c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/field/excludeNullValues:
+  digest: sha256:4cadf3684cd4e07e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/field/includeFieldNames:
+  digest: sha256:433201a5679e57bd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/field/upToClass:
+  digest: sha256:84aa4dfaa34b73b7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/accept:
+  digest: sha256:2ec2c3d17ce8f02a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/appendFieldsIn:
+  digest: sha256:785f58b23601bcf9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/getExcludeFieldNames:
+  digest: sha256:3f0207dd43f1d310
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/getIncludeFieldNames:
+  digest: sha256:c97c848bdf367e8f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/getUpToClass:
+  digest: sha256:30d6f2982f5b7cad
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/getValue:
+  digest: sha256:cd28870c7337ca10
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/isAppendStatics:
+  digest: sha256:c071ae69513169a1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/isAppendTransients:
+  digest: sha256:dc2ebca9cbf8f3a0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/isExcludeNullValues:
+  digest: sha256:d92c27dc9696c6e1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/reflectionAppendArray:
+  digest: sha256:51b1b913231bed08
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/setAppendStatics:
+  digest: sha256:5d5f2c3e5980e876
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/setAppendTransients:
+  digest: sha256:7c018170b465edc9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/setExcludeFieldNames:
+  digest: sha256:9d52f6fdc7b2c087
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/setExcludeNullValues:
+  digest: sha256:bc7dcfab66e6fd5e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/setIncludeFieldNames:
+  digest: sha256:07e6e4fdcf0b05e8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/setUpToClass:
+  digest: sha256:9c901cf7258d6517
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toNoNullStringArray:
+  digest: sha256:c7f15614bf962c0b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toNoNullStringArray#2:
+  digest: sha256:fee6fc9845bbbe5b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toString:
+  digest: sha256:c2f18b6d7db07b9a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toString#2:
+  digest: sha256:8f5d52b0039f1620
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toString#3:
+  digest: sha256:71dcad23e4b001cf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toString#4:
+  digest: sha256:831f227b67d1fd06
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toString#5:
+  digest: sha256:d2909690d0b0de21
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toString#6:
+  digest: sha256:74933fb9363a5122
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toString#7:
+  digest: sha256:18c7084962b9a7c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toStringExclude:
+  digest: sha256:2a8abc5aedd602ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toStringExclude#2:
+  digest: sha256:b179c0c4530604f5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toStringInclude:
+  digest: sha256:b792906380a303f9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/toStringInclude#2:
+  digest: sha256:eeffcd92210aa362
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java/package/org.apache.commons.lang3.builder/class/ReflectionToStringBuilder/method/validate:
+  digest: sha256:982ae5277519d7ae
+  verdict: pending

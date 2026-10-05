@@ -1,0 +1,33 @@
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions:
+  digest: sha256:a0860f24a55089b8
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/data/DecisionEntry:
+  digest: sha256:698fd9ff64d6dc95
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/data/DecisionStatus:
+  digest: sha256:fc87fccab93b6184
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/data/LedgerError:
+  digest: sha256:227a8d401e3dd132
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/function/defaultLedgerFileName:
+  digest: sha256:1f6161bf368b4001
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/function/emptyLedger:
+  digest: sha256:170d2f2f26ce6329
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/function/lookupDecision:
+  digest: sha256:ac9e804c25e4d6ed
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/function/readLedgerFile:
+  digest: sha256:2e3d55914841e253
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/function/renderLedgerError:
+  digest: sha256:973abb783fd45619
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/function/statusText:
+  digest: sha256:9ad42ad2a85ae2f4
+  verdict: pending
+decision/haskell/src/Canon/Decisions.hs/module/Canon.Decisions/newtype/Ledger:
+  digest: sha256:a2f9242b94cc4467
+  verdict: pending

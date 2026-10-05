@@ -1,0 +1,108 @@
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket:
+  digest: sha256:eea05c95a9526e95
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/class/SavedField/method/compareTo:
+  digest: sha256:c35d98d3cff1a069
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/constructor/DateTimeParserBucket:
+  digest: sha256:df2b225a3c807d13
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/constructor/DateTimeParserBucket#2:
+  digest: sha256:1542e6104827dfce
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/constructor/DateTimeParserBucket#3:
+  digest: sha256:2789063bacfb0179
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/field/iChrono:
+  digest: sha256:1a14a6dd977c8b2b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/field/iDefaultPivotYear:
+  digest: sha256:836011d744dbbd7e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/field/iDefaultYear:
+  digest: sha256:3b593ab8ba1a6cdb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/field/iDefaultZone:
+  digest: sha256:e3eab66101be4ad0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/field/iLocale:
+  digest: sha256:ad23820f463b5f55
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/field/iMillis:
+  digest: sha256:349021c9f4e1fe90
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/field/iOffset:
+  digest: sha256:000051d646ad6ab9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/field/iPivotYear:
+  digest: sha256:1357d5b107deb7c9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/field/iZone:
+  digest: sha256:9f713d5d86725753
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/computeMillis:
+  digest: sha256:591e3daaf9711202
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/computeMillis#2:
+  digest: sha256:34e81d126fe0a4fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/computeMillis#3:
+  digest: sha256:21fd5b7a7a32a826
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/computeMillis#4:
+  digest: sha256:6df2036982e52cfb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/getChronology:
+  digest: sha256:67412091b2c186ab
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/getLocale:
+  digest: sha256:6bb9a740c6b60b1a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/getOffset:
+  digest: sha256:28ef6f62413fbf11
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/getOffsetInteger:
+  digest: sha256:7df69cf1bb1cdf89
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/getPivotYear:
+  digest: sha256:35478ce76f7555b8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/getZone:
+  digest: sha256:f71c7677e84c6f5e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/parseMillis:
+  digest: sha256:cf12c71d2871416d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/reset:
+  digest: sha256:9b10636305da9153
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/restoreState:
+  digest: sha256:cec88d9724b58160
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/saveField:
+  digest: sha256:ce5445d651d83754
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/saveField#2:
+  digest: sha256:7ff0f783dbf781b1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/saveField#3:
+  digest: sha256:7e256459afc3215d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/saveState:
+  digest: sha256:2273b5e91491ff90
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/setOffset:
+  digest: sha256:a43c213454d8329f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/setOffset#2:
+  digest: sha256:8e91e2c5fba3ed9a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/setPivotYear:
+  digest: sha256:98948d6aa35537f1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/setZone:
+  digest: sha256:fdfb42f0e4d3cd9c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/DateTimeParserBucket.java/package/org.joda.time.format/class/DateTimeParserBucket/method/sort:
+  digest: sha256:6f953eb50f6bbea4
+  verdict: pending

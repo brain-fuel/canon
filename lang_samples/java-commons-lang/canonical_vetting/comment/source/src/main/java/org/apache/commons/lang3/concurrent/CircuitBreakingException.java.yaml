@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreakingException.java/package/org.apache.commons.lang3.concurrent/class/CircuitBreakingException:
+  digest: sha256:9acb1a1b1e9e9859
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreakingException.java/package/org.apache.commons.lang3.concurrent/class/CircuitBreakingException/constructor/CircuitBreakingException:
+  digest: sha256:33c3547aba5860b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreakingException.java/package/org.apache.commons.lang3.concurrent/class/CircuitBreakingException/constructor/CircuitBreakingException#2:
+  digest: sha256:26e4661e818c8c4c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreakingException.java/package/org.apache.commons.lang3.concurrent/class/CircuitBreakingException/constructor/CircuitBreakingException#3:
+  digest: sha256:df38f65eb4a1966f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreakingException.java/package/org.apache.commons.lang3.concurrent/class/CircuitBreakingException/constructor/CircuitBreakingException#4:
+  digest: sha256:42a1f123b6950d0a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreakingException.java/package/org.apache.commons.lang3.concurrent/class/CircuitBreakingException/field/serialVersionUID:
+  digest: sha256:129e4726adab416d
+  verdict: pending

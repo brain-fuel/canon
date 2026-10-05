@@ -1,0 +1,18 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/RuntimeTypeAdapterFactoryFunctionalTest.java/package/com.google.gson.functional/class/RuntimeTypeAdapterFactoryFunctionalTest:
+  digest: sha256:e1055206a6846119
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/RuntimeTypeAdapterFactoryFunctionalTest.java/package/com.google.gson.functional/class/RuntimeTypeAdapterFactoryFunctionalTest/class/RuntimeTypeAdapterFactory/method/of:
+  digest: sha256:497ba81e476ec62b
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/RuntimeTypeAdapterFactoryFunctionalTest.java/package/com.google.gson.functional/class/RuntimeTypeAdapterFactoryFunctionalTest/class/RuntimeTypeAdapterFactory/method/of#2:
+  digest: sha256:de05558873c5f8cf
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/RuntimeTypeAdapterFactoryFunctionalTest.java/package/com.google.gson.functional/class/RuntimeTypeAdapterFactoryFunctionalTest/class/RuntimeTypeAdapterFactory/method/registerSubtype:
+  digest: sha256:0b98adc3be986d9e
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/RuntimeTypeAdapterFactoryFunctionalTest.java/package/com.google.gson.functional/class/RuntimeTypeAdapterFactoryFunctionalTest/class/RuntimeTypeAdapterFactory/method/registerSubtype#2:
+  digest: sha256:1fcb6587f652fcac
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/RuntimeTypeAdapterFactoryFunctionalTest.java/package/com.google.gson.functional/class/RuntimeTypeAdapterFactoryFunctionalTest/method/testSubclassesAutomaticallySerialized:
+  digest: sha256:82415c65be8ce879
+  verdict: pending

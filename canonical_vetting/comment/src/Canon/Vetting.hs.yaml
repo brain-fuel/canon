@@ -1,0 +1,99 @@
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting:
+  digest: sha256:7027389ef0e54c65
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/data/Material:
+  digest: sha256:1bd134dc2939ef76
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/data/VettingEntry:
+  digest: sha256:ff233a997631e76d
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/data/VettingError:
+  digest: sha256:79e04c6234f784c2
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/applyAssessments:
+  digest: sha256:b851dde557f66400
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/assess:
+  digest: sha256:99388cbcf1fa5867
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/attention:
+  digest: sha256:f6d08a35c6178e2b
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/commentDigest:
+  digest: sha256:171aae46cca573b0
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/commentFile:
+  digest: sha256:1a8dbdd009bc8a98
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/decisionKey:
+  digest: sha256:8c0f5f412d518d27
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/digestOf:
+  digest: sha256:5d1a0fb8d1d1d7be
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/docFile:
+  digest: sha256:c620be339781b370
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/emptyVetting:
+  digest: sha256:df7ee56099ae17ec
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/fileOf:
+  digest: sha256:99870a878ac0e254
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/ingest:
+  digest: sha256:3630e26d364ca329
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/kindFindings:
+  digest: sha256:032c0b402a51aa6b
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/ledgerDigest:
+  digest: sha256:8f2fb9b9edb2da39
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/ledgerFile:
+  digest: sha256:73c3e65690304c75
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/mapEntries:
+  digest: sha256:8aafa4fea03093e6
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/materialFindings:
+  digest: sha256:159404907be7ddb3
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/materials:
+  digest: sha256:b442be9f1ad9f981
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/orphanVerdictFindings:
+  digest: sha256:6b7d6809810f6dd0
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/readVettingDirectory:
+  digest: sha256:aa94c30639ffddde
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/readVettingFile:
+  digest: sha256:67ed44cd8ab8c106
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/registryDigest:
+  digest: sha256:25c8eb47d4ae8649
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/registryFile:
+  digest: sha256:280ae90c1e718bb0
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/renderVetting:
+  digest: sha256:e1030c8018ca2732
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/renderVettingError:
+  digest: sha256:154598b868c9742e
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/verdictLines:
+  digest: sha256:2161c1ec3d1ce4ba
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/vettingEntries:
+  digest: sha256:c38d128938dd7687
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/vettingFindings:
+  digest: sha256:ca8cba74f714d836
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/function/writeVettingDirectory:
+  digest: sha256:dfa9603d3a0455df
+  verdict: pending
+decision/haskell/src/Canon/Vetting.hs/module/Canon.Vetting/newtype/Vetting:
+  digest: sha256:b821fefaace49f4b
+  verdict: pending

@@ -1,0 +1,414 @@
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer:
+  digest: sha256:fb0945b6e86b4d25
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerMode/DocComment/lexerRule/DOC_CLOSE:
+  digest: sha256:78e83818b803335c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerMode/DocComment/lexerRule/DOC_LICENSE:
+  digest: sha256:0514a8ba60c25181
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerMode/DocComment/lexerRule/DOC_PUNCT:
+  digest: sha256:59520fd8461ccddb
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerMode/DocComment/lexerRule/DOC_REF:
+  digest: sha256:184879afc5dd5fb7
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerMode/DocComment/lexerRule/DOC_STAR:
+  digest: sha256:a74298e8c6536fc2
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerMode/DocComment/lexerRule/DOC_WORD:
+  digest: sha256:9f60c711fd0c495b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerMode/DocComment/lexerRule/DOC_WS:
+  digest: sha256:b6e4ac9a687de8ba
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/ABSTRACT:
+  digest: sha256:f8cdd94ba4bac7c4
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/ADD:
+  digest: sha256:8792ac072e5e7b90
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/ADD_ASSIGN:
+  digest: sha256:ce65d2014bc56c58
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/AND:
+  digest: sha256:1b6d0fa77d1afb53
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/AND_ASSIGN:
+  digest: sha256:eb9bfb9e07f42ea3
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/ARROW:
+  digest: sha256:78b947906135ea35
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/ASSERT:
+  digest: sha256:280bf907099a1fef
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/ASSIGN:
+  digest: sha256:7748b232d8363c70
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/AT:
+  digest: sha256:7f02038b94f42902
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/BANG:
+  digest: sha256:79c935d8255529c2
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/BINARY_LITERAL:
+  digest: sha256:73e0bc0d81f80578
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/BITAND:
+  digest: sha256:9e5e2470a3e8f236
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/BITOR:
+  digest: sha256:9eee43d0a62d4517
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/BOOLEAN:
+  digest: sha256:a59c8625853816da
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/BOOL_LITERAL:
+  digest: sha256:7ce435e897586be1
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/BREAK:
+  digest: sha256:85fdc422885a7ec2
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/BYTE:
+  digest: sha256:54aa548c4ad11792
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/CARET:
+  digest: sha256:569592b44506572a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/CASE:
+  digest: sha256:f37865521ec4d9ed
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/CATCH:
+  digest: sha256:371e8c092f4ad763
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/CHAR:
+  digest: sha256:95dfb420bfe404d8
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/CHAR_LITERAL:
+  digest: sha256:7e200542d0620675
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/CLASS:
+  digest: sha256:5366dd09a93ea5fd
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/COLON:
+  digest: sha256:adad0ef04b7cc113
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/COLONCOLON:
+  digest: sha256:1a50c56ed6427e58
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/COMMA:
+  digest: sha256:57632f113904cf60
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/COMMENT:
+  digest: sha256:74da827e834ef0e6
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/CONST:
+  digest: sha256:33344a607de475c3
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/CONTINUE:
+  digest: sha256:38deadab2efa5cbf
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/DEC:
+  digest: sha256:e57d300a66fedba0
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/DECIMAL_LITERAL:
+  digest: sha256:4480620651856e30
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/DEFAULT:
+  digest: sha256:f4f7cdbb5a1b742a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/DIV:
+  digest: sha256:cebea32c4c161691
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/DIV_ASSIGN:
+  digest: sha256:448ce6b93ed3e501
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/DO:
+  digest: sha256:e81c837eb73a5c62
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/DOC_OPEN:
+  digest: sha256:f5c2b058d8801d68
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/DOT:
+  digest: sha256:5b783dab91bd159b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/DOUBLE:
+  digest: sha256:b67991287378387c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/ELLIPSIS:
+  digest: sha256:30c8090bc7b83568
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/ELSE:
+  digest: sha256:46254dd0647030fa
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/ENUM:
+  digest: sha256:524ff59be0813e9a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/EQUAL:
+  digest: sha256:d4f5e6165ca35ba7
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/EXPORTS:
+  digest: sha256:8de9fe1dd6321939
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/EXTENDS:
+  digest: sha256:859cf1870fe72526
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/FINAL:
+  digest: sha256:cb1ddbc96037b50f
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/FINALLY:
+  digest: sha256:a5a8416e02521d56
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/FLOAT:
+  digest: sha256:1713a3e8005696ee
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/FLOAT_LITERAL:
+  digest: sha256:b925b7c8d41e9c8f
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/FOR:
+  digest: sha256:bad412bb0c9cf1d2
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/GE:
+  digest: sha256:7392b53c6d04fd2b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/GOTO:
+  digest: sha256:e78be7fecaa0599a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/GT:
+  digest: sha256:3e94623acb88fb92
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/HEX_FLOAT_LITERAL:
+  digest: sha256:cdd0f451d17e3173
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/HEX_LITERAL:
+  digest: sha256:7da44e12b72912f5
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/IDENTIFIER:
+  digest: sha256:77035d6da9ee3b99
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/IF:
+  digest: sha256:c070b7ec2e027fcd
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/IMPLEMENTS:
+  digest: sha256:95c5479e2fe7c97e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/IMPORT:
+  digest: sha256:3b31835c59370444
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/INC:
+  digest: sha256:854fd51d4ef2fb9b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/INSTANCEOF:
+  digest: sha256:7547151ccdbaf5a0
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/INT:
+  digest: sha256:0623fea8a517ed08
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/INTERFACE:
+  digest: sha256:8418f0628e13438d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/LBRACE:
+  digest: sha256:453ef468dde21c73
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/LBRACK:
+  digest: sha256:86b465492e0283cf
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/LE:
+  digest: sha256:75855a204bd1eff3
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/LINE_COMMENT:
+  digest: sha256:b453de70761f9ec7
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/LONG:
+  digest: sha256:2201ca8532049633
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/LPAREN:
+  digest: sha256:dd03bdb885e95af1
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/LSHIFT_ASSIGN:
+  digest: sha256:cf6053cc0a4edfef
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/LT:
+  digest: sha256:9f97a11f8b43608e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/MOD:
+  digest: sha256:58e368bb5a65adc7
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/MODULE:
+  digest: sha256:be9d5b67fed12ff4
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/MOD_ASSIGN:
+  digest: sha256:6ca4792d79087324
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/MUL:
+  digest: sha256:7862a018bac575ff
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/MUL_ASSIGN:
+  digest: sha256:025b3f415406ea87
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/NATIVE:
+  digest: sha256:47a4e95cc08530b7
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/NEW:
+  digest: sha256:d493c6cd8b523a9b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/NON_SEALED:
+  digest: sha256:ba68a83a8525b89c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/NOTEQUAL:
+  digest: sha256:6cb41dc70a5a759b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/NULL_LITERAL:
+  digest: sha256:08a5273419d6e410
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/OCT_LITERAL:
+  digest: sha256:a702523b9f462b7e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/OPEN:
+  digest: sha256:132d3fcf97f0559c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/OPENS:
+  digest: sha256:ac65699f8d8f0bc4
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/OR:
+  digest: sha256:21215182f7dc211a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/OR_ASSIGN:
+  digest: sha256:2e210bbdedc45559
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/PACKAGE:
+  digest: sha256:faf3b974310b3624
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/PERMITS:
+  digest: sha256:6783bfa803dfbc91
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/PRIVATE:
+  digest: sha256:aad949be6f608f1e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/PROTECTED:
+  digest: sha256:39674f00c37dc454
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/PROVIDES:
+  digest: sha256:93d217231d558a3a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/PUBLIC:
+  digest: sha256:93e13afccfc38ca5
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/QUESTION:
+  digest: sha256:8e91486d7724b92d
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/RBRACE:
+  digest: sha256:ac7c9b705ff75355
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/RBRACK:
+  digest: sha256:749911bbd9de16da
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/RECORD:
+  digest: sha256:33c9f37bf8a5ca7b
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/REQUIRES:
+  digest: sha256:892da349dd7e47ea
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/RETURN:
+  digest: sha256:7df1fd4f2788b66a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/RPAREN:
+  digest: sha256:e341f1a3200c019e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/RSHIFT_ASSIGN:
+  digest: sha256:fbea4d9ef6db926a
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/SEALED:
+  digest: sha256:0f5c10f7bbec8b79
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/SEMI:
+  digest: sha256:8b3744b7fb04497f
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/SHORT:
+  digest: sha256:742a87c023239622
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/STATIC:
+  digest: sha256:f65302b40d8cd144
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/STRICTFP:
+  digest: sha256:5cffdc99db04bd86
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/STRING_LITERAL:
+  digest: sha256:f4b7d884d2acdede
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/SUB:
+  digest: sha256:7c73e568d368d928
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/SUB_ASSIGN:
+  digest: sha256:7e419c2f58c2779e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/SUPER:
+  digest: sha256:a63756d8ed47cc70
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/SWITCH:
+  digest: sha256:994b935b8f869847
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/SYNCHRONIZED:
+  digest: sha256:5296fe939daad350
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/TEXT_BLOCK:
+  digest: sha256:4cb3cdaccaeef5f1
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/THIS:
+  digest: sha256:619bc6118021cd90
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/THROW:
+  digest: sha256:305149008dc6fc14
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/THROWS:
+  digest: sha256:e0c96a07b02f6c11
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/TILDE:
+  digest: sha256:0ea8bc4e2c0f255f
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/TO:
+  digest: sha256:85f525d65494c1a4
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/TRANSIENT:
+  digest: sha256:82686cf45b3f8977
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/TRANSITIVE:
+  digest: sha256:a4d4fe07c3d12916
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/TRY:
+  digest: sha256:06350aed9bff64a6
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/URSHIFT_ASSIGN:
+  digest: sha256:d7913db188bdacf4
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/USES:
+  digest: sha256:9ce630c3c2c4f048
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/VAR:
+  digest: sha256:bc58f4d12d1582d2
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/VOID:
+  digest: sha256:5b89bdca8ee57214
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/VOLATILE:
+  digest: sha256:a4ca79191776845c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/WHEN:
+  digest: sha256:05a5b09ee3480488
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/WHILE:
+  digest: sha256:d0edf5fc41ed46d0
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/WITH:
+  digest: sha256:b3a5bb2fe9870cf3
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/WS:
+  digest: sha256:d642c24be9fa410e
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/XOR_ASSIGN:
+  digest: sha256:fa22e901a288044c
+  verdict: pending
+decision/antlr4/grammars/java/canonically_commented/JavaLexer.g4/grammarDefinition/JavaLexer/lexerRule/YIELD:
+  digest: sha256:c3dfc797c72b1a3a
+  verdict: pending

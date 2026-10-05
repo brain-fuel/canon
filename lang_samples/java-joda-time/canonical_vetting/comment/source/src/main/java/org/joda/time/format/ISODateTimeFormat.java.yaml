@@ -1,0 +1,180 @@
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat:
+  digest: sha256:2ec1fa5656601ac6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/constructor/ISODateTimeFormat:
+  digest: sha256:de9d9ab65129fcb4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/appendSeparator:
+  digest: sha256:04e992c06dfa53b1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicDate:
+  digest: sha256:6098be4e00fc0c91
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicDateTime:
+  digest: sha256:c524b08bc00a90c4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicDateTimeNoMillis:
+  digest: sha256:477ae784b1bf094c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicOrdinalDate:
+  digest: sha256:69d9c1bfe5253dee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicOrdinalDateTime:
+  digest: sha256:1851882737aa5bc4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicOrdinalDateTimeNoMillis:
+  digest: sha256:45d7597b97118812
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicTTime:
+  digest: sha256:769fc6206094391c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicTTimeNoMillis:
+  digest: sha256:4f78aff39931fef9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicTime:
+  digest: sha256:486fa1b5abf508c4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicTimeNoMillis:
+  digest: sha256:e3891704de0c7a25
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicWeekDate:
+  digest: sha256:ccfa3bcbcf70c563
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicWeekDateTime:
+  digest: sha256:d2a9779a69d20c4d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/basicWeekDateTimeNoMillis:
+  digest: sha256:bfc10df48fcf8717
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/checkNotStrictISO:
+  digest: sha256:c6ef6b288a92837d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/date:
+  digest: sha256:fd8d0968e76baf1f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateByMonth:
+  digest: sha256:eed37abb478b8b82
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateByOrdinal:
+  digest: sha256:b23acd05ffb42d33
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateByWeek:
+  digest: sha256:d1c8809e489fbdfc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateElementParser:
+  digest: sha256:c14e0fad6fe416ac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateHour:
+  digest: sha256:9b3d2bc44aa84389
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateHourMinute:
+  digest: sha256:2b48d6bf6ff1738b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateHourMinuteSecond:
+  digest: sha256:85b13b53ae04e296
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateHourMinuteSecondFraction:
+  digest: sha256:753e7288fe884401
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateHourMinuteSecondMillis:
+  digest: sha256:85535963c03158ea
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateOptionalTimeParser:
+  digest: sha256:af042e047135a868
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateParser:
+  digest: sha256:3b76a7c27532ed9b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateTime:
+  digest: sha256:720e998ca6fc202d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateTimeNoMillis:
+  digest: sha256:b96950c722c8edb0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/dateTimeParser:
+  digest: sha256:5d933550d353cce3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/forFields:
+  digest: sha256:4fc6af0d1078724f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/hour:
+  digest: sha256:60b6f75d3003cc54
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/hourMinute:
+  digest: sha256:f763c67e65ef7373
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/hourMinuteSecond:
+  digest: sha256:22988576b166a390
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/hourMinuteSecondFraction:
+  digest: sha256:f6234953792750d1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/hourMinuteSecondMillis:
+  digest: sha256:6d8d653cf4df94eb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/localDateOptionalTimeParser:
+  digest: sha256:d794e4acdb730269
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/localDateParser:
+  digest: sha256:86811354cbfc3d45
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/localTimeParser:
+  digest: sha256:8c2d9a3e3d0c5404
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/ordinalDate:
+  digest: sha256:0145ab549c18dc27
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/ordinalDateTime:
+  digest: sha256:1dfb11a1a2d5a3a2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/ordinalDateTimeNoMillis:
+  digest: sha256:69e1c538b90a6fc1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/tTime:
+  digest: sha256:45d5582c4eddae31
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/tTimeNoMillis:
+  digest: sha256:4ceab75e5d5daa19
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/time:
+  digest: sha256:06b01d2cb0d5f972
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/time#2:
+  digest: sha256:222e4bb25b169c41
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/timeElementParser:
+  digest: sha256:49f6caee55957dfc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/timeNoMillis:
+  digest: sha256:f322113639a2573a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/timeParser:
+  digest: sha256:20a04bfe4980bab4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/weekDate:
+  digest: sha256:07bb5a46d2ebfbbd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/weekDateTime:
+  digest: sha256:dc1db3f374b15491
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/weekDateTimeNoMillis:
+  digest: sha256:78d772e51ca835fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/weekyear:
+  digest: sha256:a245348c34c5af7f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/weekyearWeek:
+  digest: sha256:67fe713bee99c68f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/weekyearWeekDay:
+  digest: sha256:daf6deaafb9421cb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/year:
+  digest: sha256:4a0f80a9bab8d18d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/yearMonth:
+  digest: sha256:4565e46d5071cca8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISODateTimeFormat.java/package/org.joda.time.format/class/ISODateTimeFormat/method/yearMonthDay:
+  digest: sha256:46d1bdfe57f87dbf
+  verdict: pending

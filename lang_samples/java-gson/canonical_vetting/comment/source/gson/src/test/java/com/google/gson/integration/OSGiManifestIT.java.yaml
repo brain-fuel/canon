@@ -1,0 +1,12 @@
+decision/java/source/gson/src/test/java/com/google/gson/integration/OSGiManifestIT.java/package/com.google.gson.integration/class/OSGiManifestIT:
+  digest: sha256:af410f3559e869e2
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/integration/OSGiManifestIT.java/package/com.google.gson.integration/class/OSGiManifestIT/method/increaseVersionNumber:
+  digest: sha256:7284cfe26998bc6f
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/integration/OSGiManifestIT.java/package/com.google.gson.integration/class/OSGiManifestIT/method/shortenVersionNumber:
+  digest: sha256:a59e3a99f24fa1ee
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/integration/OSGiManifestIT.java/package/com.google.gson.integration/class/OSGiManifestIT/method/splitPackages:
+  digest: sha256:3c668d0e460b60aa
+  verdict: pending

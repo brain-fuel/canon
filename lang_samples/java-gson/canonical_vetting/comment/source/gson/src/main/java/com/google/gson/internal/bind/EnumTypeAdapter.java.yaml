@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/EnumTypeAdapter.java/package/com.google.gson.internal.bind/class/EnumTypeAdapter:
+  digest: sha256:f60a429ee224a7b2
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/EnumTypeAdapter.java/package/com.google.gson.internal.bind/class/EnumTypeAdapter/method/calculateHashMapCapacity:
+  digest: sha256:277d7636506eeca3
+  verdict: pending

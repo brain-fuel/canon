@@ -1,0 +1,15 @@
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java/package/com.google.gson.typeadapters/class/UtcDateTypeAdapter/method/checkOffset:
+  digest: sha256:56a619ccf4dcb068
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java/package/com.google.gson.typeadapters/class/UtcDateTypeAdapter/method/format:
+  digest: sha256:5cb6f8d652656932
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java/package/com.google.gson.typeadapters/class/UtcDateTypeAdapter/method/padInt:
+  digest: sha256:deaa3dbd2d23bb5e
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java/package/com.google.gson.typeadapters/class/UtcDateTypeAdapter/method/parse:
+  digest: sha256:08aef16538ffb191
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java/package/com.google.gson.typeadapters/class/UtcDateTypeAdapter/method/parseInt:
+  digest: sha256:c8440f1d6a77be62
+  verdict: pending

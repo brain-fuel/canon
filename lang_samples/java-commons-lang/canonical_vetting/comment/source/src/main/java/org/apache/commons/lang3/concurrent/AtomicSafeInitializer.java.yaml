@@ -1,0 +1,36 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer:
+  digest: sha256:59a67b667eb9df68
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/class/Builder:
+  digest: sha256:963532f1eacace6e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/class/Builder/constructor/Builder:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/constructor/AtomicSafeInitializer:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/constructor/AtomicSafeInitializer#2:
+  digest: sha256:f71f05933d5ca6cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/field/factory:
+  digest: sha256:98e751c9416a0b77
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/field/reference:
+  digest: sha256:670bc42a9ea7e299
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/method/builder:
+  digest: sha256:735e462a860af81f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/method/get:
+  digest: sha256:5479b7875a2c432b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/method/getNoInit:
+  digest: sha256:63897de2ef99422a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/method/getTypedException:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializer/method/isInitialized:
+  digest: sha256:7f2f8e08c5f81724
+  verdict: pending

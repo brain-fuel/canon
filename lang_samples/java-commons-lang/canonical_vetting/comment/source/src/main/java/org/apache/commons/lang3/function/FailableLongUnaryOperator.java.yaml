@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableLongUnaryOperator:
+  digest: sha256:9bfeadf051d486d4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableLongUnaryOperator/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableLongUnaryOperator/method/andThen:
+  digest: sha256:c85e36de11f1b02e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableLongUnaryOperator/method/applyAsLong:
+  digest: sha256:7baa353fdfc89207
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableLongUnaryOperator/method/compose:
+  digest: sha256:e1f84ecd004ff455
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableLongUnaryOperator/method/identity:
+  digest: sha256:b2460a1fc84046e2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableLongUnaryOperator/method/nop:
+  digest: sha256:80e2fe1bb96b9053
+  verdict: pending

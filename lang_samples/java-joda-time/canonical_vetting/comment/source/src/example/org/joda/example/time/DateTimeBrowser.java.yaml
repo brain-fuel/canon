@@ -1,0 +1,18 @@
+decision/java/source/src/example/org/joda/example/time/DateTimeBrowser.java/package/org.joda.example.time/class/DateTimeBrowser:
+  digest: sha256:1ec036873ede6a4b
+  verdict: pending
+decision/java/source/src/example/org/joda/example/time/DateTimeBrowser.java/package/org.joda.example.time/class/DateTimeBrowser/field/jmiCal:
+  digest: sha256:d0274398427e0469
+  verdict: pending
+decision/java/source/src/example/org/joda/example/time/DateTimeBrowser.java/package/org.joda.example.time/class/DateTimeBrowser/field/jmiDate:
+  digest: sha256:77836e9c9368bf29
+  verdict: pending
+decision/java/source/src/example/org/joda/example/time/DateTimeBrowser.java/package/org.joda.example.time/class/DateTimeBrowser/field/jmiGetter:
+  digest: sha256:e205d085fac098c3
+  verdict: pending
+decision/java/source/src/example/org/joda/example/time/DateTimeBrowser.java/package/org.joda.example.time/class/DateTimeBrowser/field/jmiHex:
+  digest: sha256:4413398b06ae1882
+  verdict: pending
+decision/java/source/src/example/org/joda/example/time/DateTimeBrowser.java/package/org.joda.example.time/class/DateTimeBrowser/method/main:
+  digest: sha256:dc28fd2cd8b97dea
+  verdict: pending

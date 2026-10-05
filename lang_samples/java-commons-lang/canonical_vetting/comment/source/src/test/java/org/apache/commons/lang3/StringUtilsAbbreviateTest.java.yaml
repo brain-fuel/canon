@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsAbbreviateTest.java/package/org.apache.commons.lang3/class/StringUtilsAbbreviateTest:
+  digest: sha256:23cd3e6e470c1065
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsAbbreviateTest.java/package/org.apache.commons.lang3/class/StringUtilsAbbreviateTest/method/testEmoji:
+  digest: sha256:fa1d8af80922eedb
+  verdict: pending

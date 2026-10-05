@@ -11,8 +11,11 @@ import qualified Canon.Antlr4.VendoredTest
 import qualified Canon.AttachTest
 import qualified Canon.CanonicalCommentTest
 import qualified Canon.DecisionsTest
+import qualified Canon.ExemptionsTest
 import qualified Canon.IgnoreTest
 import qualified Canon.ProjectTest
+import qualified Canon.TangleTest
+import qualified Canon.HighlightTest
 import qualified Canon.Extract.GrammarTest
 import qualified Canon.Extract.RustTest
 import qualified Canon.Extract.CSharpTest
@@ -43,6 +46,7 @@ main =
             , Canon.Antlr4.QueryTest.tests
             , Canon.Antlr4.RuleGraphTest.tests
             , Canon.Model.YamlTest.tests
+            , Canon.ExemptionsTest.tests
             , Canon.RegistryTest.tests, Canon.VettingTest.tests, Canon.TestingTest.tests
             , Canon.Git.ParseTest.tests
             , Canon.CanonicalCommentTest.tests
@@ -52,6 +56,8 @@ main =
             , Canon.DecisionsTest.tests
             , Canon.IgnoreTest.tests
             , Canon.ProjectTest.tests
+            , Canon.TangleTest.tests
+            , Canon.HighlightTest.tests
             ]
         ]
     )

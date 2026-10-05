@@ -1,0 +1,6 @@
+decision/haskell/src/Canon/Git/Fill.hs/module/Canon.Git.Fill:
+  digest: sha256:20c44b8400fe3ef6
+  verdict: pending
+decision/haskell/src/Canon/Git/Fill.hs/module/Canon.Git.Fill/function/fillGitFromBlame:
+  digest: sha256:fb869a1413a37ec7
+  verdict: pending

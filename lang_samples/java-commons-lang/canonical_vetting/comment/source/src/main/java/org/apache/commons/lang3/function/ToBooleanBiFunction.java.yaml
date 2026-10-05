@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/ToBooleanBiFunction.java/package/org.apache.commons.lang3.function/interface/ToBooleanBiFunction:
+  digest: sha256:5436575c6a43e2c6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/ToBooleanBiFunction.java/package/org.apache.commons.lang3.function/interface/ToBooleanBiFunction/method/applyAsBoolean:
+  digest: sha256:5e1fceb6b6d70f34
+  verdict: pending

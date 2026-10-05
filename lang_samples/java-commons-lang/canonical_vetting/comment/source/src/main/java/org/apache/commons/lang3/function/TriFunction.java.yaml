@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/TriFunction.java/package/org.apache.commons.lang3.function/interface/TriFunction:
+  digest: sha256:fb23efffac76a613
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/TriFunction.java/package/org.apache.commons.lang3.function/interface/TriFunction/method/andThen:
+  digest: sha256:5d6fea239520dab3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/TriFunction.java/package/org.apache.commons.lang3.function/interface/TriFunction/method/apply:
+  digest: sha256:c8bb59ab6ae194ed
+  verdict: pending

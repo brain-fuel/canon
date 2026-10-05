@@ -1,0 +1,27 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/RecursiveToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyleTest:
+  digest: sha256:e74dddd80ecad684
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/RecursiveToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyleTest/class/Job/field/title:
+  digest: sha256:44c61e134fc5ab22
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/RecursiveToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyleTest/class/Person/field/age:
+  digest: sha256:16cbe085130b2e37
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/RecursiveToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyleTest/class/Person/field/job:
+  digest: sha256:743ca8beb72a431a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/RecursiveToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyleTest/class/Person/field/name:
+  digest: sha256:44c61e134fc5ab22
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/RecursiveToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyleTest/class/Person/field/smoker:
+  digest: sha256:dffb3f32508ed672
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/RecursiveToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyleTest/method/testMaxOutputLengthTruncates:
+  digest: sha256:aec5c108f2a49f67
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/RecursiveToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyleTest/method/testSharedReferenceDetailedOnce:
+  digest: sha256:57839f04b51ea1a1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/RecursiveToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/RecursiveToStringStyleTest/method/testSharedReferenceDiamondIsLinear:
+  digest: sha256:074ae34c94a3cb31
+  verdict: pending

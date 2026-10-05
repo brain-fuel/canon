@@ -1,0 +1,48 @@
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology:
+  digest: sha256:e0e2c1ccc5524ddd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/constructor/EthiopicChronology:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/field/EE:
+  digest: sha256:9f60490428e7a8dc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/field/ERA_FIELD:
+  digest: sha256:4ad4d27453a8d3e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/field/INSTANCE_UTC:
+  digest: sha256:28b0b1825cd6d482
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/field/MAX_YEAR:
+  digest: sha256:f705db893fc8831f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/field/MIN_YEAR:
+  digest: sha256:6cab2cbec0819e41
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/field/cCache:
+  digest: sha256:d602f4cb50fd1e33
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/method/getInstance:
+  digest: sha256:3879713109f51654
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/method/getInstance#2:
+  digest: sha256:667da0c40678a52a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/method/getInstance#3:
+  digest: sha256:439ce6aff0b5b7c6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/method/getInstanceUTC:
+  digest: sha256:161eea63896fbeff
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/method/readResolve:
+  digest: sha256:553aad01d0579294
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/method/withUTC:
+  digest: sha256:99dcb7f0dee1ffdc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/EthiopicChronology.java/package/org.joda.time.chrono/class/EthiopicChronology/method/withZone:
+  digest: sha256:203c6515a26e0e74
+  verdict: pending

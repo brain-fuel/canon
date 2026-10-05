@@ -1,0 +1,183 @@
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder:
+  digest: sha256:c02a4c25c04f8828
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/Composite:
+  digest: sha256:4290c98a425b01b1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/CompositeAffix:
+  digest: sha256:55924306b0bc02af
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/FieldFormatter:
+  digest: sha256:45607edde7ee8f21
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/FieldFormatter/field/iFieldFormatters:
+  digest: sha256:4756610d052b27ef
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/FieldFormatter/field/iFieldType:
+  digest: sha256:d917fb69a3d94221
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/FieldFormatter/method/getFieldValue:
+  digest: sha256:c7d1381655711fef
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/FieldFormatter/method/parseInt:
+  digest: sha256:525f5210b6e42981
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/IgnorableAffix:
+  digest: sha256:9b77ef1b32ee1131
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/IgnorableAffix/method/matchesOtherAffix:
+  digest: sha256:2f358a7f0e347a25
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/Literal:
+  digest: sha256:1383d21914a407aa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/PluralAffix:
+  digest: sha256:6dd8c0c30f9c5cf4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/RegExAffix:
+  digest: sha256:b131075a717aef0c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/Separator:
+  digest: sha256:c3e4059b665b6787
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/class/SimpleAffix:
+  digest: sha256:9589ec11d372702c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/field/iNotParser:
+  digest: sha256:f8c16ab20dccee22
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/field/iNotPrinter:
+  digest: sha256:4d5b82a47d507085
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/interface/PeriodFieldAffix:
+  digest: sha256:228e090ad7649543
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/interface/PeriodFieldAffix/method/finish:
+  digest: sha256:b7b7d543c619d768
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/interface/PeriodFieldAffix/method/getAffixes:
+  digest: sha256:78503dcb552059c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/interface/PeriodFieldAffix/method/parse:
+  digest: sha256:5b4ca7b663cbb21e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/interface/PeriodFieldAffix/method/scan:
+  digest: sha256:8afd6e93d7abd957
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/append:
+  digest: sha256:a32a30a933f919d5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/append#2:
+  digest: sha256:465239959e4f231d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendDays:
+  digest: sha256:6dd8d89278b20aaa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendHours:
+  digest: sha256:b8c0c5ac385063c7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendLiteral:
+  digest: sha256:92f4f0699204606a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendMillis:
+  digest: sha256:1a8494d7ff051ad6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendMillis3Digit:
+  digest: sha256:2d1839334638cc09
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendMinutes:
+  digest: sha256:e107f96fcf0dd74e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendMonths:
+  digest: sha256:ce9957da91484b3c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendPrefix:
+  digest: sha256:28de0523036636e9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendPrefix#2:
+  digest: sha256:96e49079ff9a9d7a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendPrefix#3:
+  digest: sha256:253638021cc8ff25
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendPrefix#4:
+  digest: sha256:588d222e4433dc93
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSeconds:
+  digest: sha256:39d54a1d1b957e79
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSecondsWithMillis:
+  digest: sha256:df62220d3131a90e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSecondsWithOptionalMillis:
+  digest: sha256:e8956e4d197b5991
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSeparator:
+  digest: sha256:2efb2cb003983385
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSeparator#2:
+  digest: sha256:7015852ddcdf2ef4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSeparator#3:
+  digest: sha256:64a04673806d8153
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSeparatorIfFieldsAfter:
+  digest: sha256:7ce09265e8bda9f8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSeparatorIfFieldsBefore:
+  digest: sha256:ccd0d084c5fef983
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSuffix:
+  digest: sha256:f1c9c024bcb9bd59
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSuffix#2:
+  digest: sha256:1216da8ce397b2e9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSuffix#3:
+  digest: sha256:a83ca823fb6b0703
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendSuffix#4:
+  digest: sha256:d9cbe122bcf23535
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendWeeks:
+  digest: sha256:c56260f60ec7f446
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/appendYears:
+  digest: sha256:c84ff286717ae038
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/clear:
+  digest: sha256:8a1dc67880735079
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/maximumParsedDigits:
+  digest: sha256:f8b97aab424ec229
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/minimumPrintedDigits:
+  digest: sha256:9a1dfec36d1d4c0b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/printZeroAlways:
+  digest: sha256:9f301407d8710b2b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/printZeroIfSupported:
+  digest: sha256:675c1f3f9a877e02
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/printZeroNever:
+  digest: sha256:1bf9797619e2b417
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/printZeroRarelyFirst:
+  digest: sha256:50a74941ebfd9c7f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/printZeroRarelyLast:
+  digest: sha256:1bf9797619e2b417
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/rejectSignedValues:
+  digest: sha256:a6b5ee3362d036c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/toFormatter:
+  digest: sha256:01cec687f30734fd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/toParser:
+  digest: sha256:21f1a09143877864
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodFormatterBuilder.java/package/org.joda.time.format/class/PeriodFormatterBuilder/method/toPrinter:
+  digest: sha256:7977b2491dd73dc5
+  verdict: pending

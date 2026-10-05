@@ -1,0 +1,21 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/JsonToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/JsonToStringStyleTest:
+  digest: sha256:742dee899a8388fb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/JsonToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/JsonToStringStyleTest/class/InnerMapObject:
+  digest: sha256:76934d4479b41444
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/JsonToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/JsonToStringStyleTest/class/InnerMapObject/field/map:
+  digest: sha256:a4ea897a28a66a7e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/JsonToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/JsonToStringStyleTest/class/InnerMapObject/field/pid:
+  digest: sha256:44c61e134fc5ab22
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/JsonToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/JsonToStringStyleTest/class/NestingPerson:
+  digest: sha256:cc86e414d5671cd4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/JsonToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/JsonToStringStyleTest/class/NestingPerson/field/person:
+  digest: sha256:d03faac76371b00f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/JsonToStringStyleTest.java/package/org.apache.commons.lang3.builder/class/JsonToStringStyleTest/class/NestingPerson/field/pid:
+  digest: sha256:44c61e134fc5ab22
+  verdict: pending

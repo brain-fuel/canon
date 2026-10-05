@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/CharSequenceUtilsTest.java/package/org.apache.commons.lang3/class/CharSequenceUtilsTest:
+  digest: sha256:903c6a0b4fae895b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/CharSequenceUtilsTest.java/package/org.apache.commons.lang3/class/CharSequenceUtilsTest/method/testNewIndexOf:
+  digest: sha256:2d5091f708bba5b8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/CharSequenceUtilsTest.java/package/org.apache.commons.lang3/class/CharSequenceUtilsTest/method/testRegionMatchesSupplementaryCaseFold:
+  digest: sha256:68c0771c0c1291f2
+  verdict: pending

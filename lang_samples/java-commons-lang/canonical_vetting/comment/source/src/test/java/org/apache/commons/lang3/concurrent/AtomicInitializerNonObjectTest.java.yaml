@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicInitializerNonObjectTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializerNonObjectTest:
+  digest: sha256:fbc20382485329ae
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicInitializerNonObjectTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicInitializerNonObjectTest/method/createInitializer:
+  digest: sha256:a73e835b5d8a3933
+  verdict: pending

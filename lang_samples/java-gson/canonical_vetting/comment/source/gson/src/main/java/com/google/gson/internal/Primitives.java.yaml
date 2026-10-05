@@ -1,0 +1,15 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/Primitives.java/package/com.google.gson.internal/class/Primitives:
+  digest: sha256:cd678d3f1140dc2a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/Primitives.java/package/com.google.gson.internal/class/Primitives/method/isPrimitive:
+  digest: sha256:ec5cf5128082e5b8
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/Primitives.java/package/com.google.gson.internal/class/Primitives/method/isWrapperType:
+  digest: sha256:8b67f321a227f546
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/Primitives.java/package/com.google.gson.internal/class/Primitives/method/unwrap:
+  digest: sha256:2f3174ea5b004988
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/Primitives.java/package/com.google.gson.internal/class/Primitives/method/wrap:
+  digest: sha256:f8e6ea91f3f3d638
+  verdict: pending

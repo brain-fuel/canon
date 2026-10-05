@@ -1,0 +1,33 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter:
+  digest: sha256:f4ce2cf055ca15d5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/constructor/ArraySorter:
+  digest: sha256:5d806021dcbc9276
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/method/sort:
+  digest: sha256:452030d8262e4fa2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/method/sort#2:
+  digest: sha256:85844f719aee8754
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/method/sort#3:
+  digest: sha256:997d70f0c6811f6b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/method/sort#4:
+  digest: sha256:400b35ba5a886aed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/method/sort#5:
+  digest: sha256:18a29813f7116a31
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/method/sort#6:
+  digest: sha256:f3ff1fafdfa44b12
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/method/sort#7:
+  digest: sha256:00560aad45450d03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/method/sort#8:
+  digest: sha256:07a71b75db93c831
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArraySorter.java/package/org.apache.commons.lang3/class/ArraySorter/method/sort#9:
+  digest: sha256:55cd14c84d542507
+  verdict: pending

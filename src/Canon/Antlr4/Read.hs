@@ -23,7 +23,9 @@ data ReadResult = ReadResult
   deriving (Eq, Show)
 
 -- | A read fails at a position, which is what a user needs to fix the file.
-data ReadError = ReadParseError FilePath ParseError
+data ReadError
+  = ReadParseError FilePath ParseError
+  | ReadImportCycle FilePath
   deriving (Eq, Show)
 
 -- | Reads grammar text, with the path kept for messages.
@@ -38,6 +40,7 @@ readGrammarFile path = readGrammar path <$> TIO.readFile path
 
 -- | Renders a read failure as path, line, and column.
 renderReadError :: ReadError -> Text
+renderReadError (ReadImportCycle path) = T.pack path <> ": imports itself, directly or through another grammar"
 renderReadError (ReadParseError path err) =
   T.concat
     [ T.pack path

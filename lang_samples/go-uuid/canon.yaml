@@ -1,0 +1,30 @@
+version: 0.1.0
+root: source
+languages:
+  go:
+    extensions: [.go]
+    lexer: ../../grammars/golang/GoLexer.g4
+    parser: ../../grammars/golang/GoParser.g4
+    start: sourceFile
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      strings: ["\"", "`", "'"]
+    units:
+      - rule: functionDecl
+        kind: function
+        name: {token: IDENTIFIER, index: 1}
+        required: true
+      - rule: methodDecl
+        kind: method
+        name: {token: IDENTIFIER, index: 1, direct: true}
+        required: true
+      - rule: typeDef
+        kind: type
+        name: {token: IDENTIFIER, index: 1}
+        required: true
+      - rule: aliasDecl
+        kind: type
+        name: {token: IDENTIFIER, index: 1}
+        required: true

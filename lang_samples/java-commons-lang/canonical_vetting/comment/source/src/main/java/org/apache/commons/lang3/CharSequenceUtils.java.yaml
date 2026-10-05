@@ -1,0 +1,33 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils:
+  digest: sha256:819b483938625e5e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/constructor/CharSequenceUtils:
+  digest: sha256:ac2af73060604b2f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/field/STRING_FOLDS_SUPPLEMENTARY_CASE:
+  digest: sha256:879d2f5d4ac69dc1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/method/equalsIgnoreCase:
+  digest: sha256:466bb2da516af020
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/method/indexOf:
+  digest: sha256:d9df7feb5e242603
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/method/indexOf#2:
+  digest: sha256:2de5541ac2ffd5c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/method/lastIndexOf:
+  digest: sha256:bb742c0e6655854f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/method/lastIndexOf#2:
+  digest: sha256:f8b6210525cb788f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/method/regionMatches:
+  digest: sha256:5ca2b5e34a282fd8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/method/subSequence:
+  digest: sha256:76c6197910e050c3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/CharSequenceUtils.java/package/org.apache.commons.lang3/class/CharSequenceUtils/method/toCharArray:
+  digest: sha256:269adec60702260c
+  verdict: pending

@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/NullObjectAndFieldTest.java/package/com.google.gson.functional/class/NullObjectAndFieldTest:
+  digest: sha256:3bbbe096e1f2e376
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/NullObjectAndFieldTest.java/package/com.google.gson.functional/class/NullObjectAndFieldTest/method/testNullWrappedPrimitiveMemberDeserialization:
+  digest: sha256:5f80975420c15db4
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/NullObjectAndFieldTest.java/package/com.google.gson.functional/class/NullObjectAndFieldTest/method/testNullWrappedPrimitiveMemberSerialization:
+  digest: sha256:5f80975420c15db4
+  verdict: pending

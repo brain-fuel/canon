@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/joda/time/format/PeriodParser.java/package/org.joda.time.format/interface/PeriodParser:
+  digest: sha256:f96046a0a73aa3af
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/PeriodParser.java/package/org.joda.time.format/interface/PeriodParser/method/parseInto:
+  digest: sha256:08cdfaa2a39952c2
+  verdict: pending

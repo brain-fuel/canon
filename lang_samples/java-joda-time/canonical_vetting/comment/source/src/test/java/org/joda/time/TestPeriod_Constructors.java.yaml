@@ -1,0 +1,18 @@
+decision/java/source/src/test/java/org/joda/time/TestPeriod_Constructors.java/package/org.joda.time/class/TestPeriod_Constructors:
+  digest: sha256:279b2b2e25cd2537
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPeriod_Constructors.java/package/org.joda.time/class/TestPeriod_Constructors/method/testConstructor_4int1:
+  digest: sha256:5c112a8609e3e36e
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPeriod_Constructors.java/package/org.joda.time/class/TestPeriod_Constructors/method/testConstructor_8int1:
+  digest: sha256:5e67f391b77e0afe
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPeriod_Constructors.java/package/org.joda.time/class/TestPeriod_Constructors/method/testConstructor_8int__PeriodType1:
+  digest: sha256:5e67f391b77e0afe
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPeriod_Constructors.java/package/org.joda.time/class/TestPeriod_Constructors/method/testConstructor_Object1:
+  digest: sha256:a54a95ae12a6bdcd
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestPeriod_Constructors.java/package/org.joda.time/class/TestPeriod_Constructors/method/testConstructor_Object_PeriodType1:
+  digest: sha256:a54a95ae12a6bdcd
+  verdict: pending

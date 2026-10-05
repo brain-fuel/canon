@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableObjDoubleConsumer.java/package/org.apache.commons.lang3.function/interface/FailableObjDoubleConsumer:
+  digest: sha256:96bba7dbae227b47
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableObjDoubleConsumer.java/package/org.apache.commons.lang3.function/interface/FailableObjDoubleConsumer/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableObjDoubleConsumer.java/package/org.apache.commons.lang3.function/interface/FailableObjDoubleConsumer/method/accept:
+  digest: sha256:816acdbec4509196
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableObjDoubleConsumer.java/package/org.apache.commons.lang3.function/interface/FailableObjDoubleConsumer/method/nop:
+  digest: sha256:105df1f294731347
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/NumberTypeAdapter.java/package/com.google.gson.internal.bind/class/NumberTypeAdapter:
+  digest: sha256:add868240af6b068
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/NumberTypeAdapter.java/package/com.google.gson.internal.bind/class/NumberTypeAdapter/field/LAZILY_PARSED_NUMBER_FACTORY:
+  digest: sha256:0e8dd46d6d109fc3
+  verdict: pending

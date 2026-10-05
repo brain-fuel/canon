@@ -1,0 +1,39 @@
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval:
+  digest: sha256:594d5d17ce38215b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setChronology:
+  digest: sha256:77e40b8163c21305
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setDurationAfterStart:
+  digest: sha256:1811101eb62576ec
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setDurationBeforeEnd:
+  digest: sha256:e18377c7033624a3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setEnd:
+  digest: sha256:cd2bdc300a659982
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setEndMillis:
+  digest: sha256:d1578a3d0a01838d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setInterval:
+  digest: sha256:2920c437b2b9d810
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setInterval#2:
+  digest: sha256:b01daa4e2e9a16a5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setInterval#3:
+  digest: sha256:625570d6bcb2465b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setPeriodAfterStart:
+  digest: sha256:36e20aff99e5238e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setPeriodBeforeEnd:
+  digest: sha256:5da8ebb88f911835
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setStart:
+  digest: sha256:5d1dfd8f7e3b905b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritableInterval.java/package/org.joda.time/interface/ReadWritableInterval/method/setStartMillis:
+  digest: sha256:1577db0bbcdd8795
+  verdict: pending

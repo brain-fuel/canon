@@ -1,0 +1,9 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/DefaultDateTypeAdapter.java/package/com.google.gson.internal.bind/class/DefaultDateTypeAdapter:
+  digest: sha256:b5579180b0eebd31
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/DefaultDateTypeAdapter.java/package/com.google.gson.internal.bind/class/DefaultDateTypeAdapter/field/DEFAULT_STYLE_FACTORY:
+  digest: sha256:365fca21eac60b51
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/DefaultDateTypeAdapter.java/package/com.google.gson.internal.bind/class/DefaultDateTypeAdapter/field/dateFormats:
+  digest: sha256:5bd48184f95953ab
+  verdict: pending

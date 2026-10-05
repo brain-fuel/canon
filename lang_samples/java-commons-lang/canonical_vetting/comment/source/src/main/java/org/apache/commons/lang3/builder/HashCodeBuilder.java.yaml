@@ -1,0 +1,156 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder:
+  digest: sha256:5ff0269a7e715013
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/class/Builder:
+  digest: sha256:a72e6a8acabd0f18
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/class/Builder/constructor/Builder:
+  digest: sha256:c60e5cfab5fe9441
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/class/Builder/method/setInitialOddNumber:
+  digest: sha256:90b040fa1d95c90f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/class/Builder/method/setMultiplierOddNumber:
+  digest: sha256:bcf47e9cceff2d51
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/constructor/HashCodeBuilder:
+  digest: sha256:69a86348891efea6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/constructor/HashCodeBuilder#3:
+  digest: sha256:c9896253e59d5a79
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/field/APPEND_REGISTRY:
+  digest: sha256:aca3f808c684d765
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/field/DEFAULT_INITIAL_VALUE:
+  digest: sha256:95961deb64de5b55
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/field/DEFAULT_MULTIPLIER_VALUE:
+  digest: sha256:90242189ddcf3bb6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/field/REGISTRY:
+  digest: sha256:46ba36d041dd3190
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/field/constant:
+  digest: sha256:fc2dec8058f571d4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/field/total:
+  digest: sha256:181e25af859db598
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append:
+  digest: sha256:bfc7981b69f34ea2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#10:
+  digest: sha256:23fc3b3f5dc76615
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#11:
+  digest: sha256:40e5570ac3309a3e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#12:
+  digest: sha256:71cbc80fb0f5f00c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#13:
+  digest: sha256:d47ea0c13586e7ce
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#14:
+  digest: sha256:b386b468276cf85e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#15:
+  digest: sha256:62642ca7e1b85bea
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#16:
+  digest: sha256:d0641167f37c864c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#17:
+  digest: sha256:ebdb547f4b93bac1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#18:
+  digest: sha256:d05965264e9c29c4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#2:
+  digest: sha256:9332e54f1a6990c0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#3:
+  digest: sha256:cfc12c9c19c255ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#4:
+  digest: sha256:9ecaaf78b24bc12a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#5:
+  digest: sha256:272f59ebfef0b210
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#6:
+  digest: sha256:94110ba6943bf85a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#7:
+  digest: sha256:aad364fd105e0199
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#8:
+  digest: sha256:9c14bf2760f2556c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/append#9:
+  digest: sha256:a65646215879a2e9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/appendArray:
+  digest: sha256:8ec166621058982c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/appendRegister:
+  digest: sha256:13607d91d51c26c5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/appendSuper:
+  digest: sha256:99c6b67994f52bc7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/appendUnregister:
+  digest: sha256:909e5c38109af9d2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/build:
+  digest: sha256:a6e60d5dc2b42715
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/builder:
+  digest: sha256:2a050fef8ecbafc0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/equals:
+  digest: sha256:c05d49326ccd4fb0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/getRegistry:
+  digest: sha256:f944ca63cb84b192
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/hashCode:
+  digest: sha256:cdcbcda49ea8236f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/isAppendRegistered:
+  digest: sha256:84591c7d0dd29d14
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/isRegistered:
+  digest: sha256:1e25af8e64431917
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/reflectionAppend:
+  digest: sha256:a294bb6f122402c1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/reflectionHashCode:
+  digest: sha256:0b0f06d976c2956c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/reflectionHashCode#2:
+  digest: sha256:fc2d122a30424dfd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/reflectionHashCode#3:
+  digest: sha256:49c55357c4441d3c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/reflectionHashCode#4:
+  digest: sha256:af4b8e3a88a32384
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/reflectionHashCode#5:
+  digest: sha256:996e0e819860b805
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/reflectionHashCode#6:
+  digest: sha256:d5429d1782a51e9e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/register:
+  digest: sha256:d1ec022cbf8a1b6e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/toHashCode:
+  digest: sha256:878f2b2c20bff249
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilder/method/unregister:
+  digest: sha256:28300f6209012fe7
+  verdict: pending

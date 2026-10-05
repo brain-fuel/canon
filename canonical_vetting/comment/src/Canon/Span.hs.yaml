@@ -1,0 +1,15 @@
+decision/haskell/src/Canon/Span.hs/module/Canon.Span:
+  digest: sha256:6d2e95d9987347cf
+  verdict: pending
+decision/haskell/src/Canon/Span.hs/module/Canon.Span/data/Located:
+  digest: sha256:8c81cfd3242a032a
+  verdict: pending
+decision/haskell/src/Canon/Span.hs/module/Canon.Span/data/Position:
+  digest: sha256:c54ca67ffae2e693
+  verdict: pending
+decision/haskell/src/Canon/Span.hs/module/Canon.Span/data/Span:
+  digest: sha256:acd2e9e2058d0c51
+  verdict: pending
+decision/haskell/src/Canon/Span.hs/module/Canon.Span/function/spanHull:
+  digest: sha256:14ea1acf2fcc8451
+  verdict: pending

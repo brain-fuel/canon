@@ -1,0 +1,15 @@
+decision/haskell/src/Canon/Git/Commit.hs/module/Canon.Git.Commit:
+  digest: sha256:6075ac16f1c7b1fc
+  verdict: pending
+decision/haskell/src/Canon/Git/Commit.hs/module/Canon.Git.Commit/data/BlameLine:
+  digest: sha256:d49a2d57a7ba3f1e
+  verdict: pending
+decision/haskell/src/Canon/Git/Commit.hs/module/Canon.Git.Commit/data/Commit:
+  digest: sha256:15b7723df3650897
+  verdict: pending
+decision/haskell/src/Canon/Git/Commit.hs/module/Canon.Git.Commit/data/Person:
+  digest: sha256:bb9d12b34b51b1dc
+  verdict: pending
+decision/haskell/src/Canon/Git/Commit.hs/module/Canon.Git.Commit/newtype/CommitHash:
+  digest: sha256:557bea08e39400f3
+  verdict: pending

@@ -1,0 +1,27 @@
+decision/haskell/src/Canon/Extract/Folio.hs/module/Canon.Extract.Folio:
+  digest: sha256:5990060d6d8a4df9
+  verdict: pending
+decision/haskell/src/Canon/Extract/Folio.hs/module/Canon.Extract.Folio/function/blockDefinitionFindings:
+  digest: sha256:ae6c0219cc29ba49
+  verdict: pending
+decision/haskell/src/Canon/Extract/Folio.hs/module/Canon.Extract.Folio/function/duplicateIdFindings:
+  digest: sha256:056358b0c4f9d1af
+  verdict: pending
+decision/haskell/src/Canon/Extract/Folio.hs/module/Canon.Extract.Folio/function/frontMatterFindings:
+  digest: sha256:5d7b2ad9a41b896a
+  verdict: pending
+decision/haskell/src/Canon/Extract/Folio.hs/module/Canon.Extract.Folio/function/isDocUnitId:
+  digest: sha256:e56f80d3daa9c047
+  verdict: pending
+decision/haskell/src/Canon/Extract/Folio.hs/module/Canon.Extract.Folio/function/pageExtraction:
+  digest: sha256:3b2fb56ff8bb1e9b
+  verdict: pending
+decision/haskell/src/Canon/Extract/Folio.hs/module/Canon.Extract.Folio/function/pageUnitId:
+  digest: sha256:eb9140140813b75c
+  verdict: pending
+decision/haskell/src/Canon/Extract/Folio.hs/module/Canon.Extract.Folio/function/proseText:
+  digest: sha256:0c118cc189669f67
+  verdict: pending
+decision/haskell/src/Canon/Extract/Folio.hs/module/Canon.Extract.Folio/function/relocate:
+  digest: sha256:b807d69e8583ec23
+  verdict: pending

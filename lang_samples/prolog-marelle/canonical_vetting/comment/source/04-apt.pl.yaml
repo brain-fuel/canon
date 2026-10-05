@@ -1,0 +1,12 @@
+decision/prolog/source/04-apt.pl:
+  digest: sha256:c084cf0588d158c3
+  verdict: pending
+decision/prolog/source/04-apt.pl/directive/installs_with_apt:
+  digest: sha256:a715afb091a10486
+  verdict: pending
+decision/prolog/source/04-apt.pl/directive/installs_with_apt#2:
+  digest: sha256:8afbbc91539aaa68
+  verdict: pending
+decision/prolog/source/04-apt.pl/directive/installs_with_apt#3:
+  digest: sha256:af41c92d025863c4
+  verdict: pending

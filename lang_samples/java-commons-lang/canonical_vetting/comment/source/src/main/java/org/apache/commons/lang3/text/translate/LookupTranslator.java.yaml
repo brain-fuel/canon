@@ -1,0 +1,9 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/LookupTranslator.java/package/org.apache.commons.lang3.text.translate/class/LookupTranslator:
+  digest: sha256:5ab24a9e5a74f881
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/LookupTranslator.java/package/org.apache.commons.lang3.text.translate/class/LookupTranslator/constructor/LookupTranslator:
+  digest: sha256:b8fce7c802fc9a4a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/LookupTranslator.java/package/org.apache.commons.lang3.text.translate/class/LookupTranslator/method/translate:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending

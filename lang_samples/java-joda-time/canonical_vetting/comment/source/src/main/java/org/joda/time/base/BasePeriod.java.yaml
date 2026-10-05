@@ -1,0 +1,105 @@
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod:
+  digest: sha256:54950153b2c3a144
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod:
+  digest: sha256:18435ed80303cd2c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod#10:
+  digest: sha256:f71313f38ad86b6c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod#2:
+  digest: sha256:f44f40b0c694f98f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod#3:
+  digest: sha256:77235d10c9aaca9d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod#4:
+  digest: sha256:7aac5fad7daff05c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod#5:
+  digest: sha256:0a6bb6d2bbfefae5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod#6:
+  digest: sha256:98817b412be99b42
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod#7:
+  digest: sha256:c51ac6439bc4475c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod#8:
+  digest: sha256:46b5aad577742f52
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/constructor/BasePeriod#9:
+  digest: sha256:ef8e5d6a341033fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/field/DUMMY_PERIOD:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/field/iType:
+  digest: sha256:53bf6042101b8926
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/field/iValues:
+  digest: sha256:7e8b91ceac2ccf66
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/addField:
+  digest: sha256:13e6ddcb6870a4ee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/addFieldInto:
+  digest: sha256:0dbf4a4ef1205f2f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/addPeriod:
+  digest: sha256:7adf18f7c127af99
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/addPeriodInto:
+  digest: sha256:ff1e5de570e959dd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/checkAndUpdate:
+  digest: sha256:4f7aaede9aa86b07
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/checkPeriodType:
+  digest: sha256:b9d0697b6e1f5a08
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/getPeriodType:
+  digest: sha256:1abcb58eb378db19
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/getValue:
+  digest: sha256:f09de587eadf2492
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/mergePeriod:
+  digest: sha256:2f86d188b3dee307
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/mergePeriodInto:
+  digest: sha256:d31a3f17d9717a56
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/setField:
+  digest: sha256:f1342e6522ba21c8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/setFieldInto:
+  digest: sha256:51a80bb5d0355ad3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/setPeriod:
+  digest: sha256:0a2b94634bd7d087
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/setPeriod#2:
+  digest: sha256:60db967b68e406b0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/setPeriodInternal:
+  digest: sha256:c5ae352dca1cab5a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/setPeriodInternal#2:
+  digest: sha256:c5ae352dca1cab5a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/setValue:
+  digest: sha256:e93edc0d3713556f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/setValues:
+  digest: sha256:1fd3b235bd379aec
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/toDurationFrom:
+  digest: sha256:73b92b32dd40b665
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/BasePeriod.java/package/org.joda.time.base/class/BasePeriod/method/toDurationTo:
+  digest: sha256:88836c02c0e50bf2
+  verdict: pending

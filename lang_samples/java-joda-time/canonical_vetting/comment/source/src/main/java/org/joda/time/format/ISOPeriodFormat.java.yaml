@@ -1,0 +1,36 @@
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat:
+  digest: sha256:4d8ad6e3bff73ca2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/constructor/ISOPeriodFormat:
+  digest: sha256:de9d9ab65129fcb4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/field/cAlternate:
+  digest: sha256:689844dafb88ab32
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/field/cAlternateExtended:
+  digest: sha256:dbac23c8510ef0f5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/field/cAlternateExtendedWihWeeks:
+  digest: sha256:82e874ba5ea1c693
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/field/cAlternateWithWeeks:
+  digest: sha256:12ecb956a6ec08fd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/field/cStandard:
+  digest: sha256:9a237722343d544f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/method/alternate:
+  digest: sha256:9fffe04e116dd2ac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/method/alternateExtended:
+  digest: sha256:88ec240139ae5f7d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/method/alternateExtendedWithWeeks:
+  digest: sha256:99d7fb84f0e0b906
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/method/alternateWithWeeks:
+  digest: sha256:e315c62cd7a2cbdf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/ISOPeriodFormat.java/package/org.joda.time.format/class/ISOPeriodFormat/method/standard:
+  digest: sha256:039d130ba5b885aa
+  verdict: pending

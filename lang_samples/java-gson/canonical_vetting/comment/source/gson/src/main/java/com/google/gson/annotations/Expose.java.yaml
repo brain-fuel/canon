@@ -1,0 +1,9 @@
+decision/java/source/gson/src/main/java/com/google/gson/annotations/Expose.java/package/com.google.gson.annotations/annotationType/Expose:
+  digest: sha256:96b16464326d18cd
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/annotations/Expose.java/package/com.google.gson.annotations/annotationType/Expose/annotationElement/deserialize:
+  digest: sha256:0115008045b546e2
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/annotations/Expose.java/package/com.google.gson.annotations/annotationType/Expose/annotationElement/serialize:
+  digest: sha256:7e7bcf414d03fa85
+  verdict: pending

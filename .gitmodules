@@ -19,3 +19,18 @@
 [submodule "lang_samples/java-gson/source"]
 	path = lang_samples/java-gson/source
 	url = https://github.com/google/gson.git
+[submodule "lang_samples/javascript-chalk/source"]
+	path = lang_samples/javascript-chalk/source
+	url = https://github.com/chalk/chalk.git
+[submodule "lang_samples/typescript-ky/source"]
+	path = lang_samples/typescript-ky/source
+	url = https://github.com/sindresorhus/ky.git
+[submodule "lang_samples/python-itsdangerous/source"]
+	path = lang_samples/python-itsdangerous/source
+	url = https://github.com/pallets/itsdangerous.git
+[submodule "lang_samples/go-uuid/source"]
+	path = lang_samples/go-uuid/source
+	url = https://github.com/google/uuid.git
+[submodule "lang_samples/kotlin-turbine/source"]
+	path = lang_samples/kotlin-turbine/source
+	url = https://github.com/cashapp/turbine.git

@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDurationField.java/package/org.joda.time.field/class/DelegatedDurationField:
+  digest: sha256:aa9ef18384d8848a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDurationField.java/package/org.joda.time.field/class/DelegatedDurationField/constructor/DelegatedDurationField:
+  digest: sha256:37a0e4b6be590e88
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDurationField.java/package/org.joda.time.field/class/DelegatedDurationField/constructor/DelegatedDurationField#2:
+  digest: sha256:0e6d9af54880c9cd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDurationField.java/package/org.joda.time.field/class/DelegatedDurationField/field/iField:
+  digest: sha256:af0992f0d22e3211
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDurationField.java/package/org.joda.time.field/class/DelegatedDurationField/field/iType:
+  digest: sha256:bcb06088357a40e8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDurationField.java/package/org.joda.time.field/class/DelegatedDurationField/field/serialVersionUID:
+  digest: sha256:60a2c7d22dc312fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDurationField.java/package/org.joda.time.field/class/DelegatedDurationField/method/getWrappedField:
+  digest: sha256:77114fcb4bb89603
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DelegatedDurationField.java/package/org.joda.time.field/class/DelegatedDurationField/method/isSupported:
+  digest: sha256:67b7b7c866f554ea
+  verdict: pending

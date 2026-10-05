@@ -1,0 +1,33 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult:
+  digest: sha256:86f48bd7b3109ce6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/constructor/DiffResult:
+  digest: sha256:488c702c315fc247
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/field/OBJECTS_SAME_STRING:
+  digest: sha256:1e752f71766595a9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/method/getDiffs:
+  digest: sha256:a78e157b6db84f53
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/method/getLeft:
+  digest: sha256:cf946b3a4075fe3b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/method/getNumberOfDiffs:
+  digest: sha256:5adfc6fa7a9705a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/method/getRight:
+  digest: sha256:44b0bf3476951ab6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/method/getToStringStyle:
+  digest: sha256:59553f9573c39717
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/method/iterator:
+  digest: sha256:75020e22bf15c90b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/method/toString:
+  digest: sha256:de157df2f3338311
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/DiffResult.java/package/org.apache.commons.lang3.builder/class/DiffResult/method/toString#2:
+  digest: sha256:9c644528f8002b95
+  verdict: pending

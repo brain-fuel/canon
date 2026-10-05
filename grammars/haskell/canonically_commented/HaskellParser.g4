@@ -159,7 +159,7 @@ topdecls
     : (topdecl semi+ | NEWLINE | semi | orphan = canonicalComment)+
     ;
 
-/** A top-level declaration: class, type, kind signature, instance, standalone deriving, role annotation, default, foreign, pragma, annotation, ordinary declaration, or a naked Template Haskell splice. In the dialect each form that is a unit is its own alternative: class, type, typeFamily, data, newtype, dataFamily, instance, typeInstance, dataInstance, newtypeInstance, and function for a type signature; a canonical comment before it is its Why, the declared name is its What, and the body or type is its How. An instance head is not an exportable name, so an instance never requires a comment. ref:DEC-haskell-dialect ref:DEC-export-rule */
+/** A top-level declaration: class, type, kind signature, instance, standalone deriving, role annotation, default, foreign, pragma, annotation, ordinary declaration, or a naked Template Haskell splice. In the dialect each form that is a unit is its own alternative: class, type, typeFamily, data, newtype, dataFamily, instance, typeInstance, dataInstance, newtypeInstance, and function for a type signature; a canonical comment before it is its Why, the declared name is its What, and the body is its How. A function's signature is its own label, and each binding that follows is labeled too, so the extractor can attach the equations to the signature by name and the function's How is its equations rather than its type. An instance head is not an exportable name, so an instance never requires a comment. ref:DEC-haskell-dialect ref:DEC-export-rule ref:DEC-binding-label */
 topdecl
     : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'class' tycl_hdr fds? how = where_cls? # class
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'type' what = type_ '=' ktypedoc # type
@@ -175,8 +175,8 @@ topdecl
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'newtype' 'instance' capi_ctype? what = tycl_hdr_inst derivings? # newtypeInstance
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'data' 'instance' capi_ctype? what = tycl_hdr_inst opt_kind_sig? gadt_constrlist? derivings? # dataInstance
     | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'newtype' 'instance' capi_ctype? what = tycl_hdr_inst opt_kind_sig? gadt_constrlist? derivings? # newtypeInstance
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = infixexp '::' how = sigtypedoc # function
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = var_ ',' sig_vars '::' how = sigtypedoc # function
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = infixexp '::' signature = sigtypedoc # function
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = var_ ',' sig_vars '::' signature = sigtypedoc # function
     | cl_decl # plainClass
     | ty_decl # plainType
     // Check KindSignatures
@@ -190,7 +190,7 @@ topdecl
     | ('{-#' 'WARNING' warnings? '#-}') # warning
     | ('{-#' 'RULES' rules? '#-}') # rules
     | annotation # annotationPragma
-    | decl_no_th # declaration
+    | binding = decl_no_th # declaration
     // -- Template Haskell Extension
     //  The $(..) form is one possible form of infixexp
     //  but we treat an arbitrary expression just as if
@@ -466,8 +466,8 @@ pattern_synonym_sig
 
 /** A declaration inside a class body: an associated family, an ordinary declaration, or a default signature. A type signature inside a class is a method unit whose comment is required when the class exports it. */
 decl_cls
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = infixexp '::' how = sigtypedoc # method
-    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = var_ ',' sig_vars '::' how = sigtypedoc # method
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = infixexp '::' signature = sigtypedoc # method
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* what = var_ ',' sig_vars '::' signature = sigtypedoc # method
     | at_decl_cls # associatedType
     | decl # classDeclaration
     | 'default' infixexp '::' sigtypedoc # defaultSignature
@@ -1188,7 +1188,7 @@ sigdecl
     | (fixity integer? ops)
     | (pattern_synonym_sig)
     | ('{-#' 'COMPLETE' con_list opt_tyconsig? '#-}')
-    | ('{-#' 'INLINE' activation? qvar '#-}')
+    | ('{-#' ('INLINE' | 'NOINLINE') activation? qvar '#-}')
     | ('{-#' 'SCC' qvar pstring? '#-}')
     | ('{-#' 'SPECIALISE' activation? qvar '::' sigtypes1 '#-}')
     | ('{-#' 'SPECIALISE_INLINE' activation? qvar '::' sigtypes1 '#-}')
@@ -1913,6 +1913,9 @@ special_id
     | 'stock'
     | 'anyclass'
     | 'via'
+    | 'unsafe'
+    | 'safe'
+    | 'interruptible'
     ;
 
 // -------------------------------------------

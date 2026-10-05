@@ -1,0 +1,66 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils:
+  digest: sha256:9045b2862a2e01f0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/constructor/RegExUtils:
+  digest: sha256:1b940f3b8dad4f09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/field/VERSION_SPLIT_PATTERN:
+  digest: sha256:968dc25c55475e32
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/dotAll:
+  digest: sha256:d010ca32ac3ecca9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/dotAllMatcher:
+  digest: sha256:a78254f9511a59d4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/dotAllMatcher#2:
+  digest: sha256:80748cc5506e3fd3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/removeAll:
+  digest: sha256:becb9384053d4bf5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/removeAll#2:
+  digest: sha256:fee490e71ab08595
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/removeAll#3:
+  digest: sha256:42f59829ee069d67
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/removeFirst:
+  digest: sha256:a918456611327b07
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/removeFirst#2:
+  digest: sha256:aa052c2038cdb194
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/removeFirst#3:
+  digest: sha256:eea0d3c0f5ad2d0f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/removePattern:
+  digest: sha256:54923b0e7a67a854
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/removePattern#2:
+  digest: sha256:9dbf3e0fc71c484c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/replaceAll:
+  digest: sha256:b66a74885ffdb6cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/replaceAll#2:
+  digest: sha256:05d084a5ec83aa67
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/replaceAll#3:
+  digest: sha256:4cfd709a371486ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/replaceFirst:
+  digest: sha256:013e7e3d2139cc7a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/replaceFirst#2:
+  digest: sha256:67c40c75a407770e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/replaceFirst#3:
+  digest: sha256:d103fad18fc3b579
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/replacePattern:
+  digest: sha256:644986f6c4788f41
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/RegExUtils.java/package/org.apache.commons.lang3/class/RegExUtils/method/replacePattern#2:
+  digest: sha256:49f3a52fd3f9ccb9
+  verdict: pending

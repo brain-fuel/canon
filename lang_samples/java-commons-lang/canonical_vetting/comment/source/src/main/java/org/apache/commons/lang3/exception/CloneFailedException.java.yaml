@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/CloneFailedException.java/package/org.apache.commons.lang3.exception/class/CloneFailedException:
+  digest: sha256:530c6413dcf99dfc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/CloneFailedException.java/package/org.apache.commons.lang3.exception/class/CloneFailedException/constructor/CloneFailedException:
+  digest: sha256:b1d2ee26aeb31ad8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/CloneFailedException.java/package/org.apache.commons.lang3.exception/class/CloneFailedException/constructor/CloneFailedException#2:
+  digest: sha256:5793386846f4dcfd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/exception/CloneFailedException.java/package/org.apache.commons.lang3.exception/class/CloneFailedException/constructor/CloneFailedException#3:
+  digest: sha256:8eb3ac35a60be895
+  verdict: pending

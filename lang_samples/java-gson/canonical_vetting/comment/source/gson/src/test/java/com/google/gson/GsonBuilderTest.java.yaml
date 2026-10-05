@@ -1,0 +1,15 @@
+decision/java/source/gson/src/test/java/com/google/gson/GsonBuilderTest.java/package/com.google.gson/class/GsonBuilderTest:
+  digest: sha256:4fceca80e1d7e75d
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/GsonBuilderTest.java/package/com.google.gson/class/GsonBuilderTest/method/testModificationAfterCreate:
+  digest: sha256:779122b8b0e0cd58
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/GsonBuilderTest.java/package/com.google.gson/class/GsonBuilderTest/method/testRegisterTypeAdapterForJsonElements:
+  digest: sha256:e570f7f6170199ca
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/GsonBuilderTest.java/package/com.google.gson/class/GsonBuilderTest/method/testRegisterTypeHierarchyAdapterJsonElements_Allowed:
+  digest: sha256:48f2f153d4d00375
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/GsonBuilderTest.java/package/com.google.gson/class/GsonBuilderTest/method/testSetDateFormatEmptyPattern:
+  digest: sha256:12af1a42c6fdcff2
+  verdict: pending

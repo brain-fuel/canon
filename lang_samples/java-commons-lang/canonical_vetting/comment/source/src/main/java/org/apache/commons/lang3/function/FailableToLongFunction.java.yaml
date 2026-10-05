@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToLongFunction.java/package/org.apache.commons.lang3.function/interface/FailableToLongFunction:
+  digest: sha256:9b7e58876133de99
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToLongFunction.java/package/org.apache.commons.lang3.function/interface/FailableToLongFunction/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToLongFunction.java/package/org.apache.commons.lang3.function/interface/FailableToLongFunction/method/applyAsLong:
+  digest: sha256:3fd5363300da2d5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableToLongFunction.java/package/org.apache.commons.lang3.function/interface/FailableToLongFunction/method/nop:
+  digest: sha256:8d484cdfeb72c987
+  verdict: pending

@@ -1,0 +1,69 @@
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime:
+  digest: sha256:62d37ce64f1c40aa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getCenturyOfEra:
+  digest: sha256:d117f37fdc02d4c2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getDayOfMonth:
+  digest: sha256:f627624da8757bb7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getDayOfWeek:
+  digest: sha256:c63a77bb4c83ea66
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getDayOfYear:
+  digest: sha256:5980bf89f4846725
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getEra:
+  digest: sha256:26ca33d17bd17b9c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getHourOfDay:
+  digest: sha256:a1ad5446320772a2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getMillisOfDay:
+  digest: sha256:20150cde5c5346f2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getMillisOfSecond:
+  digest: sha256:8fa514938c12d265
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getMinuteOfDay:
+  digest: sha256:46ec6862837d5349
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getMinuteOfHour:
+  digest: sha256:b547b4741cf45c66
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getMonthOfYear:
+  digest: sha256:10b6249f191ddae1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getSecondOfDay:
+  digest: sha256:d886b9d02b134deb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getSecondOfMinute:
+  digest: sha256:a3fbabca0f42ba24
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getWeekOfWeekyear:
+  digest: sha256:5f8eeaba112ea0e6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getWeekyear:
+  digest: sha256:862f6cf8f9bd4de3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getYear:
+  digest: sha256:c0eb06f353424603
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getYearOfCentury:
+  digest: sha256:ac94550cd2430cc0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/getYearOfEra:
+  digest: sha256:d117f37fdc02d4c2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/toDateTime:
+  digest: sha256:d073b8557788672c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/toMutableDateTime:
+  digest: sha256:a7f862e3e2b9a660
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/toString:
+  digest: sha256:db32857143d49a45
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableDateTime.java/package/org.joda.time/interface/ReadableDateTime/method/toString#2:
+  digest: sha256:85d87e483762c085
+  verdict: pending

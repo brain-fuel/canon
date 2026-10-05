@@ -1,0 +1,40 @@
+version: 0.1.0
+root: source
+ignore:
+  - node_modules
+languages:
+  typescript:
+    extensions: [.ts, .mts, .cts]
+    lexer: ../../grammars/typescript/TypeScriptLexer.g4
+    parser: ../../grammars/typescript/TypeScriptParser.g4
+    start: program
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      strings: ["\"", "'", "`"]
+    units:
+      - rule: functionDeclaration
+        kind: function
+        name: {rule: identifier}
+        required: true
+      - rule: classDeclaration
+        kind: class
+        name: {rule: identifier}
+        required: true
+      - rule: interfaceDeclaration
+        kind: interface
+        name: {rule: identifier}
+        required: true
+      - rule: typeAliasDeclaration
+        kind: type
+        name: {rule: identifier}
+        required: true
+      - rule: enumDeclaration
+        kind: enum
+        name: {rule: identifier}
+        required: true
+      - rule: propertyMemberDeclaration
+        kind: member
+        name: {rule: propertyName}
+        required: false

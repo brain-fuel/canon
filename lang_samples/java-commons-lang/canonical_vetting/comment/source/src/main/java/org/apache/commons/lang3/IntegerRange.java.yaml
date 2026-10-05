@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/IntegerRange.java/package/org.apache.commons.lang3/class/IntegerRange:
+  digest: sha256:8d1a6b1046a7720d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/IntegerRange.java/package/org.apache.commons.lang3/class/IntegerRange/constructor/IntegerRange:
+  digest: sha256:b554c8bdbede13da
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/IntegerRange.java/package/org.apache.commons.lang3/class/IntegerRange/method/fit:
+  digest: sha256:39806335445d3211
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/IntegerRange.java/package/org.apache.commons.lang3/class/IntegerRange/method/of:
+  digest: sha256:dd446e7664bd4760
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/IntegerRange.java/package/org.apache.commons.lang3/class/IntegerRange/method/of#2:
+  digest: sha256:7d7a313cc67fc9ff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/IntegerRange.java/package/org.apache.commons.lang3/class/IntegerRange/method/toIntStream:
+  digest: sha256:6c32e9c403b7c0bc
+  verdict: pending

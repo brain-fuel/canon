@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableSupplier.java/package/org.apache.commons.lang3.function/interface/FailableSupplier:
+  digest: sha256:1e896111c76594c6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableSupplier.java/package/org.apache.commons.lang3.function/interface/FailableSupplier/constant/NUL:
+  digest: sha256:d65ee9592df8fe64
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableSupplier.java/package/org.apache.commons.lang3.function/interface/FailableSupplier/method/get:
+  digest: sha256:e6b36f42e8c346ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableSupplier.java/package/org.apache.commons.lang3.function/interface/FailableSupplier/method/nul:
+  digest: sha256:3bd27d6e6e6caaf0
+  verdict: pending

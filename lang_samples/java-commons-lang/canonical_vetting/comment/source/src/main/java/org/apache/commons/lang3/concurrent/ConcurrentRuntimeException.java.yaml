@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentRuntimeException.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentRuntimeException:
+  digest: sha256:e5cb277a8d91b5b7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentRuntimeException.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentRuntimeException/constructor/ConcurrentRuntimeException:
+  digest: sha256:ebb858923568d31e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentRuntimeException.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentRuntimeException/constructor/ConcurrentRuntimeException#2:
+  digest: sha256:cdc27991a0e2201c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentRuntimeException.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentRuntimeException/constructor/ConcurrentRuntimeException#3:
+  digest: sha256:6e649ade5b234576
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentRuntimeException.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentRuntimeException/field/serialVersionUID:
+  digest: sha256:129e4726adab416d
+  verdict: pending

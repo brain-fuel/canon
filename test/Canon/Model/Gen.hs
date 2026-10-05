@@ -31,11 +31,12 @@ module Canon.Model.Gen
   , genVerdict
   , genAssessment
   , genVettingEntry
+  , genVettingEntries
   , genVetting
   , genVettingKey
   ) where
 
-import Canon.Config (Config (..))
+import Canon.Config (Config (..), Runtime (..), builtinKinds)
 import Canon.Decisions (DecisionEntry (..), DecisionStatus (..), Ledger (..))
 import Canon.Profile
 import Canon.Model.Finding (Finding (..))
@@ -122,7 +123,7 @@ genEvidence =
 
 -- | A What.
 genWhat :: Gen What
-genWhat = What <$> genIdSegment <*> (UnitKind <$> genIdSegment)
+genWhat = What <$> genIdSegment <*> (UnitKind <$> genIdSegment) <*> Gen.maybe genPlainText
 
 -- | A How.
 genHow :: Gen How
@@ -187,7 +188,7 @@ genDecisionOver known =
 
 -- | A verdict.
 genVerdict :: Gen Verdict
-genVerdict = Gen.enumBounded
+genVerdict = Gen.element [Pending, Good, Bad, Deferred]
 
 -- | An assessment.
 genAssessment :: Gen Assessment
@@ -195,15 +196,23 @@ genAssessment = Assessment <$> genVerdict <*> Gen.maybe genPerson <*> Gen.maybe 
 
 -- | A vetting key of any kind.
 genVettingKey :: Gen VettingKey
-genVettingKey = Gen.choice [CommentKey <$> genDecisionId, LedgerKey <$> genReferenceKey, RegistryKey <$> genReferenceKey]
+genVettingKey = Gen.choice [CommentKey <$> genDecisionId, LedgerKey <$> genReferenceKey, RegistryKey <$> genReferenceKey, DocKey <$> genPath]
 
 -- | A vetting entry.
 genVettingEntry :: Gen VettingEntry
-genVettingEntry = VettingEntry <$> genVerdict <*> (("sha256:" <>) <$> Gen.text (Range.singleton 16) Gen.hexit) <*> Gen.maybe genVersion <*> Gen.maybe genPlainText
+genVettingEntry = VettingEntry <$> genVerdict <*> (("sha256:" <>) <$> Gen.text (Range.singleton 16) Gen.hexit) <*> Gen.maybe genVersion <*> Gen.maybe genPlainText <*> Gen.maybe genPlainText
 
--- | A vetting file.
+-- | The entries of one vetting file.
+genVettingEntries :: Gen (Map.Map VettingKey VettingEntry)
+genVettingEntries = Map.fromList <$> Gen.list (Range.linear 0 4) ((,) <$> genVettingKey <*> genVettingEntry)
+
+-- | A vetting directory of up to three files, each key in one file only.
 genVetting :: Gen Vetting
-genVetting = Vetting . Map.fromList <$> Gen.list (Range.linear 0 4) ((,) <$> genVettingKey <*> genVettingEntry)
+genVetting = do
+  files <- Gen.map (Range.linear 0 3) ((,) <$> Gen.element ["comment/a.yaml", "comment/src/b.hs.yaml", "ledger/canonical_decisions.yaml"] <*> genVettingEntries)
+  pure (Vetting (snd (Map.mapAccum disjoint Map.empty files)))
+  where
+    disjoint seen entries = (Map.union seen entries, Map.difference entries seen)
 
 -- | A model whose decisions mostly name its own units.
 genModel :: Gen (Model Evidence)
@@ -236,6 +245,14 @@ genConfig =
     <*> Gen.list (Range.linear 0 3) (T.pack <$> genPath)
     <*> genPath
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> genProfile))
+    <*> (flip Map.union builtinKinds . Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genKindWord <*> (Map.fromList <$> Gen.list (Range.linear 1 3) ((,) <$> genKindWord <*> Gen.enumBounded))))
+    <*> genPath
+    <*> genPath
+    <*> Gen.maybe (Runtime <$> genIdSegment <*> genPath <*> genPath <*> genPath <*> Gen.maybe genPlainText)
+
+-- | A kind or verdict word: lower-case letters, digits, and hyphens, never one of canon's prefixes.
+genKindWord :: Gen Text
+genKindWord = Gen.element ["mutant", "observability", "unreviewed", "logical-equivalency", "gap", "needs-research"]
 
 -- | A semantic version.
 genVersion :: Gen Version
@@ -281,14 +298,23 @@ genProfile =
     <*> Gen.choice [CombinedGrammarFile <$> genPath, SplitGrammarFiles <$> genPath <*> genPath]
     <*> (Name <$> genIdSegment)
     <*> Gen.list (Range.linear 0 3) genUnitRule
-    <*> (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment)
+    <*> genCommentSyntax
     <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> (T.cons '.' <$> genIdSegment) <*> (T.cons '.' <$> genIdSegment)))
+    <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> genEmbedding))
+    <*> (Map.fromList <$> Gen.list (Range.linear 0 2) ((,) <$> genIdSegment <*> Gen.list (Range.linear 1 2) genIdSegment))
   where
+    genCommentSyntax = (CommentSyntax <$> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.maybe genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment <*> Gen.list (Range.linear 0 2) genIdSegment)
+    genEmbedding =
+      Embedding
+        <$> genIdSegment
+        <*> genCommentSyntax
+        <*> Gen.int (Range.linear 40 120)
+        <*> (DocStyle <$> genIdSegment <*> genIdSegment <*> genIdSegment <*> genIdSegment <*> Gen.element ["haddock", "plain"])
     genUnitRule =
       UnitRule
         <$> (Name <$> genIdSegment)
         <*> genIdSegment
-        <*> Gen.choice [NameFromToken <$> (Name <$> genIdSegment) <*> Gen.int (Range.linear 1 3), NameFromRule . Name <$> genIdSegment, pure NameFromOrdinal]
+        <*> Gen.choice [NameFromToken <$> (Name <$> genIdSegment) <*> Gen.int (Range.linear 1 3), NameFromDirectToken <$> (Name <$> genIdSegment) <*> Gen.int (Range.linear 1 3), NameFromRule . Name <$> genIdSegment, pure NameFromOrdinal]
         <*> Gen.bool
         <*> Gen.maybe ((,) <$> Gen.maybe (Name <$> genIdSegment) <*> Gen.list (Range.linear 1 3) genIdSegment)
         <*> Gen.bool
@@ -299,6 +325,17 @@ genFinding =
   Gen.choice
     [ UnresolvedReference <$> genDecisionId <*> genWhere <*> genReferenceKey
     , DanglingDecision <$> genDecisionId <*> genWhere <*> genUnitId
+    , BlockUndeclared <$> genPath <*> Gen.int (Range.linear 1 500)
+    , BlockDoesNotDefine <$> genPath <*> Gen.int (Range.linear 1 500) <*> genIdSegment
+    , BlockCarriesComment <$> genPath <*> Gen.int (Range.linear 1 500)
+    , BlockLanguageUnknown <$> genPath <*> Gen.int (Range.linear 1 500) <*> genIdSegment
+    , TangledStale <$> genPath
+    , FrontMatterMissing <$> genPath
+    , DocKindInvalid <$> genPath <*> genIdSegment
+    , DocQuadrantMismatch <$> genPath <*> genIdSegment
+    , DocIdInvalid <$> genPath <*> genIdSegment
+    , DocIdDuplicate <$> genIdSegment <*> genPath <*> genPath
+    , VideoKeyNotVideo <$> genPath <*> genReferenceKey
     , CommentPending <$> genDecisionId <*> genWhere
     , CommentStale <$> genDecisionId <*> genWhere
     , CommentBad <$> genDecisionId <*> genWhere <*> Gen.maybe genPlainText

@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/IntStreams.java/package/org.apache.commons.lang3.stream/class/IntStreams:
+  digest: sha256:bc84092bc64b3641
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/IntStreams.java/package/org.apache.commons.lang3.stream/class/IntStreams/constructor/IntStreams:
+  digest: sha256:1b940f3b8dad4f09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/IntStreams.java/package/org.apache.commons.lang3.stream/class/IntStreams/method/of:
+  digest: sha256:47e3c32b8f08c779
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/IntStreams.java/package/org.apache.commons.lang3.stream/class/IntStreams/method/range:
+  digest: sha256:349c0a33f1e5c1de
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/IntStreams.java/package/org.apache.commons.lang3.stream/class/IntStreams/method/rangeClosed:
+  digest: sha256:97ce83ed4a49ad40
+  verdict: pending

@@ -1,0 +1,18 @@
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/flow.kt:
+  digest: sha256:d935d3605afc799e
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/flow.kt/function/collectTurbineIn/property/unconfined:
+  digest: sha256:e3ae418aef0c074b
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/flow.kt/function/test:
+  digest: sha256:ae436dfb52a05ed9
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/flow.kt/function/testIn:
+  digest: sha256:62a3cb4380172a29
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/flow.kt/function/turbineScope:
+  digest: sha256:a6c780616471a07b
+  verdict: pending
+decision/kotlin/source/src/commonMain/kotlin/app/cash/turbine/flow.kt/function/turbineScope/property/reportsWithExceptions:
+  digest: sha256:e2f66fd470939dd5
+  verdict: pending

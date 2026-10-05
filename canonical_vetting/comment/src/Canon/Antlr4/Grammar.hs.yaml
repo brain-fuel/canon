@@ -1,0 +1,21 @@
+decision/haskell/src/Canon/Antlr4/Grammar.hs/module/Canon.Antlr4.Grammar:
+  digest: sha256:57f165e7598619e9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Grammar.hs/module/Canon.Antlr4.Grammar/data/G4:
+  digest: sha256:4d1a9ded517eaec3
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Grammar.hs/module/Canon.Antlr4.Grammar/data/Offsets:
+  digest: sha256:4f0b49e50128475b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Grammar.hs/module/Canon.Antlr4.Grammar/data/ParseError:
+  digest: sha256:f8b21f8d09324831
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Grammar.hs/module/Canon.Antlr4.Grammar/function/fixedGrammar:
+  digest: sha256:4b4172ca633cebcf
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Grammar.hs/module/Canon.Antlr4.Grammar/function/g4Grammar:
+  digest: sha256:df9e31b21b35480f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Grammar.hs/module/Canon.Antlr4.Grammar/function/parseGrammarText:
+  digest: sha256:e91c4a29dcd8ac0b
+  verdict: pending

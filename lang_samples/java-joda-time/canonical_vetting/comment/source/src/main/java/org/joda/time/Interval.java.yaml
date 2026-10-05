@@ -1,0 +1,81 @@
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval:
+  digest: sha256:4e9708a6dbfc08b0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval:
+  digest: sha256:8e3c15b27bf8b66c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval#10:
+  digest: sha256:b3707f8eca92778c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval#2:
+  digest: sha256:67ed90d5dee86db3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval#3:
+  digest: sha256:ae52e1cce7c03e04
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval#4:
+  digest: sha256:2f66e9a3f4300bca
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval#5:
+  digest: sha256:9e95687293f33b4f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval#6:
+  digest: sha256:d480609f1e03c60f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval#7:
+  digest: sha256:0c59ea1eb5b5afa5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval#8:
+  digest: sha256:cde75ad48afee118
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/constructor/Interval#9:
+  digest: sha256:b6fa9171cf318d27
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/abuts:
+  digest: sha256:d213778327dc5de5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/gap:
+  digest: sha256:dccbc8740f3b2295
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/overlap:
+  digest: sha256:fb5e52907a8108ce
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/parse:
+  digest: sha256:482bb17ca6cec0fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/parseWithOffset:
+  digest: sha256:64c3ea8e42e01cd7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/toInterval:
+  digest: sha256:e5a59c0c1e2efb3e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/withChronology:
+  digest: sha256:30903b1fa3ac1006
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/withDurationAfterStart:
+  digest: sha256:1fb246ee56445c46
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/withDurationBeforeEnd:
+  digest: sha256:2a0580de91ace7bd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/withEnd:
+  digest: sha256:d98acbf4227f42a5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/withEndMillis:
+  digest: sha256:8c1a331700373558
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/withPeriodAfterStart:
+  digest: sha256:6720909ce85afef7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/withPeriodBeforeEnd:
+  digest: sha256:17ceea6f5d18113f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/withStart:
+  digest: sha256:0cd6bf6893475791
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Interval.java/package/org.joda.time/class/Interval/method/withStartMillis:
+  digest: sha256:a09f3b683141a6cf
+  verdict: pending

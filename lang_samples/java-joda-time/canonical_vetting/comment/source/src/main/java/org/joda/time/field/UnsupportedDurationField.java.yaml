@@ -1,0 +1,78 @@
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField:
+  digest: sha256:90e2e66f47683bd0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/constructor/UnsupportedDurationField:
+  digest: sha256:8e546b17b4cf8ffa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/field/cCache:
+  digest: sha256:a5e6c98e564ef7dd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/field/iType:
+  digest: sha256:ff29dd2e90e1b677
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/field/serialVersionUID:
+  digest: sha256:60a2c7d22dc312fc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/add:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/add#2:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/compareTo:
+  digest: sha256:63321db23b459fd8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/equals:
+  digest: sha256:29f03916c5a8bbe5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getDifference:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getDifferenceAsLong:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getInstance:
+  digest: sha256:ce4dfc1c3cdde2e0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getMillis:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getMillis#2:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getMillis#3:
+  digest: sha256:a025ae52b0ec2b58
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getMillis#4:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getUnitMillis:
+  digest: sha256:426884b76d85249a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getValue:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getValue#2:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getValueAsLong:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/getValueAsLong#2:
+  digest: sha256:8dd3ae7029ba0f92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/hashCode:
+  digest: sha256:8bf86dd1ef4ae006
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/isPrecise:
+  digest: sha256:ff96daff383559dc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/isSupported:
+  digest: sha256:8aee884af58ab630
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/readResolve:
+  digest: sha256:d3efd8754b5f7e54
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/UnsupportedDurationField.java/package/org.joda.time.field/class/UnsupportedDurationField/method/toString:
+  digest: sha256:ce41ecc1d74f6f78
+  verdict: pending

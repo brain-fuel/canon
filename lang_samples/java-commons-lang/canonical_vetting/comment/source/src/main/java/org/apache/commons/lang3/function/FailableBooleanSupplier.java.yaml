@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBooleanSupplier.java/package/org.apache.commons.lang3.function/interface/FailableBooleanSupplier:
+  digest: sha256:6c5c3b67fe03c2b0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableBooleanSupplier.java/package/org.apache.commons.lang3.function/interface/FailableBooleanSupplier/method/getAsBoolean:
+  digest: sha256:455da4e3da65443c
+  verdict: pending

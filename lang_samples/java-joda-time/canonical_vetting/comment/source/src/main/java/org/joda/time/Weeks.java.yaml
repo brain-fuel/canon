@@ -1,0 +1,105 @@
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks:
+  digest: sha256:e299eea2dd838f3f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/constructor/Weeks:
+  digest: sha256:ffad31c901521237
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/field/MAX_VALUE:
+  digest: sha256:05471c995547beb3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/field/MIN_VALUE:
+  digest: sha256:633d8f22b67aadd1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/field/ONE:
+  digest: sha256:df10b4f801e69119
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/field/PARSER:
+  digest: sha256:20499c8bdbe0586f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/field/THREE:
+  digest: sha256:774a01f34571be12
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/field/TWO:
+  digest: sha256:d2c227a5dc39bcdb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/field/ZERO:
+  digest: sha256:5936718c4354d19a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/field/serialVersionUID:
+  digest: sha256:fcdf71a4d7975811
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/dividedBy:
+  digest: sha256:136a6d9f92246a92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/getFieldType:
+  digest: sha256:bb59580a0eb23fb1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/getPeriodType:
+  digest: sha256:4e92d45d5a02a162
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/getWeeks:
+  digest: sha256:13c8edc513cd7ced
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/isGreaterThan:
+  digest: sha256:91dd141eeedfcfcf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/isLessThan:
+  digest: sha256:1d18a73d7ef5c14e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/minus:
+  digest: sha256:37f1f6bb30981f8c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/minus#2:
+  digest: sha256:f2e1af54c7dca2fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/multipliedBy:
+  digest: sha256:defbab0c70176d6b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/negated:
+  digest: sha256:19dc8f90f07f2904
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/parseWeeks:
+  digest: sha256:cac3ddda3bd8bdd5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/plus:
+  digest: sha256:ea44eed1e1fd92ca
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/plus#2:
+  digest: sha256:8b220302a52ba963
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/readResolve:
+  digest: sha256:f1d57fe2267b9da4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/standardWeeksIn:
+  digest: sha256:83325a41cca83a63
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/toStandardDays:
+  digest: sha256:32ab948b19ee45f5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/toStandardDuration:
+  digest: sha256:e77d6871255a415a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/toStandardHours:
+  digest: sha256:53e9bed7862e7268
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/toStandardMinutes:
+  digest: sha256:4a536fff262115fa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/toStandardSeconds:
+  digest: sha256:0c258cd1ef6104b6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/toString:
+  digest: sha256:c2e4c7b8c50f0d76
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/weeks:
+  digest: sha256:fe4db507ed0f066f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/weeksBetween:
+  digest: sha256:5f611815b08ff5e2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/weeksBetween#2:
+  digest: sha256:5c81c3094b627537
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/Weeks.java/package/org.joda.time/class/Weeks/method/weeksIn:
+  digest: sha256:eed267658fd57500
+  verdict: pending

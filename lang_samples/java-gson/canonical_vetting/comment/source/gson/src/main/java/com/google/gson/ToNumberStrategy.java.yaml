@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/ToNumberStrategy.java/package/com.google.gson/interface/ToNumberStrategy:
+  digest: sha256:1bd74849321094e0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ToNumberStrategy.java/package/com.google.gson/interface/ToNumberStrategy/method/readNumber:
+  digest: sha256:b6760f8c11023b6c
+  verdict: pending

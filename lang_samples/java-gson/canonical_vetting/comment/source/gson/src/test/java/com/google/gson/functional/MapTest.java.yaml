@@ -1,0 +1,33 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest:
+  digest: sha256:11d26bd9529a5fd3
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/class/ClassWithAMap:
+  digest: sha256:59088108d843b504
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/method/testMapOfMapDeserialization:
+  digest: sha256:e8d32bd7381e8323
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/method/testMapOfMapSerialization:
+  digest: sha256:e8d32bd7381e8323
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/method/testMapSerializationWithNullValues:
+  digest: sha256:59088108d843b504
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/method/testMapSerializationWithNullValuesSerialized:
+  digest: sha256:59088108d843b504
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/method/testMapWithQuotes:
+  digest: sha256:b79781b38725be71
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/method/testMapWithoutNoArgsConstructor:
+  digest: sha256:2c8cedcbd2bd4ada
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/method/testSerializeMaps:
+  digest: sha256:ec007ffe9778e827
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/method/testStringMapDeserializationWithCustomAdapterNullKey:
+  digest: sha256:466335e05ee96b12
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapTest.java/package/com.google.gson.functional/class/MapTest/method/testWriteMapsWithEmptyStringKey:
+  digest: sha256:c65621ae9c5650d2
+  verdict: pending

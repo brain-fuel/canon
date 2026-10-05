@@ -1,0 +1,63 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils:
+  digest: sha256:fe32dda3946639ae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/class/ConstantFuture:
+  digest: sha256:2e6acbeca0bbf3bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/class/ConstantFuture/constructor/ConstantFuture:
+  digest: sha256:77b6864659f6827c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/class/ConstantFuture/field/value:
+  digest: sha256:03b9f4441d19a6dd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/class/ConstantFuture/method/cancel:
+  digest: sha256:76b4a34e5907c9b9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/class/ConstantFuture/method/get:
+  digest: sha256:7822acde1e5234be
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/class/ConstantFuture/method/get#2:
+  digest: sha256:ef81f87db1b9a5a2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/class/ConstantFuture/method/isCancelled:
+  digest: sha256:0799a1642c1e0a2e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/class/ConstantFuture/method/isDone:
+  digest: sha256:659545e654f953ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/constructor/ConcurrentUtils:
+  digest: sha256:6baad18fb0a33fd1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/checkedException:
+  digest: sha256:8ba0c8f097e3644c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/constantFuture:
+  digest: sha256:5b22a530510d893e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/createIfAbsent:
+  digest: sha256:3a6e2a9687e3caa1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/createIfAbsentUnchecked:
+  digest: sha256:899774f736dc730d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/extractCause:
+  digest: sha256:9f0dfea9861e1589
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/extractCauseUnchecked:
+  digest: sha256:ff2919f05d137da1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/handleCause:
+  digest: sha256:0857ca6e79b67ae2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/handleCauseUnchecked:
+  digest: sha256:4129f5dc86c5265f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/initialize:
+  digest: sha256:b4aca11b99b1a083
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/initializeUnchecked:
+  digest: sha256:9bbccb5b1de66840
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentUtils/method/putIfAbsent:
+  digest: sha256:01c2b53019781987
+  verdict: pending

@@ -1,0 +1,90 @@
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder:
+  digest: sha256:52b3e36905f8b49d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/OfYear:
+  digest: sha256:8785c66233b60e27
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/OfYear/method/next:
+  digest: sha256:6f7dc9711a63f849
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/OfYear/method/previous:
+  digest: sha256:268756407765d29b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/OfYear/method/setDayOfMonthNext:
+  digest: sha256:b95870cd308219c6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/OfYear/method/setDayOfMonthPrevious:
+  digest: sha256:3d8c19910951b118
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/OfYear/method/setInstant:
+  digest: sha256:7ed5f6dc3d08c175
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/PrecalculatedZone/constructor/PrecalculatedZone:
+  digest: sha256:bd09664a5aab86ac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/PrecalculatedZone/method/create:
+  digest: sha256:09d479c7d8a3f16a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/Recurrence:
+  digest: sha256:20d69d387b8a3c90
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/Recurrence/method/next:
+  digest: sha256:6f7dc9711a63f849
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/Recurrence/method/previous:
+  digest: sha256:268756407765d29b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/Rule:
+  digest: sha256:f7d5fc733aa95e21
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/RuleSet/constructor/RuleSet#2:
+  digest: sha256:ebcd55f3979080c9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/RuleSet/method/buildTailZone:
+  digest: sha256:76a612d129b12575
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/RuleSet/method/firstTransition:
+  digest: sha256:3a20e505caa24906
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/RuleSet/method/getUpperLimit:
+  digest: sha256:c0ab3622a37bcf56
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/RuleSet/method/nextTransition:
+  digest: sha256:f875fdbc56e3bad4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/class/Transition/method/isTransitionFrom:
+  digest: sha256:6aba1a61af807b40
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/addCutover:
+  digest: sha256:e7136676cb4d19b2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/addRecurringSavings:
+  digest: sha256:a6c86349d423d6ef
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/readFrom:
+  digest: sha256:cd60232a5b20d36d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/readFrom#2:
+  digest: sha256:cd60232a5b20d36d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/readMillis:
+  digest: sha256:d96d8499cc7791c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/setFixedSavings:
+  digest: sha256:ea17e1cbe1709872
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/setStandardOffset:
+  digest: sha256:bfe9a053cf96ab96
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/toDateTimeZone:
+  digest: sha256:f9a49e4512faabb7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/writeMillis:
+  digest: sha256:393aa47c35a5b245
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/writeTo:
+  digest: sha256:c646a99eda8b143e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/tz/DateTimeZoneBuilder.java/package/org.joda.time.tz/class/DateTimeZoneBuilder/method/writeTo#2:
+  digest: sha256:c646a99eda8b143e
+  verdict: pending

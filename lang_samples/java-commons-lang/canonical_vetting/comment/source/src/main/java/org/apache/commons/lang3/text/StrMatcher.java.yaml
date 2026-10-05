@@ -1,0 +1,132 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher:
+  digest: sha256:2e8ac1eff812fba8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/CharMatcher:
+  digest: sha256:e9ce9fa6bf8ee062
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/CharMatcher/constructor/CharMatcher:
+  digest: sha256:654163f77045e778
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/CharMatcher/field/ch:
+  digest: sha256:207d64bec8a45dfb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/CharMatcher/method/isMatch:
+  digest: sha256:97170254bc5a662a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/CharSetMatcher:
+  digest: sha256:aa5d1a381182fc19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/CharSetMatcher/constructor/CharSetMatcher:
+  digest: sha256:6c938e69a2893fda
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/CharSetMatcher/field/chars:
+  digest: sha256:a9e864a7ec435694
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/CharSetMatcher/method/isMatch:
+  digest: sha256:072bf9f0c3445e2f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/NoMatcher:
+  digest: sha256:34e975ffb55d8e3f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/NoMatcher/constructor/NoMatcher:
+  digest: sha256:bd84661946fbca5d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/NoMatcher/method/isMatch:
+  digest: sha256:2d9e22f80920f058
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/StringMatcher:
+  digest: sha256:aa5d1a381182fc19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/StringMatcher/constructor/StringMatcher:
+  digest: sha256:f646700c3d8f555b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/StringMatcher/field/chars:
+  digest: sha256:83b1bef349c344c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/StringMatcher/method/isMatch:
+  digest: sha256:5a49d8706e53a460
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/TrimMatcher:
+  digest: sha256:98ef9e268304f8f1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/TrimMatcher/constructor/TrimMatcher:
+  digest: sha256:7229cb084ee3603f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/class/TrimMatcher/method/isMatch:
+  digest: sha256:97170254bc5a662a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/constructor/StrMatcher:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/field/COMMA_MATCHER:
+  digest: sha256:a37a859c96752774
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/field/DOUBLE_QUOTE_MATCHER:
+  digest: sha256:3fc6414923acec8a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/field/NONE_MATCHER:
+  digest: sha256:8cf7d04755656d72
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/field/QUOTE_MATCHER:
+  digest: sha256:c223b77cc9e0cbd4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/field/SINGLE_QUOTE_MATCHER:
+  digest: sha256:3fc6414923acec8a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/field/SPACE_MATCHER:
+  digest: sha256:c514bb4ce53046b9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/field/SPLIT_MATCHER:
+  digest: sha256:37aab646497719a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/field/TAB_MATCHER:
+  digest: sha256:a7fe6aa3b1d0a811
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/field/TRIM_MATCHER:
+  digest: sha256:000e8e497866103e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/charMatcher:
+  digest: sha256:64b2f17470fc4285
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/charSetMatcher:
+  digest: sha256:55aaf9d7feda513e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/charSetMatcher#2:
+  digest: sha256:04bbefe92ce7c5ba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/commaMatcher:
+  digest: sha256:fdcd2293fad83690
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/doubleQuoteMatcher:
+  digest: sha256:7eed44846f3caf74
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/isMatch:
+  digest: sha256:d2c6ea690b47841e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/isMatch#2:
+  digest: sha256:56c8a30c91dc91de
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/noneMatcher:
+  digest: sha256:580d832c85b49331
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/quoteMatcher:
+  digest: sha256:d31bde5bfbdc12a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/singleQuoteMatcher:
+  digest: sha256:37ae6836735e1801
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/spaceMatcher:
+  digest: sha256:4a092c287dd37494
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/splitMatcher:
+  digest: sha256:faf84d53bde54a73
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/stringMatcher:
+  digest: sha256:af2c0b269b3603d2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/tabMatcher:
+  digest: sha256:a78c11812dbec498
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/StrMatcher.java/package/org.apache.commons.lang3.text/class/StrMatcher/method/trimMatcher:
+  digest: sha256:6139dda2d16a1ad8
+  verdict: pending

@@ -1,0 +1,45 @@
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod:
+  digest: sha256:2a45677fda7691f8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/constructor/AbstractPeriod:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/equals:
+  digest: sha256:aaa3ea60cf55e0fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/get:
+  digest: sha256:c420196f206a7cde
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/getFieldType:
+  digest: sha256:83362e9d34c1a2b3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/getFieldTypes:
+  digest: sha256:dd1207f008fe7b9b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/getValues:
+  digest: sha256:5e94eb2ef7def9e6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/hashCode:
+  digest: sha256:e60ffda43c6742c1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/indexOf:
+  digest: sha256:09f42eee11f5ae5c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/isSupported:
+  digest: sha256:dac56c3039542357
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/size:
+  digest: sha256:0d14e5fa299585ef
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/toMutablePeriod:
+  digest: sha256:3d725d93c162194f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/toPeriod:
+  digest: sha256:23955a3da0884d2e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/toString:
+  digest: sha256:795f660a31c93d8a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPeriod.java/package/org.joda.time.base/class/AbstractPeriod/method/toString#2:
+  digest: sha256:c6865f86cb8fdff4
+  verdict: pending

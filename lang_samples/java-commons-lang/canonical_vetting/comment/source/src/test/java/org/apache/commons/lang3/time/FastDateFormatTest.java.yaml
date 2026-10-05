@@ -1,0 +1,24 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java/package/org.apache.commons.lang3.time/class/FastDateFormatTest:
+  digest: sha256:7112b875c551b320
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java/package/org.apache.commons.lang3.time/class/FastDateFormatTest/method/testGregorianCalendarWeekYearWorks:
+  digest: sha256:549adba9e0f264a4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java/package/org.apache.commons.lang3.time/class/FastDateFormatTest/method/testJapaneseImperialCalendarWeekYearDoesNotThrow:
+  digest: sha256:1565c95ab8b1b25c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java/package/org.apache.commons.lang3.time/class/FastDateFormatTest/method/testLang1791:
+  digest: sha256:6c94fed1d28c274b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java/package/org.apache.commons.lang3.time/class/FastDateFormatTest/method/testLang954:
+  digest: sha256:c613dcd9de43142d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java/package/org.apache.commons.lang3.time/class/FastDateFormatTest/method/testParseCentralEuropeanSummerTime:
+  digest: sha256:6fcab4cf54ec8f8c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java/package/org.apache.commons.lang3.time/class/FastDateFormatTest/method/test_instanceCacheIsBounded:
+  digest: sha256:56040fceab73753f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/FastDateFormatTest.java/package/org.apache.commons.lang3.time/class/FastDateFormatTest/method/test_publicClearCache:
+  digest: sha256:f601596fb4888b4b
+  verdict: pending

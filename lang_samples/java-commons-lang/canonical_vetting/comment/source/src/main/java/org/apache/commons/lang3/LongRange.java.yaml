@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/LongRange.java/package/org.apache.commons.lang3/class/LongRange:
+  digest: sha256:1fd1f30d9a909f9a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LongRange.java/package/org.apache.commons.lang3/class/LongRange/constructor/LongRange:
+  digest: sha256:b554c8bdbede13da
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LongRange.java/package/org.apache.commons.lang3/class/LongRange/method/fit:
+  digest: sha256:0a83d5c769933d52
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LongRange.java/package/org.apache.commons.lang3/class/LongRange/method/of:
+  digest: sha256:dd446e7664bd4760
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LongRange.java/package/org.apache.commons.lang3/class/LongRange/method/of#2:
+  digest: sha256:7d7a313cc67fc9ff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/LongRange.java/package/org.apache.commons.lang3/class/LongRange/method/toLongStream:
+  digest: sha256:ab313cbedc0eb60d
+  verdict: pending

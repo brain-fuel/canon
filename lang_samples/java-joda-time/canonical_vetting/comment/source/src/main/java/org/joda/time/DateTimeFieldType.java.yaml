@@ -1,0 +1,204 @@
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType:
+  digest: sha256:183bdba5e57e0537
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/constructor/StandardDateTimeFieldType:
+  digest: sha256:943b1166045e5789
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/field/iOrdinal:
+  digest: sha256:b6baa9c39df36b0d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/field/iRangeType:
+  digest: sha256:a7020f9d8e6db71b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/field/iUnitType:
+  digest: sha256:47650ade60f680ee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/method/equals:
+  digest: sha256:847cbe356c6c8fbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/method/getDurationType:
+  digest: sha256:847cbe356c6c8fbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/method/getField:
+  digest: sha256:847cbe356c6c8fbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/method/getRangeDurationType:
+  digest: sha256:847cbe356c6c8fbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/method/hashCode:
+  digest: sha256:847cbe356c6c8fbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/class/StandardDateTimeFieldType/method/readResolve:
+  digest: sha256:c8a56830abb644b6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/constructor/DateTimeFieldType:
+  digest: sha256:df31adda673cfd1e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/CENTURY_OF_ERA_TYPE:
+  digest: sha256:2e15bb50e5264b88
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/CLOCKHOUR_OF_DAY_TYPE:
+  digest: sha256:930a6316f967bce5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/CLOCKHOUR_OF_HALFDAY_TYPE:
+  digest: sha256:d2ad99e874b57c6d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/DAY_OF_MONTH_TYPE:
+  digest: sha256:095bb061c9ebe6d6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/DAY_OF_WEEK_TYPE:
+  digest: sha256:61121c3aa9ec1039
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/DAY_OF_YEAR_TYPE:
+  digest: sha256:60b4d770469b3efe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/ERA:
+  digest: sha256:d2eeeba4141932ee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/ERA_TYPE:
+  digest: sha256:f37cbd8ba549556f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/HALFDAY_OF_DAY_TYPE:
+  digest: sha256:1062caa63203231b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/HOUR_OF_DAY_TYPE:
+  digest: sha256:8040c6a7b59b1a4e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/HOUR_OF_HALFDAY_TYPE:
+  digest: sha256:06e5372b32df0ef9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/MILLIS_OF_DAY_TYPE:
+  digest: sha256:2ca5a2b86ca48e50
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/MILLIS_OF_SECOND_TYPE:
+  digest: sha256:08b7bcb7fbac0614
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/MINUTE_OF_DAY_TYPE:
+  digest: sha256:7b8c0464665105a1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/MINUTE_OF_HOUR_TYPE:
+  digest: sha256:aebc477269268ed2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/MONTH_OF_YEAR_TYPE:
+  digest: sha256:f953e4709f4737e8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/SECOND_OF_DAY_TYPE:
+  digest: sha256:21155a1713a8d113
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/SECOND_OF_MINUTE_TYPE:
+  digest: sha256:47ac814e15148676
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/WEEKYEAR_OF_CENTURY_TYPE:
+  digest: sha256:9d35ca01acd97fd6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/WEEKYEAR_TYPE:
+  digest: sha256:1c30f474905c089b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/WEEK_OF_WEEKYEAR_TYPE:
+  digest: sha256:a7b7f3902bae9546
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/YEAR_OF_CENTURY_TYPE:
+  digest: sha256:02acac265000c428
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/YEAR_OF_ERA_TYPE:
+  digest: sha256:5a457bf12eebed9c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/YEAR_TYPE:
+  digest: sha256:826b7687f4c2d9bd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/iName:
+  digest: sha256:1afd9c1622bf8272
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/centuryOfEra:
+  digest: sha256:7f5faf6804005d76
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/clockhourOfDay:
+  digest: sha256:bc8812f0592ece13
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/clockhourOfHalfday:
+  digest: sha256:587a6bd205177276
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/dayOfMonth:
+  digest: sha256:ccbbbdaa439c0a85
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/dayOfWeek:
+  digest: sha256:2673b0848060b24e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/dayOfYear:
+  digest: sha256:436ae4ed7f96fd47
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/era:
+  digest: sha256:d2d73d5b2789fa2f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/getDurationType:
+  digest: sha256:55c794e401292b01
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/getField:
+  digest: sha256:103152f2418c7ebb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/getName:
+  digest: sha256:65355134cc29fd89
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/getRangeDurationType:
+  digest: sha256:661478c72c2223cd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/halfdayOfDay:
+  digest: sha256:69b8a6a8c4b58c85
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/hourOfDay:
+  digest: sha256:eb1d7f79a7a6b13f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/hourOfHalfday:
+  digest: sha256:4eb95e6c41e30271
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/isSupported:
+  digest: sha256:97171ec53f366910
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/millisOfDay:
+  digest: sha256:b82f437f34b575b5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/millisOfSecond:
+  digest: sha256:bf8855394246695e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/minuteOfDay:
+  digest: sha256:c990bc6b6306c46f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/minuteOfHour:
+  digest: sha256:1cd6a99c3d5d8707
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/monthOfYear:
+  digest: sha256:f10a132b95fc9417
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/secondOfDay:
+  digest: sha256:0a14e5ee07c1f83d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/secondOfMinute:
+  digest: sha256:6515683605811711
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/toString:
+  digest: sha256:ce41ecc1d74f6f78
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/weekOfWeekyear:
+  digest: sha256:cc78dae6aeb2fb40
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/weekyear:
+  digest: sha256:0dd6d734394711e2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/weekyearOfCentury:
+  digest: sha256:3d54a9311c256a7e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/year:
+  digest: sha256:13b3cfbfe6f1e8c5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/yearOfCentury:
+  digest: sha256:89bbcc18793ad0aa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateTimeFieldType.java/package/org.joda.time/class/DateTimeFieldType/method/yearOfEra:
+  digest: sha256:da64e5242aee3fb0
+  verdict: pending

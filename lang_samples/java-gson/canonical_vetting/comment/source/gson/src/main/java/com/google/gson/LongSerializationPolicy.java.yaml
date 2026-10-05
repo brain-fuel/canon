@@ -1,0 +1,15 @@
+decision/java/source/gson/src/main/java/com/google/gson/LongSerializationPolicy.java/package/com.google.gson/enum/LongSerializationPolicy:
+  digest: sha256:e22853e62175553c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/LongSerializationPolicy.java/package/com.google.gson/enum/LongSerializationPolicy/enumConstant/DEFAULT:
+  digest: sha256:11e58b6bcfb010f7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/LongSerializationPolicy.java/package/com.google.gson/enum/LongSerializationPolicy/enumConstant/STRING:
+  digest: sha256:4cefb7617e364d0e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/LongSerializationPolicy.java/package/com.google.gson/enum/LongSerializationPolicy/method/serialize:
+  digest: sha256:0c08dedda3f2584b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/LongSerializationPolicy.java/package/com.google.gson/enum/LongSerializationPolicy/method/typeAdapter:
+  digest: sha256:baedffdd6e85f053
+  verdict: pending

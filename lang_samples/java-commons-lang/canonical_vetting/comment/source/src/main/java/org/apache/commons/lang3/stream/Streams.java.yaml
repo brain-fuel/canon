@@ -1,0 +1,111 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams:
+  digest: sha256:6784c701f37f2346
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/ArrayCollector:
+  digest: sha256:36b0bf75302d5f14
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/ArrayCollector/constructor/ArrayCollector:
+  digest: sha256:eec692e1d324854b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/EnumerationSpliterator:
+  digest: sha256:c53565bd0e274f94
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/EnumerationSpliterator/constructor/EnumerationSpliterator:
+  digest: sha256:4facc3851547d54e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream:
+  digest: sha256:72c820fad0f46743
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/constructor/FailableStream:
+  digest: sha256:4be7e13bc2ee0806
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/allMatch:
+  digest: sha256:255c6660477df5e4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/anyMatch:
+  digest: sha256:a24cf36d11e38544
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/assertNotTerminated:
+  digest: sha256:0f9c13bb187f8f57
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/collect:
+  digest: sha256:ab1e1d152ee3d82a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/collect#2:
+  digest: sha256:6798b62a04d14782
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/filter:
+  digest: sha256:17183590a1c0015d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/forEach:
+  digest: sha256:dba78ad3be8d7a46
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/makeTerminated:
+  digest: sha256:46e9849d67530910
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/map:
+  digest: sha256:f1ee09a37183299d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/reduce:
+  digest: sha256:e40f61255653b385
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/class/FailableStream/method/stream:
+  digest: sha256:b59e38ba8d40590b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/constructor/Streams:
+  digest: sha256:11bacd8bcfc56ed8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/failableStream:
+  digest: sha256:92f6c9d40ad53d2e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/failableStream#2:
+  digest: sha256:c8b3edebeef1e047
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/failableStream#3:
+  digest: sha256:366cc505d9d0108c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/failableStream#4:
+  digest: sha256:5f8ce8fedcffaf35
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/instancesOf:
+  digest: sha256:864e7cf9fd340cb6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/nonNull:
+  digest: sha256:25e121143c9f2666
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/nonNull#2:
+  digest: sha256:e2d11d21a77a7600
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/nonNull#3:
+  digest: sha256:a688d488863e98b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/nonNull#4:
+  digest: sha256:3cbceaf0ca5f6b34
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/of:
+  digest: sha256:43789aee38a8ce7a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/of#2:
+  digest: sha256:5625d7531054b5d6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/of#3:
+  digest: sha256:a4384fcb0e555287
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/of#4:
+  digest: sha256:7f618325972996ce
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/of#5:
+  digest: sha256:15425ba6db504e7b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/of#6:
+  digest: sha256:cfb890ef1d610c30
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/stream:
+  digest: sha256:5d1b2fcad06184a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/stream#2:
+  digest: sha256:0509ec723342da50
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/stream/Streams.java/package/org.apache.commons.lang3.stream/class/Streams/method/toArray:
+  digest: sha256:b13f7bbc3b732226
+  verdict: pending

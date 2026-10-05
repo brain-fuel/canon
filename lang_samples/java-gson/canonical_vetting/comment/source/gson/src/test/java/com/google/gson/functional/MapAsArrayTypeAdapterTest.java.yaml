@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapAsArrayTypeAdapterTest.java/package/com.google.gson.functional/class/MapAsArrayTypeAdapterTest/method/testDeserializationWithoutExplicitlyEnabled:
+  digest: sha256:1872582e924ac13e
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapAsArrayTypeAdapterTest.java/package/com.google.gson.functional/class/MapAsArrayTypeAdapterTest/method/testDeserializeRawMapNonComparableKey:
+  digest: sha256:c02d801468a1f17d
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/MapAsArrayTypeAdapterTest.java/package/com.google.gson.functional/class/MapAsArrayTypeAdapterTest/method/testDeserializeRawMapNullKey:
+  digest: sha256:3b4b43403555c3ec
+  verdict: pending

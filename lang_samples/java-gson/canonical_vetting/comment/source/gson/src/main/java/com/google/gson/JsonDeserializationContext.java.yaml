@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/JsonDeserializationContext.java/package/com.google.gson/interface/JsonDeserializationContext:
+  digest: sha256:a1ff2f5746af6523
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonDeserializationContext.java/package/com.google.gson/interface/JsonDeserializationContext/method/deserialize:
+  digest: sha256:4ec3710a781ffe52
+  verdict: pending

@@ -1,0 +1,30 @@
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter:
+  digest: sha256:4a617f08b3d16903
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter/constructor/AbstractConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter/method/getChronology:
+  digest: sha256:bb4011db69316867
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter/method/getChronology#2:
+  digest: sha256:f6e5ab10e29c7c63
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter/method/getInstantMillis:
+  digest: sha256:bdd20b427eceab73
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter/method/getPartialValues:
+  digest: sha256:63b7ad5bec047d0b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter/method/getPartialValues#2:
+  digest: sha256:d292911c5068823e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter/method/getPeriodType:
+  digest: sha256:21e4cdb9a6a98db8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter/method/isReadableInterval:
+  digest: sha256:430888214c503b1b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/AbstractConverter.java/package/org.joda.time.convert/class/AbstractConverter/method/toString:
+  digest: sha256:bdb8f538cfd56426
+  verdict: pending

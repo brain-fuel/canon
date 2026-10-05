@@ -1,0 +1,18 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerTest:
+  digest: sha256:bceebb1166cba97c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerTest/method/createInitializer:
+  digest: sha256:fd58e4c86e4417b4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerTest/method/testGet:
+  digest: sha256:72e2a4b4401b8a3c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerTest/method/testGetConcurrent:
+  digest: sha256:c71f9f5447227131
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerTest/method/testGetMultipleTimes:
+  digest: sha256:df9deefb7d410696
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AbstractConcurrentInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AbstractConcurrentInitializerTest/method/testisInitialized:
+  digest: sha256:96c85105bee2f569
+  verdict: pending

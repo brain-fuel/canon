@@ -1,0 +1,3 @@
+registry/tetris-upstream:
+  digest: sha256:abc275d69f5382ee
+  verdict: pending

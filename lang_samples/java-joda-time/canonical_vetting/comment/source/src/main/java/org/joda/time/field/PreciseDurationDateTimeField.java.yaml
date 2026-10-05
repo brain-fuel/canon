@@ -1,0 +1,33 @@
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField:
+  digest: sha256:50cc0cc67a368a92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/constructor/PreciseDurationDateTimeField:
+  digest: sha256:3680104b3e6ca5ce
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/field/iUnitMillis:
+  digest: sha256:0656a15b2f0acbaf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/method/getDurationField:
+  digest: sha256:d9a0f0e3ccebf0e8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/method/getMaximumValueForSet:
+  digest: sha256:0119b5a8a176e69d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/method/getMinimumValue:
+  digest: sha256:12bf9a96053911b1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/method/isLenient:
+  digest: sha256:74ae80fc8e0266f0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/method/remainder:
+  digest: sha256:a13a5f580e677a44
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/method/roundCeiling:
+  digest: sha256:e8f18d3bcc0a699b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/method/roundFloor:
+  digest: sha256:84882078b9f49e91
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationDateTimeField.java/package/org.joda.time.field/class/PreciseDurationDateTimeField/method/set:
+  digest: sha256:051a9206dfc6a4c3
+  verdict: pending

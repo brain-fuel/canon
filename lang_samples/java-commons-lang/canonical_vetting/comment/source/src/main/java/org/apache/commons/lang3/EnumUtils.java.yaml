@@ -1,0 +1,69 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils:
+  digest: sha256:8ae06309eabcd160
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/constructor/EnumUtils:
+  digest: sha256:6aaea13938228b5e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/asEnum:
+  digest: sha256:8afb60f692cf650d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/checkBitVectorable:
+  digest: sha256:7eafbc8d046fe921
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/generateBitVector:
+  digest: sha256:9d0c8c16f088adb5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/generateBitVector#2:
+  digest: sha256:1dfb9c55ff5c285d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/generateBitVectors:
+  digest: sha256:aeff297678d4ae10
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/generateBitVectors#2:
+  digest: sha256:aeff297678d4ae10
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getEnum:
+  digest: sha256:0554f2851c215847
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getEnum#2:
+  digest: sha256:81063b45862d892b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getEnumIgnoreCase:
+  digest: sha256:9c9464f20bafca85
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getEnumIgnoreCase#2:
+  digest: sha256:8aac7f2e8cf97b85
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getEnumList:
+  digest: sha256:ce1113fe1116603f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getEnumMap:
+  digest: sha256:c9e7c48706bafdd9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getEnumMap#2:
+  digest: sha256:69d75f99254d38f2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getEnumSystemProperty:
+  digest: sha256:c237c1bb99090e72
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getFirstEnum:
+  digest: sha256:5c63700dddbb80cf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/getFirstEnumIgnoreCase:
+  digest: sha256:31b1a6ff8d273928
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/isValidEnum:
+  digest: sha256:155799e7e159fdc0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/isValidEnumIgnoreCase:
+  digest: sha256:3a5668671139c2b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/processBitVector:
+  digest: sha256:f50eb79b6bdf3162
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/processBitVectors:
+  digest: sha256:58a68aadf4eea64c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/EnumUtils.java/package/org.apache.commons.lang3/class/EnumUtils/method/stream:
+  digest: sha256:d838b994c87ebbab
+  verdict: pending

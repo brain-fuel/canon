@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/ByteSupplier.java/package/org.apache.commons.lang3.function/interface/ByteSupplier:
+  digest: sha256:67c20fe31a202796
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/ByteSupplier.java/package/org.apache.commons.lang3.function/interface/ByteSupplier/method/getAsByte:
+  digest: sha256:7d0233b125972ff3
+  verdict: pending

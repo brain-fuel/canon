@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/DoubleRangeTest.java/package/org.apache.commons.lang3/class/DoubleRangeTest:
+  digest: sha256:d321b0a71b448b1c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/DoubleRangeTest.java/package/org.apache.commons.lang3/class/DoubleRangeTest/method/testNaNEndpointsRejected:
+  digest: sha256:81afe119105596a6
+  verdict: pending

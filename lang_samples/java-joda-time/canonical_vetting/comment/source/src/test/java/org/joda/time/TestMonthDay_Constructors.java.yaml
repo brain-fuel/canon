@@ -1,0 +1,54 @@
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors:
+  digest: sha256:2f7a8d4e162d53d1
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor:
+  digest: sha256:7957a15383e7347e
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_Chronology:
+  digest: sha256:64b4d936c0a299ab
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_DateTimeZone:
+  digest: sha256:57588ece18909c75
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_Object_Chronology:
+  digest: sha256:a4318c9398ad9023
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_Object_nullChronology:
+  digest: sha256:359bb3b92c195968
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_int_int:
+  digest: sha256:00dff77a974c5928
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_int_int_Chronology:
+  digest: sha256:5a871bc5319cf1cb
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_int_int_nullChronology:
+  digest: sha256:443b6776a7db5c3e
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_long1:
+  digest: sha256:ff07afcea80fd457
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_long1_Chronology:
+  digest: sha256:395ba0514e370f46
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_long2:
+  digest: sha256:ff07afcea80fd457
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_long2_Chronology:
+  digest: sha256:395ba0514e370f46
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_long_nullChronology:
+  digest: sha256:dfc6765de1bcba93
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_nullChronology:
+  digest: sha256:e1fbb9a1b98b641f
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_nullDateTimeZone:
+  digest: sha256:55f4142071d02abb
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_nullObject_Chronology:
+  digest: sha256:cc90e81e8a985a13
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/TestMonthDay_Constructors.java/package/org.joda.time/class/TestMonthDay_Constructors/method/testConstructor_nullObject_nullChronology:
+  digest: sha256:ea858de6f4e9430f
+  verdict: pending

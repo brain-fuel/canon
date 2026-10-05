@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/function/ConsumersTest.java/package/org.apache.commons.lang3.function/class/ConsumersTest:
+  digest: sha256:d3ed58dd4285ba5b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/function/ConsumersTest.java/package/org.apache.commons.lang3.function/class/ConsumersTest/method/testAccept:
+  digest: sha256:f005a681afe2c7db
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/function/ConsumersTest.java/package/org.apache.commons.lang3.function/class/ConsumersTest/method/testNop:
+  digest: sha256:d853713e8fbee4d8
+  verdict: pending

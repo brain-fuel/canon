@@ -1,0 +1,3 @@
+decision/java/source/test-shrinker/src/main/java/com/example/ClassWithUnreferencedNoArgsConstructor.java/package/com.example/class/ClassWithUnreferencedNoArgsConstructor:
+  digest: sha256:a5ae75bcc22b0917
+  verdict: pending

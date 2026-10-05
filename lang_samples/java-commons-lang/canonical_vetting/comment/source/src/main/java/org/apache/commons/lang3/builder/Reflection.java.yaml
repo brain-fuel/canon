@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Reflection.java/package/org.apache.commons.lang3.builder/class/Reflection:
+  digest: sha256:74054a3205b37054
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Reflection.java/package/org.apache.commons.lang3.builder/class/Reflection/method/getUnchecked:
+  digest: sha256:8807b30d6dea7a7d
+  verdict: pending

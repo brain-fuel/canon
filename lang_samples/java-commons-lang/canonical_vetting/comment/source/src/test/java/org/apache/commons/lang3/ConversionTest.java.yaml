@@ -1,0 +1,135 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest:
+  digest: sha256:79baeec511fce3bb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryBeMsb0ToHexDigit:
+  digest: sha256:7b02e3bf97f80d44
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryBeMsb0ToHexDigit_2args:
+  digest: sha256:07ca51504f955993
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryToByte:
+  digest: sha256:8e09cb9a12606e6e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryToHexDigit:
+  digest: sha256:7b02e3bf97f80d44
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryToHexDigitMsb0_4bits_2args:
+  digest: sha256:548618415d62a75a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryToHexDigitMsb0_bits:
+  digest: sha256:e6426f1f382a9af6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryToHexDigit_2args:
+  digest: sha256:2ec0fccf16d97e82
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryToInt:
+  digest: sha256:8247d6b7c1e4c174
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryToLong:
+  digest: sha256:e89156ec5da7fefd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testBinaryToShort:
+  digest: sha256:b61c55cfa71f6f98
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testByteArrayToInt:
+  digest: sha256:3e3eb097d486555c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testByteArrayToLong:
+  digest: sha256:a4f35b029f9a07e7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testByteArrayToShort:
+  digest: sha256:f7f66520daa1bac1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testByteArrayToUuid:
+  digest: sha256:52dd38c81ad58e2a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testByteToBinary:
+  digest: sha256:cf9f741137ba19fb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testByteToHex:
+  digest: sha256:a212dbfe4c30328a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testHexDigitMsb0ToBinary:
+  digest: sha256:b725b4db96da0ccf
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testHexDigitMsb0ToInt:
+  digest: sha256:571919feaed1fc76
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testHexDigitToBinary:
+  digest: sha256:f41ccff16adc3350
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testHexDigitToInt:
+  digest: sha256:5b1183b36d68bb88
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testHexDigitToIntIllegalArgumentException:
+  digest: sha256:5b1183b36d68bb88
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testHexToByte:
+  digest: sha256:06c8295430a44371
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testHexToInt:
+  digest: sha256:9807d5c691e05fd7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testHexToLong:
+  digest: sha256:095a47779e1bdf0d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testHexToShort:
+  digest: sha256:5c9cff41738d1eec
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testIntArrayToLong:
+  digest: sha256:f6cac71863518c64
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testIntToBinary:
+  digest: sha256:3b60a981886e068d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testIntToByteArray:
+  digest: sha256:9c6bf9da30616896
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testIntToHex:
+  digest: sha256:91e287032b07d4b6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testIntToHexDigit:
+  digest: sha256:29bfa92534d20b29
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testIntToHexDigitMsb0:
+  digest: sha256:f418c35fc573ee32
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testIntToShortArray:
+  digest: sha256:758503d8e1b1ed26
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testLongToBinary:
+  digest: sha256:76e254df8d0be351
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testLongToByteArray:
+  digest: sha256:1239776067e98212
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testLongToHex:
+  digest: sha256:f88b4822e1c7279a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testLongToIntArray:
+  digest: sha256:74b2bb0d59347436
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testLongToShortArray:
+  digest: sha256:ada3773140548697
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testOverflowingCountOrPositionThrowsIllegalArgumentException:
+  digest: sha256:7981727eb3ddbf33
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testShortArrayToInt:
+  digest: sha256:cae097a4dac127c2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testShortArrayToLong:
+  digest: sha256:e19db9640029a804
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testShortToBinary:
+  digest: sha256:d01933bbc0370332
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testShortToByteArray:
+  digest: sha256:60ad1a79e58118d6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testShortToHex:
+  digest: sha256:e4c279b54de45bc8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ConversionTest.java/package/org.apache.commons.lang3/class/ConversionTest/method/testUuidToByteArray:
+  digest: sha256:cda8a564da85e55f
+  verdict: pending

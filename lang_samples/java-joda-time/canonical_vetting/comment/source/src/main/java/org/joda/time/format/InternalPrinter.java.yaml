@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/joda/time/format/InternalPrinter.java/package/org.joda.time.format/interface/InternalPrinter:
+  digest: sha256:e230f96680b529aa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/InternalPrinter.java/package/org.joda.time.format/interface/InternalPrinter/method/estimatePrintedLength:
+  digest: sha256:130c678fb22de43a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/InternalPrinter.java/package/org.joda.time.format/interface/InternalPrinter/method/printTo:
+  digest: sha256:b340d11a31432810
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/format/InternalPrinter.java/package/org.joda.time.format/interface/InternalPrinter/method/printTo#2:
+  digest: sha256:94d2046d3a1ad10c
+  verdict: pending

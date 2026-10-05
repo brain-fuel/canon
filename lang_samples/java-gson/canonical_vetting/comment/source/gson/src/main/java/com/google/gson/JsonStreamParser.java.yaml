@@ -1,0 +1,18 @@
+decision/java/source/gson/src/main/java/com/google/gson/JsonStreamParser.java/package/com.google.gson/class/JsonStreamParser:
+  digest: sha256:77a1d3467d7751d9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonStreamParser.java/package/com.google.gson/class/JsonStreamParser/constructor/JsonStreamParser:
+  digest: sha256:ac1ef1d1afd599d1
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonStreamParser.java/package/com.google.gson/class/JsonStreamParser/constructor/JsonStreamParser#2:
+  digest: sha256:401f093a101643dd
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonStreamParser.java/package/com.google.gson/class/JsonStreamParser/method/hasNext:
+  digest: sha256:6bc4893fed16317c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonStreamParser.java/package/com.google.gson/class/JsonStreamParser/method/next:
+  digest: sha256:85226319fc02b57f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonStreamParser.java/package/com.google.gson/class/JsonStreamParser/method/remove:
+  digest: sha256:e4832cf25d60a7ef
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/FutureTasks.java/package/org.apache.commons.lang3.concurrent/class/FutureTasks:
+  digest: sha256:ce5ea48642ab4c8f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/FutureTasks.java/package/org.apache.commons.lang3.concurrent/class/FutureTasks/method/run:
+  digest: sha256:ef8b80c11d76ebf4
+  verdict: pending

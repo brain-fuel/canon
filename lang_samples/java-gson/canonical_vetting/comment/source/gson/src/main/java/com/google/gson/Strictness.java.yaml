@@ -1,0 +1,12 @@
+decision/java/source/gson/src/main/java/com/google/gson/Strictness.java/package/com.google.gson/enum/Strictness:
+  digest: sha256:38592f0ee8775dc9
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Strictness.java/package/com.google.gson/enum/Strictness/enumConstant/LEGACY_STRICT:
+  digest: sha256:704f2e3fbdfa4544
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Strictness.java/package/com.google.gson/enum/Strictness/enumConstant/LENIENT:
+  digest: sha256:fa07e611a744671e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/Strictness.java/package/com.google.gson/enum/Strictness/enumConstant/STRICT:
+  digest: sha256:16a4bf03ab2a42ea
+  verdict: pending

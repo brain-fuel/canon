@@ -1,0 +1,81 @@
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod:
+  digest: sha256:b1471a587170136f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/add:
+  digest: sha256:716da10475c5c4d6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/add#2:
+  digest: sha256:37f4195a2ecbc39d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/add#3:
+  digest: sha256:003b733a54eb1db4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/add#4:
+  digest: sha256:d30d003bd3717155
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/addDays:
+  digest: sha256:fc6b3455aef98ab3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/addHours:
+  digest: sha256:afed5723f58b07e5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/addMillis:
+  digest: sha256:5e262c9b69954d7b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/addMinutes:
+  digest: sha256:5eea1c504028d271
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/addMonths:
+  digest: sha256:4017d493749e33b3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/addSeconds:
+  digest: sha256:8c808f8e73223dbb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/addWeeks:
+  digest: sha256:72a9f7bda7379196
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/addYears:
+  digest: sha256:97ecb4332eb2b1fd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/clear:
+  digest: sha256:fc06658fa607e057
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/set:
+  digest: sha256:43a453c1e84099d7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setDays:
+  digest: sha256:81af53a2b63ba0a7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setHours:
+  digest: sha256:d9cf6bb5a4060dff
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setMillis:
+  digest: sha256:ffdd295a01880e03
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setMinutes:
+  digest: sha256:d76b6abdf23a0947
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setMonths:
+  digest: sha256:ad5640a82e4d0da5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setPeriod:
+  digest: sha256:3140b8800b862663
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setPeriod#2:
+  digest: sha256:98e647ac08150d80
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setPeriod#3:
+  digest: sha256:5fa81c7611b93c08
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setSeconds:
+  digest: sha256:a2f52559a840455b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setValue:
+  digest: sha256:11a4e591bb892006
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setWeeks:
+  digest: sha256:3983553a54de8de2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadWritablePeriod.java/package/org.joda.time/interface/ReadWritablePeriod/method/setYears:
+  digest: sha256:af274aac285ee8cc
+  verdict: pending

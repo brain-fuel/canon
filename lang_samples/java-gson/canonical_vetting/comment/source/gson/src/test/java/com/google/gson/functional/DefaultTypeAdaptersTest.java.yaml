@@ -1,0 +1,12 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/DefaultTypeAdaptersTest.java/package/com.google.gson.functional/class/DefaultTypeAdaptersTest:
+  digest: sha256:12ba80ff710f7bdf
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/DefaultTypeAdaptersTest.java/package/com.google.gson.functional/class/DefaultTypeAdaptersTest/method/testDateSerializationWithDateStyle:
+  digest: sha256:4f938db719a1f59a
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/DefaultTypeAdaptersTest.java/package/com.google.gson.functional/class/DefaultTypeAdaptersTest/method/testDateSerializationWithStyle:
+  digest: sha256:ba734cfcb7c18518
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/DefaultTypeAdaptersTest.java/package/com.google.gson.functional/class/DefaultTypeAdaptersTest/method/testDateStyleOverwritesPattern:
+  digest: sha256:7baa7cde8a1a9d2a
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/prolog/source/00-util.pl:
+  digest: sha256:7c64daf5d7167622
+  verdict: pending
+decision/prolog/source/00-util.pl/clause/sformat:
+  digest: sha256:e276210d462344d0
+  verdict: pending

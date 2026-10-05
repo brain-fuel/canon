@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Consumers.java/package/org.apache.commons.lang3.function/class/Consumers:
+  digest: sha256:11328612d6409fa6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Consumers.java/package/org.apache.commons.lang3.function/class/Consumers/field/NOP:
+  digest: sha256:016196c4f6ab8b2c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Consumers.java/package/org.apache.commons.lang3.function/class/Consumers/method/accept:
+  digest: sha256:5318fe5c96510dbb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Consumers.java/package/org.apache.commons.lang3.function/class/Consumers/method/nop:
+  digest: sha256:eb68fb9823196272
+  verdict: pending

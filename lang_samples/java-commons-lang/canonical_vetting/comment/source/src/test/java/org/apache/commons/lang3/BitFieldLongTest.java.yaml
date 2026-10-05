@@ -1,0 +1,33 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest:
+  digest: sha256:2a64ab1d05dd7acf
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testClearInt:
+  digest: sha256:5c1871bcf44e0a82
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testClearLong:
+  digest: sha256:5c1871bcf44e0a82
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testClearShort:
+  digest: sha256:e540f71f7d35e79a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testGetRawValue:
+  digest: sha256:31e7b5ebab325327
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testGetShortRawValue:
+  digest: sha256:e0e881d833f1d7c4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testGetValueAndRawValueIntRange:
+  digest: sha256:13492dbab43fc63d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testIsSetAndIsAllSet:
+  digest: sha256:80684f443d9ffcfd
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testSet:
+  digest: sha256:62a79a0e3938dbcb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testSetBoolean:
+  digest: sha256:2d7032fca2804453
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/BitFieldLongTest.java/package/org.apache.commons.lang3/class/BitFieldLongTest/method/testSetValue:
+  digest: sha256:b3ac77b96e47fe1f
+  verdict: pending

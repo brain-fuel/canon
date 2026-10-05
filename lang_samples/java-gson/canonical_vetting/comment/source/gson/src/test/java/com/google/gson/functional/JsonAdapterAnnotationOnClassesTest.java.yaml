@@ -1,0 +1,42 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest:
+  digest: sha256:7eb03bab58337b92
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testAdapterCreatedByInstanceCreator:
+  digest: sha256:8045f13b8179b052
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testAdapterCreatedByJdkUnsafe:
+  digest: sha256:45da98e69c8278c6
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testDelegatingAdapterFactory:
+  digest: sha256:c1342b5259e59ea2
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testDelegatingAdapterFactory_Delayed:
+  digest: sha256:5ae23d495db37d08
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testDelegating_SameFactoryClass:
+  digest: sha256:a4db616dc92d950b
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testDelegating_SameFactoryClass_OnClassAndField:
+  digest: sha256:67aea06fad3853a5
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testDelegating_SameFactoryInstance:
+  digest: sha256:eb4265f1b45e0c0a
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testDelegating_SameFactoryInstance_OnClassAndField:
+  digest: sha256:c14b93076bcf9ba4
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testFactoryReturningNull:
+  digest: sha256:5be2379b11864704
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testJsonDeserializer:
+  digest: sha256:84d57b2414547217
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testJsonSerializer:
+  digest: sha256:27c3a22bef8de065
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testRegisteredDeserializerOverridesJsonAdapter:
+  digest: sha256:67a80317cbe095e2
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/JsonAdapterAnnotationOnClassesTest.java/package/com.google.gson.functional/class/JsonAdapterAnnotationOnClassesTest/method/testRegisteredSerializerOverridesJsonAdapter:
+  digest: sha256:3a3e72288bd07180
+  verdict: pending

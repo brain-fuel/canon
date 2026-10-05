@@ -1,0 +1,30 @@
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape:
+  digest: sha256:4c517f2892309e7d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape/data/CharSetItem:
+  digest: sha256:a0bfc0b457396733
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape/data/EscapeError:
+  digest: sha256:1ed9cf3af3996268
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape/function/decodeCharSet:
+  digest: sha256:4495c962554891dc
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape/function/decodeStringLiteral:
+  digest: sha256:9a20639866b16ec4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape/function/encodeStringLiteral:
+  digest: sha256:e395b6a47d1e3c6a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape/function/isWellFormedActionRaw:
+  digest: sha256:f263f5d43949ebe4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape/function/isWellFormedArgumentRaw:
+  digest: sha256:3f807713be27102c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape/function/isWellFormedCharSetRaw:
+  digest: sha256:211c4340609ccd0e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Escape.hs/module/Canon.Antlr4.Escape/function/isWellFormedStringLiteralRaw:
+  digest: sha256:7f999f6e613c38cf
+  verdict: pending

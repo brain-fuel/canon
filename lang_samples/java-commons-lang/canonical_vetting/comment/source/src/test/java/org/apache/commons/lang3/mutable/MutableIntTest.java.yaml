@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/mutable/MutableIntTest.java/package/org.apache.commons.lang3.mutable/class/MutableIntTest:
+  digest: sha256:fdf3a3e8646aa5fe
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/mutable/MutableIntTest.java/package/org.apache.commons.lang3.mutable/class/MutableIntTest/method/testEquals#2:
+  digest: sha256:5733e560709ddbeb
+  verdict: pending

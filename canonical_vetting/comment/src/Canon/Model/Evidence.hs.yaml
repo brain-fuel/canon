@@ -1,0 +1,21 @@
+decision/haskell/src/Canon/Model/Evidence.hs/module/Canon.Model.Evidence:
+  digest: sha256:966e315868eba99d
+  verdict: pending
+decision/haskell/src/Canon/Model/Evidence.hs/module/Canon.Model.Evidence/data/Assertion:
+  digest: sha256:b7bea70dbd0fd8e8
+  verdict: pending
+decision/haskell/src/Canon/Model/Evidence.hs/module/Canon.Model.Evidence/data/Evidence:
+  digest: sha256:8958e5e9a48f4e29
+  verdict: pending
+decision/haskell/src/Canon/Model/Evidence.hs/module/Canon.Model.Evidence/data/GitSource:
+  digest: sha256:d767250619750b81
+  verdict: pending
+decision/haskell/src/Canon/Model/Evidence.hs/module/Canon.Model.Evidence/data/Verification:
+  digest: sha256:b94197933fd2ab74
+  verdict: pending
+decision/haskell/src/Canon/Model/Evidence.hs/module/Canon.Model.Evidence/data/VerificationKind:
+  digest: sha256:b5e79fd6cc470149
+  verdict: pending
+decision/haskell/src/Canon/Model/Evidence.hs/module/Canon.Model.Evidence/function/isDerivedFromGit:
+  digest: sha256:a47ea101f549e85e
+  verdict: pending

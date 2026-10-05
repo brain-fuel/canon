@@ -1,0 +1,66 @@
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial:
+  digest: sha256:af5680c04174ceeb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/constructor/AbstractPartial:
+  digest: sha256:5d6d0d30c1f26dcb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/compareTo:
+  digest: sha256:2e913b4f62c6b94d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/equals:
+  digest: sha256:4ea8d85f6603721a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/get:
+  digest: sha256:128fbf738213d4c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/getField:
+  digest: sha256:3727481b8954a6d3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/getField#2:
+  digest: sha256:7ba8515d7ad0bab9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/getFieldType:
+  digest: sha256:d2b89614af138d6f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/getFieldTypes:
+  digest: sha256:5149c6b0deee3270
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/getFields:
+  digest: sha256:e393999da8e26664
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/getValues:
+  digest: sha256:b855cd30cf6f545a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/hashCode:
+  digest: sha256:55e1c98f89822d31
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/indexOf:
+  digest: sha256:d8d069deaa8b5375
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/indexOf#2:
+  digest: sha256:c5e3bea8b2ec973b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/indexOfSupported:
+  digest: sha256:171c1fe20822427b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/indexOfSupported#2:
+  digest: sha256:f2a8e6e4f225e61a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/isAfter:
+  digest: sha256:a75eca375ee829de
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/isBefore:
+  digest: sha256:932af626c67de0e4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/isEqual:
+  digest: sha256:8e573850992d7c5a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/isSupported:
+  digest: sha256:de5c1d1589354e82
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/toDateTime:
+  digest: sha256:d32703cbf7fa1edd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/base/AbstractPartial.java/package/org.joda.time.base/class/AbstractPartial/method/toString:
+  digest: sha256:9e16e8b0da8f19ab
+  verdict: pending

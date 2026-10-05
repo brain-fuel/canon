@@ -1,0 +1,6 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/ParameterizedTypesTest.java/package/com.google.gson.functional/class/ParameterizedTypesTest:
+  digest: sha256:cbbd1d55be39bd80
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/ParameterizedTypesTest.java/package/com.google.gson.functional/class/ParameterizedTypesTest/class/ObjectWithTypeVariables:
+  digest: sha256:943209fade9272b2
+  verdict: pending

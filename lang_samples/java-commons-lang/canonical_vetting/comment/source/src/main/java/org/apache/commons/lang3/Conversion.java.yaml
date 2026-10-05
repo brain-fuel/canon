@@ -1,0 +1,132 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion:
+  digest: sha256:710b1160284627ba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/constructor/Conversion:
+  digest: sha256:5d806021dcbc9276
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryBeMsb0ToHexDigit:
+  digest: sha256:ac570db7298b16c0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryBeMsb0ToHexDigit#2:
+  digest: sha256:bfa8f39275c54461
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryToByte:
+  digest: sha256:80640ec02a8b4f41
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryToHexDigit:
+  digest: sha256:beb19e0898c8bab5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryToHexDigit#2:
+  digest: sha256:10b35af8217fda22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryToHexDigitMsb0_4bits:
+  digest: sha256:c2408fb818c00847
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryToHexDigitMsb0_4bits#2:
+  digest: sha256:93162de509f7dcb5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryToInt:
+  digest: sha256:7e4658f53dd03243
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryToLong:
+  digest: sha256:d03187cd60982e0e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/binaryToShort:
+  digest: sha256:31b522d4b477c07d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/byteArrayToInt:
+  digest: sha256:47e2321bca75f2b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/byteArrayToLong:
+  digest: sha256:20de3a1dea2ad862
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/byteArrayToShort:
+  digest: sha256:b8dae066533c5862
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/byteArrayToUuid:
+  digest: sha256:a40b091ae3f01f5d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/byteToBinary:
+  digest: sha256:00264319dec40cc4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/byteToHex:
+  digest: sha256:7b73efbff31b09a1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/hexDigitMsb0ToBinary:
+  digest: sha256:4ce3aab9c42d2df0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/hexDigitMsb0ToInt:
+  digest: sha256:94541ec8a24ca40f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/hexDigitToBinary:
+  digest: sha256:695e1dc63339e472
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/hexDigitToInt:
+  digest: sha256:d03827417707465f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/hexToByte:
+  digest: sha256:90e2889406d818b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/hexToInt:
+  digest: sha256:5b76d6d3a8d7752e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/hexToLong:
+  digest: sha256:202f00528300aec5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/hexToShort:
+  digest: sha256:485c1f73e3bec36b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/intArrayToLong:
+  digest: sha256:4bc287ded133a9bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/intToBinary:
+  digest: sha256:4390fe8d3c4a50f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/intToByteArray:
+  digest: sha256:60f08067ba61b505
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/intToHex:
+  digest: sha256:792c3c21e7ac2d36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/intToHexDigit:
+  digest: sha256:1a52c9c7986a8317
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/intToHexDigitMsb0:
+  digest: sha256:dbaba074bfbcced1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/intToShortArray:
+  digest: sha256:d78a285b32a8ba7c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/longToBinary:
+  digest: sha256:30f2b976706be4b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/longToByteArray:
+  digest: sha256:12de332faab2b317
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/longToHex:
+  digest: sha256:6cf568eed28413de
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/longToIntArray:
+  digest: sha256:b239eaa5acf5d8c6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/longToShortArray:
+  digest: sha256:c4dcf705caeeae43
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/shortArrayToInt:
+  digest: sha256:9c622399517a9d13
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/shortArrayToLong:
+  digest: sha256:0f457210b26df0bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/shortToBinary:
+  digest: sha256:60c64282e447fe71
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/shortToByteArray:
+  digest: sha256:31a35d0acfd78530
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/shortToHex:
+  digest: sha256:866f8a3b6364eb97
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/Conversion.java/package/org.apache.commons.lang3/class/Conversion/method/uuidToByteArray:
+  digest: sha256:7611042f0bd799d2
+  verdict: pending

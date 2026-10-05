@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/JsonPrimitiveTest.java/package/com.google.gson/class/JsonPrimitiveTest:
+  digest: sha256:4445272706824389
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/JsonPrimitiveTest.java/package/com.google.gson/class/JsonPrimitiveTest/method/testBigDecimalEqualsTransitive:
+  digest: sha256:89a8460247b99375
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/JsonPrimitiveTest.java/package/com.google.gson/class/JsonPrimitiveTest/method/testEqualsAndHashCodeAcrossNumberTypes:
+  digest: sha256:9815b6d9d08a8a7f
+  verdict: pending

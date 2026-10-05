@@ -9,12 +9,33 @@ ignore:
   - grammars/rust/canonically_commented/
   - grammars/csharp/canonically_commented/
   - grammars/fsharp/canonically_commented/
+  - "!grammars/folio/*.g4"
+  - "!grammars/make/canonically_commented/*.g4"
+  - "*.md"
+  - "!docs/**/*.md"
 languages:
+  folio:
+    extensions: [.md]
+    lexer: grammars/folio/FolioLexer.g4
+    parser: grammars/folio/FolioParser.g4
+    start: document
+    embeds:
+      haskell:
+        language: haskell
+        comments: {line: "--", blockOpen: "{-", blockClose: "-}", strings: ["\""]}
+        width: 98
+        doc: {open: "-- | ", continue: "-- ", blank: "--", banner: "-- ", markup: haddock}
   haskell:
     extensions: [.hs]
     lexer: grammars/haskell/canonically_commented/HaskellLexer.g4
     parser: grammars/haskell/canonically_commented/HaskellParser.g4
     start: module
+  make:
+    extensions: [Makefile]
+    lexer: grammars/make/canonically_commented/MakefileLexer.g4
+    parser: grammars/make/canonically_commented/MakefileParser.g4
+    start: makefile
+    highlight: {meta: [IFEQ, IFDEF, ELSE, INCLUDE, DEFINE, ENDEF], comment: [HELP], string: [VALUE], type: [SPECIAL], plain: [NAME]}
   antlr4:
     extensions: [.g4]
     lexer: grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4

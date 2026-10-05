@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityUnescaper:
+  digest: sha256:1be8f2058eccd091
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityUnescaper/constructor/NumericEntityUnescaper:
+  digest: sha256:9b26a64a28e2b32f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityUnescaper/enum/OPTION:
+  digest: sha256:a48895d1f192b1a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityUnescaper/enum/OPTION/enumConstant/errorIfNoSemiColon:
+  digest: sha256:1b718d2861f1ebf7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityUnescaper/enum/OPTION/enumConstant/semiColonOptional:
+  digest: sha256:19c8c0f33cd6c693
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityUnescaper/enum/OPTION/enumConstant/semiColonRequired:
+  digest: sha256:847b8dc51e9d238a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityUnescaper/method/isSet:
+  digest: sha256:9fa61a5e923bc5f2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityUnescaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityUnescaper/method/translate:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending

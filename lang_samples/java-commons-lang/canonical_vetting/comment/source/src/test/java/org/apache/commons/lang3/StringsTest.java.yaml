@@ -1,0 +1,12 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/StringsTest.java/package/org.apache.commons.lang3/class/StringsTest:
+  digest: sha256:17422664aa70e529
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringsTest.java/package/org.apache.commons.lang3/class/StringsTest/method/testCaseInsensitiveIndexOfEmptyOutOfRange:
+  digest: sha256:dd25b868cc608da0
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringsTest.java/package/org.apache.commons.lang3/class/StringsTest/method/testCaseInsensitiveReplaceLengthChangingLowerCase:
+  digest: sha256:777b0416ed2fe8e7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringsTest.java/package/org.apache.commons.lang3/class/StringsTest/method/testCaseInsensitiveStartsWithAny:
+  digest: sha256:af6e93ff5f3c2765
+  verdict: pending

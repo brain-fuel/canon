@@ -1,0 +1,18 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java/package/com.google.gson.internal.bind/class/JsonTreeWriter:
+  digest: sha256:3b2342b005b07f69
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java/package/com.google.gson.internal.bind/class/JsonTreeWriter/field/SENTINEL_CLOSED:
+  digest: sha256:a0a3d00a296d0380
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java/package/com.google.gson.internal.bind/class/JsonTreeWriter/field/pendingName:
+  digest: sha256:f1a3f3f6ac56e930
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java/package/com.google.gson.internal.bind/class/JsonTreeWriter/field/product:
+  digest: sha256:6d29e3bb24c8374d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java/package/com.google.gson.internal.bind/class/JsonTreeWriter/field/stack:
+  digest: sha256:1c24deb4b2b6001b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java/package/com.google.gson.internal.bind/class/JsonTreeWriter/method/get:
+  digest: sha256:91fe6ac388becbb7
+  verdict: pending

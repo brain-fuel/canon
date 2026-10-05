@@ -1,0 +1,21 @@
+decision/haskell/src/Canon/Antlr4/Token.hs/module/Canon.Antlr4.Token:
+  digest: sha256:bd64f42ca09f0216
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Token.hs/module/Canon.Antlr4.Token/data/Token:
+  digest: sha256:261fbd41cccaa2c3
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Token.hs/module/Canon.Antlr4.Token/function/defaultChannelName:
+  digest: sha256:3d4c3b47f52a5287
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Token.hs/module/Canon.Antlr4.Token/function/eofTokenName:
+  digest: sha256:cacf080db4cc1034
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Token.hs/module/Canon.Antlr4.Token/function/hiddenChannelName:
+  digest: sha256:fb0704c934b9edc1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Token.hs/module/Canon.Antlr4.Token/function/isEofToken:
+  digest: sha256:f2495265f67a49b2
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Token.hs/module/Canon.Antlr4.Token/function/renderToken:
+  digest: sha256:f1c3e23a4c88b63c
+  verdict: pending

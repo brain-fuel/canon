@@ -1,0 +1,42 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils:
+  digest: sha256:4b6453417a3f7ce9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/class/Executable:
+  digest: sha256:43ef9e5af04d753b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/field/WIDENING_PRIMITIVE_TYPES:
+  digest: sha256:d39c3c4e636d60a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/compareConstructorFit:
+  digest: sha256:a30de3e7ba6c2aec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/compareMethodFit:
+  digest: sha256:b2585105809d3b6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/compareParameterTypes:
+  digest: sha256:45cd2aadc2361bb8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/getObjectTransformationCost:
+  digest: sha256:fddc0e1b49c7dde3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/getPrimitivePromotionCost:
+  digest: sha256:e19c7f3d5a539169
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/getTotalTransformationCost:
+  digest: sha256:cdc129a6e1ec55a6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/isAccessible:
+  digest: sha256:1f82098465ee1a60
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/isPackage:
+  digest: sha256:52c21fee0a58520d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/isPublic:
+  digest: sha256:3998bf6f3af8cab8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/isStatic:
+  digest: sha256:8afd83ba162202b6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java/package/org.apache.commons.lang3.reflect/class/MemberUtils/method/setAccessibleWorkaround:
+  digest: sha256:692d530d7a06e000
+  verdict: pending

@@ -1,0 +1,27 @@
+decision/java/source/gson/src/main/java/com/google/gson/FormattingStyle.java/package/com.google.gson/class/FormattingStyle:
+  digest: sha256:4853dc8efe2b099f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FormattingStyle.java/package/com.google.gson/class/FormattingStyle/field/COMPACT:
+  digest: sha256:f8dda147b8f25bb0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FormattingStyle.java/package/com.google.gson/class/FormattingStyle/field/PRETTY:
+  digest: sha256:96afbf7dcc81797d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FormattingStyle.java/package/com.google.gson/class/FormattingStyle/method/getIndent:
+  digest: sha256:c286f3c44f91a9d4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FormattingStyle.java/package/com.google.gson/class/FormattingStyle/method/getNewline:
+  digest: sha256:c2621e2ecef6ae51
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FormattingStyle.java/package/com.google.gson/class/FormattingStyle/method/usesSpaceAfterSeparators:
+  digest: sha256:4f9c49f4b2d35377
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FormattingStyle.java/package/com.google.gson/class/FormattingStyle/method/withIndent:
+  digest: sha256:6abca8f11ba63eaa
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FormattingStyle.java/package/com.google.gson/class/FormattingStyle/method/withNewline:
+  digest: sha256:7b80859bfa8896e3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/FormattingStyle.java/package/com.google.gson/class/FormattingStyle/method/withSpaceAfterSeparators:
+  digest: sha256:8e548fc684e079c8
+  verdict: pending

@@ -1,0 +1,15 @@
+decision/haskell/src/Canon/Walk.hs/module/Canon.Walk:
+  digest: sha256:6227e69c76345f01
+  verdict: pending
+decision/haskell/src/Canon/Walk.hs/module/Canon.Walk/data/Walked:
+  digest: sha256:9da5448aaa7b1af8
+  verdict: pending
+decision/haskell/src/Canon/Walk.hs/module/Canon.Walk/function/findSupportedFiles:
+  digest: sha256:f2893de472c6e60c
+  verdict: pending
+decision/haskell/src/Canon/Walk.hs/module/Canon.Walk/function/grammarExtension:
+  digest: sha256:1b7e0ef54b3f3641
+  verdict: pending
+decision/haskell/src/Canon/Walk.hs/module/Canon.Walk/function/walkProject:
+  digest: sha256:620aef43f56aacd8
+  verdict: pending

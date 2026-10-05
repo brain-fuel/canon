@@ -1,0 +1,15 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsTest.java/package/org.apache.commons.lang3/class/ClassUtilsTest:
+  digest: sha256:8c12432528e2af2b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsTest.java/package/org.apache.commons.lang3/class/ClassUtilsTest/method/testGetClassStringMalformedMiddleJunkRejected:
+  digest: sha256:a9f59b21eaeb89d9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsTest.java/package/org.apache.commons.lang3/class/ClassUtilsTest/method/testGetClassStringMalformedUnpairedBracketsRejected:
+  digest: sha256:28027c6e3943b9ae
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsTest.java/package/org.apache.commons.lang3/class/ClassUtilsTest/method/testGetClassStringWellFormedArrayStillResolves:
+  digest: sha256:e5d75d81acc853ed
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/ClassUtilsTest.java/package/org.apache.commons.lang3/class/ClassUtilsTest/method/test_getAbbreviatedName_TooLongHint:
+  digest: sha256:84d7cc710e7010e7
+  verdict: pending

@@ -1,0 +1,45 @@
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer:
+  digest: sha256:604cb336e4df14df
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code3:
+  digest: sha256:2d6056d749e42d8b
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code3/lexerRule/CLOSE3:
+  digest: sha256:7e036ac1eca13cbb
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code3/lexerRule/CODE_LINE:
+  digest: sha256:f3ecbe7a0011d7cc
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code3/lexerRule/CODE_NL:
+  digest: sha256:dd431261675870f2
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code4:
+  digest: sha256:cd1caae0628a76c0
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code4/lexerRule/CLOSE4:
+  digest: sha256:af4d70afd13036da
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code4/lexerRule/CODE4_LINE:
+  digest: sha256:1b68895983091111
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerMode/Code4/lexerRule/CODE4_NL:
+  digest: sha256:7035fc04de73c130
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/FENCE3:
+  digest: sha256:a0ac98c9d88beb2b
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/FENCE4:
+  digest: sha256:30ba294a7a14ca61
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/FRONT_FENCE:
+  digest: sha256:92c85095a2aedd7b
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/HEADING:
+  digest: sha256:030e7ab9af5ddc44
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/NEWLINE:
+  digest: sha256:0aa4c6289c90ade5
+  verdict: pending
+decision/antlr4/grammars/folio/FolioLexer.g4/grammarDefinition/FolioLexer/lexerRule/PROSE:
+  digest: sha256:cfdc80cd0b0ab6de
+  verdict: pending

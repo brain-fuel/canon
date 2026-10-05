@@ -1,0 +1,129 @@
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology:
+  digest: sha256:8f5e5afad7f92f20
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/class/LeapYearPatternType:
+  digest: sha256:a7d7588bc6fcdcf3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/class/LeapYearPatternType/constructor/LeapYearPatternType:
+  digest: sha256:6ad215ef62ee1b5c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/class/LeapYearPatternType/field/index:
+  digest: sha256:eb91bbbc08ee4374
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/class/LeapYearPatternType/field/pattern:
+  digest: sha256:3482524872cc81a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/class/LeapYearPatternType/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/class/LeapYearPatternType/method/isLeapYear:
+  digest: sha256:cda2f63583205391
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/class/LeapYearPatternType/method/readResolve:
+  digest: sha256:0fdf638d0cf90ccd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/constructor/IslamicChronology:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/AH:
+  digest: sha256:e2eec1a62b46c4c1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/CYCLE:
+  digest: sha256:61216567f8d0fbbf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/ERA_FIELD:
+  digest: sha256:4ad4d27453a8d3e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/INSTANCE_UTC:
+  digest: sha256:d52151999ab98d5c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/LEAP_YEAR_15_BASED:
+  digest: sha256:358a5f454a07812e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/LEAP_YEAR_16_BASED:
+  digest: sha256:3180a53245fd83bd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/LEAP_YEAR_HABASH_AL_HASIB:
+  digest: sha256:859f82c794a09164
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/LEAP_YEAR_INDIAN:
+  digest: sha256:cd7cce06711a60e4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/LONG_MONTH_LENGTH:
+  digest: sha256:2b561aa64c9d7c44
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MAX_YEAR:
+  digest: sha256:311f83abb3692762
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MILLIS_PER_CYCLE:
+  digest: sha256:9e543ffa76c41b2d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MILLIS_PER_LONG_MONTH:
+  digest: sha256:384a64289299d784
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MILLIS_PER_LONG_YEAR:
+  digest: sha256:5fd1d1ddf4bcfb5d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MILLIS_PER_MONTH:
+  digest: sha256:384a64289299d784
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MILLIS_PER_MONTH_PAIR:
+  digest: sha256:384a64289299d784
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MILLIS_PER_SHORT_YEAR:
+  digest: sha256:5fd1d1ddf4bcfb5d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MILLIS_PER_YEAR:
+  digest: sha256:5fd1d1ddf4bcfb5d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MILLIS_YEAR_1:
+  digest: sha256:4c942d42d2be238d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MIN_YEAR:
+  digest: sha256:6cab2cbec0819e41
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/MONTH_PAIR_LENGTH:
+  digest: sha256:9c0b22f16edd93e1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/SHORT_MONTH_LENGTH:
+  digest: sha256:5b51e340110bc4b0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/cCache:
+  digest: sha256:d602f4cb50fd1e33
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/iLeapYears:
+  digest: sha256:be87188cba0bd418
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/equals:
+  digest: sha256:86d985dc780c5a41
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/getInstance:
+  digest: sha256:4933540b2a220924
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/getInstance#2:
+  digest: sha256:226e45698844e872
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/getInstance#3:
+  digest: sha256:f40a8deb6dd75304
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/getInstanceUTC:
+  digest: sha256:de3f41ed1e40a83c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/getLeapYearPatternType:
+  digest: sha256:fac54f3805bc4f4b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/hashCode:
+  digest: sha256:b15b995d5c85dc7a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/readResolve:
+  digest: sha256:553aad01d0579294
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/withUTC:
+  digest: sha256:99dcb7f0dee1ffdc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/IslamicChronology.java/package/org.joda.time.chrono/class/IslamicChronology/method/withZone:
+  digest: sha256:203c6515a26e0e74
+  verdict: pending

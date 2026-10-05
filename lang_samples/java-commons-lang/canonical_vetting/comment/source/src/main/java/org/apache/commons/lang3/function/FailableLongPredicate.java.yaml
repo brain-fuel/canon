@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java/package/org.apache.commons.lang3.function/interface/FailableLongPredicate:
+  digest: sha256:193f17eb4324fe36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java/package/org.apache.commons.lang3.function/interface/FailableLongPredicate/constant/FALSE:
+  digest: sha256:65f9c7f2224f902f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java/package/org.apache.commons.lang3.function/interface/FailableLongPredicate/constant/TRUE:
+  digest: sha256:aaa0a653ec960fde
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java/package/org.apache.commons.lang3.function/interface/FailableLongPredicate/method/and:
+  digest: sha256:2cabf911bb5e6802
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java/package/org.apache.commons.lang3.function/interface/FailableLongPredicate/method/falsePredicate:
+  digest: sha256:6e649028879ab4bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java/package/org.apache.commons.lang3.function/interface/FailableLongPredicate/method/negate:
+  digest: sha256:4ead07d2f0bb127b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java/package/org.apache.commons.lang3.function/interface/FailableLongPredicate/method/or:
+  digest: sha256:fcf4131034927d67
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java/package/org.apache.commons.lang3.function/interface/FailableLongPredicate/method/test:
+  digest: sha256:17686ef629de69eb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java/package/org.apache.commons.lang3.function/interface/FailableLongPredicate/method/truePredicate:
+  digest: sha256:ece8abed08afa930
+  verdict: pending

@@ -1,0 +1,45 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple:
+  digest: sha256:aae40e2856afbbc2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/constructor/Triple:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/field/EMPTY_ARRAY:
+  digest: sha256:3f56b36cf08c7afe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/compareTo:
+  digest: sha256:02a5d4f2bab9690e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/emptyArray:
+  digest: sha256:f19895458fd1dc52
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/equals:
+  digest: sha256:4013e06f608df6ff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/getLeft:
+  digest: sha256:1665ee3a4781d356
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/getMiddle:
+  digest: sha256:e1fda1dc821b0ba0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/getRight:
+  digest: sha256:89e777fb7d149aa0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/hashCode:
+  digest: sha256:ff90b6d0e3960241
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/of:
+  digest: sha256:63d6eb1b424d390d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/ofNonNull:
+  digest: sha256:a9aa8116381de1cd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/toString:
+  digest: sha256:814b24aea7625fb5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/tuple/Triple.java/package/org.apache.commons.lang3.tuple/class/Triple/method/toString#2:
+  digest: sha256:e6be21e72d5bc070
+  verdict: pending

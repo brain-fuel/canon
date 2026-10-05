@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java/package/com.google.gson.internal.bind/class/TypeAdapterRuntimeTypeWrapper/method/getRuntimeTypeIfMoreSpecific:
+  digest: sha256:6868b156168f5c43
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java/package/com.google.gson.internal.bind/class/TypeAdapterRuntimeTypeWrapper/method/isReflective:
+  digest: sha256:8ed4cd37bb0c87ad
+  verdict: pending

@@ -1,0 +1,24 @@
+decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse:
+  digest: sha256:a18eee0e20d1ef47
+  verdict: pending
+decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/function/logFormat:
+  digest: sha256:c44c24f5de577f49
+  verdict: pending
+decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/function/parseBlamePorcelain:
+  digest: sha256:64042ff1987abb95
+  verdict: pending
+decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/function/parseEpochTime:
+  digest: sha256:dfa9fd1639eb1e0b
+  verdict: pending
+decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/function/parseGitLog:
+  digest: sha256:3565ddff4d61d081
+  verdict: pending
+decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/function/parseIsoTime:
+  digest: sha256:42f538d7c9e09c86
+  verdict: pending
+decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/function/trailerPersons:
+  digest: sha256:4a75c58b84a99b78
+  verdict: pending
+decision/haskell/src/Canon/Git/Parse.hs/module/Canon.Git.Parse/newtype/GitParseError:
+  digest: sha256:272fdc31680e1ebf
+  verdict: pending

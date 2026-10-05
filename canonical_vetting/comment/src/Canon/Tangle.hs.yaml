@@ -1,0 +1,27 @@
+decision/haskell/src/Canon/Tangle.hs/module/Canon.Tangle:
+  digest: sha256:fc6c7bcf183ebf8b
+  verdict: pending
+decision/haskell/src/Canon/Tangle.hs/module/Canon.Tangle/data/Origin:
+  digest: sha256:11a5d1875b794377
+  verdict: pending
+decision/haskell/src/Canon/Tangle.hs/module/Canon.Tangle/data/Tangled:
+  digest: sha256:3d439526f15d5c34
+  verdict: pending
+decision/haskell/src/Canon/Tangle.hs/module/Canon.Tangle/function/assemble:
+  digest: sha256:f26e66ea1e4807dc
+  verdict: pending
+decision/haskell/src/Canon/Tangle.hs/module/Canon.Tangle/function/docComment:
+  digest: sha256:c8765aaf589479fe
+  verdict: pending
+decision/haskell/src/Canon/Tangle.hs/module/Canon.Tangle/function/originOf:
+  digest: sha256:f338e37d53bd8af1
+  verdict: pending
+decision/haskell/src/Canon/Tangle.hs/module/Canon.Tangle/function/sectionRef:
+  digest: sha256:0590ec071e8810b9
+  verdict: pending
+decision/haskell/src/Canon/Tangle.hs/module/Canon.Tangle/function/toHaddock:
+  digest: sha256:4504ed1813ad90ec
+  verdict: pending
+decision/haskell/src/Canon/Tangle.hs/module/Canon.Tangle/function/wrapTo:
+  digest: sha256:19f29c17453d3469
+  verdict: pending

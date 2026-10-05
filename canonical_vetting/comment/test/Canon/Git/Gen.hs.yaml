@@ -1,0 +1,21 @@
+decision/haskell/test/Canon/Git/Gen.hs/module/Canon.Git.Gen:
+  digest: sha256:32a41e856ff156b5
+  verdict: pending
+decision/haskell/test/Canon/Git/Gen.hs/module/Canon.Git.Gen/function/genBlameLine:
+  digest: sha256:41ef6bc993975dba
+  verdict: pending
+decision/haskell/test/Canon/Git/Gen.hs/module/Canon.Git.Gen/function/genCommit:
+  digest: sha256:19de44a848e80db5
+  verdict: pending
+decision/haskell/test/Canon/Git/Gen.hs/module/Canon.Git.Gen/function/genCommitHash:
+  digest: sha256:9043be74a41065c5
+  verdict: pending
+decision/haskell/test/Canon/Git/Gen.hs/module/Canon.Git.Gen/function/genPerson:
+  digest: sha256:1bd82a2260f7c340
+  verdict: pending
+decision/haskell/test/Canon/Git/Gen.hs/module/Canon.Git.Gen/function/renderBlamePorcelain:
+  digest: sha256:2fec3f9ecfdad543
+  verdict: pending
+decision/haskell/test/Canon/Git/Gen.hs/module/Canon.Git.Gen/function/renderGitLog:
+  digest: sha256:2f51b2264b5e26a0
+  verdict: pending

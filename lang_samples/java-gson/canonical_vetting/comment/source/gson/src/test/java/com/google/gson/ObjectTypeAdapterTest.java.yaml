@@ -1,0 +1,6 @@
+decision/java/source/gson/src/test/java/com/google/gson/ObjectTypeAdapterTest.java/package/com.google.gson/class/ObjectTypeAdapterTest/method/testDeserializeDeeplyNestedArrays:
+  digest: sha256:df7d2b6e0403b261
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/ObjectTypeAdapterTest.java/package/com.google.gson/class/ObjectTypeAdapterTest/method/testDeserializeDeeplyNestedObjects:
+  digest: sha256:43c03fea720114ec
+  verdict: pending

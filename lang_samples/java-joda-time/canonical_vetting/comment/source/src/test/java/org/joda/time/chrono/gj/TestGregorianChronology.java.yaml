@@ -1,0 +1,18 @@
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestGregorianChronology.java/package/org.joda.time.chrono.gj/class/TestGregorianChronology:
+  digest: sha256:6403f27c2f9f6adb
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestGregorianChronology.java/package/org.joda.time.chrono.gj/class/TestGregorianChronology/constructor/TestGregorianChronology:
+  digest: sha256:c8a07e06627bc6e0
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestGregorianChronology.java/package/org.joda.time.chrono.gj/class/TestGregorianChronology/method/fixedFromGJ:
+  digest: sha256:56f906714942205f
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestGregorianChronology.java/package/org.joda.time.chrono.gj/class/TestGregorianChronology/method/gjFromFixed:
+  digest: sha256:afe8f8e37e888b69
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestGregorianChronology.java/package/org.joda.time.chrono.gj/class/TestGregorianChronology/method/gjYearFromFixed:
+  digest: sha256:0e3928122ebaaadd
+  verdict: pending
+decision/java/source/src/test/java/org/joda/time/chrono/gj/TestGregorianChronology.java/package/org.joda.time.chrono.gj/class/TestGregorianChronology/method/isoFromFixed:
+  digest: sha256:b27dd2e81307dc16
+  verdict: pending

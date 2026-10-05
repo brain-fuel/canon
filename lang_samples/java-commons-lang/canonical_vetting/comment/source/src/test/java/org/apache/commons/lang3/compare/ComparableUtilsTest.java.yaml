@@ -1,0 +1,36 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_0:
+  digest: sha256:f6d391ac3e675ff1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_0/class/C_is_0:
+  digest: sha256:8cc39901a79230b7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_0/class/C_is_1:
+  digest: sha256:2cee66d42ee5bc72
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_0/class/C_is_10:
+  digest: sha256:fb522a4fd04e701e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_1:
+  digest: sha256:58e863c78882349b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_1/class/C_is_0:
+  digest: sha256:3e929a49d0e15dd6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_1/class/C_is_1:
+  digest: sha256:660633b42f1af3c6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_1/class/C_is_10:
+  digest: sha256:4bd154120a74cca5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_10:
+  digest: sha256:ef4578da5d273c61
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_10/class/C_is_0:
+  digest: sha256:c26daa767e7f1efb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_10/class/C_is_1:
+  digest: sha256:f7e22b52661cd332
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/compare/ComparableUtilsTest.java/package/org.apache.commons.lang3.compare/class/ComparableUtilsTest/class/A_is_1/class/B_is_10/class/C_is_10:
+  digest: sha256:8213b67d35d2318f
+  verdict: pending

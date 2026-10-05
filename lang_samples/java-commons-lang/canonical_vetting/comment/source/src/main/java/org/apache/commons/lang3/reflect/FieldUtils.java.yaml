@@ -1,0 +1,108 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils:
+  digest: sha256:99118b55f59ab6b5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/constructor/FieldUtils:
+  digest: sha256:f8a5ffa1f6505b65
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/getAllFields:
+  digest: sha256:68e6d6d228081d86
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/getAllFieldsList:
+  digest: sha256:c57e68452f63029e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/getDeclaredField:
+  digest: sha256:0071a31ed8057c19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/getDeclaredField#2:
+  digest: sha256:e7f45bfc72c766f0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/getField:
+  digest: sha256:59d14b44b9721e98
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/getField#2:
+  digest: sha256:5327bd21f35eab19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/getFieldsListWithAnnotation:
+  digest: sha256:fb0a73bcb33df550
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/getFieldsWithAnnotation:
+  digest: sha256:06d1fbffcae8751d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readDeclaredField:
+  digest: sha256:2d3cb22940f171c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readDeclaredField#2:
+  digest: sha256:b6b2b44738319476
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readDeclaredStaticField:
+  digest: sha256:c14a8748f6854ff8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readDeclaredStaticField#2:
+  digest: sha256:51f02b8cdb2e73ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readField:
+  digest: sha256:25ffe161671f2c49
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readField#2:
+  digest: sha256:58efaa8565397de6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readField#3:
+  digest: sha256:387d41d249cdf4e7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readField#4:
+  digest: sha256:92ebf887a4248e8f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readStaticField:
+  digest: sha256:ad880c3877ba505b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readStaticField#2:
+  digest: sha256:739c21b258b1424d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readStaticField#3:
+  digest: sha256:7c1cb98db68dd0a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/readStaticField#4:
+  digest: sha256:1aa496ddea6e523c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/removeFinalModifier:
+  digest: sha256:221022bc720f8ecc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/removeFinalModifier#2:
+  digest: sha256:dbdcc968782649bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeDeclaredField:
+  digest: sha256:1a84bfcc59ab9f57
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeDeclaredField#2:
+  digest: sha256:25463434ce2d8bcb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeDeclaredStaticField:
+  digest: sha256:6dac2d8841da4720
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeDeclaredStaticField#2:
+  digest: sha256:0c2a9f5aa2021198
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeField:
+  digest: sha256:b27414512efd0f6e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeField#2:
+  digest: sha256:6c92091c0ce87bdc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeField#3:
+  digest: sha256:8826583212a8898e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeField#4:
+  digest: sha256:62782f315c4852f6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeStaticField:
+  digest: sha256:eef11d65dd326c1a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeStaticField#2:
+  digest: sha256:1bc15eb0ccc6a7c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeStaticField#3:
+  digest: sha256:de80d515f32622f5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java/package/org.apache.commons.lang3.reflect/class/FieldUtils/method/writeStaticField#4:
+  digest: sha256:90375523e63e5dda
+  verdict: pending

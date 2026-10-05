@@ -1,0 +1,15 @@
+decision/go/source/version4.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/version4.go/function/New:
+  digest: sha256:87c1d97a1c5ad827
+  verdict: pending
+decision/go/source/version4.go/function/NewRandom:
+  digest: sha256:39f2507bb1b44dba
+  verdict: pending
+decision/go/source/version4.go/function/NewRandomFromReader:
+  digest: sha256:d56b884200c322a5
+  verdict: pending
+decision/go/source/version4.go/function/NewString:
+  digest: sha256:57ca4c5e4f1c394b
+  verdict: pending

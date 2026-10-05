@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreaker.java/package/org.apache.commons.lang3.concurrent/interface/CircuitBreaker:
+  digest: sha256:62153f17e923cbbc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreaker.java/package/org.apache.commons.lang3.concurrent/interface/CircuitBreaker/method/checkState:
+  digest: sha256:433d7324e17f81fb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreaker.java/package/org.apache.commons.lang3.concurrent/interface/CircuitBreaker/method/close:
+  digest: sha256:2ab031a27fe1f9cd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreaker.java/package/org.apache.commons.lang3.concurrent/interface/CircuitBreaker/method/incrementAndCheckState:
+  digest: sha256:ce38a104b751987c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreaker.java/package/org.apache.commons.lang3.concurrent/interface/CircuitBreaker/method/isClosed:
+  digest: sha256:6d2e5afb55901e77
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreaker.java/package/org.apache.commons.lang3.concurrent/interface/CircuitBreaker/method/isOpen:
+  digest: sha256:289c31b99bb51a84
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/CircuitBreaker.java/package/org.apache.commons.lang3.concurrent/interface/CircuitBreaker/method/open:
+  digest: sha256:20b5a171e07e7784
+  verdict: pending

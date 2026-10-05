@@ -1,0 +1,6 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/TypeHierarchyAdapterTest.java/package/com.google.gson.functional/class/TypeHierarchyAdapterTest:
+  digest: sha256:41c1a4db8613f61a
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/TypeHierarchyAdapterTest.java/package/com.google.gson.functional/class/TypeHierarchyAdapterTest/method/testRegisterSubTypeFirstAllowed:
+  digest: sha256:5295d98a1940adca
+  verdict: pending

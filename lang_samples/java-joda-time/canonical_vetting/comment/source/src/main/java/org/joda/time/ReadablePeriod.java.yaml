@@ -1,0 +1,36 @@
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod:
+  digest: sha256:7697e15c944b22cc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/equals:
+  digest: sha256:f94b9af758de89df
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/get:
+  digest: sha256:826af651bc2ba06e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/getFieldType:
+  digest: sha256:a9de049e6116c54c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/getPeriodType:
+  digest: sha256:93a1939494bc5210
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/getValue:
+  digest: sha256:f09de587eadf2492
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/hashCode:
+  digest: sha256:8a195e3d50239f6e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/isSupported:
+  digest: sha256:0b3a89f331d25bb0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/size:
+  digest: sha256:b2bd06d663caa6d3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/toMutablePeriod:
+  digest: sha256:3d725d93c162194f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/toPeriod:
+  digest: sha256:c22892ea04b014fa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadablePeriod.java/package/org.joda.time/interface/ReadablePeriod/method/toString:
+  digest: sha256:79d1c99968a8b456
+  verdict: pending

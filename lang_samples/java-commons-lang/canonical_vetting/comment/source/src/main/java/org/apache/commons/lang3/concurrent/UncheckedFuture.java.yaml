@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java/package/org.apache.commons.lang3.concurrent/interface/UncheckedFuture:
+  digest: sha256:728b9e406aa24e2d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java/package/org.apache.commons.lang3.concurrent/interface/UncheckedFuture/method/get:
+  digest: sha256:878f81f007b01ee7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java/package/org.apache.commons.lang3.concurrent/interface/UncheckedFuture/method/get#2:
+  digest: sha256:2bad0e8f6e6f4963
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java/package/org.apache.commons.lang3.concurrent/interface/UncheckedFuture/method/map:
+  digest: sha256:e9908403f6f5f018
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java/package/org.apache.commons.lang3.concurrent/interface/UncheckedFuture/method/on:
+  digest: sha256:61e3ed4aa8447bba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java/package/org.apache.commons.lang3.concurrent/interface/UncheckedFuture/method/on#2:
+  digest: sha256:d056cce7a768b641
+  verdict: pending

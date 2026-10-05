@@ -1,0 +1,12 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java/package/com.google.gson.internal.bind/class/TypeAdapters:
+  digest: sha256:7c20a83141ce453c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java/package/com.google.gson.internal.bind/class/TypeAdapters/class/IntegerFieldsTypeAdapter:
+  digest: sha256:940b6acf5cecdf2b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java/package/com.google.gson.internal.bind/class/TypeAdapters/field/BOOLEAN_AS_STRING:
+  digest: sha256:269c0e320560a5a5
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java/package/com.google.gson.internal.bind/class/TypeAdapters/method/newTypeHierarchyFactory:
+  digest: sha256:d2f2d4abef07c5ad
+  verdict: pending

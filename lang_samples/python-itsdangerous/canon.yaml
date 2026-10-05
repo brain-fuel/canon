@@ -1,0 +1,20 @@
+version: 0.1.0
+root: source
+languages:
+  python:
+    extensions: [.py]
+    lexer: ../../grammars/python/Python3Lexer.g4
+    parser: ../../grammars/python/Python3Parser.g4
+    start: file_input
+    comments:
+      line: "#"
+      strings: ["\"", "'"]
+    units:
+      - rule: funcdef
+        kind: function
+        name: {rule: name}
+        required: true
+      - rule: classdef
+        kind: class
+        name: {rule: name}
+        required: true

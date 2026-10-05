@@ -1,0 +1,36 @@
+decision/haskell/src/Canon.hs/module/Canon:
+  digest: sha256:50ee54166c09870c
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/data/Command:
+  digest: sha256:4bf21a5c168bdbeb
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/dispatch:
+  digest: sha256:37f68732ad9c5382
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/parseCommand:
+  digest: sha256:310526c9f3ae7045
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/renderLedger:
+  digest: sha256:d11723d31311ea44
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/renderSite:
+  digest: sha256:1439e1f1b2d027c6
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/runCanon:
+  digest: sha256:d9608666e93aaa59
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/runCommand:
+  digest: sha256:86dbd5a5e52af909
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/siteHighlighter:
+  digest: sha256:fa47a37b73af623c
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/usage:
+  digest: sha256:97e081d34076987a
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/version:
+  digest: sha256:4ca27cae019ddb7e
+  verdict: pending
+decision/haskell/src/Canon.hs/module/Canon/function/writeTangled:
+  digest: sha256:ad1eeca4db85dc00
+  verdict: pending

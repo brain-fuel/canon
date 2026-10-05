@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityEscaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityEscaper:
+  digest: sha256:42c9f99451c72b2a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityEscaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityEscaper/constructor/NumericEntityEscaper:
+  digest: sha256:faed58bfa4ffc1cc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityEscaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityEscaper/constructor/NumericEntityEscaper#2:
+  digest: sha256:7d7e1d09010f2eb9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityEscaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityEscaper/method/above:
+  digest: sha256:e6140bb4f506c0fe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityEscaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityEscaper/method/below:
+  digest: sha256:f8423d79ebd85d1a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityEscaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityEscaper/method/between:
+  digest: sha256:a2875658a1849b1f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityEscaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityEscaper/method/outsideOf:
+  digest: sha256:b678fcd056cc3312
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/NumericEntityEscaper.java/package/org.apache.commons.lang3.text.translate/class/NumericEntityEscaper/method/translate:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending

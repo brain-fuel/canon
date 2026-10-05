@@ -1,0 +1,6 @@
+decision/python/source/src/itsdangerous/serializer.py/class/_PDataSerializer/function/dumps:
+  digest: sha256:61d867535cc46c91
+  verdict: pending
+decision/python/source/src/itsdangerous/serializer.py/function/is_text_serializer:
+  digest: sha256:417678aefe69939b
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleBinaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableDoubleBinaryOperator:
+  digest: sha256:a1b8a15ebaf18421
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleBinaryOperator.java/package/org.apache.commons.lang3.function/interface/FailableDoubleBinaryOperator/method/applyAsDouble:
+  digest: sha256:425854e3294439b1
+  verdict: pending

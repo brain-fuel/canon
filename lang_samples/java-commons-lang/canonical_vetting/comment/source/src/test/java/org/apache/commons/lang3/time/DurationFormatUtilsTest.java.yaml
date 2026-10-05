@@ -1,0 +1,21 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java/package/org.apache.commons.lang3.time/class/DurationFormatUtilsTest:
+  digest: sha256:8512b1917a797d1c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java/package/org.apache.commons.lang3.time/class/DurationFormatUtilsTest/method/testBugzilla38401:
+  digest: sha256:f3a47000f89ee5cb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java/package/org.apache.commons.lang3.time/class/DurationFormatUtilsTest/method/testEdgeDurations:
+  digest: sha256:507cf4b535e35a91
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java/package/org.apache.commons.lang3.time/class/DurationFormatUtilsTest/method/testFormatDurationPluralWords:
+  digest: sha256:3ccc80d553038a18
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java/package/org.apache.commons.lang3.time/class/DurationFormatUtilsTest/method/testFormatPeriodLeapDayBoundaries:
+  digest: sha256:8d2eee8b826e662c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java/package/org.apache.commons.lang3.time/class/DurationFormatUtilsTest/method/testFormatPeriodMaximumSpanCompletesQuickly:
+  digest: sha256:a77c5ad74e2f7dfb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/time/DurationFormatUtilsTest.java/package/org.apache.commons.lang3.time/class/DurationFormatUtilsTest/method/testFourYears:
+  digest: sha256:daa90931d508c416
+  verdict: pending

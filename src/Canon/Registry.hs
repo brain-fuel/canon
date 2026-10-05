@@ -20,7 +20,7 @@ import qualified Data.Text as T
 import qualified Data.Yaml as Yaml
 
 -- | The kinds of reference, including requirement and license, which checks treat specially.
-data ReferenceKind = Article | Paper | Ticket | Requirement | Package | Discussion | License
+data ReferenceKind = Article | Paper | Ticket | Requirement | Package | Discussion | License | Video
   deriving (Eq, Ord, Show, Enum, Bounded)
 
 -- | A reference: kind, title, and locator.
@@ -66,6 +66,7 @@ referenceKindText k = case k of
   Package -> "package"
   Discussion -> "discussion"
   License -> "license"
+  Video -> "video"
 
 instance ToJSON ReferenceKind where
   toJSON = toJSON . referenceKindText

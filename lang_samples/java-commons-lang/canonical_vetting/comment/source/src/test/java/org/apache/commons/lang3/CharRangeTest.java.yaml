@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/CharRangeTest.java/package/org.apache.commons.lang3/class/CharRangeTest:
+  digest: sha256:2ce983e4f065dca4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/CharRangeTest.java/package/org.apache.commons.lang3/class/CharRangeTest/method/testHashCodeLang1802:
+  digest: sha256:7c1363adadd17287
+  verdict: pending

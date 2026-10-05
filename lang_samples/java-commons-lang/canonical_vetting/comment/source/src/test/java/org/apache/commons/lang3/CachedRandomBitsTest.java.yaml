@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/CachedRandomBitsTest.java/package/org.apache.commons.lang3/class/CachedRandomBitsTest:
+  digest: sha256:73fd4b55778ef093
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/CachedRandomBitsTest.java/package/org.apache.commons.lang3/class/CachedRandomBitsTest/class/MockRandom:
+  digest: sha256:9209c4574b21f9c9
+  verdict: pending

@@ -1,0 +1,24 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/RangeReadObjectTest.java/package/org.apache.commons.lang3/class/RangeReadObjectTest:
+  digest: sha256:0911535d7133f0d3
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/RangeReadObjectTest.java/package/org.apache.commons.lang3/class/RangeReadObjectTest/class/RangeForge:
+  digest: sha256:d601adacfd74c775
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/RangeReadObjectTest.java/package/org.apache.commons.lang3/class/RangeReadObjectTest/method/forgeRangeStream:
+  digest: sha256:c4e4d86a9c71cbbb
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/RangeReadObjectTest.java/package/org.apache.commons.lang3/class/RangeReadObjectTest/method/testComparatorNullViaForgedStream:
+  digest: sha256:de2c31d9ce3a33de
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/RangeReadObjectTest.java/package/org.apache.commons.lang3/class/RangeReadObjectTest/method/testForgedReversedComparatorBreaksContains:
+  digest: sha256:1a89c05af9a4b877
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/RangeReadObjectTest.java/package/org.apache.commons.lang3/class/RangeReadObjectTest/method/testMaximumNullViaForgedStream:
+  digest: sha256:f8f43a807d430c0d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/RangeReadObjectTest.java/package/org.apache.commons.lang3/class/RangeReadObjectTest/method/testMinimumNullViaForgedStream:
+  digest: sha256:f57d989c3ea79356
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/RangeReadObjectTest.java/package/org.apache.commons.lang3/class/RangeReadObjectTest/method/testNaNEndpointViaForgedStream:
+  digest: sha256:c72928e2ced3d415
+  verdict: pending

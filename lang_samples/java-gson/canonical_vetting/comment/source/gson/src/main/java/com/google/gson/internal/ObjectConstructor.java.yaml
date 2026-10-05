@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/ObjectConstructor.java/package/com.google.gson.internal/interface/ObjectConstructor:
+  digest: sha256:b89f4189a6758cc3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/ObjectConstructor.java/package/com.google.gson.internal/interface/ObjectConstructor/method/construct:
+  digest: sha256:e28a450b645ddaf7
+  verdict: pending

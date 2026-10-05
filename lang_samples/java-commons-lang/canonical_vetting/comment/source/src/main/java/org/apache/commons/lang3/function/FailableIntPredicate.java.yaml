@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java/package/org.apache.commons.lang3.function/interface/FailableIntPredicate:
+  digest: sha256:253c196436355415
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java/package/org.apache.commons.lang3.function/interface/FailableIntPredicate/constant/FALSE:
+  digest: sha256:65f9c7f2224f902f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java/package/org.apache.commons.lang3.function/interface/FailableIntPredicate/constant/TRUE:
+  digest: sha256:aaa0a653ec960fde
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java/package/org.apache.commons.lang3.function/interface/FailableIntPredicate/method/and:
+  digest: sha256:8a3492f478979f56
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java/package/org.apache.commons.lang3.function/interface/FailableIntPredicate/method/falsePredicate:
+  digest: sha256:6e649028879ab4bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java/package/org.apache.commons.lang3.function/interface/FailableIntPredicate/method/negate:
+  digest: sha256:4ead07d2f0bb127b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java/package/org.apache.commons.lang3.function/interface/FailableIntPredicate/method/or:
+  digest: sha256:7aa167e2d7b6a5c5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java/package/org.apache.commons.lang3.function/interface/FailableIntPredicate/method/test:
+  digest: sha256:17686ef629de69eb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java/package/org.apache.commons.lang3.function/interface/FailableIntPredicate/method/truePredicate:
+  digest: sha256:ece8abed08afa930
+  verdict: pending

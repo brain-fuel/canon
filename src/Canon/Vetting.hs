@@ -1,21 +1,32 @@
 -- | Canonical material that nobody has judged is not known to fulfil its purpose, so every
 -- canonical comment, ledger entry, and registry entry carries a verdict, and the signer is whoever
--- wrote the verdict line, read from git blame, together with the co-authors of that commit.
--- ref:DEC-comment-vetting ref:DEC-human-sign-off
+-- wrote the verdict line, read from git blame, together with the co-authors of that commit. The
+-- verdicts live in a directory with a file per kind and subject, so a record sits beside the path
+-- it judges and any review tool reads and rewrites the same files canon checks.
+-- ref:DEC-comment-vetting ref:DEC-human-sign-off ref:DEC-vetting-layout
 module Canon.Vetting
   ( VettingEntry (..)
   , Vetting (..)
   , VettingError (..)
   , Material (..)
   , emptyVetting
+  , vettingEntries
+  , fileOf
+  , mapEntries
+  , readVettingDirectory
   , readVettingFile
-  , writeVettingFile
+  , writeVettingDirectory
   , renderVetting
   , renderVettingError
   , digestOf
   , commentDigest
   , ledgerDigest
   , registryDigest
+  , commentFile
+  , docFile
+  , decisionKey
+  , ledgerFile
+  , registryFile
   , materials
   , ingest
   , verdictLines
@@ -23,10 +34,12 @@ module Canon.Vetting
   , applyAssessments
   , vettingFindings
   , materialFindings
+  , kindFindings
   , orphanVerdictFindings
   , attention
   ) where
 
+import Canon.Config (Disposition (..))
 import Canon.Decisions (DecisionEntry (entryQuestion), Ledger (..))
 import Canon.Git.Commit (BlameLine (..), CommitHash (..))
 import Canon.Git.Parse (trailerPersons)
@@ -37,11 +50,13 @@ import Canon.Model.Yaml (encodeSorted)
 import Canon.Registry (Reference (..), Registry (..))
 import Canon.Span (Position (..), Span (..))
 import Canon.Version (Version, parseVersion, renderVersion)
+import Control.Monad (forM, forM_)
 import Crypto.Hash.SHA256 (hash)
 import Data.Aeson (FromJSON (..), ToJSON (..), encode, object, withObject, (.:), (.:?), (.=))
 import qualified Data.ByteString.Base16 as Base16
 import qualified Data.ByteString.Lazy as LBS
-import Data.Char (isAlphaNum, isSpace)
+import Data.Char (isAlphaNum, isHexDigit, isSpace)
+import Data.List (sort)
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
 import qualified Data.Set as Set
@@ -50,29 +65,40 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as TE
 import qualified Data.Text.IO as TIO
 import qualified Data.Yaml as Yaml
+import System.Directory (createDirectoryIfMissing, doesDirectoryExist, listDirectory)
+import Data.List.NonEmpty (NonEmpty (..))
+import qualified Data.List.NonEmpty as NE
+import System.FilePath (makeRelative, normalise, takeDirectory, takeExtension, takeFileName, (<.>), (</>))
 
--- | A verdict with the digest of the material it applies to, an optional revisit version, and a
--- note.
+-- | A verdict with the digest of the material it applies to, an optional revisit version, a
+-- note, and for a row another tool raises the run it was decided against, which canon carries
+-- and does not read. ref:DEC-vetting-kinds ref:DEC-vetting-run-field
 data VettingEntry = VettingEntry
   { entryVerdict :: Verdict
   , entryDigest :: Text
   , entryRevisit :: Maybe Version
   , entryNote :: Maybe Text
+  , entryRun :: Maybe Text
   }
   deriving (Eq, Show)
 
--- | The vetting file keyed by what each verdict is about.
-newtype Vetting = Vetting {vettingEntries :: Map VettingKey VettingEntry}
+-- | The entries of each file in the vetting directory, keyed by the file's path within it, so a
+-- verdict is written back to the file it was read from and blamed there. ref:DEC-vetting-layout
+newtype Vetting = Vetting {vettingFiles :: Map FilePath (Map VettingKey VettingEntry)}
   deriving (Eq, Show)
 
--- | An unreadable vetting file is an error.
-data VettingError = VettingUnreadable FilePath Text
+-- | An unreadable vetting file is an error, and so is the single file of the old layout, which
+-- must be regenerated rather than read. ref:DEC-vetting-layout
+data VettingError
+  = VettingUnreadable FilePath Text
+  | VettingIsFile FilePath
   deriving (Eq, Show)
 
--- | One piece of canonical material as the vetting sees it: its key, the digest of what it says,
--- and the text a reviewer reads. ref:DEC-human-sign-off
+-- | One piece of canonical material as the vetting sees it: its key, the file its verdict belongs
+-- in, the digest of what it says, and the text a reviewer reads. ref:DEC-human-sign-off
 data Material = Material
   { materialKey :: VettingKey
+  , materialFile :: FilePath
   , materialDigest :: Text
   , materialText :: Text
   }
@@ -82,34 +108,78 @@ data Material = Material
 emptyVetting :: Vetting
 emptyVetting = Vetting Map.empty
 
+-- | Every entry regardless of file, which is what the checks look at.
+vettingEntries :: Vetting -> Map VettingKey VettingEntry
+vettingEntries = Map.unions . Map.elems . vettingFiles
+
+-- | The file an entry lives in.
+fileOf :: Vetting -> VettingKey -> Maybe FilePath
+fileOf (Vetting files) k = case [p | (p, es) <- Map.toList files, Map.member k es] of
+  (p : _) -> Just p
+  [] -> Nothing
+
+-- | Applies a change to every entry, keeping each in its file.
+mapEntries :: (VettingEntry -> VettingEntry) -> Vetting -> Vetting
+mapEntries f (Vetting files) = Vetting (Map.map (Map.map f) files)
+
 -- | Renders a vetting error.
 renderVettingError :: VettingError -> Text
-renderVettingError (VettingUnreadable path message) = T.concat [T.pack path, ": ", message]
+renderVettingError e = case e of
+  VettingUnreadable path message -> T.concat [T.pack path, ": ", message]
+  VettingIsFile path -> T.concat [T.pack path, ": the vetting ledger is a directory with a file per kind and subject; delete this file and run canon ingest"]
 
--- | Reads a vetting file.
-readVettingFile :: FilePath -> IO (Either VettingError Vetting)
+-- | Reads every YAML file under the vetting directory, each keyed by its path within it.
+readVettingDirectory :: FilePath -> IO (Either VettingError Vetting)
+readVettingDirectory dir = do
+  paths <- yamlFilesUnder dir ""
+  results <- forM paths $ \p -> fmap ((,) p) <$> readVettingFile (dir </> p)
+  pure (Vetting . Map.fromList <$> sequence results)
+
+yamlFilesUnder :: FilePath -> FilePath -> IO [FilePath]
+yamlFilesUnder dir rel = do
+  names <- sort <$> listDirectory (dir </> rel)
+  concat
+    <$> forM
+      names
+      ( \name -> do
+          let here = if null rel then name else rel </> name
+          isDirectory <- doesDirectoryExist (dir </> here)
+          if isDirectory
+            then yamlFilesUnder dir here
+            else pure [here | takeExtension name == ".yaml"]
+      )
+
+-- | Reads one vetting file.
+readVettingFile :: FilePath -> IO (Either VettingError (Map VettingKey VettingEntry))
 readVettingFile path = do
   result <- Yaml.decodeFileEither path
   pure (either (Left . VettingUnreadable path . T.pack . Yaml.prettyPrintParseException) Right result)
 
--- | Writes a vetting file in the fixed form the line scanner reads.
-writeVettingFile :: FilePath -> Vetting -> IO ()
-writeVettingFile path = TIO.writeFile path . renderVetting
+-- | Writes every file of the vetting directory in the fixed form the line scanner reads, creating
+-- the directories a file needs.
+writeVettingDirectory :: FilePath -> Vetting -> IO ()
+writeVettingDirectory dir (Vetting files) = forM_ (Map.toList files) $ \(p, entries) -> do
+  createDirectoryIfMissing True (takeDirectory (dir </> p))
+  TIO.writeFile (dir </> p) (renderVetting entries)
 
 -- | Renders entries one key per line so git blame attributes each verdict line to its author.
-renderVetting :: Vetting -> Text
-renderVetting (Vetting entries)
+renderVetting :: Map VettingKey VettingEntry -> Text
+renderVetting entries
   | Map.null entries = "{}\n"
   | otherwise = T.concat (map render (Map.toList entries))
   where
     render (k, e) =
       T.concat
-        ( [keyText (renderVettingKey k), ":\n", "  comment: ", entryDigest e, "\n"]
+        ( [keyText (renderVettingKey k), ":\n", "  digest: ", digestText (entryDigest e), "\n"]
             ++ maybe [] (\n -> ["  note: ", quoted n, "\n"]) (entryNote e)
             ++ maybe [] (\r -> ["  revisit: ", renderVersion r, "\n"]) (entryRevisit e)
+            ++ maybe [] (\r -> ["  run: ", quoted r, "\n"]) (entryRun e)
             ++ ["  verdict: ", verdictText (entryVerdict e), "\n"]
         )
     keyText k = if T.all plain k then k else quoted k
+    -- A digest of hex digits alone can read as a YAML number, so it is quoted; canon's own carry
+    -- the algorithm as a prefix and cannot.
+    digestText d = if T.all isHexDigit d then quoted d else d
     plain c = isAlphaNum c || c `elem` ("/._-#+~@" :: String)
     quoted t = TE.decodeUtf8 (LBS.toStrict (encode t))
 
@@ -130,28 +200,66 @@ ledgerDigest = digestOf . TE.decodeUtf8 . encodeSorted
 registryDigest :: Reference -> Text
 registryDigest = digestOf . TE.decodeUtf8 . encodeSorted
 
--- | Everything a project asks a human to sign: its comments, its ledger, and its registry.
-materials :: [Decision ev] -> Ledger -> Registry -> [Material]
-materials decisions ledger registry =
-  map commentMaterial decisions
-    ++ [Material (LedgerKey k) (ledgerDigest e) (entryQuestion e) | (k, e) <- Map.toList (ledgerEntries ledger)]
-    ++ [Material (RegistryKey k) (registryDigest r) (referenceTitle r) | (k, r) <- Map.toList (registryEntries registry)]
+-- | A comment's verdicts mirror the source tree under comment/, so a record sits beside the path
+-- it judges and a rename of the source moves its record. ref:DEC-vetting-layout
+commentFile :: FilePath -> FilePath
+commentFile source = "comment" </> makeRelative "/" (normalise source) <.> "yaml"
+
+-- | A page's verdicts sit under doc/ at the page's path, as a comment's sit under comment/.
+-- ref:DEC-doc-kind
+docFile :: FilePath -> FilePath
+docFile path = "doc" </> makeRelative "/" (normalise path) <.> "yaml"
+
+-- | The key a decision's verdict is filed under: a page's is its path under doc, since the page
+-- is the material; any other decision's is its id under comment. ref:DEC-doc-kind
+decisionKey :: Decision ev -> VettingKey
+decisionKey d = case decisionUnits d of
+  (u :| _) | isDocUnit u -> DocKey (wherePath (decisionWhere d))
+  _ -> CommentKey (decisionId d)
   where
-    commentMaterial d = Material (CommentKey (decisionId d)) (commentDigest (why d)) (whyText (why d))
+    isDocUnit (UnitId segments) = NE.head segments == "folio" && case reverse (NE.toList segments) of
+      (_ : "doc" : _) -> True
+      _ -> False
+
+-- | The ledger is its own subject, so its verdicts sit in one file named after it.
+-- ref:DEC-vetting-layout
+ledgerFile :: FilePath -> FilePath
+ledgerFile name = "ledger" </> takeFileName name
+
+-- | The registry is its own subject, so its verdicts sit in one file named after it.
+-- ref:DEC-vetting-layout
+registryFile :: FilePath -> FilePath
+registryFile name = "registry" </> takeFileName name
+
+-- | Everything a project asks a human to sign: its comments, its ledger, and its registry, each
+-- placed in the file its verdict belongs in.
+materials :: FilePath -> FilePath -> [Decision ev] -> Ledger -> Registry -> [Material]
+materials ledgerName registryName decisions ledger registry =
+  map commentMaterial decisions
+    ++ [Material (LedgerKey k) (ledgerFile ledgerName) (ledgerDigest e) (entryQuestion e) | (k, e) <- Map.toList (ledgerEntries ledger)]
+    ++ [Material (RegistryKey k) (registryFile registryName) (registryDigest r) (referenceTitle r) | (k, r) <- Map.toList (registryEntries registry)]
+  where
+    commentMaterial d = Material (decisionKey d) (materialFileOf d) (commentDigest (why d)) (whyText (why d))
+    materialFileOf d = case decisionKey d of
+      DocKey path -> docFile path
+      _ -> commentFile (wherePath (decisionWhere d))
     why d = answerValue (decisionWhy d)
 
--- | Adds a pending entry for every material without one and leaves the rest alone.
+-- | Adds a pending entry for every material without one, in the material's file, and leaves the
+-- rest alone.
 ingest :: Vetting -> [Material] -> (Vetting, [VettingKey])
-ingest (Vetting entries) items = (Vetting (Map.union entries fresh), Map.keys fresh)
+ingest vetting@(Vetting files) items = (Vetting (Map.unionWith Map.union files fresh), concatMap Map.keys (Map.elems fresh))
   where
+    known = vettingEntries vetting
     fresh =
-      Map.fromList
-        [ (materialKey m, VettingEntry Pending (materialDigest m) Nothing Nothing)
+      Map.fromListWith
+        Map.union
+        [ (materialFile m, Map.singleton (materialKey m) (VettingEntry Pending (materialDigest m) Nothing Nothing Nothing))
         | m <- items
-        , not (Map.member (materialKey m) entries)
+        , not (Map.member (materialKey m) known)
         ]
 
--- | The line of each verdict in the file, which is what blame is asked about.
+-- | The line of each verdict in a file, which is what blame is asked about.
 verdictLines :: Text -> Map VettingKey Int
 verdictLines source = go Nothing (zip [1 ..] (T.lines source))
   where
@@ -168,19 +276,27 @@ verdictLines source = go Nothing (zip [1 ..] (T.lines source))
       Right t -> t
       Left _ -> body
 
--- | The signer of each verdict from blame, with the co-authors of the signing commit, or an
--- assertion when the line is uncommitted.
-assess :: GitProvider -> FilePath -> Text -> Vetting -> IO (Map VettingKey (Answer Assessment Evidence))
-assess provider path source (Vetting entries) = do
-  let lineOf = verdictLines source
-      count = max 1 (length (T.lines source))
-  blamed <- blameOf provider path (Span (Position 1 1) (Position count 1))
-  let byLine = either (const Map.empty) (\ls -> Map.fromList [(blameFinalLine l, l) | l <- ls]) blamed
-      signing = Map.fromList [(blameHash l, ()) | l <- Map.elems byLine, not (unsigned l)]
+-- | The signer of each verdict from a blame of its file, with the co-authors of the signing
+-- commit fetched once however many files name it, or an assertion when the line is uncommitted.
+assess :: GitProvider -> FilePath -> Map FilePath Text -> Vetting -> IO (Map VettingKey (Answer Assessment Evidence))
+assess provider dir sources (Vetting files) = do
+  blamedFiles <- forM (Map.toList files) $ \(p, entries) -> do
+    let source = Map.findWithDefault "" p sources
+        path = dir </> p
+        count = max 1 (length (T.lines source))
+    blamed <- blameOf provider path (Span (Position 1 1) (Position count 1))
+    let byLine = either (const Map.empty) (\ls -> Map.fromList [(blameFinalLine l, l) | l <- ls]) blamed
+    pure (path, entries, verdictLines source, byLine)
+  let signing = Map.fromList [(blameHash l, ()) | (_, _, _, byLine) <- blamedFiles, l <- Map.elems byLine, not (unsigned l)]
   coAuthors <- Map.traverseWithKey (\h _ -> either (const []) trailerPersons <$> messageOf provider h) signing
-  pure (Map.fromList [(k, answer e (Map.lookup k lineOf) byLine coAuthors) | (k, e) <- Map.toList entries])
+  pure
+    ( Map.unions
+        [ Map.fromList [(k, answer path e (Map.lookup k lineOf) byLine coAuthors) | (k, e) <- Map.toList entries]
+        | (path, entries, lineOf, byLine) <- blamedFiles
+        ]
+    )
   where
-    answer e line byLine coAuthors = case line >>= (`Map.lookup` byLine) of
+    answer path e line byLine coAuthors = case line >>= (`Map.lookup` byLine) of
       Just l | not (unsigned l) ->
         Answer
           (Assessment (entryVerdict e) (Just (blameAuthor l)) (Just (blameAuthorTime l)) (Just (blameHash l)) (Map.findWithDefault [] (blameHash l) coAuthors))
@@ -193,23 +309,44 @@ assess provider path source (Vetting entries) = do
 applyAssessments :: Map VettingKey (Answer Assessment Evidence) -> Model Evidence -> Model Evidence
 applyAssessments assessments m = m {modelDecisions = map fill (modelDecisions m)}
   where
-    fill d = d {decisionVetting = Map.lookup (CommentKey (decisionId d)) assessments}
+    fill d = d {decisionVetting = Map.lookup (decisionKey d) assessments}
 
 -- | Pending, stale, bad, and deferred comments of one model as findings.
 vettingFindings :: Maybe Text -> Vetting -> Map VettingKey (Answer Assessment ev) -> Model ev2 -> [Finding]
-vettingFindings version (Vetting entries) assessments m = concatMap check (modelDecisions m)
+vettingFindings version vetting assessments m = concatMap check (modelDecisions m)
   where
+    entries = vettingEntries vetting
     current = version >>= parseVersion
-    check d =
+    check d = case decisionKey d of
+      k@(DocKey _) -> page k d
+      k -> comment k d
+    -- A page's findings are a material's, named by the page.
+    page k d = case Map.lookup k entries of
+      Nothing -> [MaterialPending k]
+      Just e
+        | entryVerdict e == Pending -> [MaterialPending k]
+        | entryDigest e /= commentDigest (answerValue (decisionWhy d)) -> [MaterialStale k]
+        | otherwise ->
+            uncommitted k assessments ++ case entryVerdict e of
+              Good -> []
+              Pending -> []
+              Bad -> [MaterialBad k (entryNote e)]
+              Deferred -> case entryRevisit e of
+                Nothing -> [MaterialWithoutRevisit k]
+                Just revisit
+                  | Just now <- current, revisit <= now -> [MaterialDeferredPastRevisit k (renderVersion revisit) (renderVersion now)]
+                  | otherwise -> [MaterialDeferred k (renderVersion revisit)]
+              Word word -> [VerdictUnknown k word]
+    comment k d =
       let w = decisionWhere d
           i = decisionId d
-       in case Map.lookup (CommentKey i) entries of
+       in case Map.lookup k entries of
             Nothing -> [CommentPending i w]
             Just e
               | entryVerdict e == Pending -> [CommentPending i w]
               | entryDigest e /= commentDigest (answerValue (decisionWhy d)) -> [CommentStale i w]
               | otherwise ->
-                  uncommitted (CommentKey i) assessments ++ case entryVerdict e of
+                  uncommitted k assessments ++ case entryVerdict e of
                     Good -> []
                     Pending -> []
                     Bad -> [CommentBad i w (entryNote e)]
@@ -218,6 +355,7 @@ vettingFindings version (Vetting entries) assessments m = concatMap check (model
                       Just revisit
                         | Just now <- current, revisit <= now -> [CommentDeferredPastRevisit i w (renderVersion revisit) (renderVersion now)]
                         | otherwise -> [CommentDeferred i w (renderVersion revisit)]
+                    Word word -> [VerdictUnknown k word]
 
 uncommitted :: VettingKey -> Map VettingKey (Answer Assessment ev) -> [Finding]
 uncommitted k assessments = case Map.lookup k assessments of
@@ -227,8 +365,9 @@ uncommitted k assessments = case Map.lookup k assessments of
 -- | Pending, stale, bad, and deferred ledger and registry entries as findings, decided once per
 -- project. ref:DEC-human-sign-off
 materialFindings :: Maybe Text -> Vetting -> Map VettingKey (Answer Assessment ev) -> Ledger -> Registry -> [Finding]
-materialFindings version (Vetting entries) assessments ledger registry = concatMap check (materials [] ledger registry)
+materialFindings version vetting assessments ledger registry = concatMap check (materials "" "" [] ledger registry)
   where
+    entries = vettingEntries vetting
     current = version >>= parseVersion
     check m =
       let k = materialKey m
@@ -247,10 +386,31 @@ materialFindings version (Vetting entries) assessments ledger registry = concatM
                       Just revisit
                         | Just now <- current, revisit <= now -> [MaterialDeferredPastRevisit k (renderVersion revisit) (renderVersion now)]
                         | otherwise -> [MaterialDeferred k (renderVersion revisit)]
+                    Word word -> [VerdictUnknown k word]
 
--- | Verdicts whose material no longer exists.
+-- | Rows of the kinds canon.yaml declares, which another tool raises and keeps fresh: canon
+-- counts a row whose word is open as pending, records the signer of the rest, and reports a kind
+-- or a word the declaration does not know. ref:DEC-vetting-kinds
+kindFindings :: Map Text (Map Text Disposition) -> Vetting -> Map VettingKey (Answer Assessment ev) -> [Finding]
+kindFindings kinds vetting assessments = concatMap check (Map.toList (vettingEntries vetting))
+  where
+    check (k, e) = case k of
+      KindKey kind _ -> case Map.lookup kind kinds of
+        Nothing -> [KindUndeclared k]
+        Just declared -> case Map.lookup (verdictText (entryVerdict e)) declared of
+          Nothing -> [VerdictUnknown k (verdictText (entryVerdict e))]
+          Just DispositionOpen -> [KindPending k]
+          Just _ -> uncommitted k assessments
+      _ -> []
+
+-- | Verdicts whose material no longer exists; rows of declared kinds are left to the tool that
+-- raises them, since canon cannot know whether a mutant still exists. ref:DEC-vetting-kinds
 orphanVerdictFindings :: Vetting -> Set.Set VettingKey -> [Finding]
-orphanVerdictFindings (Vetting entries) seen = [VerdictOrphan k | k <- Map.keys entries, not (Set.member k seen)]
+orphanVerdictFindings vetting seen = [VerdictOrphan k | k <- Map.keys (vettingEntries vetting), not (Set.member k seen), not (isKind k)]
+  where
+    isKind k = case k of
+      KindKey _ _ -> True
+      _ -> False
 
 -- | The findings a reviewer must act on, which the vet subcommand lists.
 attention :: Finding -> Bool
@@ -264,18 +424,15 @@ attention f = case f of
   MaterialStale _ -> True
   MaterialDeferredPastRevisit {} -> True
   MaterialWithoutRevisit _ -> True
+  KindPending _ -> True
+  KindUndeclared _ -> True
+  VerdictUnknown _ _ -> True
   _ -> False
 
 instance ToJSON VettingEntry where
-  toJSON (VettingEntry verdict digest revisit note) =
-    object ["comment" .= digest, "note" .= note, "revisit" .= revisit, "verdict" .= verdict]
+  toJSON (VettingEntry verdict digest revisit note run) =
+    object ["digest" .= digest, "note" .= note, "revisit" .= revisit, "run" .= run, "verdict" .= verdict]
 
 instance FromJSON VettingEntry where
   parseJSON = withObject "VettingEntry" $ \o ->
-    VettingEntry <$> o .: "verdict" <*> o .: "comment" <*> o .:? "revisit" <*> o .:? "note"
-
-instance ToJSON Vetting where
-  toJSON = toJSON . vettingEntries
-
-instance FromJSON Vetting where
-  parseJSON v = Vetting <$> parseJSON v
+    VettingEntry <$> o .: "verdict" <*> o .: "digest" <*> o .:? "revisit" <*> o .:? "note" <*> o .:? "run"

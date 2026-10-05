@@ -1,0 +1,45 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest:
+  digest: sha256:afb426ef48e62d9f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/class/CountingListener:
+  digest: sha256:e49e0f23754f4d4e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/class/EventListenerSupportForge:
+  digest: sha256:37bb198676feacc6
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/class/EventListenerSupportForge/field/serialVersionUID:
+  digest: sha256:5e6f4162cb117bf2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/class/EventListenerSupportForge/method/writeObject:
+  digest: sha256:243e499b36a50914
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/class/NonSerializableListener:
+  digest: sha256:ee4fbb562abbfc0d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/method/deserialize:
+  digest: sha256:34204490063a5710
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/method/forgeNullListenerArrayStream:
+  digest: sha256:95dae37750765847
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/method/serialize:
+  digest: sha256:97c7ad11ee291455
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/method/testReadObjectDropsNonSerializableListeners:
+  digest: sha256:e8862186fd0c2b9c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/method/testReadObjectEmptyListeners:
+  digest: sha256:4874373715584c6c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/method/testReadObjectFireDispatchesAfterDeserializing:
+  digest: sha256:625dbd97229725c1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/method/testReadObjectNullListenerArrayRejected:
+  digest: sha256:a94157be2d421d64
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/method/testReadObjectPreservesSerializableListeners:
+  digest: sha256:ef5cc65fd6d29df2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/event/EventListenerSupportReadObjectTest.java/package/org.apache.commons.lang3.event/class/EventListenerSupportReadObjectTest/method/testReadObjectSupportsAddListenerAfterDeserializing:
+  digest: sha256:d4f16edc7a2cc4be
+  verdict: pending

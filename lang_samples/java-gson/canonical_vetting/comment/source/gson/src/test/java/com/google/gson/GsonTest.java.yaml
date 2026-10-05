@@ -1,0 +1,12 @@
+decision/java/source/gson/src/test/java/com/google/gson/GsonTest.java/package/com.google.gson/class/GsonTest:
+  digest: sha256:7c721784057b172f
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/GsonTest.java/package/com.google.gson/class/GsonTest/method/testDefaultGsonNewBuilderModification:
+  digest: sha256:06a4d5219a79b88d
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/GsonTest.java/package/com.google.gson/class/GsonTest/method/testGetAdapter_FutureAdapterConcurrency:
+  digest: sha256:740e3cc436099364
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/GsonTest.java/package/com.google.gson/class/GsonTest/method/testNewBuilderModification:
+  digest: sha256:4786d8710b17e626
+  verdict: pending

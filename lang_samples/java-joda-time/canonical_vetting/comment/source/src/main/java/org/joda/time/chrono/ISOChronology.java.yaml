@@ -1,0 +1,42 @@
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology:
+  digest: sha256:6c46182c3d506831
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/constructor/ISOChronology:
+  digest: sha256:37f6fb73f9f40ed8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/field/INSTANCE_UTC:
+  digest: sha256:56b8ff7c9b982ead
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/field/cCache:
+  digest: sha256:dd116eafc56e9c5e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/method/equals:
+  digest: sha256:f40756d213f1f283
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/method/getInstance:
+  digest: sha256:bb3b98a4a14b2a0d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/method/getInstance#2:
+  digest: sha256:5b59561ea3fce7af
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/method/getInstanceUTC:
+  digest: sha256:2107d71a45ecd5f7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/method/hashCode:
+  digest: sha256:b15b995d5c85dc7a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/method/toString:
+  digest: sha256:919dead22e1ebafa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/method/withUTC:
+  digest: sha256:99dcb7f0dee1ffdc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/method/withZone:
+  digest: sha256:203c6515a26e0e74
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/ISOChronology.java/package/org.joda.time.chrono/class/ISOChronology/method/writeReplace:
+  digest: sha256:de17eaea1c62413d
+  verdict: pending

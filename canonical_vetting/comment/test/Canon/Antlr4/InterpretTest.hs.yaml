@@ -1,0 +1,9 @@
+decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest:
+  digest: sha256:c956e1462faa1e25
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest/function/visibleTypes:
+  digest: sha256:9f4ef04ebc9136a9
+  verdict: pending

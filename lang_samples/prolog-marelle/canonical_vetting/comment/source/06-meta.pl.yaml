@@ -1,0 +1,9 @@
+decision/prolog/source/06-meta.pl:
+  digest: sha256:c5dafb31cb6998f0
+  verdict: pending
+decision/prolog/source/06-meta.pl/directive/meta_pkg:
+  digest: sha256:a7f92bfa56055b39
+  verdict: pending
+decision/prolog/source/06-meta.pl/directive/meta_pkg#2:
+  digest: sha256:0d4b041b3807f5b1
+  verdict: pending

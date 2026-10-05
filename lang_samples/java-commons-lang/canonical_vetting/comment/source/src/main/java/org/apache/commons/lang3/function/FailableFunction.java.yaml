@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableFunction.java/package/org.apache.commons.lang3.function/interface/FailableFunction:
+  digest: sha256:913ec9b4bb00ed9e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableFunction.java/package/org.apache.commons.lang3.function/interface/FailableFunction/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableFunction.java/package/org.apache.commons.lang3.function/interface/FailableFunction/method/andThen:
+  digest: sha256:5dfa7d7113a9cf5e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableFunction.java/package/org.apache.commons.lang3.function/interface/FailableFunction/method/apply:
+  digest: sha256:e4af62fac1141339
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableFunction.java/package/org.apache.commons.lang3.function/interface/FailableFunction/method/compose:
+  digest: sha256:fda190bb2a4aa43e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableFunction.java/package/org.apache.commons.lang3.function/interface/FailableFunction/method/function:
+  digest: sha256:6c7226c925570ade
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableFunction.java/package/org.apache.commons.lang3.function/interface/FailableFunction/method/identity:
+  digest: sha256:8be7de780cbd4907
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableFunction.java/package/org.apache.commons.lang3.function/interface/FailableFunction/method/nop:
+  digest: sha256:fdea8b3289a1c437
+  verdict: pending

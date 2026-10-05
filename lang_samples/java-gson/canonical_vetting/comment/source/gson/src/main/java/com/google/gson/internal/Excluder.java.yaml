@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/Excluder.java/package/com.google.gson.internal/class/Excluder:
+  digest: sha256:e90eaf7d5f9bf576
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/Excluder.java/package/com.google.gson.internal/class/Excluder/method/create/field/delegate:
+  digest: sha256:73196ec2d4f10f57
+  verdict: pending

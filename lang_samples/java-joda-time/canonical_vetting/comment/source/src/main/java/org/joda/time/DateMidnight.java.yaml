@@ -1,0 +1,279 @@
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight:
+  digest: sha256:29409d33b0cddee7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property:
+  digest: sha256:a8e42c748cfdd908
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/constructor/Property:
+  digest: sha256:f92a20c3aa70e931
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/field/iField:
+  digest: sha256:8e672c30f34d7401
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/field/iInstant:
+  digest: sha256:5d64cfb646e69817
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/addToCopy:
+  digest: sha256:9f9d5d87cec123ff
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/addToCopy#2:
+  digest: sha256:9f9d5d87cec123ff
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/addWrapFieldToCopy:
+  digest: sha256:ceecfef3ede61830
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/getChronology:
+  digest: sha256:c6ef80da24c0bdb3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/getDateMidnight:
+  digest: sha256:eca79dda8ecbf481
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/getField:
+  digest: sha256:e91fc41616073b93
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/getMillis:
+  digest: sha256:df36505b241709f7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/readObject:
+  digest: sha256:88193bd179d3b2ab
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/roundCeilingCopy:
+  digest: sha256:51e2429728011405
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/roundFloorCopy:
+  digest: sha256:1aacafb7c9f2f3d6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/roundHalfCeilingCopy:
+  digest: sha256:d0be9053b9749643
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/roundHalfEvenCopy:
+  digest: sha256:13c24d05b9dccd1c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/roundHalfFloorCopy:
+  digest: sha256:9bf4200eb6bafad4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/setCopy:
+  digest: sha256:c6257791a1569622
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/setCopy#2:
+  digest: sha256:29c0acd309c75691
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/setCopy#3:
+  digest: sha256:9a281a8c157541f5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/withMaximumValue:
+  digest: sha256:b08b44c4247479d1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/withMinimumValue:
+  digest: sha256:53e0521badcd6c76
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/class/Property/method/writeObject:
+  digest: sha256:0453c29e0e8117e3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight:
+  digest: sha256:3dab9c4c708c7b88
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#10:
+  digest: sha256:42f99c6047b458c9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#11:
+  digest: sha256:6d70821f35b35d82
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#12:
+  digest: sha256:a55072486aa918d4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#2:
+  digest: sha256:9ce8cec5cb4053de
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#3:
+  digest: sha256:90d92fb945b10a18
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#4:
+  digest: sha256:593cd7e156052f97
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#5:
+  digest: sha256:6e032c5dcafa5a4c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#6:
+  digest: sha256:272dd74999b4a17a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#7:
+  digest: sha256:7187da166ac0908e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#8:
+  digest: sha256:5cc29b77192882d1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/constructor/DateMidnight#9:
+  digest: sha256:5d624413369a5bd5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/centuryOfEra:
+  digest: sha256:d3ba653af3ec304d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/checkInstant:
+  digest: sha256:cf541910ecbc28c5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/dayOfMonth:
+  digest: sha256:51b9172eae28ee04
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/dayOfWeek:
+  digest: sha256:1e82e006107acdb2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/dayOfYear:
+  digest: sha256:2f970338ea09786d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/era:
+  digest: sha256:e3308fe5d55c8ef1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/minus:
+  digest: sha256:31636aaf03db7a52
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/minus#2:
+  digest: sha256:a8219fced9d31c11
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/minus#3:
+  digest: sha256:62fa482e843ea7c8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/minusDays:
+  digest: sha256:4d2959c137808070
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/minusMonths:
+  digest: sha256:f0848e9b3d6933bf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/minusWeeks:
+  digest: sha256:9a0af7970e83883d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/minusYears:
+  digest: sha256:eb1edc49208c6def
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/monthOfYear:
+  digest: sha256:e1b221f3fee9820a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/now:
+  digest: sha256:d405d77b287c5d80
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/now#2:
+  digest: sha256:56f20961620b29e8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/now#3:
+  digest: sha256:8dbd6d25922a9feb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/parse:
+  digest: sha256:8774f05fb47026e2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/parse#2:
+  digest: sha256:d37338236b0b2628
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/plus:
+  digest: sha256:a8f3fd7d41e61e5f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/plus#2:
+  digest: sha256:95b580e9ba5b677d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/plus#3:
+  digest: sha256:feb91f8d27d86aa5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/plusDays:
+  digest: sha256:32225a29dcd1bce6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/plusMonths:
+  digest: sha256:4cd302878f80d280
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/plusWeeks:
+  digest: sha256:2084e75fe846a03f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/plusYears:
+  digest: sha256:b91d42233b3d43f4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/property:
+  digest: sha256:ef8672d90d0b6655
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/toInterval:
+  digest: sha256:848f8131ad9cc243
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/toLocalDate:
+  digest: sha256:6b6928ce72826c24
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/toYearMonthDay:
+  digest: sha256:ce9900ec40b24a8e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/weekOfWeekyear:
+  digest: sha256:589040a6ea69b632
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/weekyear:
+  digest: sha256:8b31242c2ca4961f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withCenturyOfEra:
+  digest: sha256:ba4913a4301bfb03
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withChronology:
+  digest: sha256:ea9a8522507ffb6c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withDayOfMonth:
+  digest: sha256:3cb384e3fd46df81
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withDayOfWeek:
+  digest: sha256:6aa1ec9e4ffee842
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withDayOfYear:
+  digest: sha256:5f614923ec8512c1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withDurationAdded:
+  digest: sha256:b41c72a3d6a13c02
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withDurationAdded#2:
+  digest: sha256:2fcb8c1e25388401
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withEra:
+  digest: sha256:208506ed77188fad
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withField:
+  digest: sha256:8b9951c237d929bd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withFieldAdded:
+  digest: sha256:4d403b3b04f9b2aa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withFields:
+  digest: sha256:0c65cf41c928a71a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withMillis:
+  digest: sha256:25fa5405335ddb92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withMonthOfYear:
+  digest: sha256:83622f981c57b96a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withPeriodAdded:
+  digest: sha256:492bf6904d9680c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withWeekOfWeekyear:
+  digest: sha256:786abc3d8f55cb0c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withWeekyear:
+  digest: sha256:012f6c0ad368c7d0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withYear:
+  digest: sha256:f6171b1c5ff64794
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withYearOfCentury:
+  digest: sha256:05032cf793db8432
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withYearOfEra:
+  digest: sha256:4e20555df1f84733
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/withZoneRetainFields:
+  digest: sha256:64e4023ba8581fae
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/year:
+  digest: sha256:3bc86f4b436fdd08
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/yearOfCentury:
+  digest: sha256:c4155ffe1b5ca906
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/DateMidnight.java/package/org.joda.time/class/DateMidnight/method/yearOfEra:
+  digest: sha256:267ed2659c87108d
+  verdict: pending

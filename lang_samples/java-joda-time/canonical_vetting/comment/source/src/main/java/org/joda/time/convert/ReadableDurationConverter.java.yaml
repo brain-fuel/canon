@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/joda/time/convert/ReadableDurationConverter.java/package/org.joda.time.convert/class/ReadableDurationConverter:
+  digest: sha256:7fe43ac78578d5c1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableDurationConverter.java/package/org.joda.time.convert/class/ReadableDurationConverter/constructor/ReadableDurationConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableDurationConverter.java/package/org.joda.time.convert/class/ReadableDurationConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableDurationConverter.java/package/org.joda.time.convert/class/ReadableDurationConverter/method/getDurationMillis:
+  digest: sha256:d9b73eff640ea44d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableDurationConverter.java/package/org.joda.time.convert/class/ReadableDurationConverter/method/getSupportedType:
+  digest: sha256:803c34d8b7590eb8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableDurationConverter.java/package/org.joda.time.convert/class/ReadableDurationConverter/method/setInto:
+  digest: sha256:d997b187ddd20e55
+  verdict: pending

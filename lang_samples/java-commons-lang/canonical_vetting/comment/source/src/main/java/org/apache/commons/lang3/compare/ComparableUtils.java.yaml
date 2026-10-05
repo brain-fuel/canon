@@ -1,0 +1,54 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils:
+  digest: sha256:53e4827a7d54f1ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/class/ComparableCheckBuilder:
+  digest: sha256:4af444e9456858bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/class/ComparableCheckBuilder/method/between:
+  digest: sha256:ab22b39020569049
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/class/ComparableCheckBuilder/method/betweenExclusive:
+  digest: sha256:e58f1085f06f9161
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/class/ComparableCheckBuilder/method/equalTo:
+  digest: sha256:9c7d178618fea888
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/class/ComparableCheckBuilder/method/greaterThan:
+  digest: sha256:189bdd55da9e1ad7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/class/ComparableCheckBuilder/method/greaterThanOrEqualTo:
+  digest: sha256:2817cddc6d2d76fb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/class/ComparableCheckBuilder/method/lessThan:
+  digest: sha256:46b0fcdaa2f5ad5c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/class/ComparableCheckBuilder/method/lessThanOrEqualTo:
+  digest: sha256:2e924bf45432a820
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/method/between:
+  digest: sha256:6d291b3999da998a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/method/betweenExclusive:
+  digest: sha256:7159834c01183338
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/method/ge:
+  digest: sha256:5da3722560ed3bc0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/method/gt:
+  digest: sha256:d85cf30f2ec6dd55
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/method/is:
+  digest: sha256:6cca7e258b6a81fb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/method/le:
+  digest: sha256:3d66015df055f4f1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/method/lt:
+  digest: sha256:636659a60b775125
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/method/max:
+  digest: sha256:9cec363ddff95d24
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/compare/ComparableUtils.java/package/org.apache.commons.lang3.compare/class/ComparableUtils/method/min:
+  digest: sha256:7363fbb2abad61b1
+  verdict: pending

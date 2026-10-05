@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/BooleanConsumer.java/package/org.apache.commons.lang3.function/interface/BooleanConsumer:
+  digest: sha256:f15fc5f3cab2d147
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/BooleanConsumer.java/package/org.apache.commons.lang3.function/interface/BooleanConsumer/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/BooleanConsumer.java/package/org.apache.commons.lang3.function/interface/BooleanConsumer/method/accept:
+  digest: sha256:bb682fcb81105de1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/BooleanConsumer.java/package/org.apache.commons.lang3.function/interface/BooleanConsumer/method/andThen:
+  digest: sha256:ff8400726858d597
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/BooleanConsumer.java/package/org.apache.commons.lang3.function/interface/BooleanConsumer/method/nop:
+  digest: sha256:5b080d046149f57e
+  verdict: pending

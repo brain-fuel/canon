@@ -1,0 +1,63 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker:
+  digest: sha256:72e08ff05c3bb69b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/constructor/AbstractCircuitBreaker:
+  digest: sha256:898762d6714f2eb7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/enum/State:
+  digest: sha256:61d4793eeca21b74
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/enum/State/enumConstant/CLOSED:
+  digest: sha256:2fa5ca7eb43e3ca4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/enum/State/enumConstant/CLOSED/method/oppositeState:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/enum/State/enumConstant/OPEN:
+  digest: sha256:42d0a5aa6c1c4e86
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/enum/State/enumConstant/OPEN/method/oppositeState:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/enum/State/method/oppositeState:
+  digest: sha256:a5ea15deba14d78b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/field/PROPERTY_NAME:
+  digest: sha256:2d1a7969ba143fbf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/field/changeSupport:
+  digest: sha256:27fe2988049b863e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/field/state:
+  digest: sha256:d1c164481fce8aaf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/addChangeListener:
+  digest: sha256:ad390662ff66e6cc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/changeState:
+  digest: sha256:5f57c7eb8307e560
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/checkState:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/close:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/incrementAndCheckState:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/isClosed:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/isOpen:
+  digest: sha256:73d6e7e9b390ec4a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/isOpen#2:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/open:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/AbstractCircuitBreaker/method/removeChangeListener:
+  digest: sha256:4a8777e5df6ea28c
+  verdict: pending

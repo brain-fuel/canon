@@ -1,0 +1,9 @@
+decision/go/source/version6.go:
+  digest: sha256:e3c0177bb3c33e6c
+  verdict: pending
+decision/go/source/version6.go/function/NewV6:
+  digest: sha256:ebf259a957ee6fe1
+  verdict: pending
+decision/go/source/version6.go/function/NewV6WithTime:
+  digest: sha256:815b3cbda621cc06
+  verdict: pending

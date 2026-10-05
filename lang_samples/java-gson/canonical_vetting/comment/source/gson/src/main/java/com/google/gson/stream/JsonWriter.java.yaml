@@ -1,0 +1,111 @@
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter:
+  digest: sha256:b1d24e4a3df3dc6f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/constructor/JsonWriter:
+  digest: sha256:3d17da1609e9a01e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/field/out:
+  digest: sha256:5d267e6b77f831a4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/alwaysCreatesValidJsonNumber:
+  digest: sha256:4101cb03f9d121ed
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/beforeName:
+  digest: sha256:74892d9b11990ebf
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/beforeValue:
+  digest: sha256:855160481c3d39a4
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/beginArray:
+  digest: sha256:d6010f29dfb88d7c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/beginObject:
+  digest: sha256:71b21cdc969a3494
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/close:
+  digest: sha256:08d12b4638d5211d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/closeScope:
+  digest: sha256:e8680c0a2c1b634d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/endArray:
+  digest: sha256:a00d44cb5b5a4985
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/endObject:
+  digest: sha256:98a028b39a65284e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/flush:
+  digest: sha256:2de5c0e627ce444a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/getFormattingStyle:
+  digest: sha256:870a81730657f1d8
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/getSerializeNulls:
+  digest: sha256:c02e036dfe169b55
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/getStrictness:
+  digest: sha256:a29068843b638e76
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/isHtmlSafe:
+  digest: sha256:99ef9296f2e4b8e0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/isLenient:
+  digest: sha256:3cda0d21ffbed466
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/jsonValue:
+  digest: sha256:a6f1f1800b1d62f8
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/name:
+  digest: sha256:c914e2282bc7fe80
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/nullValue:
+  digest: sha256:d126b81a67b511f8
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/openScope:
+  digest: sha256:185bc35fc0c16a7d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/peek:
+  digest: sha256:25a279962e6ca448
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/replaceTop:
+  digest: sha256:3439d5c606b75648
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/setFormattingStyle:
+  digest: sha256:618b7fd7e77e6b05
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/setHtmlSafe:
+  digest: sha256:1dbeaecd8fad55e6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/setIndent:
+  digest: sha256:ebda210410da67bd
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/setLenient:
+  digest: sha256:f2b84fa72817cdb6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/setSerializeNulls:
+  digest: sha256:e9ec02e9c4d7e3b6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/setStrictness:
+  digest: sha256:c50ba342182f8582
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/value:
+  digest: sha256:a307e813c5ada3dc
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/value#2:
+  digest: sha256:5894a04ca0698920
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/value#3:
+  digest: sha256:60f8ef8184ba0ea7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/value#4:
+  digest: sha256:ec76b752a5d7cc58
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/value#5:
+  digest: sha256:7dba41f1c7f808cf
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/value#6:
+  digest: sha256:5894a04ca0698920
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/stream/JsonWriter.java/package/com.google.gson.stream/class/JsonWriter/method/value#7:
+  digest: sha256:05166b94b26e182a
+  verdict: pending

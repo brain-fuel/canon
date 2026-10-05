@@ -1,0 +1,51 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils:
+  digest: sha256:294da24aff952b3d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/constructor/WordUtils:
+  digest: sha256:0c0dc2e8d1690201
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/capitalize:
+  digest: sha256:c563066b9c51fde9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/capitalize#2:
+  digest: sha256:e02ab28dce897b9c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/capitalizeFully:
+  digest: sha256:3b212655c0af94a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/capitalizeFully#2:
+  digest: sha256:c536bd78e48531e0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/containsAllWords:
+  digest: sha256:283fb670d85f862a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/initials:
+  digest: sha256:326fac8f918f21de
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/initials#2:
+  digest: sha256:aee8521e1270a515
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/isDelimiter:
+  digest: sha256:0265f6f9e84f1d2a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/isDelimiter#2:
+  digest: sha256:71f892a45dd39f52
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/swapCase:
+  digest: sha256:da0a9e11cb9e5dbe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/uncapitalize:
+  digest: sha256:2cf2b7b67c55f50a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/uncapitalize#2:
+  digest: sha256:e614850933d11f37
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/wrap:
+  digest: sha256:8db6eab956bd8d7b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/wrap#2:
+  digest: sha256:2d74d66f28766d60
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/WordUtils.java/package/org.apache.commons.lang3.text/class/WordUtils/method/wrap#3:
+  digest: sha256:e40c8c5e7f6f27e8
+  verdict: pending

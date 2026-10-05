@@ -1,0 +1,24 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderTest:
+  digest: sha256:7752c6f6c5411329
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderTest/class/ReflectionHashCodeHolder:
+  digest: sha256:e384a8a2fec5c529
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderTest/class/ReflectionHashCodeMember:
+  digest: sha256:b4ba6a2bf33c9db7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderTest/class/ReflectionTestCycleA:
+  digest: sha256:3d9fa91c956965b5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderTest/class/ReflectionTestCycleB:
+  digest: sha256:3d9fa91c956965b5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderTest/method/testAppendObjectReflectionHashCodeNotPoisoned:
+  digest: sha256:56f0a55caa756027
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderTest/method/testReflectionObjectCycle:
+  digest: sha256:0d5760e98a46851a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/HashCodeBuilderTest.java/package/org.apache.commons.lang3.builder/class/HashCodeBuilderTest/method/testToHashCodeEqualsHashCode:
+  digest: sha256:2d76ab1b1bd41286
+  verdict: pending

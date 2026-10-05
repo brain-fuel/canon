@@ -1,0 +1,6 @@
+decision/haskell/test/CanonTest.hs/module/CanonTest:
+  digest: sha256:f9de30b093e594d2
+  verdict: pending
+decision/haskell/test/CanonTest.hs/module/CanonTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

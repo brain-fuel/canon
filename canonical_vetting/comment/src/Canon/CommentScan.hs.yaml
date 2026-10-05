@@ -1,0 +1,6 @@
+decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan:
+  digest: sha256:1aea37d2356bafac
+  verdict: pending
+decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/scanCommentsWith:
+  digest: sha256:52ff31ee8b39993e
+  verdict: pending

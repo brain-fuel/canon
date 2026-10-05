@@ -1,0 +1,21 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/LangAssertions.java/package/org.apache.commons.lang3/class/LangAssertions:
+  digest: sha256:b1e73ea81cc9600b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LangAssertions.java/package/org.apache.commons.lang3/class/LangAssertions/method/assertIllegalArgumentException:
+  digest: sha256:2650198ac660c93e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LangAssertions.java/package/org.apache.commons.lang3/class/LangAssertions/method/assertIllegalArgumentException#2:
+  digest: sha256:283a4a48d97c6a9f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LangAssertions.java/package/org.apache.commons.lang3/class/LangAssertions/method/assertIndexOutOfBoundsException:
+  digest: sha256:aaa78426f27ca81e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LangAssertions.java/package/org.apache.commons.lang3/class/LangAssertions/method/assertIndexOutOfBoundsException#2:
+  digest: sha256:ca78bc284345acec
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LangAssertions.java/package/org.apache.commons.lang3/class/LangAssertions/method/assertNullPointerException:
+  digest: sha256:7a9d1c9e8723d965
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/LangAssertions.java/package/org.apache.commons.lang3/class/LangAssertions/method/assertNullPointerException#2:
+  digest: sha256:cf5dc65b31ace5f3
+  verdict: pending

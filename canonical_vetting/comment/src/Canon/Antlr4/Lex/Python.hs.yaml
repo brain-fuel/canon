@@ -1,0 +1,15 @@
+decision/haskell/src/Canon/Antlr4/Lex/Python.hs/module/Canon.Antlr4.Lex.Python:
+  digest: sha256:c83c231546835b8a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Python.hs/module/Canon.Antlr4.Lex.Python/data/PythonState:
+  digest: sha256:96a9e643d633a2d9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Python.hs/module/Canon.Antlr4.Lex.Python/function/indentation:
+  digest: sha256:9028f044769d73b5
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Python.hs/module/Canon.Antlr4.Lex.Python/function/onAction:
+  digest: sha256:55e0ca353b544a98
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Python.hs/module/Canon.Antlr4.Lex.Python/function/pythonHooks:
+  digest: sha256:e0e223f416bda697
+  verdict: pending

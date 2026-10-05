@@ -1,0 +1,12 @@
+decision/haskell/test/Canon/HighlightTest.hs/module/Canon.HighlightTest:
+  digest: sha256:2efcae4538e9b5aa
+  verdict: pending
+decision/haskell/test/Canon/HighlightTest.hs/module/Canon.HighlightTest/function/classOf:
+  digest: sha256:03ce675fc1b95934
+  verdict: pending
+decision/haskell/test/Canon/HighlightTest.hs/module/Canon.HighlightTest/function/exactly:
+  digest: sha256:e040a2093eaef55f
+  verdict: pending
+decision/haskell/test/Canon/HighlightTest.hs/module/Canon.HighlightTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

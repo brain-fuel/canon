@@ -1,0 +1,4 @@
+chalk-upstream:
+  kind: package
+  title: chalk, terminal string styling for Node
+  locator: https://github.com/chalk/chalk

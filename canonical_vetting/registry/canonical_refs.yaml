@@ -1,0 +1,30 @@
+registry/BSD-3-Clause:
+  digest: sha256:6980d34c11bc3baf
+  verdict: pending
+registry/MIT:
+  digest: sha256:ed6c0abb656b1c69
+  verdict: pending
+registry/antlr-haskell:
+  digest: sha256:2b6ed033549bd2f1
+  verdict: pending
+registry/canon-provisional-syntax:
+  digest: sha256:7dcc69f6c42c0111
+  verdict: pending
+registry/diataxis:
+  digest: sha256:10ca97f8ffe93ea6
+  verdict: pending
+registry/grammars-v4:
+  digest: sha256:f55b2f8ddcedba30
+  verdict: pending
+registry/grampa-2017:
+  digest: sha256:0990a639309c9f81
+  verdict: pending
+registry/rices-tax:
+  digest: sha256:514692452c1b52ca
+  verdict: pending
+registry/semver-2:
+  digest: sha256:7ef7fa24c6809d32
+  verdict: pending
+registry/warth-2008:
+  digest: sha256:68507085ad4dcaee
+  verdict: pending

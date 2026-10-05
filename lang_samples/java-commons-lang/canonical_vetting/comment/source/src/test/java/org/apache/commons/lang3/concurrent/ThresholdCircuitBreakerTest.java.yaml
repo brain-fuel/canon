@@ -1,0 +1,27 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreakerTest.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreakerTest:
+  digest: sha256:c7d652d57913d904
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreakerTest.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreakerTest/field/threshold:
+  digest: sha256:e1d209a5724b9a9d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreakerTest.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreakerTest/method/testClosingThresholdCircuitBreaker:
+  digest: sha256:d001616d990a6102
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreakerTest.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreakerTest/method/testGettingThreshold:
+  digest: sha256:7bac8ff7759d6dc9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreakerTest.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreakerTest/method/testNegativeIncrementRejected:
+  digest: sha256:bf97b68caa29d851
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreakerTest.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreakerTest/method/testOverflowSaturatesAndOpens:
+  digest: sha256:224c5712f25887c5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreakerTest.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreakerTest/method/testThreshold:
+  digest: sha256:2786545a81c6db20
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreakerTest.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreakerTest/method/testThresholdCircuitBreakingException:
+  digest: sha256:1d3a4f225c88b252
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ThresholdCircuitBreakerTest.java/package/org.apache.commons.lang3.concurrent/class/ThresholdCircuitBreakerTest/method/testThresholdEqualsZero:
+  digest: sha256:8db474e477ced412
+  verdict: pending

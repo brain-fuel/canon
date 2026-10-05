@@ -1,0 +1,234 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils:
+  digest: sha256:d2d6b65f6b5d8252
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/constructor/ClassUtils:
+  digest: sha256:723604a4e91229d5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/enum/Interfaces:
+  digest: sha256:8a53d67eeda8f38b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/enum/Interfaces/enumConstant/EXCLUDE:
+  digest: sha256:8dd6bdba9a592c34
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/enum/Interfaces/enumConstant/INCLUDE:
+  digest: sha256:84255e8dd7be6682
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/ABBREVIATION_MAP:
+  digest: sha256:76780504cbcb0264
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/INNER_CLASS_SEPARATOR:
+  digest: sha256:d2ba18e16a1865c2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/INNER_CLASS_SEPARATOR_CHAR:
+  digest: sha256:be53ea6d5b5e9452
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/MAX_CLASS_NAME_LENGTH:
+  digest: sha256:57120865ed2601d0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/MAX_DIMENSIONS:
+  digest: sha256:4a4086e1454919b2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/MAX_JVM_ARRAY_DIMENSION:
+  digest: sha256:c3c4817fce36d14f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/NAME_PRIMITIVE_MAP:
+  digest: sha256:50812f668dc24b9a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/PACKAGE_SEPARATOR:
+  digest: sha256:a910fc809a69d375
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/PACKAGE_SEPARATOR_CHAR:
+  digest: sha256:75e949579c285e19
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/PRIMITIVE_WRAPPER_MAP:
+  digest: sha256:103fe90f6960e1d9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/REVERSE_ABBREVIATION_MAP:
+  digest: sha256:f2238a112a795362
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/field/WRAPPER_PRIMITIVE_MAP:
+  digest: sha256:8b0b892f21f99497
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/comparator:
+  digest: sha256:9bb0dc48d9dec402
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/convertClassNamesToClasses:
+  digest: sha256:9f97e91fef4a857b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/convertClassesToClassNames:
+  digest: sha256:29c7faa71ae3a878
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getAbbreviatedName:
+  digest: sha256:f8e0cf13067fdf4a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getAbbreviatedName#2:
+  digest: sha256:30efed97e244bfa9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getAllInterfaces:
+  digest: sha256:338481c9be88cec1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getAllInterfaces#2:
+  digest: sha256:b8b2d67e30b6f9fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getAllSuperclasses:
+  digest: sha256:504db6122df7a86b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getCanonicalName:
+  digest: sha256:2c5b6028612bd121
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getCanonicalName#2:
+  digest: sha256:59d34d6167282a9d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getCanonicalName#3:
+  digest: sha256:4d86bfa5d07e1710
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getCanonicalName#4:
+  digest: sha256:73b1dbd1a304a936
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getCanonicalName#5:
+  digest: sha256:19976c4f8aeca458
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getClass:
+  digest: sha256:4ccb1ef7c74d3e7e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getClass#2:
+  digest: sha256:1306a886860f714d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getClass#3:
+  digest: sha256:0bcc7e7b8418bfc0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getClass#4:
+  digest: sha256:6b6499c21272898c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getClass#5:
+  digest: sha256:08cd320e07e765ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getClassStrict:
+  digest: sha256:8214e605b082e64f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getClassStrict#2:
+  digest: sha256:c78ceb3c9f908043
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getComponentType:
+  digest: sha256:954d1143a1e81a8e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getName:
+  digest: sha256:dde129236a7da8c3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getName#2:
+  digest: sha256:41f4379384428fa3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getName#4:
+  digest: sha256:502adf81fe6f6d8f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getName#5:
+  digest: sha256:f1970097c3a2a87f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getPackageCanonicalName:
+  digest: sha256:f78a164d02b864f5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getPackageCanonicalName#2:
+  digest: sha256:a7b1018f94e85acf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getPackageCanonicalName#3:
+  digest: sha256:1b746ca16526bb14
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getPackageName:
+  digest: sha256:7dafa08caeb83f9d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getPackageName#2:
+  digest: sha256:78877fd8d0d2b8e6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getPackageName#3:
+  digest: sha256:7f89d384c122d45b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getPrimitiveClass:
+  digest: sha256:5206798b58acc821
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getPublicMethod:
+  digest: sha256:3cfef1f1c0e03503
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getShortCanonicalName:
+  digest: sha256:de5ce5a3eea93f3f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getShortCanonicalName#2:
+  digest: sha256:af831a6cd477c44c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getShortCanonicalName#3:
+  digest: sha256:8f46bc86a9ee5c26
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getShortClassName:
+  digest: sha256:90fa04d98aff3754
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getShortClassName#2:
+  digest: sha256:031620ec2bf14759
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getShortClassName#3:
+  digest: sha256:ed24b1a1c6d9bdaa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getSimpleName:
+  digest: sha256:ffb3f4a8e4182ab1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getSimpleName#2:
+  digest: sha256:80b26beaf9e0f72c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getSimpleName#3:
+  digest: sha256:fadd7fb55e9b8060
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/getSimpleName#4:
+  digest: sha256:437cf66ea3889ae5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/hierarchy:
+  digest: sha256:6f2d08af3e03cba9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/hierarchy#2:
+  digest: sha256:33ab7a2924f7e8c3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/isAssignable:
+  digest: sha256:3442915aef6fab22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/isAssignable#2:
+  digest: sha256:541667bb0023ddfc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/isAssignable#3:
+  digest: sha256:139edeed2d7655bb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/isAssignable#4:
+  digest: sha256:60112581824d945a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/isInnerClass:
+  digest: sha256:a882dd2f11ffe4df
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/isPrimitiveOrWrapper:
+  digest: sha256:918c36262ddfe134
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/isPrimitiveWrapper:
+  digest: sha256:0606d1711f5d08e7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/isPublic:
+  digest: sha256:bfd438149543d90e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/primitiveToWrapper:
+  digest: sha256:44ecc960fc7d9ffa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/primitivesToWrappers:
+  digest: sha256:52d19e9a2d98404a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/toClass:
+  digest: sha256:e56f213c03cce83d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/toCleanName:
+  digest: sha256:5ca7e6d3077ee1ec
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/toEncodedName:
+  digest: sha256:aef3e6e181df4e9e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/useFull:
+  digest: sha256:a150c1311d80364c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/wrapperToPrimitive:
+  digest: sha256:24b1b9a793d3c51a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ClassUtils.java/package/org.apache.commons.lang3/class/ClassUtils/method/wrappersToPrimitives:
+  digest: sha256:b8d84425b352d9ea
+  verdict: pending

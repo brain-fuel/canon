@@ -1,0 +1,12 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConcurrentExceptionTest.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentExceptionTest:
+  digest: sha256:a9a8e11971a02c0b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConcurrentExceptionTest.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentExceptionTest/method/testCauseError:
+  digest: sha256:520344474aedaebe
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConcurrentExceptionTest.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentExceptionTest/method/testCauseNull:
+  digest: sha256:005a4f08793f8df8
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/ConcurrentExceptionTest.java/package/org.apache.commons.lang3.concurrent/class/ConcurrentExceptionTest/method/testCauseUnchecked:
+  digest: sha256:0ed99e72ace811f4
+  verdict: pending

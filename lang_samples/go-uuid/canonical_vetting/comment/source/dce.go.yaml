@@ -1,0 +1,21 @@
+decision/go/source/dce.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/dce.go/function/NewDCEGroup:
+  digest: sha256:137af525181c0881
+  verdict: pending
+decision/go/source/dce.go/function/NewDCEPerson:
+  digest: sha256:8296143bb8539d75
+  verdict: pending
+decision/go/source/dce.go/function/NewDCESecurity:
+  digest: sha256:2bb7653cdf7d1d6f
+  verdict: pending
+decision/go/source/dce.go/method/Domain:
+  digest: sha256:b9b0fda66aa85eac
+  verdict: pending
+decision/go/source/dce.go/method/ID:
+  digest: sha256:6a25ed31f4c28b3a
+  verdict: pending
+decision/go/source/dce.go/type/Domain:
+  digest: sha256:5495e2f2fdf3eb20
+  verdict: pending

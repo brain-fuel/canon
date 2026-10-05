@@ -1,0 +1,12 @@
+decision/go/source/util.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/util.go/function/Compare:
+  digest: sha256:dff6dbd95fc988b4
+  verdict: pending
+decision/go/source/util.go/function/randomBits:
+  digest: sha256:01222ca56cc69d01
+  verdict: pending
+decision/go/source/util.go/function/xtob:
+  digest: sha256:23bb2bdc0ab5c1ec
+  verdict: pending

@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java/package/org.apache.commons.lang3.function/interface/FailableDoubleConsumer:
+  digest: sha256:26ea0ce985cecb83
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java/package/org.apache.commons.lang3.function/interface/FailableDoubleConsumer/constant/NOP:
+  digest: sha256:2e84556bc554a9a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java/package/org.apache.commons.lang3.function/interface/FailableDoubleConsumer/method/accept:
+  digest: sha256:0b5f8c58307947b5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java/package/org.apache.commons.lang3.function/interface/FailableDoubleConsumer/method/andThen:
+  digest: sha256:a5d4b6dc728c2a3e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java/package/org.apache.commons.lang3.function/interface/FailableDoubleConsumer/method/nop:
+  digest: sha256:80e2fe1bb96b9053
+  verdict: pending

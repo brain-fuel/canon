@@ -1,0 +1,45 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache:
+  digest: sha256:c358e58a3e7d3879
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/class/ArrayKey:
+  digest: sha256:b4c016d408e30b48
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/class/ArrayKey/constructor/ArrayKey:
+  digest: sha256:26d3bc4e65a7fc3b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/field/MAX_CACHE_SIZE:
+  digest: sha256:60456e58209d1805
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/field/NONE:
+  digest: sha256:32bb1958a0638bdf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/clear:
+  digest: sha256:2de02e14d52620bd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/clearInstance:
+  digest: sha256:2de02e14d52620bd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/createInstance:
+  digest: sha256:5e66d58bc5137b99
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/getDateInstance:
+  digest: sha256:a4f4a60cd1fe4e42
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/getDateTimeInstance:
+  digest: sha256:faa1c25bb0672593
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/getDateTimeInstance#2:
+  digest: sha256:a2d88b9da3d0212b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/getInstance:
+  digest: sha256:d372f1e46104d45c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/getInstance#2:
+  digest: sha256:8ed3350b11bd4e70
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/getPatternForStyle:
+  digest: sha256:3da971ad1294931f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/AbstractFormatCache.java/package/org.apache.commons.lang3.time/class/AbstractFormatCache/method/getTimeInstance:
+  digest: sha256:84369069b1deba9a
+  verdict: pending

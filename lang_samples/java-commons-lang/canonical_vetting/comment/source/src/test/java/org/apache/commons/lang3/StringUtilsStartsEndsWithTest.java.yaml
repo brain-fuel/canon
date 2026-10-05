@@ -1,0 +1,15 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsStartsEndsWithTest.java/package/org.apache.commons.lang3/class/StringUtilsStartsEndsWithTest:
+  digest: sha256:62178a280c33c700
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsStartsEndsWithTest.java/package/org.apache.commons.lang3/class/StringUtilsStartsEndsWithTest/method/testEndsWith:
+  digest: sha256:155ed60a25494fb7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsStartsEndsWithTest.java/package/org.apache.commons.lang3/class/StringUtilsStartsEndsWithTest/method/testEndsWithIgnoreCase:
+  digest: sha256:b9d338aceb665b8b
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsStartsEndsWithTest.java/package/org.apache.commons.lang3/class/StringUtilsStartsEndsWithTest/method/testStartsWith:
+  digest: sha256:aa0e5c8276cf432a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsStartsEndsWithTest.java/package/org.apache.commons.lang3/class/StringUtilsStartsEndsWithTest/method/testStartsWithIgnoreCase:
+  digest: sha256:0538f342f400e15b
+  verdict: pending

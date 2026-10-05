@@ -1,0 +1,30 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject:
+  digest: sha256:c115cdd0ab7bc39a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject/constructor/MutableObject:
+  digest: sha256:3ecf87852761ffd0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject/constructor/MutableObject#2:
+  digest: sha256:9fb374372b338b72
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject/field/value:
+  digest: sha256:aeb04f8f0a2f3660
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject/method/equals:
+  digest: sha256:6d15ddc6555b5600
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject/method/getValue:
+  digest: sha256:6902c42a9af0a0f1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject/method/hashCode:
+  digest: sha256:8db7013deeea45c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject/method/setValue:
+  digest: sha256:8ab4d5604de5386a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableObject.java/package/org.apache.commons.lang3.mutable/class/MutableObject/method/toString:
+  digest: sha256:94fe41aef97ace5f
+  verdict: pending

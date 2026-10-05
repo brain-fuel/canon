@@ -1,0 +1,15 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/EqualsBuilderTest.java/package/org.apache.commons.lang3.builder/class/EqualsBuilderTest:
+  digest: sha256:4ce8821d460d349a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/EqualsBuilderTest.java/package/org.apache.commons.lang3.builder/class/EqualsBuilderTest/method/testCyclicalObjectReferences:
+  digest: sha256:f7e679ccb2f21f1c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/EqualsBuilderTest.java/package/org.apache.commons.lang3.builder/class/EqualsBuilderTest/method/testNpeForNullElement:
+  digest: sha256:1e32e3f755283e01
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/EqualsBuilderTest.java/package/org.apache.commons.lang3.builder/class/EqualsBuilderTest/method/testReflectionEqualsEquivalenceRelationship:
+  digest: sha256:4e0d9a16f1d907b5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/EqualsBuilderTest.java/package/org.apache.commons.lang3.builder/class/EqualsBuilderTest/method/testUnrelatedClasses:
+  digest: sha256:b3f2798fbb4a40cb
+  verdict: pending

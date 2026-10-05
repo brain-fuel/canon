@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/function/FunctionsTest.java/package/org.apache.commons.lang3.function/class/FunctionsTest:
+  digest: sha256:440d907934f8072f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/function/FunctionsTest.java/package/org.apache.commons.lang3.function/class/FunctionsTest/method/testApply:
+  digest: sha256:e4a34debe7276eee
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/function/FunctionsTest.java/package/org.apache.commons.lang3.function/class/FunctionsTest/method/testFunction:
+  digest: sha256:e5afe1bdc508918f
+  verdict: pending

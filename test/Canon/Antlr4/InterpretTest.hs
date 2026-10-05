@@ -3,13 +3,15 @@
 module Canon.Antlr4.InterpretTest (tests) where
 
 import Canon.Antlr4.Grammar (parseGrammarText)
-import Canon.Antlr4.Interpret (interpretFile, interpretText, loadInterpreter, renderInterpretError)
+import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Lex
 import Canon.Antlr4.Lex.Adaptor (antlrLexerHooks)
+import Canon.Antlr4.Lex.JavaScript (javaScriptHooks)
+import Canon.Antlr4.Lex.Python (pythonHooks)
 import Canon.Antlr4.Parse
 import Canon.Antlr4.Query (ruleNames)
 import Canon.Antlr4.Read (ReadResult (..), readGrammarFile, renderReadError)
-import Canon.Antlr4.Syntax (Grammar, Name (..))
+import Canon.Antlr4.Syntax (Grammar, Name (..), nameText)
 import Canon.Antlr4.Token
 import Canon.Span (Span)
 import Data.Either (isLeft)
@@ -41,6 +43,12 @@ tests =
     , testProperty "precedence climbing gives ANTLR's tree for expressions" precedenceClimbing
     , testProperty "case-insensitive grammars match either case" caseInsensitive
     , testProperty "the Haskell grammar parses a layout-sensitive module through the ported base lexer" haskellLayout
+    , testProperty "the Haskell layout lexes a fragment whose first line is indented deeper than a later one" haskellFragmentDedentsBelowStart
+    , testProperty "the Python base lexer port turns newlines into NEWLINE, INDENT, and DEDENT" pythonIndentation
+    , testProperty "a predicate inside a block gates only its own alternative" predicateInBlock
+    , testProperty "the JavaScript base lexer port decides whether a slash starts a regular expression" regexPredicate
+    , testProperty "an empty match is allowed only when it changes mode" emptyMatchChangesMode
+    , testProperty "a loop of statements that can each end two ways parses in polynomial time" loopsArePolynomial
     ]
 
 grammarOrFail :: Text -> PropertyT IO (Grammar Span)
@@ -245,6 +253,19 @@ haskellLayout = withTests 1 $ property $ do
       length (treeRuleNodes (Name "ty_decl") tree) === 1
       assert (not (null (treeRuleNodes (Name "impdecl") tree)))
 
+-- | A fragment cut from the middle of a file starts wherever its first token is; a later line
+-- indented less than that has no block to close, and the layout must say so and go on rather
+-- than emit virtual braces without end. ref:DEC-haskell-grammar-fixes
+haskellFragmentDedentsBelowStart :: Property
+haskellFragmentDedentsBelowStart = withTests 1 $ property $ do
+  loaded <- evalIO (loadInterpreter "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4")
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  case interpreterTokenize interpreter "  ) where\n\nimport Canon.Config\n" of
+    Left err -> annotate (T.unpack (renderLexError err)) >> failure
+    Right toks -> do
+      assert (length toks < 40)
+      assert ("import" `elem` map tokenText toks)
+
 haskellDialectParsesCanon :: Property
 haskellDialectParsesCanon = withTests 1 $ property $ do
   loaded <- evalIO (loadInterpreter "grammars/haskell/canonically_commented/HaskellLexer.g4" "grammars/haskell/canonically_commented/HaskellParser.g4")
@@ -255,3 +276,105 @@ haskellDialectParsesCanon = withTests 1 $ property $ do
   let openers = length (filter (T.isPrefixOf "-- |") (T.lines source))
   length (treeRuleNodes (Name "canonicalComment") tree) === openers
   length [() | n <- treeRuleNodes (Name "topdecl") tree, _ <- treeRuleNodes (Name "canonicalComment") n] === openers - 1
+
+-- | Visible token types, which is what a parser sees.
+visibleTypes :: [Token] -> [Text]
+visibleTypes toks = [nameText (tokenType t) | t <- toks, tokenChannel t == defaultChannelName]
+
+tableOrFail :: Grammar Span -> PropertyT IO LexerTable
+tableOrFail g = either (\e -> annotate (T.unpack (renderLexError e)) >> failure) pure (buildLexerTable g)
+
+lexWithOrFail :: LexerHooks s -> LexerTable -> Text -> PropertyT IO [Token]
+lexWithOrFail hooks table source = either (\e -> annotate (T.unpack (renderLexError e)) >> failure) pure (tokenizeWith hooks table source)
+
+pythonGrammar :: Text
+pythonGrammar =
+  T.unlines
+    [ "lexer grammar Py;"
+    , "tokens { INDENT, DEDENT }"
+    , "NEWLINE: ({this.atStartOfInput()}? SPACES | ( '\\r'? '\\n' | '\\r' | '\\f') SPACES?) {this.onNewLine();};"
+    , "NAME: [a-z_]+;"
+    , "COLON: ':';"
+    , "COMMA: ',';"
+    , "OPEN_PAREN: '(' {this.openBrace();};"
+    , "CLOSE_PAREN: ')' {this.closeBrace();};"
+    , "SKIP_: (SPACES | COMMENT) -> skip;"
+    , "fragment SPACES: [ \\t]+;"
+    , "fragment COMMENT: '#' ~[\\r\\n\\f]*;"
+    ]
+
+pythonIndentation :: Property
+pythonIndentation = withTests 1 $ property $ do
+  g <- grammarOrFail pythonGrammar
+  table <- tableOrFail g
+  toks <- lexWithOrFail pythonHooks table "def f(a,\n  b):\n    x\n\n    # a comment line is not a statement\n    y\nz\n"
+  visibleTypes toks
+    === ["NAME", "NAME", "OPEN_PAREN", "NAME", "COMMA", "NAME", "CLOSE_PAREN", "COLON", "NEWLINE", "INDENT", "NAME", "NEWLINE", "NAME", "NEWLINE", "DEDENT", "NAME", "NEWLINE", "EOF"]
+  unterminated <- lexWithOrFail pythonHooks table "if x:\n    y"
+  visibleTypes unterminated === ["NAME", "NAME", "COLON", "NEWLINE", "INDENT", "NAME", "NEWLINE", "DEDENT", "EOF"]
+
+predicateInBlock :: Property
+predicateInBlock = withTests 1 $ property $ do
+  g <- grammarOrFail pythonGrammar
+  table <- tableOrFail g
+  -- Leading spaces at the start of input are a NEWLINE only because the predicate in the first
+  -- alternative of the block holds there; a newline later must not be refused by it.
+  toks <- lexWithOrFail pythonHooks table "  x\ny\n"
+  visibleTypes toks === ["NEWLINE", "INDENT", "NAME", "NEWLINE", "DEDENT", "NAME", "NEWLINE", "EOF"]
+
+regexPredicate :: Property
+regexPredicate = withTests 1 $ property $ do
+  g <-
+    grammarOrFail $
+      T.unlines
+        [ "lexer grammar J;"
+        , "RegularExpressionLiteral: '/' {this.IsRegexPossible()}? ~[/\\n]+ '/';"
+        , "Divide: '/';"
+        , "Identifier: [a-z]+;"
+        , "WS: [ \\n]+ -> skip;"
+        ]
+  table <- tableOrFail g
+  withBase <- lexWithOrFail javaScriptHooks table "a / b / c"
+  visibleTypes withBase === ["Identifier", "Divide", "Identifier", "Divide", "Identifier", "EOF"]
+  atStart <- lexWithOrFail javaScriptHooks table "/ b / c"
+  visibleTypes atStart === ["RegularExpressionLiteral", "Identifier", "EOF"]
+  without <- lexWithOrFail noHooks table "a / b / c"
+  assert ("RegularExpressionLiteral" `elem` visibleTypes without)
+
+emptyMatchChangesMode :: Property
+emptyMatchChangesMode = withTests 1 $ property $ do
+  g <-
+    grammarOrFail $
+      T.unlines
+        [ "lexer grammar G;"
+        , "ID: [a-z]+ -> mode(NLSEMI);"
+        , "LBRACK: '[';"
+        , "WS: [ \\n]+ -> skip;"
+        , "mode NLSEMI;"
+        , "WS_N: [ ]+ -> skip;"
+        , "EOS: '\\n'+ -> mode(DEFAULT_MODE);"
+        , "OTHER: -> mode(DEFAULT_MODE), channel(HIDDEN);"
+        ]
+  table <- tableOrFail g
+  toks <- lexWithOrFail noHooks table "a [b\n"
+  visibleTypes toks === ["ID", "LBRACK", "ID", "EOS", "EOF"]
+  looping <- grammarOrFail (T.unlines ["lexer grammar E;", "A: 'a'*;", "B: 'b';"])
+  assert (isLeft (tokenize looping "c"))
+
+loopsArePolynomial :: Property
+loopsArePolynomial = withTests 1 $ property $ do
+  g <-
+    grammarOrFail $
+      T.unlines
+        [ "grammar S;"
+        , "program: statement+ EOF;"
+        , "statement: ID eos | SEMI;"
+        , "eos: SEMI | {this.lineTerminatorAhead()}?;"
+        , "ID: [a-z]+;"
+        , "SEMI: ';';"
+        , "WS: [ \\n]+ -> skip;"
+        ]
+  toks <- lexOrFail g (T.replicate 200 "a; ")
+  case parseTokens g (Name "program") toks of
+    Left err -> annotate (T.unpack (renderParseError err)) >> failure
+    Right tree -> assert (not (null (treeRuleNodes (Name "statement") tree)))

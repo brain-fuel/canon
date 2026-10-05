@@ -46,10 +46,10 @@ data Hole = Hole
 
 -- | The hooks for the C# grammar, reading the branches a build selects. ref:DEC-preprocessor-builds
 csharpLexerHooks :: Choice -> LexerHooks CSharpLexerState
-csharpLexerHooks choice = LexerHooks (CSharpLexerState [] [] 0 [] [] Map.empty choice) onAction onEmit
+csharpLexerHooks choice = LexerHooks (CSharpLexerState [] [] 0 [] [] Map.empty choice) onAction (\_ _ _ _ _ -> True) onEmit
 
-onAction :: Name -> ActionText -> Text -> CSharpLexerState -> (CSharpLexerState, [HookEffect])
-onAction _ action matched s
+onAction :: Name -> ActionText -> Text -> Text -> CSharpLexerState -> (CSharpLexerState, [HookEffect])
+onAction _ action matched _ s
   | calls "OnRawStringStart" =
       (s {raws = (T.length (T.takeWhile (== '$') matched), T.length (T.filter (== '"') matched)) : raws s}, [])
   | calls "OnRawOpenBraces" = case raws s of

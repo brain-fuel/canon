@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/time/TimeZones.java/package/org.apache.commons.lang3.time/class/TimeZones:
+  digest: sha256:9e13348cef8f1768
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/TimeZones.java/package/org.apache.commons.lang3.time/class/TimeZones/constructor/TimeZones:
+  digest: sha256:99e65ecf43f81121
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/TimeZones.java/package/org.apache.commons.lang3.time/class/TimeZones/field/GMT:
+  digest: sha256:27e12e4ad9fcd9be
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/TimeZones.java/package/org.apache.commons.lang3.time/class/TimeZones/field/GMT_ID:
+  digest: sha256:0ee60f4e804691fa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/TimeZones.java/package/org.apache.commons.lang3.time/class/TimeZones/field/SORTED_AVAILABLE_IDS:
+  digest: sha256:893828e816bd72d6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/TimeZones.java/package/org.apache.commons.lang3.time/class/TimeZones/method/getTimeZone:
+  digest: sha256:f6a74826f39b1bf7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/time/TimeZones.java/package/org.apache.commons.lang3.time/class/TimeZones/method/toTimeZone:
+  digest: sha256:a8735e520b44ea51
+  verdict: pending

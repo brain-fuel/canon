@@ -1,0 +1,141 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder:
+  digest: sha256:1908cd7c4059e635
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/class/Builder:
+  digest: sha256:a72e6a8acabd0f18
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/class/Builder/constructor/Builder:
+  digest: sha256:c60e5cfab5fe9441
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/constructor/EqualsBuilder:
+  digest: sha256:c146f54857d1672f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/field/REGISTRY:
+  digest: sha256:46ba36d041dd3190
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/field/isEquals:
+  digest: sha256:008848e23077c071
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append:
+  digest: sha256:a2b2c89ac2de448d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#10:
+  digest: sha256:e6cefc120b7d534d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#11:
+  digest: sha256:f9e19481309c6dd1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#12:
+  digest: sha256:b00e1f03b73ecd91
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#13:
+  digest: sha256:35b811e8128ce30a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#14:
+  digest: sha256:45150569bd729e6d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#15:
+  digest: sha256:164a8ba81f0541d5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#16:
+  digest: sha256:c840c7fca710c61e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#17:
+  digest: sha256:8ab09ce93f2e1492
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#18:
+  digest: sha256:14b154929bcb6f16
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#2:
+  digest: sha256:b65bcf983549c39d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#3:
+  digest: sha256:75eae571fc3183d2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#4:
+  digest: sha256:3b8852b5f64b4ec1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#5:
+  digest: sha256:0c83c5a5c155ddbd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#6:
+  digest: sha256:092ce56d5fe42ce8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#7:
+  digest: sha256:cd79ee0a08b75a5c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#8:
+  digest: sha256:bfba9070358b0737
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/append#9:
+  digest: sha256:527e90de6f54f68b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/appendArray:
+  digest: sha256:f0b805f2b4e8f3fe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/appendSuper:
+  digest: sha256:50535cfd075e5099
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/build:
+  digest: sha256:cd603d8d80ebed75
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/builder:
+  digest: sha256:2a050fef8ecbafc0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/getRegistry:
+  digest: sha256:ef0e0decc988d4ca
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/isEquals:
+  digest: sha256:183dd433b1067af3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/isRegistered:
+  digest: sha256:074d6ab34a9f737f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/reflectionAppend:
+  digest: sha256:ab49a3b3ae705d9e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/reflectionAppend#2:
+  digest: sha256:0efa5e605be13bc5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/reflectionEquals:
+  digest: sha256:1d3b9293bb32ed6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/reflectionEquals#2:
+  digest: sha256:4e9dc3f22889b9cb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/reflectionEquals#3:
+  digest: sha256:0db838e7a4b823b2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/reflectionEquals#4:
+  digest: sha256:48f2ab483e109dd9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/reflectionEquals#5:
+  digest: sha256:30ead1de85e539da
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/register:
+  digest: sha256:f811fb9cf7e71cf5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/reset:
+  digest: sha256:590d0e68c26945b5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/setBypassReflectionClasses:
+  digest: sha256:67b0eb6519a3f298
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/setEquals:
+  digest: sha256:06355a0124541e9b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/setExcludeFields:
+  digest: sha256:dfd4e3e456ab3f6f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/setReflectUpToClass:
+  digest: sha256:f6c729643d3b23fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/setTestRecursive:
+  digest: sha256:fbbf0ec025f8ff5e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/setTestTransients:
+  digest: sha256:6db4626554b0dc84
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java/package/org.apache.commons.lang3.builder/class/EqualsBuilder/method/unregister:
+  digest: sha256:e56e7d6d1593ba02
+  verdict: pending

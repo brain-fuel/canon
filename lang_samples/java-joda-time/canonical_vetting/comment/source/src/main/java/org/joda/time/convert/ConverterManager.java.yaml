@@ -1,0 +1,87 @@
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager:
+  digest: sha256:08fa2d8169f03926
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/class/LazyConverterManagerHolder:
+  digest: sha256:ac89b15faa5983ac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/constructor/ConverterManager:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/addDurationConverter:
+  digest: sha256:139bec9ae3088093
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/addInstantConverter:
+  digest: sha256:139bec9ae3088093
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/addIntervalConverter:
+  digest: sha256:139bec9ae3088093
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/addPartialConverter:
+  digest: sha256:139bec9ae3088093
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/addPeriodConverter:
+  digest: sha256:139bec9ae3088093
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/checkAlterDurationConverters:
+  digest: sha256:19879e79cf8b3ae1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/checkAlterInstantConverters:
+  digest: sha256:60f20a9a4aae3e5f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/checkAlterIntervalConverters:
+  digest: sha256:7bf44ca8695f299c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/checkAlterPartialConverters:
+  digest: sha256:f095e91d32637bec
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/checkAlterPeriodConverters:
+  digest: sha256:386b7d1a730e2c2e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getDurationConverter:
+  digest: sha256:c00da5b0d19bbbac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getDurationConverters:
+  digest: sha256:5fb0b26cf243820a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getInstantConverter:
+  digest: sha256:c00da5b0d19bbbac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getInstantConverters:
+  digest: sha256:37d57c34d78728fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getIntervalConverter:
+  digest: sha256:c00da5b0d19bbbac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getIntervalConverters:
+  digest: sha256:5fb0b26cf243820a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getPartialConverter:
+  digest: sha256:c00da5b0d19bbbac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getPartialConverters:
+  digest: sha256:37d57c34d78728fb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getPeriodConverter:
+  digest: sha256:c00da5b0d19bbbac
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/getPeriodConverters:
+  digest: sha256:5fb0b26cf243820a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/removeDurationConverter:
+  digest: sha256:0769459f2974835c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/removeInstantConverter:
+  digest: sha256:0769459f2974835c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/removeIntervalConverter:
+  digest: sha256:0769459f2974835c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/removePartialConverter:
+  digest: sha256:0769459f2974835c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/removePeriodConverter:
+  digest: sha256:0769459f2974835c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ConverterManager.java/package/org.joda.time.convert/class/ConverterManager/method/toString:
+  digest: sha256:f268c2c444996e06
+  verdict: pending

@@ -1,0 +1,18 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/Supplementary.java/package/org.apache.commons.lang3/class/Supplementary:
+  digest: sha256:77c53daed4b2cbd1
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/Supplementary.java/package/org.apache.commons.lang3/class/Supplementary/field/CharU20000:
+  digest: sha256:7a5fde82124ec2aa
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/Supplementary.java/package/org.apache.commons.lang3/class/Supplementary/field/CharU20001:
+  digest: sha256:2b1bb8bc1b5b6991
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/Supplementary.java/package/org.apache.commons.lang3/class/Supplementary/field/CharU24000:
+  digest: sha256:6d13094de955bad5
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/Supplementary.java/package/org.apache.commons.lang3/class/Supplementary/field/CharUSuppCharHigh:
+  digest: sha256:70d35b44bb88116d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/Supplementary.java/package/org.apache.commons.lang3/class/Supplementary/field/CharUSuppCharLow:
+  digest: sha256:5be14a4c2d597200
+  verdict: pending

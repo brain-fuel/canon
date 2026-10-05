@@ -1,0 +1,30 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest:
+  digest: sha256:e7ee07160045a782
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest/field/HTML_ESCAPES:
+  digest: sha256:39b4be73131ddf29
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest/method/testEscapeHiragana:
+  digest: sha256:d47442c624ce1f4e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest/method/testEscapeHtmlHighUnicode:
+  digest: sha256:6777d0db9f2f0c1a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest/method/testEscapeJavaWithSlash:
+  digest: sha256:c9585697ffd3aead
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest/method/testEscapeXmlSupplementaryCharacters:
+  digest: sha256:eaa242ea46e0c1f2
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest/method/testLang708:
+  digest: sha256:415e280541140d45
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest/method/testLang720:
+  digest: sha256:3ead5c23a9ea46e7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest/method/testLang911:
+  digest: sha256:05a2511835170b24
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringEscapeUtilsTest.java/package/org.apache.commons.lang3/class/StringEscapeUtilsTest/method/testUnescapeXmlSupplementaryCharacters:
+  digest: sha256:73f168199b657b54
+  verdict: pending

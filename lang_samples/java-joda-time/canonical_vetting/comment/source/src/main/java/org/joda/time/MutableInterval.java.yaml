@@ -1,0 +1,87 @@
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval:
+  digest: sha256:25d65dae29bb9f90
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval:
+  digest: sha256:bf7eed865d1995c9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval#10:
+  digest: sha256:b3707f8eca92778c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval#2:
+  digest: sha256:ec5ec6bf0f97d1a2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval#3:
+  digest: sha256:821261daf20a0d9c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval#4:
+  digest: sha256:2f66e9a3f4300bca
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval#5:
+  digest: sha256:9e95687293f33b4f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval#6:
+  digest: sha256:d480609f1e03c60f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval#7:
+  digest: sha256:0c59ea1eb5b5afa5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval#8:
+  digest: sha256:cde75ad48afee118
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/constructor/MutableInterval#9:
+  digest: sha256:b6fa9171cf318d27
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/field/serialVersionUID:
+  digest: sha256:45286629e317f0a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/clone:
+  digest: sha256:a32671bed850150c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/copy:
+  digest: sha256:fb16f53bbe44dcf3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/parse:
+  digest: sha256:d5f23331ed426562
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setChronology:
+  digest: sha256:77e40b8163c21305
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setDurationAfterStart:
+  digest: sha256:1811101eb62576ec
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setDurationAfterStart#2:
+  digest: sha256:d148a6722758e4bc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setDurationBeforeEnd:
+  digest: sha256:e18377c7033624a3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setDurationBeforeEnd#2:
+  digest: sha256:48721d1327bf548a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setEnd:
+  digest: sha256:5b2c24cd0a1161bc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setEndMillis:
+  digest: sha256:04955cceb1ce9622
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setInterval:
+  digest: sha256:99cc563d74855869
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setInterval#2:
+  digest: sha256:ce39e2295832dc82
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setInterval#3:
+  digest: sha256:e0dbfadfe18dfe49
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setPeriodAfterStart:
+  digest: sha256:227beb26dc4d066b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setPeriodBeforeEnd:
+  digest: sha256:3050feb62220b0bd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setStart:
+  digest: sha256:ec1f881cb1765725
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/MutableInterval.java/package/org.joda.time/class/MutableInterval/method/setStartMillis:
+  digest: sha256:f259eb5a38c77e83
+  verdict: pending

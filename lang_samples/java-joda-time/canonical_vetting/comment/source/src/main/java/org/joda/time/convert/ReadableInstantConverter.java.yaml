@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/joda/time/convert/ReadableInstantConverter.java/package/org.joda.time.convert/class/ReadableInstantConverter:
+  digest: sha256:6f84ca5d062dc561
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableInstantConverter.java/package/org.joda.time.convert/class/ReadableInstantConverter/constructor/ReadableInstantConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableInstantConverter.java/package/org.joda.time.convert/class/ReadableInstantConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableInstantConverter.java/package/org.joda.time.convert/class/ReadableInstantConverter/method/getChronology:
+  digest: sha256:eee15a1b9aa1bca7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableInstantConverter.java/package/org.joda.time.convert/class/ReadableInstantConverter/method/getChronology#2:
+  digest: sha256:a804904538dd6545
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableInstantConverter.java/package/org.joda.time.convert/class/ReadableInstantConverter/method/getInstantMillis:
+  digest: sha256:da077619d2caa3ff
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableInstantConverter.java/package/org.joda.time.convert/class/ReadableInstantConverter/method/getSupportedType:
+  digest: sha256:27e858c5553ee063
+  verdict: pending

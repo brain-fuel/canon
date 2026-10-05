@@ -47,6 +47,22 @@ data Finding
   | MaterialWithoutRevisit VettingKey
   | TestWithoutRequirement UnitId Where
   | RequirementUntested ReferenceKey
+  | KindPending VettingKey
+  | KindUndeclared VettingKey
+  | VerdictUnknown VettingKey Text
+  | Exempt Text Text Text Text
+  | ExemptionExpired Text Text Text
+  | BlockUndeclared FilePath Int
+  | BlockDoesNotDefine FilePath Int Text
+  | BlockCarriesComment FilePath Int
+  | BlockLanguageUnknown FilePath Int Text
+  | TangledStale FilePath
+  | FrontMatterMissing FilePath
+  | DocKindInvalid FilePath Text
+  | DocQuadrantMismatch FilePath Text
+  | DocIdInvalid FilePath Text
+  | DocIdDuplicate Text FilePath FilePath
+  | VideoKeyNotVideo FilePath ReferenceKey
   deriving (Eq, Show)
 
 -- | Failing findings fail the check; informational ones do not.
@@ -62,6 +78,7 @@ findingSeverity f = case f of
   CommentDeferred {} -> Informational
   MaterialDeferred {} -> Informational
   VerdictUncommitted _ -> Informational
+  Exempt {} -> Informational
   _ -> Failing
 
 -- | Renders a finding as path, line, column, and message.
@@ -106,11 +123,30 @@ renderFinding f = case f of
   MaterialWithoutRevisit k -> materialName k <> " is deferred without a revisit version"
   TestWithoutRequirement u w -> at (wherePath w) (whereSpan w) ("test " <> renderUnitId u <> " cites no requirement")
   RequirementUntested k -> T.concat ["requirement ", referenceKeyText k, " is cited by no test"]
+  KindPending k -> materialName k <> " is pending sign-off"
+  KindUndeclared k -> materialName k <> " is of a kind canon.yaml does not declare"
+  VerdictUnknown k w -> T.concat [materialName k, " carries the verdict word ", w, ", which its kind does not declare"]
+  Exempt what pat revisit reason -> T.concat [what, " is exempt under ", pat, " until ", revisit, ": ", reason]
+  ExemptionExpired pat revisit current -> T.concat ["exemption ", pat, " is past its revisit version ", revisit, " at version ", current]
+  BlockUndeclared path line -> atLine path line "block declares no def= or part=; every block says what it defines"
+  BlockDoesNotDefine path line name -> atLine path line ("block declares def=" <> name <> " but defines no unit of that name")
+  BlockCarriesComment path line -> atLine path line "comment in a block; prose belongs in the page, and a fact written twice is one fact and one future lie"
+  BlockLanguageUnknown path line language -> atLine path line ("block tangles a language the profile does not embed: " <> language)
+  TangledStale path -> T.pack path <> " differs from what its pages tangle to; run canon tangle"
+  FrontMatterMissing path -> T.pack path <> ": a page begins with front matter naming its id and kind"
+  DocKindInvalid path k -> T.pack path <> ": the kind " <> k <> " is not tutorial, how-to, reference, or explanation"
+  DocQuadrantMismatch path k -> T.pack path <> ": a page of kind " <> k <> " lives under the directory of that kind"
+  DocIdInvalid path i -> T.pack path <> ": the id " <> i <> " is not lowercase words joined by dots"
+  DocIdDuplicate i a b -> T.concat ["the id ", i, " names two pages: ", T.pack a, " and ", T.pack b]
+  VideoKeyNotVideo path k -> T.pack path <> ": video names " <> referenceKeyText k <> ", which is not a reference of kind video"
   where
     materialName k = case k of
       CommentKey d -> "comment " <> renderDecisionId d
       LedgerKey r -> "decision " <> referenceKeyText r
       RegistryKey r -> "reference " <> referenceKeyText r
+      KindKey kind i -> kind <> " " <> i
+      DocKey path -> "page " <> T.pack path
+    atLine path line message = T.concat [T.pack path, ":", T.pack (show line), ": ", message]
     at path (Span (Position line column) _) message =
       T.concat [T.pack path, ":", T.pack (show line), ":", T.pack (show column), ": ", message]
 
@@ -146,6 +182,22 @@ instance ToJSON Finding where
     MaterialWithoutRevisit k -> object ["key" .= k, "kind" .= ("materialWithoutRevisit" :: Text)]
     TestWithoutRequirement u w -> object ["kind" .= ("testWithoutRequirement" :: Text), "unit" .= u, "where" .= w]
     RequirementUntested k -> object ["key" .= k, "kind" .= ("requirementUntested" :: Text)]
+    KindPending k -> object ["key" .= k, "kind" .= ("kindPending" :: Text)]
+    KindUndeclared k -> object ["key" .= k, "kind" .= ("kindUndeclared" :: Text)]
+    VerdictUnknown k w -> object ["key" .= k, "kind" .= ("verdictUnknown" :: Text), "word" .= w]
+    Exempt what pat revisit reason -> object ["kind" .= ("exempt" :: Text), "pattern" .= pat, "reason" .= reason, "revisit" .= revisit, "what" .= what]
+    ExemptionExpired pat revisit current -> object ["current" .= current, "kind" .= ("exemptionExpired" :: Text), "pattern" .= pat, "revisit" .= revisit]
+    BlockUndeclared path line -> object ["kind" .= ("blockUndeclared" :: Text), "line" .= line, "path" .= path]
+    BlockDoesNotDefine path line name -> object ["kind" .= ("blockDoesNotDefine" :: Text), "line" .= line, "name" .= name, "path" .= path]
+    BlockCarriesComment path line -> object ["kind" .= ("blockCarriesComment" :: Text), "line" .= line, "path" .= path]
+    BlockLanguageUnknown path line language -> object ["kind" .= ("blockLanguageUnknown" :: Text), "language" .= language, "line" .= line, "path" .= path]
+    TangledStale path -> object ["kind" .= ("tangledStale" :: Text), "path" .= path]
+    FrontMatterMissing path -> object ["kind" .= ("frontMatterMissing" :: Text), "path" .= path]
+    DocKindInvalid path k -> object ["docKind" .= k, "kind" .= ("docKindInvalid" :: Text), "path" .= path]
+    DocQuadrantMismatch path k -> object ["docKind" .= k, "kind" .= ("docQuadrantMismatch" :: Text), "path" .= path]
+    DocIdInvalid path i -> object ["id" .= i, "kind" .= ("docIdInvalid" :: Text), "path" .= path]
+    DocIdDuplicate i a b -> object ["id" .= i, "kind" .= ("docIdDuplicate" :: Text), "path" .= a, "second" .= b]
+    VideoKeyNotVideo path k -> object ["key" .= k, "kind" .= ("videoKeyNotVideo" :: Text), "path" .= path]
 
 instance FromJSON Finding where
   parseJSON = withObject "Finding" $ \o -> do
@@ -158,6 +210,22 @@ instance FromJSON Finding where
       "gitUnavailable" -> GitUnavailable <$> o .: "path" <*> o .: "error"
       "decisionPastRevisit" -> DecisionPastRevisit <$> o .: "key" <*> o .: "revisit" <*> o .: "current"
       "decisionUncited" -> DecisionUncited <$> o .: "key"
+      "kindPending" -> KindPending <$> o .: "key"
+      "kindUndeclared" -> KindUndeclared <$> o .: "key"
+      "verdictUnknown" -> VerdictUnknown <$> o .: "key" <*> o .: "word"
+      "exempt" -> Exempt <$> o .: "what" <*> o .: "pattern" <*> o .: "revisit" <*> o .: "reason"
+      "exemptionExpired" -> ExemptionExpired <$> o .: "pattern" <*> o .: "revisit" <*> o .: "current"
+      "blockUndeclared" -> BlockUndeclared <$> o .: "path" <*> o .: "line"
+      "blockDoesNotDefine" -> BlockDoesNotDefine <$> o .: "path" <*> o .: "line" <*> o .: "name"
+      "blockCarriesComment" -> BlockCarriesComment <$> o .: "path" <*> o .: "line"
+      "blockLanguageUnknown" -> BlockLanguageUnknown <$> o .: "path" <*> o .: "line" <*> o .: "language"
+      "tangledStale" -> TangledStale <$> o .: "path"
+      "frontMatterMissing" -> FrontMatterMissing <$> o .: "path"
+      "docKindInvalid" -> DocKindInvalid <$> o .: "path" <*> o .: "docKind"
+      "docQuadrantMismatch" -> DocQuadrantMismatch <$> o .: "path" <*> o .: "docKind"
+      "docIdInvalid" -> DocIdInvalid <$> o .: "path" <*> o .: "id"
+      "docIdDuplicate" -> DocIdDuplicate <$> o .: "id" <*> o .: "path" <*> o .: "second"
+      "videoKeyNotVideo" -> VideoKeyNotVideo <$> o .: "path" <*> o .: "key"
       "decisionSuccessorNotDecided" -> DecisionSuccessorNotDecided <$> o .: "key" <*> o .: "by"
       "decisionCitedWhileOpen" -> DecisionCitedWhileOpen <$> o .: "decision" <*> o .: "where" <*> o .: "key"
       "decisionKeyCollision" -> DecisionKeyCollision <$> o .: "key"

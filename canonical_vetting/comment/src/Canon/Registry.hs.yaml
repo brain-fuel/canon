@@ -1,0 +1,27 @@
+decision/haskell/src/Canon/Registry.hs/module/Canon.Registry:
+  digest: sha256:c13c064238f79fcd
+  verdict: pending
+decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/data/Reference:
+  digest: sha256:44dc175c6c5b9b81
+  verdict: pending
+decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/data/ReferenceKind:
+  digest: sha256:4e48d97f459051bd
+  verdict: pending
+decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/data/RegistryError:
+  digest: sha256:dff29e0def27f279
+  verdict: pending
+decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/function/emptyRegistry:
+  digest: sha256:dbf8762ad2dc6f15
+  verdict: pending
+decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/function/lookupReference:
+  digest: sha256:415cd9e618c222f7
+  verdict: pending
+decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/function/readRegistryFile:
+  digest: sha256:1a60ba664878f01d
+  verdict: pending
+decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/function/renderRegistryError:
+  digest: sha256:0a1501790476b0c2
+  verdict: pending
+decision/haskell/src/Canon/Registry.hs/module/Canon.Registry/newtype/Registry:
+  digest: sha256:659d02e62b61f416
+  verdict: pending

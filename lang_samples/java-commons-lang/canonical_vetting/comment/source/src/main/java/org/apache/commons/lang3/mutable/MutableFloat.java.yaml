@@ -1,0 +1,105 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat:
+  digest: sha256:60edaa9f9d848105
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/constructor/MutableFloat:
+  digest: sha256:ff562b2ca2694ec6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/constructor/MutableFloat#2:
+  digest: sha256:d3fa11542edd13e0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/constructor/MutableFloat#3:
+  digest: sha256:e56ee65c0f680628
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/constructor/MutableFloat#4:
+  digest: sha256:5bab30c27dd39bdb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/field/value:
+  digest: sha256:aeb04f8f0a2f3660
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/add:
+  digest: sha256:32709c527cc71e43
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/add#2:
+  digest: sha256:887e6a99044ce118
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/addAndGet:
+  digest: sha256:3e5b2048c6875213
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/addAndGet#2:
+  digest: sha256:1f4dc6c6d5fa7d66
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/compareTo:
+  digest: sha256:fb2218874bdbf4f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/decrement:
+  digest: sha256:1467e69d10dabe9b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/decrementAndGet:
+  digest: sha256:7ed658bb541ea2ae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/doubleValue:
+  digest: sha256:13b2e6da86ce10e9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/equals:
+  digest: sha256:711bd59b914b014a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/floatValue:
+  digest: sha256:3bdee60a86aabb7a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/getAndAdd:
+  digest: sha256:d3ca292326e08b37
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/getAndAdd#2:
+  digest: sha256:fbf6a318966db389
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/getAndDecrement:
+  digest: sha256:8bd386386641e776
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/getAndIncrement:
+  digest: sha256:22e0c99f67f4fe8b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/getValue:
+  digest: sha256:259728c2d3e61627
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/hashCode:
+  digest: sha256:281b2768412a768e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/increment:
+  digest: sha256:0124d4ae4bb8e90d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/incrementAndGet:
+  digest: sha256:6ec233211d6074ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/intValue:
+  digest: sha256:5e80d68e36bdddc8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/isInfinite:
+  digest: sha256:32c72332d9848ff7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/isNaN:
+  digest: sha256:ddb9266088187429
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/longValue:
+  digest: sha256:7c90a36771aad33b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/setValue:
+  digest: sha256:8ab4d5604de5386a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/setValue#2:
+  digest: sha256:5d69df1bb8adbc03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/subtract:
+  digest: sha256:45bb23992be416c7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/subtract#2:
+  digest: sha256:aa09b99e47d06daf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/toFloat:
+  digest: sha256:dccded4a54aefe03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java/package/org.apache.commons.lang3.mutable/class/MutableFloat/method/toString:
+  digest: sha256:94fe41aef97ace5f
+  verdict: pending

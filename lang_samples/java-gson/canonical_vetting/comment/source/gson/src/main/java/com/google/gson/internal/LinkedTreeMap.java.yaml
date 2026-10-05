@@ -1,0 +1,48 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap:
+  digest: sha256:6ae7178d85e4b3c0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/class/Node/constructor/Node:
+  digest: sha256:d9e9abec437002cb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/class/Node/constructor/Node#2:
+  digest: sha256:ef7005c4cd1caf7e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/class/Node/method/first:
+  digest: sha256:4b6f3dae2cbb49e3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/class/Node/method/last:
+  digest: sha256:551d76f681c0fa85
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/constructor/LinkedTreeMap:
+  digest: sha256:683f6e0040aede26
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/constructor/LinkedTreeMap#2:
+  digest: sha256:4b85fc33c2a2b0b3
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/constructor/LinkedTreeMap#3:
+  digest: sha256:30f5f478a531ed97
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/field/comparator:
+  digest: sha256:5a88e2dc2007ed72
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/method/find:
+  digest: sha256:1dbd7a9708724016
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/method/findByEntry:
+  digest: sha256:bfdda572d5a1c89c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/method/rebalance:
+  digest: sha256:23667f779f8ee14a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/method/removeInternal:
+  digest: sha256:811ee4b0c8542a6a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/method/rotateLeft:
+  digest: sha256:f0b6427cd60f584b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/method/rotateRight:
+  digest: sha256:d2b48a11f45d4207
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java/package/com.google.gson.internal/class/LinkedTreeMap/method/writeReplace:
+  digest: sha256:32815edbd790df20
+  verdict: pending

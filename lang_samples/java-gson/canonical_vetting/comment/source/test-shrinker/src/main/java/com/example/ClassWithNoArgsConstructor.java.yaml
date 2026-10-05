@@ -1,0 +1,3 @@
+decision/java/source/test-shrinker/src/main/java/com/example/ClassWithNoArgsConstructor.java/package/com.example/class/ClassWithNoArgsConstructor:
+  digest: sha256:ba96a722b11cda9c
+  verdict: pending

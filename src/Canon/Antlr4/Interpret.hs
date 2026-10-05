@@ -15,11 +15,12 @@ import Canon.Antlr4.Lex
 import Canon.Antlr4.Lex.Adaptor (hooksForGrammarWith, preprocesses)
 import Canon.Antlr4.Parse
 import Canon.Antlr4.Predicate (predicateHookFor)
-import Canon.Antlr4.Read (ReadError, readGrammarFile, readResultGrammar, renderReadError)
-import Canon.Antlr4.Syntax (Grammar, Name)
+import Canon.Antlr4.Read (ReadError (..), readGrammarFile, readResultGrammar, renderReadError)
+import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token)
 import Canon.Preprocessor (Choice)
-import Canon.Span (Span)
+import Data.Foldable (toList)
+import System.FilePath (takeDirectory, (</>))
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
@@ -52,20 +53,47 @@ renderInterpretError e = case e of
 -- | Loads a lexer and parser grammar pair, the split form grammars-v4 uses for most languages.
 loadInterpreter :: FilePath -> FilePath -> IO (Either InterpretError Interpreter)
 loadInterpreter lexerPath parserPath = do
-  lexerResult <- readGrammarFile lexerPath
-  parserResult <- readGrammarFile parserPath
+  lexerResult <- readGrammarWithImports lexerPath
+  parserResult <- readGrammarWithImports parserPath
   pure $ do
-    lexerGrammar <- either (Left . InterpretReadError) (Right . readResultGrammar) lexerResult
-    parserGrammar <- either (Left . InterpretReadError) (Right . readResultGrammar) parserResult
+    lexerGrammar <- lexerResult
+    parserGrammar <- parserResult
     build lexerPath lexerGrammar parserGrammar
 
 -- | Loads a combined grammar, whose lexer rules and parser rules share one file.
 loadCombinedInterpreter :: FilePath -> IO (Either InterpretError Interpreter)
 loadCombinedInterpreter path = do
-  result <- readGrammarFile path
+  result <- readGrammarWithImports path
   pure $ do
-    grammar <- either (Left . InterpretReadError) (Right . readResultGrammar) result
+    grammar <- result
     build path grammar grammar
+
+-- | Reads a grammar and the grammars it imports, found beside it as ANTLR finds them, and appends
+-- their rules and modes after its own so the importing grammar's definitions win, as ANTLR's do.
+-- ref:DEC-more-languages
+readGrammarWithImports :: FilePath -> IO (Either InterpretError (Grammar Span))
+readGrammarWithImports path = go [] path
+  where
+    go seen file
+      | file `elem` seen = pure (Left (InterpretReadError (ReadImportCycle file)))
+      | otherwise = do
+          result <- readGrammarFile file
+          case result of
+            Left err -> pure (Left (InterpretReadError err))
+            Right read' -> do
+              let grammar = readResultGrammar read'
+                  imported = [n | PrequelImports names <- grammarPrequel grammar, Import _ (Name n) <- toList names]
+              merged <- mapM (\n -> go (file : seen) (takeDirectory file </> (T.unpack n ++ ".g4"))) imported
+              pure (foldr (\g acc -> acc >>= \main -> fmap (merge main) g) (Right grammar) merged)
+    merge main extra =
+      let names = [ruleName r | r <- grammarRules main]
+       in main
+            { grammarRules = grammarRules main ++ [r | r <- grammarRules extra, ruleName r `notElem` names]
+            , grammarModes = grammarModes main ++ grammarModes extra
+            }
+    ruleName r = case r of
+      RuleParser pr -> parserRuleName pr
+      RuleLexer lr -> lexerRuleName lr
 
 build :: FilePath -> Grammar Span -> Grammar Span -> Either InterpretError Interpreter
 build lexerPath lexerGrammar parserGrammar = do

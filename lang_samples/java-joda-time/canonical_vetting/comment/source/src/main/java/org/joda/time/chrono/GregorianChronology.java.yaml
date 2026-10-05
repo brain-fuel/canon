@@ -1,0 +1,42 @@
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology:
+  digest: sha256:6ad61f243150576b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/constructor/GregorianChronology:
+  digest: sha256:37f6fb73f9f40ed8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/field/INSTANCE_UTC:
+  digest: sha256:b4eefdeb6d782a17
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/field/MAX_YEAR:
+  digest: sha256:f705db893fc8831f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/field/MIN_YEAR:
+  digest: sha256:6cab2cbec0819e41
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/field/cCache:
+  digest: sha256:d602f4cb50fd1e33
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/method/getInstance:
+  digest: sha256:0adefde5a1637419
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/method/getInstance#2:
+  digest: sha256:fa4e04861f87aa3c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/method/getInstance#3:
+  digest: sha256:1781b885756d2d67
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/method/getInstanceUTC:
+  digest: sha256:28e7aad5f49a2767
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/method/readResolve:
+  digest: sha256:b94ab54735a4fc8f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/method/withUTC:
+  digest: sha256:99dcb7f0dee1ffdc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/GregorianChronology.java/package/org.joda.time.chrono/class/GregorianChronology/method/withZone:
+  digest: sha256:203c6515a26e0e74
+  verdict: pending

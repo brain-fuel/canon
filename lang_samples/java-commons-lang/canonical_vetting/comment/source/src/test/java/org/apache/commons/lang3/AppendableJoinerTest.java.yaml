@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/AppendableJoinerTest.java/package/org.apache.commons.lang3/class/AppendableJoinerTest:
+  digest: sha256:c3a49d27200aaa72
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/AppendableJoinerTest.java/package/org.apache.commons.lang3/class/AppendableJoinerTest/class/Fixture/method/render:
+  digest: sha256:d0d33012e5b30c45
+  verdict: pending

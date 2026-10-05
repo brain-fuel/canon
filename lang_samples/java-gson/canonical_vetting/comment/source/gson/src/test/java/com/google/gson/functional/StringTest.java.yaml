@@ -1,0 +1,9 @@
+decision/java/source/gson/src/test/java/com/google/gson/functional/StringTest.java/package/com.google.gson.functional/class/StringTest:
+  digest: sha256:f137fe21fd559441
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/StringTest.java/package/com.google.gson.functional/class/StringTest/method/testAssignmentCharDeserialization:
+  digest: sha256:fdd59467d6530a3d
+  verdict: pending
+decision/java/source/gson/src/test/java/com/google/gson/functional/StringTest.java/package/com.google.gson.functional/class/StringTest/method/testAssignmentCharSerialization:
+  digest: sha256:fdd59467d6530a3d
+  verdict: pending

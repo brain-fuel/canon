@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/CharEncodingTest.java/package/org.apache.commons.lang3/class/CharEncodingTest:
+  digest: sha256:e5688c231e5ec1a7
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/CharEncodingTest.java/package/org.apache.commons.lang3/class/CharEncodingTest/method/testConstructor:
+  digest: sha256:b249a6d96c7ae74f
+  verdict: pending

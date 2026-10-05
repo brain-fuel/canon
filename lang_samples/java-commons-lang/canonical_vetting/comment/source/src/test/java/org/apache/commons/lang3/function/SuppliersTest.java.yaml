@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/function/SuppliersTest.java/package/org.apache.commons.lang3.function/class/SuppliersTest:
+  digest: sha256:c607d4cb75fc0e98
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/function/SuppliersTest.java/package/org.apache.commons.lang3.function/class/SuppliersTest/method/testGet:
+  digest: sha256:43ad8d53abb7e1de
+  verdict: pending

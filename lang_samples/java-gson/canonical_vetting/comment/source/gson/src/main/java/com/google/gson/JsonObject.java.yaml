@@ -1,0 +1,63 @@
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject:
+  digest: sha256:c407ed85eb5f5a48
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/constructor/JsonObject:
+  digest: sha256:fbd509c890965e0a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/add:
+  digest: sha256:f7877de95f8d1a6e
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/addProperty:
+  digest: sha256:73a91574641ca496
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/addProperty#2:
+  digest: sha256:fb2211ab662a9744
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/addProperty#3:
+  digest: sha256:80200e50feec6769
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/addProperty#4:
+  digest: sha256:edd279802f734f07
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/asMap:
+  digest: sha256:e47d14e42f9bd008
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/deepCopy:
+  digest: sha256:868bd90781fa50f7
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/entrySet:
+  digest: sha256:74e3b3ccf400d81c
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/equals:
+  digest: sha256:af237fe91fac8fd5
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/get:
+  digest: sha256:f94aa4792adccd3a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/getAsJsonArray:
+  digest: sha256:bbd07f4f1cd8b651
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/getAsJsonObject:
+  digest: sha256:163d943670ff426a
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/getAsJsonPrimitive:
+  digest: sha256:8d4ab938b7163306
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/has:
+  digest: sha256:b8b60256b3f07f32
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/hashCode:
+  digest: sha256:14f46242e0f6d9b8
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/isEmpty:
+  digest: sha256:f4bb57f10e1d5673
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/keySet:
+  digest: sha256:6bc7973a4970245f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/remove:
+  digest: sha256:ebed8ed454497104
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonObject.java/package/com.google.gson/class/JsonObject/method/size:
+  digest: sha256:89306b4f07aff229
+  verdict: pending

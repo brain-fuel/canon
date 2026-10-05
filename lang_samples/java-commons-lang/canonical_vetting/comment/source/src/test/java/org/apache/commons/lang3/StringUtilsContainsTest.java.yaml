@@ -1,0 +1,39 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest:
+  digest: sha256:3c56f9575e417100
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsAny_StringCharArrayWithBadSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsAny_StringCharArrayWithSharedLowSurrogate:
+  digest: sha256:8ab6a8a47f00677f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsAny_StringCharArrayWithSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsAny_StringWithBadSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsAny_StringWithSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsNone_CharArrayWithBadSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsNone_CharArrayWithSharedLowSurrogate:
+  digest: sha256:d045d2e3dddad241
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsNone_CharArrayWithSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsNone_StringWithBadSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContainsNone_StringWithSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContains_StringWithBadSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/StringUtilsContainsTest.java/package/org.apache.commons.lang3/class/StringUtilsContainsTest/method/testContains_StringWithSupplementaryChars:
+  digest: sha256:98f5d60ccc085c17
+  verdict: pending

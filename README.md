@@ -27,11 +27,21 @@ itself.
    metadata. Cabal accepts only the numeric part, so `package.yaml` carries
    the numbers and any pre-release label lives in `canon.yaml`.
    It is listed under `extra-source-files` so Hackage renders it.
-2. **One `README.md` per project, at its root.** Apart from `CHANGELOG.md`
-   where rule 1 applies, the only markdown file allowed outside
-   `to_be_removed/` is `README.md` at the root of a given project. For this
-   repository, that is this file. For a sample project, that is
-   `sample_projects/<project>/README.md`.
+2. **One `README.md` per project, at its root, and one `docs/` tree in the
+   Folio.** Apart from `CHANGELOG.md` where rule 1 applies, the only markdown
+   allowed outside `to_be_removed/` is `README.md` at the root of a given
+   project and the pages under `docs/`, which Diátaxis splits into
+   `docs/tutorials/`, `docs/how-to/`, `docs/reference/`, and
+   `docs/explanation/`. A page is written in the Folio: front matter naming
+   its `kind`, `id`, and `title`, prose that cites with `ref:KEY`, and fenced
+   blocks that tangle to source with `canon tangle`, so a page can be the
+   source of code and the code's Why at once. Every page is canonical
+   material of kind `doc`, judged as a whole under `canonical_vetting/doc/`
+   with the same words as a comment. A tutorial or how-to may name a video on
+   the same topic, `video: KEY` against a registry entry of kind `video`; a
+   video is a second medium for the same material, and nothing is raised when
+   a page names none. For this repository, that is this file and `docs/`; for
+   a sample project, `sample_projects/<project>/README.md`.
 3. **Anything without a canonical place goes in `to_be_removed/`.** Any
    documentation, decision, or record that does not yet have a canonical home
    under these rules lives in `to_be_removed/`, whether it predates `canon` or
@@ -42,8 +52,9 @@ itself.
    canonical place, it cannot be trusted. Tool memory, chat history, and
    recollection do not count.
 5. **`canon.yaml` and `canonical_refs.yaml` live at the project root.**
-   `canon.yaml` is canon's configuration: the project version and the path of
-   the registry. `canonical_refs.yaml` is the reference registry, the single
+   `canon.yaml` is canon's configuration: the project version, the paths of
+   the registry, the ledger, and the vetting directory, the languages, and
+   the kinds of vetting rows other tools raise. `canonical_refs.yaml` is the reference registry, the single
    canonical source for every article, paper, ticket, requirement, package, or
    discussion that a comment cites. Each entry maps a key to a kind, a title,
    and a locator. Comments cite keys only. Neither file carries comments.
@@ -55,7 +66,7 @@ itself.
    `canon check` fails once the project version reaches it. A decided entry
    that no canonical comment cites is reported. Git supplies who opened and
    closed each decision and when.
-7. **Existing comments are vetted before they count, in `canonical_vetting.yaml`.**
+7. **Existing comments are vetted before they count, in `canonical_vetting/`.**
    A comment that predates `canon`, or that nobody has yet judged, is not
    known to fulfil its purpose. `canon ingest` records every canonical comment
    of a project as `pending`, keyed by its decision id together with a digest
@@ -76,7 +87,7 @@ itself.
    vetted `bad`. `canon` cannot judge this; the vetting human does.
 9. **Canonical material is signed off by whoever did it.** A canonical
    comment, a decision in the ledger, and a reference in the registry each
-   have an entry in `canonical_vetting.yaml`, and none of them counts until
+   have an entry under `canonical_vetting/`, and none of them counts until
    its verdict is set. Whether the material says something true is not a
    question a program can decide, which is Rice's theorem applied to
    documentation, so the sign-off is the evidence. `canon` does not test who
@@ -84,6 +95,15 @@ itself.
    verdict line, from `git blame`, and the co-authors that commit names in
    its trailers. An edit to signed material makes its verdict stale, and the
    report is invalid while anything is pending.
+
+10. **A subject may be exempt until a version, in `canonical_exemptions.yaml`.**
+    A project just adopted owes more than anyone can pay at once. An entry
+    names a subject, a path pattern in gitignore form or a key written in
+    full, the kinds it covers, a reason, and the version to revisit by, and
+    is signed by `git blame` like every row. `canon check` still raises the
+    material and reports it as exempt rather than pending, so the debt is
+    counted and not yet due, and fails once the project reaches the revisit
+    version, as it does for an open decision.
 
 ## What documentation must answer
 
@@ -172,6 +192,10 @@ whatever its visibility.
 | `fsharp` | a function or member marked `[<Fact>]`, `[<Theory>]`, `[<Test>]`, `[<TestCase>]`, `[<TestCaseSource>]`, or `[<Property>]` (FsCheck), bare or qualified; or a function or value marked `[<Tests>]`, the test list Expecto runs, whose `testCase` and `testProperty` entries are expressions rather than declarations |
 | `elixir` | a unit of kind `test`, which the Elixir profile makes of ExUnit's `test "name"` and StreamData's `property "name"` calls |
 | `gleam` | a function named `*_test` (gleeunit) |
+| `javascript`, `typescript` | any unit under a `test`, `tests`, or `__tests__` directory or in a `*.test.*` or `*.spec.*` file, since a test in these languages is a call rather than a declaration |
+| `python` | a function named `test_*` or a class named `Test*` (pytest and unittest) |
+| `go` | a function named `Test*`, `Benchmark*`, `Example*`, or `Fuzz*` in a `*_test.go` file |
+| `kotlin` | a function under a `src/test` or `src/*Test` source set, since Kotlin test names are often backticked sentences |
 
 Two findings fail `canon check`: a commented test whose comment cites no
 requirement, and a requirement in the registry that no test in the project
@@ -184,13 +208,52 @@ When `canon` is introduced to an existing codebase, its comments were written
 without `canon` and may or may not answer Why. Rule 7 says none of them
 counts until a human has read it. The flow is:
 
-1. `canon ingest` extracts the project and writes `canonical_vetting.yaml`,
-   one entry per piece of canonical material, with the verdict `pending` and
-   a digest of what it says: a comment is keyed by its decision id and
-   digests its text, a ledger entry is keyed `ledger/KEY` and digests
+1. `canon ingest` extracts the project and writes the `canonical_vetting/`
+   directory, one entry per piece of canonical material, with the verdict
+   `pending` and a digest of what it says: a comment is keyed by its decision
+   id and digests its text, a ledger entry is keyed `ledger/KEY` and digests
    everything it says, and a registry entry is keyed `registry/KEY` and
    digests its kind, title, and locator. Running it again adds only entries
    that are missing.
+
+   The directory holds a file per kind and subject, so a record sits beside
+   the path it judges and a review tool can read and rewrite exactly the
+   files `canon` checks. Comment verdicts mirror the source tree under
+   `comment/`, so the comments of `src/Canon/Walk.hs` are judged in
+   `canonical_vetting/comment/src/Canon/Walk.hs.yaml`; the ledger's verdicts
+   are in `canonical_vetting/ledger/canonical_decisions.yaml` and the
+   registry's in `canonical_vetting/registry/canonical_refs.yaml`. Every file
+   keeps one key per line with the verdict on its own line, which is what
+   `git blame` is asked about, and keys are written in full so a file reads
+   alone. A `canonical_vetting.yaml` from before this layout is refused with
+   the instruction to delete it and ingest again.
+
+   Other tools raise other kinds of material, such as the surviving mutants
+   that Rice's Tax asks a person to judge. A project declares each such kind
+   in `canon.yaml` with its verdict words and what each does:
+
+   ```yaml
+   kinds:
+     mutant:
+       unreviewed: open
+       logical-equivalency: closed
+       inadequate-testing: work
+       unnecessary-code: work
+       needs-research: deferred
+   ```
+
+   `canon.yaml` may also carry a `runtime` section, which canon does not
+   read, naming the test and mutation runtime whose artefacts the tax tools
+   consume, and the `command` that produces them, so that every tool's
+   parameters live in one file.
+
+   A row of a declared kind is keyed `kind/id`, lives under
+   `canonical_vetting/<kind>/`, and carries the kind's own word. `canon`
+   counts a row whose word is `open` as pending, so the report is invalid
+   while it stands, records the signer of the rest, and reports a kind or a
+   word the declaration does not know. Raising the rows, keeping their
+   digests fresh, and retiring the ones whose material is gone belong to the
+   tool that owns the kind.
 2. `canon vet` lists every comment that needs a verdict, with its location
    and its text, so a reviewer can work through them. It also lists verdicts
    that have gone stale because the comment changed, deferrals past their
@@ -288,7 +351,9 @@ name, with the file `extensions` it owns, the `grammar` file or the `lexer`
 and `parser` pair, the `start` rule, the comment syntax (`line`, `blockOpen`,
 `blockClose`, and the `strings` whose contents are not comments), and the
 `units`: which parse-tree rules are code units, their `kind`, where their
-`name` comes from (the nth token of a type, or the text of a child rule),
+`name` comes from (the nth token of a type, the nth such token that is the
+rule's own rather than a child rule's when `direct` is set, or the text of a
+child rule),
 whether a canonical comment is `required`, and optionally a `firstToken`
 constraint so that, for example, only Clojure lists beginning with `defn`
 count. A unit's `name` may also be `{ordinal: true}`, its position from zero
@@ -371,6 +436,11 @@ after cloning to fetch them.
 | `lang_samples/fsharp-giraffe-viewengine` | F# | `grammars/fsharp/FSharpLexer.g4` and `FSharpParser.g4` |
 | `lang_samples/elixir-jason` | Elixir | `grammars/elixir/ElixirLexer.g4` and `ElixirParser.g4` |
 | `lang_samples/gleam-stdlib` | Gleam | `grammars/gleam/GleamLexer.g4` and `GleamParser.g4` |
+| `lang_samples/javascript-chalk` | JavaScript | `grammars/javascript/JavaScriptLexer.g4` and `JavaScriptParser.g4` |
+| `lang_samples/typescript-ky` | TypeScript | `grammars/typescript/TypeScriptLexer.g4` and `TypeScriptParser.g4` |
+| `lang_samples/python-itsdangerous` | Python | `grammars/python/Python3Lexer.g4` and `Python3Parser.g4` |
+| `lang_samples/go-uuid` | Go | `grammars/golang/GoLexer.g4` and `GoParser.g4` |
+| `lang_samples/kotlin-turbine` | Kotlin | `grammars/kotlin/KotlinLexer.g4`, `KotlinParser.g4`, and `UnicodeClasses.g4` |
 
 The Rust sample is scopeguard 1.2.0, one source file, vendored under
 `source/` with its MIT and Apache-2.0 licenses instead of a submodule. Its
@@ -602,8 +672,8 @@ languages:
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked
 through a canonically commented dialect rather than a profile with `units`,
-and the first ingested under rule 7: each carries a `canonical_vetting.yaml`
-in which every Javadoc comment is `pending`, so their reports are invalid
+and the first ingested under rule 7: each carries a `canonical_vetting/`
+directory in which every Javadoc comment is `pending`, so their reports are invalid
 until a human has vetted them. Public members of classes and all members of
 interfaces require a comment; non-public members may have one. Test methods
 are public, so they count, and each sample's ledger records why they are
@@ -623,10 +693,75 @@ upstream port left open. Two constructs stay out of reach because they need
 the parse-error rule of the layout algorithm: a `case` whose alternatives end
 at a closing bracket on the same line, and a `let` inside a comprehension.
 
+JavaScript, TypeScript, Python, Go, and Kotlin are profile languages with
+`units`, checked through their grammars-v4 grammars and the samples above:
+chalk, ky, itsdangerous, google/uuid, and Turbine. Reading them needed four
+general additions to the interpreter and three base lexer ports. Character
+sets may name Unicode properties such as `\p{L}`, which Go and Kotlin use for
+identifiers. A grammar may `import` another, read from beside it, and its own
+rules win, which Kotlin's `UnicodeClasses` needs. A semantic predicate in a
+lexer rule is decided where it sits, by the hooks, so a predicate inside one
+alternative of a block gates only that alternative; a grammar without hooks
+has every predicate hold, and parser-side predicates are still assumed true.
+An empty lexer match is allowed when it changes mode, which Go's `OTHER` rule
+relies on. `Canon.Antlr4.Lex.JavaScript` ports `JavaScriptLexerBase` and
+`TypeScriptLexerBase`, which decide whether a slash starts a regular
+expression, whether a closing brace ends a template expression, and whether
+strict mode is on; `Canon.Antlr4.Lex.Python` ports `Python3LexerBase`, which
+turns newlines into `NEWLINE`, `INDENT`, and `DEDENT` and skips blank and
+comment lines and newlines inside brackets. The parser memoises its loops and
+its precedence climbing by position, so a block of statements that can each
+end two ways, as every TypeScript statement can, costs a table rather than a
+power of two. The vendored grammars carry small patches marked `canon:` for
+constructs newer than the grammars: Python's positional-only `/`,
+JavaScript's `import.meta`, Kotlin's `when (val x = ...)`, and for TypeScript
+`readonly` types, mapped and conditional types, `infer`, `as` before any type,
+`#private` members, `readonly` parameters, optional calls, logical assignment,
+ambient `module` declarations, and `is` and `infer` as property names.
+
+## Makefiles
+
+A Makefile is a language of its own, `make`, through canon's own dialect under
+`grammars/make/canonically_commented/`, since grammars-v4 has none. A canonical
+comment opens with `# |` and continues on `#` lines above the unit, as the
+Haskell dialect's opens with `-- |`. A rule with a plain target is a unit of
+kind `rule` that requires the comment, its target the What and its recipe the
+How; a special target, a pattern rule, and a variable are units whose comment
+is optional; the `## text` after a rule's prerequisites stays as the one-line
+What the `help` target prints. canon, Rice's Tax, and wavelet each have a
+Makefile as their front door, checked like any other source, and `make` alone
+lists what each can do (`DEC-make-dialect`).
+
+## The Folio
+
+The Folio is the literate form: Markdown with front matter, citations, and
+fenced blocks that tangle. A project declares it in `canon.yaml` as a language
+whose profile has `embeds`, one per language its blocks are written in, each
+naming the profile that parses the blocks, the comment syntax a block must not
+carry, the width a tangled line may have, and how a generated comment and
+banner are spelled. canon reads a page with `grammars/folio/`, one token per
+line, and scans the tree into headings, prose, and blocks; the prose between
+a heading and a block is the block's rationale. `canon tangle` assembles every
+file the blocks name, byte for byte as wavelet's tangler wrote them, with the
+prose as a generated documentation comment ending in its section's address,
+and `canon tangle --check` reports what is stale. `canon check` parses what
+the pages tangle to with the embedded language's grammar, so every rule
+applies unchanged, then relocates every unit and decision into the pages, so
+a finding points at what a person edits and a unit's Why is the prose of its
+section as authored; a tangled file that differs from its pages is a finding,
+and a block that declares a `def=` it does not define, or carries a comment,
+is one too. `canon site <dir>` renders `docs/` to a static site with canon's
+own renderer, deterministically, its fenced blocks highlighted by the
+language's own lexer: tokens are classified from the grammar's shape, and a
+profile's `highlight` key names, per class, the token names the shape does not
+classify (`DEC-highlight-by-lexer`). This repository's own pages are
+`docs/explanation/folio.md` and `docs/how-to/tangle.md`; its sources stay
+hand-written Haskell until `DEC-canon-self-folio` is decided.
+
 Haskell is checked through its dialect in this repository's own `canon.yaml`,
 so `canon check` at the root checks canon itself: `src`, `app`, `test`, and
 the four grammars that carry canonical comments. Every one of canon's own
-comments is recorded as pending in `canonical_vetting.yaml` until a human
+comments is recorded as pending under `canonical_vetting/` until a human
 vets it.
 
 ANTLR grammar files are the first language `canon` models, through the
@@ -659,7 +794,8 @@ canon/
 │   ├── Canon/Git/         # commits, log and blame parsing, the git provider and its shell implementation
 │   ├── Canon/Registry.hs  # canonical_refs.yaml
 │   ├── Canon/Decisions.hs # canonical_decisions.yaml
-│   ├── Canon/Vetting.hs   # canonical_vetting.yaml: verdicts, digests, assessors from git blame
+│   ├── Canon/Exemptions.hs # canonical_exemptions.yaml: subjects not owed until a version
+│   ├── Canon/Vetting.hs   # canonical_vetting/: verdicts per kind and subject, digests, assessors from git blame
 │   ├── Canon/Version.hs   # semantic versions and their precedence
 │   ├── Canon/Ignore.hs    # gitignore-style patterns
 │   ├── Canon/Walk.hs      # finds supported files and nested projects under a directory
@@ -888,6 +1024,8 @@ stack exec canon -- check grammars/antlr4/ANTLRv4Parser.g4
 stack exec canon -- parse grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4 grammars/antlr4/canonically_commented/ANTLRv4Parser.g4 grammarSpec grammars/antlr4/canonically_commented/ANTLRv4Parser.g4
 stack exec --cwd lang_samples/java-gson canon -- ingest
 stack exec --cwd lang_samples/java-gson canon -- vet
+stack exec canon -- tangle --check
+stack exec canon -- site _site
 ```
 
 `canon` is a command line tool. Running it with no arguments prints usage.

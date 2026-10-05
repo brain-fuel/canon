@@ -1,0 +1,15 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Suppliers.java/package/org.apache.commons.lang3.function/class/Suppliers:
+  digest: sha256:b774c605905d1224
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Suppliers.java/package/org.apache.commons.lang3.function/class/Suppliers/constructor/Suppliers:
+  digest: sha256:1b940f3b8dad4f09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Suppliers.java/package/org.apache.commons.lang3.function/class/Suppliers/field/NUL:
+  digest: sha256:b3be241dd7a9a7e8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Suppliers.java/package/org.apache.commons.lang3.function/class/Suppliers/method/get:
+  digest: sha256:21a1052d0ef9b418
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/Suppliers.java/package/org.apache.commons.lang3.function/class/Suppliers/method/nul:
+  digest: sha256:b5b45cea1e9f2d6c
+  verdict: pending

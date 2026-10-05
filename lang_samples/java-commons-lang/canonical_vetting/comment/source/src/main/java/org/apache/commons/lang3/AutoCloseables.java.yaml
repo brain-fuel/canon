@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/AutoCloseables.java/package/org.apache.commons.lang3/class/AutoCloseables:
+  digest: sha256:76581a45c77b04a8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AutoCloseables.java/package/org.apache.commons.lang3/class/AutoCloseables/constructor/AutoCloseables:
+  digest: sha256:8d130e857dcb3eea
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AutoCloseables.java/package/org.apache.commons.lang3/class/AutoCloseables/method/close:
+  digest: sha256:9ea92cca8e7e2039
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AutoCloseables.java/package/org.apache.commons.lang3/class/AutoCloseables/method/close#2:
+  digest: sha256:611d4542c6034026
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AutoCloseables.java/package/org.apache.commons.lang3/class/AutoCloseables/method/closeQuietly:
+  digest: sha256:49897dfe4f6decc8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AutoCloseables.java/package/org.apache.commons.lang3/class/AutoCloseables/method/closeQuietly#2:
+  digest: sha256:42707ca914f3024c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AutoCloseables.java/package/org.apache.commons.lang3/class/AutoCloseables/method/closeQuietly#3:
+  digest: sha256:07a77dea96fc808e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/AutoCloseables.java/package/org.apache.commons.lang3/class/AutoCloseables/method/closeQuietlySuppress:
+  digest: sha256:78b1c5438d4eff5a
+  verdict: pending

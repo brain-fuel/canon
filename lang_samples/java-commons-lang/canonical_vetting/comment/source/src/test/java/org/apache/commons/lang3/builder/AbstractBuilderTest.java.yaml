@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/AbstractBuilderTest.java/package/org.apache.commons.lang3.builder/class/AbstractBuilderTest:
+  digest: sha256:51755c768ded4951
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/AbstractBuilderTest.java/package/org.apache.commons.lang3.builder/class/AbstractBuilderTest/method/accessibleString:
+  digest: sha256:0a6b62eaa62ff80c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/builder/AbstractBuilderTest.java/package/org.apache.commons.lang3.builder/class/AbstractBuilderTest/method/isForceAccessible:
+  digest: sha256:27bbea9a019080f8
+  verdict: pending

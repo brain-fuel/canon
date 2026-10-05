@@ -1,0 +1,72 @@
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement:
+  digest: sha256:233a8c7605d8d758
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/constructor/JsonElement:
+  digest: sha256:ef9681b6315e53e8
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/deepCopy:
+  digest: sha256:8f58c4e100caf47f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsBigDecimal:
+  digest: sha256:5ec5d05426b52621
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsBigInteger:
+  digest: sha256:23725b1a1ff00bca
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsBoolean:
+  digest: sha256:4d584059be2dff94
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsByte:
+  digest: sha256:ee77a3ab2c1e39db
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsCharacter:
+  digest: sha256:12241031098f1757
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsDouble:
+  digest: sha256:af665f74d722e32f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsFloat:
+  digest: sha256:7a7b60359bfdce9b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsInt:
+  digest: sha256:9d1155685e751786
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsJsonArray:
+  digest: sha256:55a30481486e2e41
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsJsonNull:
+  digest: sha256:4d0ff293d842bd22
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsJsonObject:
+  digest: sha256:2bfafa97964672bb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsJsonPrimitive:
+  digest: sha256:3a29cd890ffa9112
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsLong:
+  digest: sha256:721c2d291e542a5f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsNumber:
+  digest: sha256:00f6590b59ee1654
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsShort:
+  digest: sha256:add7f99f30cdd3eb
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/getAsString:
+  digest: sha256:2cf935b5d540da0d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/isJsonArray:
+  digest: sha256:22f79f7dbc203e07
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/isJsonNull:
+  digest: sha256:b1f39259dd41e8e6
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/isJsonObject:
+  digest: sha256:8bce50e30844bd39
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/isJsonPrimitive:
+  digest: sha256:09931b79831a6050
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/JsonElement.java/package/com.google.gson/class/JsonElement/method/toString:
+  digest: sha256:4c7f098886474d2d
+  verdict: pending

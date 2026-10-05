@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/OctalUnescaper.java/package/org.apache.commons.lang3.text.translate/class/OctalUnescaper:
+  digest: sha256:cabac33cab4e4628
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/OctalUnescaper.java/package/org.apache.commons.lang3.text.translate/class/OctalUnescaper/constructor/OctalUnescaper:
+  digest: sha256:6392c32625f45e36
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/OctalUnescaper.java/package/org.apache.commons.lang3.text.translate/class/OctalUnescaper/method/isZeroToThree:
+  digest: sha256:3a93c0d9bf4df024
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/translate/OctalUnescaper.java/package/org.apache.commons.lang3.text.translate/class/OctalUnescaper/method/translate:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending

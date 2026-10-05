@@ -1,0 +1,21 @@
+decision/java/source/src/main/java/org/joda/time/chrono/BasicWeekyearDateTimeField.java/package/org.joda.time.chrono/class/BasicWeekyearDateTimeField:
+  digest: sha256:0c44e1125e66596b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicWeekyearDateTimeField.java/package/org.joda.time.chrono/class/BasicWeekyearDateTimeField/constructor/BasicWeekyearDateTimeField:
+  digest: sha256:37f6fb73f9f40ed8
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicWeekyearDateTimeField.java/package/org.joda.time.chrono/class/BasicWeekyearDateTimeField/method/add:
+  digest: sha256:10a662fa40f87812
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicWeekyearDateTimeField.java/package/org.joda.time.chrono/class/BasicWeekyearDateTimeField/method/addWrapField:
+  digest: sha256:bb3117afc9fa8fd0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicWeekyearDateTimeField.java/package/org.joda.time.chrono/class/BasicWeekyearDateTimeField/method/get:
+  digest: sha256:3eb2f79e0ca02684
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicWeekyearDateTimeField.java/package/org.joda.time.chrono/class/BasicWeekyearDateTimeField/method/readResolve:
+  digest: sha256:b94ab54735a4fc8f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicWeekyearDateTimeField.java/package/org.joda.time.chrono/class/BasicWeekyearDateTimeField/method/set:
+  digest: sha256:2be79709e1358313
+  verdict: pending

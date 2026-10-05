@@ -1,0 +1,18 @@
+decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest:
+  digest: sha256:9825efdcf23a3108
+  verdict: pending
+decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest/method/testAnnotationsPackage:
+  digest: sha256:632696518bdfd0d4
+  verdict: pending
+decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest/method/testMainPackage:
+  digest: sha256:6a3641b2a02218f0
+  verdict: pending
+decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest/method/testReflectPackage:
+  digest: sha256:feceff0f4402fd6a
+  verdict: pending
+decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest/method/testStreamPackage:
+  digest: sha256:c00c9fa2e288aa93
+  verdict: pending
+decision/java/source/test-jpms/src/test/java/com/google/gson/jpms_test/ExportedPackagesTest.java/package/com.google.gson.jpms_test/class/ExportedPackagesTest/method/verifyThatGsonPackagesAreOnlyExportedButNotOpenedForReflection:
+  digest: sha256:185a84c85e249a68
+  verdict: good

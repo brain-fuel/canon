@@ -1,0 +1,135 @@
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology:
+  digest: sha256:f690a60e95a2a706
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/calculateFirstDayOfYearMillis:
+  digest: sha256:d7b0b04732ea7bf7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/equals:
+  digest: sha256:f40756d213f1f283
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getApproxMillisAtEpochDividedByTwo:
+  digest: sha256:c4d4548493ea883e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getAverageMillisPerMonth:
+  digest: sha256:dcd1d9417a21993a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getAverageMillisPerYear:
+  digest: sha256:254e618d736440dd
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getAverageMillisPerYearDividedByTwo:
+  digest: sha256:a77c3c3e1882d3cb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDateMidnightMillis:
+  digest: sha256:80e3779e2955af88
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDayOfMonth:
+  digest: sha256:10dbb6e45c9e0cba
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDayOfMonth#2:
+  digest: sha256:7154fb3428515ccf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDayOfMonth#3:
+  digest: sha256:66b71fc9c6c8428b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDayOfWeek:
+  digest: sha256:2cec37241d5bd48e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDayOfYear:
+  digest: sha256:2cec37241d5bd48e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDayOfYear#2:
+  digest: sha256:7b1f8d0d918cce24
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDaysInMonthMax:
+  digest: sha256:dfe9ce6fb905b1f5
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDaysInMonthMax#2:
+  digest: sha256:59fb50958e03d6d3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDaysInMonthMax#3:
+  digest: sha256:3bcd6fda12e936ee
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDaysInMonthMaxForSet:
+  digest: sha256:4468a6644fe35f7c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDaysInYear:
+  digest: sha256:9030f4a01b77787c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDaysInYearMax:
+  digest: sha256:6cb432ed32d6ec9b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getDaysInYearMonth:
+  digest: sha256:bbe16b5e1a7120b2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getFirstWeekOfYearMillis:
+  digest: sha256:2b8c3a7c0d2d6da2
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getMaxMonth:
+  digest: sha256:4e3aeaede94e61f3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getMaxMonth#2:
+  digest: sha256:e7e7652efe42de07
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getMaxYear:
+  digest: sha256:0302e6abb900b560
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getMillisOfDay:
+  digest: sha256:2cec37241d5bd48e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getMinYear:
+  digest: sha256:24aa9e4778169587
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getMonthOfYear:
+  digest: sha256:10dbb6e45c9e0cba
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getMonthOfYear#2:
+  digest: sha256:7154fb3428515ccf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getTotalMillisByYearMonth:
+  digest: sha256:d3b4a9b7e7238fdb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getWeekOfWeekyear:
+  digest: sha256:2cec37241d5bd48e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getWeekOfWeekyear#2:
+  digest: sha256:7b1f8d0d918cce24
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getWeeksInYear:
+  digest: sha256:c387d11ca247b240
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getWeekyear:
+  digest: sha256:2cec37241d5bd48e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getYear:
+  digest: sha256:2cec37241d5bd48e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getYearDifference:
+  digest: sha256:0cec66d78ce955c9
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getYearMillis:
+  digest: sha256:998483d2b3e0cd36
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getYearMonthDayMillis:
+  digest: sha256:2696423d7129cecf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/getYearMonthMillis:
+  digest: sha256:ea3d3f4e3e947e1b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/hashCode:
+  digest: sha256:b15b995d5c85dc7a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/isLeapDay:
+  digest: sha256:318e655eeb2b0468
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/isLeapYear:
+  digest: sha256:5adde8b71bd811a4
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/setYear:
+  digest: sha256:2c69432ed2bf8f50
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicChronology.java/package/org.joda.time.chrono/class/BasicChronology/method/toString:
+  digest: sha256:919dead22e1ebafa
+  verdict: pending

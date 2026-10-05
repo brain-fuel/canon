@@ -1,0 +1,18 @@
+decision/haskell/src/Canon/Git/Shell.hs/module/Canon.Git.Shell:
+  digest: sha256:ab63a902068f208f
+  verdict: pending
+decision/haskell/src/Canon/Git/Shell.hs/module/Canon.Git.Shell/function/gitRunner:
+  digest: sha256:246256629963c3a4
+  verdict: pending
+decision/haskell/src/Canon/Git/Shell.hs/module/Canon.Git.Shell/function/runGit:
+  digest: sha256:5c714e3cba257e0e
+  verdict: pending
+decision/haskell/src/Canon/Git/Shell.hs/module/Canon.Git.Shell/function/setGitRunner:
+  digest: sha256:d2c871f158bb5e15
+  verdict: pending
+decision/haskell/src/Canon/Git/Shell.hs/module/Canon.Git.Shell/function/shellGitProvider:
+  digest: sha256:5df071294e6b1dcf
+  verdict: pending
+decision/haskell/src/Canon/Git/Shell.hs/module/Canon.Git.Shell/type/GitRunner:
+  digest: sha256:d81a27071ac62236
+  verdict: pending

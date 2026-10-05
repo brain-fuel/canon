@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrBuilderAppendInsertTest.java/package/org.apache.commons.lang3.text/class/StrBuilderAppendInsertTest:
+  digest: sha256:ca44e6f9dd7f5812
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrBuilderAppendInsertTest.java/package/org.apache.commons.lang3.text/class/StrBuilderAppendInsertTest/field/FOO:
+  digest: sha256:f49872af85ea4cb0
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/text/StrBuilderAppendInsertTest.java/package/org.apache.commons.lang3.text/class/StrBuilderAppendInsertTest/field/SEP:
+  digest: sha256:78e7320d3900a8d6
+  verdict: pending

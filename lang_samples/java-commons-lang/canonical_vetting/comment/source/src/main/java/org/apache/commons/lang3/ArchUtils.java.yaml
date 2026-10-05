@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/ArchUtils.java/package/org.apache.commons.lang3/class/ArchUtils:
+  digest: sha256:e6c68c798a598e7e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArchUtils.java/package/org.apache.commons.lang3/class/ArchUtils/constructor/ArchUtils:
+  digest: sha256:1b940f3b8dad4f09
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArchUtils.java/package/org.apache.commons.lang3/class/ArchUtils/method/addProcessor:
+  digest: sha256:a1732d2131e47255
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArchUtils.java/package/org.apache.commons.lang3/class/ArchUtils/method/addProcessors:
+  digest: sha256:44f35c730138ed76
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArchUtils.java/package/org.apache.commons.lang3/class/ArchUtils/method/getProcessor:
+  digest: sha256:4012a846c8ee6b70
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/ArchUtils.java/package/org.apache.commons.lang3/class/ArchUtils/method/getProcessor#2:
+  digest: sha256:ac41ed3e7aee8dea
+  verdict: pending

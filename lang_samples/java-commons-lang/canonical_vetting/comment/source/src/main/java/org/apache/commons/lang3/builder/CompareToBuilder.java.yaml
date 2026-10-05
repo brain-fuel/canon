@@ -1,0 +1,120 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder:
+  digest: sha256:4da2d98c2445621e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/class/Builder:
+  digest: sha256:a72e6a8acabd0f18
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/class/Builder/constructor/Builder:
+  digest: sha256:c60e5cfab5fe9441
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/constructor/CompareToBuilder:
+  digest: sha256:1890310c181b439d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/field/REGISTRY:
+  digest: sha256:46ba36d041dd3190
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/field/comparison:
+  digest: sha256:c48270ff647848b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append:
+  digest: sha256:5ad6ca58ac72fa5d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#10:
+  digest: sha256:29ba2efaaf1bdfcd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#11:
+  digest: sha256:0455c38fa9259d6a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#12:
+  digest: sha256:b791765d83c5fc38
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#13:
+  digest: sha256:c52c48dc71e2be93
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#14:
+  digest: sha256:5d93e8f9549c47da
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#15:
+  digest: sha256:9ef4ad0fe96c8728
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#16:
+  digest: sha256:40ba731774332920
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#17:
+  digest: sha256:1517d0e5aed4edd4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#18:
+  digest: sha256:403db6b1f43f5c68
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#19:
+  digest: sha256:ed2718662ba92aa1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#2:
+  digest: sha256:7e0426f6d05d5ae1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#20:
+  digest: sha256:20c59d3225241faa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#3:
+  digest: sha256:7dc7e57f5fd7991d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#4:
+  digest: sha256:142315ecf3e06c8a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#5:
+  digest: sha256:ddd642e5159b3354
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#6:
+  digest: sha256:b9fde1bdfe9c6c60
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#7:
+  digest: sha256:43eeaf1de905e92e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#8:
+  digest: sha256:389ea28e3c8f3b8c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/append#9:
+  digest: sha256:156c3b4f90eb289a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/appendSuper:
+  digest: sha256:18b504359b2f63bf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/build:
+  digest: sha256:41eef1ede1386514
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/builder:
+  digest: sha256:2a050fef8ecbafc0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/getRegistry:
+  digest: sha256:86447cb8031b389a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/isRegistered:
+  digest: sha256:1b494b5582c630dc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/reflectionAppend:
+  digest: sha256:a3aa80292c75673f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/reflectionCompare:
+  digest: sha256:b8a1aba33c02910e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/reflectionCompare#2:
+  digest: sha256:44f1b40d8b580f5d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/reflectionCompare#3:
+  digest: sha256:6fca4395e64d2c86
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/reflectionCompare#4:
+  digest: sha256:826f2683198401ab
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/reflectionCompare#5:
+  digest: sha256:74009ea3bb0f36f9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/register:
+  digest: sha256:6ea9ed812d3d8892
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/toComparison:
+  digest: sha256:f14147069e922ffb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java/package/org.apache.commons.lang3.builder/class/CompareToBuilder/method/unregister:
+  digest: sha256:b232511ea5133e67
+  verdict: pending

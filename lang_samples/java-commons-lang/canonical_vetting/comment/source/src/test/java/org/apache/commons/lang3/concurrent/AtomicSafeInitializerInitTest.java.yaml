@@ -1,0 +1,6 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializerInitTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializerInitTest:
+  digest: sha256:2cd07b31ed209871
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializerInitTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializerInitTest/field/INIT_MS:
+  digest: sha256:fda9ebc978115016
+  verdict: pending

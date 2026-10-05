@@ -1,0 +1,48 @@
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser:
+  digest: sha256:f3816564e61592af
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/canonicalComment:
+  digest: sha256:6354c5945dbfd97e
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/colon:
+  digest: sha256:1baf511e66607f0a
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/conditional:
+  digest: sha256:08093e603b3d1867
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/define:
+  digest: sha256:e6a600d30090e18b
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/docPart:
+  digest: sha256:2fd3eb7ddb2fba35
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/export:
+  digest: sha256:c14df52b377dbc56
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/include:
+  digest: sha256:17f5873ab7fed3e2
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/makefile:
+  digest: sha256:cd5e08dca0fcef79
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/recipes:
+  digest: sha256:8f9b02071e57b26a
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/rule:
+  digest: sha256:45c708947d5ef921
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/ruleTail:
+  digest: sha256:a478817261b6b2ea
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/statement:
+  digest: sha256:18654a5f843e4dfe
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/target:
+  digest: sha256:45b9d37b02086fa8
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/variable:
+  digest: sha256:0f4bc47f4e578525
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileParser.g4/grammarDefinition/MakefileParser/parserRule/variableName:
+  digest: sha256:1efb113f9580f196
+  verdict: pending

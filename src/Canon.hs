@@ -9,6 +9,7 @@ module Canon
   , usage
   , version
   , renderLedger
+  , renderSite
   ) where
 
 import Canon.Antlr4.Interpret
@@ -23,10 +24,16 @@ import Canon.Vetting (applyAssessments, materialFindings)
 import Canon.Model.Finding (Finding (..), Severity (..), findingSeverity, renderFinding)
 import Canon.Model.Yaml (encodeModel)
 import Canon.Project
+import Canon.Folio (Block (..), Document (..))
+import Canon.Registry (Reference (..), Registry (..))
+import Canon.Highlight (classifierFor, highlightLines, plainLines)
+import Canon.Profile (Embedding (..), Profile (..))
+import Canon.Weave (Highlight, pagePath, renderIndex, renderPage)
+import Canon.Tangle (Tangled (..))
 import Canon.Version (canonVersion, renderVersion)
 import Canon.Walk (Walked (..))
 import qualified Data.ByteString as BS
-import Data.List (sortOn)
+import Data.List (isPrefixOf, sortOn)
 import Data.Ord (Down (..))
 import qualified Data.Map.Strict as Map
 import Data.Maybe (mapMaybe)
@@ -35,6 +42,8 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
 import System.Environment (getArgs)
 import System.Exit (ExitCode (..), exitWith)
+import System.Directory (createDirectoryIfMissing, doesFileExist, getCurrentDirectory)
+import System.FilePath (takeDirectory, takeFileName, (</>))
 import System.IO (stderr)
 
 -- | One constructor per subcommand so that parsing arguments and running them are separate steps
@@ -49,6 +58,8 @@ data Command
   | CommandDecisions
   | CommandIngest
   | CommandVet
+  | CommandTangle Bool Bool [FilePath]
+  | CommandSite FilePath
   | CommandUsage
   deriving (Eq, Show)
 
@@ -71,7 +82,12 @@ parseCommand arguments = case arguments of
   ["decisions"] -> CommandDecisions
   ["ingest"] -> CommandIngest
   ["vet"] -> CommandVet
+  ("tangle" : rest) | all known (filter isFlag rest) -> CommandTangle ("--check" `elem` rest) ("--manifest" `elem` rest) (filter (not . isFlag) rest)
+  ["site", out] -> CommandSite out
   _ -> CommandUsage
+  where
+    isFlag = ("--" `isPrefixOf`)
+    known f = f `elem` ["--check", "--manifest"]
 
 -- | The pure part of running a command, kept for the tests that check usage text without side
 -- effects.
@@ -97,6 +113,8 @@ usage =
     , "  canon decisions                                       list the decision ledger, open decisions first"
     , "  canon ingest                                          record every canonical comment of the project as pending in the vetting file"
     , "  canon vet                                             list the canonical comments that need a human verdict, with their text"
+    , "  canon tangle [--check] [--manifest] [<page>...]       write every source the project's Folio pages tangle to, or with --check report the stale ones; --manifest lists the blocks"
+    , "  canon site <directory>                                render the project's Folio pages under docs/ to a static site in the directory"
     ]
 
 -- | The process entry point: arguments in, exit code out, with every effect inside runCommand.
@@ -125,8 +143,8 @@ runCommand command = case command of
     if pending > 0 then TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " pieces of canonical material pending sign-off"]) else pure ()
     pure (if any ((== Failing) . findingSeverity) findings then ExitFailure 1 else ExitSuccess)
   CommandIngest -> withProject $ \project -> do
-    (path, total, fresh, failures) <- ingestProject project
-    putStrLn (path ++ ": " ++ show (length fresh) ++ " pieces of canonical material recorded as pending, " ++ show total ++ " entries in total")
+    (path, total, files, fresh, failures) <- ingestProject project
+    putStrLn (path ++ ": " ++ show (length fresh) ++ " pieces of canonical material recorded as pending, " ++ show total ++ " entries in " ++ show files ++ " files")
     mapM_ (report . ("not read, so its comments are not recorded: " <>)) failures
     pure (if null failures then ExitSuccess else ExitFailure 1)
   CommandVet -> withProject $ \project -> do
@@ -139,6 +157,25 @@ runCommand command = case command of
     mapM_ putStrLn (walkedFiles walked)
     mapM_ (\d -> putStrLn (d ++ "  (nested project)")) (walkedProjects walked)
     pure ExitSuccess
+  CommandTangle check manifest paths -> withProject $ \project -> do
+    result <- tangleProject project paths
+    case result of
+      Left err -> report err >> pure (ExitFailure 1)
+      Right (_, tangled, findings) -> do
+        mapM_ (TIO.putStrLn . renderFinding) findings
+        if manifest
+          then do
+            mapM_ (\t -> mapM_ (\(b, (from, to)) -> TIO.putStrLn (T.concat ["- {doc: ", T.pack (blockSource b), ", line: ", T.pack (show (blockLine b)), ", name: ", blockName b, ", part: ", if blockIsPart b then "true" else "false", ", file: ", T.pack (tangledPath t), ", from: ", T.pack (show from), ", to: ", T.pack (show to), "}"])) (zip (tangledBlocks t) (tangledRanges t))) tangled
+            pure (if null findings then ExitSuccess else ExitFailure 1)
+          else do
+            stale <- mapM (writeTangled project check) tangled
+            pure (if null findings && not (or stale) then ExitSuccess else ExitFailure 1)
+  CommandSite out -> withProject $ \project -> do
+    here <- getCurrentDirectory
+    result <- renderSite project (T.pack (takeFileName here)) out
+    case result of
+      Left err -> report err >> pure (ExitFailure 1)
+      Right pages -> putStrLn (show pages ++ " pages under " ++ out) >> pure ExitSuccess
   CommandParse lexer parser start path -> loadInterpreter lexer parser >>= runParse start path
   CommandParseCombined grammar start path -> loadCombinedInterpreter grammar >>= runParse start path
   CommandDecisions -> withProject $ \project -> do
@@ -151,12 +188,67 @@ runCommand command = case command of
     TIO.putStr (renderLedger (projectLedger project) (Map.union states signed))
     pure ExitSuccess
 
+-- | Renders a project's pages to a directory: one page per document under its quadrant and an
+-- index, with citations resolved against the registry and the ledger. Returns how many pages
+-- were written. ref:DEC-site-renderer
+renderSite :: Project -> Text -> FilePath -> IO (Either Text Int)
+renderSite project name out = do
+  -- A project without the Folio has no pages, and an index that says so.
+  result <- if null (folioProfiles project) then pure (Right ([], [], [])) else tangleProject project []
+  case result of
+    Left err -> pure (Left err)
+    Right (docs, _, _) -> do
+      highlight <- siteHighlighter project
+      let resolve k = case Map.lookup k (registryEntries (projectRegistry project)) of
+            Just r -> Just (referenceTitle r, referenceLocator r)
+            Nothing -> (\e -> (entryQuestion e, T.pack (configDecisions (projectConfig project)) <> "#" <> referenceKeyText k)) <$> Map.lookup k (ledgerEntries (projectLedger project))
+          pages = [(d, p) | d <- docs, Just p <- [pagePath (docPath d)]]
+      mapM_ (\(d, p) -> createDirectoryIfMissing True (takeDirectory (out </> p)) >> TIO.writeFile (out </> p) (renderPage name resolve highlight d)) pages
+      createDirectoryIfMissing True out
+      TIO.writeFile (out </> "index.html") (renderIndex name pages)
+      pure (Right (length pages))
+
+-- | The highlighter of a project's fenced blocks: the fence word reaches a language through the
+-- Folio profiles' embeddings, else a profile of that name, and the language's lexer classifies
+-- the block; a word no profile owns is plain. ref:DEC-highlight-by-lexer
+siteHighlighter :: Project -> IO Highlight
+siteHighlighter project = do
+  interpreters <- projectInterpreters project
+  let languages = configLanguages (projectConfig project)
+      embedded = Map.unions [Map.map embeddingLanguage (profileEmbeds p) | (_, p) <- folioProfiles project]
+      languageOf word = case Map.lookup word embedded of
+        Just lang -> lang
+        Nothing -> word
+      classifiers = Map.fromList [(lang, (classifierFor (profileHighlight p) i, i)) | (lang, p) <- Map.toList languages, Just (Right i) <- [Map.lookup lang interpreters]]
+  pure $ \word body -> case Map.lookup (languageOf word) classifiers of
+    Just (classifier, i) -> take (length body) (highlightLines classifier i (T.unlines body) ++ repeat [])
+    Nothing -> plainLines (T.unlines body)
+
+-- | Writes one tangled file, or under check only reports it, saying for each whether it was
+-- unchanged, written, or stale.
+writeTangled :: Project -> Bool -> Tangled -> IO Bool
+writeTangled project check t = do
+  let path = resolvePath project (tangledPath t)
+  exists <- doesFileExist path
+  current <- if exists then Just <$> TIO.readFile path else pure Nothing
+  if current == Just (tangledText t)
+    then putStrLn ("  unchanged  " ++ tangledPath t) >> pure False
+    else
+      if check
+        then putStrLn ("  STALE      " ++ tangledPath t) >> pure True
+        else do
+          createDirectoryIfMissing True (takeDirectory path)
+          TIO.writeFile path (tangledText t)
+          putStrLn ("  written    " ++ tangledPath t)
+          pure False
+
 isPending :: Finding -> Bool
 isPending f = case f of
   CommentPending {} -> True
   CommentStale {} -> True
   MaterialPending _ -> True
   MaterialStale _ -> True
+  KindPending _ -> True
   _ -> False
 
 materialState :: Finding -> Maybe (ReferenceKey, Text)

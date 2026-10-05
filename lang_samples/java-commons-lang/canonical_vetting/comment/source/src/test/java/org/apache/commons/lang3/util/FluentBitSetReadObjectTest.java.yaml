@@ -1,0 +1,39 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest:
+  digest: sha256:0d895d2cef1b6651
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/class/FluentBitSetForge:
+  digest: sha256:cb9340c2b1b447b9
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/deserialize:
+  digest: sha256:8f7b839e69a7a4e4
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/forgeNullBitSetStream:
+  digest: sha256:32e4147ffd7e1bdf
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/testDeserializedInstanceIsMutable:
+  digest: sha256:9210403545a60b62
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/testNullBitSetRejectedByObjectInputStream:
+  digest: sha256:08bba2d00ae3ba84
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/testNullBitSetRejectedBySerializationUtils:
+  digest: sha256:336b3ed7f67633bf
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/testRoundTripEmptyBitSet:
+  digest: sha256:b235f07524f3042a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/testRoundTripPreservesBits:
+  digest: sha256:743a642ccec26e9a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/testRoundTripPreservesHashCode:
+  digest: sha256:c258087aa5e3981c
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/testRoundTripWithBitSetValueOf:
+  digest: sha256:66505aba0545e012
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/testRoundTripWithHighBitIndex:
+  digest: sha256:d31879150e27dd6a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/util/FluentBitSetReadObjectTest.java/package/org.apache.commons.lang3.util/class/FluentBitSetReadObjectTest/method/testTwoDeserializedInstancesAreEqual:
+  digest: sha256:2215f403fb9c4d18
+  verdict: pending

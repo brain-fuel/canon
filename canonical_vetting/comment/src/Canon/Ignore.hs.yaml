@@ -1,0 +1,27 @@
+decision/haskell/src/Canon/Ignore.hs/module/Canon.Ignore:
+  digest: sha256:e8ed9e250c200b65
+  verdict: pending
+decision/haskell/src/Canon/Ignore.hs/module/Canon.Ignore/data/IgnorePattern:
+  digest: sha256:353add0e85d5997b
+  verdict: pending
+decision/haskell/src/Canon/Ignore.hs/module/Canon.Ignore/function/defaultIgnorePatterns:
+  digest: sha256:f101d2e7f49bac88
+  verdict: pending
+decision/haskell/src/Canon/Ignore.hs/module/Canon.Ignore/function/globMatches:
+  digest: sha256:8e4056af6f0c8c39
+  verdict: pending
+decision/haskell/src/Canon/Ignore.hs/module/Canon.Ignore/function/isIgnored:
+  digest: sha256:49ff57a180c2cf2d
+  verdict: pending
+decision/haskell/src/Canon/Ignore.hs/module/Canon.Ignore/function/matchesPattern:
+  digest: sha256:d7bbfe7943d9fa6c
+  verdict: pending
+decision/haskell/src/Canon/Ignore.hs/module/Canon.Ignore/function/parseIgnorePattern:
+  digest: sha256:10ed7ba5dc228b4f
+  verdict: pending
+decision/haskell/src/Canon/Ignore.hs/module/Canon.Ignore/function/parseIgnorePatterns:
+  digest: sha256:927eeb892edb915e
+  verdict: pending
+decision/haskell/src/Canon/Ignore.hs/module/Canon.Ignore/function/renderIgnorePattern:
+  digest: sha256:fce4604c9d7848ca
+  verdict: pending

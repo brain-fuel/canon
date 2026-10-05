@@ -1,0 +1,21 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java/package/com.google.gson.internal/class/ConstructorConstructor:
+  digest: sha256:b9002cbd6b3916ef
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java/package/com.google.gson.internal/class/ConstructorConstructor/class/ThrowingObjectConstructor:
+  digest: sha256:be57fe098a3e9ed0
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java/package/com.google.gson.internal/class/ConstructorConstructor/method/checkInstantiable:
+  digest: sha256:bd3d24a0bba7cc8d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java/package/com.google.gson.internal/class/ConstructorConstructor/method/get:
+  digest: sha256:0c159e309e1a8565
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java/package/com.google.gson.internal/class/ConstructorConstructor/method/get#2:
+  digest: sha256:655a122eb608538b
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java/package/com.google.gson.internal/class/ConstructorConstructor/method/newDefaultImplementationConstructor:
+  digest: sha256:2116dae9f97f871d
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java/package/com.google.gson.internal/class/ConstructorConstructor/method/newSpecialCollectionConstructor:
+  digest: sha256:2d8be1d5d78c621f
+  verdict: pending

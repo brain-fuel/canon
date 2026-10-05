@@ -1,0 +1,48 @@
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty:
+  digest: sha256:d3533f6c33374d47
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyAlternative:
+  digest: sha256:9111c63481f22a0c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyAtom:
+  digest: sha256:7432b1cf0d283a96
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyElement:
+  digest: sha256:fefc29f885fba7da
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyElementOptions:
+  digest: sha256:70f250ac0042e49a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyGrammar:
+  digest: sha256:c8d0b912fd619cd6
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyLexerAlternative:
+  digest: sha256:cc0990bb9b7fd1dc
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyLexerAtom:
+  digest: sha256:900877c5e61354e8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyLexerElement:
+  digest: sha256:e2c3f268ed3be08b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyLexerRule:
+  digest: sha256:3466e405aa9f5c20
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyOption:
+  digest: sha256:334d55febfa92176
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyOptionValue:
+  digest: sha256:3fb4912f64c4967e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyParserRule:
+  digest: sha256:f227be5b58ba6c4c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyPrequel:
+  digest: sha256:dc391605b9186391
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyRule:
+  digest: sha256:f1f25f575c4f7348
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Pretty.hs/module/Canon.Antlr4.Pretty/function/prettyStringLiteral:
+  digest: sha256:f94b99c045a19632
+  verdict: pending

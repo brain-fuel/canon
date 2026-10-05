@@ -1,0 +1,30 @@
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile:
+  digest: sha256:68baad4144c1c392
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/CommentSyntax:
+  digest: sha256:ed70e0ff98f3a802
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/DocStyle:
+  digest: sha256:bcd405a3869929a8
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/Embedding:
+  digest: sha256:5da6dc4108df5d3b
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/GrammarSource:
+  digest: sha256:dbf3cc8fb9f77611
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/Profile:
+  digest: sha256:27b6d028661635eb
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/UnitName:
+  digest: sha256:999736398a61b34b
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/UnitRule:
+  digest: sha256:68904f356ca5814e
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/function/defaultCommentSyntax:
+  digest: sha256:5a06b8ee851cd06f
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/function/profileForPath:
+  digest: sha256:d67dd37a274d7e95
+  verdict: pending

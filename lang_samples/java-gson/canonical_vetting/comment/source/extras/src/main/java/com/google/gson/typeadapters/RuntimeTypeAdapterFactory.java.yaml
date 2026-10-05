@@ -1,0 +1,21 @@
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java/package/com.google.gson.typeadapters/class/RuntimeTypeAdapterFactory:
+  digest: sha256:3f99c297d526d79b
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java/package/com.google.gson.typeadapters/class/RuntimeTypeAdapterFactory/method/of:
+  digest: sha256:73ee76207184587a
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java/package/com.google.gson.typeadapters/class/RuntimeTypeAdapterFactory/method/of#2:
+  digest: sha256:773ed90eeaa1428f
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java/package/com.google.gson.typeadapters/class/RuntimeTypeAdapterFactory/method/of#3:
+  digest: sha256:21eacd4ed0e08be3
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java/package/com.google.gson.typeadapters/class/RuntimeTypeAdapterFactory/method/recognizeSubtypes:
+  digest: sha256:961997c9def80e3f
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java/package/com.google.gson.typeadapters/class/RuntimeTypeAdapterFactory/method/registerSubtype:
+  digest: sha256:0b98adc3be986d9e
+  verdict: pending
+decision/java/source/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java/package/com.google.gson.typeadapters/class/RuntimeTypeAdapterFactory/method/registerSubtype#2:
+  digest: sha256:1fcb6587f652fcac
+  verdict: pending

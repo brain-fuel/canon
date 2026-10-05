@@ -1,0 +1,123 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion:
+  digest: sha256:7ddfd7414dfeab42
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/constructor/JavaVersion:
+  digest: sha256:84ac4315fe32a45a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_0_9:
+  digest: sha256:a15cf664c4dd4d42
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_10:
+  digest: sha256:17148d182ecce608
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_11:
+  digest: sha256:bc42738951fd7a90
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_12:
+  digest: sha256:9c2bfb476ccfd65d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_13:
+  digest: sha256:d94ea2f73e749b67
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_14:
+  digest: sha256:443598937a7305ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_15:
+  digest: sha256:c5b4ada1b434bd65
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_16:
+  digest: sha256:aa0c315de320fc06
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_17:
+  digest: sha256:e1de1d50a72d2ebd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_18:
+  digest: sha256:0d013255c11015c9
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_19:
+  digest: sha256:63bf6d581a8ee4fe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_1_1:
+  digest: sha256:d33381edfec56f4c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_1_2:
+  digest: sha256:b19952114abd61c8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_1_3:
+  digest: sha256:5a48236844351c22
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_1_4:
+  digest: sha256:901165373381e042
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_1_5:
+  digest: sha256:a0d448bf9b8ca318
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_1_6:
+  digest: sha256:0c1d4c835dda7b8a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_1_7:
+  digest: sha256:dd13503dbd1a2b06
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_1_8:
+  digest: sha256:4f88691dd4ef23a1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_1_9:
+  digest: sha256:933575be85fda12d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_20:
+  digest: sha256:38ad41b4238f1495
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_21:
+  digest: sha256:405ffe6d4b47649f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_22:
+  digest: sha256:832333d1a24089d2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_23:
+  digest: sha256:f7ca8d77a52bf5ae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_24:
+  digest: sha256:f7da02355f8c39aa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_25:
+  digest: sha256:58a800a6523e2812
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_26:
+  digest: sha256:38dcc7f0e235aef4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_27:
+  digest: sha256:dd38c519555beb5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_9:
+  digest: sha256:832290d195af2a03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/enumConstant/JAVA_RECENT:
+  digest: sha256:4972f7e578a48d82
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/field/name:
+  digest: sha256:6e98df325bf01858
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/field/value:
+  digest: sha256:b27be8d1a861be04
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/method/atLeast:
+  digest: sha256:7c335ae6f27d2560
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/method/atMost:
+  digest: sha256:eb16338682ccb10d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/method/get:
+  digest: sha256:b7b8181e23e58d7f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/method/getJavaVersion:
+  digest: sha256:b7b8181e23e58d7f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/method/maxVersion:
+  digest: sha256:679d55a477743b32
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/method/toFloatVersion:
+  digest: sha256:a5632481780337c1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/JavaVersion.java/package/org.apache.commons.lang3/enum/JavaVersion/method/toString:
+  digest: sha256:d6d8a9d94f34927d
+  verdict: pending

@@ -1,0 +1,156 @@
+ledger/DEC-binding-label:
+  digest: sha256:b0cf632ed0a4a605
+  verdict: pending
+ledger/DEC-cabal-file:
+  digest: sha256:dfd2b88294658470
+  verdict: pending
+ledger/DEC-canon-comment-standard:
+  digest: sha256:2b41ba120231d330
+  verdict: pending
+ledger/DEC-canon-is-the-format:
+  digest: sha256:a249ad4c946db819
+  verdict: pending
+ledger/DEC-canon-self-folio:
+  digest: sha256:acb521ecac6b3432
+  verdict: pending
+ledger/DEC-canonical-antlr4-dialect:
+  digest: sha256:f580cad5d3ca5295
+  verdict: pending
+ledger/DEC-comment-attachment:
+  digest: sha256:26e7ca4bf2dd0016
+  verdict: pending
+ledger/DEC-comment-reasons:
+  digest: sha256:26e7bd93f899c8f7
+  verdict: pending
+ledger/DEC-comment-vetting:
+  digest: sha256:4eabd539af66900a
+  verdict: pending
+ledger/DEC-decision-ledger:
+  digest: sha256:dd2281a0692cc38c
+  verdict: pending
+ledger/DEC-doc-kind:
+  digest: sha256:64116332fed38a5f
+  verdict: pending
+ledger/DEC-docs-tree:
+  digest: sha256:5f48d89e22263e1d
+  verdict: pending
+ledger/DEC-exemptions:
+  digest: sha256:0014dd475a2ae1a5
+  verdict: pending
+ledger/DEC-export-rule:
+  digest: sha256:c2bddd1afced483a
+  verdict: pending
+ledger/DEC-extraction-cache:
+  digest: sha256:3c3094c5edefbd90
+  verdict: pending
+ledger/DEC-folio-language:
+  digest: sha256:be97e36af6d9fed3
+  verdict: pending
+ledger/DEC-git-runner:
+  digest: sha256:baf073ef55c15f85
+  verdict: pending
+ledger/DEC-grammar-carries-extraction-rules:
+  digest: sha256:4f625b2d8bdd2462
+  verdict: pending
+ledger/DEC-grammar-coverage-findings:
+  digest: sha256:cedc66bc858f2c9d
+  verdict: pending
+ledger/DEC-haskell-dialect:
+  digest: sha256:134905b7a23ddf33
+  verdict: pending
+ledger/DEC-haskell-grammar-comments:
+  digest: sha256:82fa5b48eeb405b9
+  verdict: pending
+ledger/DEC-haskell-grammar-fixes:
+  digest: sha256:e99ca4edc60407e6
+  verdict: pending
+ledger/DEC-header-blocks-documented:
+  digest: sha256:a4d06587eee51f48
+  verdict: pending
+ledger/DEC-highlight-by-lexer:
+  digest: sha256:4ef328196c0c655f
+  verdict: pending
+ledger/DEC-human-sign-off:
+  digest: sha256:32f9d9a0ab3fc0db
+  verdict: pending
+ledger/DEC-java-grammar-comments:
+  digest: sha256:fb71c3ba073a3ac8
+  verdict: pending
+ledger/DEC-layout-parse-error-rule:
+  digest: sha256:21214caf6e23009f
+  verdict: pending
+ledger/DEC-make-dialect:
+  digest: sha256:e99f6d60743dd647
+  verdict: pending
+ledger/DEC-marker-label:
+  digest: sha256:7a98330e37874066
+  verdict: pending
+ledger/DEC-more-languages:
+  digest: sha256:7328fc399b651ef5
+  verdict: pending
+ledger/DEC-name-kind:
+  digest: sha256:af0f0c4fe08e8745
+  verdict: pending
+ledger/DEC-name-what-comment-why:
+  digest: sha256:af111c8c22ddfe6a
+  verdict: pending
+ledger/DEC-nested-root-check:
+  digest: sha256:e5a51206490147a1
+  verdict: pending
+ledger/DEC-one-tree-per-span:
+  digest: sha256:764cd11edc7ed896
+  verdict: pending
+ledger/DEC-parser-foundation:
+  digest: sha256:a3e72cdb7a91a23c
+  verdict: pending
+ledger/DEC-parser-generation:
+  digest: sha256:11195fb0353d0e17
+  verdict: pending
+ledger/DEC-precedence-climbing:
+  digest: sha256:0a49bcdd56ffadc0
+  verdict: pending
+ledger/DEC-required-orphan-labels:
+  digest: sha256:bf2b6c07605a617e
+  verdict: pending
+ledger/DEC-rule-identifiers-as-keys:
+  digest: sha256:de31364138f0e89b
+  verdict: pending
+ledger/DEC-sample-project-readme:
+  digest: sha256:cd4a6a344f0bfce6
+  verdict: pending
+ledger/DEC-section-prose-is-why:
+  digest: sha256:0862495f373bf28a
+  verdict: pending
+ledger/DEC-site-renderer:
+  digest: sha256:5efca6987191951d
+  verdict: pending
+ledger/DEC-tangle-in-canon:
+  digest: sha256:c4e34a7da4e59d58
+  verdict: pending
+ledger/DEC-tangle-output-format:
+  digest: sha256:6064ca1c79c9b7c7
+  verdict: pending
+ledger/DEC-test-requirement-check:
+  digest: sha256:56f3c5e9c108597d
+  verdict: pending
+ledger/DEC-tests-not-exempt:
+  digest: sha256:ae2c6a410cfc6640
+  verdict: pending
+ledger/DEC-units-by-tangled-path:
+  digest: sha256:b669bd4a8ec212a5
+  verdict: pending
+ledger/DEC-version-duplication:
+  digest: sha256:7b46ef3c04180933
+  verdict: pending
+ledger/DEC-vetting-kinds:
+  digest: sha256:56f8cbf8f0bf8bf8
+  verdict: pending
+ledger/DEC-vetting-layout:
+  digest: sha256:7f0dc55c69aa50df
+  verdict: pending
+ledger/DEC-vetting-run-field:
+  digest: sha256:40e0a1898945e63d
+  verdict: pending
+ledger/DEC-video-reference:
+  digest: sha256:c027d5a9dc29ab0e
+  verdict: pending

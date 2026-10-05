@@ -1,0 +1,9 @@
+decision/haskell/src/Canon/Git/Derive.hs/module/Canon.Git.Derive:
+  digest: sha256:071dec3b3fee8351
+  verdict: pending
+decision/haskell/src/Canon/Git/Derive.hs/module/Canon.Git.Derive/function/whenFromHistory:
+  digest: sha256:70b9bb12f6c798bf
+  verdict: pending
+decision/haskell/src/Canon/Git/Derive.hs/module/Canon.Git.Derive/function/whoFromHistory:
+  digest: sha256:341e3ac72bc227cb
+  verdict: pending

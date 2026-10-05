@@ -1,0 +1,264 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils:
+  digest: sha256:c73fe1d6c950362f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/constructor/NumberUtils:
+  digest: sha256:bf4b4dad99003fb5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/BYTE_MINUS_ONE:
+  digest: sha256:e8cf087e9552cd64
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/BYTE_ONE:
+  digest: sha256:801d43d3811811dc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/BYTE_ZERO:
+  digest: sha256:81aac1227a7dfe81
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/DOUBLE_MINUS_ONE:
+  digest: sha256:20daff579b1b2359
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/DOUBLE_ONE:
+  digest: sha256:966bf5f1d71d0e5e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/DOUBLE_ZERO:
+  digest: sha256:4603dd95111ddb02
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/FLOAT_MINUS_ONE:
+  digest: sha256:12a86987a619a750
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/FLOAT_ONE:
+  digest: sha256:48cc805e2edce790
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/FLOAT_ZERO:
+  digest: sha256:dd731ae430a67960
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/INTEGER_MINUS_ONE:
+  digest: sha256:67a0e4fe692391e3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/INTEGER_ONE:
+  digest: sha256:9e9f061b963f175b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/INTEGER_TWO:
+  digest: sha256:54938ff6ce13042d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/INTEGER_ZERO:
+  digest: sha256:4a03407589e919a0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/LONG_INT_MAX_VALUE:
+  digest: sha256:c9cfbd8debc1aeac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/LONG_INT_MIN_VALUE:
+  digest: sha256:9a294a9f1bd689df
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/LONG_MINUS_ONE:
+  digest: sha256:eb2206d8b4965ef8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/LONG_ONE:
+  digest: sha256:18af42608906b231
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/LONG_ZERO:
+  digest: sha256:045b5933c80f4718
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/SHORT_MINUS_ONE:
+  digest: sha256:12e4bb7c6e4faddf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/SHORT_ONE:
+  digest: sha256:7a3f00b6c88b69d2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/field/SHORT_ZERO:
+  digest: sha256:5c28c555037b6b1f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/compare:
+  digest: sha256:661eacad929a7dcd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/compare#2:
+  digest: sha256:849fdef0620e50d1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/compare#3:
+  digest: sha256:71280690dec94dce
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/compare#4:
+  digest: sha256:6945df4b8a2e87eb
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/createBigDecimal:
+  digest: sha256:c76e67f1f56257e4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/createBigInteger:
+  digest: sha256:0b4c062a71a99693
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/createDouble:
+  digest: sha256:f2da23345a758b6f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/createFloat:
+  digest: sha256:7a7b8f7414734d83
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/createInteger:
+  digest: sha256:bf9b7277c0dc2ed7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/createLong:
+  digest: sha256:796d1ce24e4ccb8b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/createNumber:
+  digest: sha256:a8a95988a2e496ee
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/getMantissa:
+  digest: sha256:73bec4ec158453b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/isAllZeros:
+  digest: sha256:bc78ff1070da05c7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/isCreatable:
+  digest: sha256:e96f50cc6e2fc4b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/isDigits:
+  digest: sha256:efee5a2b39fbeae4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/isNumber:
+  digest: sha256:2ba129b0db352202
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/isParsable:
+  digest: sha256:aff1a17b62e2682a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/isZero:
+  digest: sha256:f12c6307d5e3e6c3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max:
+  digest: sha256:75abaf1ea44ec811
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#10:
+  digest: sha256:4ba0bf320e8d0fe5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#11:
+  digest: sha256:ab1e41bc1ef1a537
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#12:
+  digest: sha256:c9304e5a51029d47
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#2:
+  digest: sha256:b87868ce123e8f07
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#3:
+  digest: sha256:775e87daab0ff223
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#4:
+  digest: sha256:4e45f942186c4d06
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#5:
+  digest: sha256:aeb1527ac79946d8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#6:
+  digest: sha256:0e155d848b7007d6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#7:
+  digest: sha256:a5b5208c87953e55
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#8:
+  digest: sha256:6485f4e2e8509b7c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/max#9:
+  digest: sha256:6ec1151e5ae5cad3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min:
+  digest: sha256:91e5bbe2934a5e97
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#10:
+  digest: sha256:91115feb94a52bf3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#11:
+  digest: sha256:03ca3a20b5e87a71
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#12:
+  digest: sha256:e61dc26fded9e97f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#2:
+  digest: sha256:0d95def29b973a4b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#3:
+  digest: sha256:6606cbecee19c8ba
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#4:
+  digest: sha256:6959f0fce7be14f6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#5:
+  digest: sha256:e92bd903f26222f0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#6:
+  digest: sha256:97a244f9220c74fe
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#7:
+  digest: sha256:fc4388130ea2edf4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#8:
+  digest: sha256:b52959fccf889e5d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/min#9:
+  digest: sha256:ea5b3e5f546181d4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toByte:
+  digest: sha256:7450923d13f39c2a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toByte#2:
+  digest: sha256:09732c2d60d70307
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toDouble:
+  digest: sha256:ee9d8662a5f4dc26
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toDouble#2:
+  digest: sha256:3724762775294816
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toDouble#3:
+  digest: sha256:5a4951a209b45400
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toDouble#4:
+  digest: sha256:b0b7d079b2b77130
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toFloat:
+  digest: sha256:41cb8055c9532459
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toFloat#2:
+  digest: sha256:2737bd12b078915c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toInt:
+  digest: sha256:530e41f8a62bc54e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toInt#2:
+  digest: sha256:7903ca98ec68a54d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toLong:
+  digest: sha256:cb16f9069eb64b5f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toLong#2:
+  digest: sha256:50127429bd273934
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toScaledBigDecimal:
+  digest: sha256:ebd086b11ab95804
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toScaledBigDecimal#2:
+  digest: sha256:cae14f810e40ab6b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toScaledBigDecimal#3:
+  digest: sha256:55f7e05dbef7eabd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toScaledBigDecimal#4:
+  digest: sha256:fc13227a259fb15a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toScaledBigDecimal#5:
+  digest: sha256:cc06125edd754334
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toScaledBigDecimal#6:
+  digest: sha256:1f47bddfcf048b24
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toScaledBigDecimal#7:
+  digest: sha256:c2414c0489568544
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toScaledBigDecimal#8:
+  digest: sha256:1fef9f33e11ed765
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toShort:
+  digest: sha256:8291ddf34ea5e842
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/toShort#2:
+  digest: sha256:76677b60dbe81201
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/math/NumberUtils.java/package/org.apache.commons.lang3.math/class/NumberUtils/method/validateArray:
+  digest: sha256:68ac2e5cf8fa425f
+  verdict: pending

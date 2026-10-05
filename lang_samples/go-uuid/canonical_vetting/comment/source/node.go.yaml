@@ -1,0 +1,18 @@
+decision/go/source/node.go:
+  digest: sha256:e090b0b19001507b
+  verdict: pending
+decision/go/source/node.go/function/NodeID:
+  digest: sha256:a07272da256a7c8e
+  verdict: pending
+decision/go/source/node.go/function/NodeInterface:
+  digest: sha256:ed6cfd9c58b52cb2
+  verdict: pending
+decision/go/source/node.go/function/SetNodeID:
+  digest: sha256:60f2feff12a1616b
+  verdict: pending
+decision/go/source/node.go/function/SetNodeInterface:
+  digest: sha256:0d300ce8d043686d
+  verdict: pending
+decision/go/source/node.go/method/NodeID:
+  digest: sha256:941ab1afaa5c1f4b
+  verdict: pending

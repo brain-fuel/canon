@@ -1,0 +1,6 @@
+decision/java/source/gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java/package/com.google.gson.internal/class/UnsafeAllocator:
+  digest: sha256:09cadc7f69a46a6f
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java/package/com.google.gson.internal/class/UnsafeAllocator/method/assertInstantiable:
+  digest: sha256:e21e7fc13c7e562f
+  verdict: pending

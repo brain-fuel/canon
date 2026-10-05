@@ -1,0 +1,27 @@
+decision/java/source/src/main/java/org/joda/time/field/PreciseDateTimeField.java/package/org.joda.time.field/class/PreciseDateTimeField:
+  digest: sha256:99ec38ec75c69cf6
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDateTimeField.java/package/org.joda.time.field/class/PreciseDateTimeField/constructor/PreciseDateTimeField:
+  digest: sha256:4a22c47d55ba9c6f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDateTimeField.java/package/org.joda.time.field/class/PreciseDateTimeField/field/iRange:
+  digest: sha256:5e7e07c8bd398310
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDateTimeField.java/package/org.joda.time.field/class/PreciseDateTimeField/method/addWrapField:
+  digest: sha256:8e8ab09720f8fe85
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDateTimeField.java/package/org.joda.time.field/class/PreciseDateTimeField/method/get:
+  digest: sha256:bfb36f353d455696
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDateTimeField.java/package/org.joda.time.field/class/PreciseDateTimeField/method/getMaximumValue:
+  digest: sha256:8a9f4df0f082689f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDateTimeField.java/package/org.joda.time.field/class/PreciseDateTimeField/method/getRange:
+  digest: sha256:01b25cfb71466b9e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDateTimeField.java/package/org.joda.time.field/class/PreciseDateTimeField/method/getRangeDurationField:
+  digest: sha256:bb491712542dbab1
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDateTimeField.java/package/org.joda.time.field/class/PreciseDateTimeField/method/set:
+  digest: sha256:051a9206dfc6a4c3
+  verdict: pending

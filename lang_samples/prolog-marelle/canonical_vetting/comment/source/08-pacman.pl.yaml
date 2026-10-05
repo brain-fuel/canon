@@ -1,0 +1,15 @@
+decision/prolog/source/08-pacman.pl:
+  digest: sha256:053e570b7ccc624a
+  verdict: pending
+decision/prolog/source/08-pacman.pl/clause/check_pacman:
+  digest: sha256:a46db19b0f0c4720
+  verdict: pending
+decision/prolog/source/08-pacman.pl/clause/install_pacman:
+  digest: sha256:b56f6e43eac55bb5
+  verdict: pending
+decision/prolog/source/08-pacman.pl/directive/installs_with_pacman:
+  digest: sha256:44120a22ecc410a4
+  verdict: pending
+decision/prolog/source/08-pacman.pl/directive/installs_with_pacman#2:
+  digest: sha256:0d6998df019a2725
+  verdict: pending

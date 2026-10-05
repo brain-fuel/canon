@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Diff.java/package/org.apache.commons.lang3.builder/class/Diff:
+  digest: sha256:4a8d8a55f47f50b3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Diff.java/package/org.apache.commons.lang3.builder/class/Diff/constructor/Diff:
+  digest: sha256:150e73dc42d9111c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Diff.java/package/org.apache.commons.lang3.builder/class/Diff/field/fieldName:
+  digest: sha256:1dbb7c4b1f93ae40
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Diff.java/package/org.apache.commons.lang3.builder/class/Diff/field/type:
+  digest: sha256:6848a0946cdfa544
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Diff.java/package/org.apache.commons.lang3.builder/class/Diff/method/getFieldName:
+  digest: sha256:3e5bce82bd1b0698
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Diff.java/package/org.apache.commons.lang3.builder/class/Diff/method/getType:
+  digest: sha256:2de85a32bc48ddf1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Diff.java/package/org.apache.commons.lang3.builder/class/Diff/method/setValue:
+  digest: sha256:b16c2a92b4ed5066
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/builder/Diff.java/package/org.apache.commons.lang3.builder/class/Diff/method/toString:
+  digest: sha256:ce365ecdd31eb113
+  verdict: pending

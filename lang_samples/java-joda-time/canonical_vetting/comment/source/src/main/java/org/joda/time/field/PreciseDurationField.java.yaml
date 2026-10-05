@@ -1,0 +1,30 @@
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField:
+  digest: sha256:727997b00a993b70
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField/constructor/PreciseDurationField:
+  digest: sha256:778c1be3b94c6ef3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField/field/iUnitMillis:
+  digest: sha256:bed3d3f785786184
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField/method/equals:
+  digest: sha256:56495814313faa9c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField/method/getMillis:
+  digest: sha256:0cf78edfe2f8de6c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField/method/getMillis#2:
+  digest: sha256:0cf78edfe2f8de6c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField/method/getUnitMillis:
+  digest: sha256:31be972e8909da34
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField/method/getValueAsLong:
+  digest: sha256:5bc7540aff6971fa
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField/method/hashCode:
+  digest: sha256:6fd611d503d0db5e
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/PreciseDurationField.java/package/org.joda.time.field/class/PreciseDurationField/method/isPrecise:
+  digest: sha256:ff96daff383559dc
+  verdict: pending

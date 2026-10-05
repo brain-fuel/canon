@@ -1,0 +1,9 @@
+decision/java/source/gson/src/main/java/com/google/gson/ExclusionStrategy.java/package/com.google.gson/interface/ExclusionStrategy:
+  digest: sha256:4bba7d54dc7b4908
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ExclusionStrategy.java/package/com.google.gson/interface/ExclusionStrategy/method/shouldSkipClass:
+  digest: sha256:2199a7b58c1421bf
+  verdict: pending
+decision/java/source/gson/src/main/java/com/google/gson/ExclusionStrategy.java/package/com.google.gson/interface/ExclusionStrategy/method/shouldSkipField:
+  digest: sha256:028163cebb7222ae
+  verdict: pending

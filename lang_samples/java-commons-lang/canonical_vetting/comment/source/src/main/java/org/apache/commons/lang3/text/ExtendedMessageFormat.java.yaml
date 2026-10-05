@@ -1,0 +1,66 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat:
+  digest: sha256:04ee4a3ba40fcd2b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/constructor/ExtendedMessageFormat:
+  digest: sha256:b4c02919a06b4903
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/constructor/ExtendedMessageFormat#2:
+  digest: sha256:0d3ff002ce337670
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/constructor/ExtendedMessageFormat#3:
+  digest: sha256:66710a485e5f2359
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/constructor/ExtendedMessageFormat#4:
+  digest: sha256:869becf3591d5920
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/field/registry:
+  digest: sha256:d0d7bf81d398bd39
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/field/toPattern:
+  digest: sha256:cfd92194d6c936dc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/appendQuotedString:
+  digest: sha256:c3f297726c285f21
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/applyPattern:
+  digest: sha256:fc9b38df754a2a47
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/containsElements:
+  digest: sha256:5e3eed2325fa8901
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/getFormat:
+  digest: sha256:1acde065d432c6d6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/getQuotedString:
+  digest: sha256:32dddbd707c16f24
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/insertFormats:
+  digest: sha256:8c41048811db7cae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/next:
+  digest: sha256:89d4725e7ec3cda6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/parseFormatDescription:
+  digest: sha256:1240f5217da3fa17
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/readArgumentIndex:
+  digest: sha256:cb72438a9ea7d3e0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/seekNonWs:
+  digest: sha256:9d036a4a132d5bc2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/setFormat:
+  digest: sha256:3202ff82d2552e45
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/setFormatByArgumentIndex:
+  digest: sha256:a3ff781139695ea5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/setFormats:
+  digest: sha256:f09dcfd228e54482
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/setFormatsByArgumentIndex:
+  digest: sha256:f09dcfd228e54482
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java/package/org.apache.commons.lang3.text/class/ExtendedMessageFormat/method/toPattern:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending

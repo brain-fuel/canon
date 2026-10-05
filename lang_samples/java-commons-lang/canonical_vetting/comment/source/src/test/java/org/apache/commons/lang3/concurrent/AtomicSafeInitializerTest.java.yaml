@@ -1,0 +1,18 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializerTest:
+  digest: sha256:0d6ea64d0332b29a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializerTest/class/AtomicSafeInitializerTestImpl:
+  digest: sha256:66c1585f56c2303e
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializerTest/class/AtomicSafeInitializerTestImpl/field/initCounter:
+  digest: sha256:058786edae663220
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializerTest/field/initializer:
+  digest: sha256:2bd78edb2e894e2d
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializerTest/method/createInitializer:
+  digest: sha256:8906669d4f1bf457
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializerTest.java/package/org.apache.commons.lang3.concurrent/class/AtomicSafeInitializerTest/method/testNumberOfInitializeInvocations:
+  digest: sha256:fd8788d3e3bb33ea
+  verdict: pending

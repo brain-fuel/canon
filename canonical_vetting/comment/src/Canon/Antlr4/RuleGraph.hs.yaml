@@ -1,0 +1,27 @@
+decision/haskell/src/Canon/Antlr4/RuleGraph.hs/module/Canon.Antlr4.RuleGraph:
+  digest: sha256:c1e17c13a639783e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/RuleGraph.hs/module/Canon.Antlr4.RuleGraph/data/RuleGraph:
+  digest: sha256:1ff0a03a573838ae
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/RuleGraph.hs/module/Canon.Antlr4.RuleGraph/function/directlyLeftRecursiveRules:
+  digest: sha256:db010de3f979ac56
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/RuleGraph.hs/module/Canon.Antlr4.RuleGraph/function/leftCornerGraph:
+  digest: sha256:d94bcec3e9f60246
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/RuleGraph.hs/module/Canon.Antlr4.RuleGraph/function/leftRecursiveRules:
+  digest: sha256:ce9766854acaa661
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/RuleGraph.hs/module/Canon.Antlr4.RuleGraph/function/nullableRules:
+  digest: sha256:0c577dc312a8e7b1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/RuleGraph.hs/module/Canon.Antlr4.RuleGraph/function/referenceGraph:
+  digest: sha256:bc7e0f9beaade2a5
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/RuleGraph.hs/module/Canon.Antlr4.RuleGraph/function/stronglyConnectedRuleGroups:
+  digest: sha256:266316e919df14ad
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/RuleGraph.hs/module/Canon.Antlr4.RuleGraph/function/unreachableRules:
+  digest: sha256:d78ea7d9b3cda30d
+  verdict: pending

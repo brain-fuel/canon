@@ -1,0 +1,9 @@
+decision/java/source/src/test/java/org/apache/commons/lang3/AutoCloseablesTest.java/package/org.apache.commons.lang3/class/AutoCloseablesTest:
+  digest: sha256:7038c2ab874c709a
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/AutoCloseablesTest.java/package/org.apache.commons.lang3/class/AutoCloseablesTest/class/ThrowingCloseable:
+  digest: sha256:fcbe8868998b925f
+  verdict: pending
+decision/java/source/src/test/java/org/apache/commons/lang3/AutoCloseablesTest.java/package/org.apache.commons.lang3/class/AutoCloseablesTest/class/TrackingCloseable:
+  digest: sha256:9a28c8f072dab644
+  verdict: pending

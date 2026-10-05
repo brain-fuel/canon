@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableRunnable.java/package/org.apache.commons.lang3.function/interface/FailableRunnable:
+  digest: sha256:a02161bf272cdb48
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/function/FailableRunnable.java/package/org.apache.commons.lang3.function/interface/FailableRunnable/method/run:
+  digest: sha256:eb81e2a2fc6af3e1
+  verdict: pending

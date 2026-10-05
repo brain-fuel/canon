@@ -8,10 +8,10 @@ module Canon.Walk
   ) where
 
 import Canon.Ignore (IgnorePattern, isIgnored)
-import Data.List (sort)
 import qualified Data.Text as T
 import System.Directory (doesDirectoryExist, doesFileExist, listDirectory)
-import System.FilePath (splitDirectories, takeExtension, (</>))
+import Data.List (isSuffixOf, sort)
+import System.FilePath (splitDirectories, (</>))
 
 -- | The files found and the nested projects skipped.
 data Walked = Walked
@@ -53,7 +53,7 @@ walkProject patterns extensions marker root = go []
           pure
             ( Walked
                 [ path
-                | takeExtension entry `elem` extensions
+                | any (`isSuffixOf` entry) extensions
                 , not (isIgnored patterns False segments)
                 ]
                 []

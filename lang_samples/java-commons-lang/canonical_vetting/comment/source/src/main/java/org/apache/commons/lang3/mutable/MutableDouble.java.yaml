@@ -1,0 +1,105 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble:
+  digest: sha256:5ca8be62b528b577
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/constructor/MutableDouble:
+  digest: sha256:0e6a4b5471c872c0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/constructor/MutableDouble#2:
+  digest: sha256:9cb9c5a76fc788ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/constructor/MutableDouble#3:
+  digest: sha256:5db258dee6c44a68
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/constructor/MutableDouble#4:
+  digest: sha256:a788490d08e11f6c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/field/value:
+  digest: sha256:aeb04f8f0a2f3660
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/add:
+  digest: sha256:62fab8c4cfe7e28c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/add#2:
+  digest: sha256:887e6a99044ce118
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/addAndGet:
+  digest: sha256:3e5b2048c6875213
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/addAndGet#2:
+  digest: sha256:1f4dc6c6d5fa7d66
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/compareTo:
+  digest: sha256:fb2218874bdbf4f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/decrement:
+  digest: sha256:1467e69d10dabe9b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/decrementAndGet:
+  digest: sha256:7ed658bb541ea2ae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/doubleValue:
+  digest: sha256:09a87759c9f458b1
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/equals:
+  digest: sha256:5c074ff10417bf3a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/floatValue:
+  digest: sha256:26ce86486a575f05
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/getAndAdd:
+  digest: sha256:d3ca292326e08b37
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/getAndAdd#2:
+  digest: sha256:fbf6a318966db389
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/getAndDecrement:
+  digest: sha256:8bd386386641e776
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/getAndIncrement:
+  digest: sha256:22e0c99f67f4fe8b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/getValue:
+  digest: sha256:be0450736678f308
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/hashCode:
+  digest: sha256:281b2768412a768e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/increment:
+  digest: sha256:0124d4ae4bb8e90d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/incrementAndGet:
+  digest: sha256:6ec233211d6074ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/intValue:
+  digest: sha256:66c8d02d198af99e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/isInfinite:
+  digest: sha256:cc9123fb59aceaf7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/isNaN:
+  digest: sha256:dad7f429e11c8d64
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/longValue:
+  digest: sha256:b3823a8d3a31b6a3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/setValue:
+  digest: sha256:8ab4d5604de5386a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/setValue#2:
+  digest: sha256:5d69df1bb8adbc03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/subtract:
+  digest: sha256:78972526781a4403
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/subtract#2:
+  digest: sha256:aa09b99e47d06daf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/toDouble:
+  digest: sha256:c4c0657063bafbd6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java/package/org.apache.commons.lang3.mutable/class/MutableDouble/method/toString:
+  digest: sha256:94fe41aef97ace5f
+  verdict: pending

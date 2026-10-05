@@ -1,0 +1,39 @@
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField:
+  digest: sha256:8d9423ed40136802
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/constructor/RemainderDateTimeField:
+  digest: sha256:0a44a9cbf9b62ab0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/constructor/RemainderDateTimeField#2:
+  digest: sha256:7a3d2f5a5cbcf5dc
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/constructor/RemainderDateTimeField#3:
+  digest: sha256:812ba1c3fded86f3
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/constructor/RemainderDateTimeField#4:
+  digest: sha256:3dcb2ed3596fd6ef
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/constructor/RemainderDateTimeField#5:
+  digest: sha256:9ac6fb43e6011340
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/method/addWrapField:
+  digest: sha256:58191ee9b1ddcb14
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/method/get:
+  digest: sha256:8c208a044b14b84c
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/method/getDivisor:
+  digest: sha256:3399f7ab2c1387ec
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/method/getMaximumValue:
+  digest: sha256:05505d3f46bad186
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/method/getMinimumValue:
+  digest: sha256:a845e6bf74caf1f0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/method/getRangeDurationField:
+  digest: sha256:97c6ecd867f9ac33
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/RemainderDateTimeField.java/package/org.joda.time.field/class/RemainderDateTimeField/method/set:
+  digest: sha256:046300cb4367842b
+  verdict: pending

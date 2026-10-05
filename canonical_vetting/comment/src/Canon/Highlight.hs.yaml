@@ -1,0 +1,27 @@
+decision/haskell/src/Canon/Highlight.hs/module/Canon.Highlight:
+  digest: sha256:22238f1d4736d946
+  verdict: pending
+decision/haskell/src/Canon/Highlight.hs/module/Canon.Highlight/data/Classifier:
+  digest: sha256:4ef8555235465bff
+  verdict: pending
+decision/haskell/src/Canon/Highlight.hs/module/Canon.Highlight/data/Piece:
+  digest: sha256:88654a9315faf41a
+  verdict: pending
+decision/haskell/src/Canon/Highlight.hs/module/Canon.Highlight/function/classes:
+  digest: sha256:dae8d5e5423be6ba
+  verdict: pending
+decision/haskell/src/Canon/Highlight.hs/module/Canon.Highlight/function/classifierFor:
+  digest: sha256:dc3d35bc3625d2ad
+  verdict: pending
+decision/haskell/src/Canon/Highlight.hs/module/Canon.Highlight/function/highlightLines:
+  digest: sha256:958865c30c9f53aa
+  verdict: pending
+decision/haskell/src/Canon/Highlight.hs/module/Canon.Highlight/function/merge:
+  digest: sha256:54d6de079ef33f61
+  verdict: pending
+decision/haskell/src/Canon/Highlight.hs/module/Canon.Highlight/function/plainLines:
+  digest: sha256:c7ba2a1e2ed6d755
+  verdict: pending
+decision/haskell/src/Canon/Highlight.hs/module/Canon.Highlight/function/splitLines:
+  digest: sha256:6d13bae6679b99e3
+  verdict: pending

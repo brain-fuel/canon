@@ -1,0 +1,24 @@
+decision/java/source/src/main/java/org/joda/time/convert/ReadableIntervalConverter.java/package/org.joda.time.convert/class/ReadableIntervalConverter:
+  digest: sha256:ceb3892b66d1e394
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableIntervalConverter.java/package/org.joda.time.convert/class/ReadableIntervalConverter/constructor/ReadableIntervalConverter:
+  digest: sha256:8c6ddd5b643f7b3b
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableIntervalConverter.java/package/org.joda.time.convert/class/ReadableIntervalConverter/field/INSTANCE:
+  digest: sha256:0650f7b34047b75d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableIntervalConverter.java/package/org.joda.time.convert/class/ReadableIntervalConverter/method/getDurationMillis:
+  digest: sha256:7db63b9b54ad6104
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableIntervalConverter.java/package/org.joda.time.convert/class/ReadableIntervalConverter/method/getSupportedType:
+  digest: sha256:bb4b8cbe0a7136c0
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableIntervalConverter.java/package/org.joda.time.convert/class/ReadableIntervalConverter/method/isReadableInterval:
+  digest: sha256:3c56dd8b0959ec6a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableIntervalConverter.java/package/org.joda.time.convert/class/ReadableIntervalConverter/method/setInto:
+  digest: sha256:0cd7202a8e867273
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/ReadableIntervalConverter.java/package/org.joda.time.convert/class/ReadableIntervalConverter/method/setInto#2:
+  digest: sha256:7c5564fcf010d44e
+  verdict: pending

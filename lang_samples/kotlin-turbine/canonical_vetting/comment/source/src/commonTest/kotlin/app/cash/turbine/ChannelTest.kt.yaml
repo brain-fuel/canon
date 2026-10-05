@@ -1,0 +1,6 @@
+decision/kotlin/source/src/commonTest/kotlin/app/cash/turbine/ChannelTest.kt:
+  digest: sha256:d935d3605afc799e
+  verdict: pending
+decision/kotlin/source/src/commonTest/kotlin/app/cash/turbine/ChannelTest.kt/class/ChannelTest/function/withTestScope:
+  digest: sha256:fdb95b6292b0fb02
+  verdict: pending

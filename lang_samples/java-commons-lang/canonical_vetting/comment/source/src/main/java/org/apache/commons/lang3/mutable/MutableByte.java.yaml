@@ -1,0 +1,102 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte:
+  digest: sha256:705d15b7f7c802ac
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/constructor/MutableByte:
+  digest: sha256:49136b6c24665f69
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/constructor/MutableByte#2:
+  digest: sha256:1afeeab65a8b2566
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/constructor/MutableByte#3:
+  digest: sha256:a3951cc662d69717
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/constructor/MutableByte#4:
+  digest: sha256:f203bb5ae97ed1c5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/field/serialVersionUID:
+  digest: sha256:b7f1be6c36cafb7d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/field/value:
+  digest: sha256:aeb04f8f0a2f3660
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/add:
+  digest: sha256:32709c527cc71e43
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/add#2:
+  digest: sha256:887e6a99044ce118
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/addAndGet:
+  digest: sha256:3e5b2048c6875213
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/addAndGet#2:
+  digest: sha256:1f4dc6c6d5fa7d66
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/byteValue:
+  digest: sha256:b860d54115e3624e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/compareTo:
+  digest: sha256:fb2218874bdbf4f8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/decrement:
+  digest: sha256:1467e69d10dabe9b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/decrementAndGet:
+  digest: sha256:7ed658bb541ea2ae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/doubleValue:
+  digest: sha256:0d5ebd0215c816b2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/equals:
+  digest: sha256:81ce65ffbc3e8dc4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/floatValue:
+  digest: sha256:3d836ce4f72f8197
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/getAndAdd:
+  digest: sha256:d3ca292326e08b37
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/getAndAdd#2:
+  digest: sha256:fbf6a318966db389
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/getAndDecrement:
+  digest: sha256:8bd386386641e776
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/getAndIncrement:
+  digest: sha256:22e0c99f67f4fe8b
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/getValue:
+  digest: sha256:29e9458f3a152187
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/hashCode:
+  digest: sha256:281b2768412a768e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/increment:
+  digest: sha256:0124d4ae4bb8e90d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/incrementAndGet:
+  digest: sha256:6ec233211d6074ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/intValue:
+  digest: sha256:60bb00960e367425
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/longValue:
+  digest: sha256:7175da0160a3c300
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/setValue:
+  digest: sha256:8ab4d5604de5386a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/setValue#2:
+  digest: sha256:5d69df1bb8adbc03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/subtract:
+  digest: sha256:78972526781a4403
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/subtract#2:
+  digest: sha256:aa09b99e47d06daf
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/toByte:
+  digest: sha256:913f8f8e3ddf094d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/mutable/MutableByte.java/package/org.apache.commons.lang3.mutable/class/MutableByte/method/toString:
+  digest: sha256:94fe41aef97ace5f
+  verdict: pending

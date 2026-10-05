@@ -31,16 +31,16 @@ docCommentBody :: Text -> Text
 docCommentBody raw =
   T.strip (T.intercalate "\n" (map stripLineMarker (T.lines (stripDelimiters raw))))
   where
-    stripDelimiters t = foldr dropSuffix (foldr dropPrefix (T.strip t) ["/**", "/*!", "{-|", "--|", "-- |"]) ["*/", "-}"]
+    stripDelimiters t = foldr dropSuffix (foldr dropPrefix (T.strip t) ["/**", "/*!", "{-|", "--|", "-- |", "#|", "# |"]) ["*/", "-}"]
     dropPrefix p t = maybe t id (T.stripPrefix p t)
     dropSuffix s t = maybe t id (T.stripSuffix s t)
     stripLineMarker line = T.strip (withoutMarker (T.stripStart line))
     withoutMarker trimmed
       | Just rest <- T.stripPrefix "///" trimmed = rest
       | Just rest <- T.stripPrefix "//!" trimmed = rest
-      | otherwise = case T.stripPrefix "--" trimmed of
-          Just rest -> maybe rest id (T.stripPrefix "|" (T.stripStart rest))
-          Nothing -> maybe trimmed id (T.stripPrefix "*" trimmed)
+      | Just rest <- T.stripPrefix "--" trimmed = maybe rest id (T.stripPrefix "|" (T.stripStart rest))
+      | Just rest <- T.stripPrefix "#" trimmed = maybe rest id (T.stripPrefix "|" (T.stripStart rest))
+      | otherwise = maybe trimmed id (T.stripPrefix "*" trimmed)
 
 referencePrefix :: Text
 referencePrefix = "ref:"

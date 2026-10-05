@@ -1,0 +1,78 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor:
+  digest: sha256:97348c8f4fd8d5fd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/constructor/Processor:
+  digest: sha256:288e668e91764490
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Arch:
+  digest: sha256:cc50c2524897e474
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Arch/enumConstant/BIT_32:
+  digest: sha256:5a90794e43620951
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Arch/enumConstant/BIT_64:
+  digest: sha256:2ecc38188744f0a7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Arch/enumConstant/UNKNOWN:
+  digest: sha256:064efdf9c2ec2083
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Arch/field/label:
+  digest: sha256:6a67cef859dd718c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Arch/method/getLabel:
+  digest: sha256:00ad643651c5492d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Type:
+  digest: sha256:bbfce3d868e68015
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Type/enumConstant/AARCH_64:
+  digest: sha256:dc0ed89b6444f0b8
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Type/enumConstant/IA_64:
+  digest: sha256:4f0f1da3e1f87f91
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Type/enumConstant/PPC:
+  digest: sha256:63d3e7602aafaf2f
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Type/enumConstant/RISC_V:
+  digest: sha256:3b542883ae303129
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Type/enumConstant/UNKNOWN:
+  digest: sha256:69451bbe1032cf66
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Type/enumConstant/X86:
+  digest: sha256:a12309c635bd88ab
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Type/field/label:
+  digest: sha256:6a67cef859dd718c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/enum/Type/method/getLabel:
+  digest: sha256:4e40b792abca5dae
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/method/getArch:
+  digest: sha256:2dbc98577f2ecaff
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/method/getType:
+  digest: sha256:0b702c0e0d995164
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/method/is32Bit:
+  digest: sha256:b4c37296d61e4b65
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/method/is64Bit:
+  digest: sha256:5c98c3b61d7e4647
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/method/isAarch64:
+  digest: sha256:e1d3efe55a7e1a1e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/method/isIA64:
+  digest: sha256:fe3a7b910a3421de
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/method/isPPC:
+  digest: sha256:841d75a8028f0895
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/method/isRISCV:
+  digest: sha256:4e9a208efaf74e48
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/arch/Processor.java/package/org.apache.commons.lang3.arch/class/Processor/method/isX86:
+  digest: sha256:ea9b7b32a3121b69
+  verdict: pending

@@ -1,0 +1,6 @@
+decision/java/source/src/main/java/org/joda/time/convert/Converter.java/package/org.joda.time.convert/interface/Converter:
+  digest: sha256:6c34f085e10c67fe
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/convert/Converter.java/package/org.joda.time.convert/interface/Converter/method/getSupportedType:
+  digest: sha256:3b716fe2919ed03c
+  verdict: pending

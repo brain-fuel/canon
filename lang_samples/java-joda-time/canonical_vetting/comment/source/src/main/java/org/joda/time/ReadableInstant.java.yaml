@@ -1,0 +1,39 @@
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant:
+  digest: sha256:5640abcda439a07d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/equals:
+  digest: sha256:7feb6300138bfb30
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/get:
+  digest: sha256:394c33185a6372cf
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/getChronology:
+  digest: sha256:e70331b2f18bb92a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/getMillis:
+  digest: sha256:e12244c3ecc1e9ea
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/getZone:
+  digest: sha256:39db3a87dac41e32
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/hashCode:
+  digest: sha256:091f5a6d35666bfb
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/isAfter:
+  digest: sha256:8b8be3804a7fec37
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/isBefore:
+  digest: sha256:2dcdf1e609e11a29
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/isEqual:
+  digest: sha256:1589ceb7eb91f86a
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/isSupported:
+  digest: sha256:4b8b6a3bccfa01a7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/toInstant:
+  digest: sha256:08a50b7236700b81
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/ReadableInstant.java/package/org.joda.time/interface/ReadableInstant/method/toString:
+  digest: sha256:5359a27fcf503976
+  verdict: pending

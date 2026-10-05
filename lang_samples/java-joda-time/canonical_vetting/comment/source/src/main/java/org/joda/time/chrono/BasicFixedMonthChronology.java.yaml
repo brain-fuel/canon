@@ -1,0 +1,18 @@
+decision/java/source/src/main/java/org/joda/time/chrono/BasicFixedMonthChronology.java/package/org.joda.time.chrono/class/BasicFixedMonthChronology:
+  digest: sha256:e15171bf6e9c8737
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicFixedMonthChronology.java/package/org.joda.time.chrono/class/BasicFixedMonthChronology/constructor/BasicFixedMonthChronology:
+  digest: sha256:ad10b9135bdd0b92
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicFixedMonthChronology.java/package/org.joda.time.chrono/class/BasicFixedMonthChronology/field/MILLIS_PER_MONTH:
+  digest: sha256:9d660ae3c3d053d7
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicFixedMonthChronology.java/package/org.joda.time.chrono/class/BasicFixedMonthChronology/field/MILLIS_PER_YEAR:
+  digest: sha256:5fd1d1ddf4bcfb5d
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicFixedMonthChronology.java/package/org.joda.time.chrono/class/BasicFixedMonthChronology/field/MONTH_LENGTH:
+  digest: sha256:06841a244f49aa21
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/chrono/BasicFixedMonthChronology.java/package/org.joda.time.chrono/class/BasicFixedMonthChronology/field/serialVersionUID:
+  digest: sha256:07b8f26ec249a5c3
+  verdict: pending

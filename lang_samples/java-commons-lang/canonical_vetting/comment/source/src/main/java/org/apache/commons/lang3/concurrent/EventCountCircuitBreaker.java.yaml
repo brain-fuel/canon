@@ -1,0 +1,129 @@
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker:
+  digest: sha256:8c33f71c3cb64d97
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/AbstractStateStrategy:
+  digest: sha256:4c3fbc1deb3070b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/AbstractStateStrategy/method/fetchCheckInterval:
+  digest: sha256:7cbbd20c458e0704
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/AbstractStateStrategy/method/isCheckIntervalFinished:
+  digest: sha256:3603841da55475c0
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/AbstractStateStrategy/method/isStateTransition:
+  digest: sha256:d42f976eb701ce78
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/CheckIntervalData:
+  digest: sha256:4386bfc3595290ef
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/CheckIntervalData/constructor/CheckIntervalData:
+  digest: sha256:e844b7b576c25f57
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/CheckIntervalData/field/checkIntervalStart:
+  digest: sha256:177927c2809632d3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/CheckIntervalData/field/eventCount:
+  digest: sha256:5e87a19cbe30e104
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/CheckIntervalData/method/getCheckIntervalStart:
+  digest: sha256:94d5a8bf5fc5b492
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/CheckIntervalData/method/getEventCount:
+  digest: sha256:c115e4d3788c1a10
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/CheckIntervalData/method/increment:
+  digest: sha256:c05f54aeb9d0c9db
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/StateStrategyClosed:
+  digest: sha256:64468f4bdadb050a
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/StateStrategyClosed/method/fetchCheckInterval:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/StateStrategyClosed/method/isStateTransition:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/StateStrategyOpen:
+  digest: sha256:a56bcdc4032d33e2
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/StateStrategyOpen/method/fetchCheckInterval:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/class/StateStrategyOpen/method/isStateTransition:
+  digest: sha256:063cb0ba167992b4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/constructor/EventCountCircuitBreaker:
+  digest: sha256:28a17fc6e25f0fdd
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/constructor/EventCountCircuitBreaker#2:
+  digest: sha256:8516ffab838bb7ed
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/constructor/EventCountCircuitBreaker#3:
+  digest: sha256:a13a8dd699bd09a5
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/field/STRATEGY_MAP:
+  digest: sha256:37a0a8ffd59afbc6
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/field/checkIntervalData:
+  digest: sha256:51c63708d03855bc
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/field/closingInterval:
+  digest: sha256:001e81a4f7f7c120
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/field/closingThreshold:
+  digest: sha256:8ef0a8eabdf6c072
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/field/openingInterval:
+  digest: sha256:b8f75af4235e972d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/field/openingThreshold:
+  digest: sha256:c6804d5a7ba5a56d
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/changeStateAndStartNewCheckInterval:
+  digest: sha256:eb69d3387a20587c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/checkState:
+  digest: sha256:b4e3361618087419
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/close:
+  digest: sha256:81ca6d2ae957ae69
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/createStrategyMap:
+  digest: sha256:09c60c892a953100
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/getClosingInterval:
+  digest: sha256:8f557d099bc5abfa
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/getClosingThreshold:
+  digest: sha256:6c3c23a0c9f79747
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/getOpeningInterval:
+  digest: sha256:f26eb04c56420da7
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/getOpeningThreshold:
+  digest: sha256:ea21ae02e399b78e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/incrementAndCheckState:
+  digest: sha256:377040f8f21a343e
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/incrementAndCheckState#2:
+  digest: sha256:fada04e07523f123
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/nanoTime:
+  digest: sha256:17d7dd4ddc9e036c
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/nextCheckIntervalData:
+  digest: sha256:cab49a0058ee0e92
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/open:
+  digest: sha256:1ce87ed074c83d03
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/performStateCheck:
+  digest: sha256:8ceaf3720b348fc3
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/stateStrategy:
+  digest: sha256:1feba03f92c430f4
+  verdict: pending
+decision/java/source/src/main/java/org/apache/commons/lang3/concurrent/EventCountCircuitBreaker.java/package/org.apache.commons.lang3.concurrent/class/EventCountCircuitBreaker/method/updateCheckIntervalData:
+  digest: sha256:97d755302510ea29
+  verdict: pending

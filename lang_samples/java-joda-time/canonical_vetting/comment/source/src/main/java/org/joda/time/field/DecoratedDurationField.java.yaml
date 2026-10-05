@@ -1,0 +1,12 @@
+decision/java/source/src/main/java/org/joda/time/field/DecoratedDurationField.java/package/org.joda.time.field/class/DecoratedDurationField:
+  digest: sha256:f9fea8e11523b169
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DecoratedDurationField.java/package/org.joda.time.field/class/DecoratedDurationField/constructor/DecoratedDurationField:
+  digest: sha256:7245ea4a3c33c90f
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DecoratedDurationField.java/package/org.joda.time.field/class/DecoratedDurationField/field/iField:
+  digest: sha256:af0992f0d22e3211
+  verdict: pending
+decision/java/source/src/main/java/org/joda/time/field/DecoratedDurationField.java/package/org.joda.time.field/class/DecoratedDurationField/method/getWrappedField:
+  digest: sha256:77114fcb4bb89603
+  verdict: pending
