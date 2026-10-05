@@ -25,7 +25,6 @@ import Canon.Preprocessor (Choice)
 import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.List.NonEmpty as NonEmpty
-import Data.Maybe (listToMaybe)
 import qualified Data.Set as Set
 import System.FilePath (takeDirectory, (</>))
 import Data.Text (Text)
@@ -172,18 +171,16 @@ parseWithStrayComments hook grammar start toks = case parseVisibleTokensWith hoo
     -- The stray comment that starts at the failure or ends at most strayWindow tokens before it,
     -- nearest first: a grammar whose units take an optional comment may read one as a unit's Why and
     -- fail a token or two later, at the name of what it cannot document there.
-    strayAt current f =
-      listToMaybe
-        [ (k, k + size, comment)
-        | k <- [f, f - 1 .. max 0 (f - 400)]
-        , Just tok <- [listToMaybe (drop k current)]
-        , Set.member (tokenType tok) openers
-        , r <- strays
-        , Just comment <- [strayWithin r (takeWhile (not . isEofToken) (drop k current))]
-        , let size = length (treeTokens comment)
-        , size > 0
-        , k == f || (k + size <= f && k + size >= f - strayWindow)
-        ]
+    strayAt current f = go [k | (k, tok) <- reverse (zip [0 .. f] current), Set.member (tokenType tok) openers]
+      where
+        go ks = case ks of
+          [] -> Nothing
+          (k : more) -> case [(c, length (treeTokens c)) | r <- strays, Just c <- [strayWithin r (takeWhile (not . isEofToken) (drop k current))]] of
+            ((comment, size) : _)
+              | size > 0 && (k == f || (k + size <= f && k + size >= f - strayWindow)) -> Just (k, k + size, comment)
+              -- Comments do not overlap, so once one ends before the window every earlier one does.
+              | size > 0 && k + size < f - strayWindow -> Nothing
+            _ -> go more
     -- The comment is read from the next strayReach tokens, which hold any comment but a long one,
     -- so a candidate costs a short parse rather than one over the rest of the file; a comment that
     -- runs to the end of that span is read again from the whole rest.
