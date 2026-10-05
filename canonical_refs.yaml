@@ -190,6 +190,22 @@ REQ-python-support:
   kind: requirement
   title: canon reads Python, parsing every Python 3 source file, taking functions and classes as units with their decorators, binding the docstring that opens a module, class, or function body, requiring one on public names as PEP 257 asks, and recognising pytest and unittest tests by their test_ and Test names
   locator: README.md
+grammars-v4-scala:
+  kind: package
+  title: The grammars-v4 Scala 3 grammar, Scala3Lexer.g4 and Scala3Parser.g4 with the Scala3LexerBase and Scala3ParserBase classes, at commit 7df52be94698550d219d299d04105c6bafadd9c3, which states no license of its own
+  locator: https://github.com/antlr/grammars-v4/tree/7df52be94698550d219d299d04105c6bafadd9c3/scala/scala3
+scala3-indentation:
+  kind: article
+  title: Scala 3 reference, Optional Braces, on significant indentation and where the compiler inserts indent, outdent, and newline tokens
+  locator: https://docs.scala-lang.org/scala3/reference/other-new-features/indentation.html
+scaladoc:
+  kind: article
+  title: Scala style guide, Scaladoc, on /** comments placed before a definition, above its annotations and modifiers
+  locator: https://docs.scala-lang.org/style/scaladoc.html
+REQ-scala-support:
+  kind: requirement
+  title: canon reads Scala 3, parsing Scala source files by their optional braces and significant indentation, taking objects, package objects, classes, case classes, traits, enums and their cases, defs, vals, vars, givens, extensions, and type aliases as units, binding /** to the definition below its annotations and modifiers, requiring a comment on what is neither private, protected, nor an override, and recognising JUnit tests by their annotation and munit, ScalaTest, and utest suites by their file
+  locator: README.md
 rices-tax:
   kind: discussion
   title: Rice's Tax, the review tool over canon's vetting and wavelet's mutation review

@@ -1,0 +1,30 @@
+version: 0.1.0
+root: source
+languages:
+  scala:
+    extensions: [.scala, .sc]
+    lexer: ../../grammars/scala/Scala3Lexer.g4
+    parser: ../../grammars/scala/Scala3Parser.g4
+    start: compilationUnit
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["/**"]
+      strings: ["\"\"\"", "\""]
+    units:
+      - {rule: packageObject, kind: object, name: {rule: definitionName}, required: true}
+      - {rule: objectDefinition, kind: object, name: {rule: definitionName}, required: true}
+      - {rule: classDefinition, kind: class, name: {rule: definitionName}, required: true}
+      - {rule: caseClassDefinition, kind: case_class, name: {rule: definitionName}, required: true}
+      - {rule: traitDefinition, kind: trait, name: {rule: definitionName}, required: true}
+      - {rule: enumDefinition, kind: enum, name: {rule: definitionName}, required: true}
+      - {rule: enumCase, kind: case, name: {rule: definitionName}, required: false}
+      - {rule: defDefinition, kind: def, name: {rule: definitionName}, required: true}
+      - {rule: defDefinition, kind: def, name: {token: THIS, index: 1}, required: true}
+      - {rule: valDefinition, kind: val, name: {rule: definitionName}, required: true}
+      - {rule: varDefinition, kind: var, name: {rule: definitionName}, required: true}
+      - {rule: givenDefinition, kind: given, name: {rule: givenName}, required: true}
+      - {rule: givenDefinition, kind: given, name: {rule: givenType}, required: true}
+      - {rule: extension_, kind: extension, name: {rule: paramType}, required: false}
+      - {rule: typeDefinition, kind: type, name: {rule: definitionName}, required: true}

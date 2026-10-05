@@ -175,7 +175,8 @@ Alternative labels without a `why`, such as the Java grammar's own expression
 labels, are inert. `canon` generates the extraction parser from that grammar,
 so nothing about a language's comment placement is written in Haskell. The
 ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, Groovy, JavaScript,
-TypeScript, Go, Python, Kotlin, Clojure, Prolog, and the Folio have dialects.
+TypeScript, Go, Python, Kotlin, Clojure, Prolog, Scala, and the Folio have
+dialects.
 
 ### Tests
 
@@ -203,6 +204,7 @@ whatever its visibility.
 | `go` | a function named `Test*`, `Benchmark*`, `Example*`, or `Fuzz*` in a `*_test.go` file |
 | `kotlin` | a function marked `@Test`, `@kotlin.test.Test`, `@org.junit.Test`, or `@org.junit.jupiter.api.Test`, or any function under a `src/test` or `src/*Test` source set, since Kotlin test names are often backticked sentences |
 | `groovy` | a method marked with one of the JUnit or jqwik annotations `java` lists, or a method named `test*` under a `src/test` directory (JUnit 3), as for `java`; or a method named by a string, as Spock writes a feature method such as `def 'adds two numbers'()`, under a `src/test` directory or in a `*Spec.groovy` file |
+| `scala` | a method marked `@Test`, `@org.junit.Test`, `@org.junit.jupiter.api.Test`, `@ParameterizedTest`, `@RepeatedTest`, `@TestFactory`, or `@TestTemplate` (JUnit 4 and 5), with or without arguments; or any unit under a `src/test` or `test` directory or in a `*Suite.scala`, `*Spec.scala`, or `*Test.scala` file, since a munit, ScalaTest, or utest test is a `test("...")` call rather than a declaration |
 
 Two findings fail `canon check`: a commented test whose comment cites no
 requirement, and a requirement in the registry that no test in the project
@@ -425,7 +427,7 @@ git submodule, sets `root` to that directory.
 
 `lang_samples/` holds real projects in other languages, each a nested project
 whose sources are a submodule under `source` (vendored, for the small Rust,
-C#, F#, Elixir, Gleam, and Groovy samples) and whose canon files sit
+C#, F#, Elixir, Gleam, Groovy, and Scala samples) and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
 grammars-v4 or written for canon, with a `canonically_commented/` dialect
 where one exists and an empty husk where it does not. `canon check` at the repository root checks
@@ -470,6 +472,7 @@ repository holds.
 | `lang_samples/go-uuid` | Go | `grammars/golang/GoLexer.g4` and `GoParser.g4` |
 | `lang_samples/kotlin-turbine` | Kotlin | `grammars/kotlin/KotlinLexer.g4`, `KotlinParser.g4`, and `UnicodeClasses.g4` |
 | `lang_samples/groovy-spock-genesis` | Groovy | `grammars/groovy/GroovyLexer.g4` and `GroovyParser.g4` |
+| `lang_samples/scala-iron` | Scala | `grammars/scala/Scala3Lexer.g4` and `Scala3Parser.g4` |
 
 The Rust sample is scopeguard 1.2.0, one source file, vendored under
 `source/` with its MIT and Apache-2.0 licenses instead of a submodule. Its
@@ -755,6 +758,56 @@ which lifts the requirement, as Groovydoc documents what is not private. A
 field, which Groovy makes a property when it has no access modifier, is named
 by its first declarator. A Spock feature method is named by its string,
 quotes included, as `'is finite'`, and a constructor by its class.
+
+The Scala sample is Iron 3.3.2, its constraint core, its `any` and `char`
+constraints, and two of its utest suites, vendored under `source/` with its
+Apache-2.0 license. Scaladoc documents a definition with a `/**` comment above
+its annotations and modifiers. Its `canon.yaml` holds the Scala profile a
+Scala project can copy:
+
+```yaml
+languages:
+  scala:
+    extensions: [.scala, .sc]
+    lexer: ../../grammars/scala/Scala3Lexer.g4
+    parser: ../../grammars/scala/Scala3Parser.g4
+    start: compilationUnit
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["/**"]
+      strings: ["\"\"\"", "\""]
+    units:
+      - {rule: packageObject, kind: object, name: {rule: definitionName}, required: true}
+      - {rule: objectDefinition, kind: object, name: {rule: definitionName}, required: true}
+      - {rule: classDefinition, kind: class, name: {rule: definitionName}, required: true}
+      - {rule: caseClassDefinition, kind: case_class, name: {rule: definitionName}, required: true}
+      - {rule: traitDefinition, kind: trait, name: {rule: definitionName}, required: true}
+      - {rule: enumDefinition, kind: enum, name: {rule: definitionName}, required: true}
+      - {rule: enumCase, kind: case, name: {rule: definitionName}, required: false}
+      - {rule: defDefinition, kind: def, name: {rule: definitionName}, required: true}
+      - {rule: defDefinition, kind: def, name: {token: THIS, index: 1}, required: true}
+      - {rule: valDefinition, kind: val, name: {rule: definitionName}, required: true}
+      - {rule: varDefinition, kind: var, name: {rule: definitionName}, required: true}
+      - {rule: givenDefinition, kind: given, name: {rule: givenName}, required: true}
+      - {rule: givenDefinition, kind: given, name: {rule: givenType}, required: true}
+      - {rule: extension_, kind: extension, name: {rule: paramType}, required: false}
+      - {rule: typeDefinition, kind: type, name: {rule: definitionName}, required: true}
+```
+
+Scala definitions are public unless they say otherwise, so every definition
+requires a comment by its rule, and the grammar labels `private` and
+`protected`, qualified or not, `optional`, which lifts the requirement, as
+Scaladoc documents public members; it labels `override` `optional` too, since
+an override inherits the documentation of what it overrides. An enum case is
+labeled `inherited`, so it requires a comment when its enum does. Definitions
+inside a block, such as the locals of a `def`, are not units. An anonymous
+given is named by its type, as `Constraint[Char,Whitespace]`, an auxiliary
+constructor by `this`, and an extension by the type it extends. The Scala 3
+grammar needs the indentation rule, which upstream implements in a Java base
+lexer; `Canon.Antlr4.Lex.Scala` is that base lexer ported to a lexer hook,
+selected by the grammar's `superClass`.
 
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked

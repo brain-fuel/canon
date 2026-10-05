@@ -26,7 +26,7 @@ data TestRule = TestRule
 
 -- | The languages the table covers.
 knownLanguages :: [Text]
-knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "python", "go", "kotlin", "groovy"]
+knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "python", "go", "kotlin", "groovy", "scala"]
 
 -- | The rules of a language. Rust's, C#'s, and F#'s rules are attributes, which their grammars label
 -- marker on every item. An F# test list bound with Expecto's [<Tests>] is the test, because the
@@ -68,6 +68,12 @@ testRules language = case language of
     [TestRule (Just "method") (Just marker) Nothing Nothing | marker <- javaMarkers]
       ++ [TestRule (Just "method") Nothing (Just "test*") (Just "**/src/test/**")]
       ++ [TestRule (Just "method") Nothing (Just "[\"']*") (Just path) | path <- ["**/src/test/**", "**/*Spec.groovy"]]
+  -- A JUnit test in Scala is a method marked @Test, which the grammar labels marker; a munit,
+  -- ScalaTest, or utest test is a test("...") call, an expression, so its file names it, as a script
+  -- language's does. ref:DEC-scala-grammar
+  "scala" ->
+    [TestRule (Just "def") (Just marker) Nothing Nothing | marker <- junitMarkers]
+      ++ [TestRule Nothing Nothing Nothing (Just path) | path <- ["**/src/test/**", "**/test/**", "**/*Suite.scala", "**/*Spec.scala", "**/*Test.scala"]]
   _ -> []
   where
     scriptTestPaths = ["**/test/**", "**/tests/**", "**/__tests__/**", "**/*.test.*", "**/*.spec.*"]
@@ -83,6 +89,15 @@ testRules language = case language of
       , "@Example"
       , "@net.jqwik.api.Property"
       , "@net.jqwik.api.Example"
+      ]
+    junitMarkers =
+      [ "@Test"
+      , "@org.junit.Test"
+      , "@org.junit.jupiter.api.Test"
+      , "@ParameterizedTest"
+      , "@RepeatedTest"
+      , "@TestFactory"
+      , "@TestTemplate"
       ]
     csharpMarkers =
       [ "Fact"

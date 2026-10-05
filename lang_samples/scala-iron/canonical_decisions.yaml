@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Iron declares its constraints as empty final classes and their implementations as anonymous inline givens in companion objects, and documents the classes but not the givens; the Scala profile requires a comment on every public definition, so is each given public API that needs its own Why, or is the constraint class's comment the Why of the givens that implement it?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [iron-upstream]

@@ -1,0 +1,8 @@
+iron-upstream:
+  kind: package
+  title: Iron 3.3.2 at commit 229c85a15e8b00be77d9760db272e1c1de31e79c, its constraint core, the any and char constraints, and their utest suites, vendored under source/
+  locator: https://github.com/Iltotore/iron/tree/229c85a15e8b00be77d9760db272e1c1de31e79c
+Apache-2.0:
+  kind: license
+  title: Apache License 2.0
+  locator: https://spdx.org/licenses/Apache-2.0.html
