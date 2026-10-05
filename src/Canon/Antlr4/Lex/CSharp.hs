@@ -23,8 +23,8 @@ import qualified Data.Text as T
 -- braces that close it; one entry per open interpolated raw string, holding its dollars and its
 -- quotes; the closing braces of a raw hole still to skip; the tokens of the directive being read;
 -- one entry per open conditional directive, holding whether its current branch is read and whether
--- any branch of it has been; the symbols the file defines or undefines; and the build whose
--- branches are read.
+-- any branch of it has been; the symbols the file defines or undefines; the build whose branches are
+-- read; and whether a /// doc comment of the canonically commented dialect is open.
 data CSharpLexerState = CSharpLexerState
   { holes :: [Hole]
   , raws :: [(Int, Int)]
@@ -33,6 +33,7 @@ data CSharpLexerState = CSharpLexerState
   , conditions :: Branches
   , symbols :: Map.Map Text Bool
   , build :: Choice
+  , docOpen :: Bool
   }
   deriving (Eq, Show)
 
@@ -46,7 +47,7 @@ data Hole = Hole
 
 -- | The hooks for the C# grammar, reading the branches a build selects. ref:DEC-preprocessor-builds
 csharpLexerHooks :: Choice -> LexerHooks CSharpLexerState
-csharpLexerHooks choice = LexerHooks (CSharpLexerState [] [] 0 [] [] Map.empty choice) onAction (\_ _ _ _ _ -> True) onEmit
+csharpLexerHooks choice = LexerHooks (CSharpLexerState [] [] 0 [] [] Map.empty choice False) onAction (\_ _ _ _ _ -> True) onEmit
 
 onAction :: Name -> ActionText -> Text -> Text -> CSharpLexerState -> (CSharpLexerState, [HookEffect])
 onAction _ action matched _ s
@@ -83,8 +84,28 @@ onAction _ action matched _ s
     content = EffectSetType (Name "RAW_STRING_CONTENT")
     closersAfter h = maybe 0 (subtract 1) (holeClosers h)
 
+-- | Emits a token, reading directives, hiding what a branch not read holds, and tracking the
+-- brackets of an interpolation hole; a /// doc comment ends with DOC_END.
 onEmit :: Token -> CSharpLexerState -> ([Token], CSharpLexerState)
-onEmit token s
+onEmit token s0 = let (ended, s1) = endDoc token s0 in let (out, s2) = emitToken token s1 in (ended ++ out, s2)
+
+-- | A /// doc comment of the canonically commented dialect ends at a line break the lexer hides, so
+-- its rule could end after any word, and canon's parser, which keeps a tree for every end, took time
+-- and memory in the square of a comment's length. Where one ends, at its line break, before a ////
+-- line, or at the end of the file, this emits an empty DOC_END token, which the comment rule ends
+-- at. The plain grammar has no doc comment tokens. ref:DEC-csharp-dialect ref:DEC-parser-memory
+endDoc :: Token -> CSharpLexerState -> ([Token], CSharpLexerState)
+endDoc token s
+  | docOpen s && (isEofToken token || ty `elem` ["DOC_CLOSE", "DOC_PLAIN_AFTER"]) = ([docEnd], s {docOpen = False})
+  | ty == "DOC_OPEN" = ([], s {docOpen = True})
+  | otherwise = ([], s)
+  where
+    ty = nameText (tokenType token)
+    channel = if active s then defaultChannelName else hiddenChannelName
+    docEnd = Token (Name "DOC_END") "" (tokenStart token) (tokenStart token) channel (tokenPosition token)
+
+emitToken :: Token -> CSharpLexerState -> ([Token], CSharpLexerState)
+emitToken token s
   | tokenChannel token == Name "DIRECTIVE" =
       if ty == "DIRECTIVE_NEW_LINE"
         then ([token], runDirective s)

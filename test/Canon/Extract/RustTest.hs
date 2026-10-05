@@ -44,6 +44,13 @@ tests =
     , testProperty "the Rust dialect binds outer and inner doc comments and reports misplaced ones" prop_theRustDialectBindsOuterAndInnerDocCommentsAndReportsMisplacedOnes
     , testProperty "a Rust doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_aRustDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
     , testProperty "async, try, and dyn are names in a 2015 edition crate and keywords in later ones" prop_asyncTryAndDynAreNamesInA2015EditionCrateAndKeywordsInLaterOnes
+    , testProperty "a Rust block comment holds stars and nests as rustc reads it" prop_aRustBlockCommentHoldsStarsAndNestsAsRustcReadsIt
+    , testProperty "the Rust grammar and dialect parse the syntax stabilised since Rust 1.60" prop_theRustGrammarAndDialectParseTheSyntaxStabilisedSinceRust160
+    , testProperty "the Rust grammar and dialect parse the unstable syntax of the standard library" prop_theRustGrammarAndDialectParseTheUnstableSyntaxOfTheStandardLibrary
+    , testProperty "a Cargo script's frontmatter is hidden and its items parse" prop_aCargoScriptsFrontmatterIsHiddenAndItsItemsParse
+    , testProperty "a Rust string of many unicode escapes lexes in one way" prop_aRustStringOfManyUnicodeEscapesLexesInOneWay
+    , testProperty "a Rust declarative macro 2.0 is a macro unit of the dialect" prop_aRustDeclarativeMacro20IsAMacroUnitOfTheDialect
+    , testProperty "a Rust line doc comment ends at one token, at a line break or the end of the file" prop_aRustLineDocCommentEndsAtOneTokenAtALineBreakOrTheEndOfTheFile
     ]
 
 sampleDir :: FilePath
@@ -460,3 +467,130 @@ prop_asyncTryAndDynAreNamesInA2015EditionCrateAndKeywordsInLaterOnes = withTests
     Right tree -> do
       length (treeRuleNodes (Name "asyncBlockExpression") tree) === 1
       [nameText (tokenType t) | node <- treeRuleNodes (Name "traitObjectTypeOneBound") tree, t <- take 1 (treeTokens node)] === ["KW_DYN"]
+
+-- | Both the plain grammar and the dialect, so a construct a corpus showed is checked in each.
+bothInterpreters :: PropertyT IO [Interpreter]
+bothInterpreters = do
+  dialect <- evalIO (loadInterpreter "grammars/rust/canonically_commented/RustLexer.g4" "grammars/rust/canonically_commented/RustParser.g4")
+  d <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure dialect
+  plain <- interpreterOrFail
+  pure [plain, d]
+
+-- | Parses each source with both grammars and fails, naming the source, where either rejects it.
+parsesWithBoth :: [Text] -> PropertyT IO ()
+parsesWithBoth sources = do
+  interpreters <- bothInterpreters
+  let failures = [(source, renderInterpretError err) | i <- interpreters, source <- sources, Left err <- [interpretText i (Name "crate") "lib.rs" source]]
+  annotate (unlines [T.unpack s ++ "\n  " ++ T.unpack e | (s, e) <- failures])
+  map fst failures === []
+
+-- | A star inside a block comment, and a comment nested in one, are common in real crates: the
+-- standard library's comments and ripgrep's src/**/foo.rs in a doc comment failed to lex. The
+-- comment must end where rustc ends it, at the */ that closes its own opener, so the item after it is
+-- read and nothing inside it is. ref:REQ-rust-support ref:DEC-rust-grammar
+prop_aRustBlockCommentHoldsStarsAndNestsAsRustcReadsIt :: Property
+prop_aRustBlockCommentHoldsStarsAndNestsAsRustcReadsIt = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let functions source = either (Left . renderInterpretError) (Right . length . treeRuleNodes (Name "function_")) (interpretText interpreter (Name "crate") "lib.rs" source)
+  functions "/* a * b */\nfn f() {}" === Right 1
+  functions "/*! Matches src/**/foo.rs and a/*b*/c.\n*/\nfn f() {}" === Right 1
+  functions "/* outer /* inner */ fn hidden() {} */\nfn f() {}" === Right 1
+  functions "/**/ fn f() {} /***/ fn g() {} /** doc * star */ fn h() {}" === Right 3
+  parsesWithBoth ["/*! Matches src/**/foo.rs.\n*/\nfn f() {}", "/** A * B, see a/**/b. */\nfn f() {}"]
+
+-- | Crates written for current stable Rust use syntax the upstream grammar, last updated for Rust
+-- 1.60, rejects; the corpus of tokio, serde, ripgrep, cargo, and bevy showed each of these. Every
+-- one must parse with the plain grammar and with the dialect. ref:REQ-rust-support ref:DEC-rust-grammar
+prop_theRustGrammarAndDialectParseTheSyntaxStabilisedSinceRust160 :: Property
+prop_theRustGrammarAndDialectParseTheSyntaxStabilisedSinceRust160 = withTests 1 $ property $
+  parsesWithBoth
+    [ "fn f(w: Option<u8>) { let Some(x) = w else { return }; }"
+    , "fn f() { if let Some(a) = b && a > 0 && let Ok(c) = d { } while let Some(x) = it.next() && x > 1 {} }"
+    , "fn f() { match x { Some(y) if let Ok(z) = y => {} _ => {} } }"
+    , "fn f() { let p = &raw const x; let q = &raw mut (*this).parent; }"
+    , "fn f() { let a = [const { MaybeUninit::uninit() }; N]; const { assert!(N > 1) }; }"
+    , "fn f() -> u8 { 'a: { if c { break 'a 1; } 2 } }"
+    , "fn f<I: Iterator<Item: Debug>>() where T: Deref<Target: Eq> {}"
+    , "trait T { type Item<'a> where Self: 'a; } impl T for S { type Item<'a> = &'a u8 where Self: 'a; }"
+    , "#[unsafe(no_mangle)]\n#[doc = include_str!(\"doc.md\")]\npub fn f() {}"
+    , "#![doc = concat!(\"a\", \"b\")]\nfn f() {}"
+    , "fn f() { let g = async move |x| x; let h = async || 1; }"
+    , "fn f() -> impl Fn() + use<'a, T> { || {} }"
+    , "fn f() { let s = c\"hi\"; let r = cr#\"x\"#; }"
+    , "const A: f16 = 1.5_f16; const B: f128 = 2.0f128; const C: [f64; 3] = [0., 1e0, 2.];"
+    , "fn f() { match x { 0..5 => {} ..=9 => {} 10.. => {} _ => {} } }"
+    , "unsafe extern \"C\" { pub safe fn acos(n: f64) -> f64; pub unsafe fn g(); safe static X: u8; }"
+    , "fn f() {\n\tlet x = 1;\n}"
+    , "type F = unsafe extern \"C\" fn(_: *mut u8, _: ...) -> u8;"
+    , "macro_rules! m { ($_:ident) => {}; }"
+    ]
+
+-- | The standard library is compiled with unstable features, and its syntax is what a reader of
+-- library/core, alloc, and std sees; canon must read it, though a crate for stable Rust does not use
+-- it. ref:REQ-rust-support ref:DEC-rust-grammar
+prop_theRustGrammarAndDialectParseTheUnstableSyntaxOfTheStandardLibrary :: Property
+prop_theRustGrammarAndDialectParseTheUnstableSyntaxOfTheStandardLibrary = withTests 1 $ property $
+  parsesWithBoth
+    [ "pub const trait Default: Sized { fn default() -> Self; }"
+    , "const impl<T: [const] Default> Default for Cell<T> {}"
+    , "impl<T> const Clone for X<T> {} pub const fn f<T: ~const Drop + [const] Destruct>(t: T) {}"
+    , "pub const unsafe trait Allocator {} pub(crate) const unsafe trait BytewiseEq<Rhs = Self> {}"
+    , "impl<T> S<T> { default fn g(&self) {} default unsafe fn h() {} final fn i() {} }"
+    , "default impl<T> Tr for T {} impl<I> Sp for I { default type X = u8; default const N: u8 = 1; }"
+    , "pub auto trait UnwindSafe {}"
+    , "pub impl(crate) trait ChildExt {} pub impl(self) const trait Truncate<T> {} pub impl(in crate::os) unsafe trait Z {}"
+    , "pub trait Thin = Pointee<Metadata = ()> + PointeeSized;"
+    , "pub macro ready($e:expr) { $e } macro marker_impls { () => {} }"
+    , "fn f() { let r: Option<u8> = try { a?.b()? }; let c = const |x| x + 1; let d = const move || 1; }"
+    , "fn f() { super let y = 1; }"
+    , "extern \"C\" { pub type Opaque; }"
+    , "pub unsafe trait TransmuteFrom<Src, const ASSUME: Assume = { Assume::NOTHING }> {}"
+    , "fn f() { match c { ..MAX_ONE_B => 1, _ => 2 }; }"
+    ]
+
+-- | A Cargo script opens with a manifest between fences of dashes, which rustc and Cargo read as
+-- frontmatter; cargo's own test fixtures hold them. The manifest is no Rust and must be hidden, with
+-- a longer fence letting it hold a line of dashes. ref:REQ-rust-support ref:DEC-rust-grammar
+prop_aCargoScriptsFrontmatterIsHiddenAndItsItemsParse :: Property
+prop_aCargoScriptsFrontmatterIsHiddenAndItsItemsParse = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let functions source = either (Left . renderInterpretError) (Right . length . treeRuleNodes (Name "function_")) (interpretText interpreter (Name "crate") "main.rs" source)
+  functions "---\n[dependencies]\nclap = \"4\"\n---\n\nfn main() {}" === Right 1
+  functions "#!/usr/bin/env -S cargo -Zscript\n---cargo\n[package]\nedition = \"2024\"\n---\nfn main() {}" === Right 1
+  functions "----\npackage.description = \"\"\"\n---\n\"\"\"\n----\nfn main() {}" === Right 1
+  functions "fn f() -> i8 { 1 --- 2 }" === Right 1
+
+-- | A unicode escape's digits once matched in many ways, and canon's lexer, which keeps every way,
+-- read the rest of a string once per way, so cargo's tests of bidirectional text took minutes. Twelve
+-- escapes must lex as one string in one way. ref:REQ-rust-support ref:DEC-rust-grammar
+prop_aRustStringOfManyUnicodeEscapesLexesInOneWay :: Property
+prop_aRustStringOfManyUnicodeEscapesLexesInOneWay = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  let source = "\"" <> T.replicate 12 "a \\u{202e}b\\u{1_F600}" <> "\""
+  case interpreterTokenize interpreter source of
+    Left err -> annotate (T.unpack (renderLexError err)) >> failure
+    Right toks -> [nameText (tokenType t) | t <- toks, not (isEofToken t)] === ["STRING_LITERAL"]
+
+-- | The standard library defines macros with the macro keyword of declarative macros 2.0, and each is
+-- documented as a macro_rules macro is. ref:REQ-rust-support ref:DEC-rust-dialect
+prop_aRustDeclarativeMacro20IsAMacroUnitOfTheDialect :: Property
+prop_aRustDeclarativeMacro20IsAMacroUnitOfTheDialect = withTests 1 $ property $ do
+  Extraction model _ <- extractDialect "lib.rs" (T.unlines ["/// Polls.", "pub macro ready($e:expr) { $e }", "/// Marks.", "macro marker_impls { () => {} }"])
+  [(unitKindText (whatKind w), whatName w) | u <- modelAllUnits model, let w = answerValue (unitWhat u), unitKindText (whatKind w) /= "file"] === [("macro", "ready"), ("macro", "marker_impls")]
+
+-- | The dialect's line doc comment once ended at a hidden line break, so its rule could end after any
+-- word, and canon's parser kept a tree for each end: pin.rs's 900 lines of //! took 2.5 GB. The
+-- RustLexerBase hook ends each one with DOC_END where the line break, a //// line, or the end of the
+-- file closes it, and a comment on a file's last line without a line break still parses.
+-- ref:REQ-rust-support ref:DEC-rust-dialect
+prop_aRustLineDocCommentEndsAtOneTokenAtALineBreakOrTheEndOfTheFile :: Property
+prop_aRustLineDocCommentEndsAtOneTokenAtALineBreakOrTheEndOfTheFile = withTests 1 $ property $ do
+  interpreters <- bothInterpreters
+  dialect <- case drop 1 interpreters of
+    (d : _) -> pure d
+    [] -> failure
+  let visible source = either (Left . renderLexError) (Right . map (nameText . tokenType) . filter (\t -> tokenChannel t /= hiddenChannelName && not (isEofToken t))) (interpreterTokenize dialect source)
+  visible "/// a b\n/// c\nfn f() {}" === Right ["DOC_OPEN", "DOC_WORD", "DOC_WORD", "DOC_WORD", "DOC_END", "KW_FN", "NON_KEYWORD_IDENTIFIER", "LPAREN", "RPAREN", "LCURLYBRACE", "RCURLYBRACE"]
+  visible "/// a\n//// plain\nfn f() {}" === Right ["DOC_OPEN", "DOC_WORD", "DOC_END", "KW_FN", "NON_KEYWORD_IDENTIFIER", "LPAREN", "RPAREN", "LCURLYBRACE", "RCURLYBRACE"]
+  visible "//! only docs" === Right ["INNER_DOC_OPEN", "DOC_WORD", "DOC_WORD", "DOC_END"]
+  parsesWithBoth ["//! only docs", T.unlines (replicate 2000 "//! Pin a value in place, see ref:pin and the [`Unpin`] trait.") <> "fn f() {}"]

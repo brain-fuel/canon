@@ -207,8 +207,84 @@ above with XML doc comments as canonical comments, recorded as
   argument, an initializer's element, or a switch expression's arm, and after
   the last member of a body, an enum, or a file.
 
+- The `CSharpLexerBase` hook emits an empty `DOC_END` token where a `///`
+  comment ends, at its line break, before a `////` line, or at the end of the
+  file, and `canonicalComment` ends at it. Before, the rule could end after
+  any word, and canon's parser, keeping a tree for each end, took time and
+  memory in the square of a comment's length, as in the long `///` blocks of
+  the runtime's `AdvSimd.cs`.
 - Anywhere else, as inside an expression, the parser's `strayComment` option
   names `canonicalComment`, so a doc comment the grammar does not accept where
   it stands is read out of the file and reported as an `orphan`
   (`DEC-stray-comments`). A doc comment never fails the parse.
 
+## Corpus
+
+`tools/corpus/csharp.sh` checks the grammar against widely used C# code. It
+clones each repository below, shallow and pinned to a commit, into a directory
+given as its argument (default `/tmp/corpus/csharp`), checking out only the
+listed subdirectories of the large ones; parses every `.cs` file with the
+plain grammar and then with the dialect, each file under a limit of `TIMEOUT`
+(120) seconds of CPU time, which the largest generated files need;
+and prints per repository the files, the files parsed, the deliberate
+exclusions, the failures, the CPU time, and the slowest files, then the files
+the plain grammar parses and the dialect does not, and the distribution of
+times. Rerun it with `tools/corpus/csharp.sh [DIR]`; `JOBS` sets the parallel
+parses and `ONLY` names one repository. `canon parse` reads each `#if` by the
+default choice, the first branch some build reads, so the corpus checks that
+choice rather than every build `canon check` reads.
+
+| Repository | Commit | Sampled | Files | Parsed | Excluded | CPU time, plain / dialect |
+|---|---|---|---|---|---|---|
+| dotnet/runtime | `8e6821d2d912` | `src/libraries/`: `System.Private.CoreLib/src`, `System.Collections`, `System.Linq`, `System.Text.Json/src`, `System.Net.Http/src` | 2,540 | 2,539 | 1 | 788 s / 747 s |
+| dotnet/aspnetcore | `aaec58f9ccee` | `src/Http`, `src/Mvc/Mvc.Core`, `src/Servers/Kestrel/Core` | 2,123 | 2,122 | 1 | 438 s / 424 s |
+| dotnet/roslyn | `303af2d38ee0` | `src/Compilers/Core/Portable`, `src/Compilers/CSharp/Portable` | 2,091 | 2,091 | 0 | 727 s / 749 s |
+| JamesNK/Newtonsoft.Json | `52fa3aef1f2c` | whole | 951 | 951 | 0 | 168 s / 166 s |
+| AvaloniaUI/Avalonia | `daed7a2592f1` | `src/Avalonia.Base`, `src/Avalonia.Controls` | 1,845 | 1,845 | 0 | 238 s / 244 s |
+| `lang_samples/csharp-guardclauses` | | | 15 | 15 | 0 | 1 s / 1 s |
+
+The full commits are in the script. The dialect parses every file the plain
+grammar parses. The two exclusions, listed in the script with their reasons,
+are files the compiler rejects in a build that defines a symbol of theirs:
+the runtime's `TraceLogging/EnumHelper.cs`, whose `#if EVENTSOURCE_GENERICS`
+branch begins with a stray `?using`, and ASP.NET Core's
+`ILEmitTrieFactory.cs`, whose `#if IL_EMIT_SAVE_ASSEMBLY` branch lacks a
+closing parenthesis. No build of either project defines the symbol, but
+canon reads the branch, as it reads every branch some build could select.
+
+Each file is parsed on one capability (`GHCRTS=-N1`) and timed in CPU
+seconds, since the machine ran other work at a load of 60 to 140. Of the 9,565
+files, the plain grammar parses 8,737 in under half a second, 502 in under
+one, 222 in under two, 77 in under five, 14 in under ten, and 13 in ten
+seconds or more. The slowest are generated: ASP.NET Core's
+`MatcherAzureBenchmarkBase.generated.cs`, a 31,000-line table of 25,000
+statements in one method, at 58 s; Roslyn's `Syntax.xml.Internal.Generated.cs`
+(39,500 lines) at 44 s and `BoundNodes.xml.Generated.cs` and
+`Syntax.xml.Syntax.Generated.cs` at 25 s; the runtime's test data
+`InputData.cs` at 18 s; and its `AdvSimd.cs` at 15 s. The slowest file a
+person wrote is Newtonsoft.Json's `JsonSerializerTest.cs` at 7 s. The
+dialect's times are within 15% of these. The two failing files fail within
+0.5 s. Parser speed and memory, not the grammar, are what make the generated
+files slow: canon's parser keeps memo entries per token of a long statement
+list, and the benchmark table, parsed alone, took 36 CPU seconds and 10.6 GB.
+
+The corpus showed what the grammar lacked; each fix is marked `// canon:` in
+both grammars and tested in `CSharpTest.hs`:
+
+- The unsigned right shift `>>>` and its assignment `>>>=` (C# 11), three
+  touching greater-than signs, which the `IsRightShift` predicate checks as it
+  does for `>>`.
+- A constant pattern may use the bitwise operators `&`, `^`, and `|`, as
+  `case 'n' ^ 't':` and `(A or B | C, _)` do; the relational operators stay
+  out, since they begin relational patterns.
+- A union (C# 15), as `public union Pet(Cat, Dog);`, is a type of its own,
+  `union_definition`, and a `# union` unit of the dialect; the sample profile
+  makes it a unit. `union` stays an identifier.
+- The `safe` member modifier of C# 15, which stays an identifier.
+- `partial` may follow `ref`, as in `public unsafe ref partial struct`.
+- An implicitly typed lambda parameter may take `ref`, `out`, `in`, or
+  `scoped` (C# 14), as in `(_, out p) =>`, and a conversion operator's
+  parameter may take a modifier, as in `implicit operator T(in S s)`.
+- A local may be `scoped ref` or `scoped ref readonly`.
+- A conditional's branches may be ref expressions, `c ? ref a : ref b`.
+- A pointer may point to a pointer, as in `fixed (T** p = &x)`.

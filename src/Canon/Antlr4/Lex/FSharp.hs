@@ -22,7 +22,9 @@ import qualified Data.Text as T
 -- | The hook state: one entry per open #if, holding whether its current branch is read and whether
 -- any branch of it has been; the columns of the open layout blocks, innermost first; the bracket
 -- depth; the end offset and position of the last code token, and its type; the build whose branches
--- are read; and the tokens held since a less-than sign that may open a type application.
+-- are read; the tokens held since a less-than sign that may open a type application; the doc
+-- comment tokens held for the next code token; and how many columns a byte order mark takes from the
+-- first line, which the offside rule does not count.
 data FSharpLayout = FSharpLayout
   { conditions :: Branches
   , columns :: [Int]
@@ -32,6 +34,7 @@ data FSharpLayout = FSharpLayout
   , build :: Choice
   , held :: Maybe Held
   , docs :: [Token]
+  , skew :: Int
   }
   deriving (Eq, Show)
 
@@ -46,7 +49,7 @@ data Held = Held
 
 -- | The hooks for the F# grammar, reading the branches a build selects. ref:DEC-preprocessor-builds
 fsharpLexerHooks :: Choice -> LexerHooks FSharpLayout
-fsharpLexerHooks choice = LexerHooks (FSharpLayout [] [] 0 Nothing "" choice Nothing []) (\_ _ _ _ s -> (s, [])) (\_ _ _ _ _ -> True) onEmit
+fsharpLexerHooks choice = LexerHooks (FSharpLayout [] [] 0 Nothing "" choice Nothing [] 0) (\_ _ _ _ s -> (s, [])) (\_ _ _ _ _ -> True) onEmit
 
 -- | A less-than sign touching the name before it may open a type application, as in
 -- f< ^a when ... > or List<int>, whose angle brackets F# lets span lines like any brackets. The hook
@@ -81,18 +84,28 @@ onEmit token s = case held s of
            )
     track h
       | not visible = h
-      | ty == "LESS" = h {heldAngles = heldAngles h + 1}
-      | ty == "GREATER" = h {heldAngles = heldAngles h - 1}
+      | ty == "LESS" && heldParens h == 0 = h {heldAngles = heldAngles h + 1}
+      | ty == "GREATER" && heldParens h == 0 = h {heldAngles = heldAngles h - 1}
       | ty `elem` openers = h {heldParens = heldParens h + 1}
       | ty `elem` closers = h {heldParens = max 0 (heldParens h - 1)}
       | otherwise = h
 
 -- | Lays out held tokens, with their angle brackets as brackets when they were a type application.
+-- A less-than or greater-than sign inside parentheses is an operator, as in the constraint
+-- (static member (<): 'T * 'T -> bool), so only those outside them are brackets.
 replay :: Bool -> [Token] -> FSharpLayout -> ([Token], FSharpLayout)
-replay angles toks s0 = go toks s0 []
+replay angles toks s0 = go toks (0 :: Int) s0 []
   where
-    go [] s acc = (concat (reverse acc), s)
-    go (t : rest) s acc = let (out, s') = step angles t s in go rest s' (out : acc)
+    go [] _ s acc = (concat (reverse acc), s)
+    go (t : rest) parens s acc =
+      let ty = nameText (tokenType t)
+          visible = tokenChannel t == defaultChannelName
+          parens'
+            | visible && ty `elem` openers = parens + 1
+            | visible && ty `elem` closers = max 0 (parens - 1)
+            | otherwise = parens
+          (out, s') = step (angles && parens == 0) t s
+       in go rest parens' s' (out : acc)
 
 -- | The tokens of a doc comment in the canonically commented dialect. The hook holds them until the
 -- next code token has produced its layout tokens, and emits them just before it, so a doc comment is
@@ -100,6 +113,21 @@ replay angles toks s0 = go toks s0 []
 -- port does. ref:DEC-fsharp-dialect
 docTypes :: [Text]
 docTypes = ["DOC_OPEN", "DOC_WORD", "DOC_PUNCT", "DOC_REF", "DOC_LICENSE"]
+
+-- | Whether a held doc comment has not been closed by its line's end.
+docOpen :: FSharpLayout -> Bool
+docOpen s = case reverse (docs s) of
+  (t : _) -> nameText (tokenType t) /= "DOC_END"
+  [] -> False
+
+-- | The empty token that closes a line doc comment, placed where its last token ends, so the
+-- comment rule ends at one token instead of after any of its words: a rule that may end anywhere
+-- makes the parser keep a tree per possible end, quadratic in the comment's length.
+-- ref:DEC-fsharp-dialect
+docEnd :: FSharpLayout -> Token
+docEnd s = case reverse (docs s) of
+  (t : _) -> Token (Name "DOC_END") "" (tokenEnd t) (tokenEnd t) defaultChannelName (endPosition t)
+  [] -> virtual s "DOC_END"
 
 openers, closers :: [Text]
 openers = ["LPAREN", "LBRACK", "LBRACE", "LBRACKBAR", "LBRACEBAR", "LATTR"]
@@ -109,14 +137,17 @@ step :: Bool -> Token -> FSharpLayout -> ([Token], FSharpLayout)
 step angles token s
   | ty `elem` ["IF_DIRECTIVE", "ELSE_DIRECTIVE", "ENDIF_DIRECTIVE"], Just d <- directiveOf (tokenText token) =
       ([token], s {conditions = stepBranchesWith (build s) Map.empty d (conditions s)})
-  | isEofToken token = (map (const (virtual s "DEDENT")) (drop 1 (columns s)) ++ docs s ++ [token], s {docs = []})
+  | ty == "BYTE_ORDER_MARK" = ([token], s {skew = T.length (tokenText token)})
+  | ty `elem` ["DOC_CLOSE", "DOC_PLAIN_AFTER"] && docOpen s = ([token], s {docs = docs s ++ [docEnd s]})
+  | isEofToken token = (map (const (virtual s "DEDENT")) (drop 1 (columns s)) ++ docs s ++ [docEnd s | docOpen s] ++ [token], s {docs = []})
   | tokenChannel token /= defaultChannelName = ([token], s)
   | not (active s) = ([token {tokenChannel = hiddenChannelName}], s)
   | ty `elem` docTypes = ([], s {docs = docs s ++ [token]})
   | otherwise = (layout ++ docs s ++ [token], s' {depth = depth', lastEnd = Just (tokenEnd token, endPosition token), lastType = ty, docs = []})
   where
     ty = nameText (tokenType token)
-    Position line column = tokenPosition token
+    Position line written = tokenPosition token
+    column = if line == 1 then written - skew s else written
     depth'
       | ty `elem` openers || (angles && ty == "LESS") = depth s + 1
       | ty `elem` closers || (angles && ty == "GREATER") = max 0 (depth s - 1)

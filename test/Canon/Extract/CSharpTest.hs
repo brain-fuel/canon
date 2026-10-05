@@ -44,6 +44,9 @@ tests =
     , testProperty "the C# dialect parses the GuardClauses sample with its XML docs" prop_theCSharpDialectParsesTheGuardClausesSampleWithItsXmlDocs
     , testProperty "the C# dialect binds XML docs to members and reports misplaced ones" prop_theCSharpDialectBindsXmlDocsToMembersAndReportsMisplacedOnes
     , testProperty "a C# doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_aCSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
+    , testProperty "the C# grammar reads the operators and modifiers .NET's own sources use" prop_theCSharpGrammarReadsTheOperatorsAndModifiersDotNetsOwnSourcesUse
+    , testProperty "a C# union is a type of its own, documented as a class is" prop_aCSharpUnionIsATypeOfItsOwnDocumentedAsAClassIs
+    , testProperty "a C# /// doc comment ends at one token, inside a branch read or not" prop_aCSharpDocCommentEndsAtOneTokenInsideABranchReadOrNot
     ]
 
 sampleDir :: FilePath
@@ -546,3 +549,91 @@ prop_aCSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan 
   sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [5, 9, 12, 17, 23, 25, 29]
   where
     decisionUnitList d = case decisionUnits d of u :| more -> u : more
+
+-- | The corpus of .NET's runtime, ASP.NET Core, Roslyn, Newtonsoft.Json, and Avalonia uses syntax
+-- that the grammar rejected: the unsigned right shift and its assignment and operator (C# 11), a
+-- constant pattern with a bitwise operator, the safe modifier of C# 15, partial after ref, a
+-- modifier on an implicitly typed lambda parameter (C# 14) and on the parameter of a conversion
+-- operator, a scoped ref local, a conditional of ref branches, and a pointer to a pointer in a
+-- fixed statement. Each must parse in the grammar and in its dialect, and the shift must still
+-- need its greater-than signs to touch. ref:REQ-csharp-support ref:DEC-csharp-grammar
+prop_theCSharpGrammarReadsTheOperatorsAndModifiersDotNetsOwnSourcesUse :: Property
+prop_theCSharpGrammarReadsTheOperatorsAndModifiersDotNetsOwnSourcesUse = withTests 1 $ property $ do
+  plain <- interpreterOrFail
+  loaded <- evalIO (loadInterpreter "grammars/csharp/canonically_commented/CSharpLexer.g4" "grammars/csharp/canonically_commented/CSharpParser.g4")
+  dialect <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "public unsafe ref partial struct B"
+          , "{"
+          , "    public safe object? Value;"
+          , "    public static B operator >>>(B b, int n) => b;"
+          , "    public static implicit operator int(in B b) => 0;"
+          , "    int F(int x, char c)"
+          , "    {"
+          , "        x >>>= 2;"
+          , "        var y = x >>> 3;"
+          , "        Run((_, out p) => true, (ref int q) => q);"
+          , "        switch (c) { case 'n' ^ 't': return 1; case A | B: return 2; }"
+          , "        var k = (e, x) switch { (E.A or E.B | E.C, _) => 1, (E.D, < 3) => 2, _ => 0 };"
+          , "        scoped ref int m = ref (h ? ref a : ref b);"
+          , "        fixed (H** p = &q) { }"
+          , "        return y >> 1;"
+          , "    }"
+          , "}"
+          ]
+      parses interpreter text = either (Left . renderInterpretError) (const (Right ())) (interpretText interpreter (Name "compilation_unit") "B.cs" text)
+  parses plain source === Right ()
+  parses dialect source === Right ()
+  case interpretText plain (Name "compilation_unit") "B.cs" source of
+    Left err -> annotate (T.unpack (renderInterpretError err)) >> failure
+    Right tree -> length (treeRuleNodes (Name "right_shift_unsigned") tree) === 1
+  (parses plain "class S { int F(int x) => x > > > 1; }" == Right ()) === False
+
+-- | A C# 15 union is declared by its case types, as ASP.NET Core's tests declare public union
+-- Pet(Cat, Dog); it is a type, so the grammar must read it, and its doc comment must bind to it as to
+-- a class, while union stays a name elsewhere. ref:REQ-csharp-support ref:DEC-csharp-grammar
+-- ref:DEC-csharp-dialect
+prop_aCSharpUnionIsATypeOfItsOwnDocumentedAsAClassIs :: Property
+prop_aCSharpUnionIsATypeOfItsOwnDocumentedAsAClassIs = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractDialect
+      "Pets.cs"
+      ( T.unlines
+          [ "namespace Pets;"
+          , "/// <summary>A pet.</summary>"
+          , "public union Pet(Cat, Dog);"
+          , "public union Maybe<T>(T, None) where T : class"
+          , "{"
+          , "    public bool HasValue => true;"
+          , "}"
+          , "class C { void F() { var union = 1; union++; } }"
+          ]
+      )
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- unitList d]
+    === [("csharp/Pets.cs/namespace/Pets/union/Pet", "<summary>A pet.</summary>")]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === ["csharp/Pets.cs/namespace/Pets/union/Maybe", "csharp/Pets.cs/namespace/Pets/union/Maybe/property/HasValue"]
+  where
+    unitList d = case decisionUnits d of u :| more -> u : more
+
+-- | The dialect's /// comment once ended at a hidden line break, so its rule could end after any
+-- word, and canon's parser kept a tree for each end: the long /// blocks of the runtime's AdvSimd.cs
+-- doubled its parse. The CSharpLexerBase hook ends each one with DOC_END, at its line break, before a
+-- //// line, or at the end of the file, hidden with the comment in a branch the build does not read.
+-- ref:REQ-csharp-support ref:DEC-csharp-dialect
+prop_aCSharpDocCommentEndsAtOneTokenInsideABranchReadOrNot :: Property
+prop_aCSharpDocCommentEndsAtOneTokenInsideABranchReadOrNot = withTests 1 $ property $ do
+  loaded <- evalIO (loadInterpreter "grammars/csharp/canonically_commented/CSharpLexer.g4" "grammars/csharp/canonically_commented/CSharpParser.g4")
+  dialect <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let ends source = either (Left . renderLexError) (Right . map tokenChannel . filter ((== Name "DOC_END") . tokenType)) (interpreterTokenize dialect source)
+  ends "/// <summary>A.</summary>\n/// More.\nclass A {}\n" === Right [defaultChannelName]
+  ends "/// One.\n//// Plain.\nclass A {}\n" === Right [defaultChannelName]
+  ends "class A {}\n/// Last" === Right [defaultChannelName]
+  case ends "#if false\n/// Hidden.\nclass A {}\n#endif\n" of
+    Right [channel] -> annotate (show channel) >> (channel /= defaultChannelName) === True
+    other -> annotate (show other) >> failure
+  let long = T.concat (replicate 2000 "/// <summary>Adds the vectors, see ref:simd and the Arm manual.</summary>\n") <> "public class A {}\n"
+  case interpretText dialect (Name "compilation_unit") "A.cs" long of
+    Left err -> annotate (T.unpack (renderInterpretError err)) >> failure
+    Right _ -> pure ()

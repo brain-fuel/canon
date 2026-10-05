@@ -75,6 +75,8 @@ STRUCT    : 'struct';
 TYPE      : 'type';
 VAL       : 'val';
 WITH      : 'with';
+// canon: corpus, when is a keyword, so a type's constraints after its parameters are read.
+WHEN      : 'when';
 
 // A keyword with a bang is one token, as let! is.
 BANG_KEYWORD: ('let' | 'use' | 'do' | 'yield' | 'return' | 'match' | 'and') '!';

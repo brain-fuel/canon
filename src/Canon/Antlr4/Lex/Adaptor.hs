@@ -19,6 +19,7 @@ import Canon.Antlr4.Lex.YAML (yamlLexerHooks)
 import Canon.Antlr4.Lex.Haskell (haskellLayoutHooks)
 import Canon.Antlr4.Lex.JavaScript (javaScriptHooks, typeScriptHooks)
 import Canon.Antlr4.Lex.Python (pythonHooks)
+import Canon.Antlr4.Lex.Rust (rustLexerHooks)
 import Canon.Antlr4.Lex.Scala (scalaLexerHooks)
 import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
@@ -73,6 +74,7 @@ antlrLexerHooks = LexerHooks OutsideRule onAction (\_ _ _ _ _ -> True) onEmit
 -- regex and template tracking, Python indentation, and where a Go doc comment may stand.
 -- ref:DEC-more-languages ref:DEC-go-dialect
 -- ScalaLexerBase supplies Scala 3's optional braces. ref:DEC-scala-indentation
+-- RustLexerBase ends each Rust line doc comment with a token. ref:DEC-rust-dialect
 hooksForGrammar :: Grammar ann -> SomeHooks
 hooksForGrammar = hooksForGrammarWith Nothing
 
@@ -94,6 +96,7 @@ hooksForGrammarWith choice grammar =
     (Name "ErlangPreprocessor" : _) -> SomeHooks erlangPreprocessorHooks
     (Name "HCLLexerBase" : _) -> SomeHooks hclLexerHooks
     (Name "YAMLLexerBase" : _) -> SomeHooks yamlLexerHooks
+    (Name "RustLexerBase" : _) -> SomeHooks rustLexerHooks
     _ -> SomeHooks noHooks
 
 -- | Whether the hook port a grammar selects reads #if directives, so a file is read once per build.

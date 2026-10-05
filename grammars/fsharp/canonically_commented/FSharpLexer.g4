@@ -20,7 +20,10 @@ tokens {
     INDENT,
     DEDENT,
     NEWLINE,
-    BRNL
+    BRNL,
+    // canon: corpus, the empty token the hook emits where a line doc comment ends, so the comment
+    // rule ends at one token.
+    DOC_END
 }
 
 BYTE_ORDER_MARK: '﻿' -> channel(HIDDEN);
@@ -80,6 +83,8 @@ STRUCT    : 'struct';
 TYPE      : 'type';
 VAL       : 'val';
 WITH      : 'with';
+// canon: corpus, when is a keyword, so a type's constraints after its parameters are read.
+WHEN      : 'when';
 
 // A keyword with a bang is one token, as let! is.
 BANG_KEYWORD: ('let' | 'use' | 'do' | 'yield' | 'return' | 'match' | 'and') '!';

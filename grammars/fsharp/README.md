@@ -107,6 +107,80 @@ Each change is marked `// canon:`:
   `canonicalComment` (`DEC-stray-comments`), so a doc comment never fails the
   parse.
 
+## Corpus
+
+`tools/corpus/fsharp.sh` checks the grammar against widely used F# code. It
+clones each repository below, shallow and pinned to a commit, into a directory
+given as its argument (default `/tmp/corpus/fsharp`), checking out only the
+listed subdirectories of the large ones; parses every `.fs`, `.fsi`, and `.fsx`
+file with the plain grammar and then with the dialect, each file under a limit
+of `TIMEOUT` (20) seconds of CPU time; and prints per repository the files,
+the files parsed, the deliberate exclusions, the failures, the CPU time, and
+the slowest files, then the files the plain grammar parses and the dialect does
+not, and the distribution of times. Rerun it with `tools/corpus/fsharp.sh
+[DIR]`; `JOBS` sets the parallel parses and `ONLY` names one repository.
+
+| Repository | Commit | Sampled | Files | Parsed | Excluded | CPU time, plain / dialect |
+|---|---|---|---|---|---|---|
+| dotnet/fsharp | `d16ac1bc6d29` | `src/FSharp.Core` | 67 | 67 | 0 | 7 s / 10 s |
+| fsprojects/fantomas | `0b69ef139388` | `src`, with the 5,846 files of `Fantomas.Core.SnapshotTests` | 5,988 | 5,988 | 0 | 105 s / 117 s |
+| giraffe-fsharp/Giraffe | `279fe3a30c27` | whole | 49 | 49 | 0 | 2 s / 2 s |
+| fsprojects/FAKE | `e8e1cae79e35` | `src/app` | 188 | 188 | 0 | 7 s / 10 s |
+| fsprojects/Paket | `641da499fb70` | `src/Paket.Core`, `src/Paket` | 78 | 78 | 0 | 5 s / 7 s |
+| `lang_samples/fsharp-giraffe-viewengine` | | | 3 | 3 | 0 | 0 s / 0 s |
+
+The full commits are in the script. Every file parses with the plain grammar
+and with the dialect, and none is excluded. Each file is parsed on one
+capability (`GHCRTS=-N1`) and timed in CPU seconds, since the machine ran other
+work at a load of 60 to 140. Of the 6,373 files, the plain grammar parses
+6,371 in under half a second, 1 in under one, and 1 in under two; the slowest
+are FSharp.Core's `prim-types.fs` at 1.4 s, `prim-types.fsi` at 0.6 s, and
+`Query.fs` at 0.5 s. The dialect's slowest are `prim-types.fs` at 1.4 s,
+`prim-types.fsi` at 0.8 s, and `array.fsi` at 0.5 s.
+
+Since the grammar reads a line it cannot take as a declaration as an
+expression, a file that parses may still have lost a declaration that way, so
+the corpus was also searched for them: a declaration keyword (`type`,
+`member`, `override`, `abstract`, `exception`, `module`, `let`, `default`,
+`val`, `new`, `and`, `static`, or `interface`) that opens a line the plain
+grammar reads through `otherModuleElement` or `otherClassMember`. In the 523
+files outside Fantomas's snapshot tests the search found 14 such declarations
+in 10 files with canon-parity's grammar and finds none now; in the 5,846
+snapshot files it found 100 in 92 files and finds 70 in 62, a few of them
+`static do` lines read correctly. Each fix is marked `// canon: corpus` in the
+grammar and tested in `FSharpTest.hs`:
+
+- A type's constraints may follow its parameters, as in
+  `type S<'T> when 'T: comparison =`; `when` is a keyword token.
+- A type parameter list may hold a constraint whose member signature is in
+  parentheses and holds `=`, `<`, or `>`, as in
+  `NonStructural<'T when 'T: (static member (<): 'T * 'T -> bool)>`. The hook
+  counts angle brackets only outside parentheses.
+- The hook does not count a byte order mark as a column, so a type at the top
+  of such a file whose `=` is one column right of it is read as a class.
+- Classes: a primary constructor indented below the name with the members left
+  of it; an `=` on a line of its own with the members indented further; a
+  `class ... end` body at the column of `=`, as Fantomas lays out a long
+  constructor; `class` on the line of `=` with `end` at the members' column;
+  `class ... end` followed by `with` members; and an empty `class` or
+  `interface` whose `end` is on the next line.
+- Unions: cases at the column of `type` followed by indented members without
+  `with`, and a union whose `=` starts the line below its name.
+- An abbreviation whose name is on the line below `and`, after its attributes.
+- Bindings: an access on each name of a tuple binding, as
+  `let private get, _, public set = ...`; a value named by `as`, as
+  `let (a, b) as t = ...`; `struct (...)` as a parameter or a binding; a
+  function's return type on the line below its parameters; and a value's `=` on
+  the line below its return type.
+- `default val` auto-properties, and an attribute whose lone argument is a
+  name, as `[<DefaultValue false>]`.
+- Dialect: the hook emits an empty `DOC_END` where a `///` comment ends, and
+  `canonicalComment` ends at it. Before, the rule could end after any word, and
+  canon's parser, keeping a tree for each end, took time and memory in the
+  square of a comment's length: FSharp.Core's `array.fsi` took 25 seconds.
+- Dialect: a doc comment above the attributes of a line that declares nothing,
+  such as an `extern`, is an orphan.
+
 ## Known limits
 
 A doc comment placed after a declaration's attributes is reported as attached
@@ -127,7 +201,13 @@ one fix:
   source files of FsToolkit.ErrorHandling, Expecto, FsCheck, Argu, Giraffe,
   FSharp.Data, and Fantomas's library this happened to two declarations, both
   with a statically resolved type parameter list spanning lines, which the
-  hook now reads. Across the 5,900 snapshot cases in which Fantomas tests
-  unusual layouts it happened to 104. Those cases exist to exercise every
-  layout the offside rule permits, and each needs its own exception to the
-  rule's common case, so they are read one at a time as real code needs them.
+  hook now reads. Across the 523 source files of the corpus above outside
+  Fantomas's snapshot tests it happens to none, the layouts that corpus showed
+  being read now. Across the snapshot files in which Fantomas tests unusual
+  layouts it happens to 70 declarations in 62 files, down from 100 in 92,
+  among them `static extern` members, a doc comment between a type's name and
+  its constructor, `#if` around an access modifier or `inline`, and extensions
+  of tuple types.
+  Those cases exist to exercise every layout the offside rule permits, and each
+  needs its own exception to the rule's common case, so they are read one at a
+  time as real code needs them.

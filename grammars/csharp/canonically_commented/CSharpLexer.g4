@@ -20,6 +20,12 @@ options {
     superClass = CSharpLexerBase;
 }
 
+// canon: the CSharpLexerBase hook emits DOC_END, empty, where a /// doc comment ends, so the comment
+// rule has one end rather than one after each word. ref:DEC-csharp-dialect
+tokens {
+    DOC_END
+}
+
 // Insert here @header for lexer.
 
 // canon: the byte order mark as the decoded character, which is how canon reads a file.
@@ -122,6 +128,7 @@ REF        : 'ref';
 REMOVE     : 'remove';
 REQUIRED   : 'required'; // canon: C# 11 required members, contextual
 RETURN     : 'return';
+SAFE       : 'safe'; // canon: the safe member modifier of C# 15's unsafe evolution, contextual
 SBYTE      : 'sbyte';
 SCOPED     : 'scoped'; // canon: C# 11 scoped ref, contextual
 SEALED     : 'sealed';
@@ -143,6 +150,7 @@ UINT       : 'uint';
 ULONG      : 'ulong';
 UNCHECKED  : 'unchecked';
 UNMANAGED  : 'unmanaged';
+UNION      : 'union'; // canon: the union declarations of C# 15, contextual
 UNSAFE     : 'unsafe';
 USHORT     : 'ushort';
 USING      : 'using';

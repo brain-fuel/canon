@@ -94,11 +94,16 @@ functionBinding
     : attributes? bindingModifier* access? bindingModifier* (
         functionHead returnType? EQUALS soupItem* matchArms?
         | bindingName typeParameters? argumentPattern* (INDENT block DEDENT)+ matchArms?
+        // canon: corpus, a return type on the line below the parameters, indented, with the body
+        // left of it.
+        | functionHead COLON INDENT ~(EQUALS | NEWLINE | INDENT | DEDENT)+ EQUALS DEDENT INDENT block DEDENT matchArms?
     )
     ;
 
+// canon: corpus, the equals sign may start the line below a value's return type.
 valueBinding
     : attributes? bindingModifier* access? bindingModifier* valueHead returnType? EQUALS soupItem* matchArms?
+    | attributes? bindingModifier* access? bindingModifier* valueHead returnType INDENT EQUALS soupItem* DEDENT
     ;
 
 // The arms of a function or match that F# lets start at the column of the binding they end.
@@ -115,14 +120,18 @@ functionHead
     : bindingName typeParameters? argumentPattern+
     ;
 
+// canon: corpus, each name of a tuple binding may say its own access, as in
+// let private get, _, public set = ..., and the whole may be named, as in let (a, b) as t = ...
 valueHead
-    : bindingName typeParameters? (COMMA bindingName)*
+    : bindingName typeParameters? (COMMA access? bindingName)* (AS identifier)?
     ;
 
+// canon: corpus, a value may bind a struct tuple, as in let struct (a, b) = f ().
 bindingName
     : identifier
     | group
     | MULTIPLY_NAME
+    | STRUCT group
     ;
 
 argumentPattern
@@ -132,14 +141,18 @@ argumentPattern
     | STRING
     | CHAR
     | SYMBOLIC_OPERATOR identifier
+    // canon: corpus, a struct tuple pattern, as in let inline vFst struct (a, _) = a.
+    | STRUCT group
     ;
 
 returnType
     : COLON ~(EQUALS | NEWLINE | INDENT | DEDENT)+
     ;
 
+// canon: corpus, a constraint's member signature in parentheses may hold an equals sign or an
+// angle bracket, as in NonStructural<'T when 'T: (static member (=): 'T * 'T -> bool)>.
 typeParameters
-    : LESS (typeParameters | ~(LESS | GREATER | EQUALS | NEWLINE | INDENT | DEDENT))* GREATER
+    : LESS (typeParameters | group | ~(LESS | GREATER | EQUALS | NEWLINE | INDENT | DEDENT | LPAREN | RPAREN))* GREATER
     ;
 
 // A val declaration, as signature files and explicit fields have.
@@ -167,13 +180,18 @@ typeDefinition
     ;
 
 // A type's parameters may come before its name, ML style, as in type 'a Tree.
+// canon: corpus, a type's constraints may follow its parameters, as in type S<'T> when 'T: comparison.
 typeHead
-    : leadingAttributes? (TYPE | AND) attributes? access? (TYPE_PARAMETER | group)? typeName typeParameters?
+    : leadingAttributes? (TYPE | AND) attributes? access? (TYPE_PARAMETER | group)? typeName typeParameters? typeConstraints?
+    ;
+
+typeConstraints
+    : WHEN (group | ~(EQUALS | NEWLINE | INDENT | DEDENT | WITH | LPAREN | RPAREN))+
     ;
 
 // A head whose name is on the line below type or and, indented; the type's rule closes the block.
 splitTypeHead
-    : leadingAttributes? (TYPE | AND) attributes? INDENT leadingAttributes? access? (TYPE_PARAMETER | group)? typeName typeParameters?
+    : leadingAttributes? (TYPE | AND) attributes? INDENT leadingAttributes? access? (TYPE_PARAMETER | group)? typeName typeParameters? typeConstraints?
     ;
 
 typeName
@@ -227,6 +245,8 @@ enumCase
 unionType
     : typeHead EQUALS unionRepresentation
     | splitTypeHead EQUALS unionRepresentation DEDENT
+    // canon: corpus, the equals sign may start the line below the name, with the cases after it.
+    | typeHead INDENT EQUALS unionBody (NEWLINE? withMembers)? DEDENT
     ;
 
 // A with that starts a line indented below the union's cases begins its members.
@@ -234,7 +254,8 @@ unionRepresentation
     : unionBody (NEWLINE? withMembers)?
     | unionBody INDENT withMembers DEDENT
     | INDENT unionBody (NEWLINE? withMembers | NEWLINE classMembers)? DEDENT
-    | NEWLINE unionBody
+    // canon: corpus, cases at the column of type may be followed by indented members without a with.
+    | NEWLINE unionBody (INDENT classMembers DEDENT)?
     ;
 
 // A union starts with a bar, has a case of some type, or has two cases, which tells it from an
@@ -277,7 +298,7 @@ interfaceType
     ;
 
 interfaceBlock
-    : INTERFACE (INDENT interfaceElement (NEWLINE interfaceElement)* DEDENT NEWLINE?)? END
+    : INTERFACE (INDENT interfaceElement (NEWLINE interfaceElement)* DEDENT)? NEWLINE? END
     ;
 
 interfaceElement
@@ -293,12 +314,20 @@ classType
         INDENT classMembers DEDENT
         | classBlock
         | INDENT classBlock DEDENT
+        // canon: corpus, members after a class ... end, in a with at the class's column.
+        | INDENT classBlock NEWLINE withMembers DEDENT
         | sameLineClassMember
     )
-    | typeHead INDENT primaryConstructor (AS identifier)? NEWLINE? EQUALS NEWLINE classMembers DEDENT
-    | typeHead primaryConstructor? (AS identifier)? INDENT EQUALS NEWLINE classMembers DEDENT
+    // canon: corpus, a body of class ... end at the column of the equals sign, as Fantomas lays out a
+    // long primary constructor.
+    | typeHead INDENT primaryConstructor (AS identifier)? NEWLINE? EQUALS NEWLINE (classMembers | classBlock) DEDENT
+    | typeHead primaryConstructor? (AS identifier)? INDENT EQUALS NEWLINE (classMembers | classBlock) DEDENT
     | splitTypeHead primaryConstructor? (AS identifier)? EQUALS (NEWLINE classMembers | INDENT classMembers DEDENT) DEDENT
     | splitTypeHead INDENT primaryConstructor (AS identifier)? EQUALS DEDENT NEWLINE classMembers DEDENT
+    // canon: corpus, a primary constructor indented below the name with the members left of it, and
+    // an equals sign on a line of its own with the members indented further.
+    | typeHead INDENT primaryConstructor (AS identifier)? EQUALS DEDENT INDENT classMembers DEDENT
+    | typeHead primaryConstructor? (AS identifier)? INDENT EQUALS INDENT classMembers DEDENT DEDENT
     ;
 
 // The one member a class may have on the line of its name, which must say it is a member, so a
@@ -310,8 +339,11 @@ sameLineClassMember
     | INHERIT soupItem+
     ;
 
+// canon: corpus, an empty class or interface may close with end on the line below.
 classBlock
-    : (CLASS | STRUCT) (INDENT classMembers DEDENT NEWLINE? | classMember)? END
+    : (CLASS | STRUCT) (INDENT classMembers DEDENT | classMember)? NEWLINE? END
+    // canon: corpus, class on the line of the equals sign, with end at the column of the members.
+    | (CLASS | STRUCT) INDENT classMembers NEWLINE END DEDENT
     ;
 
 // The constructor's access is not the type's, so it is not the access rule.
@@ -323,8 +355,10 @@ typeExtension
     : typeHead WITH (INDENT classMembers DEDENT | classMember) (NEWLINE? END)?
     ;
 
+// canon: corpus, the name of an abbreviation may be on the line below and, after its attributes.
 abbreviationType
     : typeHead EQUALS soupItem+
+    | splitTypeHead EQUALS soupItem+ DEDENT
     ;
 
 abstractType
@@ -355,10 +389,11 @@ memberDefinition
     : leadingAttributes? memberKeyword access? INLINE? access? memberHead memberRest? matchArms?
     ;
 
+// canon: corpus, default val declares an auto-property, as override val does.
 memberKeyword
     : STATIC? MEMBER VAL?
     | OVERRIDE VAL?
-    | DEFAULT
+    | DEFAULT VAL?
     ;
 
 abstractMemberDefinition
@@ -434,8 +469,9 @@ attributeList
     ;
 
 // An attribute's argument is in parentheses, or is a lone constant as in [<Obsolete "...">].
+// canon: corpus, a lone constant argument may also be a name, as in [<DefaultValue false>].
 attribute
-    : (identifier COLON)? longIdentifier typeParameters? (group | STRING | NUMBER)?
+    : (identifier COLON)? longIdentifier typeParameters? (group | STRING | NUMBER | longIdentifier)?
     ;
 
 longIdentifier

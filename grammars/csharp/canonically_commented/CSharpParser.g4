@@ -167,10 +167,12 @@ assignment_operator
     | '^='
     | '<<='
     | right_shift_assignment
+    | right_shift_unsigned_assignment
     ;
 
 conditional_expression
-    : null_coalescing_expression ('?' throwable_expression ':' throwable_expression)?
+    // canon: a conditional's branches may be ref expressions (C# 7.2), as in c ? ref a : ref b.
+    : null_coalescing_expression ('?' REF? throwable_expression ':' REF? throwable_expression)?
     ;
 
 null_coalescing_expression
@@ -206,7 +208,7 @@ relational_expression
     ;
 
 shift_expression
-    : additive_expression (('<<' | right_shift) additive_expression)*
+    : additive_expression (('<<' | right_shift_unsigned | right_shift) additive_expression)*
     ;
 
 additive_expression
@@ -422,8 +424,13 @@ explicit_anonymous_function_parameter
     : attributes? refout = (REF | OUT | IN | SCOPED | PARAMS)? READONLY? type_ identifier ('=' expression)?
     ;
 
+// canon: an implicitly typed lambda parameter may take a modifier (C# 14), as (_, out p) => does.
 implicit_anonymous_function_parameter_list
-    : identifier (',' identifier)*
+    : implicit_anonymous_function_parameter (',' implicit_anonymous_function_parameter)*
+    ;
+
+implicit_anonymous_function_parameter
+    : (REF | OUT | IN | SCOPED | REF READONLY | SCOPED REF)? identifier
     ;
 
 anonymous_function_body
@@ -572,7 +579,8 @@ block
 
 // canon: await using declarations (C# 8), scoped locals (C# 11), and deconstructing declarations.
 local_variable_declaration
-    : (AWAIT? USING | REF | REF READONLY | SCOPED)? local_variable_type local_variable_declarator (
+    // canon: a scoped ref local (C# 11), as in scoped ref T x = ref y;.
+    : (AWAIT? USING | REF | REF READONLY | SCOPED REF READONLY? | SCOPED)? local_variable_type local_variable_declarator (
         ',' local_variable_declarator {this.IsLocalVariableDeclaration()}?
     )*
     | FIXED pointer_type fixed_pointer_declarators
@@ -642,7 +650,13 @@ primary_pattern
     | '[' (pattern (',' pattern)* ','?)? ']' simple_designation?     // list_pattern
     | '..' pattern?                                                  // slice_pattern
     | OPEN_PARENS pattern CLOSE_PARENS                               // parenthesized_pattern
-    | shift_expression                                               // constant_pattern
+    // canon: a constant pattern may use the bitwise operators, as case 'n' ^ 't': and
+    // (A or B | C, _) do, though not the relational ones, which begin relational patterns.
+    | constant_pattern_expression                                    // constant_pattern
+    ;
+
+constant_pattern_expression
+    : shift_expression (('&' | '^' | '|') shift_expression)*
     ;
 
 positional_pattern_clause
@@ -767,6 +781,7 @@ type_declaration
     | enum_definition
     | delegate_definition
     | record_definition
+    | union_definition
     ;
 
 qualified_alias_member
@@ -894,6 +909,8 @@ all_member_modifier
     | ASYNC // C# 5
     | REQUIRED
     | FILE
+    // canon: the safe modifier of C# 15's unsafe evolution, as on .NET's own fields.
+    | SAFE
     ;
 
 // represents the intersection of struct_member_declaration and class_member_declaration
@@ -1041,7 +1058,8 @@ overloadable_operator
 
 // canon: the conversion operator as a member of its own, with checked operators (C# 11).
 conversion_operator_declaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) member_prefix (IMPLICIT | EXPLICIT) OPERATOR CHECKED? what = type_ OPEN_PARENS arg_declaration CLOSE_PARENS (
+    // canon: the parameter of a conversion operator may take a modifier, as in does.
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) member_prefix (IMPLICIT | EXPLICIT) OPERATOR CHECKED? what = type_ OPEN_PARENS parameter_modifier? arg_declaration CLOSE_PARENS (
         how = body
         | right_arrow throwable_expression ';'
     ) # operator
@@ -1152,9 +1170,10 @@ attribute_argument
     ;
 
 //B.3 Grammar extensions for unsafe code
+// canon: a pointer may point to a pointer, as in fixed (T** p = &x).
 pointer_type
-    : (simple_type | class_type) (rank_specifier | '?')* '*'
-    | VOID '*'
+    : (simple_type | class_type) (rank_specifier | '?' | '*')* '*'
+    | VOID '*'+
     ;
 
 fixed_pointer_declarators
@@ -1192,8 +1211,18 @@ right_shift
     : '>' '>' {this.IsRightShift()}? // Nothing between the tokens?
     ;
 
+// canon: the unsigned right shift operator (C# 11), three touching greater-than signs.
+right_shift_unsigned
+    : '>' '>' {this.IsRightShift()}? '>' {this.IsRightShift()}?
+    ;
+
 right_shift_assignment
     : '>' '>=' {this.IsRightShiftAssignment()}? // Nothing between the tokens?
+    ;
+
+// canon: the unsigned right shift assignment (C# 11).
+right_shift_unsigned_assignment
+    : '>' '>' {this.IsRightShift()}? '>=' {this.IsRightShiftAssignment()}?
     ;
 
 literal
@@ -1349,8 +1378,9 @@ primary_constructor_parameters
     : OPEN_PARENS formal_parameter_list? CLOSE_PARENS
     ;
 
+// canon: partial may follow ref, as in public ref partial struct S.
 struct_definition
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) member_prefix REF? STRUCT what = identifier type_parameter_list? primary_constructor_parameters? struct_interfaces? type_parameter_constraints_clauses? (
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) member_prefix REF? PARTIAL? STRUCT what = identifier type_parameter_list? primary_constructor_parameters? struct_interfaces? type_parameter_constraints_clauses? (
         how = class_body ';'?
         | ';'
     ) # struct
@@ -1362,6 +1392,15 @@ record_definition
         how = class_body ';'?
         | ';'
     ) # record
+    ;
+
+// canon: a union (C# 15) is declared by its case types, as public union Pet(Cat, Dog); is, and is a
+// type of its own.
+union_definition
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) member_prefix UNION what = identifier type_parameter_list? OPEN_PARENS type_ (',' type_)* CLOSE_PARENS class_base? type_parameter_constraints_clauses? (
+        how = class_body ';'?
+        | ';'
+    ) # union
     ;
 
 // canon: the members of an interface are public unless they say otherwise, so its body is labeled
@@ -1486,9 +1525,11 @@ identifier
     | RECORD
     | REMOVE
     | REQUIRED
+    | SAFE
     | SCOPED
     | SELECT
     | SET
+    | UNION
     | UNMANAGED
     | VAR
     | WHEN
@@ -1498,9 +1539,9 @@ identifier
     ;
 
 // canon: a canonical comment, an XML doc comment, holding prose, reference citations, and license
-// citations.
+// citations. A /// comment ends at the DOC_END the lexer hook emits, so it has one end.
 canonicalComment
-    : DOC_OPEN docPart*
+    : DOC_OPEN docPart* DOC_END
     | DOC_BLOCK_OPEN docPart* DOC_BLOCK_CLOSE
     ;
 

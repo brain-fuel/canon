@@ -59,9 +59,45 @@ classes, so every change is marked `// canon:` in the grammar and recorded as
   edition, since canon reads a crate without knowing its edition. A later
   edition's async blocks and `dyn` types still parse as such.
 
-Unstable syntax, such as `default fn` under specialization, is not accepted,
-since it may change in any nightly and crates published for stable Rust do not
-use it.
+The corpus below showed what the upstream grammar, last updated for Rust 1.60,
+lacks; each fix is marked `// canon:` and tested in `RustTest.hs`:
+
+- A block comment's body may hold a star, as in `/* a * b */`, and a nested
+  comment nests: the body ends at the first `*/` outside one, as rustc reads
+  it. Upstream let no star through but the closing one, so every comment with
+  a star inside failed to lex, and its `/**` and `/***` openers ran on past
+  `/**/` and `/***/`.
+- Whitespace is Rust's `Pattern_White_Space`, so a tab separates tokens.
+- A unicode escape's digits are one loop, which may hold underscores.
+  Upstream's five optional digits matched `\u{202e}` in ten ways, and canon's
+  lexer, which keeps every way, read the rest of a string once per way, so a
+  string of eight such escapes took seconds.
+- The `f16` and `f128` suffixes, C string literals (`c"..."`, `cr#"..."#`),
+  and a float with a bare trailing dot, `0.`, read in the parser as an integer
+  and a dot.
+- Syntax stabilised since Rust 1.60: `let ... else`, `let` chains in `if`,
+  `while`, and match guards, raw borrows (`&raw const x`), inline `const`
+  blocks, labeled blocks, associated type bounds (`Iterator<Item: Debug>`),
+  generic associated types with a `where` clause after the type, unsafe
+  attributes (`#[unsafe(no_mangle)]`), any expression as an attribute's value
+  (`#[doc = include_str!("x.md")]`), async closures and `async` bounds,
+  precise capturing (`use<'a, T>`), exclusive and half-open range patterns,
+  `safe` items of an `unsafe extern` block, and a named variadic parameter.
+- The frontmatter of a Cargo script, a manifest between fences of three to
+  twelve dashes, is hidden. Without a start-of-file predicate it is recognised
+  wherever a fence opens a line of its own, which Rust code never does.
+- A metavariable may be named `$_`.
+
+The standard library is compiled with unstable features, and canon reads
+`library/core`, `alloc`, and `std` as a reader of them sees them, so the
+unstable syntax they use is accepted too: `const trait`, `const impl`,
+`impl const Trait`, and `[const]`, `~const`, and `const` bounds; `default` and
+`final` items and `default impl` (specialization); `auto trait`; impl
+restrictions (`pub impl(crate) trait`); trait aliases; declarative macros 2.0
+(`macro name(...) { ... }`), which the dialect documents as macros; `try`
+blocks; `const` closures; `super let`; extern types; const parameter defaults;
+and `..X` range patterns. Unstable syntax the standard library does not use is
+not accepted.
 
 ## Canonically commented dialect
 
@@ -87,17 +123,67 @@ Each change is marked `// canon:`:
   warns it is unused. An inner doc comment binds to the module whose body it
   opens, or at the top of a file to the file, and elsewhere is an `orphan`.
 - A doc comment in a macro's input or matcher is a token of it.
+- The `RustLexerBase` hook emits an empty `DOC_END` token where a line doc
+  comment ends, at its line break, before a `////` line, or at the end of the
+  file. The comment rules end at it, so a comment has one end rather than one
+  after each word: canon's parser keeps a tree for every end, and the 900
+  lines of `//!` that open the standard library's `pin.rs` took 2.5 GB. The
+  plain grammar has no doc comment tokens and the hook leaves its tokens as
+  they are.
+- A block comment nested in a block doc comment is a word of its prose, so the
+  doc comment ends where rustc ends it, as with `src/**/foo.rs` in ripgrep's.
 - Anywhere else the grammar takes no doc comment, as inside an expression,
   before a closing bracket, or at the end of a block, the parser's
   `strayComment` options name `canonicalComment` and `innerComment`, so canon
   reads the file without the comment and reports it as an `orphan`
   (`DEC-stray-comments`). A doc comment never fails the parse.
 
+## Corpus
+
+`tools/corpus/rust.sh` checks the grammar against widely used Rust code. It
+clones each repository below, shallow and pinned to a commit, into a directory
+given as its argument (default `/tmp/corpus/rust`), checking out only the
+listed subdirectories of the large ones; parses every `.rs` file with the plain
+grammar and then with the dialect, each file under a limit of `TIMEOUT` (20)
+seconds of CPU time; and prints per repository the files, the files parsed,
+the deliberate exclusions, the failures, the CPU time, and the slowest files,
+then the files the plain grammar parses and the dialect does not, and the
+distribution of times. Rerun it with `tools/corpus/rust.sh [DIR]`; `JOBS` sets
+the parallel parses and `ONLY` names one repository.
+
+| Repository | Commit | Sampled | Files | Parsed | Excluded | CPU time, plain / dialect |
+|---|---|---|---|---|---|---|
+| rust-lang/rust | `602727f26878` | `library/core`, `library/alloc`, `library/std` | 1,092 | 1,092 | 0 | 83 s / 96 s |
+| tokio-rs/tokio | `b26367524504` | whole | 808 | 808 | 0 | 45 s / 50 s |
+| serde-rs/serde | `6693a89cca77` | whole | 208 | 208 | 0 | 12 s / 13 s |
+| BurntSushi/ripgrep | `3fce3b5bb023` | whole | 110 | 110 | 0 | 11 s / 12 s |
+| rust-lang/cargo | `bb2126cffae4` | whole | 1,374 | 1,354 | 20 | 73 s / 81 s |
+| bevyengine/bevy | `14d79ccc341c` | `crates/bevy_ecs`, `bevy_app`, `bevy_math`, `bevy_reflect`, `bevy_transform`, `bevy_input` | 462 | 462 | 0 | 42 s / 44 s |
+| `lang_samples/rust-scopeguard` | | | 1 | 1 | 0 | 0 s / 0 s |
+
+The full commits are in the script. The dialect parses every file the plain
+grammar parses. The 20 exclusions, each listed in the script with its reason,
+are cargo fixtures: two rustfix inputs that hold the compiler error rustfix
+fixes (E0178 and a missing comma between match arms), 17 of rustc's
+frontmatter tests that rustc and Cargo reject for a malformed fence or
+infostring, each with a `.stderr` expectation or a `//~ ERROR` annotation, and
+one file of tokens a test includes as an expression, which is no crate.
+
+Each file is parsed on one capability (`GHCRTS=-N1`) and timed in CPU
+seconds, since the machine ran other work at a load of 60 to 140. Of the 4,055
+files, the plain grammar parses 4,024 in under half a second, 29 in under one,
+and 2 in under two; the slowest are `core/src/unicode/unicode_data.rs` at 1.6
+s, ripgrep's `crates/core/flags/defs.rs` at 1.3 s, and bevy's
+`crates/bevy_ecs/src/query/fetch.rs` at 0.8 s. The dialect's times are within
+15% of these. Every failing file fails within 0.03 s.
+
 ## Known limitations in canon
 
 Of the upstream limitations above, the first no longer holds for what canon
-reads: syntax of the 2015 edition parses too, the identifiers above being the
-only syntax it has that later editions do not. The second holds: a carriage
+reads: the stable syntax of the crates in the corpus above and the unstable
+syntax of the standard library parse, and syntax of the 2015 edition parses
+too, the identifiers above being the only syntax it has that later editions do
+not. The second holds: a carriage
 return that no line feed follows is not rejected in a doc comment or a
 string, where rustc rejects it. Rejecting it would only turn a file rustc
 refuses into a parse failure; no unit of a file rustc compiles would change,

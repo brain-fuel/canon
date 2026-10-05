@@ -21,6 +21,7 @@ languages:
       - {rule: interface_definition, kind: interface, name: {rule: identifier}, required: false}
       - {rule: enum_definition, kind: enum, name: {rule: identifier}, required: false}
       - {rule: record_definition, kind: record, name: {rule: identifier}, required: false}
+      - {rule: union_definition, kind: union, name: {rule: identifier}, required: false}
       - {rule: delegate_definition, kind: delegate, name: {rule: identifier}, required: false}
       - {rule: method_declaration, kind: method, name: {rule: method_member_name}, required: false}
       - {rule: constructor_declaration, kind: constructor, name: {rule: identifier}, required: false}

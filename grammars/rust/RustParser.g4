@@ -71,8 +71,10 @@ macroInvocationSemi
     ;
 
 // 3.1
+// canon: a declarative macro 2.0, macro name($x:expr) { ... } or macro name { rules }, which the
+// standard library defines under the decl_macro feature, is a macro definition too.
 macroRulesDefinition
-    : itemPrefix KW_MACRORULES NOT identifier macroRulesDef
+    : itemPrefix (KW_MACRORULES NOT identifier macroRulesDef | KW_MACRO identifier (LPAREN tokenTree* RPAREN)? delimTokenTree)
     ;
 
 macroRulesDef
@@ -99,8 +101,9 @@ macroMatcher
 macroMatch
     : macroMatchToken
     | macroMatcher
-    // canon: a metavariable may be named by any keyword, as anyhow's $let:tt is, not only self.
-    | DOLLAR (identifier | keyword) COLON macroFragSpec
+    // canon: a metavariable may be named by any keyword, as anyhow's $let:tt is, not only self, or by
+    // an underscore, as $_:ident.
+    | DOLLAR (identifier | keyword | UNDERSCORE) COLON macroFragSpec
     | DOLLAR LPAREN macroMatch+ RPAREN macroRepSep? macroRepOp
     ;
 
@@ -220,8 +223,10 @@ function_
     )
     ;
 
+// canon: an item in an unsafe extern block may be marked safe, as Rust 2024 allows; and default
+// (specialization) and final (final trait methods) are the standard library's own qualifiers.
 functionQualifiers
-    : KW_CONST? KW_ASYNC? KW_UNSAFE? (KW_EXTERN abi?)?
+    : ('default' | KW_FINAL)? KW_CONST? KW_ASYNC? (KW_UNSAFE | 'safe')? (KW_EXTERN abi?)?
     ;
 
 abi
@@ -261,8 +266,10 @@ functionReturnType
 // 6.5
 // canon: an associated type may have bounds, as in type Buffer: 'static; which the upstream rule
 // rejected; the Rust reference allows them.
+// canon: a where clause may also follow the type, as Rust 1.61 prefers for a generic associated
+// type, and an associated type of a specializing impl may be marked default.
 typeAlias
-    : itemPrefix KW_TYPE identifier genericParams? (COLON typeParamBounds?)? whereClause? (EQ type_)? SEMI
+    : itemPrefix 'default'? KW_TYPE identifier genericParams? (COLON typeParamBounds?)? whereClause? (EQ type_ whereClause?)? SEMI
     ;
 
 // 6.6
@@ -331,20 +338,33 @@ union_
     ;
 
 // 6.9
+// canon: an associated constant of a specializing impl may be marked default.
 constantItem
-    : itemPrefix KW_CONST (identifier | UNDERSCORE) COLON type_ (EQ expression)? SEMI
+    : itemPrefix 'default'? KW_CONST (identifier | UNDERSCORE) COLON type_ (EQ expression)? SEMI
     ;
 
 // 6.10
+// canon: a static in an unsafe extern block may be marked safe or unsafe, as Rust 2024 allows.
 staticItem
-    : itemPrefix KW_STATIC KW_MUT? identifier COLON type_ (EQ expression)? SEMI
+    : itemPrefix (KW_UNSAFE | 'safe')? KW_STATIC KW_MUT? identifier COLON type_ (EQ expression)? SEMI
     ;
 
 // 6.11
 // canon: the items of a trait are labeled inherited: an item needs a comment when the trait does,
 // since it is as visible as the trait and says no pub of its own.
+// canon: a trait alias, trait A = B;, and the standard library's auto, const, and impl-restricted
+// traits, pub impl(crate) trait, are traits too.
 trait_
-    : itemPrefix KW_UNSAFE? KW_TRAIT identifier genericParams? (COLON typeParamBounds?)? whereClause? LCURLYBRACE innerAttribute* (inherited += associatedItem)* RCURLYBRACE
+    : itemPrefix implRestriction? KW_CONST? KW_UNSAFE? 'auto'? KW_TRAIT identifier genericParams? (COLON typeParamBounds?)? whereClause? (
+        LCURLYBRACE innerAttribute* (inherited += associatedItem)* RCURLYBRACE
+        | EQ typeParamBounds? whereClause? SEMI
+    )
+    ;
+
+// canon: an impl restriction limits where a trait may be implemented, as visibility limits where it
+// may be named.
+implRestriction
+    : KW_IMPL LPAREN (KW_CRATE | KW_SELFVALUE | KW_SUPER | KW_IN simplePath) RPAREN
     ;
 
 // 6.12
@@ -353,14 +373,16 @@ implementation
     | traitImpl
     ;
 
+// canon: the standard library's const impls, const impl<T> X<T> and impl<T> const Trait for X<T>, and
+// specializing default impls are impls too.
 inherentImpl
-    : itemPrefix KW_IMPL genericParams? type_ whereClause? LCURLYBRACE innerAttribute* associatedItem* RCURLYBRACE
+    : itemPrefix KW_CONST? KW_IMPL genericParams? type_ whereClause? LCURLYBRACE innerAttribute* associatedItem* RCURLYBRACE
     ;
 
 // canon: the trait and the self type of a trait impl are one rule, traitImplTarget, which names it,
 // so the impls of one type for different traits are told apart by their traits.
 traitImpl
-    : itemPrefix KW_UNSAFE? KW_IMPL genericParams? traitImplTarget whereClause? LCURLYBRACE innerAttribute* associatedItem* RCURLYBRACE
+    : itemPrefix 'default'? KW_CONST? KW_UNSAFE? KW_IMPL genericParams? KW_CONST? traitImplTarget whereClause? LCURLYBRACE innerAttribute* associatedItem* RCURLYBRACE
     ;
 
 traitImplTarget
@@ -372,10 +394,12 @@ externBlock
     : itemPrefix KW_UNSAFE? KW_EXTERN abi? LCURLYBRACE innerAttribute* externalItem* RCURLYBRACE
     ;
 
+// canon: an extern block may also declare a type, as the extern_types feature allows.
 externalItem
     : itemPrefix macroInvocationSemi
     | staticItem
     | function_
+    | typeAlias
     ;
 
 // 6.14
@@ -395,8 +419,9 @@ typeParam
     : outerAttribute? identifier (COLON typeParamBounds?)? (EQ type_)?
     ;
 
+// canon: a const parameter may have a default, as const N: usize = 3 or = { expr }.
 constParam
-    : KW_CONST identifier COLON type_
+    : KW_CONST identifier COLON type_ (EQ genericArgsConst)?
     ;
 
 whereClause
@@ -437,14 +462,17 @@ outerAttribute
     : POUND LSQUAREBRACKET attr RSQUAREBRACKET
     ;
 
+// canon: an unsafe attribute, #[unsafe(no_mangle)], is stable since Rust 1.82; and the value of an
+// attribute may be any expression, as #[doc = include_str!("x.md")] or #[doc = concat!(..)].
 attr
     : simplePath attrInput?
+    | KW_UNSAFE LPAREN attr RPAREN
     ;
 
 attrInput
     : delimTokenTree
-    | EQ literalExpression
-    ; // w/o suffix
+    | EQ expression
+    ;
 
 //metaItem
 // : simplePath ( EQ literalExpression //w | LPAREN metaSeq RPAREN )? ; metaSeq: metaItemInner (COMMA metaItemInner)* COMMA?;
@@ -464,8 +492,9 @@ statement
     | macroInvocationSemi
     ;
 
+// canon: let else, stable since Rust 1.65, and the standard library's super let.
 letStatement
-    : outerAttribute* KW_LET patternNoTopAlt (COLON type_)? (EQ expression)? SEMI
+    : outerAttribute* KW_SUPER? KW_LET patternNoTopAlt (COLON type_)? (EQ expression (KW_ELSE blockExpression)?)? SEMI
     ;
 
 expressionStatement
@@ -485,7 +514,8 @@ expression
     | expression LPAREN callParams? RPAREN                           # CallExpression                // 8.2.9
     | expression LSQUAREBRACKET expression RSQUAREBRACKET            # IndexExpression               // 8.2.6
     | expression QUESTION                                            # ErrorPropagationExpression    // 8.2.4
-    | (AND | ANDAND) KW_MUT? expression                              # BorrowExpression              // 8.2.4
+    // canon: a raw borrow, &raw const x or &raw mut x, stable since Rust 1.82.
+    | (AND | ANDAND) (KW_MUT | 'raw' (KW_CONST | KW_MUT))? expression # BorrowExpression              // 8.2.4
     | STAR expression                                                # DereferenceExpression         // 8.2.4
     | (MINUS | NOT) expression                                         # NegationExpression            // 8.2.4
     | expression KW_AS typeNoBounds                                  # TypeCastExpression            // 8.2.4
@@ -542,11 +572,16 @@ compoundAssignOperator
     | SHREQ
     ;
 
+// canon: an inline const block, const { ... }, stable since Rust 1.79, a labeled block, 'a: { ... },
+// stable since Rust 1.65, and the standard library's try block, try { ... }.
 expressionWithBlock
     : outerAttribute+ expressionWithBlock // technical
     | blockExpression
     | asyncBlockExpression
     | unsafeBlockExpression
+    | KW_CONST blockExpression
+    | loopLabel blockExpression
+    | KW_TRY blockExpression
     | loopExpression
     | ifExpression
     | ifLetExpression
@@ -554,6 +589,9 @@ expressionWithBlock
     ;
 
 // 8.2.1
+// canon: C string literals; and a float written with a bare trailing dot, 1., which the lexer reads
+// as an integer and a dot, since it cannot tell it from the 1 of 1..2 or 1.max(2) without upstream's
+// base-class predicates.
 literalExpression
     : CHAR_LITERAL
     | STRING_LITERAL
@@ -561,8 +599,11 @@ literalExpression
     | BYTE_LITERAL
     | BYTE_STRING_LITERAL
     | RAW_BYTE_STRING_LITERAL
+    | C_STRING_LITERAL
+    | RAW_C_STRING_LITERAL
     | INTEGER_LITERAL
     | FLOAT_LITERAL
+    | INTEGER_LITERAL DOT
     | KW_TRUE
     | KW_FALSE
     ;
@@ -674,8 +715,10 @@ callParams
     ;
 
 // 8.2.12
+// canon: an async closure, async move |x| ..., stable since Rust 1.85, and the standard library's
+// const closure, const |x| ....
 closureExpression
-    : KW_MOVE? (OROR | OR closureParameters? OR) (expression | RARROW typeNoBounds blockExpression)
+    : KW_CONST? KW_ASYNC? KW_MOVE? (OROR | OR closureParameters? OR) (expression | RARROW typeNoBounds blockExpression)
     ;
 
 closureParameters
@@ -700,8 +743,9 @@ infiniteLoopExpression
     : KW_LOOP blockExpression
     ;
 
+// canon: the condition may chain let bindings, as condition below says.
 predicateLoopExpression
-    : KW_WHILE expression /*except structExpression*/ blockExpression
+    : KW_WHILE condition /*except structExpression*/ blockExpression
     ;
 
 predicatePatternLoopExpression
@@ -718,7 +762,18 @@ loopLabel
 
 // 8.2.15
 ifExpression
-    : KW_IF expression blockExpression (KW_ELSE (blockExpression | ifExpression | ifLetExpression))?
+    : KW_IF condition blockExpression (KW_ELSE (blockExpression | ifExpression | ifLetExpression))?
+    ;
+
+// canon: the condition of an if, a while, or a match guard may chain let bindings with &&, as
+// if let Some(x) = a && x > 0, stable since Rust 1.88.
+condition
+    : conditionOperand (ANDAND conditionOperand)*
+    ;
+
+conditionOperand
+    : KW_LET pattern EQ expression
+    | expression
     ;
 
 ifLetExpression
@@ -745,8 +800,9 @@ matchArm
     : outerAttribute* pattern matchArmGuard?
     ;
 
+// canon: a guard may chain let bindings, as condition says.
 matchArmGuard
-    : KW_IF expression
+    : KW_IF condition
     ;
 
 // 9
@@ -774,6 +830,7 @@ patternWithoutRange
     | macroInvocation
     ;
 
+// canon: C string literals are patterns too.
 literalPattern
     : KW_TRUE
     | KW_FALSE
@@ -783,6 +840,8 @@ literalPattern
     | RAW_STRING_LITERAL
     | BYTE_STRING_LITERAL
     | RAW_BYTE_STRING_LITERAL
+    | C_STRING_LITERAL
+    | RAW_C_STRING_LITERAL
     | MINUS? INTEGER_LITERAL
     | MINUS? FLOAT_LITERAL
     ;
@@ -799,9 +858,14 @@ restPattern
     : DOTDOT
     ;
 
+// canon: an exclusive range pattern, a..b, stable since Rust 1.80, and a range pattern open at its
+// start, ..=b, stable since Rust 1.66, or ..b, as the standard library writes.
 rangePattern
     : rangePatternBound DOTDOTEQ rangePatternBound # InclusiveRangePattern
+    | rangePatternBound DOTDOT rangePatternBound   # ExclusiveRangePattern
     | rangePatternBound DOTDOT                    # HalfOpenRangePattern
+    | DOTDOTEQ rangePatternBound                  # InclusiveRangePattern
+    | DOTDOT rangePatternBound                    # ExclusiveRangePattern
     | rangePatternBound DOTDOTDOT rangePatternBound # ObsoleteRangePattern
     ;
 
@@ -959,8 +1023,9 @@ maybeNamedParam
     : outerAttribute* ((identifier | UNDERSCORE) COLON)? type_
     ;
 
+// canon: the variadic part may be named, as in fn(_: *mut T, _: ...).
 maybeNamedFunctionParametersVariadic
-    : (maybeNamedParam COMMA)* maybeNamedParam COMMA outerAttribute* DOTDOTDOT
+    : (maybeNamedParam COMMA)* maybeNamedParam COMMA outerAttribute* ((identifier | UNDERSCORE) COLON)? DOTDOTDOT
     ;
 
 // 10.1.15
@@ -990,14 +1055,22 @@ typeParamBounds
     : typeParamBound (PLUS typeParamBound)* PLUS?
     ;
 
+// canon: a precise capturing bound, use<'a, T>, stable since Rust 1.82.
 typeParamBound
     : lifetime
     | traitBound
+    | KW_USE genericArgs
     ;
 
+// canon: a bound may be async, async Fn(), stable since Rust 1.85, and the standard library's const
+// trait bounds, [const] Trait, ~const Trait, and const Trait, are bounds too.
 traitBound
-    : QUESTION? forLifetimes? typePath
-    | LPAREN QUESTION? forLifetimes? typePath RPAREN
+    : QUESTION? forLifetimes? boundModifiers typePath
+    | LPAREN QUESTION? forLifetimes? boundModifiers typePath RPAREN
+    ;
+
+boundModifiers
+    : (LSQUAREBRACKET KW_CONST RSQUAREBRACKET | TILDE KW_CONST | KW_CONST)? KW_ASYNC?
     ;
 
 lifetimeBounds
@@ -1048,11 +1121,14 @@ genericArgs
     | LT (genericArg COMMA)* genericArg COMMA? GT
     ;
 
+// canon: an associated type bound, Iterator<Item: Debug>, stable since Rust 1.79, and a binding of a
+// generic associated type, Item<'a> = &'a T.
 genericArg
     : lifetime
     | type_
     | genericArgsConst
     | genericArgsBinding
+    | identifier genericArgs? COLON typeParamBounds
     ;
 
 genericArgsConst
@@ -1073,8 +1149,9 @@ genericArgsBindings
     : genericArgsBinding (COMMA genericArgsBinding)*
     ;
 
+// canon: a generic associated type is bound with its arguments, Item<'a> = &'a T.
 genericArgsBinding
-    : identifier EQ type_
+    : identifier genericArgs? EQ type_
     ;
 
 qualifiedPathInExpression

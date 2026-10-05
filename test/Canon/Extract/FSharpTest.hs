@@ -3,9 +3,9 @@
 -- author means by a declaration and its documentation. ref:DEC-fsharp-grammar ref:REQ-fsharp-support
 module Canon.Extract.FSharpTest (tests) where
 
-import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, loadInterpreter, renderInterpretError)
+import Canon.Antlr4.Interpret (Interpreter (..), interpretFile, interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Lex (renderLexError)
-import Canon.Antlr4.Parse (treeRuleNodes)
+import Canon.Antlr4.Parse (ParseTree, treeRuleNodes)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Antlr4.Token (Token (..), defaultChannelName, isEofToken)
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
@@ -44,6 +44,9 @@ tests =
     , testProperty "the F# dialect reads the Giraffe.ViewEngine sample as the profile does" prop_theFSharpDialectReadsTheViewEngineSampleAsTheProfileDoes
     , testProperty "the F# dialect binds doc comments to declarations and reports misplaced ones" prop_theFSharpDialectBindsDocCommentsToDeclarationsAndReportsMisplacedOnes
     , testProperty "an F# doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_anFSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
+    , testProperty "the F# grammar reads the declaration layouts of the corpus as declarations" prop_theFSharpGrammarReadsTheDeclarationLayoutsOfTheCorpusAsDeclarations
+    , testProperty "a byte order mark and an operator in a constraint leave the F# layout as written" prop_aByteOrderMarkAndAnOperatorInAConstraintLeaveTheFSharpLayoutAsWritten
+    , testProperty "the F# grammar reads class and end bodies and the layouts Fantomas writes as declarations" prop_theFSharpGrammarReadsClassAndEndBodiesAndTheLayoutsFantomasWritesAsDeclarations
     ]
 
 sampleDir :: FilePath
@@ -526,3 +529,152 @@ prop_anFSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
   [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
     === ["fsharp/Odd.fs/module/Odd/function/f", "fsharp/Odd.fs/module/Odd/class/T"]
   sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [5, 9, 12, 15, 18, 23]
+
+-- | Parses F# text with the plain grammar, failing the property on a parse error.
+parsedOrFail :: Interpreter -> Text -> PropertyT IO ParseTree
+parsedOrFail interpreter source =
+  either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure (interpretText interpreter (Name "file") "Corpus.fs" source)
+
+-- | The grammar reads a line it cannot read as a declaration as an expression, so a layout it does
+-- not know loses a declaration without failing the file. Each of these layouts is one FSharp.Core,
+-- Paket, or FAKE uses, and each must be read as the declaration it is: a type's constraints after
+-- its parameters, a primary constructor indented below the name with the members left of it, an
+-- equals sign on a line of its own, access on each name of a tuple binding, a struct tuple
+-- parameter, union cases at the column of type with members and no with, a return type on the
+-- line below the parameters, a constraint whose member signature holds an equals sign, and an
+-- abbreviation's name below and with its attributes. ref:REQ-fsharp-support ref:DEC-fsharp-grammar
+prop_theFSharpGrammarReadsTheDeclarationLayoutsOfTheCorpusAsDeclarations :: Property
+prop_theFSharpGrammarReadsTheDeclarationLayoutsOfTheCorpusAsDeclarations = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  tree <-
+    parsedOrFail interpreter $
+      T.unlines
+        [ "module M"
+        , ""
+        , "type SetIterator<'T> when 'T: comparison ="
+        , "    { mutable stack: int list }"
+        , ""
+        , "type PrintfFormat<'Printer, 'State>"
+        , "        [<DebuggerStepThrough>]"
+        , "        (value: string) ="
+        , ""
+        , "    new (value) = PrintfFormat<'Printer, 'State>(value)"
+        , ""
+        , "    member x.Value = value"
+        , ""
+        , "type Config(generateClass: bool)"
+        , "// a comment between the constructor and its equals sign"
+        , " ="
+        , "    member _.GenerateClass = generateClass"
+        , ""
+        , "let private getStarted, _, public setStarted = create ()"
+        , ""
+        , "let inline vFst struct (a, _) = a"
+        , ""
+        , "type Restrictions ="
+        , "| Explicit of int"
+        , "| AutoDetect"
+        , "    override x.ToString() = \"r\""
+        , ""
+        , "let infer (name: string,"
+        , "           group: string) :"
+        , "           Result<_, _> ="
+        , "    Ok name"
+        , ""
+        , "let inline NonStructural<'T when 'T: equality and 'T: (static member (=): 'T * 'T -> bool)> = 1"
+        , ""
+        , "type Lazy<'T> = System.Lazy<'T>"
+        , "and"
+        , "    [<System.Obsolete(\"obsolete\", true)>]"
+        , "    'T ``lazy`` = System.Lazy<'T>"
+        ]
+  length (treeRuleNodes (Name "otherModuleElement") tree) === 0
+  length (treeRuleNodes (Name "recordType") tree) === 1
+  length (treeRuleNodes (Name "classType") tree) === 2
+  length (treeRuleNodes (Name "unionType") tree) === 1
+  length (treeRuleNodes (Name "abbreviationType") tree) === 2
+  length (treeRuleNodes (Name "constructorDefinition") tree) === 1
+  length (treeRuleNodes (Name "memberDefinition") tree) === 3
+  length (treeRuleNodes (Name "functionDefinition") tree) === 2
+  length (treeRuleNodes (Name "valueDefinition") tree) === 2
+
+-- | The offside rule compares columns, so a byte order mark must not count as one, or an equals
+-- sign one column right of a type at the start of a file is read as level with the namespace; and
+-- a less-than or greater-than sign inside parentheses is an operator, as in a constraint's member
+-- signature, so it must not open or close the type application the hook lays out as brackets.
+-- ref:REQ-fsharp-support ref:DEC-fsharp-grammar
+prop_aByteOrderMarkAndAnOperatorInAConstraintLeaveTheFSharpLayoutAsWritten :: Property
+prop_aByteOrderMarkAndAnOperatorInAConstraintLeaveTheFSharpLayoutAsWritten = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  marked <- parsedOrFail interpreter "\65279namespace N\n\ntype C(a: int)\n =\n    member _.A = a\n"
+  length (treeRuleNodes (Name "otherModuleElement") marked) === 0
+  length (treeRuleNodes (Name "classType") marked) === 1
+  constrained <-
+    parsedOrFail interpreter $
+      T.unlines
+        [ "let inline NonStructural<'T"
+        , "    when 'T: (static member (<): 'T * 'T -> bool)> : IComparer<'T> = compare"
+        , "let g = 2"
+        ]
+  length (treeRuleNodes (Name "otherModuleElement") constrained) === 0
+  length (treeRuleNodes (Name "valueDefinition") constrained) === 2
+
+-- | Fantomas lays out a long primary constructor on the lines below the name, with the equals sign
+-- and the body at its column, and its snapshot cases show the other layouts these declarations take:
+-- a class ... end body with members after it in a with, end at the column of the members, a
+-- union's equals sign on the line below its name, default val, an attribute whose argument is a
+-- name, a value named by an as pattern or bound to a struct tuple, and a value's equals sign below
+-- its return type. Each must be read as the declaration it is, not as an expression.
+-- ref:REQ-fsharp-support ref:DEC-fsharp-grammar
+prop_theFSharpGrammarReadsClassAndEndBodiesAndTheLayoutsFantomasWritesAsDeclarations :: Property
+prop_theFSharpGrammarReadsClassAndEndBodiesAndTheLayoutsFantomasWritesAsDeclarations = withTests 1 $ property $ do
+  interpreter <- interpreterOrFail
+  tree <-
+    parsedOrFail interpreter $
+      T.unlines
+        [ "module M"
+        , ""
+        , "type Long"
+        , "    ("
+        , "        first: int,"
+        , "        second: int"
+        , "    )"
+        , "    ="
+        , "    class"
+        , "    end"
+        , ""
+        , "type C() ="
+        , "  class"
+        , "   member x.P = 1"
+        , "  end"
+        , "  with"
+        , "    member _.Run() = 1"
+        , ""
+        , "type D() = class"
+        , "    let mutable state = 0"
+        , "    end"
+        , ""
+        , "type Shape"
+        , "    = Circle of float"
+        , "    | Square of float"
+        , ""
+        , "type Entity() ="
+        , "    abstract Id: int with get, set"
+        , "    default val Id = 0 with get, set"
+        , "    [<DefaultValue false>]"
+        , "    static val mutable private Graph: int"
+        , ""
+        , "let (first, second) as pair = (1, 2)"
+        , ""
+        , "let struct (a, b) = struct (1, 2)"
+        , ""
+        , "let count: int[]"
+        , "    = [| 2 |]"
+        ]
+  length (treeRuleNodes (Name "otherModuleElement") tree) === 0
+  length (treeRuleNodes (Name "otherClassMember") tree) === 0
+  length (treeRuleNodes (Name "classType") tree) === 4
+  length (treeRuleNodes (Name "unionType") tree) === 1
+  length (treeRuleNodes (Name "memberDefinition") tree) === 3
+  length (treeRuleNodes (Name "valDeclaration") tree) === 1
+  length (treeRuleNodes (Name "valueDefinition") tree) === 3

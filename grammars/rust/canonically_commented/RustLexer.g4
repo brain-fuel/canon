@@ -24,11 +24,19 @@ lexer grammar RustLexer;
 
 // Insert here @header for C++ lexer.
 
-// canon: canon's interpreter has no port of RustLexerBase, so the option names a base class it
-// runs without hooks; the three predicates that called into it are replaced below, each marked.
+// canon: canon's interpreter has no port of RustLexerBase; the option selects canon's own Rust hook,
+// which ends each line doc comment of the canonically commented dialect with a token and leaves the
+// plain grammar's tokens as they are. The three predicates that called into the base class are
+// replaced below, each marked.
 options
 {
     superClass = RustLexerBase;
+}
+
+// canon: the RustLexerBase hook emits DOC_END, empty, where a line doc comment ends, so the comment
+// rules have one end rather than one after each word. ref:DEC-rust-dialect
+tokens {
+    DOC_END
 }
 
 // https://doc.rust-lang.org/reference/keywords.html strict
@@ -117,13 +125,21 @@ RAW_IDENTIFIER: 'r#' NON_KEYWORD_IDENTIFIER;
 // one, so an empty // or /// comment ran on through the next line and hid the code on it.
 LINE_COMMENT: ('//' (~[/!\r\n] | '//') ~[\r\n]* | '//') -> channel (HIDDEN);
 
+// canon: the body of a block comment may hold a star, as in /* a * b */, and a nested comment nests:
+// the body ends at the first */ outside one, read as rustc reads it. Upstream's ~[*] let no star
+// through but the one that closes the comment, so every comment with a star inside failed to lex;
+// and its /** and /*** openers could run on past a */, reading /**/ as the start of a doc comment.
+// A comment of three or more stars, /***, ends at the first */ after them, as /***/ does at once.
 BLOCK_COMMENT:
     (
-        '/*' (~[*!] | '**' | BLOCK_COMMENT_OR_DOC) (BLOCK_COMMENT_OR_DOC | ~[*])*? '*/'
+        '/*' (~[*!] | BLOCK_COMMENT_OR_DOC) BLOCK_BODY
         | '/**/'
-        | '/***/'
+        | '/***' '*'* ('/' | ~[*/] BLOCK_BODY)
     ) -> channel (HIDDEN)
 ;
+
+// canon: the rest of a block comment after its opener, up to and including its */.
+fragment BLOCK_BODY: (BLOCK_COMMENT_OR_DOC | .)*? '*/';
 
 // canon: in the canonically commented dialect a doc comment is a canonical comment on the default
 // channel, tokenized in a mode of its own into prose, ref:KEY, and license:KEY. /// and /** open an
@@ -134,12 +150,11 @@ INNER_DOC_OPEN       : '//!' -> pushMode(InnerDocLine);
 DOC_BLOCK_OPEN       : '/**' -> pushMode(DocBlock);
 INNER_DOC_BLOCK_OPEN : '/*!' -> pushMode(DocBlock);
 
-// canon: block doc comments nested in a plain block comment are part of it.
-fragment INNER_BLOCK_DOC: '/*!' ( BLOCK_COMMENT_OR_DOC | ~[*])*? '*/';
+// canon: block doc comments nested in a plain block comment are part of it; /**/ is an empty plain
+// comment.
+fragment INNER_BLOCK_DOC: '/*!' BLOCK_BODY;
 
-fragment OUTER_BLOCK_DOC:
-    '/**' (~[*] | BLOCK_COMMENT_OR_DOC) (BLOCK_COMMENT_OR_DOC | ~[*])*? '*/'
-;
+fragment OUTER_BLOCK_DOC: '/**' ~[*/] BLOCK_BODY;
 
 fragment BLOCK_COMMENT_OR_DOC: ( BLOCK_COMMENT | INNER_BLOCK_DOC | OUTER_BLOCK_DOC);
 
@@ -147,8 +162,31 @@ fragment BLOCK_COMMENT_OR_DOC: ( BLOCK_COMMENT | INNER_BLOCK_DOC | OUTER_BLOCK_D
 // inner attribute such as #![no_std] is never read as one.
 SHEBANG: '\ufeff'? '#!' ~[[\r\n] ~[\r\n]* -> channel(HIDDEN);
 
+// canon: the frontmatter of a Cargo script, a fence of three or more dashes with an optional
+// infostring, the manifest, and a closing fence of as many dashes, which nightly rustc and Cargo read
+// at the top of a file. Without a start-of-file predicate it is recognised anywhere a fence opens a
+// line of its own, which code never does, as -- is no Rust operator but two minus signs. Fences of
+// three to twelve dashes are recognised; a longer fence lets the manifest hold a line of fewer
+// dashes.
+FRONTMATTER: (FM3 | FM4 | FM5 | FM6 | FM7 | FM8 | FM9 | FM10 | FM11 | FM12) -> channel(HIDDEN);
+
+fragment FM_INFO  : [ \t]* ([a-zA-Z0-9_] [a-zA-Z0-9_.-]*)? [ \t]* ('\r'? '\n');
+fragment FM_CLOSE : [ \t]* ('\r'? '\n' | EOF);
+fragment FM3 : '---' FM_INFO (.*? '\n')? '---' FM_CLOSE;
+fragment FM4 : '----' FM_INFO (.*? '\n')? '----' FM_CLOSE;
+fragment FM5 : '-----' FM_INFO (.*? '\n')? '-----' FM_CLOSE;
+fragment FM6 : '------' FM_INFO (.*? '\n')? '------' FM_CLOSE;
+fragment FM7 : '-------' FM_INFO (.*? '\n')? '-------' FM_CLOSE;
+fragment FM8 : '--------' FM_INFO (.*? '\n')? '--------' FM_CLOSE;
+fragment FM9 : '---------' FM_INFO (.*? '\n')? '---------' FM_CLOSE;
+fragment FM10 : '----------' FM_INFO (.*? '\n')? '----------' FM_CLOSE;
+fragment FM11 : '-----------' FM_INFO (.*? '\n')? '-----------' FM_CLOSE;
+fragment FM12 : '------------' FM_INFO (.*? '\n')? '------------' FM_CLOSE;
+
 // whitespace https://doc.rust-lang.org/reference/whitespace.html
-WHITESPACE : [\p{Zs}]          -> channel(HIDDEN);
+// canon: whitespace is Rust's Pattern_White_Space, which holds the tab, vertical tab, form feed, and
+// the left-to-right, right-to-left, line, and paragraph separators as well as the space separators.
+WHITESPACE : [\p{Zs}\t\u000B\u000C\u0085\u200E\u200F\u2028\u2029] -> channel(HIDDEN);
 NEWLINE    : ('\r\n' | [\r\n]) -> channel(HIDDEN);
 
 // tokens char and string
@@ -170,15 +208,21 @@ BYTE_STRING_LITERAL: 'b"' (~["\\] | QUOTE_ESCAPE | BYTE_ESCAPE | ESC_NEWLINE)* '
 
 RAW_BYTE_STRING_LITERAL: 'br' RAW_STRING_CONTENT;
 
+// canon: C string literals, c"..." and cr#"..."#, stable since Rust 1.77.
+C_STRING_LITERAL: 'c"' (~["\\] | QUOTE_ESCAPE | BYTE_ESCAPE | UNICODE_ESCAPE | ESC_NEWLINE)* '"';
+
+RAW_C_STRING_LITERAL: 'cr' RAW_STRING_CONTENT;
+
 fragment ASCII_ESCAPE: '\\x' OCT_DIGIT HEX_DIGIT | COMMON_ESCAPE;
 
 fragment BYTE_ESCAPE: '\\x' HEX_DIGIT HEX_DIGIT | COMMON_ESCAPE;
 
 fragment COMMON_ESCAPE: '\\' [nrt\\0];
 
-fragment UNICODE_ESCAPE:
-    '\\u{' HEX_DIGIT HEX_DIGIT? HEX_DIGIT? HEX_DIGIT? HEX_DIGIT? HEX_DIGIT? '}'
-;
+// canon: the digits of a unicode escape are one loop, which may hold underscores as rustc allows.
+// Upstream's five optional digits matched \u{202e} in ten ways, and canon's lexer, which keeps every
+// way, took the rest of a string once for each, so a string of eight such escapes took seconds.
+fragment UNICODE_ESCAPE: '\\u{' HEX_DIGIT (HEX_DIGIT | '_')* '}';
 
 fragment QUOTE_ESCAPE: '\\' ['"];
 
@@ -217,7 +261,8 @@ fragment INTEGER_SUFFIX:
     | 'isize'
 ;
 
-fragment FLOAT_SUFFIX: 'f32' | 'f64';
+// canon: the f16 and f128 suffixes of the half and quadruple precision float types.
+fragment FLOAT_SUFFIX: 'f16' | 'f32' | 'f64' | 'f128';
 
 fragment FLOAT_EXPONENT: [eE] [+-]? '_'* DEC_LITERAL;
 
@@ -312,14 +357,18 @@ INNER_DOC_PUNCT    : [,.;:()!?[\]{}"'`<>=+|] -> type(DOC_PUNCT);
 INNER_DOC_WORD     : ~[ \t\r\n,.;:()!?[\]{}"'`<>=+|]+ -> type(DOC_WORD);
 
 // canon: a block doc comment, outer or inner, closed by */; a star that decorates a line is dropped.
+// A block comment nested in it is a word of its prose, as in src/**/foo.rs, so the doc comment ends
+// where rustc ends it; a slash is a word of its own, so a word never swallows the opener of one.
 mode DocBlock;
 
 DOC_BLOCK_CLOSE   : '*/' -> popMode;
 DOC_BLOCK_REF     : 'ref:' DocKey -> type(DOC_REF);
 DOC_BLOCK_LICENSE : 'license:' DocKey -> type(DOC_LICENSE);
+DOC_BLOCK_NESTED  : BLOCK_COMMENT_OR_DOC -> type(DOC_WORD);
+DOC_BLOCK_SLASH   : '/' -> type(DOC_WORD);
 DOC_BLOCK_STAR    : '*' -> skip;
 DOC_BLOCK_WS      : [ \t\r\n]+ -> skip;
 DOC_BLOCK_PUNCT   : [,.;:()!?[\]{}"'`<>=+|] -> type(DOC_PUNCT);
-DOC_BLOCK_WORD    : ~[ \t\r\n*,.;:()!?[\]{}"'`<>=+|]+ -> type(DOC_WORD);
+DOC_BLOCK_WORD    : ~[ \t\r\n*/,.;:()!?[\]{}"'`<>=+|]+ -> type(DOC_WORD);
 
 fragment DocKey : [A-Za-z0-9] ([A-Za-z0-9._-]* [A-Za-z0-9])?;
