@@ -12,7 +12,9 @@ import Canon.Antlr4.Read (ReadResult (..), readGrammarFile, renderReadError)
 import Canon.Antlr4.Syntax (Grammar, Name (..))
 import Canon.Antlr4.Token
 import Canon.Span (Span)
+import Control.Exception (evaluate)
 import Data.Either (isLeft)
+import System.Timeout (timeout)
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
@@ -33,6 +35,7 @@ tests =
     , testProperty "lexer modes push and pop" lexerModes
     , testProperty "left-recursive rules parse" leftRecursion
     , testProperty "a parse failure reports the furthest token" failurePosition
+    , testProperty "a loop that can split its input many ways fails fast and parses as before" ambiguousLoopFailsFast
     , testProperty "the interpreted meta-grammar parses the parser meta-grammar" bootstrapParserGrammar
     , testProperty "the interpreted meta-grammar parses the lexer meta-grammar" bootstrapLexerGrammar
     , testProperty "the canonical dialect parses its own grammars" canonicalSelfHosting
@@ -115,6 +118,32 @@ failurePosition = withTests 1 $ property $ do
   case parseTokens g (Name "start") broken of
     Left (ParseNoParse (ParseFailure i _)) -> i === 3
     other -> annotate (show other) >> failure
+
+ambiguousLoopGrammar :: Text
+ambiguousLoopGrammar =
+  T.unlines
+    [ "grammar Splits;"
+    , "start : (pair | single)* END EOF ;"
+    , "pair : A A ;"
+    , "single : A ;"
+    , "A : 'a' ;"
+    , "END : ';' ;"
+    , "WS : [ ]+ -> skip ;"
+    ]
+
+-- | A loop whose items can split its input in exponentially many ways must fail in time linear in
+-- its input, because canon reads a file that does not parse to report where it stops, and must
+-- still give the tree it gave before loops were memoised. ref:DEC-loop-memo
+ambiguousLoopFailsFast :: Property
+ambiguousLoopFailsFast = withTests 1 $ property $ do
+  g <- grammarOrFail ambiguousLoopGrammar
+  failing <- lexOrFail g (T.replicate 60 "a ")
+  outcome <- evalIO (timeout 10000000 (evaluate (either (const True) (const False) (parseTokens g (Name "start") failing))))
+  outcome === Just True
+  passing <- lexOrFail g "a a a ;"
+  case parseTokens g (Name "start") passing of
+    Right tree -> map (\r -> length (treeRuleNodes (Name r) tree)) ["pair", "single"] === [1, 1]
+    Left err -> annotate (show err) >> failure
 
 readOrFail :: FilePath -> PropertyT IO (Grammar Span)
 readOrFail path = do

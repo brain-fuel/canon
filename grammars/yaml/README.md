@@ -15,9 +15,17 @@ Pulumi YAML programs with. The decision is recorded as
   indentation as its key, and complex keys after `?`.
 - Plain scalars, which may hold spaces, colons not followed by a space, and
   hashes not preceded by one, and may continue on more indented lines.
-- Double-quoted and single-quoted scalars, which may span lines.
+- Double-quoted and single-quoted scalars, which may span lines. The hook
+  splits each into its quotes and its text, so a quoted key is named without
+  its quotes.
 - Literal (`|`) and folded (`>`) block scalars with their indicators.
-- Flow sequences and flow mappings, nested to any depth and spanning lines.
+- Flow sequences and flow mappings, nested to any depth and spanning lines,
+  with JSON-like pairs such as `{"a":1}`, whose colon directly follows a quoted
+  key: the hook splits a plain scalar that starts with that colon into the
+  colon and the value.
+- A Pulumi interpolation such as `${site-bucket}` inside a flow plain scalar,
+  as in `[${a}, ${b}]`. Strict YAML 1.2 forbids braces in a flow plain scalar;
+  canon reads them as part of the scalar, as Pulumi programs mean them.
 - Anchors, aliases, tags, `%` directives, and the `---` and `...` markers.
 - Comments, which go to the hidden channel.
 
@@ -52,10 +60,14 @@ of these sections is a unit named by its key:
 | `variables` | `variable` | no |
 | `outputs` | `output` | yes |
 | `config` | `config` | when it declares a `type` or a `default` |
+| `template` / `config` | `templateConfig` | when it declares a `type` or a `default` |
 
 - The comment directly above an entry is its Why. Comment lines with nothing
   between them are one comment. A comment above a section key, or above an
   entry that is not a unit, binds to nothing and is not reported.
+- The entries of the `template` section's `config`, which `pulumi new` asks
+  for when it makes a project from the program, are units of kind
+  `templateConfig`, read as config keys are.
 - The `description` of a config key is a Why too, because Pulumi shows it as
   that key's documentation. A comment above wins over it. Pulumi defines no
   description on a resource, a variable, or an output.
@@ -76,11 +88,7 @@ a Helm template, which is not YAML until it is rendered.
 
 ## Known limitations
 
-- A quoted key keeps its quotes in the unit's name.
-- In a flow collection, a plain scalar cannot hold `,`, `[`, `]`, `{`, or `}`,
-  as the specification says, so `[${a}]` does not parse; Pulumi programs quote
-  such values.
-- A colon directly after a quoted key in a flow mapping, as in `{"a":1}`, is
-  read as the start of a plain scalar.
-- Tabs count as one column of indentation. YAML forbids tabs there.
-- A plain scalar used as a key cannot span lines.
+- canon accepts tab indentation, which YAML forbids, counting a tab as one
+  column; it does not reject such a file.
+- canon reads `${...}` inside a flow plain scalar as part of the scalar,
+  which strict YAML 1.2 does not.

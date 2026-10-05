@@ -5,7 +5,8 @@
 -- brackets, and interpolations; it records each heredoc's delimiter and closes the heredoc at it;
 -- and it hides a comment that is not the first thing on its line or that sits inside brackets,
 -- and the line break between a comment line and the line directly below it, so the parser sees a
--- comment group joined to what it documents. ref:DEC-hcl-grammar
+-- comment group joined to what it documents. A file whose first token opens a brace is in
+-- Terraform's JSON syntax, where line breaks mean nothing. ref:DEC-hcl-grammar
 module Canon.Antlr4.Lex.HCL
   ( HCLLexerState (..)
   , hclLexerHooks
@@ -24,7 +25,8 @@ import qualified Data.Text as T
 -- a comment is being read and whether it is hidden; the line on which the last visible token other
 -- than a line break ends; whether the current line holds code or a visible comment; and the line
 -- break held back until the next token shows whether it parts a comment from what follows, with
--- whether its line held only a comment; and the type of the last code token.
+-- whether its line held only a comment; the type of the last code token; and whether the file is
+-- in Terraform's JSON syntax, which a file is when its first token opens a brace.
 data HCLLexerState = HCLLexerState
   { brackets :: [Text]
   , heredocs :: [Text]
@@ -35,12 +37,13 @@ data HCLLexerState = HCLLexerState
   , lineComment :: Bool
   , pending :: Maybe (Token, Bool)
   , lastCode :: Text
+  , json :: Bool
   }
   deriving (Eq, Show)
 
 -- | The hooks for the HCL grammar and its dialect.
 hclLexerHooks :: LexerHooks HCLLexerState
-hclLexerHooks = LexerHooks (HCLLexerState [] [] False Nothing 0 False False Nothing "") onAction onEmit
+hclLexerHooks = LexerHooks (HCLLexerState [] [] False Nothing 0 False False Nothing "" False) onAction onEmit
 
 -- | Records a heredoc's delimiter when it opens, and closes the heredoc at a line that starts with
 -- the delimiter and holds nothing else.
@@ -70,11 +73,11 @@ onEmit token s0
     ty = nameText (tokenType token)
     s = s0 {heredocLineStart = ty `elem` ["HEREDOC_OPEN", "HEREDOC_NEWLINE"]}
 
--- | A line break ends a line comment. Inside brackets, or directly after an opening brace, it is
--- hidden; elsewhere it is held back.
+-- | A line break ends a line comment. Inside brackets, directly after an opening brace, or anywhere
+-- in a JSON file, it is hidden; elsewhere it is held back.
 newline :: Token -> HCLLexerState -> ([Token], HCLLexerState)
 newline token s
-  | insideBrackets s || lastCode s == "LBRACE" = ([hidden token], ended)
+  | json s || insideBrackets s || lastCode s == "LBRACE" = ([hidden token], ended)
   | otherwise =
       ( flushVisible s
       , ended {pending = Just (token, lineComment s && not (lineCode s)), lineCode = False, lineComment = False}
@@ -103,7 +106,7 @@ inside token s = case comment s of
 -- for opens an object for expression, inside which HCL ignores line breaks too.
 code :: Token -> HCLLexerState -> ([Token], HCLLexerState)
 code token s =
-  (release token s ++ [token], s {pending = Nothing, brackets = brackets', lineCode = True, lastLine = endLine token, lastCode = ty})
+  (release token s ++ [token], s {pending = Nothing, brackets = brackets', lineCode = True, lastLine = endLine token, lastCode = ty, json = json s || (T.null (lastCode s) && ty == "LBRACE")})
   where
     ty = nameText (tokenType token)
     brackets'

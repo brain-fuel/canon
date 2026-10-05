@@ -45,12 +45,13 @@ programMapping
     : topEntry (NEWLINE topEntry)*
     ;
 
-/** An entry of a Pulumi program: the resources, variables, outputs, or config section, whose entries are units, or any other entry such as name, runtime, or description. A comment above a section binds to nothing. ref:DEC-pulumi-yaml-grammar */
+/** An entry of a Pulumi program: the resources, variables, outputs, or config section, or the template section's config, whose entries are units, or any other entry such as name, runtime, or description. A comment above a section binds to nothing. ref:DEC-pulumi-yaml-grammar */
 topEntry
     : canonicalComment? 'resources' COLON (INDENT resourceEntry (NEWLINE resourceEntry)* DEDENT)? # resourcesSection
     | canonicalComment? 'variables' COLON (INDENT variableEntry (NEWLINE variableEntry)* DEDENT)? # variablesSection
     | canonicalComment? 'outputs' COLON (INDENT outputEntry (NEWLINE outputEntry)* DEDENT)? # outputsSection
     | canonicalComment? 'config' COLON (INDENT configEntry (NEWLINE configEntry)* DEDENT)? # configSection
+    | canonicalComment? 'template' COLON INDENT templateField (NEWLINE templateField)* DEDENT # templateSection
     | mappingEntry # otherEntry
     ;
 
@@ -75,18 +76,28 @@ configEntry
     | why = canonicalComment? keyName COLON mappingValue? # config
     ;
 
-/** The key of a unit, whose text is its What; a quoted key keeps its quotes. ref:DEC-pulumi-yaml-grammar */
+/** An entry of a program's template section: its config section, whose entries are units, or any other entry such as displayName or description. ref:DEC-pulumi-yaml-grammar */
+templateField
+    : canonicalComment? 'config' COLON (INDENT templateConfigEntry (NEWLINE templateConfigEntry)* DEDENT)? # templateConfigSection
+    | mappingEntry # otherTemplateField
+    ;
+
+/** A config key of a program's template, which pulumi new asks for when it makes a project from the program: a unit of kind templateConfig named by its key, read as a config key is. ref:DEC-pulumi-yaml-grammar */
+templateConfigEntry
+    : why = canonicalComment? keyName COLON INDENT (canonicalComment? 'description' COLON why = docScalar | canonicalComment? required = 'type' COLON mappingValue? | canonicalComment? required = 'default' COLON mappingValue? | mappingEntry) (NEWLINE (canonicalComment? 'description' COLON why = docScalar | canonicalComment? required = 'type' COLON mappingValue? | canonicalComment? required = 'default' COLON mappingValue? | mappingEntry))* DEDENT # templateConfig
+    | why = canonicalComment? keyName COLON mappingValue? # templateConfig
+    ;
+
+/** The key of a unit, whose text without quotes is its What. ref:DEC-pulumi-yaml-grammar */
 keyName
     : what = PLAIN
-    | what = DOUBLE_QUOTED
-    | what = SINGLE_QUOTED
+    | QUOTE_OPEN what = QUOTED_TEXT? QUOTE_CLOSE
     ;
 
 /** A scalar written as documentation: a plain scalar with its continuation lines, a quoted scalar, or a block scalar. ref:DEC-pulumi-yaml-grammar */
 docScalar
     : PLAIN plainContinuation?
-    | DOUBLE_QUOTED
-    | SINGLE_QUOTED
+    | quoted
     | blockScalar
     ;
 
@@ -124,7 +135,7 @@ mappingEntry
 
 /** A mapping key: a scalar, an alias, or a flow collection, with optional properties. */
 key
-    : properties? (PLAIN | DOUBLE_QUOTED | SINGLE_QUOTED | ALIAS | flowCollection)
+    : properties? (PLAIN | quoted | ALIAS | flowCollection)
     ;
 
 /** The value of a mapping entry: a block scalar or a flow node on the key's line, a node indented below the key, or a sequence at the key's own indentation, which YAML allows. */
@@ -157,7 +168,7 @@ blockScalar
 
 /** A node in flow context, with optional properties, or properties alone. */
 flowNode
-    : properties? (PLAIN | DOUBLE_QUOTED | SINGLE_QUOTED | ALIAS | flowCollection)
+    : properties? (PLAIN | quoted | ALIAS | flowCollection)
     | properties
     ;
 
@@ -177,4 +188,9 @@ flowEntry
     : flowNode (COLON flowNode?)?
     | COLON flowNode?
     | QUESTION flowEntry
+    ;
+
+/** A double-quoted or single-quoted scalar, which the lexer hook splits into its quotes and its text. */
+quoted
+    : QUOTE_OPEN QUOTED_TEXT? QUOTE_CLOSE
     ;

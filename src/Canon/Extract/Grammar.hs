@@ -104,6 +104,8 @@ extractWithProfileText provider config language profile interpreter idPath path 
         pure (Right (Extraction model (map (OrphanDocComment path) unbound ++ [OrphanDocComment path (locatedSpan c) | c <- orphans] ++ gitFindings)))
 
 -- | Reads the unit alternatives out of the parser grammar: a labeled alternative with a why element.
+-- A why element inside an optional or repeated block is optional, as the comment property of a
+-- Terraform JSON block is. ref:DEC-hcl-grammar
 alternativePlans :: Grammar Span -> Map.Map Name [Maybe AlternativePlan]
 alternativePlans grammar = Map.fromList [(parserRuleName r, map plan (toList (parserRuleAlternatives r))) | RuleParser r <- grammarRules grammar]
   where
@@ -113,7 +115,7 @@ alternativePlans grammar = Map.fromList [(parserRuleName r, map plan (toList (pa
     whyElements e = case e of
       ElementAtom _ (Just (Label (Name "why") _)) _ suffix -> [mandatory suffix]
       ElementBlock _ (Just (Label (Name "why") _)) _ suffix -> [mandatory suffix]
-      ElementBlock _ _ block _ -> concatMap (concatMap whyElements . alternativeElements) (toList (blockAlternatives block))
+      ElementBlock _ _ block suffix -> (if mandatory suffix then id else map (const False)) (concatMap (concatMap whyElements . alternativeElements) (toList (blockAlternatives block)))
       _ -> []
     mandatory suffix = case suffix of
       Nothing -> True
@@ -173,7 +175,9 @@ exportRequires exports parent name = case exports of
 -- doc comment ends on the line above a later clause, which then starts a unit of its own, as the
 -- @doc of another Elixir arity does. ref:DEC-elixir-grammar A unit whose own alternative holds what
 -- elements is named by their texts joined with a dot, as Terraform addresses a resource by its type
--- and name; otherwise by the first what element below it.
+-- and name; otherwise by the first what element below it. An element labeled qualifier on a node
+-- that is no unit is the first part of the name of every unit below it, as the type of a resource
+-- in Terraform's JSON syntax is a key above the resource's own.
 -- A why element that is not a canonicalComment is documentation written as data, as an HCL
 -- description is: its prose is the string's contents and its citations are also read from its
 -- text. ref:DEC-hcl-grammar ref:DEC-pulumi-yaml-grammar
@@ -218,18 +222,18 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       Just entries | not (null entries) -> Just (Just entries)
       Just _ -> Just Nothing
       Nothing -> Nothing
-    unbound = map treeSpan (unboundWhys tree ++ orphansIn tree)
+    unbound = map treeSpan (unboundWhys [] tree ++ orphansIn tree)
     orphansIn node = case node of
       TokenNode _ -> []
       Labeled "orphan" inner -> [inner]
       Labeled _ inner -> orphansIn inner
       RuleNode _ _ ns -> concatMap orphansIn ns
-    unboundWhys node = case node of
+    unboundWhys prefix node = case node of
       TokenNode _ -> []
-      Labeled _ inner -> unboundWhys inner
+      Labeled _ inner -> unboundWhys prefix inner
       RuleNode _ _ ns
-        | isUnitNode node && isJust (whatText node) -> concatMap unboundWhys (filter (not . isWhy) ns)
-        | otherwise -> [inner | Labeled "why" inner <- ns] ++ concatMap unboundWhys ns
+        | isUnitNode node && isJust (qualifiedName prefix node) -> concatMap (unboundWhys []) (filter (not . isWhy) ns)
+        | otherwise -> [inner | Labeled "why" inner <- ns] ++ concatMap (unboundWhys (qualified prefix ns)) ns
     isWhy node = case node of
       Labeled "why" _ -> True
       _ -> False
@@ -247,7 +251,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
         }
     collect parent chain node = collectAll parent chain [node]
     collectAll parent chain nodes =
-      let built = map (build parent chain) (uniqueNames (mergeClauses (concatMap found nodes)))
+      let built = map (build parent chain) (uniqueNames (mergeClauses (concatMap (found []) nodes)))
        in (map fst built, concatMap snd built)
     exported chain name = case fileExports of
       Nothing -> False
@@ -259,14 +263,14 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       RuleNode _ _ ns -> ns
       Labeled _ inner -> [inner]
       TokenNode _ -> []
-    found node = case node of
+    found prefix node = case node of
       TokenNode _ -> []
-      Labeled _ inner -> found inner
+      Labeled _ inner -> found prefix inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just unitName <- whatText node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
+        Just plan | Just unitName <- qualifiedName prefix node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
         _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
           ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule && not (isJust (labeledSubtree "optional" node))) || isJust (labeledSubtree "required" node) then Required else Optional) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
-          [] -> concatMap found nodeChildren
+          [] -> concatMap (found (qualified prefix nodeChildren)) nodeChildren
     planFor name alternative = Map.lookup name plans >>= \alts -> listToMaybe (drop alternative alts) >>= id
     isUnitNode node = case node of
       RuleNode name alternative _ -> isJust (planFor name alternative) || Map.member name rulesByName
@@ -279,6 +283,10 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
           Labeled _ inner -> labeledIn inner
           TokenNode _ -> []
           RuleNode _ _ ns -> concatMap (\c -> if isUnitNode c then [] else labeledIn c) ns
+    qualified prefix ns = prefix ++ [tokensText q | Labeled "qualifier" q <- ns]
+    qualifiedName prefix node = case prefix ++ maybe [] pure (whatText node) of
+      [] -> Nothing
+      parts -> Just (T.intercalate "." parts)
     whatText node = case [inner | Labeled "what" inner <- childrenOf node] of
       [] -> tokensText <$> labeledSubtree "what" node
       whats -> Just (T.intercalate "." (map tokensText whats))

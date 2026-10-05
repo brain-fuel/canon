@@ -141,7 +141,10 @@ reads to recognise tests. Alternative labels without a `why`, such as the
 Java grammar's own expression labels, are inert. A unit's What is the text
 of its `what` element; when the alternative itself holds several, they are
 joined with a dot, as a Terraform resource is named `aws_vpc.main` by its
-type and name. A `why` element that is a string rather than a
+type and name. An element labeled `qualifier` on a node that is no unit is
+the first part of the name of every unit below it, as the type of a resource
+in Terraform's JSON syntax is a key above the resource's own. A `why`
+element inside an optional or repeated block is optional. A `why` element that is a string rather than a
 `canonicalComment`, such as the `description` of a Terraform variable, is
 documentation written as data: its prose is the string without its quotes,
 heredoc delimiters, or block scalar header, and its citations are read from
@@ -589,6 +592,7 @@ Terraform project can copy:
 languages:
   hcl:
     extensions: [.tf, .tfvars, .hcl]
+    files: ["*.tf.json", "*.tfvars.json"]
     lexer: ../../grammars/hcl/canonically_commented/HCLLexer.g4
     parser: ../../grammars/hcl/canonically_commented/HCLParser.g4
     start: configFile
@@ -596,10 +600,13 @@ languages:
 
 Each top-level block is a unit named as Terraform addresses it, such as
 `resource/aws_key_pair.this`, and each entry of a `locals` block is a unit of
-kind `local`. A comment directly above a block is its Why, and so is the
-`description` of a variable or an output, which is how this module documents
-every one of them. Variables and outputs require a Why; other blocks may have
-one.
+kind `local`. An aliased provider is named by its alias too, as
+`provider/aws.west`, and `moved`, `removed`, and `import` blocks by the
+addresses they name. A comment directly above a block is its Why, and so is
+the `description` of a variable or an output, which is how this module
+documents every one of them. Variables and outputs require a Why; other blocks
+may have one. A `.tf.json` file gives the same units with the same names,
+with a `//` property as a block's Why.
 
 The Pulumi YAML sample is the `Pulumi.yaml` programs of three Pulumi
 examples, vendored under `source/` with the repository's Apache-2.0 license.
@@ -615,8 +622,9 @@ languages:
     start: yamlFile
 ```
 
-Each entry of a program's `resources`, `variables`, `outputs`, and `config`
-is a unit named by its key. A comment directly above an entry is its Why, and
+Each entry of a program's `resources`, `variables`, `outputs`, and `config`,
+and of its `template` section's `config`, is a unit named by its key, without
+quotes. A comment directly above an entry is its Why, and
 so is the `description` of a config key. Outputs require a Why, and so does a
 config key that declares a `type` or a `default`; the keys of a stack file,
 which only set values, may have one. Pulumi programs in TypeScript, Python,
@@ -748,7 +756,9 @@ directory contains two grammars:
 `Canon.Antlr4.Lex` and `Canon.Antlr4.Parse` modules turn any grammar value
 into a running lexer and parser, so a `.g4` file under `grammars/` becomes a
 parser without code generation. The upstream grammar is kept beside it as the
-source it is derived from. Lexer actions that upstream grammars delegate to a
+source it is derived from. The parser memoises each rule and each repeated
+element by position, so a file that does not parse fails as fast as one that
+does parses. Lexer actions that upstream grammars delegate to a
 target-language base class are resolved through a hook interface keyed by the
 grammar's `superClass` option; the ANTLR meta-grammar's own adaptor is the
 first hook implementation.
@@ -858,7 +868,8 @@ comment after code or inside brackets and joins a comment to the line
 directly below it, so only a comment directly above a block binds to it. The
 dialect labels each top-level block a unit, joins its labels into its What,
 reads the `description` of a variable or an output as a Why, and labels
-`variable` and `output` `required`. `grammars/hcl/README.md` gives the design
+`variable` and `output` `required`. A file in Terraform's JSON syntax gives the
+same units, with its `//` properties as Whys. `grammars/hcl/README.md` gives the design
 and the known limitations, and the ledger records them as `DEC-hcl-grammar`.
 
 `grammars/yaml/` holds a grammar of the block structure of YAML 1.2 written
@@ -867,8 +878,9 @@ for canon, since grammars-v4 has none. A lexer hook turns indentation into
 block scalar where its lines stop being indented past its key. Under
 `canonically_commented/` the dialect reads a Pulumi program: the hook emits
 each comment just before the code directly below it, and each entry of the
-`resources`, `variables`, `outputs`, and `config` sections is a unit with that
-comment, or a config key's `description`, as its Why.
+`resources`, `variables`, `outputs`, and `config` sections, and of the
+`template` section's `config`, is a unit with that comment, or a config key's
+`description`, as its Why.
 `grammars/yaml/README.md` gives the design and the known limitations, and the
 ledger records them as `DEC-pulumi-yaml-grammar`.
 

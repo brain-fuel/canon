@@ -3,7 +3,9 @@
 -- documentation. ref:DEC-hcl-grammar ref:REQ-hcl-support
 module Canon.Extract.HCLTest (tests) where
 
-import Canon.Antlr4.Interpret (InterpretError, interpretFile, loadInterpreter, renderInterpretError)
+import Canon.Antlr4.Interpret (InterpretError, interpretFile, interpretText, loadInterpreter, renderInterpretError)
+import Control.Exception (evaluate)
+import System.Timeout (timeout)
 import Canon.Antlr4.Parse (treeRuleNodes)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
@@ -31,6 +33,10 @@ tests =
     [ testProperty "the HCL grammars parse the key pair sample into its blocks" prop_hclGrammarsParseTheKeyPairSampleIntoItsBlocks
     , testProperty "the HCL dialect names blocks by their labels and reads descriptions as their Why" prop_hclDialectNamesBlocksByTheirLabelsAndReadsDescriptionsAsTheirWhy
     , testProperty "the HCL dialect binds a comment only to the block directly below it" prop_hclDialectBindsACommentOnlyToTheBlockDirectlyBelowIt
+    , testProperty "the HCL dialect names aliased providers and addressed blocks apart" prop_hclDialectNamesAliasedProvidersAndAddressedBlocksApart
+    , testProperty "the HCL dialect reads Terraform JSON with the native unit names" prop_hclDialectReadsTerraformJsonWithTheNativeUnitNames
+    , testProperty "HCL templates must pair their directives" prop_hclTemplatesMustPairTheirDirectives
+    , testProperty "an HCL parse failure is reported quickly" prop_hclParseFailureIsReportedQuickly
     ]
 
 sampleDir :: FilePath
@@ -260,3 +266,143 @@ prop_hclDialectBindsACommentOnlyToTheBlockDirectlyBelowIt = withTests 1 $ proper
   whyOf "both" === ["The comment above wins over the description."]
   whyOf "inputs" === ["The inputs every environment shares."]
   length [() | OrphanDocComment _ _ <- findings] === 0
+
+duplicates :: Text
+duplicates =
+  T.unlines
+    [ "provider \"aws\" {"
+    , "  region = \"us-east-1\""
+    , "}"
+    , ""
+    , "provider \"aws\" {"
+    , "  alias  = \"west\""
+    , "  region = \"us-west-2\""
+    , "}"
+    , ""
+    , "moved {"
+    , "  from = aws_instance.old"
+    , "  to   = aws_instance.new"
+    , "}"
+    , ""
+    , "removed {"
+    , "  from = aws_instance.gone"
+    , "}"
+    , ""
+    , "import {"
+    , "  to = aws_instance.new"
+    , "  id = \"i-123\""
+    , "}"
+    , ""
+    , "mock_provider \"aws\" {"
+    , "  alias = \"fake\""
+    , "}"
+    , ""
+    , "variables {"
+    , "  a = 1"
+    , "}"
+    , ""
+    , "variables {"
+    , "  b = 2"
+    , "}"
+    ]
+
+-- | Terraform tells apart two configurations of one provider by alias, and moved, removed, and
+-- import blocks by the addresses they name, so the dialect must name them by those, and number
+-- blocks only when nothing tells them apart, for a unit's id to survive the blocks around it
+-- changing. ref:REQ-hcl-support ref:DEC-hcl-grammar
+prop_hclDialectNamesAliasedProvidersAndAddressedBlocksApart :: Property
+prop_hclDialectNamesAliasedProvidersAndAddressedBlocksApart = withTests 1 $ property $ do
+  Extraction model _ <- extracted "main.tf" duplicates
+  [renderUnitId (unitId u) | u <- modelAllUnits model, unitKindText (whatKind (answerValue (unitWhat u))) /= "file"]
+    === [ "hcl/main.tf/provider/aws"
+        , "hcl/main.tf/provider/aws.west"
+        , "hcl/main.tf/moved/aws_instance.old"
+        , "hcl/main.tf/removed/aws_instance.gone"
+        , "hcl/main.tf/importBlock/aws_instance.new"
+        , "hcl/main.tf/block/mock_provider.aws.fake"
+        , "hcl/main.tf/block/variables"
+        , "hcl/main.tf/block/variables#2"
+        ]
+
+jsonFixture :: Text
+jsonFixture =
+  T.unlines
+    [ "{"
+    , "  \"terraform\": {\"required_version\": \">= 1.5\"},"
+    , "  \"resource\": {"
+    , "    \"aws_vpc\": {"
+    , "      \"main\": {"
+    , "        \"//\": \"The network every service shares. ref:some-key\","
+    , "        \"cidr_block\": \"10.0.0.0/16\""
+    , "      }"
+    , "    }"
+    , "  },"
+    , "  \"data\": {\"aws_ami\": {\"ubuntu\": {\"most_recent\": true}}},"
+    , "  \"variable\": {"
+    , "    \"region\": {\"description\": \"The region every resource lives in, as ref:REQ-region requires.\", \"type\": \"string\"},"
+    , "    \"undocumented\": {\"type\": \"number\"}"
+    , "  },"
+    , "  \"output\": {\"vpc_id\": {\"value\": \"${aws_vpc.main.id}\"}},"
+    , "  \"locals\": {\"//\": \"Not a local.\", \"prefix\": \"${var.region}-app\"},"
+    , "  \"module\": {\"network\": {\"source\": \"./network\"}},"
+    , "  \"provider\": {\"aws\": [{\"region\": \"us-east-1\"}, {\"alias\": \"west\", \"region\": \"us-west-2\"}]},"
+    , "  \"check\": {\"health\": {\"assert\": {\"condition\": \"${true}\", \"error_message\": \"No.\"}}},"
+    , "  \"moved\": [{\"from\": \"aws_instance.old\", \"to\": \"aws_instance.new\"}]"
+    , "}"
+    ]
+
+-- | Terraform reads the same configuration from its JSON syntax, where a property named two slashes
+-- is a comment, so the dialect must give a .tf.json file the units and Whys it gives the native
+-- syntax, and the profile must own .tf.json files, for one module to have one model however it is
+-- written. ref:REQ-hcl-support ref:DEC-hcl-grammar
+prop_hclDialectReadsTerraformJsonWithTheNativeUnitNames :: Property
+prop_hclDialectReadsTerraformJsonWithTheNativeUnitNames = withTests 1 $ property $ do
+  profile <- sampleProfile
+  map (fmap fst . profileForPath (Map.fromList [("hcl", profile)])) ["main.tf.json", "prod.tfvars.json", "package.json"] === [Just "hcl", Just "hcl", Nothing]
+  Extraction model findings <- extracted "main.tf.json" jsonFixture
+  let units = modelAllUnits model
+      nameOf u = whatName (answerValue (unitWhat u))
+      kindOf u = unitKindText (whatKind (answerValue (unitWhat u)))
+      whys n = [answerValue (decisionWhy d) | u <- units, nameOf u == n, d <- decisionsFor (unitId u) model]
+  [(kindOf u, nameOf u) | u <- units, kindOf u /= "file"]
+    === [ ("terraform", "terraform")
+        , ("resource", "aws_vpc.main")
+        , ("data", "aws_ami.ubuntu")
+        , ("variable", "region")
+        , ("variable", "undocumented")
+        , ("output", "vpc_id")
+        , ("local", "prefix")
+        , ("module", "network")
+        , ("provider", "aws")
+        , ("provider", "aws.west")
+        , ("block", "check.health")
+        , ("moved", "aws_instance.old")
+        ]
+  map whyText (whys "aws_vpc.main") === ["The network every service shares. ref:some-key"]
+  map whyReferences (whys "aws_vpc.main") === [[ReferenceKey "some-key"]]
+  map whyText (whys "region") === ["The region every resource lives in, as ref:REQ-region requires."]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === ["hcl/main.tf.json/variable/undocumented", "hcl/main.tf.json/output/vpc_id"]
+
+-- | A template's if and for directives must be closed, or Terraform rejects the template, so the
+-- grammar must parse a paired directive and refuse an unpaired one rather than read a broken file
+-- as code. ref:REQ-hcl-support ref:DEC-hcl-grammar
+prop_hclTemplatesMustPairTheirDirectives :: Property
+prop_hclTemplatesMustPairTheirDirectives = withTests 1 $ property $ do
+  plain <- evalIO (loadInterpreter "grammars/hcl/HCLLexer.g4" "grammars/hcl/HCLParser.g4") >>= orFail
+  let parses source = either (const False) (const True) (interpretText plain (Name "configFile") "t.tf" source)
+  parses "a = \"%{ if x }yes%{ else }no%{ endif }\"\n" === True
+  parses "a = <<EOT\n%{ for s in xs ~}\n${s}\n%{ endfor ~}\nEOT\n" === True
+  parses "a = \"%{ if x }yes\"\n" === False
+  parses "a = \"%{ for s in xs }${s}%{ endif }\"\n" === False
+
+-- | A file that does not parse must be reported where it stops, and quickly, since canon reads
+-- whole projects; a long comment group above the error once made the parser try every way to split
+-- it. ref:REQ-hcl-support ref:DEC-loop-memo
+prop_hclParseFailureIsReportedQuickly :: Property
+prop_hclParseFailureIsReportedQuickly = withTests 1 $ property $ do
+  dialect <- evalIO (loadInterpreter "grammars/hcl/canonically_commented/HCLLexer.g4" "grammars/hcl/canonically_commented/HCLParser.g4") >>= orFail
+  let source = T.unlines (["locals {", "  input = {"] ++ ["    # note " <> T.pack (show i) | i <- [1 .. 40 :: Int]] ++ ["    a = 1", "    bad = = 1", "  }", "}"])
+  outcome <- evalIO (timeout 20000000 (evaluate (either (T.unpack . renderInterpretError) (const "parsed") (interpretText dialect (Name "configFile") "t.tf" source))))
+  fmap (drop (length ("t.tf:" :: String))) (fmap (take 10) outcome) === Just "44:11"

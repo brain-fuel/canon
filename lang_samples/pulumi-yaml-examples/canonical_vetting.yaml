@@ -64,6 +64,30 @@ decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/wordpress
 decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/resource/wordpressdb:
   comment: sha256:8ba0ea14c4bd3f6f
   verdict: pending
+"decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/aws:region":
+  comment: sha256:03eaca1a9cd0da42
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/dbInstanceSize:
+  comment: sha256:89e9229fc6e691bc
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/dbName:
+  comment: sha256:d13462561d7dfac2
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/dbPassword:
+  comment: sha256:dda660a5dccdd71b
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/dbUsername:
+  comment: sha256:553815b549cc88ac
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/ec2InstanceSize:
+  comment: sha256:7d345fe53fd9af75
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/privateKeyPath:
+  comment: sha256:83b69741433513ba
+  verdict: pending
+decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/templateConfig/publicKeyPath:
+  comment: sha256:3359010d45ff27b7
+  verdict: pending
 decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/variable/availabilityZones:
   comment: sha256:adbbd6e5853c0ef8
   verdict: pending
@@ -75,6 +99,12 @@ decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/variable/privateKe
   verdict: pending
 decision/pulumi/source/aws-yaml-ansible-wordpress/Pulumi.yaml/variable/publicKey:
   comment: sha256:d437dc3221f1b850
+  verdict: pending
+"decision/pulumi/source/aws-yaml-static-website/Pulumi.yaml/templateConfig/aws-native:region":
+  comment: sha256:58fded8d48ddb887
+  verdict: pending
+"decision/pulumi/source/aws-yaml-static-website/Pulumi.yaml/templateConfig/aws:region":
+  comment: sha256:03eaca1a9cd0da42
   verdict: pending
 ledger/DEC-sample-scope:
   comment: sha256:2f0a9f8f13de6d97

@@ -58,7 +58,7 @@ mappingEntry
 
 /** A mapping key: a scalar, an alias, or a flow collection, with optional properties. */
 key
-    : properties? (PLAIN | DOUBLE_QUOTED | SINGLE_QUOTED | ALIAS | flowCollection)
+    : properties? (PLAIN | quoted | ALIAS | flowCollection)
     ;
 
 /** The value of a mapping entry: a block scalar or a flow node on the key's line, a node indented below the key, or a sequence at the key's own indentation, which YAML allows. */
@@ -91,7 +91,7 @@ blockScalar
 
 /** A node in flow context, with optional properties, or properties alone. */
 flowNode
-    : properties? (PLAIN | DOUBLE_QUOTED | SINGLE_QUOTED | ALIAS | flowCollection)
+    : properties? (PLAIN | quoted | ALIAS | flowCollection)
     | properties
     ;
 
@@ -111,4 +111,9 @@ flowEntry
     : flowNode (COLON flowNode?)?
     | COLON flowNode?
     | QUESTION flowEntry
+    ;
+
+/** A double-quoted or single-quoted scalar, which the lexer hook splits into its quotes and its text. */
+quoted
+    : QUOTE_OPEN QUOTED_TEXT? QUOTE_CLOSE
     ;

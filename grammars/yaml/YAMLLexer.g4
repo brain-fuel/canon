@@ -31,7 +31,10 @@ options {
 tokens {
     INDENT,
     DEDENT,
-    NEWLINE
+    NEWLINE,
+    QUOTE_OPEN,
+    QUOTED_TEXT,
+    QUOTE_CLOSE
 }
 
 /** A comment. A hash starts a comment only at the start of a token, since a plain scalar keeps a hash that follows a character other than a space. */
@@ -76,10 +79,10 @@ ALIAS : '*' ~[ \t\r\n,[\]{}]+;
 /** A tag that gives a node its type. */
 TAG : '!' ~[ \t\r\n,[\]{}]*;
 
-/** A double-quoted scalar, which may span lines. */
+/** A double-quoted scalar, which may span lines. The hook splits it into its quotes and its text, so a quoted key's text is a token of its own. */
 DOUBLE_QUOTED : '"' ('\\' . | ~["\\])* '"';
 
-/** A single-quoted scalar, in which two quotes stand for one. */
+/** A single-quoted scalar, in which two quotes stand for one. The hook splits it like a double-quoted one. */
 SINGLE_QUOTED : '\'' ('\'\'' | ~['])* '\'';
 
 /** The header of a literal or folded block scalar, with its chomping and indentation indicators and any comment after it. The hook records the indentation the scalar's lines must exceed, which is that of the key or the sequence entry on the header's line. */
@@ -135,14 +138,16 @@ FLOW_DOUBLE_QUOTED : '"' ('\\' . | ~["\\])* '"' -> type(DOUBLE_QUOTED);
 /** A single-quoted scalar inside a flow collection, typed as SINGLE_QUOTED. */
 FLOW_SINGLE_QUOTED : '\'' ('\'\'' | ~['])* '\'' -> type(SINGLE_QUOTED);
 
-/** A plain scalar inside a flow collection, which cannot hold a comma or a bracket, typed as PLAIN. */
-FLOW_PLAIN : FlowPlainFirst (FlowPlainInner | [ \t]+ FlowPlainAfterSpace)* -> type(PLAIN);
+/** A plain scalar inside a flow collection, which cannot hold a comma or a bracket, except inside a Pulumi interpolation such as ${a}, which canon reads as part of the scalar, as Pulumi means it, beyond strict YAML 1.2. A colon starts one only when no quote or bracket follows it, so the colon of a JSON-like pair is a colon. Typed as PLAIN. */
+FLOW_PLAIN : (Interpolation | FlowPlainFirst) (Interpolation | FlowPlainInner | [ \t]+ (Interpolation | FlowPlainAfterSpace))* -> type(PLAIN);
 
-fragment FlowPlainFirst : ~[-?:,[\]{}#&*!|>'"%@` \t\r\n] | [-?:] ~[ \t\r\n,[\]{}];
+fragment FlowPlainFirst : ~[-?:,[\]{}#&*!|>'"%@` \t\r\n] | [-?] ~[ \t\r\n,[\]{}] | ':' ~[ \t\r\n,[\]{}"'];
 
 fragment FlowPlainInner : ~[:,[\]{} \t\r\n] | ':' ~[ \t\r\n,[\]{}];
 
 fragment FlowPlainAfterSpace : ~[:#,[\]{} \t\r\n] | ':' ~[ \t\r\n,[\]{}];
+
+fragment Interpolation : '${' ~[}\r\n]* '}';
 
 mode BlockScalar;
 

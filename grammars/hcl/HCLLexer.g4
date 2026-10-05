@@ -20,7 +20,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // A lexer for HCL, the HashiCorp configuration language of Terraform, written for canon from the
 // HCL native syntax specification. Comments go to the hidden channel. The HCLLexerBase hook hides
 // line breaks inside parentheses, brackets, interpolations, and object for expressions, where HCL
-// ignores them, and closes each heredoc at the line holding only its delimiter word.
+// ignores them, and everywhere in a file in Terraform's JSON syntax, which starts with a brace, and
+// closes each heredoc at the line holding only its delimiter word.
 
 lexer grammar HCLLexer;
 

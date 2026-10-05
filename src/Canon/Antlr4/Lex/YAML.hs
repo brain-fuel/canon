@@ -5,7 +5,9 @@
 -- the content after a sequence entry's dash as indented to its own column; leaves a block scalar
 -- at the first line not indented past the key or dash on its header's line; and holds each
 -- comment back until the next code token has its layout tokens, hiding it unless it is on the
--- line directly above that token or directly above another such comment. ref:DEC-pulumi-yaml-grammar
+-- line directly above that token or directly above another such comment. It splits a quoted scalar
+-- into its quotes and its text, and a plain scalar that starts with the colon of a JSON-like pair
+-- into that colon and the rest. ref:DEC-pulumi-yaml-grammar
 module Canon.Antlr4.Lex.YAML
   ( YAMLLayout (..)
   , yamlLexerHooks
@@ -100,12 +102,21 @@ code token s =
         | ty == "DASH" = Just column
         | newLine = Nothing
         | otherwise = lineDash s
-   in ( layout ++ comments ++ [token]
+      adjacentPair = ty == "PLAIN" && flowDepth s > 0 && ":" `T.isPrefixOf` tokenText token && lastType s `elem` ["QUOTE_CLOSE", "FLOW_SEQ_CLOSE", "FLOW_MAP_CLOSE"] && maybe False ((== tokenStart token) . fst) (lastEnd s)
+      pieces
+        | ty `elem` ["DOUBLE_QUOTED", "SINGLE_QUOTED"] = splitQuoted token
+        | adjacentPair = splitColon token
+        | otherwise = [token]
+      lastType'
+        | ty `elem` ["DOUBLE_QUOTED", "SINGLE_QUOTED"] = "QUOTE_CLOSE"
+        | adjacentPair = "PLAIN"
+        | otherwise = ty
+   in ( layout ++ comments ++ pieces
       , s'
           { held = []
           , flowDepth = depth'
           , lastEnd = Just (tokenEnd token, endPosition token)
-          , lastType = ty
+          , lastType = lastType'
           , lastColumn = column
           , lineKey = lineKey'
           , lineDash = lineDash'
@@ -152,6 +163,28 @@ virtual :: YAMLLayout -> Text -> Token
 virtual s kind = case lastEnd s of
   Just (offset, position) -> Token (Name kind) "" offset offset defaultChannelName position
   Nothing -> Token (Name kind) "" 0 0 defaultChannelName (Position 1 1)
+
+-- | A quoted scalar as its opening quote, its text, and its closing quote, so a quoted key's text
+-- is a token of its own and its What has no quotes.
+splitQuoted :: Token -> [Token]
+splitQuoted token =
+  let text = tokenText token
+      Position l c = tokenPosition token
+      inner = T.drop 1 (T.dropEnd 1 text)
+      open = token {tokenType = Name "QUOTE_OPEN", tokenText = T.take 1 text, tokenEnd = tokenStart token + 1}
+      middle = token {tokenType = Name "QUOTED_TEXT", tokenText = inner, tokenStart = tokenStart token + 1, tokenEnd = tokenEnd token - 1, tokenPosition = Position l (c + 1)}
+      close = token {tokenType = Name "QUOTE_CLOSE", tokenText = T.takeEnd 1 text, tokenStart = tokenEnd token - 1, tokenPosition = endPosition middle}
+   in [open] ++ [middle | not (T.null inner)] ++ [close]
+
+-- | A plain scalar that starts with the colon of a JSON-like pair, as in {"a":1}, as that colon and
+-- the scalar after it.
+splitColon :: Token -> [Token]
+splitColon token =
+  let Position l c = tokenPosition token
+      rest = T.drop 1 (tokenText token)
+      colon = token {tokenType = Name "COLON", tokenText = ":", tokenEnd = tokenStart token + 1}
+      value = token {tokenText = rest, tokenStart = tokenStart token + 1, tokenPosition = Position l (c + 1)}
+   in colon : [value | not (T.null rest)]
 
 -- | A token moved to the hidden channel.
 hidden :: Token -> Token

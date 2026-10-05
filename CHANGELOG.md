@@ -8,7 +8,17 @@ and this project adheres to
 
 ## Unreleased
 
+### Changed
+- The parser memoises each repeated element by position, so a file that does not parse fails as fast as one that does parses, instead of taking minutes
+- HCL templates must pair `%{ if }` with `%{ endif }` and `%{ for }` with `%{ endfor }`
+- A quoted YAML key is named without its quotes; flow collections read JSON-like pairs such as `{"a":1}` and Pulumi interpolations such as `[${a}]`
+- A `why` element inside an optional or repeated block is optional
+
 ### Added
+- Terraform's JSON syntax, `.tf.json` and `.tfvars.json`, read by the HCL dialect into the same units with the same names, with a `//` property as a block's Why; the HCL profile owns them by name
+- The `qualifier` label: a key on a node that is no unit becomes the first part of the name of every unit below it
+- HCL blocks named by what tells them apart: an aliased provider as `provider/aws.west`, `moved` and `removed` blocks by the address they move from, `import` blocks by the address they import to; only blocks that nothing tells apart are numbered
+- Pulumi `template` config entries as units of kind `templateConfig`
 - HCL as a language: an HCL grammar written for canon under `grammars/hcl/`, from the HCL native syntax specification, with a lexer hook that hides line breaks inside brackets and closes heredocs at their delimiter, and a canonically commented dialect in which every top-level Terraform block is a unit named by its labels joined with a dot, each `locals` entry is a unit, a comment directly above a block is its Why, and the `description` of a variable or an output is a Why too; variables and outputs require one; `run` blocks of Terraform test files in the test table; Terraform's `.terraform` directory skipped by default; and `lang_samples/hcl-terraform-aws-key-pair`, terraform-aws-key-pair vendored with its license
 - Pulumi YAML as a language: a grammar of the block structure of YAML 1.2 written for canon under `grammars/yaml/`, with a lexer hook that turns indentation into layout tokens and ends block scalars, and a canonically commented dialect in which each resource, variable, output, and config key of a Pulumi program is a unit named by its key, with the comment directly above it, or a config key's `description`, as its Why; outputs and declared config keys require one; and `lang_samples/pulumi-yaml-examples`, three Pulumi examples vendored with their license
 - `files` in a profile: file name patterns such as `Pulumi.*.yaml`, matched before any profile's extensions, so a profile can own some YAML files without owning all of them

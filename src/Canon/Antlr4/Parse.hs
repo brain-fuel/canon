@@ -19,6 +19,7 @@ import Canon.Antlr4.RuleGraph (leftCornerGraph, stronglyConnectedRuleGroups)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token
 import Data.Foldable (toList)
+import Data.Traversable (mapAccumL)
 import qualified Data.IntSet as IntSet
 import qualified Data.List.NonEmpty as NonEmpty
 import Data.Map.Strict (Map)
@@ -116,8 +117,8 @@ data CompiledAtom
   | CompiledAny
 
 data CompiledElement
-  = CompiledAtomElement CompiledAtom (Maybe EbnfSuffix) (Maybe Text)
-  | CompiledBlockElement [CompiledAlternative] (Maybe EbnfSuffix) (Maybe Text)
+  = CompiledAtomElement CompiledAtom (Maybe EbnfSuffix) (Maybe Text) Int
+  | CompiledBlockElement [CompiledAlternative] (Maybe EbnfSuffix) (Maybe Text) Int
   | CompiledActionElement
 
 data CompiledAlternative = CompiledAlternative
@@ -168,7 +169,28 @@ parseVisibleTokens grammar start visible
     ruleCount = length sourceRules
 
     firstTable = computeFirst sourceRules ruleIndex
-    compiled = BV.fromList (map (compileRule ruleIndex firstTable) sourceRules)
+    (loopCount, numbered) = numberLoops (map (compileRule ruleIndex firstTable) sourceRules)
+    compiled = BV.fromList numbered
+    loops = BV.fromList (concatMap ruleLoops numbered)
+
+    loopTable :: BV.Vector (BV.Vector (BV.Vector ([(Children, Int)], Int)))
+    loopTable = BV.generate loopCount (\i -> BV.generate (n `div` loopChunk + 1) (\c -> BV.generate loopChunk (\k -> loopMany i (c * loopChunk + k))))
+
+    loopEntry i p
+      | p > n = ([], p)
+      | otherwise = loopTable BV.! i BV.! (p `div` loopChunk) BV.! (p `mod` loopChunk)
+
+    loopMany i p = case loops BV.! i of
+      (suffix, inner) ->
+        let m = guarded (innerStep inner)
+            more = seqStep m (loopEntry i)
+         in case suffix of
+              EbnfSuffix _ NonGreedy -> altStep [emptyStep, more] p
+              _ -> altStep [more, emptyStep] p
+
+    innerStep inner = case inner of
+      Left atom -> evalAtom entryOf atom
+      Right alts -> altStep [evalAlternative True entryOf a | a <- alts]
 
     groups =
       [ map (ruleIndex Map.!) (NonEmpty.toList g)
@@ -206,35 +228,41 @@ parseVisibleTokens grammar start visible
       | hasShapes r = precEntry r 0 p
       | otherwise = case Map.lookup r groupOf of
           Just members -> Map.findWithDefault ([], p) r (fixTable Map.! headOf members BV.! p)
-          Nothing -> evalRule entryOf r p
+          Nothing -> evalRule True entryOf r p
 
     fixpoint members p = go (Map.fromList [(m, ([], p)) | m <- members]) (0 :: Int)
       where
         go current k =
-          let next = Map.fromList [(m, evalRule (override current) m p) | m <- members]
+          let next = Map.fromList [(m, evalRule False (override current) m p) | m <- members]
            in if signature next == signature current || k > n - p + 1 then next else go next (k + 1)
         signature = Map.map (map snd . fst)
         override current r q
           | q == p, Just entry <- Map.lookup r current = entry
           | otherwise = entryOf r q
 
-    evalRule look r p =
+    evalRule memo look r p =
       let rule = compiled BV.! r
-          evals = [(i, evalAlternative look alt p) | (i, alt) <- zip [0 ..] (ruleAlternatives rule)]
+          evals = [(i, evalAlternative memo look alt p) | (i, alt) <- zip [0 ..] (ruleAlternatives rule)]
        in ( oneTreePerEnd [(RuleNode (ruleName' rule) i (children []), e) | (i, (results, _)) <- evals, (children, e) <- results]
           , maximum (p : [f | (_, (_, f)) <- evals])
           )
 
-    evalAlternative look alt p = case toks BV.!? p of
+    evalAlternative memo look alt p = case toks BV.!? p of
       Just tok | not (alternativeNullable alt) && not (canStart (alternativeFirst alt) tok) -> ([], p)
       Nothing | not (alternativeNullable alt) -> ([], p)
-      _ -> evalElements look (compiledAlternativeElements alt) p
+      _ -> evalElements memo look (compiledAlternativeElements alt) p
 
-    evalElements look elements = foldr (\e rest -> seqStep (evalElement look e) rest) emptyStep elements
+    evalElements memo look elements = foldr (\e rest -> seqStep (evalElement memo look e) rest) emptyStep elements
 
-    evalElement look e = case e of
-      CompiledAtomElement atom suffix label -> labeled label (suffixed suffix (evalAtom look atom))
-      CompiledBlockElement alts suffix label -> labeled label (suffixed suffix (altStep [evalAlternative look a | a <- alts]))
+    repeated memo loop suffix m
+      | memo && loop >= 0 = case suffix of
+          Just (EbnfSuffix OneOrMore _) -> seqStep m (loopEntry loop)
+          _ -> loopEntry loop
+      | otherwise = suffixed suffix m
+
+    evalElement memo look e = case e of
+      CompiledAtomElement atom suffix label loop -> labeled label (repeated memo loop suffix (evalAtom look atom))
+      CompiledBlockElement alts suffix label loop -> labeled label (repeated memo loop suffix (altStep [evalAlternative memo look a | a <- alts]))
       CompiledActionElement -> emptyStep
 
     labeled label step = case label of
@@ -266,13 +294,13 @@ parseVisibleTokens grammar start visible
        in (oneTreePerEnd (concatMap fst climbed), maximum (pos : [f | (_, (_, f)) <- baseEvals] ++ map snd climbed))
 
     baseStep r sh pr = case sh of
-      ShapePrimary alt -> Just (evalAlternative entryOf alt)
-      ShapePrefix alt -> Just (seqStep (evalAlternative entryOf alt) (refStep r pr))
+      ShapePrimary alt -> Just (evalAlternative True entryOf alt)
+      ShapePrefix alt -> Just (seqStep (evalAlternative True entryOf alt) (refStep r pr))
       _ -> Nothing
 
     extensionStep r sh pr q = case sh of
-      ShapeBinary rightAssoc middle -> seqStep (evalAlternative entryOf middle) (refStep r (if rightAssoc then pr else pr + 1)) q
-      ShapeSuffix rest -> evalAlternative entryOf rest q
+      ShapeBinary rightAssoc middle -> seqStep (evalAlternative True entryOf middle) (refStep r (if rightAssoc then pr else pr + 1)) q
+      ShapeSuffix rest -> evalAlternative True entryOf rest q
       _ -> ([], q)
 
     furthest = snd (entryOf startIndex 0)
@@ -371,8 +399,8 @@ compileRule ruleIndex firstTable rule = CompiledRule (parserRuleName rule) alter
       Just (EbnfSuffix ZeroOrMore _) -> True
       _ -> False
     compileElement e = case e of
-      ElementAtom _ label atom suffix -> CompiledAtomElement (compileAtom atom) suffix (labelText label)
-      ElementBlock _ label block suffix -> CompiledBlockElement (map (compileAlternative . alternativeElements) (toList (blockAlternatives block))) suffix (labelText label)
+      ElementAtom _ label atom suffix -> CompiledAtomElement (compileAtom atom) suffix (labelText label) noLoop
+      ElementBlock _ label block suffix -> CompiledBlockElement (map (compileAlternative . alternativeElements) (toList (blockAlternatives block))) suffix (labelText label) noLoop
       ElementAction {} -> CompiledActionElement
     labelText = fmap (nameText . labelName)
     compileAtom atom = case atom of
@@ -383,6 +411,64 @@ compileRule ruleIndex firstTable rule = CompiledRule (parserRuleName rule) alter
     terminalPredicate t = case t of
       TerminalToken name _ -> (== name) . tokenType
       TerminalLiteral lit _ -> let text = either (const T.empty) id (decodeStringLiteral lit) in (== text) . tokenText
+
+-- | The positions a loop's memo table allocates at a time, so a loop read at a few positions does
+-- not allocate an entry for every token of the file. ref:DEC-loop-memo
+loopChunk :: Int
+loopChunk = 64
+
+-- | The id of an element that is not a loop.
+noLoop :: Int
+noLoop = -1
+
+-- | Numbers every starred or plussed element of every rule, shapes included, so that each loop
+-- has a memo table of its own: a loop re-entered at the same position is then read once, which
+-- keeps a failing parse from re-reading every way a loop can split its input. ref:DEC-loop-memo
+numberLoops :: [CompiledRule] -> (Int, [CompiledRule])
+numberLoops = mapAccumL rule 0
+  where
+    rule k r =
+      let (k1, alts) = mapAccumL alternative k (ruleAlternatives r)
+          (k2, shapes) = case ruleShapes r of
+            Nothing -> (k1, Nothing)
+            Just ss -> fmap Just (mapAccumL shapeEntry k1 ss)
+       in (k2, r {ruleAlternatives = alts, ruleShapes = shapes})
+    shapeEntry k (i, sh, pr) =
+      let (k', sh') = case sh of
+            ShapePrimary a -> fmap ShapePrimary (alternative k a)
+            ShapePrefix a -> fmap ShapePrefix (alternative k a)
+            ShapeBinary right a -> fmap (ShapeBinary right) (alternative k a)
+            ShapeSuffix a -> fmap ShapeSuffix (alternative k a)
+       in (k', (i, sh', pr))
+    alternative k a = let (k', es) = mapAccumL element k (compiledAlternativeElements a) in (k', a {compiledAlternativeElements = es})
+    element k e = case e of
+      CompiledAtomElement atom suffix label _ -> (next suffix k, CompiledAtomElement atom suffix label (idFor suffix k))
+      CompiledBlockElement alts suffix label _ ->
+        let (k', alts') = mapAccumL alternative (next suffix k) alts
+         in (k', CompiledBlockElement alts' suffix label (idFor suffix k))
+      CompiledActionElement -> (k, e)
+    isLoop suffix = case suffix of
+      Just (EbnfSuffix ZeroOrMore _) -> True
+      Just (EbnfSuffix OneOrMore _) -> True
+      _ -> False
+    next suffix k = if isLoop suffix then k + 1 else k
+    idFor suffix k = if isLoop suffix then k else noLoop
+
+-- | The loops of a rule in id order, each with its suffix and the element it repeats.
+ruleLoops :: CompiledRule -> [(EbnfSuffix, Either CompiledAtom [CompiledAlternative])]
+ruleLoops r = concatMap alternative (ruleAlternatives r) ++ concatMap shapeLoops (maybe [] id (ruleShapes r))
+  where
+    shapeLoops (_, sh, _) = case sh of
+      ShapePrimary a -> alternative a
+      ShapePrefix a -> alternative a
+      ShapeBinary _ a -> alternative a
+      ShapeSuffix a -> alternative a
+    alternative a = concatMap element (compiledAlternativeElements a)
+    element e = case e of
+      CompiledAtomElement atom (Just suffix) _ loop | loop >= 0 -> [(suffix, Left atom)]
+      CompiledBlockElement alts suffix _ loop ->
+        [(s', Right alts) | loop >= 0, Just s' <- [suffix]] ++ concatMap alternative alts
+      _ -> []
 
 oneTreePerEnd :: [(a, Int)] -> [(a, Int)]
 oneTreePerEnd = go IntSet.empty

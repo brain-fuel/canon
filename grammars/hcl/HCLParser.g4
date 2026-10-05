@@ -27,9 +27,10 @@ options {
     tokenVocab = HCLLexer;
 }
 
-/** A configuration file is a body of attributes and blocks up to end of input. */
+/** A configuration file is a body of attributes and blocks up to end of input, in the native syntax or in Terraform's JSON syntax. */
 configFile
     : body EOF
+    | jsonObject EOF
     ;
 
 /** A body: attributes, blocks, and line breaks. */
@@ -174,7 +175,7 @@ templateExpr
     | HEREDOC_OPEN templatePart* HEREDOC_CLOSE
     ;
 
-/** One part of a template: literal text, an escape, a line break of a heredoc, an interpolation, or a directive. */
+/** One part of a template: literal text, an escape, a line break of a heredoc, an interpolation, or an if or for directive with its body. */
 templatePart
     : TEMPLATE_TEXT
     | TEMPLATE_ESCAPE
@@ -182,7 +183,8 @@ templatePart
     | HEREDOC_TEXT
     | HEREDOC_NEWLINE
     | interpolation
-    | directive
+    | ifDirective
+    | forDirective
     ;
 
 /** An interpolation: an expression between a dollar brace and a brace, with optional strip markers. */
@@ -190,16 +192,43 @@ interpolation
     : TEMPLATE_INTERP TILDE? expression TILDE? RBRACE
     ;
 
-/** A template directive between a percent brace and a brace, with optional strip markers. */
-directive
-    : TEMPLATE_DIRECTIVE TILDE? directiveBody TILDE? RBRACE
+/** An if directive, its body, an optional else directive and body, and the endif directive that closes it. */
+ifDirective
+    : directiveOpen 'if' expression directiveClose templatePart* (directiveOpen 'else' directiveClose templatePart*)? directiveOpen 'endif' directiveClose
     ;
 
-/** The body of a template directive: if, else, endif, for, or endfor. */
-directiveBody
-    : 'if' expression
-    | 'else'
-    | 'endif'
-    | 'for' IDENTIFIER (COMMA IDENTIFIER)? 'in' expression
-    | 'endfor'
+/** A for directive, its body, and the endfor directive that closes it. */
+forDirective
+    : directiveOpen 'for' IDENTIFIER (COMMA IDENTIFIER)? 'in' expression directiveClose templatePart* directiveOpen 'endfor' directiveClose
+    ;
+
+/** The opening of a directive, a percent brace with an optional strip marker. */
+directiveOpen
+    : TEMPLATE_DIRECTIVE TILDE?
+    ;
+
+/** The closing of a directive, a brace with an optional strip marker. */
+directiveClose
+    : TILDE? RBRACE
+    ;
+
+/** A JSON value: an object, an array, a string, which Terraform reads as a template, a number, true, false, or null. */
+jsonValue
+    : jsonObject
+    | LBRACK (jsonValue (COMMA jsonValue)*)? RBRACK
+    | templateExpr
+    | MINUS? NUMBER
+    | 'true'
+    | 'false'
+    | 'null'
+    ;
+
+/** A JSON object of properties. */
+jsonObject
+    : LBRACE (jsonMember (COMMA jsonMember)*)? RBRACE
+    ;
+
+/** A JSON property: a string key, a colon, and a value. */
+jsonMember
+    : TEMPLATE_OPEN TEMPLATE_TEXT? TEMPLATE_CLOSE COLON jsonValue
     ;

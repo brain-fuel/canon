@@ -32,6 +32,7 @@ tests =
     [ testProperty "the YAML grammars parse the Pulumi examples into their entries" prop_yamlGrammarsParseThePulumiExamplesIntoTheirEntries
     , testProperty "the Pulumi dialect makes units of resources, variables, outputs, and config keys" prop_pulumiDialectMakesUnitsOfResourcesVariablesOutputsAndConfigKeys
     , testProperty "the Pulumi profile owns Pulumi programs and stack files by name" prop_pulumiProfileOwnsPulumiProgramsAndStackFilesByName
+    , testProperty "the Pulumi dialect reads quoted keys, flow interpolations, and template config" prop_pulumiDialectReadsQuotedKeysFlowInterpolationsAndTemplateConfig
     ]
 
 sampleDir :: FilePath
@@ -202,3 +203,51 @@ prop_pulumiProfileOwnsPulumiProgramsAndStackFilesByName = withTests 1 $ property
   let units = modelAllUnits model
   [whatName (answerValue (unitWhat u)) | u <- units, unitKindText (whatKind (answerValue (unitWhat u))) == "config"] === ["aws:region", "site:dbPassword"]
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
+
+quotedAndFlow :: Text
+quotedAndFlow =
+  T.unlines
+    [ "name: site"
+    , "runtime: yaml"
+    , "template:"
+    , "  displayName: A site"
+    , "  config:"
+    , "    aws:region:"
+    , "      description: The region to deploy into"
+    , "      default: us-west-2"
+    , "    siteName:"
+    , "      type: string"
+    , "resources:"
+    , "  # The page the site serves."
+    , "  \"index.html\":"
+    , "    type: aws:s3:BucketObject"
+    , "    properties:"
+    , "      tags: {\"Name\":\"index\", \"Size\":1}"
+    , "    options:"
+    , "      dependsOn: [${site-bucket}, ${logs}]"
+    , "  'site-bucket':"
+    , "    type: aws:s3:Bucket"
+    ]
+
+-- | Pulumi addresses a resource by its key whether or not the key is quoted, writes interpolations
+-- inside flow sequences, accepts JSON-style pairs, and asks for a template's config keys when it
+-- makes a project, so the dialect must name a quoted key without its quotes, parse those flow
+-- collections, and make each template config key a unit. ref:REQ-pulumi-yaml-support
+-- ref:DEC-pulumi-yaml-grammar
+prop_pulumiDialectReadsQuotedKeysFlowInterpolationsAndTemplateConfig :: Property
+prop_pulumiDialectReadsQuotedKeysFlowInterpolationsAndTemplateConfig = withTests 1 $ property $ do
+  Extraction model findings <- extracted "Pulumi.yaml" quotedAndFlow
+  let units = modelAllUnits model
+      nameOf u = whatName (answerValue (unitWhat u))
+      kindOf u = unitKindText (whatKind (answerValue (unitWhat u)))
+      whyOf n = [whyText (answerValue (decisionWhy d)) | u <- units, nameOf u == n, d <- decisionsFor (unitId u) model]
+  [(kindOf u, nameOf u) | u <- units, kindOf u /= "file"]
+    === [ ("templateConfig", "aws:region")
+        , ("templateConfig", "siteName")
+        , ("resource", "index.html")
+        , ("resource", "site-bucket")
+        ]
+  whyOf "aws:region" === ["The region to deploy into"]
+  whyOf "index.html" === ["The page the site serves."]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["pulumi/Pulumi.yaml/templateConfig/siteName"]

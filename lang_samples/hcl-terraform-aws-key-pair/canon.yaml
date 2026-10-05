@@ -5,6 +5,7 @@ root: source
 languages:
   hcl:
     extensions: [.tf, .tfvars, .hcl]
+    files: ["*.tf.json", "*.tfvars.json"]
     lexer: ../../grammars/hcl/canonically_commented/HCLLexer.g4
     parser: ../../grammars/hcl/canonically_commented/HCLParser.g4
     start: configFile
