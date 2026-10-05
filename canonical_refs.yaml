@@ -98,3 +98,39 @@ REQ-gleam-support:
   kind: requirement
   title: canon reads Gleam, parsing every Gleam module, taking functions, types, constructors, labelled fields, and constants as units, requiring a comment on public functions, types, and constants, binding /// to the item below its attributes and //// to the file, and recognising gleeunit test functions by their _test suffix
   locator: README.md
+hcl-native-syntax-spec:
+  kind: article
+  title: The HCL native syntax specification, on the bodies, blocks, expressions, templates, and comments canon's HCL grammar reads
+  locator: https://github.com/hashicorp/hcl/blob/main/hclsyntax/spec.md
+terraform-language-docs:
+  kind: article
+  title: The Terraform language documentation, on resource, data, module, variable, output, provider, locals, terraform, and check blocks and the description argument of variables and outputs
+  locator: https://developer.hashicorp.com/terraform/language
+terraform-test-docs:
+  kind: article
+  title: The Terraform test documentation, on .tftest.hcl files and their run blocks
+  locator: https://developer.hashicorp.com/terraform/language/tests
+grammars-v4-terraform:
+  kind: package
+  title: The grammars-v4 Terraform grammar, terraform.g4, BSD-3-Clause, at commit 7df52be94698550d219d299d04105c6bafadd9c3, evaluated and not vendored
+  locator: https://github.com/antlr/grammars-v4/tree/7df52be94698550d219d299d04105c6bafadd9c3/terraform
+REQ-hcl-support:
+  kind: requirement
+  title: canon reads HCL, parsing Terraform configurations, variable files, and other .hcl files, taking each top-level block as a unit named by its labels joined with a dot and each entry of a locals block as a unit, binding a comment to the block directly below it, reading the description of a variable or an output as its Why, requiring a Why on variables and outputs, and recognising the run blocks of a Terraform test file as tests
+  locator: README.md
+yaml-1-2-spec:
+  kind: article
+  title: YAML Ain't Markup Language version 1.2.2, the specification canon's YAML grammar reads the block structure of
+  locator: https://yaml.org/spec/1.2.2/
+pulumi-yaml-reference:
+  kind: article
+  title: The Pulumi YAML language reference, on the resources, variables, outputs, and config sections of a Pulumi YAML program
+  locator: https://www.pulumi.com/docs/iac/languages-sdks/yaml/yaml-language-reference/
+pulumi-project-file:
+  kind: article
+  title: The Pulumi project file reference, on Pulumi.yaml, its config declarations with type, default, and description, and the main option that names a Main.yaml
+  locator: https://www.pulumi.com/docs/iac/concepts/projects/project-file/
+REQ-pulumi-yaml-support:
+  kind: requirement
+  title: canon reads Pulumi YAML programs, owning Pulumi.yaml, Main.yaml, and stack files by name, taking each resource, variable, output, and config key as a unit named by its key, binding a comment to the entry directly below it, reading the description of a config key as its Why, and requiring a Why on outputs and on config keys that declare a type or a default
+  locator: README.md

@@ -26,11 +26,12 @@ grammarExtension = ".g4"
 
 -- | Finds files by extension under a directory, honouring ignores.
 findSupportedFiles :: [IgnorePattern] -> FilePath -> IO [FilePath]
-findSupportedFiles patterns root = walkedFiles <$> walkProject patterns [grammarExtension] "canon.yaml" root
+findSupportedFiles patterns root = walkedFiles <$> walkProject patterns ((== grammarExtension) . takeExtension) "canon.yaml" root
 
--- | Walks a project root, stopping at directories that hold their own configuration.
-walkProject :: [IgnorePattern] -> [String] -> FilePath -> FilePath -> IO Walked
-walkProject patterns extensions marker root = go []
+-- | Walks a project root, keeping the files the predicate accepts by name and stopping at
+-- directories that hold their own configuration.
+walkProject :: [IgnorePattern] -> (FilePath -> Bool) -> FilePath -> FilePath -> IO Walked
+walkProject patterns supported marker root = go []
   where
     go relative = do
       let directory = joined relative
@@ -53,7 +54,7 @@ walkProject patterns extensions marker root = go []
           pure
             ( Walked
                 [ path
-                | takeExtension entry `elem` extensions
+                | supported entry
                 , not (isIgnored patterns False segments)
                 ]
                 []

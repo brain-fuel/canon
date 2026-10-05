@@ -1,0 +1,10 @@
+version: 0.1.0
+registry: canonical_refs.yaml
+decisions: canonical_decisions.yaml
+root: source
+languages:
+  hcl:
+    extensions: [.tf, .tfvars, .hcl]
+    lexer: ../../grammars/hcl/canonically_commented/HCLLexer.g4
+    parser: ../../grammars/hcl/canonically_commented/HCLParser.g4
+    start: configFile

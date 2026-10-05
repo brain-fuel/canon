@@ -9,6 +9,8 @@ module Canon.Antlr4.Lex.Adaptor
 import Canon.Antlr4.Lex (HookEffect (..), LexerHooks (..), SomeHooks (..), noHooks)
 import Canon.Antlr4.Lex.CSharp (csharpLexerHooks)
 import Canon.Antlr4.Lex.FSharp (fsharpLexerHooks)
+import Canon.Antlr4.Lex.HCL (hclLexerHooks)
+import Canon.Antlr4.Lex.YAML (yamlLexerHooks)
 import Canon.Antlr4.Lex.Haskell (haskellLayoutHooks)
 import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
@@ -66,4 +68,6 @@ hooksForGrammar grammar =
     (Name "HaskellBaseLexer" : _) -> SomeHooks haskellLayoutHooks
     (Name "CSharpLexerBase" : _) -> SomeHooks csharpLexerHooks
     (Name "FSharpLexerBase" : _) -> SomeHooks fsharpLexerHooks
+    (Name "HCLLexerBase" : _) -> SomeHooks hclLexerHooks
+    (Name "YAMLLexerBase" : _) -> SomeHooks yamlLexerHooks
     _ -> SomeHooks noHooks

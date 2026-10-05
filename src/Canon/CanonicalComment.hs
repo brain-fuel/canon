@@ -3,6 +3,7 @@
 module Canon.CanonicalComment
   ( CanonicalComment (..)
   , docCommentBody
+  , docStringBody
   , referenceTokens
   , licenseTokens
   , mentionsLicense
@@ -26,10 +27,13 @@ data CanonicalComment = CanonicalComment
   deriving (Eq, Show)
 
 -- | Strips the delimiters and line markers of every supported comment form, so the Why is prose
--- alone.
+-- alone. A comment opened with a hash, two slashes, or a slash and one star, as HCL and YAML write
+-- them, may be several comment lines joined, and each line loses its own markers.
+-- ref:DEC-hcl-grammar ref:DEC-pulumi-yaml-grammar
 docCommentBody :: Text -> Text
-docCommentBody raw =
-  T.strip (T.intercalate "\n" (map stripLineMarker (T.lines (stripDelimiters raw))))
+docCommentBody raw
+  | plainOpener (T.stripStart raw) = T.strip (T.intercalate "\n" (map stripPlainLine (T.lines raw)))
+  | otherwise = T.strip (T.intercalate "\n" (map stripLineMarker (T.lines (stripDelimiters raw))))
   where
     stripDelimiters t = foldr dropSuffix (foldr dropPrefix (T.strip t) ["/**", "{-|", "--|", "-- |"]) ["*/", "-}"]
     dropPrefix p t = maybe t id (T.stripPrefix p t)
@@ -38,6 +42,52 @@ docCommentBody raw =
     withoutMarker trimmed = case T.stripPrefix "--" trimmed of
       Just rest -> maybe rest id (T.stripPrefix "|" (T.stripStart rest))
       Nothing -> maybe trimmed id (T.stripPrefix "*" trimmed)
+    plainOpener t = "#" `T.isPrefixOf` t || "//" `T.isPrefixOf` t || ("/*" `T.isPrefixOf` t && not ("/**" `T.isPrefixOf` t))
+    stripPlainLine line =
+      let trimmed = T.strip line
+          unclosed = T.strip (maybe trimmed id (T.stripSuffix "*/" trimmed))
+          unopened
+            | "/*" `T.isPrefixOf` unclosed = T.drop 2 unclosed
+            | "//" `T.isPrefixOf` unclosed = T.dropWhile (== '/') unclosed
+            | "#" `T.isPrefixOf` unclosed = T.dropWhile (== '#') unclosed
+            | "*" `T.isPrefixOf` unclosed = T.drop 1 unclosed
+            | otherwise = unclosed
+       in T.strip unopened
+
+-- | The prose of documentation written as data rather than as a comment: a quoted string, a
+-- heredoc, or a YAML block or plain scalar, as an HCL description or a Pulumi config description
+-- is, without its quotes, header, or indentation. ref:DEC-hcl-grammar ref:DEC-pulumi-yaml-grammar
+docStringBody :: Text -> Text
+docStringBody raw = case T.uncons stripped of
+  Just ('"', rest) | Just inner <- T.stripSuffix "\"" rest -> T.strip (unescape inner)
+  Just ('\'', rest) | Just inner <- T.stripSuffix "'" rest -> T.strip (T.replace "''" "'" inner)
+  Just ('<', _) | "<<" `T.isPrefixOf` stripped -> heredoc
+  Just (c, _) | c `elem` ("|>" :: String) -> blockScalar c
+  _ -> T.unwords (filter (not . T.null) (map T.strip (T.lines stripped)))
+  where
+    stripped = T.strip raw
+    bodyLines = drop 1 (T.lines stripped)
+    heredoc =
+      let word = T.strip (T.dropWhile (`elem` ("<-" :: String)) (T.takeWhile (/= '\n') stripped))
+          content = case reverse bodyLines of
+            (lastLine : before) | T.strip lastLine == word -> reverse before
+            _ -> bodyLines
+       in T.strip (T.intercalate "\n" (dedent content))
+    blockScalar indicator =
+      let content = dedent bodyLines
+       in T.strip (if indicator == '>' then T.unwords (filter (not . T.null) (map T.strip content)) else T.intercalate "\n" content)
+    dedent ls =
+      let indents = [T.length (T.takeWhile (== ' ') l) | l <- ls, not (T.null (T.strip l))]
+          common = if null indents then 0 else minimum indents
+       in map (T.stripEnd . T.drop common) ls
+    unescape t = case T.breakOn "\\" t of
+      (before, after) -> case T.unpack (T.take 2 after) of
+        ['\\', c] -> before <> T.singleton (escaped c) <> unescape (T.drop 2 after)
+        _ -> before <> after
+    escaped c = case c of
+      'n' -> '\n'
+      't' -> '\t'
+      other -> other
 
 referencePrefix :: Text
 referencePrefix = "ref:"

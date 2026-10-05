@@ -21,6 +21,8 @@ tests =
     , testProperty "doc comment delimiters and leading stars are stripped" bodyStripped
     , testProperty "trailing punctuation after a key is ignored" trailingPunctuation
     , testProperty "license keys are extracted separately from references" licenseKeys
+    , testProperty "hash, slash, and block comment lines lose their markers" plainCommentsStripped
+    , testProperty "documentation written as data loses its quotes, header, and indentation" dataDocumentationStripped
     ]
 
 tokensExtracted :: Property
@@ -52,3 +54,19 @@ licenseKeys = withTests 1 $ property $ do
   mentionsLicense "exists because of the parser" === False
   mentionsLicense "The file-level comment is where a license lives." === False
   mentionsLicense "Licensed under the Apache License, Version 2.0" === True
+
+plainCommentsStripped :: Property
+plainCommentsStripped = withTests 1 $ property $ do
+  docCommentBody "# The network.\n# ref:REQ-1" === "The network.\nref:REQ-1"
+  docCommentBody "########\n# Key Pair\n########" === "Key Pair"
+  docCommentBody "// The key,\n/* rotated. */" === "The key,\nrotated."
+  docCommentBody "/* One block\n * with stars. */" === "One block\nwith stars."
+
+dataDocumentationStripped :: Property
+dataDocumentationStripped = withTests 1 $ property $ do
+  docStringBody "\"The region, \\\"quoted\\\".\"" === "The region, \"quoted\"."
+  docStringBody "'It''s here.'" === "It's here."
+  docStringBody "<<-EOT\n    First line,\n    second line.\n  EOT" === "First line,\nsecond line."
+  docStringBody "|\n  Kept\n  lines." === "Kept\nlines."
+  docStringBody ">-\n  Folded\n  lines." === "Folded lines."
+  docStringBody "A plain\n    scalar." === "A plain scalar."

@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Should the resources, modules, and providers of terraform-aws-key-pair each carry a comment directly above them, given that the HCL dialect requires a Why only on variables and outputs, which the module documents with descriptions, while its resources carry only section banners that a blank line parts from them?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [terraform-aws-key-pair-upstream]

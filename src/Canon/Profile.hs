@@ -8,16 +8,18 @@ module Canon.Profile
   , CommentSyntax (..)
   , defaultCommentSyntax
   , profileForPath
+  , profileOwns
   ) where
 
 import Canon.Antlr4.Syntax (Name (..))
+import Canon.Ignore (globMatches)
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.:?), (.=))
 import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
 import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
-import System.FilePath (takeExtension)
+import System.FilePath (takeExtension, takeFileName)
 
 -- | A combined grammar file or a lexer and parser pair.
 data GrammarSource
@@ -76,9 +78,11 @@ data CommentSyntax = CommentSyntax
 defaultCommentSyntax :: CommentSyntax
 defaultCommentSyntax = CommentSyntax Nothing Nothing Nothing ["\""] [] [] [] []
 
--- | A language profile.
+-- | A language profile. Besides extensions, a profile may own files by name patterns, as Pulumi
+-- owns Pulumi.yaml and Main.yaml but not every YAML file. ref:DEC-pulumi-yaml-grammar
 data Profile = Profile
   { profileExtensions :: [Text]
+  , profileFiles :: [Text]
   , profileGrammar :: GrammarSource
   , profileStart :: Name
   , profileUnits :: [UnitRule]
@@ -86,12 +90,22 @@ data Profile = Profile
   }
   deriving (Eq, Show)
 
--- | The profile that owns a file's extension.
+-- | The profile that owns a file: the first whose file name patterns match its name, or else the
+-- first that owns its extension, so a profile for Pulumi.yaml is chosen over one for every YAML
+-- file. ref:DEC-pulumi-yaml-grammar
 profileForPath :: Map Text Profile -> FilePath -> Maybe (Text, Profile)
 profileForPath profiles path =
-  case [(lang, p) | (lang, p) <- Map.toList profiles, T.pack (takeExtension path) `elem` profileExtensions p] of
+  case [(lang, p) | (lang, p) <- Map.toList profiles, ownsByName p] ++ [(lang, p) | (lang, p) <- Map.toList profiles, ownsByExtension p] of
     (found : _) -> Just found
     [] -> Nothing
+  where
+    ownsByName p = any (`globMatches` T.pack (takeFileName path)) (profileFiles p)
+    ownsByExtension p = T.pack (takeExtension path) `elem` profileExtensions p
+
+-- | Whether a profile owns a file, by its name patterns or its extension, which is what the walk
+-- asks of every file it finds.
+profileOwns :: Profile -> FilePath -> Bool
+profileOwns p path = T.pack (takeExtension path) `elem` profileExtensions p || any (`globMatches` T.pack (takeFileName path)) (profileFiles p)
 
 instance ToJSON UnitName where
   toJSON n = case n of
@@ -164,6 +178,7 @@ instance ToJSON Profile where
         , "start" .= nameText (profileStart p)
         , "units" .= profileUnits p
         ]
+          ++ ["files" .= profileFiles p | not (null (profileFiles p))]
           ++ case profileGrammar p of
             CombinedGrammarFile path -> ["grammar" .= path]
             SplitGrammarFiles lexer parser -> ["lexer" .= lexer, "parser" .= parser]
@@ -179,7 +194,8 @@ instance FromJSON Profile where
       (Nothing, Just l, Just p) -> pure (SplitGrammarFiles l p)
       _ -> fail "a profile names either grammar, or both lexer and parser"
     Profile
-      <$> o .: "extensions"
+      <$> (fromMaybe [] <$> o .:? "extensions")
+      <*> (fromMaybe [] <$> o .:? "files")
       <*> pure source
       <*> (Name <$> o .: "start")
       <*> (fromMaybe [] <$> o .:? "units")

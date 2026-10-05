@@ -3238,6 +3238,294 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarD
 decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/wherebinds:
   comment: sha256:1f63e7c2f4015a7d
   verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer:
+  comment: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_CLOSE:
+  comment: sha256:169aa1aa6586ccbf
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_LICENSE:
+  comment: sha256:97775d86cd1d24e7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_PUNCT:
+  comment: sha256:79de7710f7e955b0
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_REF:
+  comment: sha256:ea9ade41747ad71e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_WORD:
+  comment: sha256:d180b80e7a26ed6c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_WS:
+  comment: sha256:ea60c7c84e478133
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_LICENSE:
+  comment: sha256:0514a8ba60c25181
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_LINE_END:
+  comment: sha256:1220548a92457035
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_PUNCT:
+  comment: sha256:60fe8e2314ffde10
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_REF:
+  comment: sha256:184879afc5dd5fb7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_WORD:
+  comment: sha256:71f9f252c7615af5
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_WS:
+  comment: sha256:265e3b024c385052
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_DIRECTIVE:
+  comment: sha256:1e393cc841a7457a
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_ESCAPE:
+  comment: sha256:f7ca8a2db4c2ffad
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_INTERP:
+  comment: sha256:ec9b9f3699a05341
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_NEWLINE:
+  comment: sha256:ad482b1235a495f3
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_SIGIL:
+  comment: sha256:bb4b36000476e779
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_TEXT:
+  comment: sha256:ec74c03653bdeeb7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_CLOSE:
+  comment: sha256:b55e6c487b29f988
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_DIRECTIVE:
+  comment: sha256:1845838448573cd8
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_ESCAPE:
+  comment: sha256:ee35290b42fa7459
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_INTERP:
+  comment: sha256:075d2d64c53b8a7f
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_SIGIL:
+  comment: sha256:78dfcff06003aa7b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_TEXT:
+  comment: sha256:7aafc90c42581db9
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/AND:
+  comment: sha256:cf2351a007a7f04e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/ASSIGN:
+  comment: sha256:f51b0f06b945e959
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/BANG:
+  comment: sha256:a21a2a82ccd40019
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/COLON:
+  comment: sha256:ce389b05a308dd7b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/COMMA:
+  comment: sha256:25de0f307304fd43
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/DOC_BLOCK_OPEN:
+  comment: sha256:a11bb922a4b7fe80
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/DOC_OPEN:
+  comment: sha256:acb8ccfd35c9b929
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/DOT:
+  comment: sha256:00cda2a34593ea8a
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/DOUBLE_COLON:
+  comment: sha256:9dce20f06844676c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/ELLIPSIS:
+  comment: sha256:fe694b9e5e44bb52
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/EQUAL_EQUAL:
+  comment: sha256:8277811967160a52
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/FAT_ARROW:
+  comment: sha256:8ba2ee4496bf4466
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/GREATER:
+  comment: sha256:5db02d116e7440d7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/GREATER_EQUAL:
+  comment: sha256:31ed721c7485fdb0
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/HEREDOC_OPEN:
+  comment: sha256:f529c58d2d3a10a5
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/IDENTIFIER:
+  comment: sha256:4cb598d5355bdde4
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LBRACE:
+  comment: sha256:e6cb17213b9fb7c8
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LBRACK:
+  comment: sha256:a3d23533e68c62c9
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LESS:
+  comment: sha256:5e17268711483579
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LESS_EQUAL:
+  comment: sha256:f81cae8d43a6e16c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LPAREN:
+  comment: sha256:4d87b2bf3f5c1e67
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/MINUS:
+  comment: sha256:bc0ec6fe805ebfe2
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/NEWLINE:
+  comment: sha256:26c13b72e10fb48a
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/NOT_EQUAL:
+  comment: sha256:b95020e3fb005fd3
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/NUMBER:
+  comment: sha256:43cedc2fa1b1c6ce
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/OR:
+  comment: sha256:38a4b97287d6c43d
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/PERCENT:
+  comment: sha256:76a7b101daad9a00
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/PLUS:
+  comment: sha256:b62b141bb64c99e6
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/QUESTION:
+  comment: sha256:f54589fe5bf1c2c3
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/RBRACE:
+  comment: sha256:331fa862e288b26f
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/RBRACK:
+  comment: sha256:1851306401d2e2e6
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/RPAREN:
+  comment: sha256:9e4a597cc50850be
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/SLASH:
+  comment: sha256:1f66622f1ed44a0e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/STAR:
+  comment: sha256:195ee1760e41d2da
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/TEMPLATE_OPEN:
+  comment: sha256:6f7495750f0b99d8
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/TILDE:
+  comment: sha256:54b41c52cef43ef1
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/WS:
+  comment: sha256:e159dac858014c61
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser:
+  comment: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/attribute:
+  comment: sha256:ab58ad7617c6f552
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/block:
+  comment: sha256:6d2ec86c6e22435b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/blockBody:
+  comment: sha256:545cbd051a75a8ee
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/blockLabel:
+  comment: sha256:aabb8aa0df50f8b5
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/bodyItem:
+  comment: sha256:54ba058b505423a3
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/canonicalComment:
+  comment: sha256:0cbae5a72323b006
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/collectionValue:
+  comment: sha256:56c7ff385dc69266
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/configFile:
+  comment: sha256:27580f9660db765a
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/directive:
+  comment: sha256:00ccf0e673502822
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/directiveBody:
+  comment: sha256:7f5a8479cdfcc017
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/docPart:
+  comment: sha256:bb6b6c5e8cb9923b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/exprTerm:
+  comment: sha256:e23bd2969d87024a
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/expression:
+  comment: sha256:0bec9d230009f75c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/forCond:
+  comment: sha256:e4fc412bd1404833
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/forExpr:
+  comment: sha256:3cce002085b35808
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/forIntro:
+  comment: sha256:1ea625129ff8a1f1
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/functionCall:
+  comment: sha256:e871720ac09adf66
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/getAttr:
+  comment: sha256:b816612f170363c7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/index:
+  comment: sha256:4af6358173ae431b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/interpolation:
+  comment: sha256:9cbabca4b580e699
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/literalValue:
+  comment: sha256:4c2e4c3e302ef950
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/localEntry:
+  comment: sha256:2feecd44842c1697
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/note:
+  comment: sha256:77783f82b937d79c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/object:
+  comment: sha256:21cd04dda57cd43b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/objectElem:
+  comment: sha256:ac70872ad326d52e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/splat:
+  comment: sha256:b543c23e0e1736eb
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/stringLiteral:
+  comment: sha256:241057c55a4c12bb
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/templateExpr:
+  comment: sha256:2398b234dbb00ee6
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/templatePart:
+  comment: sha256:80d168271e13b0db
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/topBody:
+  comment: sha256:1c8bfc6ae7b74083
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/topItem:
+  comment: sha256:d4768bc012b5d069
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/tuple:
+  comment: sha256:e207586c82392e56
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/variableExpr:
+  comment: sha256:bd1d3c88f30763e1
+  verdict: pending
 decision/antlr4/grammars/java/JavaLexer.g4/grammarDefinition/JavaLexer:
   comment: sha256:fb0945b6e86b4d25
   verdict: pending
@@ -4828,6 +5116,207 @@ decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinit
 decision/antlr4/grammars/java/canonically_commented/JavaParser.g4/grammarDefinition/JavaParser/parserRule/variableModifier:
   comment: sha256:89403e4af526acd1
   verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer:
+  comment: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/BlockScalar/lexerRule/BLOCK_SCALAR_BREAK:
+  comment: sha256:ad9ad2924041b125
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/BlockScalar/lexerRule/BLOCK_SCALAR_TEXT:
+  comment: sha256:21014bf02bbc121e
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_LICENSE:
+  comment: sha256:0514a8ba60c25181
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_LINE_END:
+  comment: sha256:3e2720185dbdd109
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_PUNCT:
+  comment: sha256:60fe8e2314ffde10
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_REF:
+  comment: sha256:184879afc5dd5fb7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_WORD:
+  comment: sha256:71f9f252c7615af5
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_WS:
+  comment: sha256:87cd5ac8b1cbd050
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/COMMA:
+  comment: sha256:4150fcfada9502a7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_ALIAS:
+  comment: sha256:ad7776e54664360d
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_ANCHOR:
+  comment: sha256:fadae9758f6c4c2c
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_COLON:
+  comment: sha256:7b031c7ba1ea2ef3
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_COMMENT:
+  comment: sha256:194034be42147bed
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_DOUBLE_QUOTED:
+  comment: sha256:dc8f010778f5ac8c
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_MAP_CLOSE:
+  comment: sha256:951ab7879f11b9c3
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_NESTED_MAP_OPEN:
+  comment: sha256:44c400496404dd78
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_NESTED_SEQ_OPEN:
+  comment: sha256:6e5639c96f970de7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_PLAIN:
+  comment: sha256:4a94f6baf1bc45db
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_SEQ_CLOSE:
+  comment: sha256:43ca3b979b006ca0
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_SINGLE_QUOTED:
+  comment: sha256:72dbc723a7f3e9ae
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_TAG:
+  comment: sha256:2b54335a12c13d98
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_WS:
+  comment: sha256:918bfd3cdac0b826
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/ALIAS:
+  comment: sha256:b890632561f5edee
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/ANCHOR:
+  comment: sha256:778cd53a0c0d9c3f
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/BLOCK_SCALAR:
+  comment: sha256:f56eb3ee3a4e8293
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/COLON:
+  comment: sha256:aec829dbd0b623b1
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DASH:
+  comment: sha256:040550e0a696f13a
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DIRECTIVE:
+  comment: sha256:8aa8d0e64919a136
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DOCUMENT_END:
+  comment: sha256:6ef9cd0f72c0b583
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DOCUMENT_START:
+  comment: sha256:060543df5eddb4d2
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DOC_OPEN:
+  comment: sha256:f67d316e8a377ab9
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DOUBLE_QUOTED:
+  comment: sha256:fb6290035b961263
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/FLOW_MAP_OPEN:
+  comment: sha256:103124679d0ec823
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/FLOW_SEQ_OPEN:
+  comment: sha256:da41cab9c6d5d35f
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/LINE_BREAK:
+  comment: sha256:0071942d45c0e5a2
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/PLAIN:
+  comment: sha256:e3501a16f2bf7f3c
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/QUESTION:
+  comment: sha256:410f1a7e3dd54d45
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/SINGLE_QUOTED:
+  comment: sha256:2a6c3615cbfb32a9
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/TAG:
+  comment: sha256:05c983af4c8d0ba2
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/WS:
+  comment: sha256:e159dac858014c61
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser:
+  comment: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/blockMapping:
+  comment: sha256:53431be4a15379fd
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/blockNode:
+  comment: sha256:038768852a3a3653
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/blockScalar:
+  comment: sha256:ac2aaae9549bbc4d
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/blockSequence:
+  comment: sha256:97c2220a8d4a243a
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/canonicalComment:
+  comment: sha256:a6a78c3d1cd2fecb
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/configEntry:
+  comment: sha256:07129c790a40355a
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/docPart:
+  comment: sha256:bb6b6c5e8cb9923b
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/docScalar:
+  comment: sha256:55aa00f8d1948800
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/document:
+  comment: sha256:898faaa365e14255
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/flowCollection:
+  comment: sha256:426fed831a9e7402
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/flowEntry:
+  comment: sha256:4c46b4734ec8f93f
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/flowNode:
+  comment: sha256:4a8fad49ee9b38b7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/key:
+  comment: sha256:7e7bb07df4e5eeeb
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/keyName:
+  comment: sha256:ce9ea129428705db
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/mappingEntry:
+  comment: sha256:1751c71b66f4e8ff
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/mappingValue:
+  comment: sha256:9218267e17e162f5
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/outputEntry:
+  comment: sha256:09965689b2edb268
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/plainContinuation:
+  comment: sha256:e418a05bb6f76884
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/programMapping:
+  comment: sha256:0570234a4327f86e
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/properties:
+  comment: sha256:bbf34572b8f89445
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/resourceEntry:
+  comment: sha256:8d52d71fc47aafdc
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/sequenceEntry:
+  comment: sha256:df4721c92489ebe7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/topEntry:
+  comment: sha256:61857f3392934444
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/variableEntry:
+  comment: sha256:ce89b25527f29d23
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/yamlFile:
+  comment: sha256:103abf63dbc6e151
+  verdict: pending
 decision/haskell/Setup.hs/function/main:
   comment: sha256:caecab042047402f
   verdict: pending
@@ -4963,6 +5452,51 @@ decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/f
 decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/virtual:
   comment: sha256:c91bf69b8e7b0ac0
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL:
+  comment: sha256:30745085d846aba3
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/data/HCLLexerState:
+  comment: sha256:b932c3709198cab8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/code:
+  comment: sha256:0a960011099bf179
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/endLine:
+  comment: sha256:30fe2870d2690625
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/flushVisible:
+  comment: sha256:b9675f9236823470
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/hclLexerHooks:
+  comment: sha256:a8aeb9c252466cd1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/hidden:
+  comment: sha256:6a638334a5d67e8b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/inside:
+  comment: sha256:4a4c5cb4c8a8d6cd
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/insideBrackets:
+  comment: sha256:0f5f4c6aebf34fb4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/line:
+  comment: sha256:24c469c37ddfb6fa
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/newline:
+  comment: sha256:92df0050f0be8f24
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/onAction:
+  comment: sha256:ba5ad229a272a507
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/onEmit:
+  comment: sha256:b8525951813082df
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/opening:
+  comment: sha256:6c5317feb0e83b87
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/release:
+  comment: sha256:9332c2e9f9031547
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell:
   comment: sha256:b396482ed5426dc3
   verdict: pending
@@ -4971,6 +5505,45 @@ decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/haskellLayoutHooks:
   comment: sha256:fbe26fb2fdc28d26
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML:
+  comment: sha256:548fdb318581c2c1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/data/YAMLLayout:
+  comment: sha256:4a389b6afec7eb1d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/code:
+  comment: sha256:9e2ed9447a4f6688
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/endPosition:
+  comment: sha256:630efbf723ffc70c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/hidden:
+  comment: sha256:6a638334a5d67e8b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/layoutFor:
+  comment: sha256:08526b6ee408f122
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/line:
+  comment: sha256:24c469c37ddfb6fa
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/offside:
+  comment: sha256:4e484fb7df05b46f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/onAction:
+  comment: sha256:233c25331e598872
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/onEmit:
+  comment: sha256:f9bc740453f1388d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/opening:
+  comment: sha256:28d209a06a8d24ee
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/virtual:
+  comment: sha256:c91bf69b8e7b0ac0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/yamlLexerHooks:
+  comment: sha256:6ea1121359f3ee0c
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex:
   comment: sha256:4bcb5d58e8085c70
@@ -5519,7 +6092,10 @@ decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/dat
   comment: sha256:5443bfa992934b00
   verdict: pending
 decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/docCommentBody:
-  comment: sha256:eda9afe36d2e1b5b
+  comment: sha256:bfc25f0282f7f909
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/docStringBody:
+  comment: sha256:8f33db274c796365
   verdict: pending
 decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/licenseTokens:
   comment: sha256:ff1da5a8768f7724
@@ -5663,7 +6239,7 @@ decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/funct
   comment: sha256:3229ce9fc2ef1715
   verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/unitsFromTree:
-  comment: sha256:410a7c24a2487940
+  comment: sha256:32a05e82e6280fc6
   verdict: pending
 decision/haskell/src/Canon/Git/Commit.hs/module/Canon.Git.Commit:
   comment: sha256:6075ac16f1c7b1fc
@@ -6011,7 +6587,7 @@ decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/GrammarSource:
   comment: sha256:dbf3cc8fb9f77611
   verdict: pending
 decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/Profile:
-  comment: sha256:27b6d028661635eb
+  comment: sha256:a00082adba4451b7
   verdict: pending
 decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/data/UnitName:
   comment: sha256:999736398a61b34b
@@ -6023,7 +6599,10 @@ decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/function/defaultComme
   comment: sha256:5a06b8ee851cd06f
   verdict: pending
 decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/function/profileForPath:
-  comment: sha256:d67dd37a274d7e95
+  comment: sha256:941348ed1bcd7409
+  verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/function/profileOwns:
+  comment: sha256:20b960c5f8b0056e
   verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project:
   comment: sha256:79a4457564fcc9fe
@@ -6041,7 +6620,7 @@ decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/extractFile:
   comment: sha256:f44383d8c463e2a3
   verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/ingestProject:
-  comment: sha256:6d234a688b2ce23e
+  comment: sha256:2f0f03ebd6b39a4c
   verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/loadProject:
   comment: sha256:c75b093ce2d7dfb0
@@ -6059,7 +6638,7 @@ decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/resolvePath:
   comment: sha256:6896b8d501ed8650
   verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/vetProject:
-  comment: sha256:9612e9651df21684
+  comment: sha256:193af28eab4b42bf
   verdict: pending
 decision/haskell/src/Canon/Registry.hs/module/Canon.Registry:
   comment: sha256:c13c064238f79fcd
@@ -6119,7 +6698,7 @@ decision/haskell/src/Canon/Testing.hs/module/Canon.Testing/function/matchesRule:
   comment: sha256:fd4e17b13811611a
   verdict: pending
 decision/haskell/src/Canon/Testing.hs/module/Canon.Testing/function/testRules:
-  comment: sha256:b696134a8b578a16
+  comment: sha256:aad3a23cb23b0f66
   verdict: pending
 decision/haskell/src/Canon/Version.hs/module/Canon.Version:
   comment: sha256:aed5e921ffb6bff4
@@ -6224,7 +6803,7 @@ decision/haskell/src/Canon/Walk.hs/module/Canon.Walk/function/grammarExtension:
   comment: sha256:1b7e0ef54b3f3641
   verdict: pending
 decision/haskell/src/Canon/Walk.hs/module/Canon.Walk/function/walkProject:
-  comment: sha256:620aef43f56aacd8
+  comment: sha256:b2f1e94b33f8eada
   verdict: pending
 decision/haskell/src/Canon.hs/module/Canon:
   comment: sha256:50ee54166c09870c
@@ -6479,6 +7058,48 @@ decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarT
   comment: sha256:a51e85f41950fa47
   verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/tests:
+  comment: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest:
+  comment: sha256:442352c30b46238a
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/extracted:
+  comment: sha256:231a3d6ddf6883ec
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclDialectBindsACommentOnlyToTheBlockDirectlyBelowIt:
+  comment: sha256:7dc7fe2ce76fd915
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclDialectNamesBlocksByTheirLabelsAndReadsDescriptionsAsTheirWhy:
+  comment: sha256:3e28ca2423975e8c
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclGrammarsParseTheKeyPairSampleIntoItsBlocks:
+  comment: sha256:8cd18f70ba5b236e
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/sampleProfile:
+  comment: sha256:87cef10315e79084
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/tests:
+  comment: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest:
+  comment: sha256:50d5879103e35a30
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/extracted:
+  comment: sha256:231a3d6ddf6883ec
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_pulumiDialectMakesUnitsOfResourcesVariablesOutputsAndConfigKeys:
+  comment: sha256:93ed806c6390e758
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_pulumiProfileOwnsPulumiProgramsAndStackFilesByName:
+  comment: sha256:8a1c728d30d49cd2
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_yamlGrammarsParseThePulumiExamplesIntoTheirEntries:
+  comment: sha256:432a4b101a2ac299
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/sampleProfile:
+  comment: sha256:a1a3e1dba3e7f7ea
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/tests:
   comment: sha256:1b696bdd90d4f5c2
   verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest:
@@ -6736,6 +7357,9 @@ ledger/DEC-haskell-grammar-comments:
 ledger/DEC-haskell-grammar-fixes:
   comment: sha256:e99ca4edc60407e6
   verdict: pending
+ledger/DEC-hcl-grammar:
+  comment: sha256:e9f3a44e3014a166
+  verdict: pending
 ledger/DEC-human-sign-off:
   comment: sha256:32f9d9a0ab3fc0db
   verdict: pending
@@ -6762,6 +7386,9 @@ ledger/DEC-parser-generation:
   verdict: pending
 ledger/DEC-precedence-climbing:
   comment: sha256:0a49bcdd56ffadc0
+  verdict: pending
+ledger/DEC-pulumi-yaml-grammar:
+  comment: sha256:d292b7df9e5bc5c9
   verdict: pending
 ledger/DEC-required-orphan-labels:
   comment: sha256:bf2b6c07605a617e
@@ -6798,6 +7425,12 @@ registry/REQ-fsharp-support:
   verdict: pending
 registry/REQ-gleam-support:
   comment: sha256:c6239728d6b3933f
+  verdict: pending
+registry/REQ-hcl-support:
+  comment: sha256:1716591cf43c94ac
+  verdict: pending
+registry/REQ-pulumi-yaml-support:
+  comment: sha256:35b1264e4f95ecf9
   verdict: pending
 registry/REQ-rust-support:
   comment: sha256:9c276227332612a9
@@ -6844,8 +7477,20 @@ registry/grammars-v4-elixir:
 registry/grammars-v4-rust:
   comment: sha256:4aaaf6600d958f28
   verdict: pending
+registry/grammars-v4-terraform:
+  comment: sha256:dd5e580d70876af7
+  verdict: pending
 registry/grampa-2017:
   comment: sha256:0990a639309c9f81
+  verdict: pending
+registry/hcl-native-syntax-spec:
+  comment: sha256:0b64513e70b043f5
+  verdict: pending
+registry/pulumi-project-file:
+  comment: sha256:66a08405c083062c
+  verdict: pending
+registry/pulumi-yaml-reference:
+  comment: sha256:1fb987ea4ccf6ac7
   verdict: pending
 registry/rust-reference-comments:
   comment: sha256:6a6df382bf4aad23
@@ -6853,6 +7498,15 @@ registry/rust-reference-comments:
 registry/semver-2:
   comment: sha256:7ef7fa24c6809d32
   verdict: pending
+registry/terraform-language-docs:
+  comment: sha256:eea7c1910858d560
+  verdict: pending
+registry/terraform-test-docs:
+  comment: sha256:158e545b982861e2
+  verdict: pending
 registry/warth-2008:
   comment: sha256:68507085ad4dcaee
+  verdict: pending
+registry/yaml-1-2-spec:
+  comment: sha256:a86a352f0583f30e
   verdict: pending

@@ -24,7 +24,7 @@ import Canon.Antlr4.Parse (ParseTree (..), treeTokens)
 import Canon.Antlr4.Syntax (Alternative (..), Block (..), EbnfSuffix (..), Element (..), Grammar (..), Label (..), LabeledAlternative (..), Name (..), ParserRule (..), Quantifier (OneOrMore), Rule (..))
 import Canon.Antlr4.Token (Token (..), isEofToken)
 import Canon.Attach (attachPreceding, firstContentLine, topOfFileComment)
-import Canon.CanonicalComment (docCommentBody, parseCanonicalComment, toWhy)
+import Canon.CanonicalComment (docCommentBody, docStringBody, licenseTokens, parseCanonicalComment, referenceTokens, toWhy)
 import Canon.CommentScan (docAttributeBody, docOpenerOf, scanCommentsWith)
 import Canon.Config (Config (..))
 import Canon.Git.Fill (fillGitFromBlame)
@@ -171,7 +171,12 @@ exportRequires exports parent name = case exports of
 -- optional, as the F# grammar labels private and internal. ref:DEC-csharp-grammar
 -- ref:DEC-fsharp-grammar Adjacent clauses of a unit rule that merges them are one unit, unless a
 -- doc comment ends on the line above a later clause, which then starts a unit of its own, as the
--- @doc of another Elixir arity does. ref:DEC-elixir-grammar
+-- @doc of another Elixir arity does. ref:DEC-elixir-grammar A unit whose own alternative holds what
+-- elements is named by their texts joined with a dot, as Terraform addresses a resource by its type
+-- and name; otherwise by the first what element below it.
+-- A why element that is not a canonicalComment is documentation written as data, as an HCL
+-- description is: its prose is the string's contents and its citations are also read from its
+-- text. ref:DEC-hcl-grammar ref:DEC-pulumi-yaml-grammar
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
 unitsFromTree language profile plans exportsDeclared idPath path source tree =
   case [i | i@(_ : _ : _) <- group (sort (map unitId (allUnits root)))] of
@@ -223,7 +228,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       TokenNode _ -> []
       Labeled _ inner -> unboundWhys inner
       RuleNode _ _ ns
-        | isUnitNode node && isJust (labeledText "what" node) -> concatMap unboundWhys (filter (not . isWhy) ns)
+        | isUnitNode node && isJust (whatText node) -> concatMap unboundWhys (filter (not . isWhy) ns)
         | otherwise -> [inner | Labeled "why" inner <- ns] ++ concatMap unboundWhys ns
     isWhy node = case node of
       Labeled "why" _ -> True
@@ -258,7 +263,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
       TokenNode _ -> []
       Labeled _ inner -> found inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just unitName <- labeledText "what" node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
+        Just plan | Just unitName <- whatText node -> [Candidate (planKind plan) unitName (if planWhyRequired plan || isJust (labeledSubtree "required" node) then Required else Optional) (labeledSubtree "why" node) (labeledSubtree "how" node) node Nothing []]
         _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
           ((rule, unitName) : _) -> [Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule && not (isJust (labeledSubtree "optional" node))) || isJust (labeledSubtree "required" node) then Required else Optional) Nothing Nothing node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) []]
           [] -> concatMap found nodeChildren
@@ -274,7 +279,9 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
           Labeled _ inner -> labeledIn inner
           TokenNode _ -> []
           RuleNode _ _ ns -> concatMap (\c -> if isUnitNode c then [] else labeledIn c) ns
-    labeledText wanted node = tokensText <$> labeledSubtree wanted node
+    whatText node = case [inner | Labeled "what" inner <- childrenOf node] of
+      [] -> tokensText <$> labeledSubtree "what" node
+      whats -> Just (T.intercalate "." (map tokensText whats))
     tokensText n = T.concat (map tokenText (filter (not . isEofToken) (treeTokens n)))
     uniqueNames candidates = go Map.empty candidates
       where
@@ -319,12 +326,24 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree =
               }
           , own ++ nestedDecisions
           )
-    whyFrom whyNode raw =
-      Why
-        { whyText = docCommentBody raw
-        , whyReferences = keys "ref" "ref:" whyNode
-        , whyLicenses = keys "license" "license:" whyNode
-        }
+    whyFrom whyNode raw
+      | isComment whyNode =
+          Why
+            { whyText = docCommentBody raw
+            , whyReferences = keys "ref" "ref:" whyNode
+            , whyLicenses = keys "license" "license:" whyNode
+            }
+      | otherwise =
+          let body = docStringBody raw
+           in Why
+                { whyText = body
+                , whyReferences = dedupe (keys "ref" "ref:" whyNode ++ referenceTokens body)
+                , whyLicenses = dedupe (keys "license" "license:" whyNode ++ licenseTokens body)
+                }
+    isComment n = case n of
+      RuleNode (Name "canonicalComment") _ _ -> True
+      Labeled _ inner -> isComment inner
+      _ -> False
     keys label prefix n = dedupe [ReferenceKey (maybe t id (T.stripPrefix prefix t)) | t <- labeledTokens label n]
     dedupe = foldr (\k acc -> k : filter (/= k) acc) []
     labeledTokens wanted n = case n of

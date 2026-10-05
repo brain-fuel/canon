@@ -1,0 +1,8 @@
+pulumi-examples-upstream:
+  kind: package
+  title: The Pulumi examples repository, of which the Pulumi.yaml programs of aws-yaml-ansible-wordpress, aws-yaml-static-website, and webserver-yaml are vendored under source/ at commit ec14754670b1a7d81b6c0bab68e8e6dedc1b48ef
+  locator: https://github.com/pulumi/examples/tree/ec14754670b1a7d81b6c0bab68e8e6dedc1b48ef
+Apache-2.0:
+  kind: license
+  title: Apache License 2.0
+  locator: https://spdx.org/licenses/Apache-2.0.html

@@ -278,6 +278,7 @@ genProfile :: Gen Profile
 genProfile =
   Profile
     <$> Gen.list (Range.linear 1 2) (T.cons '.' <$> genIdSegment)
+    <*> Gen.list (Range.linear 0 2) ((<> ".*.yaml") <$> genIdSegment)
     <*> Gen.choice [CombinedGrammarFile <$> genPath, SplitGrammarFiles <$> genPath <*> genPath]
     <*> (Name <$> genIdSegment)
     <*> Gen.list (Range.linear 0 3) genUnitRule
