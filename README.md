@@ -164,13 +164,18 @@ the members of a public C# interface require one. An element labeled
 `optional` wins over one labeled `required` in the same node. An element
 labeled `ordinal` stands for the `what` of a unit without a name, such as a
 field of a Rust tuple struct, which is then named by its position among the
-units of its kind in its parent. A `why` element of the start rule outside
-every unit is the file's Why, as Rust's `//!` at the top of a file is.
+units of its kind in its parent. An element labeled `arity` names the unit
+`name/arity`, as Prolog names a predicate: the arity is the number the element
+holds, or else the number of rules among its children, and adjacent units so
+named that share a kind and a name are one unit unless a later one has a Why of
+its own, as the clauses of a predicate are one predicate. A `why` element of
+the start rule outside every unit is the file's Why, as Rust's `//!` at the top
+of a file is.
 Alternative labels without a `why`, such as the Java grammar's own expression
 labels, are inert. `canon` generates the extraction parser from that grammar,
 so nothing about a language's comment placement is written in Haskell. The
-ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, JavaScript, and TypeScript
-have dialects.
+ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, JavaScript, TypeScript,
+Prolog, and the Folio have dialects.
 
 ### Tests
 
@@ -186,7 +191,7 @@ whatever its visibility.
 | `java` | a method marked `@Test`, `@org.junit.Test`, `@org.junit.jupiter.api.Test`, `@ParameterizedTest`, `@RepeatedTest`, `@TestFactory`, or `@TestTemplate` (JUnit 4 and 5), or `@Property`, `@Example`, `@net.jqwik.api.Property`, or `@net.jqwik.api.Example` (jqwik), with or without arguments; or a method named `test*` under a `src/test` directory (JUnit 3). jetCheck has no annotations of its own, so its checks are recognised through the JUnit method they run in. |
 | `erlang` | a function named `*_test` or `*_test_` (EUnit) |
 | `clojure` | a `deftest` unit, or a definition named `*-test` |
-| `prolog` | a clause named `test` (plunit) |
+| `prolog` | a clause named `test` (plunit), or a unit of kind `test`, which the Prolog dialect makes of a clause of `test/1` or `test/2` and names by the test's name |
 | `haskell` | a function named `prop_*` or `test_*` |
 | `rust` | a function marked `#[test]`, `#[tokio::test]`, `#[async_std::test]`, `#[rstest]`, or `#[quickcheck]` |
 | `csharp` | a method marked `[Fact]` or `[Theory]` (xUnit), `[Test]`, `[TestCase]`, or `[TestCaseSource]` (NUnit), or `[TestMethod]` or `[DataTestMethod]` (MSTest), bare or qualified with its namespace, with or without arguments |
@@ -691,6 +696,26 @@ languages:
       - {rule: field, kind: field, name: {rule: fieldName}, required: false}
 ```
 
+The Prolog sample is marelle, read through the grammars-v4 Prolog grammar with
+a profile that makes each clause and directive a unit. The grammar admits any
+character outside ASCII inside quotes, as SWI-Prolog does, which marelle's check
+mark needs; the change is marked `canon:` and recorded as
+`DEC-prolog-grammar-fixes`. The canonically commented dialect under
+`grammars/prolog/canonically_commented/` reads PlDoc: a `%!` or `%%` comment at
+the start of a line, with the `%` lines that continue it, or a `/**` comment,
+documents the clauses directly below it, and a `/** <module>` comment documents
+the file, while a plain `%` comment, a `%%%` banner, and a `%%` inside a clause
+body document nothing. The clauses of a predicate are one unit of kind
+`predicate` named `name/arity`, a declaration such as `:- dynamic foo/1.` being
+one of its clauses; a DCG rule is a `nonterminal` and a clause of `test/1` or
+`test/2` a plunit `test` named by its first argument. The module directive's
+export list labels each predicate indicator `export`, so a module requires a
+comment on what it exports, and a file without a module directive on every
+predicate, as all of them are visible; a PlDoc comment where no predicate
+follows is an orphan (`DEC-prolog-dialect`). marelle writes plain `%` comments,
+so through the dialect it has 197 units, every one required, and no canonical
+comment.
+
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked
 through a canonically commented dialect rather than a profile with `units`,
@@ -805,6 +830,17 @@ profile's `highlight` key names, per class, the token names the shape does not
 classify (`DEC-highlight-by-lexer`). This repository's own pages are
 `docs/explanation/folio.md` and `docs/how-to/tangle.md`; its sources stay
 hand-written Haskell until `DEC-canon-self-folio` is decided.
+
+`grammars/folio/canonically_commented/` is a dialect of the Folio that reads a
+page as units by labels, as every dialect reads its language: a page's front
+matter is the Why of a unit of kind `doc` named by its id, the id canon's page
+extraction gives it, with its `video` cited as a reference; each section whose
+heading is followed by prose is a unit of kind `section` named by its title,
+its Why that prose up to the first fenced block and its How the rest of the
+section; and a `---` block below the top of a page is misplaced front matter
+and an orphan, so a page draws a thematic break with `***` or `___`. The root
+`canon.yaml` keeps reading `docs/` through the plain grammar, whose line tokens
+the page extraction, the tangler, and the site read (`DEC-folio-dialect`).
 
 Haskell is checked through its dialect in this repository's own `canon.yaml`,
 so `canon check` at the root checks canon itself: `src`, `app`, `test`, and
@@ -1047,7 +1083,23 @@ and wisp. Each directory's `README.md` gives the design and the known
 limitations, and the ledger records them as `DEC-elixir-grammar` and
 `DEC-gleam-grammar`.
 
-The Erlang, Clojure, Prolog, Elixir, and Gleam directories hold their grammars
+`grammars/prolog/` holds the grammars-v4 Prolog grammar, `prolog.g4`, with
+one change marked `canon:`, and under `canonically_commented/` its dialect,
+split into `PrologLexer.g4` and `PrologParser.g4` because a combined grammar
+may not hold modes. The default mode is the start of a line, where `%!` or
+`%%` opens a `DocLine` mode; the code of a line is lexed in a `Code` mode that
+a line break leaves, so a `%%` inside a clause body stays plain. `/**` opens a
+`DocBlock` mode. A comma is no operator in the dialect, so the arguments of a
+head are counted right, and each clause, declaration, DCG rule, and plunit test
+is a labeled unit alternative. The marelle sample keeps its profile, and
+the test suite reads it through the dialect too (`DEC-prolog-dialect`).
+
+`grammars/folio/canonically_commented/` holds a dialect of the Folio grammar
+whose every rule carries a canonical comment, as the plain grammar's do, so the
+root `canon.yaml` checks it; the root profile still reads `docs/` through the
+plain grammar (`DEC-folio-dialect`).
+
+The Erlang, Clojure, Elixir, and Gleam directories hold their grammars
 with an empty `canonically_commented/` husk, and their samples use the
 line-adjacency profile path until a dialect exists.
 

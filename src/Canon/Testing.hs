@@ -33,7 +33,8 @@ knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csh
 -- testCase and testProperty inside it are expressions, not declarations. ref:DEC-rust-grammar
 -- ref:DEC-csharp-grammar ref:DEC-fsharp-grammar Elixir's tests are the units its profile makes of
 -- ExUnit's test calls, and Gleam's are gleeunit's functions named for it. ref:DEC-elixir-grammar
--- ref:DEC-gleam-grammar
+-- ref:DEC-gleam-grammar A Prolog test is a clause of plunit's test, which the plain profile names test
+-- and the dialect makes a unit of kind test. ref:DEC-prolog-dialect
 testRules :: Text -> [TestRule]
 testRules language = case language of
   "java" ->
@@ -41,7 +42,7 @@ testRules language = case language of
       ++ [TestRule (Just "method") Nothing (Just "test*") (Just "**/src/test/**")]
   "erlang" -> [TestRule (Just "function") Nothing (Just name) Nothing | name <- ["*_test", "*_test_"]]
   "clojure" -> [TestRule (Just "deftest") Nothing Nothing Nothing, TestRule (Just "definition") Nothing (Just "*-test") Nothing]
-  "prolog" -> [TestRule (Just "clause") Nothing (Just "test") Nothing]
+  "prolog" -> [TestRule (Just "clause") Nothing (Just "test") Nothing, TestRule (Just "test") Nothing Nothing Nothing]
   "haskell" -> [TestRule (Just "function") Nothing (Just name) Nothing | name <- ["prop_*", "test_*"]]
   "rust" -> [TestRule (Just "function") (Just marker) Nothing Nothing | marker <- ["#[test]", "#[tokio::test]", "#[async_std::test]", "#[rstest]", "#[quickcheck]"]]
   "csharp" -> [TestRule (Just "method") (Just marker) Nothing Nothing | marker <- csharpMarkers]

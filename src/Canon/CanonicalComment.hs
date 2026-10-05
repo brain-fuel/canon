@@ -27,6 +27,7 @@ data CanonicalComment = CanonicalComment
 
 -- | Strips the delimiters and line markers of every supported comment form, so the Why is prose
 -- alone. The /// and //! of Rust, C#, and F# doc lines are line markers. ref:DEC-rust-dialect
+-- The %, %%, and %! of PlDoc lines are line markers too. ref:DEC-prolog-dialect
 docCommentBody :: Text -> Text
 docCommentBody raw =
   T.strip (T.intercalate "\n" (map stripLineMarker (T.lines (stripDelimiters raw))))
@@ -40,6 +41,7 @@ docCommentBody raw =
       | Just rest <- T.stripPrefix "//!" trimmed = rest
       | Just rest <- T.stripPrefix "--" trimmed = maybe rest id (T.stripPrefix "|" (T.stripStart rest))
       | Just rest <- T.stripPrefix "#" trimmed = maybe rest id (T.stripPrefix "|" (T.stripStart rest))
+      | Just rest <- T.stripPrefix "%" trimmed = T.dropWhile (`elem` ("%!" :: String)) rest
       | otherwise = maybe trimmed id (T.stripPrefix "*" trimmed)
 
 referencePrefix :: Text

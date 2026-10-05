@@ -82,6 +82,18 @@ REQ-fsharp-support:
   kind: requirement
   title: canon reads F#, parsing F# source files by its offside rule, taking namespaces, modules, bindings, types, members, fields, and cases as units, binding /// to the declaration below its attributes, local lets included, requiring a comment on what is not private or internal, and on a signature file rather than its implementation, reading every branch of an #if that some build compiles, and recognising xUnit, NUnit, FsCheck, and Expecto tests by their attribute
   locator: README.md
+swi-prolog-pldoc:
+  kind: article
+  title: SWI-Prolog, PlDoc, on structured comments, %! and %% line comments and /** block comments, before the clauses they document, and the <module> comment
+  locator: https://www.swi-prolog.org/pldoc/doc_for?object=section(%27packages/pldoc.html%27)
+REQ-prolog-support:
+  kind: requirement
+  title: canon reads Prolog, parsing every Prolog file of the marelle sample, taking a predicate's clauses as one unit named name/arity, binding a PlDoc comment to the clauses below it and a <module> comment to the file, requiring a comment on what a module exports, and on every predicate of a file that is no module, and recognising plunit tests
+  locator: README.md
+REQ-folio-support:
+  kind: requirement
+  title: canon reads a Folio page through a canonically commented dialect, taking the page as a unit of kind doc named by its id whose Why is its front matter, and each section with prose as a unit whose Why is that prose, and reporting front matter below the top of a page as misplaced
+  locator: README.md
 grammars-v4-elixir:
   kind: package
   title: The grammars-v4 Elixir grammar, ElixirLexer.g4 and ElixirParser.g4, MIT, at commit 7df52be94698550d219d299d04105c6bafadd9c3, evaluated and not vendored

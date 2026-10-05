@@ -210,6 +210,10 @@ fragment NON_QUOTE_CHAR
     | ALPHANUMERIC
     | SOLO
     | ' ' // space char
+    // canon: a character outside ASCII, such as the check mark in marelle's ' ✓', is a character of a
+    // quoted atom or string, as SWI-Prolog and every Unicode-aware Prolog read it; ISO leaves the
+    // processor character set to the implementation.
+    | ~[\u0000-\u007F]
     | META_ESCAPE
     | CONTROL_ESCAPE
     | OCTAL_ESCAPE

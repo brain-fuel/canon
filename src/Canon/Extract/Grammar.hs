@@ -36,13 +36,13 @@ import Canon.Preprocessor (builds, inactiveLinesWith)
 import Canon.Profile
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.Testing (isTestUnit)
-import Data.Char (isAlphaNum, isSpace)
+import Data.Char (isAlphaNum, isDigit, isSpace, isUpper)
 import Data.Foldable (toList)
 import Data.List (group, sort, sortOn)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
-import Data.Maybe (isJust, listToMaybe, mapMaybe)
+import Data.Maybe (isJust, isNothing, listToMaybe, mapMaybe)
 import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -173,10 +173,12 @@ data ExportEntry
   | ExportModule Text
   deriving (Eq, Show)
 
--- | Parses an export entry from its text.
+-- | Parses an export entry from its text. A module export is the word module before a module name,
+-- which starts with a capital, so a name that merely starts with module, as Prolog's module_path/1
+-- does, is a name. ref:DEC-prolog-dialect
 parseExportEntry :: Text -> ExportEntry
 parseExportEntry raw
-  | Just m <- T.stripPrefix "module" compact, not (T.null m) = ExportModule m
+  | Just m <- T.stripPrefix "module" compact, Just (initial, _) <- T.uncons m, isUpper initial = ExportModule m
   | Just (name, rest) <- splitParen compact = if rest == ".." then ExportAll name else ExportSome name (filter (not . T.null) (T.splitOn "," rest))
   | otherwise = ExportName compact
   where
@@ -209,7 +211,10 @@ exportRequires exports parent name = case exports of
 -- rule named by ordinal numbers its units from zero in their parent. ref:DEC-rust-visibility
 -- Adjacent clauses of a unit rule that merges them are one unit, unless a
 -- doc comment ends on the line above a later clause, which then starts a unit of its own, as the
--- @doc of another Elixir arity does. ref:DEC-elixir-grammar
+-- @doc of another Elixir arity does. ref:DEC-elixir-grammar Adjacent units of a labeled alternative
+-- named with an arity merge in the same way when they share a kind and a name, as the clauses of a
+-- Prolog predicate are one predicate, and a later clause with a Why of its own starts a unit.
+-- ref:DEC-prolog-dialect
 unitsFromTree :: Text -> Profile -> Map.Map Name [Maybe AlternativePlan] -> Bool -> FilePath -> FilePath -> Text -> ParseTree -> Either GrammarExtractError (CodeUnit Evidence, [Decision Evidence], [Span])
 unitsFromTree language profile plans exportsDeclared idPath path source tree
   | language == "calm" = either (Left . GrammarArchitectureError) Right (calmUnits idPath path source tree)
@@ -238,6 +243,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
         | Just key <- candidateMerge a
         , candidateMerge b == Just key
         , candidateName a == candidateName b
+        , isNothing (candidateWhy b)
         , not (Set.member (positionLine (spanStart (treeSpan (candidateNode b))) - 1) docEndLines) ->
             mergeClauses (a {candidateClauses = candidateClauses a ++ candidateNode b : candidateClauses b} : rest)
       (a : rest) -> a : mergeClauses rest
@@ -362,7 +368,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
       Labeled "binding" inner -> [FoundBinding inner]
       Labeled _ inner -> found inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just (unitName, ordinal) <- planName node -> [FoundUnit (Candidate (planKind plan) unitName (if planWhyRequired plan || (isJust (labeledSubtree "required" node) && not optional) then Required else Optional) optional False ordinal (labeledSubtree "why" node) (labeledSubtree "how" node) (labeledSubtree "signature" node) [] node Nothing [])]
+        Just plan | Just (unitName, ordinal) <- planName node -> [FoundUnit (Candidate (planKind plan) unitName (if planWhyRequired plan || (isJust (labeledSubtree "required" node) && not optional) then Required else Optional) optional False ordinal (labeledSubtree "why" node) (labeledSubtree "how" node) (labeledSubtree "signature" node) [] node (if isJust (labeledSubtree "arity" node) then Just (planKind plan) else Nothing) [])]
         _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
           ((rule, unitName) : _) -> [FoundUnit (Candidate (unitRuleKind rule) unitName (if (unitRuleRequired rule || isJust (labeledSubtree "required" node)) && not optional then Required else Optional) optional False (unitRuleNameSource rule == NameFromOrdinal) (pythonDoc node) Nothing Nothing [] node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) [])]
           [] -> concatMap found nodeChildren
@@ -408,8 +414,18 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
     -- A unit alternative is named by its what element, or by its position when it has an element
     -- labeled ordinal instead, as a field of a Rust tuple struct is. ref:DEC-rust-dialect
     planName node = case labeledName "what" node of
-      Just unitName -> Just (unitName, False)
+      Just unitName -> Just (maybe unitName (\a -> T.concat [unitName, "/", T.pack (show (arityOf a))]) (labeledSubtree "arity" node), False)
       Nothing -> if isJust (labeledSubtree "ordinal" node) then Just ("", True) else Nothing
+    -- A unit with an element labeled arity is named name/arity, as a Prolog predicate is: the
+    -- arity is the number the element holds, as in the declaration dynamic foo/1, or else the
+    -- number of rules among its children, as the arguments of a clause's head are; a head without
+    -- arguments labels an empty rule. ref:DEC-prolog-dialect
+    arityOf a = case T.unpack (tokensText a) of
+      digits@(_ : _) | all isDigit digits -> read digits :: Int
+      _ -> length [() | RuleNode {} <- map unlabel (childrenOf a)]
+    unlabel n = case n of
+      Labeled _ inner -> unlabel inner
+      _ -> n
     tokensText n = T.concat (map tokenText (filter (not . isEofToken) (treeTokens n)))
     -- A name is its tokens run together, with a hyphen where the source spaces a word from what
     -- follows it, so the Rust impl Deref for Guard<T, U> is named Deref-for-Guard<T,U> and a unit id

@@ -9,6 +9,7 @@ ignore:
   - grammars/rust/canonically_commented/
   - grammars/csharp/canonically_commented/
   - grammars/fsharp/canonically_commented/
+  - grammars/prolog/canonically_commented/
   - grammars/javascript/canonically_commented/
   - grammars/typescript/canonically_commented/
   - "!grammars/folio/*.g4"
@@ -56,7 +57,5 @@ parity:
     scala: [grammar, profile, dialect, sample]
     groovy: [grammar, profile, dialect, sample]
     clojure: [dialect]
-    prolog: [dialect]
     hcl: [grammar, profile, dialect, sample]
     yaml: [grammar, profile, dialect, sample]
-    folio: [dialect]
