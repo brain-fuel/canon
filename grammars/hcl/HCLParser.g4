@@ -50,13 +50,15 @@ bodyItem
     ;
 
 /** An attribute: a name, an equals sign, and an expression. */
+// canon: an attribute's name may be a quoted string, as HCL 1 allows and Nomad's agent and volume files still write.
 attribute
-    : IDENTIFIER ASSIGN expression
+    : (IDENTIFIER | stringLiteral) ASSIGN expression
     ;
 
 /** A block: a type, its labels, and its body. */
+// canon: a block's type may be a quoted string, as HCL 1 allows.
 block
-    : IDENTIFIER blockLabel* blockBody
+    : (IDENTIFIER | stringLiteral) blockLabel* blockBody
     ;
 
 /** A block label, a quoted string or an identifier. */

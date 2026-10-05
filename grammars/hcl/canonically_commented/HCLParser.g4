@@ -42,6 +42,7 @@ topBody
     ;
 
 /** A top-level block or attribute. Each alternative is a unit of its kind, named by its labels, a quoted string or an identifier, joined with a dot as Terraform addresses it, the quotes left out, with the comment directly above it as its Why. A variable or an output requires a Why, because they are a module's interface, and the string of its description attribute is a Why as well as a comment above it, because Terraform shows that description as its documentation; a comment above wins over the description. A provider with an alias is named by its label and alias, as Terraform addresses it. A moved or removed block is named by the address it moves from and an import block by the address it imports to, which tells apart blocks that have no labels. A run block in a test file is a test. The locals block is no unit: each of its entries is one. Any other block is a unit of kind block named by its type, labels, and any alias. ref:DEC-hcl-grammar */
+// canon: a block's type and an attribute's name may be quoted strings, as HCL 1 allows; the quotes are left out of the name.
 topItem
     : why = canonicalComment? 'resource' (TEMPLATE_OPEN what = TEMPLATE_TEXT? TEMPLATE_CLOSE | what = IDENTIFIER) (TEMPLATE_OPEN what = TEMPLATE_TEXT? TEMPLATE_CLOSE | what = IDENTIFIER) how = blockBody # resource
     | why = canonicalComment? 'data' (TEMPLATE_OPEN what = TEMPLATE_TEXT? TEMPLATE_CLOSE | what = IDENTIFIER) (TEMPLATE_OPEN what = TEMPLATE_TEXT? TEMPLATE_CLOSE | what = IDENTIFIER) how = blockBody # data
@@ -55,8 +56,8 @@ topItem
     | why = canonicalComment? 'removed' LBRACE ('from' ASSIGN what = expression | NEWLINE | note | bodyItem)* RBRACE # removed
     | why = canonicalComment? 'import' LBRACE ('to' ASSIGN what = expression | NEWLINE | note | bodyItem)* RBRACE # importBlock
     | 'locals' LBRACE (localEntry | NEWLINE | note)* RBRACE # localsBlock
-    | why = canonicalComment? what = IDENTIFIER (TEMPLATE_OPEN what = TEMPLATE_TEXT? TEMPLATE_CLOSE | what = IDENTIFIER)* LBRACE ('alias' ASSIGN TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE | NEWLINE | note | bodyItem)* RBRACE # block
-    | why = canonicalComment? what = IDENTIFIER ASSIGN how = expression # attribute
+    | why = canonicalComment? (what = IDENTIFIER | TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE) (TEMPLATE_OPEN what = TEMPLATE_TEXT? TEMPLATE_CLOSE | what = IDENTIFIER)* LBRACE ('alias' ASSIGN TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE | NEWLINE | note | bodyItem)* RBRACE # block
+    | why = canonicalComment? (what = IDENTIFIER | TEMPLATE_OPEN what = TEMPLATE_TEXT TEMPLATE_CLOSE) ASSIGN how = expression # attribute
     ;
 
 /** One entry of a locals block, a unit of kind local named by its attribute name, with the comment directly above it as its Why and its expression as its How. ref:DEC-hcl-grammar */
@@ -94,13 +95,15 @@ bodyItem
     ;
 
 /** An attribute: a name, an equals sign, and an expression. */
+// canon: an attribute's name may be a quoted string, as HCL 1 allows and Nomad's agent and volume files still write.
 attribute
-    : IDENTIFIER ASSIGN expression
+    : (IDENTIFIER | stringLiteral) ASSIGN expression
     ;
 
 /** A nested block: a type, its labels, and its body. Nested blocks are part of the How of the unit around them. */
+// canon: a block's type may be a quoted string, as HCL 1 allows.
 block
-    : IDENTIFIER blockLabel* blockBody
+    : (IDENTIFIER | stringLiteral) blockLabel* blockBody
     ;
 
 /** A label of a nested block, a quoted string or an identifier. */
@@ -171,9 +174,10 @@ objectElem
     ;
 
 /** A for expression that builds a tuple or an object. The lexer hook hides line breaks inside it. ref:DEC-hcl-grammar */
+// canon: a comment between an object for expression's brace and its for is a note, since the hook hides comments only once the for has opened the expression.
 forExpr
     : LBRACK forIntro expression forCond? RBRACK
-    | LBRACE forIntro expression FAT_ARROW expression ELLIPSIS? forCond? RBRACE
+    | LBRACE note? forIntro expression FAT_ARROW expression ELLIPSIS? forCond? RBRACE
     ;
 
 /** The head of a for expression: the key and value names, the collection, and a colon. */

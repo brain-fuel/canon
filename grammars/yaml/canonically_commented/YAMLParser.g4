@@ -30,14 +30,17 @@ options {
 }
 
 /** A YAML stream: directives, document markers, and documents up to end of input. ref:DEC-pulumi-yaml-grammar */
+// canon: a bare document may follow a document end marker, as YAML 1.2 allows, and directives may stand before any later document's start marker.
 yamlFile
-    : (DIRECTIVE NEWLINE)* (canonicalComment? DOCUMENT_START NEWLINE?)? document? (NEWLINE? DOCUMENT_END)? (NEWLINE? canonicalComment? DOCUMENT_START NEWLINE? document? (NEWLINE? DOCUMENT_END)?)* EOF
+    : (DIRECTIVE NEWLINE)* (canonicalComment? DOCUMENT_START NEWLINE?)? document? (NEWLINE? (DOCUMENT_END (NEWLINE document)? | (DIRECTIVE NEWLINE)* canonicalComment? DOCUMENT_START NEWLINE? document?))* EOF
     ;
 
 /** A document: a Pulumi program, read by its sections, or any other node. ref:DEC-pulumi-yaml-grammar */
+// canon: a document after a start marker may be indented as a whole, as Ansible playbooks often are.
 document
     : programMapping
     | blockNode
+    | INDENT blockNode DEDENT
     ;
 
 /** The top-level mapping of a Pulumi program. ref:DEC-pulumi-yaml-grammar */
@@ -115,11 +118,15 @@ docPart
     ;
 
 /** A node in block context: a mapping, a sequence, a block scalar, or a flow node with any continuation lines. */
+// canon: a comment may stand above a scalar or flow node that is a value on its own line, as above a run command; it binds to nothing.
+// canon: a node's properties may stand on their own line above the block collection they belong to, as in a sequence entry `- &base` or a document `--- !tag`.
 blockNode
     : blockMapping
     | blockSequence
-    | properties? blockScalar
-    | flowNode plainContinuation?
+    | canonicalComment? properties? blockScalar
+    | canonicalComment? flowNode plainContinuation?
+    | canonicalComment? properties NEWLINE (blockMapping | blockSequence)
+    | canonicalComment? properties INDENT blockNode DEDENT
     ;
 
 /** A block mapping: entries at one indentation. */
@@ -128,9 +135,10 @@ blockMapping
     ;
 
 /** A mapping entry: a key, a colon, and an optional value, or a complex key after a question mark with its value on the next line. A comment above it binds to nothing. */
+// canon: a complex key is any node, a block collection or a block scalar too, which the lexer hook indents to its own column after the question mark, as it indents a value after a colon that starts its line.
 mappingEntry
     : canonicalComment? key COLON mappingValue?
-    | canonicalComment? QUESTION flowNode? (NEWLINE COLON mappingValue?)?
+    | canonicalComment? QUESTION (INDENT blockNode DEDENT)? (NEWLINE canonicalComment? COLON mappingValue?)?
     ;
 
 /** A mapping key: a scalar, an alias, or a flow collection, with optional properties. */
@@ -156,9 +164,10 @@ sequenceEntry
     : canonicalComment? DASH (INDENT blockNode DEDENT)?
     ;
 
-/** The continuation lines of a plain scalar, indented below its first line. */
+/** The continuation lines of a plain scalar, indented past its parent, which the lexer hook reads as text whatever they hold. */
+// canon: continuation lines are PLAIN_CONTINUATION tokens that take no part in layout, so they may be indented unevenly and hold indicators.
 plainContinuation
-    : INDENT PLAIN (NEWLINE PLAIN)* DEDENT
+    : PLAIN_CONTINUATION+
     ;
 
 /** A literal or folded block scalar: its header and the lines the lexer hook keeps in it. */

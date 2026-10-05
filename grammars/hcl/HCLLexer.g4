@@ -144,7 +144,12 @@ NUMBER : [0-9]+ ('.' [0-9]+)? ([eE] [+-]? [0-9]+)?;
 /** An identifier, which HCL allows to contain dashes. Keywords such as for, in, if, true, false, and null are identifiers the parser reads by their text. */
 IDENTIFIER : IdentifierFragment;
 
-fragment IdentifierFragment : [a-zA-Z_] [a-zA-Z0-9_-]*;
+// canon: an identifier is a Unicode identifier, ID_Start or an underscore and then ID_Continue or a dash, as the HCL specification says, so a local named with a Greek letter lexes. ASCII comes first in each set, and the two sets are separate fragments, so no character can be matched two ways.
+fragment IdentifierFragment : IdentifierStart IdentifierContinue*;
+
+fragment IdentifierStart : [a-zA-Z_\p{L}\p{Nl}\u1885\u1886\u2118\u212E\u309B\u309C];
+
+fragment IdentifierContinue : [a-zA-Z0-9_\-\p{L}\p{Nl}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\u1885\u1886\u2118\u212E\u309B\u309C\u00B7\u0387\u1369-\u1371\u19DA];
 
 mode Template;
 

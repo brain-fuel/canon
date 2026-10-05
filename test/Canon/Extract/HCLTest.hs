@@ -6,7 +6,8 @@ module Canon.Extract.HCLTest (tests) where
 import Canon.Antlr4.Interpret (InterpretError, interpretFile, interpretText, loadInterpreter, renderInterpretError)
 import Control.Exception (evaluate)
 import System.Timeout (timeout)
-import Canon.Antlr4.Parse (treeRuleNodes)
+import Canon.Antlr4.Parse (treeRuleNodes, treeTokens)
+import Canon.Antlr4.Token (Token (..))
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
 import Canon.Decisions (emptyLedger)
@@ -39,6 +40,8 @@ tests =
     , testProperty "HCL templates must pair their directives" prop_hclTemplatesMustPairTheirDirectives
     , testProperty "an HCL parse failure is reported quickly" prop_hclParseFailureIsReportedQuickly
     , testProperty "an HCL comment anywhere in a file parses and only one directly above a block binds" prop_anHclCommentAnywhereInAFileParsesAndOnlyOneDirectlyAboveABlockBinds
+    , testProperty "HCL identifiers are Unicode and HCL 1 quoted names parse" prop_hclIdentifiersAreUnicodeAndHcl1QuotedNamesParse
+    , testProperty "a comment above an object for expression's for is a note" prop_aCommentAboveAnObjectForExpressionsForIsANote
     ]
 
 sampleDir :: FilePath
@@ -447,4 +450,63 @@ prop_anHclCommentAnywhereInAFileParsesAndOnlyOneDirectlyAboveABlockBinds = withT
       )
   [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
     === [("hcl/main.tf/resource/aws_key_pair.this", "The key pair a host logs in with.")]
+  [() | OrphanDocComment _ _ <- findings] === []
+
+-- | HCL identifiers are Unicode identifiers, as Terraform's own test configurations name a local
+-- with a Greek letter, and Nomad's agent and volume files still write HCL 1's quoted attribute
+-- names and block types, so both must parse, and a quoted top-level name must be named without its
+-- quotes. ref:REQ-hcl-support ref:DEC-hcl-grammar
+prop_hclIdentifiersAreUnicodeAndHcl1QuotedNamesParse :: Property
+prop_hclIdentifiersAreUnicodeAndHcl1QuotedNamesParse = withTests 1 $ property $ do
+  plain <- evalIO (loadInterpreter "grammars/hcl/HCLLexer.g4" "grammars/hcl/HCLParser.g4") >>= orFail
+  let source =
+        T.unlines
+          [ "locals {"
+          , "  \960 = 3.14159"
+          , "  na\239ve-name_2 = local.\960"
+          , "}"
+          , "client {"
+          , "  meta {"
+          , "    \"rack\" = \"r2\""
+          , "  }"
+          , "}"
+          , "plugin \"example\" {"
+          , "  \"config\" {"
+          , "    \"list_period\" = \"15s\""
+          , "  }"
+          , "}"
+          ]
+  tree <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure (interpretText plain (Name "configFile") "t.hcl" source)
+  [tokenText t | t <- treeTokens tree, tokenType t == Name "IDENTIFIER", T.any (> '\127') (tokenText t)] === ["\960", "na\239ve-name_2", "\960"]
+  length (treeRuleNodes (Name "attribute") tree) === 4
+  length (treeRuleNodes (Name "block") tree) === 5
+  Extraction model _ <- extracted "agent.hcl" "\"region\" = \"global\"\n# The datacenter block.\n\"datacenter\" \"dc1\" {\n}\n"
+  [renderUnitId (unitId u) | u <- modelAllUnits model, unitKindText (whatKind (answerValue (unitWhat u))) /= "file"]
+    === ["hcl/agent.hcl/attribute/region", "hcl/agent.hcl/block/datacenter.dc1"]
+
+-- | terraform-aws-alb explains an object for expression with comments between its brace and its
+-- for, which Terraform reads as comments, so the dialect must accept them as notes there, before
+-- the hook hides comments inside the expression. ref:REQ-hcl-support ref:DEC-hcl-grammar
+prop_aCommentAboveAnObjectForExpressionsForIsANote :: Property
+prop_aCommentAboveAnObjectForExpressionsForIsANote = withTests 1 $ property $ do
+  Extraction model findings <-
+    extracted
+      "main.tf"
+      ( T.unlines
+          [ "locals {"
+          , "  # The certificates of every listener."
+          , "  certs = merge(values({"
+          , "    for key, listener in var.listeners : key =>"
+          , "    {"
+          , "      # The index is part of the key,"
+          , "      # since an ARN is known only after apply."
+          , "      for idx, arn in listener.arns :"
+          , "      \"${key}/${idx}\" => arn"
+          , "    }"
+          , "  })...)"
+          , "}"
+          ]
+      )
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
+    === [("hcl/main.tf/local/certs", "The certificates of every listener.")]
   [() | OrphanDocComment _ _ <- findings] === []

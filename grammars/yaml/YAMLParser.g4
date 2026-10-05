@@ -28,21 +28,27 @@ options {
 }
 
 /** A YAML stream: directives, document markers, and documents up to end of input. */
+// canon: a bare document may follow a document end marker, as YAML 1.2 allows, and directives may stand before any later document's start marker.
 yamlFile
-    : (DIRECTIVE NEWLINE)* (DOCUMENT_START NEWLINE?)? document? (NEWLINE? DOCUMENT_END)? (NEWLINE? DOCUMENT_START NEWLINE? document? (NEWLINE? DOCUMENT_END)?)* EOF
+    : (DIRECTIVE NEWLINE)* (DOCUMENT_START NEWLINE?)? document? (NEWLINE? (DOCUMENT_END (NEWLINE document)? | (DIRECTIVE NEWLINE)* DOCUMENT_START NEWLINE? document?))* EOF
     ;
 
-/** A document: one node. */
+/** A document: one node, which may be indented past the marker that starts it. */
+// canon: a document after a start marker may be indented as a whole, as Ansible playbooks often are.
 document
     : blockNode
+    | INDENT blockNode DEDENT
     ;
 
 /** A node in block context: a mapping, a sequence, a block scalar, or a flow node with any continuation lines. */
+// canon: a node's properties may stand on their own line above the block collection they belong to, as in a sequence entry `- &base` or a document `--- !tag`.
 blockNode
     : blockMapping
     | blockSequence
     | properties? blockScalar
     | flowNode plainContinuation?
+    | properties NEWLINE (blockMapping | blockSequence)
+    | properties INDENT blockNode DEDENT
     ;
 
 /** A block mapping: entries at one indentation. */
@@ -51,9 +57,10 @@ blockMapping
     ;
 
 /** A mapping entry: a key, a colon, and an optional value, or a complex key after a question mark with its value on the next line. */
+// canon: a complex key is any node, a block collection or a block scalar too, which the lexer hook indents to its own column after the question mark, as it indents a value after a colon that starts its line.
 mappingEntry
     : key COLON mappingValue?
-    | QUESTION flowNode? (NEWLINE COLON mappingValue?)?
+    | QUESTION (INDENT blockNode DEDENT)? (NEWLINE COLON mappingValue?)?
     ;
 
 /** A mapping key: a scalar, an alias, or a flow collection, with optional properties. */
@@ -79,9 +86,10 @@ sequenceEntry
     : DASH (INDENT blockNode DEDENT)?
     ;
 
-/** The continuation lines of a plain scalar, indented below its first line. */
+/** The continuation lines of a plain scalar, indented past its parent, which the lexer hook reads as text whatever they hold. */
+// canon: continuation lines are PLAIN_CONTINUATION tokens that take no part in layout, so they may be indented unevenly and hold indicators.
 plainContinuation
-    : INDENT PLAIN (NEWLINE PLAIN)* DEDENT
+    : PLAIN_CONTINUATION+
     ;
 
 /** A literal or folded block scalar: its header and the lines the lexer hook keeps in it. */

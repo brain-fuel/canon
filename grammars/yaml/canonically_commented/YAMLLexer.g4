@@ -44,15 +44,16 @@ tokens {
 DOC_OPEN : '#' -> pushMode(DocLine);
 
 /** A line break, which the hook reads as layout, so the parser never sees it. ref:DEC-pulumi-yaml-grammar */
-LINE_BREAK : '\r'? '\n' -> skip;
+// canon: line breaks and spaces tell the hook whether a token starts its line, for document markers.
+LINE_BREAK : '\r'? '\n' { this.lineBreak(); } -> skip;
 
 /** Spaces and tabs between tokens. */
-WS : [ \t]+ -> skip;
+WS : [ \t]+ { this.space(); } -> skip;
 
-/** The marker that starts a document. */
+/** The marker that starts a document. The hook reads one that does not start its line as a plain scalar. */
 DOCUMENT_START : '---';
 
-/** The marker that ends a document. */
+/** The marker that ends a document. The hook reads one that does not start its line as a plain scalar. */
 DOCUMENT_END : '...';
 
 /** A directive such as %YAML, from the percent sign to the end of the line. */
@@ -79,8 +80,9 @@ ANCHOR : '&' ~[ \t\r\n,[\]{}]+;
 /** An alias that refers to an anchored node. */
 ALIAS : '*' ~[ \t\r\n,[\]{}]+;
 
-/** A tag that gives a node its type. */
-TAG : '!' ~[ \t\r\n,[\]{}]*;
+/** A tag that gives a node its type, or a verbatim tag such as !<tag:yaml.org,2002:str>, which may hold commas. */
+// canon: verbatim tags.
+TAG : '!' ~[ \t\r\n,[\]{}]* | '!<' ~[>\r\n]* '>';
 
 /** A double-quoted scalar, which may span lines. The hook splits it into its quotes and its text, so a quoted key's text is a token of its own. ref:DEC-pulumi-yaml-grammar */
 DOUBLE_QUOTED : '"' ('\\' . | ~["\\])* '"';
@@ -92,7 +94,14 @@ SINGLE_QUOTED : '\'' ('\'\'' | ~['])* '\'';
 BLOCK_SCALAR : [|>] [-+0-9]* ([ \t]+ ('#' ~[\r\n]*)?)? { this.blockScalarStart(); } -> pushMode(BlockScalar);
 
 /** A plain scalar in block context: it may hold spaces, colons not followed by a space, and hashes not preceded by one, and it cannot start with an indicator unless a dash, question mark, or colon is followed by a character other than a space. ref:DEC-pulumi-yaml-grammar */
-PLAIN : PlainFirst (PlainInner | [ \t]+ PlainAfterSpace)*;
+// canon: at the start of a line, three dashes or dots followed by a space or the line's end are a document marker, not a plain scalar, so `--- !tag` is a marker and a tag.
+PLAIN : PlainFirst (PlainInner | [ \t]+ PlainAfterSpace)* { this.notDocumentMarker() }?;
+
+/** A line that continues the plain scalar before it, from the line break that ends the scalar's previous line. The hook's predicate holds when the scalar is in block context and the line is indented past the scalar's parent, so the line may hold indicators, quotes, and brackets, as YAML reads them inside a plain scalar; the hook drops the line breaks and indentation from the token. ref:DEC-pulumi-yaml-grammar */
+// canon: a continuation line of a plain scalar is one token, so a line such as `if [[ -e f ]]; then` inside a multi-line command reads as text.
+PLAIN_CONTINUATION : ('\r'? '\n' [ \t]*)+ {this.plainContinues()}? PlainContinuationFirst (PlainInner | [ \t]+ PlainAfterSpace)*;
+
+fragment PlainContinuationFirst : ~[:# \t\r\n] | ':' ~[ \t\r\n];
 
 fragment PlainFirst : ~[-?:,[\]{}#&*!|>'"%@` \t\r\n] | [-?:] ~[ \t\r\n];
 
@@ -132,8 +141,12 @@ FLOW_ANCHOR : '&' ~[ \t\r\n,[\]{}]+ -> type(ANCHOR);
 /** An alias inside a flow collection, typed as ALIAS. */
 FLOW_ALIAS : '*' ~[ \t\r\n,[\]{}]+ -> type(ALIAS);
 
-/** A tag inside a flow collection, typed as TAG. */
-FLOW_TAG : '!' ~[ \t\r\n,[\]{}]* -> type(TAG);
+/** A tag inside a flow collection, or a verbatim tag, typed as TAG. */
+FLOW_TAG : ('!' ~[ \t\r\n,[\]{}]* | '!<' ~[>\r\n]* '>') -> type(TAG);
+
+/** The indicator of a complex key inside a flow collection, typed as QUESTION; a question mark followed by anything but a space starts a plain scalar, which is longer. */
+// canon: complex keys in flow collections.
+FLOW_QUESTION : '?' -> type(QUESTION);
 
 /** A double-quoted scalar inside a flow collection, typed as DOUBLE_QUOTED. */
 FLOW_DOUBLE_QUOTED : '"' ('\\' . | ~["\\])* '"' -> type(DOUBLE_QUOTED);
@@ -141,8 +154,9 @@ FLOW_DOUBLE_QUOTED : '"' ('\\' . | ~["\\])* '"' -> type(DOUBLE_QUOTED);
 /** A single-quoted scalar inside a flow collection, typed as SINGLE_QUOTED. */
 FLOW_SINGLE_QUOTED : '\'' ('\'\'' | ~['])* '\'' -> type(SINGLE_QUOTED);
 
-/** A plain scalar inside a flow collection, which cannot hold a comma or a bracket, except inside a Pulumi interpolation such as ${a}, which canon reads as part of the scalar, as Pulumi means it, beyond strict YAML 1.2. A colon starts one only when no quote or bracket follows it, so the colon of a JSON-like pair is a colon. Typed as PLAIN. ref:DEC-pulumi-yaml-grammar */
-FLOW_PLAIN : (Interpolation | FlowPlainFirst) (Interpolation | FlowPlainInner | [ \t]+ (Interpolation | FlowPlainAfterSpace))* -> type(PLAIN);
+/** A plain scalar inside a flow collection, which may span lines and cannot hold a comma or a bracket, except inside a Pulumi interpolation such as ${a}, which canon reads as part of the scalar, as Pulumi means it, beyond strict YAML 1.2. A colon starts one only when no quote or bracket follows it, so the colon of a JSON-like pair is a colon. Typed as PLAIN. ref:DEC-pulumi-yaml-grammar */
+// canon: a plain scalar in a flow collection may continue on the next line, as YAML folds it.
+FLOW_PLAIN : (Interpolation | FlowPlainFirst) (Interpolation | FlowPlainInner | [ \t\r\n]+ (Interpolation | FlowPlainAfterSpace))* -> type(PLAIN);
 
 fragment FlowPlainFirst : ~[-?:,[\]{}#&*!|>'"%@` \t\r\n] | [-?] ~[ \t\r\n,[\]{}] | ':' ~[ \t\r\n,[\]{}"'];
 
@@ -163,7 +177,7 @@ BLOCK_SCALAR_TEXT : ~[\r\n]+;
 mode DocLine;
 
 /** The line break that ends a comment, which the hook reads as layout like any other. */
-DOC_LINE_END : '\r'? '\n' -> popMode, skip;
+DOC_LINE_END : '\r'? '\n' { this.lineBreak(); } -> popMode, skip;
 
 /** A citation of a registry reference inside a canonical comment. ref:DEC-grammar-carries-extraction-rules */
 DOC_REF : 'ref:' DocKey;

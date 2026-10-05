@@ -4,8 +4,9 @@
 -- ref:REQ-pulumi-yaml-support
 module Canon.Extract.PulumiTest (tests) where
 
-import Canon.Antlr4.Interpret (InterpretError, interpretFile, loadInterpreter, renderInterpretError)
-import Canon.Antlr4.Parse (treeRuleNodes)
+import Canon.Antlr4.Interpret (InterpretError, interpretFile, interpretText, loadInterpreter, renderInterpretError)
+import Canon.Antlr4.Parse (ParseTree, treeRuleNodes, treeTokens)
+import Canon.Antlr4.Token (Token (..))
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
 import Canon.Decisions (emptyLedger)
@@ -35,6 +36,10 @@ tests =
     , testProperty "the Pulumi profile owns Pulumi programs and stack files by name" prop_pulumiProfileOwnsPulumiProgramsAndStackFilesByName
     , testProperty "the Pulumi dialect reads quoted keys, flow interpolations, and template config" prop_pulumiDialectReadsQuotedKeysFlowInterpolationsAndTemplateConfig
     , testProperty "a Pulumi comment anywhere in a program parses and only one directly above an entry binds" prop_aPulumiCommentAnywhereInAProgramParsesAndOnlyOneDirectlyAboveAnEntryBinds
+    , testProperty "the YAML grammars read anchors, tags, flow collections, complex keys, and streams" prop_yamlGrammarsReadAnchorsTagsFlowCollectionsComplexKeysAndStreams
+    , testProperty "a plain scalar continues on indented lines whatever they hold" prop_aPlainScalarContinuesOnIndentedLinesWhateverTheyHold
+    , testProperty "a document marker is one only at the start of its line" prop_aDocumentMarkerIsOneOnlyAtTheStartOfItsLine
+    , testProperty "the plain YAML profile reads any other YAML file without units" prop_thePlainYamlProfileReadsAnyOtherYamlFileWithoutUnits
     ]
 
 sampleDir :: FilePath
@@ -296,3 +301,160 @@ prop_aPulumiCommentAnywhereInAProgramParsesAndOnlyOneDirectlyAboveAnEntryBinds =
   [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
     === [("pulumi/Pulumi.yaml/resource/bucket", "The bucket the site is served from."), ("pulumi/Pulumi.yaml/output/name", "The name of the bucket.")]
   [() | OrphanDocComment _ _ <- findings] === []
+
+-- | Parses a fixture with the plain YAML grammar and with the Pulumi dialect, which must read every
+-- YAML file the plain grammar reads, and gives the plain grammar's tree.
+parsedBoth :: Text -> PropertyT IO ParseTree
+parsedBoth source = do
+  plain <- evalIO (loadInterpreter "grammars/yaml/YAMLLexer.g4" "grammars/yaml/YAMLParser.g4") >>= orFail
+  dialect <- evalIO (loadInterpreter "grammars/yaml/canonically_commented/YAMLLexer.g4" "grammars/yaml/canonically_commented/YAMLParser.g4") >>= orFail
+  _ <- orFail (interpretText dialect (Name "yamlFile") "t.yaml" source)
+  orFail (interpretText plain (Name "yamlFile") "t.yaml" source)
+
+-- | The texts of a tree's tokens of one type.
+tokensOf :: Text -> ParseTree -> [Text]
+tokensOf ty tree = [tokenText t | t <- treeTokens tree, tokenType t == Name ty]
+
+-- | YAML files beyond the block subset, such as Rails-style anchors and merge keys, CloudFormation
+-- tags, a GitHub matrix written as a flow mapping over several lines, complex keys, and streams of
+-- documents, are YAML 1.2, so both grammars must read them: a tag or anchor on its own line above
+-- the block collection it belongs to, a verbatim tag, a block collection or block scalar as a
+-- complex key, a complex key in a flow mapping, a plain scalar spanning lines in a flow
+-- collection, and a document after an end marker.
+-- ref:REQ-pulumi-yaml-support ref:DEC-pulumi-yaml-grammar
+prop_yamlGrammarsReadAnchorsTagsFlowCollectionsComplexKeysAndStreams :: Property
+prop_yamlGrammarsReadAnchorsTagsFlowCollectionsComplexKeysAndStreams = withTests 1 $ property $ do
+  tree <-
+    parsedBoth
+      ( T.unlines
+          [ "%YAML 1.2"
+          , "---"
+          , "defaults: &defaults"
+          , "  adapter: postgres"
+          , "development:"
+          , "  <<: *defaults"
+          , "  database: dev"
+          , "tags: [!!str 1, !Ref Bucket, !<tag:yaml.org,2002:int> \"2\"]"
+          , "seq:"
+          , "- &first"
+          , "  name: one"
+          , "- *first"
+          , "- !!map"
+          , "    name: two"
+          , "matrix: {os: [ubuntu-latest,"
+          , "    macos-latest],"
+          , "  node: [18, 20]}"
+          , "? - a"
+          , "  - b"
+          , ": complex"
+          , "? |"
+          , "  block key"
+          , ": - x"
+          , "flow: {? k : v}"
+          , "words: [a plain scalar"
+          , "  over two lines, and one]"
+          , "..."
+          , "second: document"
+          ]
+      )
+  length (treeRuleNodes (Name "document") tree) === 2
+  tokensOf "ANCHOR" tree === ["&defaults", "&first"]
+  tokensOf "ALIAS" tree === ["*defaults", "*first"]
+  tokensOf "TAG" tree === ["!!str", "!Ref", "!<tag:yaml.org,2002:int>", "!!map"]
+  length (tokensOf "QUESTION" tree) === 3
+  length (treeRuleNodes (Name "flowCollection") tree) === 6
+  filter (T.isInfixOf "\n") (tokensOf "PLAIN" tree) === ["a plain scalar\n  over two lines"]
+
+-- | GitHub workflows, Kubernetes manifests, and issue forms continue a plain scalar on lines that
+-- hold quotes, brackets, and braces, as a shell command's `if [[ -e f ]]` or an expression's
+-- closing `}}`, which YAML reads as text when the line is indented past the scalar's parent, so the
+-- grammars must read each such line as a continuation and the next key at the parent's indentation
+-- as an entry. ref:REQ-pulumi-yaml-support ref:DEC-pulumi-yaml-grammar
+prop_aPlainScalarContinuesOnIndentedLinesWhateverTheyHold :: Property
+prop_aPlainScalarContinuesOnIndentedLinesWhateverTheyHold = withTests 1 $ property $ do
+  tree <-
+    parsedBoth
+      ( T.unlines
+          [ "steps:"
+          , "  - name: Upload"
+          , "    run: node upload.js \"${{"
+          , "      github.sha }}\" \"${{ runner.temp"
+          , "      }}/tarballs\""
+          , "    shell: bash"
+          , "args:"
+          , "- while true; do"
+          , "    if [[ -e /etc/labels ]]; then"
+          , "      echo -en '\\n'; fi;"
+          , "  done;"
+          , "- next"
+          , "description: You have run into problems with the"
+          , "  \"flutter\" tool, or [other] issues"
+          ]
+      )
+  tokensOf "PLAIN_CONTINUATION" tree
+    === [ "github.sha }}\" \"${{ runner.temp"
+        , "}}/tarballs\""
+        , "if [[ -e /etc/labels ]]; then"
+        , "echo -en '\\n'; fi;"
+        , "done;"
+        , "\"flutter\" tool, or [other] issues"
+        ]
+  length (treeRuleNodes (Name "mappingEntry") tree) === 6
+  length (treeRuleNodes (Name "sequenceEntry") tree) === 3
+
+-- | Three dashes or dots start or end a document only at the start of a line, so a marker followed
+-- by a tag or an anchor, a value of three dashes or dots, a document after an end marker, and a
+-- document indented as a whole, as Ansible playbooks are, must all read as YAML reads them.
+-- ref:REQ-pulumi-yaml-support ref:DEC-pulumi-yaml-grammar
+prop_aDocumentMarkerIsOneOnlyAtTheStartOfItsLine :: Property
+prop_aDocumentMarkerIsOneOnlyAtTheStartOfItsLine = withTests 1 $ property $ do
+  tree <-
+    parsedBoth
+      ( T.unlines
+          [ "--- !settings"
+          , "name: a"
+          , "value: ---"
+          , "other: ..."
+          , "..."
+          , "bare: document"
+          , "--- &list"
+          , "  - hosts: all"
+          , "  - hosts: web"
+          ]
+      )
+  length (tokensOf "DOCUMENT_START" tree) === 2
+  length (tokensOf "DOCUMENT_END" tree) === 1
+  length (treeRuleNodes (Name "document") tree) === 3
+  filter (`elem` ["---", "..."]) (tokensOf "PLAIN" tree) === ["---", "..."]
+  tokensOf "TAG" tree === ["!settings"]
+  tokensOf "ANCHOR" tree === ["&list"]
+
+-- | Most YAML files are not Pulumi programs: a Kubernetes manifest, a GitHub workflow, or any
+-- settings file may have top-level config, resources, or outputs keys that the Pulumi dialect would
+-- read as units. canon reads such a file through the plain YAML grammar under a profile that owns
+-- .yaml and .yml with no units, while the Pulumi profile, whose file names win over any profile's
+-- extensions, keeps Pulumi's programs and stack files. ref:REQ-pulumi-yaml-support
+-- ref:DEC-pulumi-yaml-grammar
+prop_thePlainYamlProfileReadsAnyOtherYamlFileWithoutUnits :: Property
+prop_thePlainYamlProfileReadsAnyOtherYamlFileWithoutUnits = withTests 1 $ property $ do
+  pulumi <- sampleProfile
+  let yaml =
+        pulumi
+          { profileExtensions = [".yaml", ".yml"]
+          , profileFiles = []
+          , profileGrammar = SplitGrammarFiles "grammars/yaml/YAMLLexer.g4" "grammars/yaml/YAMLParser.g4"
+          , profileUnits = []
+          , profileComments = defaultCommentSyntax
+          }
+      profiles = Map.fromList [("pulumi", pulumi), ("yaml", yaml)]
+      owner path = fst <$> profileForPath profiles path
+  map owner ["Pulumi.yaml", "Pulumi.dev.yaml", "app/Main.yaml", ".github/workflows/ci.yml", "k8s/deployment.yaml"]
+    === [Just "pulumi", Just "pulumi", Just "pulumi", Just "yaml", Just "yaml"]
+  interpreter <- evalIO (loadProfileInterpreter yaml) >>= orFail
+  let source = T.unlines ["# Settings for a service.", "config:", "  # The port it listens on.", "  port: 8080", "outputs:", "  url: http://localhost"]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "yaml" yaml interpreter "settings.yaml" "settings.yaml" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [unitKindText (whatKind (answerValue (unitWhat u))) | u <- modelAllUnits model] === ["file"]
+  [() | OrphanDocComment _ _ <- findings] === []
+  Extraction pulumiModel _ <- extracted "Pulumi.yaml" source
+  [whatName (answerValue (unitWhat u)) | u <- modelAllUnits pulumiModel, unitKindText (whatKind (answerValue (unitWhat u))) /= "file"] === ["port", "url"]

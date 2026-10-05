@@ -963,7 +963,11 @@ quotes. A comment directly above an entry is its Why, and
 so is the `description` of a config key. Outputs require a Why, and so does a
 config key that declares a `type` or a `default`; the keys of a stack file,
 which only set values, may have one. Pulumi programs in TypeScript, Python,
-Go, C#, or Java are read through those languages' profiles.
+Go, C#, or Java are read through those languages' profiles. Any other YAML
+file, such as a Kubernetes manifest or a GitHub workflow, is read through the
+plain grammar under a `yaml` profile that owns `.yaml` and `.yml` with
+`units: []`, as `grammars/yaml/README.md` shows, so it is parsed whole and has
+no units.
 
 The three Java samples are projects with a reputation for thorough Javadoc:
 Apache Commons Lang, Joda-Time, and Gson. They are the first samples checked

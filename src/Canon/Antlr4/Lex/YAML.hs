@@ -2,12 +2,15 @@
 -- its key, which no context-free grammar sees, and a YAML comment documents the entry below it
 -- only when nothing parts them. This hook, selected by the grammar's YAMLLexerBase superClass,
 -- emits INDENT, DEDENT, and NEWLINE outside flow collections as Python's tokenizer does, treating
--- the content after a sequence entry's dash as indented to its own column; leaves a block scalar
+-- the content after a sequence entry's dash, a complex key's question mark, or the colon of its
+-- value as indented to its own column; leaves a block scalar
 -- at the first line not indented past the key or dash on its header's line; and holds each
 -- comment back until the next code token has its layout tokens, hiding it unless it is on the
 -- line directly above that token or directly above another such comment. It splits a quoted scalar
 -- into its quotes and its text, and a plain scalar that starts with the colon of a JSON-like pair
--- into that colon and the rest. ref:DEC-pulumi-yaml-grammar
+-- into that colon and the rest. It decides whether a line indented past a plain scalar's parent
+-- continues that scalar, whatever indicators the line holds, and reads a document marker that does
+-- not start its line as a plain scalar. ref:DEC-pulumi-yaml-grammar
 module Canon.Antlr4.Lex.YAML
   ( YAMLLayout (..)
   , yamlLexerHooks
@@ -23,9 +26,12 @@ import qualified Data.Text as T
 
 -- | The hook state: the columns of the open blocks, innermost first; the flow collection depth;
 -- the end offset and position, type, and column of the last code token; the columns of the last
--- key and the last dash on the current line; the column a block scalar's lines must exceed; and
--- the held comment tokens, the line of the last held comment, and whether the comment being read
--- is hidden.
+-- key and the last dash on the current line; the column a block scalar's lines must exceed; the
+-- held comment tokens, the line of the last held comment, and whether the comment being read is
+-- hidden; the column a plain scalar's continuation lines must exceed; and whether the last code
+-- token is an indicator whose content is indented to its own column: a sequence entry's dash, a
+-- complex key's question mark, or the colon that starts a complex key's value line; and whether
+-- nothing but a line break stands between the last token and the next.
 data YAMLLayout = YAMLLayout
   { columns :: [Int]
   , flowDepth :: Int
@@ -38,37 +44,58 @@ data YAMLLayout = YAMLLayout
   , held :: [Token]
   , heldLine :: Int
   , commentHidden :: Bool
+  , plainParent :: Int
+  , indentNext :: Bool
+  , atLineStart :: Bool
   }
   deriving (Eq, Show)
 
 -- | The hooks for the YAML grammar and its Pulumi dialect.
 yamlLexerHooks :: LexerHooks YAMLLayout
-yamlLexerHooks = LexerHooks (YAMLLayout [] 0 Nothing "" 0 Nothing Nothing 0 [] 0 False) onAction (\_ _ _ _ _ -> True) onEmit
+yamlLexerHooks = LexerHooks (YAMLLayout [] 0 Nothing "" 0 Nothing Nothing 0 [] 0 False 0 False True) onAction onPredicate onEmit
+
+-- | A line continues the plain scalar before it when that scalar is in block context and the line
+-- is indented past the scalar's parent: the key on the scalar's line, or else the block around it.
+-- The matched text is the line breaks and the indentation before the line's first character.
+onPredicate :: Name -> ActionText -> Text -> Int -> YAMLLayout -> Bool
+onPredicate rule _ matched _ s = case nameText rule of
+  "PLAIN_CONTINUATION" -> lastType s == "PLAIN" && flowDepth s == 0 && T.length (snd (T.breakOnEnd "\n" matched)) + 1 > plainParent s
+  "PLAIN" -> not (atLineStart s && any marker ["---", "..."])
+  _ -> True
+  where
+    marker m = m `T.isPrefixOf` matched && (T.length matched == 3 || T.index matched 3 `elem` (" \t" :: String))
 
 -- | Records the indentation a block scalar's lines must exceed when its header is read, and leaves
--- the scalar at a line that does not exceed it.
+-- the scalar at a line that does not exceed it. A line break, and a block scalar's line break when
+-- the next line is not indented, puts the lexer at the start of a line; spaces move it off.
 onAction :: Name -> ActionText -> Text -> Text -> YAMLLayout -> (YAMLLayout, [HookEffect])
 onAction rule _ matched _ s = case nameText rule of
   "BLOCK_SCALAR" -> (s {scalarParent = fromMaybe (fromMaybe 0 (lineDash s)) (lineKey s)}, [])
   "BLOCK_SCALAR_BREAK"
     | indentation + 1 > scalarParent s -> (s, [])
-    | otherwise -> (s, [EffectPopMode])
+    | otherwise -> (s {atLineStart = indentation == 0}, [EffectPopMode])
+  "LINE_BREAK" -> (s {atLineStart = True}, [])
+  "DOC_LINE_END" -> (s {atLineStart = True}, [])
+  "WS" -> (s {atLineStart = False}, [])
   _ -> (s, [])
   where
     indentation = T.length (snd (T.breakOnEnd "\n" matched))
 
 -- | Routes each token by what it is: the end of input, a comment token, block scalar text, or code.
 onEmit :: Token -> YAMLLayout -> ([Token], YAMLLayout)
-onEmit token s
+onEmit token s0
   | isEofToken token = (map hidden (held s) ++ map (const (virtual s "DEDENT")) (drop 1 (columns s)) ++ [token], s {held = []})
   | tokenChannel token /= defaultChannelName = ([token], s)
   | ty == "DOC_OPEN" = opening token s
   | ty `elem` ["DOC_WORD", "DOC_PUNCT", "DOC_REF", "DOC_LICENSE"] =
       if commentHidden s then ([hidden token], s) else ([], s {held = held s ++ [token]})
   | ty == "BLOCK_SCALAR_TEXT" = ([token], s {lastEnd = Just (tokenEnd token, endPosition token)})
+  | ty == "PLAIN_CONTINUATION" = continuation token s
+  | ty `elem` ["DOCUMENT_START", "DOCUMENT_END"] && positionColumn (tokenPosition token) /= 1 = code token {tokenType = Name "PLAIN"} s
   | otherwise = code token s
   where
     ty = nameText (tokenType token)
+    s = if ty == "BLOCK_SCALAR_BREAK" then s0 else s0 {atLineStart = False}
 
 -- | A comment after code on its line, or inside a flow collection, is hidden. Any other comment is
 -- held; held comments that a blank line parts from it are hidden, since they document nothing.
@@ -77,6 +104,25 @@ opening token s
   | flowDepth s > 0 || maybe False (\(_, Position l _) -> l == line token) (lastEnd s) = ([hidden token], s {commentHidden = True})
   | not (null (held s)) && line token /= heldLine s + 1 = (map hidden (held s), s {held = [token], heldLine = line token, commentHidden = False})
   | otherwise = ([], s {held = held s ++ [token], heldLine = line token, commentHidden = False})
+
+-- | A continuation line of a plain scalar, without the line breaks and indentation before it. It
+-- takes no part in layout, as a block scalar's lines do not, and any comment held above it is
+-- hidden, since a comment inside a scalar documents nothing.
+continuation :: Token -> YAMLLayout -> ([Token], YAMLLayout)
+continuation token s =
+  let text = tokenText token
+      body = T.dropWhile (`elem` (" \t\r\n" :: String)) text
+      prefix = T.take (T.length text - T.length body) text
+      Position l _ = tokenPosition token
+      trimmed =
+        token
+          { tokenText = body
+          , tokenStart = tokenStart token + T.length prefix
+          , tokenPosition = Position (l + T.count "\n" prefix) (T.length (snd (T.breakOnEnd "\n" prefix)) + 1)
+          }
+   in ( map hidden (held s) ++ [trimmed]
+      , s {held = [], lastEnd = Just (tokenEnd trimmed, endPosition trimmed), lastType = "PLAIN", lineKey = Nothing, lineDash = Nothing}
+      )
 
 -- | A code token gets its layout tokens, then the held comments if they end on the line directly
 -- above it, then itself.
@@ -90,16 +136,21 @@ code token s =
       newLine = maybe True (\(_, Position l _) -> line token > l) (lastEnd s)
       ty = nameText (tokenType token)
       column = positionColumn (tokenPosition token)
+      enclosing cols = case dropWhile (>= column) cols of
+        (c : _) -> c
+        [] -> 0
       depth'
         | ty `elem` ["FLOW_SEQ_OPEN", "FLOW_MAP_OPEN"] = flowDepth s + 1
         | ty `elem` ["FLOW_SEQ_CLOSE", "FLOW_MAP_CLOSE"] = max 0 (flowDepth s - 1)
         | otherwise = flowDepth s
+      startsValueLine = ty == "COLON" && flowDepth s == 0 && newLine
       lineKey'
+        | startsValueLine = Just column
         | ty == "COLON" && flowDepth s == 0 = Just (lastColumn s)
         | newLine = Nothing
         | otherwise = lineKey s
       lineDash'
-        | ty == "DASH" = Just column
+        | ty == "DASH" || (ty == "QUESTION" && flowDepth s == 0) = Just column
         | newLine = Nothing
         | otherwise = lineDash s
       adjacentPair = ty == "PLAIN" && flowDepth s > 0 && ":" `T.isPrefixOf` tokenText token && lastType s `elem` ["QUOTE_CLOSE", "FLOW_SEQ_CLOSE", "FLOW_MAP_CLOSE"] && maybe False ((== tokenStart token) . fst) (lastEnd s)
@@ -120,11 +171,14 @@ code token s =
           , lastColumn = column
           , lineKey = lineKey'
           , lineDash = lineDash'
+          , plainParent = if ty == "PLAIN" then fromMaybe (enclosing (columns s')) lineKey' else plainParent s
+          , indentNext = flowDepth s == 0 && (ty `elem` ["DASH", "QUESTION"] || startsValueLine)
           }
       )
 
 -- | The layout tokens before a code token: none inside a flow collection or after other code on
--- its line, except INDENT for the first token after a sequence entry's dash; and on a new line,
+-- its line, except INDENT for the first token after a sequence entry's dash, a complex key's
+-- question mark, or a colon that starts its line; and on a new line,
 -- INDENT when it is right of the current block, NEWLINE when level with it, and a DEDENT for each
 -- block it is left of.
 layoutFor :: Token -> YAMLLayout -> ([Token], YAMLLayout)
@@ -133,7 +187,7 @@ layoutFor token s = case lastEnd s of
   Just (_, Position previousLine _)
     | flowDepth s > 0 -> ([], s)
     | line token <= previousLine ->
-        if lastType s == "DASH" then ([virtual s "INDENT"], s {columns = column : columns s}) else ([], s)
+        if indentNext s then ([virtual s "INDENT"], s {columns = column : columns s}) else ([], s)
     | otherwise -> offside s column
   where
     column = positionColumn (tokenPosition token)
