@@ -82,7 +82,7 @@ hooksForGrammarWith :: Choice -> Grammar ann -> SomeHooks
 hooksForGrammarWith choice grammar =
   case superClassOf grammar of
     (Name "LexerAdaptor" : _) -> SomeHooks antlrLexerHooks
-    (Name "HaskellBaseLexer" : _) -> SomeHooks haskellLayoutHooks
+    (Name "HaskellBaseLexer" : _) -> SomeHooks (haskellLayoutHooks choice)
     (Name "CSharpLexerBase" : _) -> SomeHooks (csharpLexerHooks choice)
     (Name "FSharpLexerBase" : _) -> SomeHooks (fsharpLexerHooks choice)
     (Name "JavaScriptLexerBase" : _) -> SomeHooks javaScriptHooks
@@ -100,6 +100,7 @@ hooksForGrammarWith choice grammar =
 preprocesses :: Grammar ann -> Bool
 preprocesses grammar = case superClassOf grammar of
   (Name "CSharpLexerBase" : _) -> True
+  (Name "HaskellBaseLexer" : _) -> True
   (Name "FSharpLexerBase" : _) -> True
   _ -> False
 

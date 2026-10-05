@@ -40,6 +40,7 @@ tests =
     , testProperty "the Clojure dialect parses every file of the hiccup sample with its docstrings" prop_theClojureDialectParsesEveryFileOfTheHiccupSampleWithItsDocstrings
     , testProperty "the Clojure dialect binds docstrings to definitions, requires them on public API, and reports misplaced ones" prop_theClojureDialectBindsDocstringsToDefinitionsRequiresThemOnPublicApiAndReportsMisplacedOnes
     , testProperty "the Clojure dialect reads library definition macros and defmethods as units and comment forms as none" prop_theClojureDialectReadsLibraryDefinitionMacrosAndDefmethodsAsUnitsAndCommentFormsAsNone
+    , testProperty "the Clojure grammars read primed symbols, symbolic values, namespaced maps, and discards in maps" prop_theClojureGrammarsReadPrimedSymbolsSymbolicValuesNamespacedMapsAndDiscardsInMaps
     ]
 
 sampleDir :: FilePath
@@ -298,3 +299,26 @@ prop_theClojureDialectReadsLibraryDefinitionMacrosAndDefmethodsAsUnitsAndComment
     === [("clojure/elements.clj/def/link-to", "Wraps content in a link. ref:REQ-links", [ReferenceKey "REQ-links"])]
   length [() | OrphanDocComment _ _ <- findings] === 0
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["clojure/elements.clj/multimethod/render"]
+
+-- | Clojure code in datascript and metabase names the next value of x as x', writes ##NaN and ##Inf,
+-- namespaced maps as #:ns{...} and #::{...}, a var quote of an unquoted name inside a syntax quote,
+-- and discarded entries inside a map, all of which the Clojure reader accepts and upstream's grammar
+-- did not, so 71 of their files failed to parse. Both grammars read them, and the dialect still
+-- finds each definition. ref:REQ-clojure-support ref:DEC-clojure-grammar-fixes ref:DEC-clojure-dialect
+prop_theClojureGrammarsReadPrimedSymbolsSymbolicValuesNamespacedMapsAndDiscardsInMaps :: Property
+prop_theClojureGrammarsReadPrimedSymbolsSymbolicValuesNamespacedMapsAndDiscardsInMaps = withTests 1 $ property $ do
+  let source =
+        T.unlines
+          [ "(ns demo.core \"Demo.\")"
+          , "(defn step \"Advances db.\" [db] (let [db' (inc db)] db'))"
+          , "(def limits {:max ##Inf :min ##-Inf :none ##NaN})"
+          , "(def opts #:http{:port 80 :host \"x\"})"
+          , "(def local #::{:a 1})"
+          , "(defmacro defvar [name] `(alter-meta! #'~name assoc :tag 1))"
+          , "(def config {:a 1 #_#_ :b 2})"
+          ]
+  profile <- sampleProfile
+  plain <- extractText profile "demo.clj" source
+  length (unitsOf (extractionModel plain)) === 7
+  dialect <- extractText dialectProfile "demo.clj" source
+  map snd (unitsOf (extractionModel dialect)) === ["step", "limits", "opts", "local", "defvar", "config"]

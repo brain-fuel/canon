@@ -16,14 +16,15 @@ page
     : FRONT_OPEN why = frontFields FRONT_CLOSE content # doc
     ;
 
-/** What follows the front matter: the elements before the first heading, then the sections. */
+/** What follows the front matter: the prose and fenced blocks before the first heading, then the sections. Prose never follows prose here or below, since one run of prose takes every line up to the next block or heading, so a page has one parse and a long section is read in time linear in its length. ref:DEC-folio-dialect */
 content
-    : element* section*
+    : paragraphs? (codeBlock paragraphs?)* section*
     ;
 
-/** The fields of front matter, one or more. */
+/** The fields of front matter, one or more, after any value lines that precede the first field; a field's value takes every line up to the next field, so the fields have one parse. ref:DEC-folio-dialect */
 frontFields
-    : frontField+
+    : frontValue? frontField+
+    | frontValue
     ;
 
 /** One field: the id, which names the page; the video, whose value is cited as a reference is; or any other field, whose value is prose. */
@@ -31,7 +32,6 @@ frontField
     : FIELD_ID what = frontValue
     | FIELD_VIDEO ref = frontValue
     | (FIELD_KIND | FIELD_TITLE | FIELD_OTHER) frontValue?
-    | frontValue
     ;
 
 /** The value of a field, tokenized as a canonical comment is. */
@@ -52,7 +52,7 @@ documentedSection
 
 /** The body of a documented section: its prose, with each fenced block labeled how, so the Why is the prose around the blocks and the How the blocks. */
 sectionProse
-    : paragraphs (how = codeBlock | paragraphs)*
+    : paragraphs (how = codeBlock paragraphs?)*
     ;
 
 /** A section whose heading is followed by no prose, which is no unit. */
@@ -67,13 +67,7 @@ title
 
 /** The rest of a section that opens with a fenced block: the blocks with the prose between them. */
 sectionRest
-    : codeBlock element*
-    ;
-
-/** One thing on a page that is not a heading: a fenced block or prose. */
-element
-    : codeBlock
-    | paragraphs
+    : (codeBlock paragraphs?)+
     ;
 
 /** Prose: one or more lines of it, blank lines between them included. */

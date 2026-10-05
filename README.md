@@ -1103,7 +1103,10 @@ How; a special target, a pattern rule, and a variable are units whose comment
 is optional; the `## text` after a rule's prerequisites stays as the one-line
 What the `help` target prints. canon, Rice's Tax, and wavelet each have a
 Makefile as their front door, checked like any other source, and `make` alone
-lists what each can do (`DEC-make-dialect`).
+lists what each can do (`DEC-make-dialect`). The dialect is the only Makefile
+grammar and reads any makefile, a `# |` comment that binds to nothing being an
+orphan; `tools/corpus/make.sh` checks it against Linux, CPython, git, and GNU
+make's own tests (`grammars/make/README.md`).
 
 ## The Folio
 
@@ -1284,15 +1287,24 @@ prose is words and punctuation, until `*/` leaves the mode. The parser adds
 `grammarSpec` is a `grammarDefinition`, `parserRuleSpec` a `parserRule`,
 `lexerRuleSpec` a `fragmentRule` or a `lexerRule`, and `modeSpec` a
 `lexerMode`, each with `why`, `what`, and where it differs from the whole
-node `how` marked on its elements. A `parserRule` and a `lexerRule` require
-the comment; the others allow it. Every rule in both files carries its own
-comment, so the dialect parses its own grammars, and the test suite checks
-that it does and that it rejects a grammar without canonical comments.
+node `how` marked on its elements. A `parserRule` and a `lexerRule` hold the
+empty rule `documentedRule`, labeled `required`, so each requires the comment
+while a grammar without one still parses and is reported; the others allow it.
+Of several comments in a row the last binds and the others are orphans, and
+the parser names `canonicalComment` in a `strayComment` option. Every rule in
+both files carries its own comment, so the dialect parses its own grammars, and
+the test suite checks that it does and that a grammar without canonical
+comments parses. `tools/corpus/antlr4.sh` reads every grammar of grammars-v4
+with both (`grammars/antlr4/README.md`).
 
 `grammars/haskell/` holds the Haskell grammar from grammars-v4 with a
-canonical comment on every rule and four fixes, each cited in the ledger:
-standard character and string literals with escapes, contextual keywords and
-pragma names accepted as identifiers, and the layout cases above. Under
+canonical comment on every rule and the fixes the ledger cites in
+`DEC-haskell-grammar-fixes`: standard character and string literals with
+escapes, contextual keywords and pragma names accepted as identifiers, hidden
+pragmas and C preprocessor directives with each `#if` read by build as for C#,
+operators by maximal munch, and the layout cases above. `tools/corpus/haskell.sh`
+reads GHC's base library, pandoc, aeson, lens, stack, and xmonad with it
+(`grammars/haskell/README.md`). Under
 `canonically_commented/` the dialect sends `-- |` and `{-|` into `DocLine`
 and `DocBlock` lexer modes, keeps the line break that ends a doc line as a
 `NEWLINE` carrying the layout action, inlines each unit-bearing top-level
@@ -1476,7 +1488,10 @@ export entries `export`, so an exported unit requires a comment
 (`DEC-erlang-dialect`).
 
 `grammars/prolog/` holds the grammars-v4 Prolog grammar, `prolog.g4`, with
-one change marked `canon:`, and under `canonically_commented/` its dialect,
+the changes marked `canon:` that `DEC-prolog-grammar-fixes` records: a term is
+a flat run of primaries and operator atoms, so operators a file declares parse,
+a clause ends at ISO's end token, and the lexer reads SWI-Prolog's extensions;
+and under `canonically_commented/` its dialect,
 split into `PrologLexer.g4` and `PrologParser.g4` because a combined grammar
 may not hold modes. The default mode is the start of a line, where `%!` or
 `%%` opens a `DocLine` mode; the code of a line is lexed in a `Code` mode that

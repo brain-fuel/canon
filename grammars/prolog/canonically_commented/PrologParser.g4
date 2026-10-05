@@ -73,7 +73,7 @@ item
 // named with its arity, and it keeps a module that exports nothing from reading as a file without an
 // export list, in which every predicate is visible and requires a comment.
 moduleDirective
-    : ':-' 'module' '(' export = atom ',' '[' (exportEntry (',' exportEntry)*)? ']' (',' term)? ')' '.'
+    : ':-' 'module' '(' export = atom ',' '[' (exportEntry (',' exportEntry)*)? ']' (',' term)? ')' END
     ;
 
 // canon: an entry of an export list: a predicate indicator, or an operator declaration.
@@ -91,7 +91,7 @@ predicateIndicator
 
 // canon: a plunit test, a clause of test/1 or test/2, named by the test's name, its first argument.
 testClause
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) 'test' '(' what = term (',' term)? ')' (':-' termlist)? '.' # test
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) 'test' '(' what = term (',' term)? ')' (neck bodylist)? END # test
     ;
 
 // canon: a declaration of predicates, as :- dynamic foo/1, is a clause of the first predicate it
@@ -99,7 +99,7 @@ testClause
 // that follow it belong to the same unit. Several predicates may be declared at once, as
 // :- dynamic a/1, b/2 or :- dynamic [a/1, b/2], and a declared predicate may be module-qualified.
 declaration
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) ':-' declarationKeyword (declaredPredicates | '(' declaredPredicates ')' | '[' declaredPredicates ']') '.' # predicate
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) ':-' declarationKeyword (declaredPredicates | '(' declaredPredicates ')' | '[' declaredPredicates ']') END # predicate
     ;
 
 // canon: the predicates of a declaration; the first names the declaration's unit.
@@ -121,12 +121,12 @@ declarationKeyword
 // clause starts a unit of its own. A head may be qualified by its module, as user:portray(X) is,
 // and is still named by its own name.
 predicateClause
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (atom ':')? what = atom (arity = arguments | arity = noArguments) (':-' termlist)? '.' # predicate
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (atom ':')? what = atom (arity = arguments | arity = noArguments) ((',' term)? neck bodylist)? END # predicate
     ;
 
 // canon: a DCG rule, a unit of kind nonterminal named by its head's name and written arity.
 nonterminalClause
-    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (atom ':')? what = atom (arity = arguments | arity = noArguments) (',' term)? '-->' termlist '.' # nonterminal
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (atom ':')? what = atom (arity = arguments | arity = noArguments) (',' term)? '-->' bodylist END # nonterminal
     ;
 
 // canon: the bracketed arguments of a head, whose arity is the number of its arguments, so a head
@@ -140,13 +140,21 @@ noArguments
     :
     ;
 
-// canon: a directive and a clause read a conjunction, a termlist, since a comma is no operator.
+// canon: the neck of a clause: :- for an ordinary rule, and => for SWI-Prolog's single sided
+// unification rules, Head, Guard => Body, whose guard the predicate clause reads after its head.
+neck
+    : ':-'
+    | '=>'
+    ;
+
+// canon: a directive and a clause read a conjunction, a bodylist, since a comma is no operator, and
+// end with the END token. ref:DEC-prolog-grammar-fixes
 directive
-    : ':-' termlist '.'
+    : ':-' bodylist END
     ; // also 3.58
 
 clause
-    : termlist '.'
+    : bodylist END
     ; // also 3.33
 
 // Abstract Syntax (6.3): terms formed from tokens
@@ -155,19 +163,32 @@ termlist
     : term (',' term)*
     ;
 
+// canon: a conjunction, or a disjunction written with a bar, as SWI-Prolog's DCG bodies and
+// parenthesised goals write (a | b).
+bodylist
+    : term ((',' | '|') term)*
+    ;
+
+// canon: a term is a sequence of primaries and operator atoms, read flat, since operators are
+// user-definable and no fixed table of priorities reads real Prolog; a comma is no operator, so the
+// arguments of a compound term are counted right. ref:DEC-prolog-grammar-fixes
 term
-    : VARIABLE     # variable
-    // canon: a comma is no operator in the dialect, so the arguments of a compound term are counted
-    // right; a parenthesised term is a conjunction, as a clause's body is.
-    | '(' termlist ')' # braced_term
-    | '-'? integer # integer_term //TODO: negative case should be covered by unary_operator
-    | '-'? FLOAT   # float
+    : termPart+
+    ;
+
+termPart
+    : VARIABLE                            # variable
+    | '(' bodylist ')'                    # braced_term
+    | integer                             # integer_term
+    | FLOAT                               # float
     // structure / compound term
-    | atom '(' termlist ')'               # compound_term
-    | <assoc = right> term operator_ term # binary_operator
-    | operator_ term                      # unary_operator
+    // canon: an operator is a functor too, and SWI-Prolog writes a compound without arguments, foo().
+    | (atom | operator_) '(' termlist? ')' # compound_term
     | '[' termlist ( '|' term)? ']'       # list_term
-    | '{' termlist '}'                    # curly_bracketed_term
+    | '{' bodylist '}'                    # curly_bracketed_term
+    // canon: SWI-Prolog's quasi-quotation, {|Syntax||Text|}, read as one token.
+    | QUASI_QUOTATION                     # quasi_quotation
+    | operator_                           # operator_term
     | atom                                # atom_term
     ;
 
@@ -184,6 +205,8 @@ operator_
     | 'public' //TODO: move operators used in directives to "built-in" definition of dialect
     | ';'
     | '->'
+    // canon: the neck of a single sided unification rule is an operator elsewhere.
+    | '=>'
     // canon: ',' is not an operator here; termlist reads a conjunction.
     | '\\+'
     | '='
@@ -236,6 +259,8 @@ atom                                  // 6.4.2 and 6.1.2
 
 integer // 6.4.4
     : DECIMAL
+    // canon: an integer in a radix, as 16'FF.
+    | RADIX
     | CHARACTER_CODE_CONSTANT
     | BINARY
     | OCTAL

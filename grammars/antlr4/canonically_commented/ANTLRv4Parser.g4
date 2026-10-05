@@ -46,14 +46,18 @@
 
 parser grammar ANTLRv4Parser;
 
+// canon: a canonical comment may stand between any two tokens, as inside a rule's alternatives or
+// after the last rule; where the grammar does not accept one, canon reads the file without it and
+// reports it as an orphan, as the strayComment option says. ref:DEC-stray-comments
 options {
     tokenVocab = ANTLRv4Lexer;
+    strayComment = canonicalComment;
 }
 
 // The main entry point for parsing a v4 grammar.
-/** A grammar file is an optional file-level canonical comment, one declaration, any prequel constructs, the rules, then any lexer modes, up to end of input. The grammar is a unit whose What is its name and whose Why is the file-level comment, where a license lives. ref:grammars-v4 ref:DEC-grammar-carries-extraction-rules */
+/** A grammar file is an optional file-level canonical comment, one declaration, any prequel constructs, the rules, then any lexer modes, up to end of input. The grammar is a unit whose What is its name and whose Why is the file-level comment, where a license lives; of several comments in a row the last binds and the others are orphans. ref:grammars-v4 ref:DEC-grammar-carries-extraction-rules */
 grammarSpec
-    : why = canonicalComment? grammarDecl prequelConstruct* rules modeSpec* EOF # grammarDefinition
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) grammarDecl prequelConstruct* rules modeSpec* EOF # grammarDefinition
     ;
 
 /** Names the grammar and says whether it is a lexer, parser, or combined grammar, which decides which rule kinds are allowed in it. */
@@ -160,9 +164,9 @@ argActionBlock
     : BEGIN_ARGUMENT ARGUMENT_CONTENT*? END_ARGUMENT
     ;
 
-/** A lexer mode: a name followed by the lexer rules that are active only in that mode. */
+/** A lexer mode: a name followed by the lexer rules that are active only in that mode. Of several comments in a row before it the last binds and the others are orphans. */
 modeSpec
-    : why = canonicalComment? MODE what = identifier SEMI lexerRuleSpec* # lexerMode
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) MODE what = identifier SEMI lexerRuleSpec* # lexerMode
     ;
 
 /** The rule section, which may be empty. */
@@ -176,9 +180,9 @@ ruleSpec
     | lexerRuleSpec
     ;
 
-/** A parser rule: modifiers, name, arguments, returns, throws, locals, prequels, the alternatives, and exception handlers. The canonically commented dialect requires a canonical comment before every parser rule. ref:DEC-grammar-carries-extraction-rules */
+/** A parser rule: modifiers, name, arguments, returns, throws, locals, prequels, the alternatives, and exception handlers. The canonically commented dialect requires a canonical comment before every parser rule through the empty rule documentedRule, labeled required, so a rule without one parses and is reported rather than failing the file; of several comments in a row the last binds and the others are orphans. ref:DEC-grammar-carries-extraction-rules */
 parserRuleSpec
-    : why = canonicalComment ruleModifiers? what = RULE_REF argActionBlock? ruleReturns? throwsSpec? localsSpec? rulePrequel* COLON how = ruleBlock SEMI
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = documentedRule ruleModifiers? what = RULE_REF argActionBlock? ruleReturns? throwsSpec? localsSpec? rulePrequel* COLON how = ruleBlock SEMI
         exceptionGroup # parserRule
     ;
 
@@ -263,10 +267,10 @@ labeledAlt
 // --------------------
 // Lexer rules
 
-/** A lexer rule: an optional fragment marker, the name, options, and the alternatives. The canonically commented dialect requires a canonical comment before every non-fragment lexer rule and allows one before a fragment. ref:DEC-grammar-carries-extraction-rules */
+/** A lexer rule: an optional fragment marker, the name, options, and the alternatives. The canonically commented dialect requires a canonical comment before every non-fragment lexer rule, through the empty rule documentedRule labeled required, and allows one before a fragment; of several comments in a row the last binds and the others are orphans. ref:DEC-grammar-carries-extraction-rules */
 lexerRuleSpec
-    : why = canonicalComment? FRAGMENT what = TOKEN_REF optionsSpec? COLON how = lexerRuleBlock SEMI # fragmentRule
-    | why = canonicalComment what = TOKEN_REF optionsSpec? COLON how = lexerRuleBlock SEMI # lexerRule
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) FRAGMENT what = TOKEN_REF optionsSpec? COLON how = lexerRuleBlock SEMI # fragmentRule
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = documentedRule what = TOKEN_REF optionsSpec? COLON how = lexerRuleBlock SEMI # lexerRule
     ;
 
 /** The body of a lexer rule. */
@@ -482,6 +486,11 @@ identifier
 /** A dotted name, used in options and in imports. */
 qualifiedIdentifier
     : identifier (DOT identifier)*
+    ;
+
+/** Matches nothing. A parser rule and a non-fragment lexer rule hold it, labeled required, so each requires a canonical comment while a rule without one still parses and is reported as missing its comment. ref:DEC-grammar-carries-extraction-rules */
+documentedRule
+    :
     ;
 
 /** A canonical comment: the Why of the unit it precedes, holding prose, reference citations, and license citations between its delimiters. ref:DEC-comment-reasons ref:DEC-grammar-carries-extraction-rules */

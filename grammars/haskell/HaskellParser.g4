@@ -51,9 +51,10 @@ where_module
     : 'where' module_body
     ;
 
-/** A module body is a layout block, virtual or explicit, holding imports and top-level declarations. */
+// canon: a module body may be empty, as in module Lib where and nothing else. ref:DEC-haskell-grammar-fixes
+/** A module body is a layout block, virtual or explicit, holding imports and top-level declarations, or nothing. ref:DEC-haskell-grammar-fixes */
 module_body
-    : open_ body close semi*
+    : open_ body? close semi*
     ;
 
 /** One or more file-header pragmas before the module keyword. */
@@ -105,17 +106,40 @@ exports
     : '(' (exprt (',' exprt)*)? ','? ')'
     ;
 
-/** One export: a variable, a type with all or some of its constructors, a class with all or some of its methods, or a whole module. */
+// canon: an export may name a pattern synonym or a type operator with its namespace, a type operator in
+// parentheses, and members that mix the two dots with names. ref:DEC-haskell-grammar-fixes
+/** One export: a variable, a type or class with all or some of its members, a pattern synonym, or a whole module. ref:DEC-haskell-grammar-fixes */
 exprt
-    : qvar
-    | ( qtycon ( ('(' '..' ')') | ('(' (cname (',' cname)*)? ')'))?)
-    | ( qtycls ( ('(' '..' ')') | ('(' (qvar (',' qvar)*)? ')'))?)
+    : 'pattern'? qvar
+    | ( 'type'? export_name export_members?)
+    | ( 'pattern' qcon)
     | ( 'module' modid)
     ;
 
-/** An import: optional qualified, the module name, an optional alias, and an optional import specification. */
+/** The name of an exported or imported type or class: a constructor name or an operator in parentheses. ref:DEC-haskell-grammar-fixes */
+export_name
+    : qtycon
+    | '(' qtyconsym ')'
+    ;
+
+/** The members of an exported or imported type or class: all of them, some, or all and some more. ref:DEC-haskell-grammar-fixes */
+export_members
+    : '(' (export_member (',' export_member)*)? ')'
+    ;
+
+/** One member of an export or import item: the two dots for all, a constructor, a field, or a method. */
+export_member
+    : '..'
+    | cname
+    | qvar
+    | 'type'? qcon
+    ;
+
+// canon: an import may be safe, name its package in a string, and put qualified after the module
+// name (ImportQualifiedPost). ref:DEC-haskell-grammar-fixes
+/** An import: optional safe and qualified, an optional package name, the module name, qualified after it, an optional alias, and an optional import specification. ref:DEC-haskell-grammar-fixes */
 impdecl
-    : 'import' 'qualified'? modid ('as' modid)? impspec? semi+
+    : 'import' 'safe'? 'qualified'? STRING? modid 'qualified'? ('as' modid)? impspec? semi+
     ;
 
 /** The parenthesised list of imported names, or the hidden ones. */
@@ -124,11 +148,11 @@ impspec
     | ( 'hiding' '(' (himport (',' himport)* ','?)? ')')
     ;
 
-/** One imported name: a variable, a type with constructors, or a class with methods. */
+/** One imported name: a variable, a type or class with its members, or a pattern synonym, read as an export is. ref:DEC-haskell-grammar-fixes */
 himport
-    : var_
-    | ( tycon ( ('(' '..' ')') | ('(' (cname (',' cname)*)? ')'))?)
-    | ( tycls ( ('(' '..' ')') | ('(' sig_vars? ')'))?)
+    : 'pattern'? var_
+    | ( 'type'? export_name export_members?)
+    | ( 'pattern' qcon)
     ;
 
 /** A constructor or variable name inside an import or export item. */
@@ -227,8 +251,10 @@ inst_decl
     | ('type' 'instance' ty_fam_inst_eqn)
     // 'constrs' in the end of this rules in GHC
     // This parser no use docs
-    | ('data' 'instance' capi_ctype? tycl_hdr_inst derivings?)
-    | ('newtype' 'instance' capi_ctype? tycl_hdr_inst derivings?)
+    // canon: a data or newtype instance declares its constructors, as GHC's grammar has it.
+    // ref:DEC-haskell-grammar-fixes
+    | ('data' 'instance' capi_ctype? tycl_hdr_inst constrs? derivings?)
+    | ('newtype' 'instance' capi_ctype? tycl_hdr_inst constrs? derivings?)
     // For GADT
     | ('data' 'instance' capi_ctype? tycl_hdr_inst opt_kind_sig? gadt_constrlist? derivings?)
     | ('newtype' 'instance' capi_ctype? tycl_hdr_inst opt_kind_sig? gadt_constrlist? derivings?)
@@ -1188,20 +1214,10 @@ activation
 // -------------------------------------------
 // Expressions
 
-/** A quasi-quotation with an unqualified quoter. */
-th_quasiquote
-    : '[' varid '|'
-    ;
-
-/** A quasi-quotation with a qualified quoter. */
-th_qquasiquote
-    : '[' qvarid '|'
-    ;
-
-/** A quasi-quotation. */
+// canon: the lexer reads a quasi-quotation whole. ref:DEC-haskell-grammar-fixes
+/** A quasi-quotation, which the lexer reads as one token. ref:DEC-haskell-grammar-fixes */
 quasiquote
-    : th_quasiquote
-    | th_qquasiquote
+    : QUASIQUOTE
     ;
 
 /** An expression, possibly with a type annotation or an arrow-notation form. */
@@ -1229,9 +1245,11 @@ exp10
     : '-'? fexp
     ;
 
-/** A function application: one or more atomic expressions with optional type applications. */
+// canon: a type application may stand between arguments, as in ExG @Int 1 Nothing, not only last.
+// ref:DEC-haskell-grammar-fixes
+/** A function application: atomic expressions with type applications among them. ref:DEC-haskell-grammar-fixes */
 fexp
-    : aexp+ ('@' atype)?
+    : aexp (aexp | '@' atype)*
     ;
 
 /** An atomic expression with prefixes: as-pattern, laziness, strictness, lambda, let, if, case, do, or procedure. */
@@ -1282,7 +1300,7 @@ aexp2
     | ('\'\'' tyvar)
     | ('\'\'' gtycon)
     | '\'\''
-    | '[|' exp '|]'
+    | ('[|' | '[e|') exp '|]'
     | '[||' exp '||]'
     | '[t|' ktype '|]'
     | '[p|' infixexp '|]'
@@ -1418,9 +1436,10 @@ guards
     : guard_ (',' guard_)*
     ;
 
-/** One guard: a pattern guard, a let, or a boolean. */
+// canon: the expression of a pattern guard may carry a type annotation. ref:DEC-haskell-grammar-fixes
+/** One guard: a pattern guard, whose expression may carry a type annotation, a let, or a boolean. ref:DEC-haskell-grammar-fixes */
 guard_
-    : pat '<-' infixexp
+    : pat '<-' exp
     | 'let' decllist
     | infixexp
     ;
@@ -1428,10 +1447,12 @@ guard_
 // -------------------------------------------
 // Case alternatives
 
-/** The alternatives of a case, in a layout block. */
+// canon: an empty case, as EmptyCase allows, may hold the semicolon the layout algorithm puts before
+// its closing brace. ref:DEC-haskell-grammar-fixes
+/** The alternatives of a case, in a layout block, or none. ref:DEC-haskell-grammar-fixes */
 alts
     : (open_ (alt semi*)+ close)
-    | (open_ close)
+    | (open_ semi* close)
     ;
 
 /** One case alternative: a pattern and its right-hand side. */
@@ -1523,9 +1544,10 @@ qual
 // -------------------------------------------
 // Record Field Update/Construction
 
-/** The field bindings of a record construction or update, with an optional wildcard. */
+// canon: a record wildcard may follow named fields, as in GCFlags{ giveStats = x, .. }. ref:DEC-haskell-grammar-fixes
+/** The field bindings of a record construction or update, with an optional wildcard after them. ref:DEC-haskell-grammar-fixes */
 fbinds
-    : (fbind (',' fbind)*)
+    : (fbind (',' fbind)* (',' '..')?)
     | ('..')
     ;
 
@@ -1825,12 +1847,14 @@ qtycls
 var_
     : varid
     | ( '(' varsym ')')
+    | HashOperatorInParens
     ;
 
 /** A qualified variable. */
 qvar
     : qvarid
     | ( '(' qvarsym ')')
+    | HashOperatorInParens
     ;
 
 // We've inlined qvarsym here so that the decision about
@@ -1851,7 +1875,8 @@ varid
 
 /** A qualified variable symbol. */
 qvarsym
-    : (modid '.')? varsym
+    : varsym
+    | QVARSYM
     ;
 
 /** A qualified variable symbol other than minus. */
@@ -1866,15 +1891,39 @@ varsym
     | '-'
     ;
 
-/** A variable symbol other than minus. */
+// canon: the lexer reads an operator by maximal munch, so an operator is one VARSYM token or one of
+// the operator characters and reserved operators that have tokens of their own, never a run of
+// tokens. ref:DEC-haskell-grammar-fixes
+/** A variable symbol other than minus: one operator token. ref:DEC-haskell-grammar-fixes */
 varsym_no_minus
-    : ascSymbol+
+    : VARSYM
+    | DDollar
+    | LarrowTail
+    | RarrowTail
+    | LLarrowTail
+    | RRarrowTail
+    | '!'
+    | '#'
+    | '$'
+    | '%'
+    | '&'
+    | '*'
+    | '+'
+    | '.'
+    | '/'
+    | '<'
+    | '>'
+    | '?'
+    | '^'
+    | '~'
     ;
 
 // These special_ids are treated as keywords in various places,
 // but as ordinary ids elsewhere.   'special_id' collects all these
 // except 'unsafe', 'interruptible', 'forall', 'family', 'role', 'stock', and
 // 'anyclass', whose treatment differs depending on context
+// canon: unsafe, safe, and interruptible are identifiers outside a foreign declaration, as the dialect
+// already read them. ref:DEC-haskell-grammar-fixes
 /** The contextual keywords accepted as identifiers. */
 special_id
     : 'as'
@@ -1895,6 +1944,9 @@ special_id
     | 'stock'
     | 'anyclass'
     | 'via'
+    | 'unsafe'
+    | 'safe'
+    | 'interruptible'
     ;
 
 // -------------------------------------------
@@ -1932,12 +1984,14 @@ conid
 
 /** A qualified constructor symbol. */
 qconsym
-    : (modid '.')? consym
+    : consym
+    | QCONSYM
     ;
 
 /** A constructor symbol: a colon followed by symbol characters. */
 consym
-    : ':' ascSymbol*
+    : CONSYM
+    | ':'
     ;
 
 // -------------------------------------------

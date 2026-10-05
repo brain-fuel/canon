@@ -37,16 +37,20 @@ grammar prolog;
 
 // Prolog text and data formed from terms (6.2)
 
+// canon: a clause and a directive end with END, a full stop followed by layout, a % comment, or the
+// end of the file, as ISO 6.4.8 defines the end token; a full stop followed by anything else is a
+// graphic atom, so SWI-Prolog's dict access X.key stays inside its clause. A clause's body is a
+// bodylist, whose terms a comma or a bar separates. ref:DEC-prolog-grammar-fixes
 p_text
     : (directive | clause)* EOF
     ;
 
 directive
-    : ':-' term '.'
+    : ':-' bodylist END
     ; // also 3.58
 
 clause
-    : term '.'
+    : bodylist END
     ; // also 3.33
 
 // Abstract Syntax (6.3): terms formed from tokens
@@ -55,18 +59,38 @@ termlist
     : term (',' term)*
     ;
 
+// canon: a conjunction, a disjunction written with a bar, as SWI-Prolog's DCG bodies and
+// parenthesised goals write (a | b), and the arguments of a clause or a parenthesised term.
+bodylist
+    : term ((',' | '|') term)*
+    ;
+
+// canon: a term is a sequence of primaries and operator atoms, read flat. Prolog's operators are
+// user-definable, op/3 declares new ones in the file that uses them, and SWI-Prolog adds its own,
+// so no fixed table of priorities reads real Prolog; the grammar reads every atom as a possible
+// operator and leaves priority and associativity to Prolog, which canon has no need of: a clause's
+// extent is fixed by its end token, and a compound term's arguments by its commas. The flat reading
+// is linear where the left-recursive binary_operator alternative was exponential on long bodies.
+// Juxtaposed primaries, as SWI-Prolog's dicts write Tag{k: V}, parse as a sequence too.
+// ref:DEC-prolog-grammar-fixes
 term
-    : VARIABLE     # variable
-    | '(' term ')' # braced_term
-    | '-'? integer # integer_term //TODO: negative case should be covered by unary_operator
-    | '-'? FLOAT   # float
+    : termPart+
+    ;
+
+termPart
+    : VARIABLE                           # variable
+    | '(' bodylist ')'                   # braced_term
+    | integer                            # integer_term
+    | FLOAT                              # float
     // structure / compound term
-    | atom '(' termlist ')'               # compound_term
-    | <assoc = right> term operator_ term # binary_operator
-    | operator_ term                      # unary_operator
-    | '[' termlist ( '|' term)? ']'       # list_term
-    | '{' termlist '}'                    # curly_bracketed_term
-    | atom                                # atom_term
+    // canon: an operator is a functor too, as -(X), dynamic(foo/1), and \+(G) write it.
+    | (atom | operator_) '(' termlist? ')' # compound_term
+    | '[' termlist ( '|' term)? ']'      # list_term
+    | '{' bodylist '}'                   # curly_bracketed_term
+    // canon: SWI-Prolog's quasi-quotation, {|Syntax||Text|}, read as one token.
+    | QUASI_QUOTATION                    # quasi_quotation
+    | operator_                          # operator_term
+    | atom                               # atom_term
     ;
 
 //TODO: operator priority, associativity, arity. Filter valid priority ranges for e.g. [list] syntax
@@ -82,7 +106,7 @@ operator_
     | 'public' //TODO: move operators used in directives to "built-in" definition of dialect
     | ';'
     | '->'
-    | ','
+    // canon: ',' is no operator here; termlist and bodylist read it as a separator.
     | '\\+'
     | '='
     | '\\='
@@ -131,6 +155,8 @@ atom                                  // 6.4.2 and 6.1.2
 
 integer // 6.4.4
     : DECIMAL
+    // canon: an integer in a radix, as 16'FF.
+    | RADIX
     | CHARACTER_CODE_CONSTANT
     | BINARY
     | OCTAL
@@ -150,8 +176,15 @@ VARIABLE // 6.4.3
     ;
 
 // 6.4.4
+// canon: SWI-Prolog's digit groups, 1_000_000, are a decimal too.
 DECIMAL
-    : DIGIT+
+    : DIGIT+ ('_' DIGIT+)*
+    ;
+
+// canon: an integer in a radix from 2 to 36, as 16'FF or 2'1010, which ISO leaves to the
+// processor and SWI-Prolog and most systems read.
+RADIX
+    : [1-9] [0-9]? '\'' [0-9a-zA-Z]+
     ;
 
 BINARY
@@ -166,12 +199,29 @@ HEX
     : '0x' HEX_DIGIT+
     ;
 
+// canon: 0''' and SWI-Prolog's 0'' are the code of a quote, as is 0'\'; the space after 0' is a
+// character as well.
 CHARACTER_CODE_CONSTANT
-    : '0' '\'' SINGLE_QUOTED_CHARACTER
+    : '0' '\'' (SINGLE_QUOTED_CHARACTER | '\'')
     ;
 
+// canon: the exponent's sign is optional, a float may have an exponent and no fraction, as 1e10,
+// and SWI-Prolog writes infinity and not-a-number as 1.0Inf and 1.5NaN.
 FLOAT
-    : DECIMAL '.' [0-9]+ ([eE] [+-] DECIMAL)?
+    : DECIMAL '.' [0-9]+ ([eE] [+-]? DECIMAL)? ('Inf' | 'NaN')?
+    | DECIMAL [eE] [+-]? DECIMAL
+    ;
+
+// canon: the end token of ISO 6.4.8, a full stop followed by layout, a % comment, or the end of the
+// file, listed before GRAPHIC_TOKEN so that a lone full stop at the end of a file is END too. A full
+// stop followed by anything else is a graphic atom. ref:DEC-prolog-grammar-fixes
+END
+    : '.' ([ \t\r\n] | '%' ~[\r\n]* | EOF)
+    ;
+
+// canon: SWI-Prolog's quasi-quotation, {|Syntax||Text|}, whose text is anything up to |}.
+QUASI_QUOTATION
+    : '{|' .*? '||' .*? '|}'
     ;
 
 GRAPHIC_TOKEN
@@ -214,6 +264,8 @@ fragment NON_QUOTE_CHAR
     // quoted atom or string, as SWI-Prolog and every Unicode-aware Prolog read it; ISO leaves the
     // processor character set to the implementation.
     | ~[\u0000-\u007F]
+    // canon: a tab inside quotes, which SWI-Prolog reads as itself.
+    | '\t'
     | META_ESCAPE
     | CONTROL_ESCAPE
     | OCTAL_ESCAPE
@@ -224,16 +276,24 @@ fragment META_ESCAPE
     : '\\' [\\'"`]
     ; // meta char
 
+// canon: SWI-Prolog's escapes besides ISO's: \e (escape), \s (space), \z (end of file), \0 as an
+// octal escape, \uXXXX and \UXXXXXXXX code points, and \c, which skips the layout after it; \c
+// takes only the line break after it, and the spaces that follow are ordinary characters, since a
+// loop of layout inside the escape made the lexer try every split of a run of spaces.
 fragment CONTROL_ESCAPE
-    : '\\' [abrftnv]
+    : '\\' [abrftnvesz]
+    | '\\u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+    | '\\U' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+    | '\\c' ('\r'? '\n')?
     ;
 
+// canon: the closing backslash of an octal or hexadecimal escape is optional in SWI-Prolog.
 fragment OCTAL_ESCAPE
-    : '\\' [0-7]+ '\\'
+    : '\\' [0-7]+ '\\'?
     ;
 
 fragment HEX_ESCAPE
-    : '\\x' HEX_DIGIT+ '\\'
+    : '\\x' HEX_DIGIT+ '\\'?
     ;
 
 QUOTED
@@ -248,8 +308,9 @@ BACK_QUOTED_STRING
     : '`' (CONTINUATION_ESCAPE | BACK_QUOTED_CHARACTER)*? '`'
     ; // 6.4.7
 
+// canon: a backslash before a CR LF line break continues the text too.
 fragment CONTINUATION_ESCAPE
-    : '\\\n'
+    : '\\' '\r'? '\n'
     ;
 
 // 6.5.2

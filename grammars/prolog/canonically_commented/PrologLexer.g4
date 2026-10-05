@@ -68,7 +68,10 @@ mode Code;
 
 // canon: the plain grammar's implicit literal tokens, named, and module and test.
 NECK          : ':-' ;
-END           : '.' -> popMode ;
+// canon: the end token of ISO 6.4.8, a full stop followed by layout, a % comment, or the end of the
+// file; a full stop followed by anything else is a graphic atom and stays in the clause, as
+// SWI-Prolog's dict access X.key does. ref:DEC-prolog-grammar-fixes
+END           : '.' ([ \t\r\n] | '%' ~[\r\n]* | EOF) -> popMode ;
 COMMA         : ',' ;
 OPEN          : '(' ;
 CLOSE         : ')' ;
@@ -86,6 +89,8 @@ DISCONTIGUOUS : 'discontiguous' ;
 PUBLIC        : 'public' ;
 SEMICOLON     : ';' ;
 IF_THEN       : '->' ;
+// canon: the neck of SWI-Prolog's single sided unification rules, Head => Body.
+SSU_NECK      : '=>' ;
 NOT_PROVABLE  : '\\+' ;
 UNIFY         : '=' ;
 NOT_UNIFY     : '\\=' ;
@@ -140,8 +145,14 @@ VARIABLE // 6.4.3
     ;
 
 // 6.4.4
+// canon: SWI-Prolog's digit groups, 1_000_000, are a decimal too.
 DECIMAL
-    : DIGIT+
+    : DIGIT+ ('_' DIGIT+)*
+    ;
+
+// canon: an integer in a radix from 2 to 36, as 16'FF or 2'1010.
+RADIX
+    : [1-9] [0-9]? '\'' [0-9a-zA-Z]+
     ;
 
 BINARY
@@ -156,12 +167,20 @@ HEX
     : '0x' HEX_DIGIT+
     ;
 
+// canon: 0''' and SWI-Prolog's 0'' are the code of a quote.
 CHARACTER_CODE_CONSTANT
-    : '0' '\'' SINGLE_QUOTED_CHARACTER
+    : '0' '\'' (SINGLE_QUOTED_CHARACTER | '\'')
     ;
 
+// canon: an optional exponent sign, an exponent without a fraction, and 1.0Inf and 1.5NaN.
 FLOAT
-    : DECIMAL '.' [0-9]+ ([eE] [+-] DECIMAL)?
+    : DECIMAL '.' [0-9]+ ([eE] [+-]? DECIMAL)? ('Inf' | 'NaN')?
+    | DECIMAL [eE] [+-]? DECIMAL
+    ;
+
+// canon: SWI-Prolog's quasi-quotation, {|Syntax||Text|}, whose text is anything up to |}.
+QUASI_QUOTATION
+    : '{|' .*? '||' .*? '|}'
     ;
 
 GRAPHIC_TOKEN
@@ -204,6 +223,8 @@ fragment NON_QUOTE_CHAR
     // quoted atom or string, as SWI-Prolog and every Unicode-aware Prolog read it; ISO leaves the
     // processor character set to the implementation.
     | ~[\u0000-\u007F]
+    // canon: a tab inside quotes, which SWI-Prolog reads as itself.
+    | '\t'
     | META_ESCAPE
     | CONTROL_ESCAPE
     | OCTAL_ESCAPE
@@ -214,16 +235,23 @@ fragment META_ESCAPE
     : '\\' [\\'"`]
     ; // meta char
 
+// canon: SWI-Prolog's escapes besides ISO's: \e, \s, \z, \uXXXX, \UXXXXXXXX, and \c with the line
+// break after it; the spaces that follow \c are ordinary characters, since a loop of layout inside
+// the escape made the lexer try every split of a run of spaces.
 fragment CONTROL_ESCAPE
-    : '\\' [abrftnv]
+    : '\\' [abrftnvesz]
+    | '\\u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+    | '\\U' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+    | '\\c' ('\r'? '\n')?
     ;
 
+// canon: the closing backslash of an octal or hexadecimal escape is optional in SWI-Prolog.
 fragment OCTAL_ESCAPE
-    : '\\' [0-7]+ '\\'
+    : '\\' [0-7]+ '\\'?
     ;
 
 fragment HEX_ESCAPE
-    : '\\x' HEX_DIGIT+ '\\'
+    : '\\x' HEX_DIGIT+ '\\'?
     ;
 
 QUOTED
@@ -238,8 +266,9 @@ BACK_QUOTED_STRING
     : '`' (CONTINUATION_ESCAPE | BACK_QUOTED_CHARACTER)*? '`'
     ; // 6.4.7
 
+// canon: a backslash before a CR LF line break continues the text too.
 fragment CONTINUATION_ESCAPE
-    : '\\\n'
+    : '\\' '\r'? '\n'
     ;
 
 // 6.5.2

@@ -1,6 +1,9 @@
 -- | Haskell layout is decided by a base lexer that inserts virtual braces and semicolons, and this
 -- is that base lexer ported as a hook, with the doc-comment handling the dialect needs.
--- ref:DEC-haskell-dialect ref:DEC-haskell-grammar-fixes
+-- It also reads the C preprocessor's conditionals, as GHC's CPP extension runs them before the
+-- lexer: a directive line is a hidden token, and the tokens of a branch the build does not read are
+-- hidden from the parser and from the layout algorithm, as Canon.Preprocessor chooses the branches.
+-- ref:DEC-haskell-dialect ref:DEC-haskell-grammar-fixes ref:DEC-preprocessor-builds
 module Canon.Antlr4.Lex.Haskell
   ( HaskellLayout (..)
   , haskellLayoutHooks
@@ -9,9 +12,11 @@ module Canon.Antlr4.Lex.Haskell
 import Canon.Antlr4.Lex (HookEffect (..), LexerHooks (..))
 import Canon.Antlr4.Syntax (ActionText (..), Name (..))
 import Canon.Antlr4.Token
+import Canon.Preprocessor (Branches, Choice, directiveOf, reading, stepBranchesWith)
 import Canon.Span (Position (..))
 import Control.Monad (when)
 import Control.Monad.State.Strict (State, get, gets, modify, put, runState)
+import qualified Data.Map.Strict as Map
 import Data.Text (Text)
 import qualified Data.Text as T
 
@@ -40,6 +45,12 @@ data HaskellLayout = HaskellLayout
   , guardLet :: Maybe (Int, Bool)
   , lastCode :: Maybe (Int, Bool)
   , undoEquals :: Maybe (Int, (Maybe Int, Maybe Int, Maybe (Int, Bool)))
+  , cppBranches :: Branches
+  , cppKnown :: Map.Map Text Bool
+  , cppBuild :: Choice
+  , lineStart :: Int
+  , quasiQuotes :: Bool
+  , recursiveDo :: Bool
   }
   deriving (Eq, Show)
 
@@ -48,12 +59,26 @@ data HaskellLayout = HaskellLayout
 data Delimiter = Bracket | RecordBrace
   deriving (Eq, Show)
 
-initialLayout :: HaskellLayout
-initialLayout = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 [] [] [] [] Nothing Nothing Nothing Nothing Nothing
+initialLayout :: Choice -> HaskellLayout
+initialLayout choice = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 [] [] [] [] Nothing Nothing Nothing Nothing Nothing [] Map.empty choice 0 False False
 
--- | The hooks for the Haskell grammar.
-haskellLayoutHooks :: LexerHooks HaskellLayout
-haskellLayoutHooks = LexerHooks initialLayout onAction (\_ _ _ _ _ -> True) onEmit
+-- | The hooks for the Haskell grammar, reading the conditional branches a build selects.
+-- ref:DEC-preprocessor-builds
+haskellLayoutHooks :: Choice -> LexerHooks HaskellLayout
+haskellLayoutHooks choice = LexerHooks (initialLayout choice) onAction onPredicate onEmit
+
+-- | The predicates the grammar asks: whether a token starts a line, as a preprocessor directive
+-- must; and whether a bracket, a name, and a bar open a quasi-quotation, which they do when a pragma
+-- has enabled QuasiQuotes and the name is not one of Template Haskell's own brackets.
+-- ref:DEC-haskell-grammar-fixes
+onPredicate :: Name -> ActionText -> Text -> Int -> HaskellLayout -> Bool
+onPredicate _ predicate matched start s
+  | "atLineStart" `T.isInfixOf` raw = start == lineStart s
+  | "isQuasiQuote" `T.isInfixOf` raw = quasiQuotes s && quoter `notElem` ["e", "t", "d", "p"]
+  | otherwise = True
+  where
+    raw = actionTextRaw predicate
+    quoter = T.dropEnd 1 (T.drop 1 matched)
 
 hidden :: HookEffect
 hidden = EffectChannel hiddenChannelName
@@ -70,11 +95,32 @@ onAction _ action matched _ s
 
 type Layout = State HaskellLayout
 
+-- | The tokens that open an implicit layout block. A declaration quotation's [d| is one, as in GHC,
+-- so the declarations it holds lay out as a module's do. ref:DEC-haskell-grammar-fixes
 layoutKeywords :: [Text]
-layoutKeywords = ["WHERE", "LET", "DO", "MDO", "OF", "LCASE", "REC"]
+layoutKeywords = ["WHERE", "LET", "DO", "MDO", "OF", "LCASE", "REC", "TopenDecQoute"]
 
+-- | Lays out a token. A directive line updates the branches read, a token of a branch not read is
+-- hidden, and a hidden token other than whitespace, such as a pragma, passes through without touching
+-- the layout, as a comment does. ref:DEC-haskell-grammar-fixes
 onEmit :: Token -> HaskellLayout -> ([Token], HaskellLayout)
-onEmit next s0 = runState (step next) s0
+onEmit next s0
+  | ty == "CPP_DIRECTIVE" = ([next], s {cppBranches = branches', cppKnown = known'})
+  | not (reading (cppBranches s)) && ty /= "EOF" = ([next {tokenChannel = hiddenChannelName}], s)
+  | tokenChannel next == hiddenChannelName && ty `notElem` ["NEWLINE", "WS", "TAB"] =
+      ([next], s {quasiQuotes = quasiQuotes s || enables "QuasiQuotes", recursiveDo = recursiveDo s || enables "RecursiveDo" || enables "Arrows"})
+  | otherwise = runState (step next) s
+  where
+    ty = nameText (tokenType next)
+    s = if ty == "NEWLINE" then s0 {lineStart = tokenEnd next} else s0
+    enables extension = ty == "PRAGMA" && extension `T.isInfixOf` tokenText next
+    branches' = case directiveOf (tokenText next) of
+      Just d -> stepBranchesWith (cppBuild s) (cppKnown s) d (cppBranches s)
+      Nothing -> cppBranches s
+    known' = case T.words (tokenText next) of
+      ("#define" : name : _) | reading (cppBranches s) -> Map.insert (T.takeWhile (/= '(') name) True (cppKnown s)
+      ("#undef" : name : _) | reading (cppBranches s) -> Map.insert name False (cppKnown s)
+      _ -> cppKnown s
 
 savedIndent :: HaskellLayout -> Int
 savedIndent s = case indentStack s of
@@ -177,7 +223,11 @@ takeHeld = do
 step :: Token -> Layout [Token]
 step next = do
   before <- takeQueue
-  let ty = nameText (tokenType next)
+  -- rec and mdo open a layout block only where RecursiveDo or Arrows makes them keywords; elsewhere
+  -- rec is a name, as GHC reads it. ref:DEC-haskell-grammar-fixes
+  keywords <- gets recursiveDo
+  let ty0 = nameText (tokenType next)
+      ty = if ty0 `elem` ["REC", "MDO"] && not keywords then "VARID" else ty0
   if isDocToken ty
     then modify (\s -> s {heldDocs = heldDocs s ++ [next]}) >> pure before
     else stepCode before ty next
@@ -189,7 +239,7 @@ stepCode before ty next = do
   case early of
     Just tokens -> do
       held <- takeHeld
-      pure (before ++ withHeld held tokens)
+      pure (before ++ withHeld (closeDocs held) tokens)
     Nothing -> do
       afterKeyword <- gets prevWasKeyWord
       -- An equals sign or arrow that touches another operator character is part of an operator, as
@@ -224,10 +274,22 @@ stepCode before ty next = do
         enqueue =<< createToken "VOCURLY" next
         modify (\x -> x {prevWasKeyWord = False, prevWasEndl = True})
       s3b <- get
-      when (pendingDent s3b && prevWasEndl s3b && ty `elem` ["WHERE", "CCURLY"] && indentCount s3b <= savedIndent s3b && nestedLevel s3b > 0) $ do
+      -- A closing brace that starts a line closes the implicit blocks above it only when it closes
+      -- an explicit layout block; a record's closing brace, written level with the statements of
+      -- the do around it, closes nothing. ref:DEC-haskell-grammar-fixes
+      let recordBrace = case delimiterLayouts s3b of
+            (RecordBrace, _) : _ -> True
+            _ -> False
+      when (pendingDent s3b && prevWasEndl s3b && (ty == "WHERE" || (ty == "CCURLY" && not recordBrace)) && indentCount s3b <= savedIndent s3b && nestedLevel s3b > 0) $ do
         closeNested next
         closeToIndentInclusive next
         modify (\x -> x {prevWasEndl = False})
+      -- No statement, binding, or alternative starts with a guard's bar, so a bar that starts a line
+      -- level with the innermost block closes the block, as the parse-error rule of the layout
+      -- algorithm does, rather than parting a statement there: a case alternative's second guard
+      -- after a do in its first. ref:DEC-haskell-grammar-fixes ref:DEC-layout-parse-error-rule
+      sBar <- get
+      when (ty == "Pipe" && pendingDent sBar && prevWasEndl sBar && not (ignoreIndent sBar)) $ closeLevel next
       s4 <- get
       when
         ( pendingDent s4
@@ -255,21 +317,18 @@ stepCode before ty next = do
       when (ty == "NEWLINE") $ modify (\x -> x {prevWasEndl = True})
       when (ty `elem` layoutKeywords) $ do
         modify (\x -> x {nestedLevel = nestedLevel x + 1, prevWasKeyWord = True, prevWasEndl = False, lastKeyWord = tokenText next})
-        when (ty == "WHERE") $ do
-          s10 <- get
-          case indentStack s10 of
-            ((kw, _) : rest) | kw `elem` ["do", "mdo"] -> do
-              closeWith next
-              modify (\x -> x {indentStack = rest, nestedLevel = nestedLevel x - 1})
-            _ -> pure ()
+        -- A where cannot stand in a do block, so it closes every do block it is inside, as the
+        -- parse-error rule does, and attaches to the binding around them. ref:DEC-haskell-grammar-fixes
+        when (ty == "WHERE") $ closeDoBlocks next
       when (ty == "OCURLY") $ do
         -- A brace no layout keyword opened is a record's, whose fields a comma parts.
         s11 <- get
         when (not afterKeyword) $ put s11 {delimiterLayouts = (RecordBrace, length (indentStack s11)) : delimiterLayouts s11}
         modify (\x -> x {prevWasKeyWord = False})
-      when (ty `elem` ["OpenRoundBracket", "OpenSquareBracket"]) $
+      -- An unboxed tuple's brackets and a quotation's are brackets too. ref:DEC-haskell-grammar-fixes
+      when (ty `elem` openingBrackets) $
         modify (\x -> x {delimiterLayouts = (Bracket, length (indentStack x)) : delimiterLayouts x})
-      when (ty `elem` ["CloseRoundBracket", "CloseSquareBracket"]) $ do
+      when (ty `elem` closingBrackets) $ do
         saved <- gets delimiterLayouts
         case dropWhile ((/= Bracket) . fst) saved of
           (_, depth) : rest -> do
@@ -293,7 +352,9 @@ stepCode before ty next = do
         case delimiterLayouts s12 of
           (_, depth) : _ | length (indentStack s12) > depth -> put s12 {guardBlock = Just (length (indentStack s12))}
           _ -> pure ()
-      when equalsSign $ modify (\x -> x {guardBlock = Nothing})
+      -- Only the guard's own arrow or equals sign ends it, not one of a let inside the guard, so a
+      -- comma after the let's bindings still parts the guard. ref:DEC-haskell-grammar-fixes
+      when equalsSign $ modify (\x -> if maybe True (>= length (indentStack x)) (guardBlock x) then x {guardBlock = Nothing} else x)
       when (ty == "Comma") $ do
         s13 <- get
         case delimiterLayouts s13 of
@@ -335,7 +396,7 @@ stepCode before ty next = do
           modify (\x -> x {pendingDent = True})
           queued <- takeQueue
           held <- takeHeld
-          pure (before ++ queued ++ held ++ [next])
+          pure (before ++ queued ++ closeDocs held ++ [next])
   where
     withHeld held tokens = case reverse tokens of
       (final : virtual) -> reverse virtual ++ held ++ [final]
@@ -355,7 +416,13 @@ stepCode before ty next = do
                 then do
                   put st {lastKeyWord = "", prevWasKeyWord = False, nestedLevel = 0, moduleStartIndent = False, prevWasEndl = False, startIndent = column next}
                   open <- createToken "VOCURLY" next
-                  pure (Just [open, next])
+                  -- A module whose body is empty, as module Lib where and nothing else, closes the
+                  -- block it opens at the end of the file. ref:DEC-haskell-grammar-fixes
+                  if kind == "EOF"
+                    then do
+                      close <- createToken "VCCURLY" next
+                      pure (Just [open, close, next])
+                    else pure (Just [open, next])
                 else pure Nothing
         else pure Nothing
 
@@ -372,3 +439,47 @@ closeDelimited next depth = do
     closeWith next
     modify (\x -> x {indentStack = drop 1 (indentStack x), nestedLevel = max 0 (nestedLevel x - 1)})
     closeDelimited next depth
+
+-- | Closes the implicit blocks whose indentation a line's first token is level with, keeping the
+-- outermost block of the file open.
+closeLevel :: Token -> Layout ()
+closeLevel next = do
+  s <- get
+  case indentStack s of
+    ((_, i) : rest) | indentCount s == i -> do
+      put s {indentStack = rest, nestedLevel = max 0 (nestedLevel s - 1)}
+      closeWith next
+      closeLevel next
+    _ -> pure ()
+
+-- | The tokens that open and close a bracketed span, inside which a comma or the closer ends the
+-- implicit blocks opened in the span.
+openingBrackets, closingBrackets :: [Text]
+openingBrackets = ["OpenRoundBracket", "OpenSquareBracket", "OpenBoxParen", "TopenExpQuote", "TopenExpQuoteE", "TopenTexpQuote", "TopenPatQuote", "TopenTypQoute", "TopenDecQoute"]
+closingBrackets = ["CloseRoundBracket", "CloseSquareBracket", "CloseBoxParen", "TcloseQoute", "TcloseTExpQoute"]
+
+-- | Closes the do blocks on top of the stack, before a where that cannot stand in one.
+closeDoBlocks :: Token -> Layout ()
+closeDoBlocks next = do
+  s <- get
+  case indentStack s of
+    ((kw, _) : rest) | kw `elem` ["do", "mdo"] -> do
+      closeWith next
+      modify (\x -> x {indentStack = rest, nestedLevel = nestedLevel x - 1})
+      closeDoBlocks next
+    _ -> pure ()
+
+-- | Ends each held doc comment with an empty DOC_END token, so the comment rule of the dialect has
+-- one end rather than one per word, which the parser would otherwise try at every word of every
+-- comment. ref:DEC-haskell-dialect
+closeDocs :: [Token] -> [Token]
+closeDocs toks = case toks of
+  [] -> []
+  (first : rest) -> first : go first rest
+  where
+    go previous remaining = case remaining of
+      [] -> [docEnd previous]
+      (t : more)
+        | nameText (tokenType t) `elem` ["DOC_OPEN", "DOC_BLOCK_OPEN"] -> docEnd previous : t : go t more
+        | otherwise -> t : go t more
+    docEnd previous = Token (Name "DOC_END") "" (tokenEnd previous) (tokenEnd previous) defaultChannelName (tokenPosition previous)

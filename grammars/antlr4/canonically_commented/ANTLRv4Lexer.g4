@@ -106,6 +106,11 @@ DocOpen
     : '/**' -> pushMode (DocComment)
     ;
 
+/** An empty comment, a slash, two stars, and a slash, is a plain comment and not the opener of a canonical comment, which would otherwise read on to the next closer. */
+EMPTY_COMMENT
+    : '/**/' -> channel (COMMENT)
+    ;
+
 /** A comment opened with a slash and one star. It ends at the closer or at end of input, and goes to the comment channel. */
 BLOCK_COMMENT
     : '/*' ~ [*] .*? ('*/' | EOF) -> channel (COMMENT)
@@ -164,16 +169,24 @@ ACTION
     : NESTED_ACTION
     ;
 
+// canon: canon's lexer backtracks, so every text inside an action must have one reading or the
+// readings multiply with each comment. A slash that opens no comment is its own alternative, which
+// takes the character after it unless that character opens a nested block, a string, or an escape;
+// a line comment runs to its line break; and the last alternative no longer takes a slash. A quoted
+// string may span lines, as the ANTLR tool's own ACTION_STRING_LITERAL and ACTION_CHAR_LITERAL do,
+// so an apostrophe in a target comment that is no ANTLR comment, such as Python's #, pairs with the
+// next one as the tool pairs it; a triple-quoted string is then three strings, and its alternative
+// is gone, since it was a second reading of the same text.
 fragment NESTED_ACTION
     : // Action and other blocks start with opening {
     '{' (
         NESTED_ACTION          // embedded {} block
-        | STRING_LITERAL       // single quoted string
-        | DoubleQuoteLiteral   // double quoted string
-        | TripleQuoteLiteral   // string literal with triple quotes
+        | '\'' (ESC_SEQUENCE | ~['\\])* '\''   // single quoted string, across lines (canon)
+        | '"' (ESC_SEQUENCE | ~["\\])* '"'   // double quoted string, across lines (canon)
         | BacktickQuoteLiteral // backtick quoted string
         | '/*' .*? '*/'        // block comment
-        | '//' ~[\r\n]*        // line comment
+        | '//' ~[\r\n]* [\r\n] // line comment, to its line break (canon)
+        | '/' (~[*/'"`{}\\] | NESTED_ACTION | '\'' (ESC_SEQUENCE | ~['\\])* '\'' | '"' (ESC_SEQUENCE | ~["\\])* '"' | BacktickQuoteLiteral | '\\' .) // a slash that opens no comment (canon)
         | '\\' .               // Escape sequence
         | ~(
             '\\'
@@ -181,6 +194,7 @@ fragment NESTED_ACTION
             | '\''
             | '`'
             | '{'
+            | '/'
         ) // Some other single character that is not handled above
     )*? '}'
     ;
@@ -470,8 +484,11 @@ UNTERMINATED_CHAR_SET
 // ------------------------------------------------------------------------------
 // Grammar specific Keywords, Punctuation, etc.
 
+// canon: a backslash and the one character after it, so an escape has one reading in canon's
+// backtracking lexer; the hex digits of a Unicode escape are ordinary characters of the literal, and
+// the literal matches the same text as the upstream rule.
 fragment ESC_SEQUENCE
-    : '\\' ([btnfr"'\\] | UnicodeESC | . | EOF)
+    : '\\' (. | EOF)
     ;
 
 fragment HexDigit

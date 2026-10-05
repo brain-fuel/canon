@@ -25,7 +25,7 @@ module Canon.Preprocessor
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Antlr4.Token (Token (..), defaultChannelName)
 import Canon.Span (Position (..))
-import Data.Char (isAlphaNum, isSpace)
+import Data.Char (isAlphaNum, isDigit, isSpace)
 import Data.List (nub)
 import qualified Data.Map.Strict as Map
 import qualified Data.Set as Set
@@ -122,7 +122,8 @@ parseCondition toks = case orExpr (map simplify (filter significant toks)) of
       _ -> Nothing
 
 -- | The tokens of a condition written as text, named as the C# lexer names them so one parser reads
--- conditions from either language.
+-- conditions from either language. As the C preprocessor reads them, defined(X) is the symbol X and a
+-- number is false when zero and true otherwise, so #if 0 hides its branch. ref:DEC-haskell-grammar-fixes
 conditionTokens :: Text -> [Token]
 conditionTokens text = go (T.stripStart text)
   where
@@ -143,7 +144,10 @@ conditionTokens text = go (T.stripStart text)
                 else case word of
                   "true" -> tok "TRUE" word rest
                   "false" -> tok "FALSE" word rest
-                  _ -> tok "CONDITIONAL_SYMBOL" word rest
+                  "defined" -> go (T.stripStart rest)
+                  _
+                    | T.all isDigit word -> tok (if T.all (== '0') word then "FALSE" else "TRUE") word rest
+                    | otherwise -> tok "CONDITIONAL_SYMBOL" word rest
     tok kind text' rest = Token (Name kind) text' 0 0 defaultChannelName (Position 1 1) : go (T.dropWhile isSpace rest)
 
 -- | Whether a condition holds for some choice of its free symbols, with the known symbols fixed.
@@ -181,10 +185,14 @@ evaluate env c = case c of
   CondEq a b -> evaluate env a == evaluate env b
   CondNe a b -> evaluate env a /= evaluate env b
 
--- | The conditional directive a line holds, if any.
+-- | The conditional directive a line holds, if any. The C preprocessor's #ifdef and #ifndef, which
+-- Haskell's CPP extension uses, read as #if of the symbol and of its negation.
+-- ref:DEC-haskell-grammar-fixes
 directiveOf :: Text -> Maybe Directive
 directiveOf line = case T.stripPrefix "#" (T.stripStart line) of
   Just rest
+    | Just c <- keyword "ifdef" rest -> Just (DirectiveIf (CondSymbol (T.takeWhile (not . isSpace) (T.stripStart c))))
+    | Just c <- keyword "ifndef" rest -> Just (DirectiveIf (CondNot (CondSymbol (T.takeWhile (not . isSpace) (T.stripStart c)))))
     | Just c <- keyword "if" rest -> Just (DirectiveIf (parseCondition (conditionTokens c)))
     | Just c <- keyword "elif" rest -> Just (DirectiveElif (parseCondition (conditionTokens c)))
     | Just _ <- keyword "else" rest -> Just DirectiveElse

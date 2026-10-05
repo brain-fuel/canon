@@ -142,8 +142,11 @@ vector
     : '[' forms ']'
     ;
 
+// canon: a map is any run of forms, since a discarded form, #_x, may stand among its entries and
+// the reader drops it after reading; the Clojure reader, not the grammar, checks that keys and values
+// pair. ref:DEC-clojure-grammar-fixes
 map_
-    : '{' (form form)* '}'
+    : '{' form* '}'
     ;
 
 set_
@@ -157,6 +160,7 @@ reader_macro
     | var_quote
     | host_expr
     | set_
+    | ns_map
     | tag
     | discard
     | dispatch
@@ -206,8 +210,9 @@ meta_data
     : '#^' (map_ form | form)
     ;
 
+// canon: a var quote may quote an unquoted symbol inside a syntax quote, as #'~name does.
 var_quote
-    : '#\'' symbol
+    : '#\'' form
     ;
 
 host_expr
@@ -216,6 +221,12 @@ host_expr
 
 discard
     : '#_' plain_form
+    ;
+
+// canon: a namespaced map, #:ns{:a 1} or the auto-resolved #::{:a 1} and #::alias{:a 1}, whose
+// keys take the namespace; the prefix is read as a keyword.
+ns_map
+    : '#' keyword map_
     ;
 
 dispatch
@@ -255,6 +266,8 @@ bign
 
 number
     : FLOAT
+    // canon: the symbolic values ##Inf, ##-Inf, and ##NaN.
+    | SYMBOLIC_VALUE
     | hex_
     | bin_
     | bign
@@ -369,6 +382,11 @@ fragment HEXD
 
 HEX
     : '0' [xX] HEXD+
+    ;
+
+// canon: the reader's symbolic values, ##Inf, ##-Inf, and ##NaN, read as numbers.
+SYMBOLIC_VALUE
+    : '##' ('Inf' | '-Inf' | 'NaN')
     ;
 
 BIN
@@ -533,10 +551,13 @@ fragment SYMBOL_HEAD
     )
     ;
 
+// canon: a quote may follow the first character of a symbol, as x' and db' are written for the
+// next value of x and db; only its first character may not be a quote. ref:DEC-clojure-grammar-fixes
 fragment SYMBOL_REST
     : SYMBOL_HEAD
     | '0' ..'9'
     | '.'
+    | '\''
     ;
 
 // canon: what may follow the colon of a keyword: anything but whitespace, a comma, and the

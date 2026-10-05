@@ -643,12 +643,6 @@ decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParse
 decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/texp:
   digest: sha256:dc4cde8bd954c71e
   verdict: pending
-decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/th_qquasiquote:
-  digest: sha256:a9de338af29b2006
-  verdict: pending
-decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/th_quasiquote:
-  digest: sha256:00349107008de7a7
-  verdict: pending
 decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/topdecl:
   digest: sha256:9e6fb2bde9764dd5
   verdict: pending

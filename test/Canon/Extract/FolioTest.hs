@@ -29,6 +29,7 @@ tests =
     [ testProperty "the Folio dialect reads canon's pages into a doc unit and its sections" prop_theFolioDialectReadsCanonsPagesIntoADocUnitAndItsSections
     , testProperty "the Folio dialect binds front matter to the page only at its top" prop_theFolioDialectBindsFrontMatterToThePageOnlyAtItsTop
     , testProperty "the Folio dialect reads all of a section's prose as its Why and its blocks as its How" prop_theFolioDialectReadsAllOfASectionsProseAsItsWhyAndItsBlocksAsItsHow
+    , testProperty "a long section and front matter whose values span lines have one parse, so the Folio dialect reads them in time" prop_aLongSectionAndFrontMatterWhoseValuesSpanLinesHaveOneParseSoTheFolioDialectReadsThemInTime
     ]
 
 -- | The canonically commented dialect of the Folio grammar, with no units of a profile and no
@@ -159,3 +160,25 @@ prop_theFolioDialectReadsAllOfASectionsProseAsItsWhyAndItsBlocksAsItsHow = withT
     howText h = case h of
       HowText t -> t
       _ -> ""
+
+-- | Rice's Tax's pages hold sections of forty lines and more of prose, which the dialect read in
+-- seconds while two runs of prose could stand side by side, one parse for every way of splitting
+-- the lines; one run of prose now takes every line up to the next block or heading, and a field's
+-- value every line up to the next field, so a page has one parse and a long one reads in time.
+-- ref:REQ-folio-support ref:DEC-folio-dialect
+prop_aLongSectionAndFrontMatterWhoseValuesSpanLinesHaveOneParseSoTheFolioDialectReadsThemInTime :: Property
+prop_aLongSectionAndFrontMatterWhoseValuesSpanLinesHaveOneParseSoTheFolioDialectReadsThemInTime = withTests 1 $ property $ do
+  let prose = ["- Line " <> T.pack (show i) <> " of a long list, with words, punctuation, and ref:DEC-long." | i <- [1 .. 80 :: Int]]
+  Extraction model findings <-
+    extractDialect
+      "docs/explanation/long.md"
+      ( T.unlines
+          ( ["---", "id: long.page", "kind: explanation", "title: A long page", "  whose title runs on", "---", "# Long", ""]
+              ++ prose
+              ++ ["", "```haskell file=src/Long.hs def=long", "long = ()", "```", ""]
+              ++ prose
+          )
+      )
+  map fst (whysOf model) === ["folio/docs/explanation/long.md/doc/long.page", "folio/docs/explanation/long.md/doc/long.page/section/Long"]
+  [T.count "- Line 80 of" (whyText (answerValue (decisionWhy d))) | d <- modelDecisions model] === [0, 2]
+  length [() | OrphanDocComment _ _ <- findings] === 0

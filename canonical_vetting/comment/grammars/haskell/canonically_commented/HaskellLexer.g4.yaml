@@ -181,9 +181,6 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDe
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/ELSE:
   digest: sha256:46254dd0647030fa
   verdict: pending
-decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/EXPONENT:
-  digest: sha256:af523bf68dde3d2b
-  verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/EXPORT:
   digest: sha256:a6bb669f121cd927
   verdict: pending

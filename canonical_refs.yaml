@@ -102,6 +102,14 @@ REQ-prolog-support:
   kind: requirement
   title: canon reads Prolog, parsing every Prolog file of the marelle sample, taking a predicate's clauses as one unit named name/arity, binding a PlDoc comment to the clauses below it and a <module> comment to the file, requiring a comment on what a module exports, and on every predicate of a file that is no module, and recognising plunit tests
   locator: README.md
+REQ-make-support:
+  kind: requirement
+  title: canon reads GNU make, parsing every makefile make accepts in the Linux, CPython, and git trees and GNU make's own test suite, taking rules and variables as units, binding # | to the rule or variable below, requiring a comment on every plain rule, and reporting a canonical comment that documents nothing
+  locator: README.md
+REQ-antlr4-support:
+  kind: requirement
+  title: canon reads ANTLR 4 grammars, parsing every grammar of grammars-v4 the ANTLR tool accepts with the plain meta-grammar and its canonically commented dialect, taking the grammar, its parser rules, lexer rules, fragments, and modes as units, binding /** to the rule below it, and requiring a comment on every parser rule and non-fragment lexer rule
+  locator: README.md
 REQ-folio-support:
   kind: requirement
   title: canon reads a Folio page through a canonically commented dialect, taking the page as a unit of kind doc named by its id whose Why is its front matter, and each section with prose as a unit whose Why is that prose, and reporting front matter below the top of a page as misplaced

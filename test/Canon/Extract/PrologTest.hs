@@ -34,6 +34,7 @@ tests =
     , testProperty "the Prolog dialect binds PlDoc comments to predicates and reports misplaced ones" prop_thePrologDialectBindsPlDocCommentsToPredicatesAndReportsMisplacedOnes
     , testProperty "the Prolog dialect reads a PlDoc mark inside a clause as a plain comment" prop_thePrologDialectReadsAPlDocMarkInsideAClauseAsAPlainComment
     , testProperty "the Prolog dialect names exported nonterminals, declarations, and qualified heads as Prolog does" prop_thePrologDialectNamesExportedNonterminalsDeclarationsAndQualifiedHeadsAsPrologDoes
+    , testProperty "the Prolog grammars read user operators and SWI-Prolog syntax as SWI-Prolog does" prop_thePrologGrammarsReadUserOperatorsAndSwiPrologSyntaxAsSwiPrologDoes
     ]
 
 sampleDir :: FilePath
@@ -274,3 +275,46 @@ prop_thePrologDialectNamesExportedNonterminalsDeclarationsAndQualifiedHeadsAsPro
         , ("prolog/grammar.pl/predicate/portray/1", Optional)
         ]
   [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)] === ["prolog/grammar.pl/predicate/cache/2"]
+
+-- | Real Prolog declares its own operators with op/3 and SWI-Prolog's library writes syntax ISO lacks,
+-- so a grammar with a fixed operator table failed most of SWI-Prolog's library. The grammars read a
+-- term as a flat run of primaries and operator atoms, so a user operator, an operator as an
+-- argument, and a single sided unification rule parse; and the lexer reads SWI-Prolog's escapes,
+-- \\c before a line break and a long run of spaces among them, digit groups, radix integers,
+-- infinite floats, dict access by a full stop that is no end token, quasi-quotations, and an empty
+-- argument list. The dialect still names each predicate as name/arity.
+-- ref:REQ-prolog-support ref:DEC-prolog-grammar-fixes ref:DEC-prolog-dialect
+prop_thePrologGrammarsReadUserOperatorsAndSwiPrologSyntaxAsSwiPrologDoes :: Property
+prop_thePrologGrammarsReadUserOperatorsAndSwiPrologSyntaxAsSwiPrologDoes = withTests 1 $ property $ do
+  let source =
+        T.unlines
+          [ ":- op(700, xfx, ===>)."
+          , "rule(a ===> b)."
+          , "greet(X) :- format(\"~w\\e[0m\\s~n\", [X]), C = 0'\\s, H = 16'FF, M = 1_000_000, I = 1.0Inf, D = 1e10."
+          , "point(P) :- P = point{x: 1, y: 2}, X = P.x, X > 0."
+          , "meta(G) :- predicate_property(G, meta_predicate())."
+          , "html(X) :- X = {|html||<p>a.</p>|}."
+          , "url('http://example.org/\\c"
+          , "                                         index.html')."
+          , "max(X, Y, Z), X >= Y => Z = X."
+          , "max(_, Y, Z) => Z = Y."
+          , "pick --> [a] | [b]."
+          , "mode(+, -)."
+          , "last(X) :- X == (-)."
+          ]
+  profile <- sampleProfile
+  plain <- extractThrough profile "swi.pl" source
+  length (unitsBelowFile plain) === 12
+  dialect <- extractThrough dialectProfile "swi.pl" source
+  map (renderUnitId . unitId) (unitsBelowFile dialect)
+    === [ "prolog/swi.pl/predicate/rule/1"
+        , "prolog/swi.pl/predicate/greet/1"
+        , "prolog/swi.pl/predicate/point/1"
+        , "prolog/swi.pl/predicate/meta/1"
+        , "prolog/swi.pl/predicate/html/1"
+        , "prolog/swi.pl/predicate/url/1"
+        , "prolog/swi.pl/predicate/max/3"
+        , "prolog/swi.pl/nonterminal/pick/0"
+        , "prolog/swi.pl/predicate/mode/2"
+        , "prolog/swi.pl/predicate/last/1"
+        ]
