@@ -23,7 +23,8 @@ import qualified Data.Text as T
 
 -- | The last default-channel code token, the brace depth, the template stack or depth, and the
 -- strict mode scopes, as the Java base classes keep them; whether any token but a hashbang line has
--- been read, the doc comment being held until its close, and whether the last one was hidden.
+-- been read, the doc comment being held until its close, whether the last one was hidden, and the
+-- brace depths of the TypeScript template expressions around the current one.
 data JavaScriptState = JavaScriptState
   { jsLastToken :: Maybe Text
   , jsDepth :: Int
@@ -36,11 +37,12 @@ data JavaScriptState = JavaScriptState
   , jsStarted :: Bool
   , jsHeld :: Maybe [Token]
   , jsLastHidden :: Bool
+  , jsBracesStack :: [Int]
   }
   deriving (Eq, Show)
 
 initial :: Bool -> JavaScriptState
-initial ts = JavaScriptState Nothing 0 [] 0 0 [] False ts False Nothing False
+initial ts = JavaScriptState Nothing 0 [] 0 0 [] False ts False Nothing False []
 
 -- | The hooks for JavaScriptLexerBase.
 javaScriptHooks :: LexerHooks JavaScriptState
@@ -101,7 +103,7 @@ onAction _ action matched _ s
        in if atScopeStart && useStrict then (s {jsStrictCurrent = True, jsStrictScopes = True : drop 1 (jsStrictScopes s)}, []) else (s, [])
   | calls action "IncreaseTemplateDepth" = (s {jsTemplateDepth = jsTemplateDepth s + 1}, [])
   | calls action "DecreaseTemplateDepth" = (s {jsTemplateDepth = jsTemplateDepth s - 1}, [])
-  | calls action "StartTemplateString" = (s {jsBracesDepth = 0}, [])
+  | calls action "StartTemplateString" = (s {jsBracesDepth = 0, jsBracesStack = jsBracesDepth s : jsBracesStack s}, [])
   | otherwise = (s, [])
 
 -- | A doc comment's tokens are held until its close and then released, on the hidden channel when
@@ -121,6 +123,13 @@ onEmit token s = case jsHeld s of
     | ty `elem` ["DOC_BLOCK_OPEN", "FILE_DOC_OPEN"] -> ([], started {jsHeld = Just [token]})
     | ty == "DOC_BLANK_LINE" -> ([hideIf (jsLastHidden s) token], started)
     | tokenChannel token /= defaultChannelName || isEofToken token -> ([token], s)
+    | ty == "TemplateCloseBrace" && jsTypeScript s ->
+        -- A template expression's closing brace restores the brace depth of the code around it,
+        -- so a template inside a block inside a template expression closes where it should.
+        let (depth, outer) = case jsBracesStack s of
+              (d : more) -> (d, more)
+              [] -> (0, [])
+         in ([token], started {jsLastToken = Just ty, jsBracesDepth = depth, jsBracesStack = outer})
     | otherwise -> ([token], started {jsLastToken = Just ty})
   where
     ty = nameText (tokenType token)

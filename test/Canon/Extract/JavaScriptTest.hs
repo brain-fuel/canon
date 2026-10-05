@@ -42,6 +42,7 @@ tests =
     , testProperty "the properties of an exported object literal are units that inherit its requirement" prop_thePropertiesOfAnExportedObjectLiteralAreUnitsThatInheritItsRequirement
     , testProperty "the first JSDoc comment below a hashbang line can be the file's Why" prop_theFirstJsDocCommentBelowAHashbangLineCanBeTheFilesWhy
     , testProperty "a line break between two tokens ends a statement where JavaScript inserts a semicolon" prop_aLineBreakBetweenTwoTokensEndsAStatementWhereJavaScriptInsertsASemicolon
+    , testProperty "the grammar reads the syntax node, three.js, and express write" prop_theGrammarReadsTheSyntaxNodeThreeJsAndExpressWrite
     ]
 
 sampleDir :: FilePath
@@ -337,3 +338,25 @@ prop_aLineBreakBetweenTwoTokensEndsAStatementWhereJavaScriptInsertsASemicolon = 
     let parses source = either (const False) (const True) (interpretText interpreter (Name "program") "f.js" source)
     pure (map parses ["let a = 1\nlet b = 2\n", "let a = 1 let b = 2\n", "function f() { return\n1 }\n", "a\n++b\n", "a ++ b\n"])) grammars
   results === replicate 2 [True, False, True, True, False]
+
+-- | The corpus of node's lib/, three.js, express, lodash, and React found syntax newer than the
+-- grammars-v4 grammar, which node accepts: logical assignment, a trailing comma after the last
+-- parameter, a number with a dot and no fraction digits, a private brand check, and using and
+-- await using declarations. The plain grammar and the dialect read each, and a near miss without
+-- the new syntax still fails. ref:REQ-javascript-support ref:DEC-more-languages ref:DEC-javascript-dialect
+prop_theGrammarReadsTheSyntaxNodeThreeJsAndExpressWrite :: Property
+prop_theGrammarReadsTheSyntaxNodeThreeJsAndExpressWrite = withTests 1 $ property $ do
+  let grammars = [("grammars/javascript/JavaScriptLexer.g4", "grammars/javascript/JavaScriptParser.g4"), ("grammars/javascript/canonically_commented/JavaScriptLexer.g4", "grammars/javascript/canonically_commented/JavaScriptParser.g4")]
+      sources =
+        [ "a ||= b;\nc &&= d;\n"
+        , "function f(\n  a,\n  b,\n) {}\nclass C { m(a, /* rest */) {} }\n"
+        , "const t = 0.;\nf(1., 2.);\n"
+        , "class C { #brand; static is(o) { return #brand in o; } }\n"
+        , "async function f() {\n  using a = g();\n  await using b = h();\n  using(c);\n}\n"
+        , "a ||| b;\n"
+        ]
+  results <- mapM (\(lexer, parser) -> do
+    loaded <- evalIO (loadInterpreter lexer parser)
+    interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+    pure [either (const False) (const True) (interpretText interpreter (Name "program") "f.js" source) | source <- sources]) grammars
+  results === replicate 2 [True, True, True, True, True, False]

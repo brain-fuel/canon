@@ -4,7 +4,7 @@
 -- ref:DEC-more-languages ref:DEC-typescript-dialect ref:REQ-typescript-support
 module Canon.Extract.TypeScriptTest (tests) where
 
-import Canon.Antlr4.Interpret (renderInterpretError)
+import Canon.Antlr4.Interpret (interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
 import Canon.Decisions (emptyLedger)
@@ -41,6 +41,7 @@ tests =
     , testProperty "the members of every object type on the right of an exported alias inherit its requirement" prop_theMembersOfEveryObjectTypeOnTheRightOfAnExportedAliasInheritItsRequirement
     , testProperty "an exported object literal's properties are units and a stray TSDoc comment is an orphan" prop_anExportedObjectLiteralsPropertiesAreUnitsAndAStrayTsDocCommentIsAnOrphan
     , testProperty "an ambient module is named without quotes and a hashbang line precedes the file's Why" prop_anAmbientModuleIsNamedWithoutQuotesAndAHashbangLinePrecedesTheFilesWhy
+    , testProperty "the grammar reads the syntax the TypeScript compiler, Angular, Nest, and Deno's std write" prop_theGrammarReadsTheSyntaxTheTypeScriptCompilerAngularNestAndDenosStdWrite
     ]
 
 sampleDir :: FilePath
@@ -99,7 +100,7 @@ prop_theTypeScriptProfileParsesEveryFileOfTheKySampleIntoItsUnits = withTests 1 
   profile <- sampleProfile
   extractions <- extractSample profile
   length extractions === 87
-  sum [length (unitsOf model) | Extraction model _ <- extractions] === 119
+  sum [length (unitsOf model) | Extraction model _ <- extractions] === 129
 
 -- | A TSDoc comment documents the declaration below it, and a test in TypeScript is a call to a test
 -- runner rather than a declaration, so every unit under a test directory is a test and needs the
@@ -125,7 +126,7 @@ prop_theTypeScriptDialectParsesTheKySampleWithItsDocComments :: Property
 prop_theTypeScriptDialectParsesTheKySampleWithItsDocComments = withTests 1 $ property $ do
   extractions <- extractSample dialectProfile
   length extractions === 87
-  sum [length (unitsOf model) | Extraction model _ <- extractions] === 740
+  sum [length (unitsOf model) | Extraction model _ <- extractions] === 750
   sum [length (modelDecisions model) | Extraction model _ <- extractions] === 90
   sum [length [() | OrphanDocComment _ _ <- findings] | Extraction _ findings <- extractions] === 0
 
@@ -376,3 +377,30 @@ prop_anAmbientModuleIsNamedWithoutQuotesAndAHashbangLinePrecedesTheFilesWhy = wi
   length [() | OrphanDocComment _ _ <- findings] === 0
   [renderUnitId u | d <- modelDecisions model, u <- NonEmpty.toList (decisionUnits d)]
     === ["typescript/cli.ts", "typescript/cli.ts/module/foo/bar", "typescript/cli.ts/module/foo/bar/variable/version"]
+
+-- | The corpus of the TypeScript compiler, VS Code, Angular, Nest, and Deno's std found syntax newer
+-- than the grammars-v4 grammar, which tsc accepts: a trailing comma and modifiers in a type
+-- parameter list, definite assignment, generator, async generator, and optional methods, member
+-- modifiers in any order with declare, override, and accessor, named, optional, and rest tuple
+-- elements and the empty tuple, abstract constructor types, assertion and this type predicates,
+-- infer with a constraint, numeric literal types, import types, contextual keywords as names,
+-- and a hashbang line. The plain grammar and the dialect read each, and a near miss still fails.
+-- ref:REQ-typescript-support ref:DEC-more-languages ref:DEC-typescript-dialect
+prop_theGrammarReadsTheSyntaxTheTypeScriptCompilerAngularNestAndDenosStdWrite :: Property
+prop_theGrammarReadsTheSyntaxTheTypeScriptCompilerAngularNestAndDenosStdWrite = withTests 1 $ property $ do
+  let grammars = [("grammars/typescript/TypeScriptLexer.g4", "grammars/typescript/TypeScriptParser.g4"), ("grammars/typescript/canonically_commented/TypeScriptLexer.g4", "grammars/typescript/canonically_commented/TypeScriptParser.g4")]
+      sources =
+        [ "function f<\n  T extends object,\n  U = T,\n>(a: T): U { return a as any; }\nfunction g<const T, in out V>(x: T) {}\n"
+        , "let reject!: (err: Error) => void;\nclass A {\n  x!: number;\n  public override host!: string;\n  declare readonly brand: undefined;\n  static override readonly y = 1;\n  accessor z = 1;\n}\n"
+        , "class A {\n  async *#handle(): AsyncGenerator<number> { yield 1; }\n  *[Symbol.iterator](): Iterator<number> { yield 1; }\n  return?(): void;\n  m?<T>(): T;\n}\n"
+        , "type Tup = [name: string, value?: number, ...rest: boolean[]];\ntype Opt = [string, number?];\ntype E = [] | [number];\n"
+        , "type C = abstract new (...args: any[]) => object;\nfunction g(c: unknown): asserts c {}\nfunction h(a: unknown): asserts a is string {}\nconst d = (o: unknown): this is any => true;\n"
+        , "type I<T> = T extends readonly (infer C extends string)[] ? C : never;\ninterface K { all: 0xFFFFFFFF; n: -1; }\nlet p: import(\"child_process\").ChildProcess;\nlet q: typeof import(\"fs\");\n"
+        , "#!/usr/bin/env -S deno run\nlet module: string;\nconst declare = 1;\n"
+        , "type Bad = [name: ];\n"
+        ]
+  results <- mapM (\(lexer, parser) -> do
+    loaded <- evalIO (loadInterpreter lexer parser)
+    interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+    pure [either (const False) (const True) (interpretText interpreter (Name "program") "f.ts" source) | source <- sources]) grammars
+  results === replicate 2 [True, True, True, True, True, True, True, False]

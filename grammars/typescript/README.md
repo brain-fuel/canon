@@ -100,3 +100,77 @@ Known limitations:
   found that, and that fuzz now finds no position where the parse fails but
   inside a token or where the code itself no longer parses, as an indexed
   type `T[K]` with a line break before `[`.
+
+## Corpus
+
+`tools/corpus/typescript.sh` checks the grammar against the TypeScript
+compiler and four of the most used TypeScript code bases. It shallow-clones
+each repository below at the pinned commit into `/tmp/corpus/typescript`, or
+the directory given as its first argument, parses every `.ts`, `.mts`, and
+`.cts` file with the plain grammar under a timeout of 300 seconds per file,
+and then parses every file the plain grammar parsed with the dialect, which
+must parse them all. Large repositories are sampled by subdirectory with a
+sparse checkout. A file that fails is a deliberate exclusion only when the
+TypeScript compiler's own parser rejects it, a `TS1xxx` error from `tsc`;
+none does. The script and its JavaScript twin share `tools/corpus/jsts-common.sh`.
+
+| Repository | Commit | Sampled | Files | Parsed | Excluded | Seconds |
+|------------|--------|---------|------:|-------:|---------:|--------:|
+| [microsoft/TypeScript](https://github.com/microsoft/TypeScript) | `050880ce59e3` (v6.0.3) | `/src/` | 709 | 709 | 0 | 851.9 |
+| [microsoft/vscode](https://github.com/microsoft/vscode) | `729f257fa411` | `/src/vs/base/common/`, `/src/vs/editor/common/` | 383 | 383 | 0 | 280.3 |
+| [angular/angular](https://github.com/angular/angular) | `7d96a37af4f7` | `/packages/core/src/`, `/packages/common/src/`, `/packages/router/src/` | 525 | 525 | 0 | 205.2 |
+| [nestjs/nest](https://github.com/nestjs/nest) | `35142c3eca8e` | `/packages/` | 975 | 975 | 0 | 316.1 |
+| [denoland/std](https://github.com/denoland/std) | `f834d0223364` | all | 1179 | 1179 | 0 | 502.9 |
+| Total | | | 3771 | 3771 | 0 | 2156.4 |
+
+Every one of the 3,771 files, 38 MB and 1.0 million lines, 112 of them
+declaration files, parses with the plain grammar and with the dialect. The
+TypeScript repository's default branch now holds the compiler's Go port, so
+the corpus pins the last release written in TypeScript, 6.0.3; its
+`tests/cases`, which hold invalid code on purpose, are not sampled. The
+sampled directories hold no `.tsx` file, and the grammar does not read JSX, so
+`.tsx` is neither in the profile's extensions nor in the corpus. The seconds
+are the sum of each file's wall time, the `canon` process included, with 10
+files parsed at once on a machine whose load average stood between 40 and
+100. A file takes 0.28 seconds at the median, 1.0 at the 90th percentile, 4.3
+at the 99th, and at most 111, `src/compiler/checker.ts`, 3.1 MB and 53,000
+lines, which takes 24 seconds on a lightly loaded machine; through the dialect
+it takes 55 seconds there, since its doc comments inside function bodies are
+stray comments read again without them. Files that failed before the fixes
+below failed within a few seconds, except those that the identifier fix
+below made fast.
+
+The corpus found these gaps, now fixed in the plain grammar and the dialect:
+
+- Exponential lexing of an identifier with many underscores, since `_` was
+  both an identifier start and a connector punctuation, `\p{Pc}`; the two
+  alternatives no longer overlap. A 30-line file of the compiler took over
+  120 seconds before and takes 0.1 now.
+- A trailing comma and `const`, `in`, and `out` in a type parameter list.
+- Definite assignment, `let x!: T` and `x!: T`, and `override` on a parameter
+  property.
+- Member modifiers in any order, with `declare`, `abstract`, `override`, and
+  `accessor`; generator, async generator, and optional methods; accessors
+  without a body, as in an abstract class or an interface; and `extends`
+  followed by any expression, as `extends mixin(A, B)`.
+- Named, optional, and rest tuple elements and the empty tuple; abstract
+  constructor types; `asserts x`, `asserts x is T`, `this is T`, and any type
+  after `is`; `infer U extends C`; numeric and negative literal types; import
+  types, `import("m").T` and `typeof import("m")`; template literal types with
+  `infer` holes; any type as an index, as `T[K extends X ? A : B]`; and index
+  signatures keyed by any type, `readonly` ones included.
+- `satisfies`, generic arrow functions, typed methods of an object literal,
+  `@Decorator<T>(...)`, a line break separating the members of an object type,
+  `module`, `declare`, `is`, `infer`, and `require` as names, and a hashbang
+  line.
+- In the lexer hook, a template literal inside a block inside a template
+  expression, whose closing brace the TypeScript form of the hook took for the
+  end of the outer expression.
+
+To rerun it, from the repository root:
+
+```sh
+stack build
+tools/corpus/typescript.sh                      # clones into /tmp/corpus/typescript
+CORPUS_SKIP_FETCH=1 tools/corpus/typescript.sh  # reuses the clones
+```

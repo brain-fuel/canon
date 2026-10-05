@@ -84,10 +84,12 @@ statement
     | classDeclaration
     | block
     | variableStatement
+    | (orphan = canonicalComment)+ variableStatement // canon: a JSDoc comment above a local binding binds to nothing
     | importStatement
     | exportStatement
     | emptyStatement_
     | expressionStatement
+    | (orphan = canonicalComment)+ expressionStatement // canon: a JSDoc comment above an assignment, as this.x = x, binds to nothing
     | ifStatement
     | iterationStatement
     | continueStatement
@@ -225,6 +227,7 @@ varModifier // let, const - ECMAScript 6
     : Var
     | let_
     | Const
+    | Await? {this.n("using")}? identifier // canon: using and await using declarations, ES2026
     ;
 
 continueStatement
@@ -345,7 +348,7 @@ privateIdentifier
     ;
 
 formalParameterList
-    : formalParameterArg (',' formalParameterArg)* (',' lastFormalParameterArg)?
+    : formalParameterArg (',' formalParameterArg)* (',' lastFormalParameterArg)? ','? // canon: a trailing comma, ES2017
     | lastFormalParameterArg
     ;
 
@@ -454,6 +457,7 @@ singleExpression
     | yieldStatement                                                       # YieldExpression          // ECMAScript 6
     | This                                                                 # ThisExpression
     | identifier                                                           # IdentifierExpression
+    | privateIdentifier                                                    # PrivateIdentifierExpression // canon: #x in o, ES2022
     | Super                                                                # SuperExpression
     | literal                                                              # LiteralExpression
     | arrayLiteral                                                         # ArrayLiteralExpression
@@ -529,6 +533,8 @@ assignmentOperator
     | '|='
     | '**='
     | '??='
+    | '||=' // canon: logical assignment, ES2021
+    | '&&='
     ;
 
 literal

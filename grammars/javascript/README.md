@@ -151,11 +151,12 @@ grammar above with JSDoc comments as canonical comments, recorded as
   list of exports, is an `orphan` the grammar reads; before a property it is
   read only when the predicate `propertyAhead`, which canon's parser hook
   answers, sees a name and a colon after it, so a path that reads a block's
-  braces as an object literal does not take it. Anywhere else the grammar
-  does not take one, as above a statement that declares nothing, a local
-  binding included, inside an expression, before an argument, or before a
-  parameter, the parser's `strayComment` option reads the file without it and
-  reports it as an orphan (`DEC-stray-comments`). A named function expression
+  braces as an object literal does not take it. One above a local binding or
+  an expression statement, as JSDoc writes above `this.x = x`, is an orphan
+  the grammar reads too, since both are common. Anywhere else the grammar
+  does not take one, as above another statement, inside an expression, before
+  an argument, or before a parameter, the parser's `strayComment` option reads
+  the file without it and reports it as an orphan (`DEC-stray-comments`). A named function expression
   is an expression and no unit, and `exportStatement` keeps only lists of
   exports and `export default`.
 - `JavaScriptParserBase`'s predicates are answered by canon's parser hook:
@@ -176,3 +177,62 @@ Known limitations:
   code and on a line of its own, found no position where the parse fails but
   inside a token or where the code itself no longer parses, as `throw` with a
   line break after it.
+
+## Corpus
+
+`tools/corpus/javascript.sh` checks the grammar against five of the most used
+JavaScript code bases. It shallow-clones each repository below at the pinned
+commit into `/tmp/corpus/javascript`, or the directory given as its first
+argument, parses every `.js`, `.mjs`, and `.cjs` file with the plain grammar
+under a timeout of 300 seconds per file, and then parses every file the plain
+grammar parsed with the dialect, which must parse them all. Large repositories
+are sampled by subdirectory with a sparse checkout. Minified files and build
+output, `*.min.js` and anything under `dist/` or `build/`, are generated and
+not read: seven files of lodash's `dist/` and two minified scheduler builds of
+React. A file that fails is a deliberate exclusion only when node itself
+rejects it, by `node --check`. The script and its TypeScript twin share
+`tools/corpus/jsts-common.sh`.
+
+| Repository | Commit | Sampled | Files | Parsed | Excluded | Seconds |
+|------------|--------|---------|------:|-------:|---------:|--------:|
+| [facebook/react](https://github.com/facebook/react) | `278794d7dee9` | `/packages/` | 1816 | 704 | 1112 | 401.1 |
+| [nodejs/node](https://github.com/nodejs/node) | `019e869ad3a3` | `/lib/` | 429 | 429 | 0 | 190.9 |
+| [lodash/lodash](https://github.com/lodash/lodash) | `2b5e6f7399a7` | all | 48 | 48 | 0 | 104.2 |
+| [expressjs/express](https://github.com/expressjs/express) | `7ef98448f8b3` | all | 141 | 141 | 0 | 43.9 |
+| [mrdoob/three.js](https://github.com/mrdoob/three.js) | `457581a08070` | `/src/` | 755 | 755 | 0 | 190.3 |
+| Total | | | 3189 | 2077 | 1112 | 930.4 |
+
+Every file node accepts parses with the plain grammar and with the dialect:
+2,077 files, node's `lib/`, lodash, express, and three.js whole and 704 of
+React's. The 1,112 React files excluded are written in Flow, the type syntax
+React checks with Flow and strips with Babel, or hold JSX, and node rejects
+every one: 1,102 carry a `@flow` pragma, `import type`, or a JSX tag, and the
+10 others use Flow annotations without a pragma. The grammar does not read
+JSX or Flow, which are no ECMAScript, and the profile's extensions leave out
+`.jsx`; reading them would take a JSX lexer mode and Flow's type grammar,
+which TypeScript's grammar is closer to. The seconds are the sum of each
+file's wall time, the `canon` process included, with 10 files parsed at once
+on a machine whose load average stood between 40 and 100. A file takes 0.15
+seconds at the median, 0.55 at the 90th percentile, 2.2 at the 99th, and at
+most 36, lodash's `test/test.js`, 27,000 lines; a file that fails fails
+within 5 seconds. Through the dialect the slowest file is lodash's vendored
+`firebug-lite-debug.js`, 31,000 lines, at 121 seconds, since each of its
+JSDoc comments that no rule takes is a stray comment the file is read again
+without.
+
+The corpus found these gaps, now fixed in the plain grammar and the dialect:
+logical assignment, `||=` and `&&=`; a trailing comma after the last
+parameter; a number with a dot and no fraction digits, `1.`; a private brand
+check, `#x in o`; `using` and `await using` declarations; and, as in
+TypeScript, exponential lexing of an identifier with many underscores. In the
+dialect a JSDoc comment above a local binding or an expression statement, as
+JSDoc writes above `this.x = x`, is an orphan the grammar reads, so a file
+with many is not read again once for each.
+
+To rerun it, from the repository root, with node on the path:
+
+```sh
+stack build
+tools/corpus/javascript.sh                      # clones into /tmp/corpus/javascript
+CORPUS_SKIP_FETCH=1 tools/corpus/javascript.sh  # reuses the clones
+```

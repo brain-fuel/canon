@@ -57,13 +57,19 @@ typeParameters
     ;
 
 typeParameterList
-    : typeParameter (',' typeParameter)*
+    : typeParameter (',' typeParameter)* ','? // canon: a trailing comma
     ;
 
 typeParameter
-    : identifier constraint?
-    | identifier '=' typeArgument
+    : typeParameterModifier* identifier constraint? ('=' typeArgument)? // canon: const, in, and out modifiers, and a constraint with a default
     | typeParameters
+    ;
+
+// canon: the modifiers of a type parameter: const, and the variance annotations in and out.
+typeParameterModifier
+    : Const
+    | In
+    | {this.n("out")}? identifier
     ;
 
 constraint
@@ -103,14 +109,20 @@ primaryType
     | predefinedType                             # PredefinedPrimType
     | typeReference                              # ReferencePrimType
     | objectType                                 # ObjectPrimType
-    | primaryType {this.notLineTerminator()}? '[' primaryType? ']' # ArrayPrimType
-    | '[' tupleElementTypes ']'                  # TuplePrimType
+    | primaryType {this.notLineTerminator()}? '[' type_? ']' # ArrayPrimType // canon: any type as the index
+    | '[' tupleElementTypes? ']'                 # TuplePrimType // canon: the empty tuple []
     | typeQuery                                  # QueryPrimType
     | This                                       # ThisPrimType
-    | typeReference Is primaryType               # RedefinitionOfType
+    | typeReference Is type_                     # RedefinitionOfType // canon: any type after is
     | KeyOf primaryType                          # KeyOfType
-    | Infer identifier                           # InferType // canon: infer U in a conditional type
+    | Infer identifier (Extends type_)?          # InferType // canon: infer U, infer U extends C
+    | This Is type_                              # ThisPredicateType // canon: this is T
+    | {this.n("asserts")}? identifier (identifier | This) (Is type_)? # AssertsType // canon: asserts x, asserts x is T
+    | Import '(' StringLiteral ')' ('.' identifierName)* typeGeneric? # ImportType // canon: import("m").T
+    | '-'? numericLiteral                        # NumericLiteralType // canon: 0xFF and -1 as types
+    | '-'? bigintLiteral                         # BigIntLiteralType
     | ReadOnly primaryType                       # ReadonlyType // canon: readonly T[]
+    | templateLiteralType                        # TemplateLiteralPrimType // canon: a template literal type
     ;
 
 predefinedType
@@ -151,11 +163,12 @@ typeBody
     ;
 
 typeMemberList
-    : typeMember ((SemiColon | ',') typeMember)*
+    : typeMember ((SemiColon | ',' | {this.lineTerminatorAhead()}?) typeMember)* // canon: a line break separates members too
     ;
 
 typeMember
     : mappedTypeMember // canon: { [P in keyof T]: T[P] } with its modifiers
+    | accessorSignature // canon: get x(): T and set x(v: T)
     | propertySignatur
     | callSignature
     | constructSignature
@@ -173,7 +186,12 @@ tupleType
 
 // Tuples can have a trailing comma. See https://github.com/Microsoft/TypeScript/issues/28893
 tupleElementTypes
-    : type_ (',' type_)* ','?
+    : tupleElement (',' tupleElement)* ','? // canon: named, optional, and rest elements
+    ;
+
+// canon: a tuple element: a type, optional with ?, named as in [name: string], or a rest element.
+tupleElement
+    : '...'? (identifierName '?'? ':')? type_ '?'?
     ;
 
 functionType
@@ -181,7 +199,7 @@ functionType
     ;
 
 constructorType
-    : 'new' typeParameters? '(' parameterList? ')' '=>' type_
+    : Abstract? 'new' typeParameters? '(' parameterList? ')' '=>' type_ // canon: abstract new
     ;
 
 typeQuery
@@ -191,6 +209,7 @@ typeQuery
 typeQueryExpression
     : identifier
     | (identifierName '.')+ identifierName
+    | Import '(' StringLiteral ')' ('.' identifierName)* // canon: typeof import("m")
     ;
 
 propertySignatur
@@ -228,7 +247,7 @@ parameter
 
 optionalParameter
     : decoratorList? (
-        accessibilityModifier? identifierOrPattern (
+        accessibilityModifier? ({this.n("override")}? identifier)? ReadOnly? identifierOrPattern ( // canon: readonly and override parameter properties
             '?' typeAnnotation?
             | typeAnnotation? initializer
         )
@@ -240,7 +259,7 @@ restParameter
     ;
 
 requiredParameter
-    : decoratorList? accessibilityModifier? ReadOnly? identifierOrPattern typeAnnotation?
+    : decoratorList? accessibilityModifier? ({this.n("override")}? identifier)? ReadOnly? identifierOrPattern typeAnnotation? // canon: override parameter properties
     ;
 
 accessibilityModifier
@@ -259,7 +278,7 @@ constructSignature
     ;
 
 indexSignature
-    : '[' identifier ':' (Number | String) ']' typeAnnotation
+    : ReadOnly? '[' identifier ':' type_ ']' typeAnnotation // canon: readonly, and any key type, as symbol or a union
     ;
 
 methodSignature
@@ -345,12 +364,12 @@ decoratorMemberExpression
     ;
 
 decoratorCallExpression
-    : decoratorMemberExpression arguments
+    : decoratorMemberExpression typeArguments? arguments // canon: @Decorator<T>(...)
     ;
 
 // ECMAPart
 program
-    : sourceElements? EOF
+    : HashBangLine? sourceElements? EOF // canon: a hashbang line
     ;
 
 sourceElement
@@ -481,7 +500,7 @@ variableDeclarationList
     ;
 
 variableDeclaration
-    : (identifierOrKeyWord | arrayLiteral | objectLiteral) typeAnnotation? singleExpression? (
+    : (identifierOrKeyWord | arrayLiteral | objectLiteral) '!'? typeAnnotation? singleExpression? ( // canon: x!: T
         '=' typeParameters? singleExpression
     )? // ECMAScript 6: Array & Object Matching
     ;
@@ -598,6 +617,7 @@ classTail
 
 classExtendsClause
     : Extends typeReference
+    | Extends singleExpression typeArguments? // canon: any expression, as extends mixin(A, B)
     ;
 
 implementsClause
@@ -613,14 +633,14 @@ classElement
     ;
 
 propertyMemberDeclaration
-    : propertyMemberBase classElementName '?'? typeAnnotation? initializer? SemiColon        # PropertyDeclarationExpression // canon: #private members
-    | propertyMemberBase classElementName callSignature (('{' functionBody '}') | SemiColon) # MethodDeclarationExpression
+    : propertyMemberBase classElementName ('?' | '!')? typeAnnotation? initializer? SemiColon        # PropertyDeclarationExpression // canon: #private members, x!: T
+    | propertyMemberBase '*'? classElementName '?'? callSignature (('{' functionBody '}') | SemiColon) # MethodDeclarationExpression // canon: generator and optional methods
     | propertyMemberBase (getAccessor | setAccessor)                                     # GetterSetterDeclarationExpression
     | abstractDeclaration                                                                # AbstractMemberDeclaration
     ;
 
 propertyMemberBase
-    : accessibilityModifier? Async? Static? ReadOnly?
+    : (accessibilityModifier | Async | Static | ReadOnly | Declare | Abstract | {this.n("override")}? identifier | {this.n("accessor")}? identifier)* // canon: modifiers in any order, declare, override, and accessor
     ;
 
 indexMemberDeclaration
@@ -628,7 +648,7 @@ indexMemberDeclaration
     ;
 
 generatorMethod
-    : (Async {this.notLineTerminator()}?)? '*'? propertyName '(' formalParameterList? ')' '{' functionBody '}'
+    : (Async {this.notLineTerminator()}?)? '*'? propertyName '?'? callSignature '{' functionBody '}' // canon: type parameters, typed parameters, and a return type
     ;
 
 generatorFunctionDeclaration
@@ -668,7 +688,7 @@ formalParameterList
     ;
 
 formalParameterArg
-    : decorator? accessibilityModifier? ReadOnly? assignable '?'? typeAnnotation? ( // canon: readonly parameter properties
+    : decorator? accessibilityModifier? ({this.n("override")}? identifier)? ReadOnly? assignable '?'? typeAnnotation? ( // canon: readonly and override parameter properties
         '=' singleExpression
     )? // ECMAScript 6: Initialization
     ;
@@ -715,11 +735,17 @@ propertyAssignment
     ;
 
 getAccessor
-    : getter '(' ')' typeAnnotation? '{' functionBody '}'
+    : getter '(' ')' typeAnnotation? ('{' functionBody '}')? // canon: an accessor without a body, abstract or declared
     ;
 
 setAccessor
-    : setter '(' formalParameterList? ')' '{' functionBody '}'
+    : setter '(' formalParameterList? ')' ('{' functionBody '}')?
+    ;
+
+// canon: an accessor's signature in an interface or object type, get x(): T or set x(v: T).
+accessorSignature
+    : getter '(' ')' typeAnnotation?
+    | setter '(' parameterList? ')' typeAnnotation?
     ;
 
 propertyName
@@ -800,6 +826,7 @@ singleExpression
     | '(' expressionSequence ')'                                      # ParenthesizedExpression
     | typeArguments expressionSequence?                               # GenericTypes
     | singleExpression As asExpression                                # CastAsExpression
+    | singleExpression {this.n("satisfies")}? identifier type_         # SatisfiesExpression // canon: e satisfies T
 // TypeScript v2.0
     | singleExpression '!'                                            # NonNullAssertionExpression
     ;
@@ -824,7 +851,7 @@ anonymousFunction
     ;
 
 arrowFunctionDeclaration
-    : Async? arrowFunctionParameters typeAnnotation? '=>' arrowFunctionBody
+    : Async? typeParameters? arrowFunctionParameters typeAnnotation? '=>' arrowFunctionBody // canon: <T>(x: T) => x
     ;
 
 arrowFunctionParameters
@@ -867,6 +894,11 @@ literal
 
 templateStringLiteral
     : BackTick templateStringAtom* BackTick
+    ;
+
+// canon: a template literal type, as `${string}-${number}`, whose holes are types.
+templateLiteralType
+    : BackTick (TemplateStringAtom | TemplateStringEscapeAtom | TemplateStringStartExpression type_ TemplateCloseBrace)* BackTick
     ;
 
 templateStringAtom
@@ -925,6 +957,11 @@ identifier
     | Constructor
     | Namespace
     | Abstract
+    | Module // canon: the contextual keywords that are names too
+    | Declare
+    | Is
+    | Infer
+    | Require
     ;
 
 identifierOrKeyWord

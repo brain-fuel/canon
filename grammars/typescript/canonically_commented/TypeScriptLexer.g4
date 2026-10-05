@@ -314,7 +314,9 @@ fragment DecimalIntegerLiteral: '0' | [1-9] [0-9_]*;
 
 fragment ExponentPart: [eE] [+-]? [0-9_]+;
 
-fragment IdentifierPart: IdentifierStart | [\p{Mn}] | [\p{Nd}] | [\p{Pc}] | '\u200C' | '\u200D';
+// canon: the connector punctuation other than _, which IdentifierStart already matches, so an
+// identifier with many underscores has one match rather than two per underscore.
+fragment IdentifierPart: IdentifierStart | [\p{Mn}] | [\p{Nd}] | [\u203F\u2040\u2054\uFE33\uFE34\uFE4D-\uFE4F\uFF3F] | '\u200C' | '\u200D';
 
 fragment IdentifierStart: [\p{L}] | [$_] | '\\' UnicodeEscapeSequence;
 
