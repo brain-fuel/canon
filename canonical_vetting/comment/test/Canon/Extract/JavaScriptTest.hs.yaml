@@ -10,8 +10,20 @@ decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaS
 decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/extractText:
   digest: sha256:000e18c8b5b36dbe
   verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_aJsDocCommentAnywhereNeverFailsTheParseAndIsAnOrphanUnlessItIsATypeAnnotation:
+  digest: sha256:a51961c86a8d8d8a
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_aLineBreakBetweenTwoTokensEndsAStatementWhereJavaScriptInsertsASemicolon:
+  digest: sha256:db7f5a644345f0b9
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theFirstJsDocCommentBelowAHashbangLineCanBeTheFilesWhy:
+  digest: sha256:2fc2927bc1b2c3d6
+  verdict: pending
 decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theFirstJsDocCommentOfAFileIsTheFilesWhyOnlyWhenItSaysSo:
   digest: sha256:c315cbd624cac2e1
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theGrammarReadsTheSyntaxNodeThreeJsAndExpressWrite:
+  digest: sha256:3317bb67f57316eb
   verdict: pending
 decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theJavaScriptDialectBindsJsDocToDeclarationsAndReportsMisplacedOnes:
   digest: sha256:97e0838840c2c95f
@@ -24,6 +36,9 @@ decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaS
   verdict: pending
 decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theJavaScriptProfileParsesEveryFileOfTheChalkSampleIntoItsUnits:
   digest: sha256:12c27f9baaa00893
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_thePropertiesOfAnExportedObjectLiteralAreUnitsThatInheritItsRequirement:
+  digest: sha256:fad56f8226efd79f
   verdict: pending
 decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/sampleFiles:
   digest: sha256:cac4cc83a886da56

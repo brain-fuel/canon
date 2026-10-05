@@ -1,0 +1,168 @@
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser:
+  digest: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/attribute:
+  digest: sha256:ab58ad7617c6f552
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/block:
+  digest: sha256:6d2ec86c6e22435b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/blockBody:
+  digest: sha256:545cbd051a75a8ee
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/blockLabel:
+  digest: sha256:aabb8aa0df50f8b5
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/bodyItem:
+  digest: sha256:54ba058b505423a3
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/canonicalComment:
+  digest: sha256:0cbae5a72323b006
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/collectionValue:
+  digest: sha256:56c7ff385dc69266
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/configFile:
+  digest: sha256:17550c9c64471a44
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/directiveClose:
+  digest: sha256:b64fdea62e94b1a9
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/directiveOpen:
+  digest: sha256:815f4c23201cd6ac
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/docPart:
+  digest: sha256:bb6b6c5e8cb9923b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/exprTerm:
+  digest: sha256:e23bd2969d87024a
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/expression:
+  digest: sha256:0bec9d230009f75c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/forCond:
+  digest: sha256:e4fc412bd1404833
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/forDirective:
+  digest: sha256:1d574bd31dd5410e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/forExpr:
+  digest: sha256:3cce002085b35808
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/forIntro:
+  digest: sha256:1ea625129ff8a1f1
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/functionCall:
+  digest: sha256:e871720ac09adf66
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/getAttr:
+  digest: sha256:b816612f170363c7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/ifDirective:
+  digest: sha256:08ba34602ed7bd46
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/index:
+  digest: sha256:4af6358173ae431b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/interpolation:
+  digest: sha256:9cbabca4b580e699
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonCheck:
+  digest: sha256:50914c787ba86687
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonDataGroup:
+  digest: sha256:181907f9f8e1c23e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonDataSource:
+  digest: sha256:db4f2c0ebab7b769
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonDescribedMember:
+  digest: sha256:d369121548266521
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonFile:
+  digest: sha256:d99e45d61cd2b344
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonImport:
+  digest: sha256:d78c5718c9c1ce2c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonLocal:
+  digest: sha256:5a85ff06304fa044
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonMember:
+  digest: sha256:a745aba932422317
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonModule:
+  digest: sha256:d52dd999aabeb74b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonMoved:
+  digest: sha256:cb80fd1a80cdec0f
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonObject:
+  digest: sha256:866a9c8645b6afb0
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonOutput:
+  digest: sha256:5cc489d2143abe84
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonProvider:
+  digest: sha256:c9b5aa9935b3c408
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonProviderGroup:
+  digest: sha256:217d779cd6a0443e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonRemoved:
+  digest: sha256:d4e19d01019003c0
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonResource:
+  digest: sha256:88ca65e5a9add731
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonTop:
+  digest: sha256:5e80f8a4d50e04a6
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonTypeGroup:
+  digest: sha256:4460bb2ffdf72662
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonValue:
+  digest: sha256:3494a3b166bc55a8
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/jsonVariable:
+  digest: sha256:c0ab01e4fe6f5c30
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/literalValue:
+  digest: sha256:4c2e4c3e302ef950
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/localEntry:
+  digest: sha256:2feecd44842c1697
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/note:
+  digest: sha256:77783f82b937d79c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/object:
+  digest: sha256:21cd04dda57cd43b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/objectElem:
+  digest: sha256:ac70872ad326d52e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/splat:
+  digest: sha256:b543c23e0e1736eb
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/stringLiteral:
+  digest: sha256:241057c55a4c12bb
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/templateExpr:
+  digest: sha256:2398b234dbb00ee6
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/templatePart:
+  digest: sha256:4919077c735a0e36
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/topBody:
+  digest: sha256:1c8bfc6ae7b74083
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/topItem:
+  digest: sha256:eda1fb0274f2ec63
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/tuple:
+  digest: sha256:e207586c82392e56
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLParser.g4/grammarDefinition/HCLParser/parserRule/variableExpr:
+  digest: sha256:bd1d3c88f30763e1
+  verdict: pending

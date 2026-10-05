@@ -4,8 +4,20 @@ decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment:
 decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/data/CanonicalComment:
   digest: sha256:5443bfa992934b00
   verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/attributeBody:
+  digest: sha256:334d955cfaf91394
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/dedent:
+  digest: sha256:f8ac941826e41b9f
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/dialectCommentBody:
+  digest: sha256:99dc82e473b8f2c5
+  verdict: pending
 decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/docCommentBody:
   digest: sha256:eda9afe36d2e1b5b
+  verdict: pending
+decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/docStringBody:
+  digest: sha256:8f33db274c796365
   verdict: pending
 decision/haskell/src/Canon/CanonicalComment.hs/module/Canon.CanonicalComment/function/licenseTokens:
   digest: sha256:ff1da5a8768f7724

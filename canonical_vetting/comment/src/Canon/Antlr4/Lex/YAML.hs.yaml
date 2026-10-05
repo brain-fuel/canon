@@ -1,0 +1,51 @@
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML:
+  digest: sha256:6a07b47ddade4eff
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/data/YAMLLayout:
+  digest: sha256:6ca7d8e3f103cb0b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/code:
+  digest: sha256:9e2ed9447a4f6688
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/continuation:
+  digest: sha256:704e586935db9649
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/endPosition:
+  digest: sha256:630efbf723ffc70c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/hidden:
+  digest: sha256:6a638334a5d67e8b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/layoutFor:
+  digest: sha256:87dfc9b9dd885d95
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/line:
+  digest: sha256:24c469c37ddfb6fa
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/offside:
+  digest: sha256:4e484fb7df05b46f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/onAction:
+  digest: sha256:39fa127c79ccd8a1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/onEmit:
+  digest: sha256:f9bc740453f1388d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/onPredicate:
+  digest: sha256:68edc9790658133e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/opening:
+  digest: sha256:28d209a06a8d24ee
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/splitColon:
+  digest: sha256:61386b03fcdaca96
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/splitQuoted:
+  digest: sha256:10c32a06b3a28c9d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/virtual:
+  digest: sha256:c91bf69b8e7b0ac0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/YAML.hs/module/Canon.Antlr4.Lex.YAML/function/yamlLexerHooks:
+  digest: sha256:6ea1121359f3ee0c
+  verdict: pending

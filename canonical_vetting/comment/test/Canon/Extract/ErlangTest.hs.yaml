@@ -1,0 +1,45 @@
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest:
+  digest: sha256:05785a0caaef4dac
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/dialectProfile:
+  digest: sha256:eae6ff171f0262da
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_anEdocCommentBetweenErlangClausesIsAnOrphanThatHidesNeitherTheFunctionNorTheFile:
+  digest: sha256:00cafe33675752a0
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_anErlangDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan:
+  digest: sha256:21b42f252b908e38
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_anErlangFileInLatin1IsReadAsLatin1:
+  digest: sha256:ae7abc54dcb869e6
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_anErlangMacroIsNotExpandedInsideItselfAndStringifiedArgumentsExpandToAString:
+  digest: sha256:b1f71cf9e9a85a42
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_anErlangModuleExportsNothingWithoutAnExportListUnlessItCompilesWithExportAll:
+  digest: sha256:bd2456803d6ef3d9
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_anUntypedErlangRecordIsAUnitOfItsOwnInTheDialectWhateverFollowsIt:
+  digest: sha256:0461139d7994afb6
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_erlangDialectReadsDocStringsAndEdocCommentsAndRequiresThemOnExportedUnits:
+  digest: sha256:d05ff8179c8db09f
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_erlangGrammarReadsMacrosDirectivesAndTheSyntaxOfOtp24To28:
+  digest: sha256:48d890cd17166d15
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_erlangLexerReadsSubtractionTripleQuotedStringsSigilsAndHiddenDocs:
+  digest: sha256:19ca43da9ac6788e
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_erlangProfileBindsEdocCommentsAndDocAttributesAcrossSpecsAndHidesWhatDocFalseHides:
+  digest: sha256:e60227c71fe6a978
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/prop_theErlangGrammarAndDialectReadNativeRecordsCallsOfCallsAndTheOtherSyntaxOfOtp29:
+  digest: sha256:fc57c3701f9f40e2
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/sampleProfile:
+  digest: sha256:587a214c05ab00a1
+  verdict: pending
+decision/haskell/test/Canon/Extract/ErlangTest.hs/module/Canon.Extract.ErlangTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

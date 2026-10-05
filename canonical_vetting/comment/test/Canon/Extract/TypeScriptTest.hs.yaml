@@ -10,6 +10,21 @@ decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeS
 decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/extractText:
   digest: sha256:000e18c8b5b36dbe
   verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_anAmbientModuleIsNamedWithoutQuotesAndAHashbangLinePrecedesTheFilesWhy:
+  digest: sha256:fda72260de9e0e92
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_anExportedObjectLiteralsPropertiesAreUnitsAndAStrayTsDocCommentIsAnOrphan:
+  digest: sha256:531930c9cd938ed7
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_overloadSignaturesAndTheirImplementationAreOneUnit:
+  digest: sha256:277c180c7f6fb2bb
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theGrammarReadsTheSyntaxTheTypeScriptCompilerAngularNestAndDenosStdWrite:
+  digest: sha256:a8320a86f887451e
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theMembersOfEveryObjectTypeOnTheRightOfAnExportedAliasInheritItsRequirement:
+  digest: sha256:2ec5f92f0020b0b4
+  verdict: pending
 decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theTypeScriptDialectBindsTsDocToDeclarationsAndMembersAndReportsMisplacedOnes:
   digest: sha256:3fc367699b410a67
   verdict: pending

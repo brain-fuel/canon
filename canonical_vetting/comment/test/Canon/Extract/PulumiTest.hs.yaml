@@ -1,0 +1,45 @@
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest:
+  digest: sha256:50d5879103e35a30
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/extracted:
+  digest: sha256:231a3d6ddf6883ec
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/parsedBoth:
+  digest: sha256:28151bd937e5eeed
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_aDocumentMarkerIsOneOnlyAtTheStartOfItsLine:
+  digest: sha256:e67520ca47c9be14
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_aPlainScalarContinuesOnIndentedLinesWhateverTheyHold:
+  digest: sha256:56aace57ec5242b2
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_aPulumiCommentAnywhereInAProgramParsesAndOnlyOneDirectlyAboveAnEntryBinds:
+  digest: sha256:bc209b0c8c49f8c3
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_pulumiDialectMakesUnitsOfResourcesVariablesOutputsAndConfigKeys:
+  digest: sha256:93ed806c6390e758
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_pulumiDialectReadsQuotedKeysFlowInterpolationsAndTemplateConfig:
+  digest: sha256:bd37f5149dddedf4
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_pulumiProfileOwnsPulumiProgramsAndStackFilesByName:
+  digest: sha256:8a1c728d30d49cd2
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_thePlainYamlProfileReadsAnyOtherYamlFileWithoutUnits:
+  digest: sha256:f86f993090ceb4eb
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_yamlGrammarsParseThePulumiExamplesIntoTheirEntries:
+  digest: sha256:432a4b101a2ac299
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/prop_yamlGrammarsReadAnchorsTagsFlowCollectionsComplexKeysAndStreams:
+  digest: sha256:28cbb3a973b8b66f
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/sampleProfile:
+  digest: sha256:a1a3e1dba3e7f7ea
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/PulumiTest.hs/module/Canon.Extract.PulumiTest/function/tokensOf:
+  digest: sha256:876ff8e346190590
+  verdict: pending

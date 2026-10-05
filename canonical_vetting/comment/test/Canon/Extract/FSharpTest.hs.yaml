@@ -10,11 +10,20 @@ decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTes
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/extractDialect:
   digest: sha256:551daabf9653449e
   verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/parsedOrFail:
+  digest: sha256:a617ca466e3bd8a8
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_aByteOrderMarkAndAnOperatorInAConstraintLeaveTheFSharpLayoutAsWritten:
+  digest: sha256:86bc16f2f4dbc200
+  verdict: pending
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_aDocCommentOnALocalLetBindsToIt:
   digest: sha256:6017bae7b0ed150c
   verdict: pending
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_aSignatureFileCarriesTheCommentsOfItsImplementation:
   digest: sha256:728b1581b6d0f115
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_anFSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan:
+  digest: sha256:c1cf295017c2d61c
   verdict: pending
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_fsharpGrammarParsesTheViewEngineSampleIntoItsDeclarations:
   digest: sha256:9826e00f1ef6a286
@@ -33,6 +42,12 @@ decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTes
   verdict: pending
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_theFSharpDialectReadsTheViewEngineSampleAsTheProfileDoes:
   digest: sha256:adb734c17ff69f38
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_theFSharpGrammarReadsClassAndEndBodiesAndTheLayoutsFantomasWritesAsDeclarations:
+  digest: sha256:3a85d668e1d146da
+  verdict: pending
+decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_theFSharpGrammarReadsTheDeclarationLayoutsOfTheCorpusAsDeclarations:
+  digest: sha256:3c107b35d0cba37a
   verdict: pending
 decision/haskell/test/Canon/Extract/FSharpTest.hs/module/Canon.Extract.FSharpTest/function/prop_theMembersAfterAUnionCaseWithAnAnonymousRecordAreTheUnions:
   digest: sha256:4036e9aa080497f0

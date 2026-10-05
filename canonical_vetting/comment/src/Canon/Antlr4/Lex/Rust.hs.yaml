@@ -1,0 +1,9 @@
+decision/haskell/src/Canon/Antlr4/Lex/Rust.hs/module/Canon.Antlr4.Lex.Rust:
+  digest: sha256:97dd79ce94d87c3d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Rust.hs/module/Canon.Antlr4.Lex.Rust/function/onEmit:
+  digest: sha256:406c1aceadeb7a5f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Rust.hs/module/Canon.Antlr4.Lex.Rust/function/rustLexerHooks:
+  digest: sha256:b0e6ae7b51df50f5
+  verdict: pending

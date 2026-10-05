@@ -10,6 +10,21 @@ decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTes
 decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/extractDialect:
   digest: sha256:4764aac0372e37d8
   verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_aGroovydocCommentInsideAnExpressionOrBetweenBracketsIsAnOrphanAndTheFileStillParses:
+  digest: sha256:ebc5eaa985ec9326
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_aGroovydocDecisionEndsWhereItsCommentEnds:
+  digest: sha256:3d253014213af8dd
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_aMemberNamedForItsClassWithoutAReturnTypeIsAConstructorDefIncluded:
+  digest: sha256:6394243a2c9ced79
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_aSpockFeatureMethodIsNamedByItsStringWithoutQuotesItsSlashesMadeSafe:
+  digest: sha256:1209ec949ebf451e
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_eachNameAGroovyFieldDeclaresIsAFieldThatSharesItsGroovydoc:
+  digest: sha256:f3eed96a93118410
+  verdict: pending
 decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyDialectBindsGroovydocToDeclarationsAndReportsMisplacedOnes:
   digest: sha256:20d337d9bfa493bf
   verdict: pending
@@ -18,6 +33,9 @@ decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTes
   verdict: pending
 decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyGrammarParsesTheSpockGenesisSampleIntoItsDeclarations:
   digest: sha256:e3db52aca1d51b5a
+  verdict: pending
+decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyLexerReadsDollarsAtTheEdgesOfSlashyStringsAsGroovyDoes:
+  digest: sha256:c79571c54929461c
   verdict: pending
 decision/haskell/test/Canon/Extract/GroovyTest.hs/module/Canon.Extract.GroovyTest/function/prop_theGroovyLexerTellsSlashyStringsFromDivisionAndReadsGStrings:
   digest: sha256:aa31e647e59f9506

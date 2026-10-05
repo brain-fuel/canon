@@ -10,14 +10,29 @@ decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTes
 decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/extractWith:
   digest: sha256:42e7b996ad8bc84f
   verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_aModuleDocstringFullOfBackslashesLexesAtOnce:
+  digest: sha256:70d217249d4f7e58
+  verdict: pending
 decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonDialectBindsDocstringsThatOpenABodyAndRequiresThemOnPublicNames:
   digest: sha256:97ebe00bbefb4729
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonDialectKnowsTheTopLevelByNestingNotByColumn:
+  digest: sha256:0f2c101416da6c6e
   verdict: pending
 decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonDialectParsesEveryFileOfTheItsdangerousSampleWithItsDocstrings:
   digest: sha256:28a13798d1eb9222
   verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonDialectReadsAdjacentStringsAsOneDocstring:
+  digest: sha256:653d2621b603cf37
+  verdict: pending
 decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonGrammarAndProfileParseEveryFileOfTheItsdangerousSampleIntoItsDefinitions:
   digest: sha256:9bc8fb9ebba12b06
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonGrammarsParseATableOfManyItemsAndALongFStringRunInLinearTime:
+  digest: sha256:0a325970a96ad540
+  verdict: pending
+decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonGrammarsParseTheSyntaxOfPython38Through315:
+  digest: sha256:3ba3935cdbf29efd
   verdict: pending
 decision/haskell/test/Canon/Extract/PythonTest.hs/module/Canon.Extract.PythonTest/function/prop_thePythonProfileBindsDocstringsToDefinitionsAndRecognisesTests:
   digest: sha256:6b34fa6e7917a5dd

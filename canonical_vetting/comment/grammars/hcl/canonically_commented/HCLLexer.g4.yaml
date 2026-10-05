@@ -1,0 +1,186 @@
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer:
+  digest: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_CLOSE:
+  digest: sha256:169aa1aa6586ccbf
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_LICENSE:
+  digest: sha256:97775d86cd1d24e7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_PUNCT:
+  digest: sha256:79de7710f7e955b0
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_REF:
+  digest: sha256:ea9ade41747ad71e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_WORD:
+  digest: sha256:d180b80e7a26ed6c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_WS:
+  digest: sha256:ea60c7c84e478133
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_LICENSE:
+  digest: sha256:0514a8ba60c25181
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_LINE_END:
+  digest: sha256:1220548a92457035
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_PUNCT:
+  digest: sha256:60fe8e2314ffde10
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_REF:
+  digest: sha256:184879afc5dd5fb7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_WORD:
+  digest: sha256:71f9f252c7615af5
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/DocLine/lexerRule/DOC_WS:
+  digest: sha256:265e3b024c385052
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_DIRECTIVE:
+  digest: sha256:1e393cc841a7457a
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_ESCAPE:
+  digest: sha256:f7ca8a2db4c2ffad
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_INTERP:
+  digest: sha256:ec9b9f3699a05341
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_NEWLINE:
+  digest: sha256:ad482b1235a495f3
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_SIGIL:
+  digest: sha256:bb4b36000476e779
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Heredoc/lexerRule/HEREDOC_TEXT:
+  digest: sha256:ec74c03653bdeeb7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_CLOSE:
+  digest: sha256:b55e6c487b29f988
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_DIRECTIVE:
+  digest: sha256:1845838448573cd8
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_ESCAPE:
+  digest: sha256:ee35290b42fa7459
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_INTERP:
+  digest: sha256:075d2d64c53b8a7f
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_SIGIL:
+  digest: sha256:78dfcff06003aa7b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerMode/Template/lexerRule/TEMPLATE_TEXT:
+  digest: sha256:7aafc90c42581db9
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/AND:
+  digest: sha256:cf2351a007a7f04e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/ASSIGN:
+  digest: sha256:f51b0f06b945e959
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/BANG:
+  digest: sha256:a21a2a82ccd40019
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/COLON:
+  digest: sha256:ce389b05a308dd7b
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/COMMA:
+  digest: sha256:25de0f307304fd43
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/DOC_BLOCK_OPEN:
+  digest: sha256:a11bb922a4b7fe80
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/DOC_OPEN:
+  digest: sha256:acb8ccfd35c9b929
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/DOT:
+  digest: sha256:00cda2a34593ea8a
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/DOUBLE_COLON:
+  digest: sha256:9dce20f06844676c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/ELLIPSIS:
+  digest: sha256:fe694b9e5e44bb52
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/EQUAL_EQUAL:
+  digest: sha256:8277811967160a52
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/FAT_ARROW:
+  digest: sha256:8ba2ee4496bf4466
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/GREATER:
+  digest: sha256:5db02d116e7440d7
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/GREATER_EQUAL:
+  digest: sha256:31ed721c7485fdb0
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/HEREDOC_OPEN:
+  digest: sha256:f529c58d2d3a10a5
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/IDENTIFIER:
+  digest: sha256:4cb598d5355bdde4
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LBRACE:
+  digest: sha256:e6cb17213b9fb7c8
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LBRACK:
+  digest: sha256:a3d23533e68c62c9
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LESS:
+  digest: sha256:5e17268711483579
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LESS_EQUAL:
+  digest: sha256:f81cae8d43a6e16c
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/LPAREN:
+  digest: sha256:4d87b2bf3f5c1e67
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/MINUS:
+  digest: sha256:bc0ec6fe805ebfe2
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/NEWLINE:
+  digest: sha256:26c13b72e10fb48a
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/NOT_EQUAL:
+  digest: sha256:b95020e3fb005fd3
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/NUMBER:
+  digest: sha256:43cedc2fa1b1c6ce
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/OR:
+  digest: sha256:38a4b97287d6c43d
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/PERCENT:
+  digest: sha256:76a7b101daad9a00
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/PLUS:
+  digest: sha256:b62b141bb64c99e6
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/QUESTION:
+  digest: sha256:f54589fe5bf1c2c3
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/RBRACE:
+  digest: sha256:331fa862e288b26f
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/RBRACK:
+  digest: sha256:1851306401d2e2e6
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/RPAREN:
+  digest: sha256:9e4a597cc50850be
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/SLASH:
+  digest: sha256:1f66622f1ed44a0e
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/STAR:
+  digest: sha256:195ee1760e41d2da
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/TEMPLATE_OPEN:
+  digest: sha256:6f7495750f0b99d8
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/TILDE:
+  digest: sha256:54b41c52cef43ef1
+  verdict: pending
+decision/antlr4/grammars/hcl/canonically_commented/HCLLexer.g4/grammarDefinition/HCLLexer/lexerRule/WS:
+  digest: sha256:e159dac858014c61
+  verdict: pending

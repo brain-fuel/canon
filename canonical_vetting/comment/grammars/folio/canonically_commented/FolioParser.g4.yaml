@@ -19,9 +19,6 @@ decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefin
 decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/documentedSection:
   digest: sha256:74ec878d9a5aee4b
   verdict: pending
-decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/element:
-  digest: sha256:64e0542c8af55d77
-  verdict: pending
 decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/frontField:
   digest: sha256:fa751d714cd4d0b0
   verdict: pending
@@ -40,11 +37,11 @@ decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefin
 decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/section:
   digest: sha256:4c3d8960f241e10e
   verdict: pending
+decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/sectionProse:
+  digest: sha256:7dfed832b29e4486
+  verdict: pending
 decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/sectionRest:
   digest: sha256:31fcb3ff9280cc09
-  verdict: pending
-decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/strayFrontMatter:
-  digest: sha256:6f4ca915e7b1be68
   verdict: pending
 decision/antlr4/grammars/folio/canonically_commented/FolioParser.g4/grammarDefinition/FolioParser/parserRule/title:
   digest: sha256:4e3a132eedffc5e9

@@ -49,6 +49,9 @@ decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Parser.g4/grammarDe
 decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/docPart:
   digest: sha256:bb6b6c5e8cb9923b
   verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/documentedRule:
+  digest: sha256:c76abc048ae0e36d
+  verdict: pending
 decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Parser.g4/grammarDefinition/ANTLRv4Parser/parserRule/ebnf:
   digest: sha256:d43d684ff9be3970
   verdict: pending

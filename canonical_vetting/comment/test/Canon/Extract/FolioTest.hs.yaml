@@ -7,8 +7,14 @@ decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/
 decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/extractDialect:
   digest: sha256:bd4b232dcc47b2cc
   verdict: pending
-decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/prop_theFolioDialectBindsFrontMatterToThePageAndReportsMisplacedFrontMatter:
-  digest: sha256:ba4648022571e085
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/prop_aLongSectionAndFrontMatterWhoseValuesSpanLinesHaveOneParseSoTheFolioDialectReadsThemInTime:
+  digest: sha256:27b48aef0b80aa77
+  verdict: pending
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/prop_theFolioDialectBindsFrontMatterToThePageOnlyAtItsTop:
+  digest: sha256:efe66627ee24d88d
+  verdict: pending
+decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/prop_theFolioDialectReadsAllOfASectionsProseAsItsWhyAndItsBlocksAsItsHow:
+  digest: sha256:b93782ad88525dd2
   verdict: pending
 decision/haskell/test/Canon/Extract/FolioTest.hs/module/Canon.Extract.FolioTest/function/prop_theFolioDialectReadsCanonsPagesIntoADocUnitAndItsSections:
   digest: sha256:ab9faacb685c5584

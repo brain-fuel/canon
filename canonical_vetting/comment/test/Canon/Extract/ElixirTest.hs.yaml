@@ -1,14 +1,35 @@
 decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest:
   digest: sha256:7804868a5fc87c1f
   verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/dialectProfile:
+  digest: sha256:b9fca794b4c2ea84
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/extractFixture:
+  digest: sha256:874e6748e957f7ca
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_anElixirDocAttributeAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan:
+  digest: sha256:67ec41ee4a81aa72
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_elixirDialectReadsDocAndModuledocAsCanonicalCommentsAsElixirBindsThem:
+  digest: sha256:5bbafd0a6920810d
+  verdict: pending
 decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_elixirGrammarParsesTheJasonSampleIntoItsDefinitionsAndTests:
   digest: sha256:0453f748aa632bac
   verdict: pending
 decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_elixirLexerKeepsInterpolationsHeredocsAndSigilsWhole:
   digest: sha256:1314d5fd763fe0e2
   verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_elixirProfileBindsADocAcrossBlankLinesAndHidesWhatDocFalseHides:
+  digest: sha256:4ac034d313155c3d
+  verdict: pending
 decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_elixirProfileBindsDocAttributesMergesClausesAndRecognisesTests:
   digest: sha256:307b7df36528b5c7
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_elixirProfileNamesOperatorUnquotedAndTestDefinitionsAsElixirDoes:
+  digest: sha256:1aad4413e1ad6163
+  verdict: pending
+decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/prop_theElixirGrammarAndDialectReadTheCorpusConstructsOfElixirsOwnLibrary:
+  digest: sha256:27e1e1a750240031
   verdict: pending
 decision/haskell/test/Canon/Extract/ElixirTest.hs/module/Canon.Extract.ElixirTest/function/sampleProfile:
   digest: sha256:cc309765fae57eec

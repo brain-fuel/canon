@@ -1,6 +1,9 @@
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest:
   digest: sha256:78269b1018bc614d
   verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/bothInterpreters:
+  digest: sha256:7fae4040e077b1ea
+  verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/dialectProfile:
   digest: sha256:6ce42a4f5b199071
   verdict: pending
@@ -10,11 +13,35 @@ decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/fu
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/extractFixture:
   digest: sha256:35cb1cf05571bf9b
   verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/parsesWithBoth:
+  digest: sha256:606848b363696884
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_aCargoScriptsFrontmatterIsHiddenAndItsItemsParse:
+  digest: sha256:462d0bcc8e696530
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_aRustBlockCommentHoldsStarsAndNestsAsRustcReadsIt:
+  digest: sha256:f4611ef0794a9890
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_aRustDeclarativeMacro20IsAMacroUnitOfTheDialect:
+  digest: sha256:60739decb84ccd24
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_aRustDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan:
+  digest: sha256:57ec4b1360acdbbb
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_aRustLineDocCommentEndsAtOneTokenAtALineBreakOrTheEndOfTheFile:
+  digest: sha256:cace5da4ea43f49d
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_aRustStringOfManyUnicodeEscapesLexesInOneWay:
+  digest: sha256:9787f0c817aa6b11
+  verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_aRustTraitImplIsNamedByItsTraitAndItsSelfType:
   digest: sha256:ebe8d4c21e756093
   verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_anEmptyRustLineCommentEndsAtItsLineAndHidesNoCode:
   digest: sha256:83417fe2a800aa35
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_asyncTryAndDynAreNamesInA2015EditionCrateAndKeywordsInLaterOnes:
+  digest: sha256:b8a68403d81f6d88
   verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_rustGrammarParsesTheScopeguardSampleIntoItsItems:
   digest: sha256:3945a07b8ee2affa
@@ -33,6 +60,12 @@ decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/fu
   verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_theRustDialectParsesTheScopeguardSampleWithItsDocComments:
   digest: sha256:2f8a51e7656622c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_theRustGrammarAndDialectParseTheSyntaxStabilisedSinceRust160:
+  digest: sha256:d027c9b10e22245f
+  verdict: pending
+decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/prop_theRustGrammarAndDialectParseTheUnstableSyntaxOfTheStandardLibrary:
+  digest: sha256:08ac94f766dbe791
   verdict: pending
 decision/haskell/test/Canon/Extract/RustTest.hs/module/Canon.Extract.RustTest/function/sampleProfile:
   digest: sha256:ec37d8eda1a1e59d

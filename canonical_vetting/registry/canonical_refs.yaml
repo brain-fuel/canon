@@ -4,6 +4,9 @@ registry/BSD-3-Clause:
 registry/MIT:
   digest: sha256:ed6c0abb656b1c69
   verdict: pending
+registry/REQ-antlr4-support:
+  digest: sha256:77b4f0d845200950
+  verdict: pending
 registry/REQ-calm-ingestion:
   digest: sha256:94c3a11f5480ade7
   verdict: pending
@@ -15,6 +18,9 @@ registry/REQ-csharp-support:
   verdict: pending
 registry/REQ-elixir-support:
   digest: sha256:2782d9b7ab29fa82
+  verdict: pending
+registry/REQ-erlang-support:
+  digest: sha256:14eae7406d62275c
   verdict: pending
 registry/REQ-folio-support:
   digest: sha256:a008d5d911469c0c
@@ -31,6 +37,15 @@ registry/REQ-go-support:
 registry/REQ-groovy-support:
   digest: sha256:1ebbf50591e22a43
   verdict: pending
+registry/REQ-haskell-support:
+  digest: sha256:7fa2455e67b60fd7
+  verdict: pending
+registry/REQ-hcl-support:
+  digest: sha256:1716591cf43c94ac
+  verdict: pending
+registry/REQ-java-support:
+  digest: sha256:3f0fe1db07fc8aaa
+  verdict: pending
 registry/REQ-javascript-support:
   digest: sha256:e3f75cb1a9a22261
   verdict: pending
@@ -40,8 +55,14 @@ registry/REQ-kotlin-support:
 registry/REQ-lawspec-parity:
   digest: sha256:818808f010801263
   verdict: pending
+registry/REQ-make-support:
+  digest: sha256:b823767b7df1543c
+  verdict: pending
 registry/REQ-prolog-support:
   digest: sha256:b46fd8ae18794413
+  verdict: pending
+registry/REQ-pulumi-yaml-support:
+  digest: sha256:35b1264e4f95ecf9
   verdict: pending
 registry/REQ-python-support:
   digest: sha256:096f3e9aea5df5af
@@ -91,11 +112,26 @@ registry/csharp-xml-documentation:
 registry/diataxis:
   digest: sha256:10ca97f8ffe93ea6
   verdict: pending
+registry/edoc-user-guide:
+  digest: sha256:614a5f13001abf26
+  verdict: pending
 registry/elixir-syntax-reference:
   digest: sha256:23bf5487f6198181
   verdict: pending
 registry/elixir-writing-documentation:
   digest: sha256:ae55155a89219e0b
+  verdict: pending
+registry/erl-parse-otp-29:
+  digest: sha256:0366939d49b68f86
+  verdict: pending
+registry/erlang-documentation:
+  digest: sha256:746c8e01dd9a6563
+  verdict: pending
+registry/erlang-preprocessor:
+  digest: sha256:173748dd5be61e04
+  verdict: pending
+registry/erlang-source-encoding:
+  digest: sha256:2eda308a84273b2b
   verdict: pending
 registry/eslint-jsdoc-require-jsdoc:
   digest: sha256:3177020462c90fa2
@@ -130,14 +166,29 @@ registry/grammars-v4-csharp:
 registry/grammars-v4-elixir:
   digest: sha256:0eb0a815e45c723a
   verdict: pending
+registry/grammars-v4-erlang:
+  digest: sha256:fd7970a0b1614111
+  verdict: pending
 registry/grammars-v4-rust:
   digest: sha256:4aaaf6600d958f28
+  verdict: pending
+registry/grammars-v4-scala-license:
+  digest: sha256:ae02d188bc297bc5
+  verdict: pending
+registry/grammars-v4-scala-page:
+  digest: sha256:4ce17825431549fe
+  verdict: pending
+registry/grammars-v4-terraform:
+  digest: sha256:dd5e580d70876af7
   verdict: pending
 registry/grampa-2017:
   digest: sha256:0990a639309c9f81
   verdict: pending
 registry/groovydoc:
   digest: sha256:4f0750ef11ed35c1
+  verdict: pending
+registry/hcl-native-syntax-spec:
+  digest: sha256:0b64513e70b043f5
   verdict: pending
 registry/jsdoc:
   digest: sha256:55af014a59f32fd4
@@ -160,6 +211,15 @@ registry/pep-257:
 registry/pep-8:
   digest: sha256:734b49d660bb0c34
   verdict: pending
+registry/pldb-scala:
+  digest: sha256:d0c0716e801b8564
+  verdict: pending
+registry/pulumi-project-file:
+  digest: sha256:66a08405c083062c
+  verdict: pending
+registry/pulumi-yaml-reference:
+  digest: sha256:1fb987ea4ccf6ac7
+  verdict: pending
 registry/revive-exported:
   digest: sha256:6bb680eb423f1011
   verdict: pending
@@ -172,8 +232,17 @@ registry/rust-missing-docs:
 registry/rust-reference-comments:
   digest: sha256:6a6df382bf4aad23
   verdict: pending
+registry/scala3-compiler-parser:
+  digest: sha256:40aded0997dd028b
+  verdict: pending
+registry/scala3-compiler-scanners:
+  digest: sha256:5e19a914cb2ee3a5
+  verdict: pending
 registry/scala3-indentation:
   digest: sha256:a963ddd2d69238ef
+  verdict: pending
+registry/scala3-syntax:
+  digest: sha256:6fbc2dc836879fb9
   verdict: pending
 registry/scaladoc:
   digest: sha256:b75b616c687089fa
@@ -184,6 +253,12 @@ registry/semver-2:
 registry/swi-prolog-pldoc:
   digest: sha256:9a33a93087bac054
   verdict: pending
+registry/terraform-language-docs:
+  digest: sha256:eea7c1910858d560
+  verdict: pending
+registry/terraform-test-docs:
+  digest: sha256:158e545b982861e2
+  verdict: pending
 registry/tsdoc:
   digest: sha256:5463873a73930df7
   verdict: pending
@@ -192,4 +267,7 @@ registry/tsdoc-package-documentation:
   verdict: pending
 registry/warth-2008:
   digest: sha256:68507085ad4dcaee
+  verdict: pending
+registry/yaml-1-2-spec:
+  digest: sha256:a86a352f0583f30e
   verdict: pending

@@ -1,0 +1,6 @@
+decision/erlang/source/test/recon_alloc_SUITE.erl:
+  digest: sha256:4b54825fe2719503
+  verdict: pending
+decision/erlang/source/test/recon_alloc_SUITE.erl/function/allocdata/1:
+  digest: sha256:78993adbf627c394
+  verdict: pending

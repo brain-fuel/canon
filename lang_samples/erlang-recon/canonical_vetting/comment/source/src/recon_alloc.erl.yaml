@@ -1,0 +1,78 @@
+decision/erlang/source/src/recon_alloc.erl:
+  digest: sha256:ddbd11878bb97597
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/alloc/0:
+  digest: sha256:974d9a8edd41ce0e
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/allocators/0:
+  digest: sha256:69103febd22be311
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/allocators/1:
+  digest: sha256:ec7a5e2271c30de9
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/average_block_sizes/1:
+  digest: sha256:9be00848aaaaf348
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/average_calc/1:
+  digest: sha256:6c7175b87492a592
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/average_group/1:
+  digest: sha256:d4dac26ec182b8f6
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/cache_hit_rates/0:
+  digest: sha256:b83576fc3c3a2797
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/container_size/3:
+  digest: sha256:fe612804f450789c
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/fragmentation/1:
+  digest: sha256:4e251e7e3c30c19f
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/memory/1:
+  digest: sha256:928d9f149073961a
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/memory/2:
+  digest: sha256:af87bd1302caa002
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/sbcs_to_mbcs/1:
+  digest: sha256:b52f87a137b3b61c
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/set_unit/1:
+  digest: sha256:441fc4896ac08a6d
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot/0:
+  digest: sha256:524978a84e385779
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_clear/0:
+  digest: sha256:22d48a02724e4663
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_get/0:
+  digest: sha256:b529ed014b3b6820
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_get_int/0:
+  digest: sha256:ff6ffd4bec3d6185
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_int/0:
+  digest: sha256:1490bf6e8b104ee7
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_load/1:
+  digest: sha256:01e2a84b750fc493
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_print/0:
+  digest: sha256:cd87c207153c86c5
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/snapshot_save/1:
+  digest: sha256:2201ae2a33b38925
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/usage/2:
+  digest: sha256:a617ac8229bb9791
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/util_alloc/0:
+  digest: sha256:d7d728e67de5d768
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/function/weighed_values/2:
+  digest: sha256:a442b17e4a2df897
+  verdict: pending
+decision/erlang/source/src/recon_alloc.erl/type/memory/0:
+  digest: sha256:355779a1c54e00f6
+  verdict: pending

@@ -1,0 +1,39 @@
+decision/erlang/source/src/recon_rec.erl:
+  digest: sha256:ce2d46eb7661591c
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/clear/0:
+  digest: sha256:1cca9f29069e4655
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/clear/1:
+  digest: sha256:939c2bdfd8ca0c85
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/ensure_table_exists/0:
+  digest: sha256:6386a592c6da9620
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/format_tuple/1:
+  digest: sha256:d479d677d20720d0
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/get_list/0:
+  digest: sha256:4839a600151474fa
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/import/1:
+  digest: sha256:5b361dd623461078
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/is_active/0:
+  digest: sha256:c440144b611c2e05
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/limit/3:
+  digest: sha256:53aaf4c5e4301483
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/list/0:
+  digest: sha256:f1e11816a4303473
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/function/lookup_record/2:
+  digest: sha256:6386a592c6da9620
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/type/field/0:
+  digest: sha256:1276be3ad2325127
+  verdict: pending
+decision/erlang/source/src/recon_rec.erl/type/limit/0:
+  digest: sha256:ee0df97cece494b1
+  verdict: pending

@@ -16,6 +16,9 @@ decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/f
 decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/javaIdentifierStart:
   digest: sha256:0e898abb08e73d0a
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/javaLetterInGString:
+  digest: sha256:c09bd15a442125d3
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Groovy.hs/module/Canon.Antlr4.Lex.Groovy/function/onAction:
   digest: sha256:1db1fcf4adfa2260
   verdict: pending

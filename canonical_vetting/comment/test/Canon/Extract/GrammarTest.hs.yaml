@@ -1,6 +1,78 @@
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest:
   digest: sha256:a51e85f41950fa47
   verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/aJavadocCommentInsideAnExpressionOrBetweenArgumentsIsAnOrphanAndTheFileStillParses:
+  digest: sha256:80f981ca5b824029
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/makeModelOf:
+  digest: sha256:fa56247d23721132
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/parsesAsMakefile:
+  digest: sha256:24068b2a545a0df3
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/parsesThroughBothHaskellGrammars:
+  digest: sha256:f92d681b39a53a5c
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aCanonicalCommentAMakefileCannotBindIsAnOrphanAndTheFileStillParses:
+  digest: sha256:f470e4fe82dfcf22
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaddockCommentInAnExportListOrOnARecordFieldIsAnOrphanReadInPlace:
+  digest: sha256:48858aef7cdb4010
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaskellDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan:
+  digest: sha256:bdb01341857968b1
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaskellFileReadsTheFirstBranchOfEachIfAndHidesTheBranchesNotRead:
+  digest: sha256:1878fc41a1fa9ffe
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaskellLayoutBlockEndsAtACommaThenElseOrGuardEqualsSignItCannotHold:
+  digest: sha256:a250a8bbafba1590
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaskellOperatorIsOneTokenByMaximalMunch:
+  digest: sha256:81ce608214ce2501
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaskellPragmaAnywhereIsHiddenLikeAComment:
+  digest: sha256:ff3874c35e53877b
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaskellQuasiQuotationIsOneTokenOnlyWhereQuasiQuotesIsEnabled:
+  digest: sha256:83a18f26ff2c8db9
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaskellSyntaxErrorAfterDocCommentsIsReportedWhereItIs:
+  digest: sha256:68a6401db75462f7
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aMakefileDirectiveWordIsANameAfterTheFirstWordOfALine:
+  digest: sha256:681d8687bacbf001
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aMakefileReferenceKeepsItsColonsCommasSpacesAndHashesInsideOneName:
+  digest: sha256:dcaf71305385e326
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aMakefileRuleKeepsItsRecipeAcrossConditionalsAndContinuedLines:
+  digest: sha256:7d5331f1f3232555
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_anActionsCommentsStringsAcrossLinesAndEscapesHaveOneReadingSoTheMetaGrammarReadsThemInTime:
+  digest: sha256:37df8f71d4bbd8d5
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_anAntlrRuleWithoutACanonicalCommentParsesAndIsReportedAndACommentThatBindsToNothingIsAnOrphan:
+  digest: sha256:0c002b38f457c849
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_haskellDeclarationsAndExpressionsGhcAcceptsParse:
+  digest: sha256:7ce4eeb19d84c5c0
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_haskellImportsAndExportsNamePatternSynonymsTypeOperatorsAndPackages:
+  digest: sha256:c6236d9efb50e541
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_haskellLiteralsTakeUnderscoresBinaryDigitsMagicHashesAndManyEscapes:
+  digest: sha256:6a847ea9e7746cba
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_theHaskellLayoutClosesBlocksWhereGhcsParseErrorRuleDoes:
+  digest: sha256:1170092b603175f5
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_theJavaGrammarAndDialectReadTheJava21To25SyntaxWidelyUsedProjectsWrite:
+  digest: sha256:205cf220ee905ad4
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_twoAntlrCommentsInARowWhereNoneBindsAreBothOrphans:
+  digest: sha256:b8807f34505483cf
+  verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/tests:
   digest: sha256:1b696bdd90d4f5c2
   verdict: pending

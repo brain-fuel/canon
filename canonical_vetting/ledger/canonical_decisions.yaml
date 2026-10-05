@@ -43,14 +43,26 @@ ledger/DEC-csharp-grammar:
 ledger/DEC-decision-ledger:
   digest: sha256:dd2281a0692cc38c
   verdict: pending
+ledger/DEC-declarator-label:
+  digest: sha256:6fac526521ba22a9
+  verdict: pending
 ledger/DEC-doc-kind:
   digest: sha256:64116332fed38a5f
   verdict: pending
 ledger/DEC-docs-tree:
   digest: sha256:5f48d89e22263e1d
   verdict: pending
+ledger/DEC-elixir-dialect:
+  digest: sha256:3dc1cce0b55d32cc
+  verdict: pending
 ledger/DEC-elixir-grammar:
   digest: sha256:5c0f00b225123806
+  verdict: pending
+ledger/DEC-erlang-dialect:
+  digest: sha256:78670718b1d82789
+  verdict: pending
+ledger/DEC-erlang-grammar:
+  digest: sha256:0ae30d8ee2a50651
   verdict: pending
 ledger/DEC-exemptions:
   digest: sha256:0014dd475a2ae1a5
@@ -79,11 +91,17 @@ ledger/DEC-fsharp-signatures:
 ledger/DEC-git-runner:
   digest: sha256:baf073ef55c15f85
   verdict: pending
+ledger/DEC-gleam-dialect:
+  digest: sha256:18ad02c2f0436cc6
+  verdict: pending
 ledger/DEC-gleam-grammar:
   digest: sha256:845555a1c6966994
   verdict: pending
 ledger/DEC-go-dialect:
   digest: sha256:93459e33436294f3
+  verdict: pending
+ledger/DEC-go-grammar:
+  digest: sha256:ae664ee06737f78e
   verdict: pending
 ledger/DEC-grammar-carries-extraction-rules:
   digest: sha256:4f625b2d8bdd2462
@@ -106,8 +124,14 @@ ledger/DEC-haskell-grammar-comments:
 ledger/DEC-haskell-grammar-fixes:
   digest: sha256:e99ca4edc60407e6
   verdict: pending
+ledger/DEC-hcl-grammar:
+  digest: sha256:7bc8ffeb8028ff42
+  verdict: pending
 ledger/DEC-header-blocks-documented:
   digest: sha256:a4d06587eee51f48
+  verdict: pending
+ledger/DEC-hidden-label:
+  digest: sha256:ae6d248c42004450
   verdict: pending
 ledger/DEC-highlight-by-lexer:
   digest: sha256:4ef328196c0c655f
@@ -118,6 +142,9 @@ ledger/DEC-human-sign-off:
 ledger/DEC-inherited-label:
   digest: sha256:3cdc90969723c0d8
   verdict: pending
+ledger/DEC-java-grammar:
+  digest: sha256:0b0683d07fcf6b8a
+  verdict: pending
 ledger/DEC-java-grammar-comments:
   digest: sha256:fb71c3ba073a3ac8
   verdict: pending
@@ -127,11 +154,20 @@ ledger/DEC-javascript-dialect:
 ledger/DEC-kotlin-dialect:
   digest: sha256:e5324d70fc6ea26f
   verdict: pending
+ledger/DEC-kotlin-grammar:
+  digest: sha256:56db4864cb4f2ad2
+  verdict: pending
 ledger/DEC-lawspec-parity:
   digest: sha256:b6a0624944fd611b
   verdict: pending
 ledger/DEC-layout-parse-error-rule:
   digest: sha256:21214caf6e23009f
+  verdict: pending
+ledger/DEC-lexer-performance:
+  digest: sha256:dca6ced29add11cc
+  verdict: pending
+ledger/DEC-loop-memo:
+  digest: sha256:7873ff5d2697b66f
   verdict: pending
 ledger/DEC-make-dialect:
   digest: sha256:e99f6d60743dd647
@@ -178,8 +214,14 @@ ledger/DEC-prolog-dialect:
 ledger/DEC-prolog-grammar-fixes:
   digest: sha256:57404e864b39543b
   verdict: pending
+ledger/DEC-pulumi-yaml-grammar:
+  digest: sha256:3cc5e737c017a0eb
+  verdict: pending
 ledger/DEC-python-dialect:
   digest: sha256:557c8692a09e8ea3
+  verdict: pending
+ledger/DEC-python-grammar:
+  digest: sha256:6149d7676babb36a
   verdict: pending
 ledger/DEC-required-orphan-labels:
   digest: sha256:bf2b6c07605a617e
@@ -213,6 +255,12 @@ ledger/DEC-section-prose-is-why:
   verdict: pending
 ledger/DEC-site-renderer:
   digest: sha256:5efca6987191951d
+  verdict: pending
+ledger/DEC-source-encoding:
+  digest: sha256:f262eac2bc8831eb
+  verdict: pending
+ledger/DEC-stray-comments:
+  digest: sha256:8f8cefd41a6fd544
   verdict: pending
 ledger/DEC-tangle-in-canon:
   digest: sha256:c4e34a7da4e59d58

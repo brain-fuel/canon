@@ -1,0 +1,45 @@
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL:
+  digest: sha256:e2793472c4d814a0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/data/HCLLexerState:
+  digest: sha256:8bf66b188da7eb51
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/code:
+  digest: sha256:0a960011099bf179
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/endLine:
+  digest: sha256:30fe2870d2690625
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/flushVisible:
+  digest: sha256:b9675f9236823470
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/hclLexerHooks:
+  digest: sha256:a8aeb9c252466cd1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/hidden:
+  digest: sha256:6a638334a5d67e8b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/inside:
+  digest: sha256:4a4c5cb4c8a8d6cd
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/insideBrackets:
+  digest: sha256:0f5f4c6aebf34fb4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/line:
+  digest: sha256:24c469c37ddfb6fa
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/newline:
+  digest: sha256:e0b415552a4b91d6
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/onAction:
+  digest: sha256:ba5ad229a272a507
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/onEmit:
+  digest: sha256:b8525951813082df
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/opening:
+  digest: sha256:6c5317feb0e83b87
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/HCL.hs/module/Canon.Antlr4.Lex.HCL/function/release:
+  digest: sha256:9332c2e9f9031547
+  verdict: pending

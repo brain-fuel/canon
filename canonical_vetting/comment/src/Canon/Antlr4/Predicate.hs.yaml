@@ -7,6 +7,9 @@ decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/fun
 decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/goPredicates:
   digest: sha256:4ba94a14de4a8899
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/insideDefinition:
+  digest: sha256:7157e84e6fe18ae8
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Predicate.hs/module/Canon.Antlr4.Predicate/function/javaScriptPredicates:
   digest: sha256:1351608250e1fbfd
   verdict: pending

@@ -7,6 +7,9 @@ decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/docA
 decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/docOpenerOf:
   digest: sha256:8eca52a3442dc99a
   verdict: pending
+decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/openParen:
+  digest: sha256:0845aa579a87f7af
+  verdict: pending
 decision/haskell/src/Canon/CommentScan.hs/module/Canon.CommentScan/function/scanCommentsWith:
   digest: sha256:52ff31ee8b39993e
   verdict: pending

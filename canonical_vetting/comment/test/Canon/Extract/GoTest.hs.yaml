@@ -16,8 +16,26 @@ decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/functi
 decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoDialectParsesEveryFileOfTheUuidSampleWithItsDocComments:
   digest: sha256:cce15df35dccbf6f
   verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoDialectReadsACommentInsideAContinuedExpressionAsNoDocComment:
+  digest: sha256:50ac77b3d1499a19
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoDialectReadsADocCommentAsGoDocGroupsItWithoutItsDirectives:
+  digest: sha256:75fc4e926635b76f
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoDialectReadsALongPackageCommentAndATrailingCommentGroupAtOnce:
+  digest: sha256:1b07befa0d8772f6
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoDialectRequiresACommentOnASpecWhenAnyOfItsNamesIsExported:
+  digest: sha256:22bb7fae6e0d897b
+  verdict: pending
 decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoGrammarAndProfileParseEveryFileOfTheUuidSampleIntoItsDeclarations:
   digest: sha256:81c851c6db9ce2b3
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoGrammarsParseATableOfManyElementsAndALongFunctionInLinearTime:
+  digest: sha256:d87ed4b2d4b11331
+  verdict: pending
+decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoGrammarsParseTheSyntaxTheGoParserAcceptsSince2026:
+  digest: sha256:259483f4b577d3a9
   verdict: pending
 decision/haskell/test/Canon/Extract/GoTest.hs/module/Canon.Extract.GoTest/function/prop_theGoProfileBindsCommentsToDeclarationsAndRecognisesTests:
   digest: sha256:fefec728ed2fe20a

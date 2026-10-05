@@ -10,6 +10,12 @@ decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/d
 decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/function/csharpLexerHooks:
   digest: sha256:2d62444a1511ea9f
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/function/endDoc:
+  digest: sha256:e4492c3f5ce5bc0a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/function/onEmit:
+  digest: sha256:2624372674cd8549
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/CSharp.hs/module/Canon.Antlr4.Lex.CSharp/function/runDirective:
   digest: sha256:dbaa60eff3278f6e
   verdict: pending

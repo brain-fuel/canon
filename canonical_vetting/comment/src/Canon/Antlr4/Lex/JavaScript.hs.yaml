@@ -7,6 +7,12 @@ decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.Java
 decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/javaScriptHooks:
   digest: sha256:1904bb50c7d32b90
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/onEmit:
+  digest: sha256:93b73f7470268a0f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/onPredicate:
+  digest: sha256:cbc6bc6cc112299a
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/regexPossible:
   digest: sha256:69436356ad93ea37
   verdict: pending

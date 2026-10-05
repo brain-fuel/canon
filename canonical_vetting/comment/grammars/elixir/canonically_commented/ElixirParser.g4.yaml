@@ -1,0 +1,189 @@
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser:
+  digest: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/anonymousFunction:
+  digest: sha256:2e7b0da03261e7eb
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/attribute:
+  digest: sha256:ee14ba248d027d12
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/bitstring:
+  digest: sha256:2a24c4e5750da2b9
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/block:
+  digest: sha256:d63640710a58655c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/blockKeyword:
+  digest: sha256:e9614b25f00586b2
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/blockName:
+  digest: sha256:3a8fe1ba7c11c3ac
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/callbackDefinition:
+  digest: sha256:0e4494ad24b9480a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/canonicalComment:
+  digest: sha256:dd4fb9db7a7db9b0
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/capturedOperator:
+  digest: sha256:e83103346ff80552
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/continuation:
+  digest: sha256:f808bc49890df835
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/definableOperator:
+  digest: sha256:6ea98207505afea3
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/definition:
+  digest: sha256:bd291ec3521d2e34
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/definitionHead:
+  digest: sha256:da3f1edc9902f500
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/definitionName:
+  digest: sha256:2b8ac65781c5f5d9
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/definitionWord:
+  digest: sha256:5b3584f08386f3c1
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/delegateDefinition:
+  digest: sha256:7f50a5bacf413b45
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/doBlock:
+  digest: sha256:a6f3af4485e9bc93
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/docPart:
+  digest: sha256:b7c8f79e0f781483
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/exceptionDefinition:
+  digest: sha256:34386e780f4eee51
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/expression:
+  digest: sha256:8dcad79c95e234a1
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/file:
+  digest: sha256:35ee09cdbe24845b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/heredoc:
+  digest: sha256:b0e8458ea5a51b67
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/heredocPart:
+  digest: sha256:38dc8eb3563ad23c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/hiddenDoc:
+  digest: sha256:ed5efa9db9ef2b84
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/hiddenModule:
+  digest: sha256:1b47f2ba8c4456ef
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/implementationDefinition:
+  digest: sha256:51c605063190c6d1
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/inner:
+  digest: sha256:bc57cde260a3a940
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/leadingOperator:
+  digest: sha256:ea4ab656969237ba
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/list:
+  digest: sha256:7c1068982fb36a6d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/map:
+  digest: sha256:9afd1774d97bd42a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/moduleBlock:
+  digest: sha256:7f8543584919f9af
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/moduleComment:
+  digest: sha256:2836ac2871e947ea
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/moduleDefinition:
+  digest: sha256:eb3c598570aea53f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/moduleName:
+  digest: sha256:9e9f70e5057bdfd9
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/moduleStatement:
+  digest: sha256:5a30cd72a6796282
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/namedBlock:
+  digest: sha256:e8bfe7612790584d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/operand:
+  digest: sha256:2008f62332c1288c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/operatorName:
+  digest: sha256:201fb6848ecff6aa
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/parenthesized:
+  digest: sha256:eb5fa57dddbc610a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/prefix:
+  digest: sha256:85864bc4b1bdf757
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/primary:
+  digest: sha256:e8d3119a24b214c3
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/privateFunction:
+  digest: sha256:064b6819faaff71d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/privateGuard:
+  digest: sha256:2184eb5d2bf7869a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/privateMacro:
+  digest: sha256:44c5ac32c9d04369
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/protocolDefinition:
+  digest: sha256:6428030780e489ae
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/publicFunction:
+  digest: sha256:ff6877938a98b317
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/publicGuard:
+  digest: sha256:b4d3727c0c2d00bb
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/publicMacro:
+  digest: sha256:db00d1cd272d4bfb
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/quotedAtom:
+  digest: sha256:b2d277c5ac5d4b69
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/separator:
+  digest: sha256:aca01c36b838f58b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/sigil:
+  digest: sha256:aad66ab7567082a6
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/sigilOpen:
+  digest: sha256:acaa7dc4b5a8ae93
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/sigilPart:
+  digest: sha256:7afffd289240b7bd
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/statement:
+  digest: sha256:f0478bdac6791b66
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/string:
+  digest: sha256:1cadab84efc0f258
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/stringPart:
+  digest: sha256:6feac608e767ee34
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/structDefinition:
+  digest: sha256:476371112e7f4e34
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/structName:
+  digest: sha256:14bdcf09ea389e91
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/trailingOperator:
+  digest: sha256:d755df52d279c983
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/tuple:
+  digest: sha256:67a1ab9b1344a37f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/typeComment:
+  digest: sha256:f6c1986aad20f3c0
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirParser.g4/grammarDefinition/ElixirParser/parserRule/typeDefinition:
+  digest: sha256:f118582f5fdba6be
+  verdict: pending

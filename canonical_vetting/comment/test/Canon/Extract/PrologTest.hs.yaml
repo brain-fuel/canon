@@ -13,8 +13,17 @@ decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTes
 decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/prop_thePrologDialectBindsPlDocCommentsToPredicatesAndReportsMisplacedOnes:
   digest: sha256:a1343947fe331c35
   verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/prop_thePrologDialectNamesExportedNonterminalsDeclarationsAndQualifiedHeadsAsPrologDoes:
+  digest: sha256:b4978cd6a7dbda6a
+  verdict: pending
 decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/prop_thePrologDialectParsesTheMarelleSampleIntoItsPredicates:
   digest: sha256:fa6579b1af6230b6
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/prop_thePrologDialectReadsAPlDocMarkInsideAClauseAsAPlainComment:
+  digest: sha256:cb636534f92e8763
+  verdict: pending
+decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/prop_thePrologGrammarsReadUserOperatorsAndSwiPrologSyntaxAsSwiPrologDoes:
+  digest: sha256:68d6f849a9cd09d7
   verdict: pending
 decision/haskell/test/Canon/Extract/PrologTest.hs/module/Canon.Extract.PrologTest/function/prop_thePrologProfileParsesEveryFileOfTheMarelleSampleIntoItsClauses:
   digest: sha256:f943c960b8726a03

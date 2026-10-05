@@ -1,0 +1,591 @@
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer:
+  digest: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocCharlistHeredoc/lexerRule/DOC_CHARLIST_CLOSE:
+  digest: sha256:a9df5fce8d50f642
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocCharlistHeredoc/lexerRule/DOC_CHARLIST_LICENSE:
+  digest: sha256:217662afc0314e31
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocCharlistHeredoc/lexerRule/DOC_CHARLIST_PUNCT:
+  digest: sha256:375e85042938ab5b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocCharlistHeredoc/lexerRule/DOC_CHARLIST_REF:
+  digest: sha256:9bf3ba62b0aebe8e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocCharlistHeredoc/lexerRule/DOC_CHARLIST_WORD:
+  digest: sha256:071ef30f880c9691
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocCharlistHeredoc/lexerRule/DOC_CHARLIST_WS:
+  digest: sha256:2f28cac8d1fca6a8
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocHeredoc/lexerRule/DOC_CLOSE:
+  digest: sha256:b866799a39bb650c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocHeredoc/lexerRule/DOC_ESCAPE:
+  digest: sha256:ed0c979dc80cbc2d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocHeredoc/lexerRule/DOC_INTERPOLATION:
+  digest: sha256:22f1d441afb21154
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocHeredoc/lexerRule/DOC_LICENSE:
+  digest: sha256:b73386bbd5b4148a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocHeredoc/lexerRule/DOC_PUNCT:
+  digest: sha256:3af1f7d303920bed
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocHeredoc/lexerRule/DOC_REF:
+  digest: sha256:7ffb77ddb20f5162
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocHeredoc/lexerRule/DOC_WORD:
+  digest: sha256:249e7fdeab02344e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocHeredoc/lexerRule/DOC_WS:
+  digest: sha256:a13df4c4feba421c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawHeredoc/lexerRule/DOC_RAW_CLOSE:
+  digest: sha256:c9d7ff8319f42ebe
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawHeredoc/lexerRule/DOC_RAW_LICENSE:
+  digest: sha256:69c30c17805b9b52
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawHeredoc/lexerRule/DOC_RAW_PUNCT:
+  digest: sha256:c0e98f1d7755c15d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawHeredoc/lexerRule/DOC_RAW_REF:
+  digest: sha256:bf6f9d7ff630abe9
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawHeredoc/lexerRule/DOC_RAW_WORD:
+  digest: sha256:2201b304e29f3ae6
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawHeredoc/lexerRule/DOC_RAW_WS:
+  digest: sha256:e9b3087e8320ed03
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawString/lexerRule/DOC_RAW_STRING_CLOSE:
+  digest: sha256:d986ac24117d7d85
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawString/lexerRule/DOC_RAW_STRING_LICENSE:
+  digest: sha256:1ce2a8ffd34a40ea
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawString/lexerRule/DOC_RAW_STRING_PUNCT:
+  digest: sha256:f24a967e1e575bd1
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawString/lexerRule/DOC_RAW_STRING_REF:
+  digest: sha256:d90bbb1254261a7b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawString/lexerRule/DOC_RAW_STRING_WORD:
+  digest: sha256:e7e9b62a4c22623d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocRawString/lexerRule/DOC_RAW_STRING_WS:
+  digest: sha256:a41e16febd4c282a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocString/lexerRule/DOC_STRING_CLOSE:
+  digest: sha256:18c6389909a20639
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocString/lexerRule/DOC_STRING_ESCAPE:
+  digest: sha256:da39e9d58a5b96ae
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocString/lexerRule/DOC_STRING_INTERPOLATION:
+  digest: sha256:e45f0a9d3ded804d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocString/lexerRule/DOC_STRING_LICENSE:
+  digest: sha256:929c9a798e083818
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocString/lexerRule/DOC_STRING_PUNCT:
+  digest: sha256:b4b7a1570bc521d3
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocString/lexerRule/DOC_STRING_REF:
+  digest: sha256:d2d83a9ead9915ee
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocString/lexerRule/DOC_STRING_WORD:
+  digest: sha256:2f057b2b70e69bba
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/DocString/lexerRule/DOC_STRING_WS:
+  digest: sha256:a6f0b0f1d33acacc
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/HEREDOC/lexerRule/HEREDOC_CLOSE:
+  digest: sha256:0bf927c19f64c202
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/HEREDOC/lexerRule/HEREDOC_INTERPOLATION:
+  digest: sha256:fc20d9447c207e8a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/HEREDOC/lexerRule/HEREDOC_PUNCTUATION:
+  digest: sha256:b2e6a7cf2808cb2e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/HEREDOC/lexerRule/HEREDOC_TEXT:
+  digest: sha256:7eeec762a37b7766
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_ANGLE/lexerRule/SIGIL_ANGLE_CLOSE:
+  digest: sha256:fa153c7db31f1940
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_ANGLE/lexerRule/SIGIL_ANGLE_HASH:
+  digest: sha256:71e326f7156759bc
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_ANGLE/lexerRule/SIGIL_ANGLE_INTERPOLATION:
+  digest: sha256:ec38ca0ca154c621
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_ANGLE/lexerRule/SIGIL_ANGLE_TEXT:
+  digest: sha256:3fb170eb2b7d0859
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_APOSTROPHE/lexerRule/SIGIL_APOSTROPHE_CLOSE:
+  digest: sha256:c0292dbac2c00c02
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_APOSTROPHE/lexerRule/SIGIL_APOSTROPHE_HASH:
+  digest: sha256:57d90469aed77ac3
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_APOSTROPHE/lexerRule/SIGIL_APOSTROPHE_INTERPOLATION:
+  digest: sha256:d52ea9c2c6cbb543
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_APOSTROPHE/lexerRule/SIGIL_APOSTROPHE_TEXT:
+  digest: sha256:7e512c12dae09e65
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BAR/lexerRule/SIGIL_BAR_CLOSE:
+  digest: sha256:1a5dbf19829c21f6
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BAR/lexerRule/SIGIL_BAR_HASH:
+  digest: sha256:3eccca1dba329c27
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BAR/lexerRule/SIGIL_BAR_INTERPOLATION:
+  digest: sha256:1f2b398ada18291d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BAR/lexerRule/SIGIL_BAR_TEXT:
+  digest: sha256:2c3f4745cd9bfad8
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BRACE/lexerRule/SIGIL_BRACE_CLOSE:
+  digest: sha256:7bdbfbf36a3f52cb
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BRACE/lexerRule/SIGIL_BRACE_HASH:
+  digest: sha256:9c613547c2494515
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BRACE/lexerRule/SIGIL_BRACE_INTERPOLATION:
+  digest: sha256:c5bddae271922e0d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BRACE/lexerRule/SIGIL_BRACE_TEXT:
+  digest: sha256:b954287eb1418cff
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BRACKET/lexerRule/SIGIL_BRACKET_CLOSE:
+  digest: sha256:93f9968a857a38b8
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BRACKET/lexerRule/SIGIL_BRACKET_HASH:
+  digest: sha256:a39340d647a703b1
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BRACKET/lexerRule/SIGIL_BRACKET_INTERPOLATION:
+  digest: sha256:36b1f174fd96e118
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_BRACKET/lexerRule/SIGIL_BRACKET_TEXT:
+  digest: sha256:d1895ffb4a4a8266
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_CHARDOC/lexerRule/SIGIL_CHARDOC_CLOSE:
+  digest: sha256:6b75e5da7ebd88ab
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_CHARDOC/lexerRule/SIGIL_CHARDOC_INTERPOLATION:
+  digest: sha256:d2afaebb828e3ae0
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_CHARDOC/lexerRule/SIGIL_CHARDOC_PUNCTUATION:
+  digest: sha256:b1ef12a04fa47ae2
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_CHARDOC/lexerRule/SIGIL_CHARDOC_TEXT:
+  digest: sha256:9742e08d7afb57ae
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_HEREDOC/lexerRule/SIGIL_HEREDOC_CLOSE:
+  digest: sha256:fa44ca94ead6fed6
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_HEREDOC/lexerRule/SIGIL_HEREDOC_INTERPOLATION:
+  digest: sha256:1550a9757622974c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_HEREDOC/lexerRule/SIGIL_HEREDOC_PUNCTUATION:
+  digest: sha256:5c374de535625325
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_HEREDOC/lexerRule/SIGIL_HEREDOC_TEXT:
+  digest: sha256:8aa6e863cdf01182
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_PAREN/lexerRule/SIGIL_PAREN_CLOSE:
+  digest: sha256:0ed86ec16fc5671c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_PAREN/lexerRule/SIGIL_PAREN_HASH:
+  digest: sha256:bed6d04d4b3545f4
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_PAREN/lexerRule/SIGIL_PAREN_INTERPOLATION:
+  digest: sha256:77cf9434a5b2a28e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_PAREN/lexerRule/SIGIL_PAREN_TEXT:
+  digest: sha256:5f819f0aa53f1430
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_QUOTE/lexerRule/SIGIL_CLOSE:
+  digest: sha256:d0b2e360ae4bbb8f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_QUOTE/lexerRule/SIGIL_INTERPOLATION:
+  digest: sha256:69648fc668bc9bd9
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_QUOTE/lexerRule/SIGIL_QUOTE_HASH:
+  digest: sha256:1015e59f2b132afa
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_QUOTE/lexerRule/SIGIL_TEXT:
+  digest: sha256:45621f6bd166dd7f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_SLASH/lexerRule/SIGIL_SLASH_CLOSE:
+  digest: sha256:4a302a7d5b2095dd
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_SLASH/lexerRule/SIGIL_SLASH_HASH:
+  digest: sha256:68ce80df40b0f8d7
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_SLASH/lexerRule/SIGIL_SLASH_INTERPOLATION:
+  digest: sha256:087b9e47a1484d52
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/SIGIL_SLASH/lexerRule/SIGIL_SLASH_TEXT:
+  digest: sha256:a62b15c691bad829
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/STRING/lexerRule/STRING_CLOSE:
+  digest: sha256:7603159e553d221f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/STRING/lexerRule/STRING_HASH:
+  digest: sha256:fc62ddf6a8c39afc
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/STRING/lexerRule/STRING_INTERPOLATION:
+  digest: sha256:9c9fdef83f1f48bb
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerMode/STRING/lexerRule/STRING_TEXT:
+  digest: sha256:fd40c5a004fb3863
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/AFTER:
+  digest: sha256:7db0c58f56f9f0f6
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/ALIAS:
+  digest: sha256:f93c394981d3be33
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/AND:
+  digest: sha256:957e735aa432d917
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/ARROW_LEFT:
+  digest: sha256:67ad8eb01abc84ee
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/ARROW_RIGHT:
+  digest: sha256:05fb0dfc0944233a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/AT:
+  digest: sha256:b3781cb48f90604b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/ATOM:
+  digest: sha256:751a53a158e0f043
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/ATOM_STRING_OPEN:
+  digest: sha256:ae60b9853359f2b6
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/ATTRIBUTE:
+  digest: sha256:33d4b10ff7a4b780
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/BANG:
+  digest: sha256:3045d24d0ab55177
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/BINARY:
+  digest: sha256:59f8b615e2c51927
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CALLBACK_ATTRIBUTE:
+  digest: sha256:e7ae73db161b9e17
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CAPTURE:
+  digest: sha256:f9de16dec56f7f49
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CARET:
+  digest: sha256:2fc5d560cf977b05
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CATCH:
+  digest: sha256:015cd27e1e6b5182
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CHAR:
+  digest: sha256:4d684a3caa9066e3
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CHARLIST:
+  digest: sha256:2578736932e7dd80
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CHARLIST_HEREDOC:
+  digest: sha256:32b58c8bd8408857
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CLOSE_BITS:
+  digest: sha256:f16da058f1486cc0
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CLOSE_BRACE:
+  digest: sha256:37c4d8beec6ab854
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CLOSE_BRACKET:
+  digest: sha256:8b0260de73bf2c1c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/CLOSE_PAREN:
+  digest: sha256:7bc1347158437ae1
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/COLON:
+  digest: sha256:ac6c5b8f2580b806
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/COMMA:
+  digest: sha256:ce2ba5d98c543392
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/COMMENT:
+  digest: sha256:57ceb53f12c04594
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEF:
+  digest: sha256:11a0dfd485f77edb
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFAULT_ARG:
+  digest: sha256:02301ffcc12a8233
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFDELEGATE:
+  digest: sha256:4c0605cc4af52da8
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFEXCEPTION:
+  digest: sha256:7042669f756f1b36
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFGUARD:
+  digest: sha256:a2af8f8dac8702b6
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFGUARDP:
+  digest: sha256:6b7a5aecfb76d64d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFIMPL:
+  digest: sha256:00aab0ac016ed010
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFMACRO:
+  digest: sha256:12032750f22e7c9c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFMACROP:
+  digest: sha256:af133adc28e27ef9
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFMODULE:
+  digest: sha256:82835994b8c58339
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFP:
+  digest: sha256:9759904eb921fafa
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFPROTOCOL:
+  digest: sha256:1e4dc20dd914fe85
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DEFSTRUCT:
+  digest: sha256:8a385c4320ed9cd4
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DESCRIBE_MACRO:
+  digest: sha256:efd4187b2d6f4643
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DO:
+  digest: sha256:92fa61e17c01882e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DOC_ATTRIBUTE:
+  digest: sha256:2842f434e18523de
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DOC_CHARLIST_OPEN:
+  digest: sha256:4db276f4f468d19e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DOC_OPEN:
+  digest: sha256:b4b25b16dfee8e3c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DOC_RAW_OPEN:
+  digest: sha256:0dfdb3250f27e2ee
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DOC_RAW_STRING_OPEN:
+  digest: sha256:4f2aeb3876c01d38
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DOC_STRING_OPEN:
+  digest: sha256:ceb472bf8a6f67dc
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DOT:
+  digest: sha256:2abc753f07187e3d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/DOUBLE_COLON:
+  digest: sha256:0a8a77d544fc16c6
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/ELLIPSIS:
+  digest: sha256:4042710dc510fab2
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/ELSE:
+  digest: sha256:495e3bb0e366b3cb
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/END:
+  digest: sha256:45073731e1053ef9
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/EQUALS:
+  digest: sha256:2fb60bc0d0b8e6a9
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/FALSE:
+  digest: sha256:c9c764bdf51a141b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/FAT_ARROW:
+  digest: sha256:249f3babe0e529cc
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/FLOAT:
+  digest: sha256:6e8b2fa6af69542c
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/FN:
+  digest: sha256:6b2f3aff802df69a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/HEREDOC_OPEN:
+  digest: sha256:ad0c3894aaee3121
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/HEX:
+  digest: sha256:44a29ada4dcb1bea
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/IDENTIFIER:
+  digest: sha256:ee377114ad4088b5
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/IN:
+  digest: sha256:7f7b4bf67195c4d9
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/INTEGER:
+  digest: sha256:2205e7a0e3da8846
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/KEYWORD:
+  digest: sha256:0ea1c6bd5b762485
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/MINUS:
+  digest: sha256:b28363eaaaebc307
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/MODULEDOC_ATTRIBUTE:
+  digest: sha256:e404b2b32b50b900
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/MODULEDOC_CHARLIST_OPEN:
+  digest: sha256:37393cad6901a9e4
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/MODULEDOC_OPEN:
+  digest: sha256:ff8dd80c9284f1b8
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/MODULEDOC_RAW_OPEN:
+  digest: sha256:4eeef4ff83e3dfda
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/MODULEDOC_RAW_STRING_OPEN:
+  digest: sha256:5f25ad6497fa6f99
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/MODULEDOC_STRING_OPEN:
+  digest: sha256:a8bbf3e1471ae54f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/NIL:
+  digest: sha256:0debd82056609d37
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/NL:
+  digest: sha256:54483305499aaf04
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/NOT:
+  digest: sha256:c79a4a213357fafb
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/OCTAL:
+  digest: sha256:c1fed4367a2b4411
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/OPEN_BITS:
+  digest: sha256:1dd94cf7a34e1109
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/OPEN_BRACE:
+  digest: sha256:3365bc0b5b86fcf5
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/OPEN_BRACKET:
+  digest: sha256:8d720ab5c4aa856a
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/OPEN_MAP:
+  digest: sha256:21f2cb91388c9805
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/OPEN_PAREN:
+  digest: sha256:30e1696616bb128d
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/OPERATOR:
+  digest: sha256:cb27257041ccee7b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/OPERATOR_KEYWORD:
+  digest: sha256:e2d20317a9181bdd
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/OR:
+  digest: sha256:8bf9d1af445c442e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/PERCENT:
+  digest: sha256:b7b2a824a34dfe41
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/PIPE:
+  digest: sha256:b40a44f0c6c20604
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/PIPE_RIGHT:
+  digest: sha256:242bd71df2be7233
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/PLUS:
+  digest: sha256:6d4aa717aab850d7
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/RANGE:
+  digest: sha256:e10d5b313cf916c7
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/RESCUE:
+  digest: sha256:d921025c5847d52e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SEMICOLON:
+  digest: sha256:0b69a3813771c2eb
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL:
+  digest: sha256:16552c65b84e8424
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_ANGLE_OPEN:
+  digest: sha256:665be838a5aea479
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_APOSTROPHE_OPEN:
+  digest: sha256:6e1e7c8a1fb2318e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_BAR_OPEN:
+  digest: sha256:35ac0580fda36846
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_BRACE_OPEN:
+  digest: sha256:9bd85e0915591132
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_BRACKET_OPEN:
+  digest: sha256:e07cc37136fca941
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_CHARDOC_OPEN:
+  digest: sha256:f46f8f1779b4db92
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_HEREDOC_OPEN:
+  digest: sha256:4ef7f8a97872bc45
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_PAREN_OPEN:
+  digest: sha256:9c6929d4143a4bba
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_QUOTE_OPEN:
+  digest: sha256:d72f3814c43d0218
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SIGIL_SLASH_OPEN:
+  digest: sha256:3d1fcad869a9c469
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/SLASH:
+  digest: sha256:1f66622f1ed44a0e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/STAR:
+  digest: sha256:86ab2b95a7561d96
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/STRING_OPEN:
+  digest: sha256:863b353546d18667
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TEST_MACRO:
+  digest: sha256:bc6777c7a8f90aa0
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TILDE3:
+  digest: sha256:069fc31a48774c3f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TRUE:
+  digest: sha256:c56a3634b0b1be1b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_CHARLIST_OPEN:
+  digest: sha256:d927872832cbc77f
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_OPEN:
+  digest: sha256:f5ce8253b43024ef
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_RAW_OPEN:
+  digest: sha256:6020f383a3472cba
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_RAW_STRING_OPEN:
+  digest: sha256:f506b2fee6739e1e
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPEDOC_STRING_OPEN:
+  digest: sha256:c8e13bead3703822
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/TYPE_ATTRIBUTE:
+  digest: sha256:1aafccf479c6969b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/UNQUOTE:
+  digest: sha256:4679cef7509f014b
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/WHEN:
+  digest: sha256:12c252cf90676631
+  verdict: pending
+decision/antlr4/grammars/elixir/canonically_commented/ElixirLexer.g4/grammarDefinition/ElixirLexer/lexerRule/WS:
+  digest: sha256:1d24112abfae08b7
+  verdict: pending

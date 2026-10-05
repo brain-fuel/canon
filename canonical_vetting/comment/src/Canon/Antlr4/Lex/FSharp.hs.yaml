@@ -7,6 +7,12 @@ decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/d
 decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/data/Held:
   digest: sha256:04b26360af334275
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/docEnd:
+  digest: sha256:6ffcc67666b087a1
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/docOpen:
+  digest: sha256:5eccada22361fcb6
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/FSharp.hs/module/Canon.Antlr4.Lex.FSharp/function/docTypes:
   digest: sha256:5c421f41cbeeef56
   verdict: pending

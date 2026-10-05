@@ -19,11 +19,17 @@ decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/
 decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaGrammarParsesEveryFileOfTheIronSampleIntoItsDefinitions:
   digest: sha256:038617c4d86cdd82
   verdict: pending
-decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaLexerHookTurnsIndentationIntoLayoutTokens:
-  digest: sha256:75d5d15a30a6959a
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaLexerHookInsertsLayoutTokensWhereTheCompilerDoes:
+  digest: sha256:7ab1a9d775d4d05c
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaLexerReadsStringsCharactersCommentsAndXmlWhole:
+  digest: sha256:430affcc44640d63
   verdict: pending
 decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaProfileBindsScaladocAcrossAnnotationsExemptsPrivateAndOverridingMembersAndRecognisesTests:
   digest: sha256:ddf3b81d2f5433d6
+  verdict: pending
+decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/prop_theScalaProfileReadsScala2AndScala3ConstructsIntoTheirDefinitions:
+  digest: sha256:a6818f5c1200b417
   verdict: pending
 decision/haskell/test/Canon/Extract/ScalaTest.hs/module/Canon.Extract.ScalaTest/function/sampleFiles:
   digest: sha256:1a261ae4bb814d5d

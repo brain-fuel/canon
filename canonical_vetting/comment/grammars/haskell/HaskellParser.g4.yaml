@@ -214,6 +214,15 @@ decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParse
 decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/exp10p:
   digest: sha256:b50a86ef072368ea
   verdict: pending
+decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/export_member:
+  digest: sha256:760d2f2f6b1cf18a
+  verdict: pending
+decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/export_members:
+  digest: sha256:df7934a6af2081b9
+  verdict: pending
+decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/export_name:
+  digest: sha256:22fc0b24af142eb6
+  verdict: pending
 decision/antlr4/grammars/haskell/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/exports:
   digest: sha256:c467de0a7fc653f5
   verdict: pending

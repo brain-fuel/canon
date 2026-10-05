@@ -16,8 +16,14 @@ decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureT
 decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureDialectParsesEveryFileOfTheHiccupSampleWithItsDocstrings:
   digest: sha256:ff7f22614ad05479
   verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureDialectReadsLibraryDefinitionMacrosAndDefmethodsAsUnitsAndCommentFormsAsNone:
+  digest: sha256:552769611f4927f9
+  verdict: pending
 decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureGrammarAndProfileParseEveryFileOfTheHiccupSample:
   digest: sha256:e3fdb13eb8bed106
+  verdict: pending
+decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureGrammarsReadPrimedSymbolsSymbolicValuesNamespacedMapsAndDiscardsInMaps:
+  digest: sha256:ccd94da1bb503c22
   verdict: pending
 decision/haskell/test/Canon/Extract/ClojureTest.hs/module/Canon.Extract.ClojureTest/function/prop_theClojureLexerReadsKeywordsAndStringsAsTheClojureReaderDoes:
   digest: sha256:a19c7ab606543c27

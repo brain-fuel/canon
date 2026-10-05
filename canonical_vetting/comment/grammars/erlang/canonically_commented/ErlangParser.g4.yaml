@@ -1,0 +1,462 @@
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser:
+  digest: sha256:2cbc7ab7271b6663
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/addOp:
+  digest: sha256:d58a9f3787f554fa
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/argumentList:
+  digest: sha256:8cd1b656d732a950
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/atomOrVar:
+  digest: sha256:0aa609230da3d671
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/atomic:
+  digest: sha256:b54012e1f0f34642
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/attrVal:
+  digest: sha256:f1c0017d3cb19694
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/attribute:
+  digest: sha256:de512c58e33dd611
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/binBaseType:
+  digest: sha256:d7fb1d23a52351ee
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/binElement:
+  digest: sha256:446d6625039b5adf
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/binElements:
+  digest: sha256:5459b12a1b471e8e
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/binUnitType:
+  digest: sha256:87ab4cf3a2d09421
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/binary:
+  digest: sha256:35329dba72974ad8
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/binaryComprehension:
+  digest: sha256:a020d1c4ce1c29f0
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/binaryType:
+  digest: sha256:aafa3e706ac2c911
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/bitExpr:
+  digest: sha256:d65d76071bab6bad
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/bitSizeExpr:
+  digest: sha256:8c283577d60ceced
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/bitType:
+  digest: sha256:54adfe0112aba84b
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/bitTypeList:
+  digest: sha256:db0294c3ab076f90
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/callbackAttribute:
+  digest: sha256:ebc91c0b8d87efa3
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/callbackDefinition:
+  digest: sha256:5aae102b1f8d1eec
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/callbackSignature:
+  digest: sha256:8b231560d895e625
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/canonicalComment:
+  digest: sha256:f5449534d153aed9
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/caseExpr:
+  digest: sha256:c13cc0cc3c3b8db7
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/clauseArgs:
+  digest: sha256:5c9356722d40c1bf
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/clauseBody:
+  digest: sha256:e4db73ab673e3b93
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/clauseGuard:
+  digest: sha256:6764d1ea2dcde4aa
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/compOp:
+  digest: sha256:a9dd2df6f9eba99d
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/compileOption:
+  digest: sha256:e8a8eda7ba8ba6e9
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/crClause:
+  digest: sha256:983e875bd0c0d78f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/crClauses:
+  digest: sha256:2789d5f343bcf545
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/defineAttribute:
+  digest: sha256:2df3186a1fb8f9f9
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/definedName:
+  digest: sha256:b093ef080b0b81f3
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/docPart:
+  digest: sha256:062f749f76048a9f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/exportAllAttribute:
+  digest: sha256:e2aac60670739902
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/exportAttribute:
+  digest: sha256:194940b421e86b5f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/exportEntry:
+  digest: sha256:06911589cbff89f2
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/exportedName:
+  digest: sha256:62b80c137c93f7e1
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/exportingForm:
+  digest: sha256:95141fe4f33ac8cd
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr:
+  digest: sha256:54a963ed04efbf82
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr100:
+  digest: sha256:d0e3e8ee56faab6b
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr150:
+  digest: sha256:abdce1c739c73c56
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr160:
+  digest: sha256:8fac364e7c764da9
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr200:
+  digest: sha256:524d1b514f3943f5
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr300:
+  digest: sha256:9d84669aa6f0c6d3
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr400:
+  digest: sha256:309b47b881ab74e5
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr500:
+  digest: sha256:4041a181c7464018
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr600:
+  digest: sha256:394f98773d0a6752
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr650:
+  digest: sha256:c9e0843f4a36b755
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr700:
+  digest: sha256:7fecf38e742ade8f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/expr800:
+  digest: sha256:0e433f7b690e4fe7
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/exprMax:
+  digest: sha256:2e950dd121f760fc
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/exprs:
+  digest: sha256:d194d4f8b91f63fb
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/fieldType:
+  digest: sha256:04ac06c1dee16200
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/fieldTypes:
+  digest: sha256:d11d23a52a57922a
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/form:
+  digest: sha256:abbe4ae4f962188a
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/forms:
+  digest: sha256:5d3c7b7532b0506f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/funClause:
+  digest: sha256:c29e67f690a83742
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/funClauses:
+  digest: sha256:ea2a768f93fca51b
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/funExpr:
+  digest: sha256:b7e69f6f6697892d
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/funType:
+  digest: sha256:269d968be729cf14
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/funType100:
+  digest: sha256:080ba785fcf8d8ec
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/functionAttribute:
+  digest: sha256:5a422b435fb758df
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/functionCall:
+  digest: sha256:051567fcb13ee430
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/functionClause:
+  digest: sha256:e64293eda07f32e1
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/functionDefinition:
+  digest: sha256:d0979fc2d2234779
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/function_:
+  digest: sha256:54121e0d2247077f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/guard_:
+  digest: sha256:5669f5dacc83c869
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/ifClause:
+  digest: sha256:0453f61beb413149
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/ifClauses:
+  digest: sha256:4618b65bef978ef2
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/ifExpr:
+  digest: sha256:2b42d89e6df8acb8
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/integerOrVar:
+  digest: sha256:b9c51fa87b351f49
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/lcExpr:
+  digest: sha256:0c56c0f289f599c4
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/lcExprs:
+  digest: sha256:bfd34feeee6323af
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/listComprehension:
+  digest: sha256:1186d1e431a7aab6
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/listOp:
+  digest: sha256:c825a56d68f7a47f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/list_:
+  digest: sha256:7c1068982fb36a6d
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/macroArgument:
+  digest: sha256:36cf93d0cc8e3497
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/macroArguments:
+  digest: sha256:3b60ba78a20bc52d
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/macroBody:
+  digest: sha256:7b097e33a125ed7c
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/macroCall:
+  digest: sha256:d818b434b4d8d500
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapComprehension:
+  digest: sha256:a767d92a1797288c
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapExpr:
+  digest: sha256:c9e0843f4a36b755
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapField:
+  digest: sha256:9832a62999974b3c
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapFieldAssoc:
+  digest: sha256:74f23268fba00ed2
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapFieldExact:
+  digest: sha256:c597e1284763ddee
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapKey:
+  digest: sha256:f506405d34dc17c6
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapPairType:
+  digest: sha256:ddea2d4e58a9bb47
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapPairTypes:
+  digest: sha256:30291bc1acbe33ee
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapPatExpr:
+  digest: sha256:cb531e0962ff9b92
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/mapTuple:
+  digest: sha256:d4f94a400ae10257
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/maybeExpr:
+  digest: sha256:d22448b35b369f64
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/moduleComment:
+  digest: sha256:e4ef6ee974c2a687
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/moduleDeclaration:
+  digest: sha256:f1b50736ec2a00cb
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/multOp:
+  digest: sha256:974d27991ab382e0
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/optBitSizeExpr:
+  digest: sha256:10b298bcfe1165fe
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/optBitTypeList:
+  digest: sha256:a7718351dd338cdc
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patArgumentList:
+  digest: sha256:dcbfcfcf755cfd71
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExpr:
+  digest: sha256:c0bf0027b3f050f9
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExpr200:
+  digest: sha256:3c9d321d8d67b12b
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExpr300:
+  digest: sha256:c50379a6abbfbaa1
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExpr400:
+  digest: sha256:85c1706cd87fa472
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExpr500:
+  digest: sha256:30657e61e7926dd2
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExpr600:
+  digest: sha256:733b3bfb595f2154
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExpr650:
+  digest: sha256:cb531e0962ff9b92
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExpr700:
+  digest: sha256:706f5f752b2b57bc
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExpr800:
+  digest: sha256:64a66ec9e07a8aef
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExprMax:
+  digest: sha256:64a66ec9e07a8aef
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/patExprs:
+  digest: sha256:49e7478a8df9f15a
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/prefixOp:
+  digest: sha256:f8510ea7f13aab4b
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/receiveExpr:
+  digest: sha256:f789a2bd82778dab
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/recordAttribute:
+  digest: sha256:b4be5fe861534b7b
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/recordDefinition:
+  digest: sha256:342012e502534aa4
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/recordExpr:
+  digest: sha256:0a4245a5cf8fe369
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/recordField:
+  digest: sha256:a21fd1d3e1928b16
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/recordFields:
+  digest: sha256:6fe6f7ad405e367f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/recordName:
+  digest: sha256:f74aa24ad8b9eb96
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/recordPatExpr:
+  digest: sha256:706f5f752b2b57bc
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/recordTuple:
+  digest: sha256:5974b9bd023371a7
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/reservedWord:
+  digest: sha256:c0bed3664f61acd5
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/specFun:
+  digest: sha256:542c117f4ea339fa
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/stringConcatenation:
+  digest: sha256:7021ac102aa006ee
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tail:
+  digest: sha256:3992cb4846e3b07b
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tokAtom:
+  digest: sha256:7d81cfa4bc4c5028
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tokChar:
+  digest: sha256:3baeff00321f8371
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tokFloat:
+  digest: sha256:6e8b2fa6af69542c
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tokInteger:
+  digest: sha256:6ef279a6933464cf
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tokString:
+  digest: sha256:d28997df2b2bd522
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tokVar:
+  digest: sha256:a0f46c4215b75c88
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/topType:
+  digest: sha256:8873ff32f1abb74a
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/topType100:
+  digest: sha256:b6ea7cd527233c3d
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/topTypes:
+  digest: sha256:5f78cf22a2472124
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tryCatch:
+  digest: sha256:080d91737abbbdcb
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tryClause:
+  digest: sha256:5ef3e75e7aec0122
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tryClauses:
+  digest: sha256:28f81f4898030695
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tryExpr:
+  digest: sha256:d22807eda82479ed
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tryOptStackTrace:
+  digest: sha256:c4a3b86b62f63c51
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/tuple_:
+  digest: sha256:67a1ab9b1344a37f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/type200:
+  digest: sha256:c69caa18aea65029
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/type300:
+  digest: sha256:013a59d83f377986
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/type400:
+  digest: sha256:66ee0c8a2fb950ae
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/type500:
+  digest: sha256:c1ca0fea7dc55529
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeAttribute:
+  digest: sha256:8d2d8100a20221d4
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeDefinition:
+  digest: sha256:d9816298be702e13
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeGuard:
+  digest: sha256:9cf29afa28e3cd90
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeGuards:
+  digest: sha256:e390bba7811a902a
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeParameters:
+  digest: sha256:e0c1e318f85242b1
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeSig:
+  digest: sha256:37d17ac99ebfc155
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeSigs:
+  digest: sha256:b43dcd71d38eb425
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typeSpec:
+  digest: sha256:e5ac2cf7cd75a848
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/type_:
+  digest: sha256:590bd7d303d68972
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typedAttrVal:
+  digest: sha256:1ecaeea9a79dd63f
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typedExpr:
+  digest: sha256:80f5fb0aaade6095
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typedExprs:
+  digest: sha256:386ab9ff64f95ff1
+  verdict: pending
+decision/antlr4/grammars/erlang/canonically_commented/ErlangParser.g4/grammarDefinition/ErlangParser/parserRule/typedRecordFields:
+  digest: sha256:05c1de73b5cae70d
+  verdict: pending

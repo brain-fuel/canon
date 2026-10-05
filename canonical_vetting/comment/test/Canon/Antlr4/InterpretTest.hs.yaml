@@ -1,8 +1,23 @@
 decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest:
   digest: sha256:c956e1462faa1e25
   verdict: pending
+decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest/function/ambiguousLoopFailsFast:
+  digest: sha256:377516b417f3170c
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest/function/canonicalParsesUpstream:
+  digest: sha256:6c66d690affde48d
+  verdict: pending
 decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest/function/haskellFragmentDedentsBelowStart:
   digest: sha256:0c55ae56e4158e66
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest/function/prop_aLexerLoopWhoseAlternativesMatchTheSameCharactersStaysLinear:
+  digest: sha256:6d0c0cdf6d1c9ba0
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest/function/prop_aStrayCommentWhereTheGrammarTakesNoneIsAnOrphanAndASyntaxErrorIsStillReportedWhereItIs:
+  digest: sha256:8f04a8dfba67feef
+  verdict: pending
+decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest/function/strayGrammar:
+  digest: sha256:6e45446acd3542db
   verdict: pending
 decision/haskell/test/Canon/Antlr4/InterpretTest.hs/module/Canon.Antlr4.InterpretTest/function/tests:
   digest: sha256:1b696bdd90d4f5c2

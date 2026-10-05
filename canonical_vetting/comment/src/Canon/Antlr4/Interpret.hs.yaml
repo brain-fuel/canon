@@ -22,9 +22,24 @@ decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/fun
 decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/loadInterpreter:
   digest: sha256:23cb8e22a1df2772
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/parseWithStrayComments:
+  digest: sha256:4a93232b922fafbe
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/readGrammarWithImports:
   digest: sha256:84792707e777d481
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/readSourceFile:
+  digest: sha256:f2cabcfda9d81a61
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/renderInterpretError:
   digest: sha256:3614c1ca38f40ae0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/strayCommentRules:
+  digest: sha256:65b12d672903e2ba
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/strayReach:
+  digest: sha256:1c370f61af853cc7
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Interpret.hs/module/Canon.Antlr4.Interpret/function/strayWindow:
+  digest: sha256:fb426c27c6f94d9b
   verdict: pending

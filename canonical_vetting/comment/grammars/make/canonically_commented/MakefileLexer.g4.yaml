@@ -1,8 +1,83 @@
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer:
   digest: sha256:84d95368c357df51
   verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/fragmentRule/AssignOp:
+  digest: sha256:033cb0564ee94218
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/fragmentRule/BraceBody:
+  digest: sha256:c79ecc9eb3b734f5
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/fragmentRule/CommentChar:
+  digest: sha256:e5cae49c22b9b105
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/fragmentRule/LineRest:
+  digest: sha256:51c6a0b9079c099a
+  verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/fragmentRule/NameChar:
   digest: sha256:a65c8910b2cb9096
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/fragmentRule/NamePart:
+  digest: sha256:467c45fff3c5a67b
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/fragmentRule/ParenBody:
+  digest: sha256:de972a44acfb1222
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/fragmentRule/Reference:
+  digest: sha256:2da26064ada607b9
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body:
+  digest: sha256:01b9b0f59c17c754
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_ASSIGN:
+  digest: sha256:baffd3751eff4fc5
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_COLON:
+  digest: sha256:ac6c5b8f2580b806
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_COMMENT:
+  digest: sha256:13036263a12a6d88
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_CONTINUATION:
+  digest: sha256:a2b75cad48f64d51
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_DCOLON:
+  digest: sha256:a7b2d1bba7a7e834
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_EXPORT:
+  digest: sha256:b792d9757aa376a6
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_GROUPED:
+  digest: sha256:dcefc9fdf45f67f0
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_HELP:
+  digest: sha256:13da992adeb72a13
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_NAME:
+  digest: sha256:64d2b5b6aab0d288
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_NEWLINE:
+  digest: sha256:327f0070961cee1f
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_OVERRIDE:
+  digest: sha256:bfdc48684794a193
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_PATTERN:
+  digest: sha256:c0bf0027b3f050f9
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_PIPE:
+  digest: sha256:df67d6ff930db960
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_PRIVATE:
+  digest: sha256:3d5ebc18377e5d42
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_SEMI:
+  digest: sha256:c2e709e0b876fb18
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_SPECIAL:
+  digest: sha256:c8fa77a031c0fff2
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Body/lexerRule/BODY_WS:
+  digest: sha256:a92be491182d35cb
   verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Define:
   digest: sha256:e204a712226beec7
@@ -15,6 +90,9 @@ decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefi
   verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Define/lexerRule/ENDEF:
   digest: sha256:a2d774158150f16e
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/Define/lexerRule/NESTED_DEFINE:
+  digest: sha256:474b8b89bf8771ad
   verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerMode/DocLine:
   digest: sha256:61f502fe0bded9d7
@@ -79,6 +157,9 @@ decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefi
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/EXPORT:
   digest: sha256:7868e2c8665e6f0a
   verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/GROUPED:
+  digest: sha256:90808e75d675b3a3
+  verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/HELP:
   digest: sha256:88aa9391a21fcc94
   verdict: pending
@@ -91,17 +172,26 @@ decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefi
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/INCLUDE:
   digest: sha256:338d83c88dedcb9e
   verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/LOAD:
+  digest: sha256:5a02ea8504cee06c
+  verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/NAME:
   digest: sha256:c9b88e11a150aa3f
   verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/NEWLINE:
   digest: sha256:38f57a50973ce92a
   verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/OVERRIDE:
+  digest: sha256:bf0219bbf3439346
+  verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/PATTERN:
   digest: sha256:e318504e915d8116
   verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/PIPE:
   digest: sha256:002c27bdb8084fbb
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/PRIVATE:
+  digest: sha256:1c4c173fcc063e7b
   verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/RECIPE:
   digest: sha256:b047736c61e09885
@@ -111,6 +201,12 @@ decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefi
   verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/SPECIAL:
   digest: sha256:94da4af08012dc66
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/UNDEFINE:
+  digest: sha256:4b7df31423627443
+  verdict: pending
+decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/VPATH:
+  digest: sha256:1cdc4dd730648540
   verdict: pending
 decision/antlr4/grammars/make/canonically_commented/MakefileLexer.g4/grammarDefinition/MakefileLexer/lexerRule/WS:
   digest: sha256:be94657ef6c8aebb

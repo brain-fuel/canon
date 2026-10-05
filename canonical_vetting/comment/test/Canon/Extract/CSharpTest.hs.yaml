@@ -10,6 +10,15 @@ decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTes
 decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/extractFixture:
   digest: sha256:87d8f31edc88d2ab
   verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_aCSharpDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan:
+  digest: sha256:eeaf30a214c03ba4
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_aCSharpDocCommentEndsAtOneTokenInsideABranchReadOrNot:
+  digest: sha256:33e26018bffef11a
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_aCSharpUnionIsATypeOfItsOwnDocumentedAsAClassIs:
+  digest: sha256:504076a0231a060d
+  verdict: pending
 decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_aLongCollectionInitializerParsesInMemoryLinearInItsLength:
   digest: sha256:89cb23517ef33824
   verdict: pending
@@ -33,6 +42,9 @@ decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTes
   verdict: pending
 decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_theCSharpDialectParsesTheGuardClausesSampleWithItsXmlDocs:
   digest: sha256:be429ea0ed6d4023
+  verdict: pending
+decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_theCSharpGrammarReadsTheOperatorsAndModifiersDotNetsOwnSourcesUse:
+  digest: sha256:cb3040d5722cfa13
   verdict: pending
 decision/haskell/test/Canon/Extract/CSharpTest.hs/module/Canon.Extract.CSharpTest/function/prop_theCSharpParserAnswersThePredicatesOfItsBaseClass:
   digest: sha256:1c79afa3e37eab90

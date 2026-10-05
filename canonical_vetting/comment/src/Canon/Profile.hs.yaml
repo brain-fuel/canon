@@ -28,3 +28,6 @@ decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/function/defaultComme
 decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/function/profileForPath:
   digest: sha256:d67dd37a274d7e95
   verdict: pending
+decision/haskell/src/Canon/Profile.hs/module/Canon.Profile/function/profileOwns:
+  digest: sha256:20b960c5f8b0056e
+  verdict: pending

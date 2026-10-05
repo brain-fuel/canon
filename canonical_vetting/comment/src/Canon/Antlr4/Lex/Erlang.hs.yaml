@@ -1,0 +1,30 @@
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang:
+  digest: sha256:abf4cf45e191fed9
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/data/ErlangPreprocessorState:
+  digest: sha256:fd17bf340af444aa
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/data/Macro:
+  digest: sha256:95ab4961a4ca50f4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/chooseMacro:
+  digest: sha256:9256a0d01ae67140
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/closingIndex:
+  digest: sha256:8e3e6975a20603ac
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/erlangPreprocessorHooks:
+  digest: sha256:0018c9667d8f099a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/expandMacros:
+  digest: sha256:45d8eaf75cbbed3e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/parseDefine:
+  digest: sha256:f07382b31e114b36
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/replaceArity:
+  digest: sha256:79b422553dc16a38
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Erlang.hs/module/Canon.Antlr4.Lex.Erlang/function/splitArguments:
+  digest: sha256:4e4efa936e5194cd
+  verdict: pending

@@ -1,11 +1,26 @@
 decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest:
   digest: sha256:43a81ac2d52c9bd1
   verdict: pending
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/dialectProfile:
+  digest: sha256:afcb455e4a5a1b60
+  verdict: pending
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/prop_aGleamDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan:
+  digest: sha256:c5e2d90da88f7e8a
+  verdict: pending
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/prop_aGleamTupleTypeWrittenBeforeV015ParsesThroughTheGrammarAndTheDialect:
+  digest: sha256:28c843b24e74514b
+  verdict: pending
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/prop_gleamDialectReadsDocAndModuleCommentsAsCanonicalCommentsAsGleamJoinsThem:
+  digest: sha256:79f0303ca9f8c8dc
+  verdict: pending
 decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/prop_gleamGrammarParsesTheStdlibSampleIntoItsItems:
   digest: sha256:6b7cb34566a5a6b0
   verdict: pending
 decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/prop_gleamProfileBindsItemAndModuleDocCommentsAndRecognisesTests:
   digest: sha256:b5e56f6667a4fe66
+  verdict: pending
+decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/prop_gleamProfileReadsPre10SyntaxAndHidesInternalItems:
+  digest: sha256:9495b440f4bd61d9
   verdict: pending
 decision/haskell/test/Canon/Extract/GleamTest.hs/module/Canon.Extract.GleamTest/function/sampleProfile:
   digest: sha256:e9feb8dda81fae69

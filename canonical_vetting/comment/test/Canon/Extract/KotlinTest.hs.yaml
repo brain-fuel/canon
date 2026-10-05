@@ -10,17 +10,35 @@ decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTes
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/extractText:
   digest: sha256:7fc8e9be1b607606
   verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_aCommentNestedInAKDocCommentDoesNotCloseIt:
+  digest: sha256:74c4f0fac8e16a6c
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_aKDocCommentInsideAnExpressionIsAnOrphanAndTheFileStillParses:
+  digest: sha256:bc681e835cba707b
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_aKotlinScriptWhoseLastStatementEndsTheFileWithoutANewlineParses:
+  digest: sha256:d5fadcac73daab3f
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_anUnnamedCompanionObjectAndSecondaryConstructorsAreNamedByTheirKeywords:
+  digest: sha256:317c5a2d1684f763
+  verdict: pending
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinDialectBindsKDocToDeclarationsRequiresItOnPublicApiAndReportsMisplacedKDoc:
   digest: sha256:7317049ecb269cd2
   verdict: pending
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinDialectParsesEveryFileOfTheTurbineSampleWithItsKDocComments:
   digest: sha256:6e4f521db34da43c
   verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinGrammarAndDialectReadTheKotlin14To24SyntaxWidelyUsedProjectsWrite:
+  digest: sha256:426aab052adf9d3b
+  verdict: pending
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinGrammarAndProfileParseEveryFileOfTheTurbineSample:
   digest: sha256:cf347b81db2e268c
   verdict: pending
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinProfileBindsKDocCommentsAndRecognisesTestsByAnnotationAndSourceSet:
   digest: sha256:3a54f29ebfb0b2bf
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theMembersOfALocalClassNeedNoKDoc:
+  digest: sha256:65147e565f3573ed
   verdict: pending
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/sampleFiles:
   digest: sha256:3cb0f12a664beddf

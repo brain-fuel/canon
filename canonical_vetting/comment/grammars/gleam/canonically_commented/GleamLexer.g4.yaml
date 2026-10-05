@@ -1,0 +1,153 @@
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer:
+  digest: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerMode/DocLine/lexerRule/DOC_CLOSE:
+  digest: sha256:f1160144cde6242c
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerMode/DocLine/lexerRule/DOC_LICENSE:
+  digest: sha256:e0cfb6d583c90b11
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerMode/DocLine/lexerRule/DOC_PUNCT:
+  digest: sha256:9c13bf6cec589fa4
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerMode/DocLine/lexerRule/DOC_REF:
+  digest: sha256:7b54f06399670f0c
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerMode/DocLine/lexerRule/DOC_WORD:
+  digest: sha256:83169a85a2d6a6ac
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerMode/DocLine/lexerRule/DOC_WS:
+  digest: sha256:4aa1f9d916e9db88
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/ARROW_RIGHT:
+  digest: sha256:df527fc42a1f67cc
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/AS:
+  digest: sha256:4e58cc23b3854be4
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/ASSERT:
+  digest: sha256:280bf907099a1fef
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/AT:
+  digest: sha256:878a05c2453bc886
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/CASE:
+  digest: sha256:f37865521ec4d9ed
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/CLOSE_BITS:
+  digest: sha256:095ca15f41526190
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/CLOSE_BRACE:
+  digest: sha256:f48922073d0e165f
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/CLOSE_BRACKET:
+  digest: sha256:8b0260de73bf2c1c
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/CLOSE_PAREN:
+  digest: sha256:7bc1347158437ae1
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/COLON:
+  digest: sha256:ac6c5b8f2580b806
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/COMMA:
+  digest: sha256:ce2ba5d98c543392
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/COMMENT:
+  digest: sha256:4435549619e2ddbf
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/CONST:
+  digest: sha256:9b224f04f45160a9
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/DISCARD_NAME:
+  digest: sha256:40310255afe0fbb6
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/DOC_OPEN:
+  digest: sha256:0ccc9a334373fe6b
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/DOT:
+  digest: sha256:2abc753f07187e3d
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/ECHO:
+  digest: sha256:7cf14304f783c1b9
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/EQUALS:
+  digest: sha256:393034e81ab7ad7a
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/EXTERNAL:
+  digest: sha256:f47ab12bf588f6e2
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/FLOAT:
+  digest: sha256:6e8b2fa6af69542c
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/FN:
+  digest: sha256:e166740cddc5cb1f
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/HASH:
+  digest: sha256:05a14ee387ecc0d2
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/IF:
+  digest: sha256:511a6f268c5a6af7
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/IMPORT:
+  digest: sha256:3b31835c59370444
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/INTEGER:
+  digest: sha256:6ef279a6933464cf
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/INTERNAL:
+  digest: sha256:0a058974e01238a1
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/LET:
+  digest: sha256:7d626d102122a0a0
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/MINUS:
+  digest: sha256:b900f0c3f29e952a
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/MODULE_DOC_OPEN:
+  digest: sha256:c7a5f763cf89b7c4
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/NAME:
+  digest: sha256:23da5f5a172189aa
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/OPAQUE:
+  digest: sha256:24539c99f5ef5449
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/OPEN_BITS:
+  digest: sha256:1c652cf6fb9280e9
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/OPEN_BRACE:
+  digest: sha256:454807c69fd7f172
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/OPEN_BRACKET:
+  digest: sha256:8d720ab5c4aa856a
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/OPEN_PAREN:
+  digest: sha256:30e1696616bb128d
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/OPERATOR:
+  digest: sha256:e2c9a23e033c4ea3
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/PANIC:
+  digest: sha256:49f4e6a7d1ca45cd
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/PUB:
+  digest: sha256:141b44c4662a7b91
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/STRING:
+  digest: sha256:d28997df2b2bd522
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/TODO:
+  digest: sha256:ee9011d7945df139
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/TYPE:
+  digest: sha256:ef422671252c1d20
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/UPNAME:
+  digest: sha256:2e1ea011a390ac13
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/USE:
+  digest: sha256:5a2e92b679673501
+  verdict: pending
+decision/antlr4/grammars/gleam/canonically_commented/GleamLexer.g4/grammarDefinition/GleamLexer/lexerRule/WS:
+  digest: sha256:0c6b4c668d42a362
+  verdict: pending

@@ -1,0 +1,87 @@
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser:
+  digest: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/blockMapping:
+  digest: sha256:53431be4a15379fd
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/blockNode:
+  digest: sha256:038768852a3a3653
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/blockScalar:
+  digest: sha256:ac2aaae9549bbc4d
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/blockSequence:
+  digest: sha256:97c2220a8d4a243a
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/canonicalComment:
+  digest: sha256:a6a78c3d1cd2fecb
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/configEntry:
+  digest: sha256:07129c790a40355a
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/docPart:
+  digest: sha256:bb6b6c5e8cb9923b
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/docScalar:
+  digest: sha256:55aa00f8d1948800
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/document:
+  digest: sha256:898faaa365e14255
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/flowCollection:
+  digest: sha256:426fed831a9e7402
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/flowEntry:
+  digest: sha256:4c46b4734ec8f93f
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/flowNode:
+  digest: sha256:4a8fad49ee9b38b7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/key:
+  digest: sha256:7e7bb07df4e5eeeb
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/keyName:
+  digest: sha256:867054e199c19aaf
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/mappingEntry:
+  digest: sha256:1751c71b66f4e8ff
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/mappingValue:
+  digest: sha256:9218267e17e162f5
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/outputEntry:
+  digest: sha256:09965689b2edb268
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/plainContinuation:
+  digest: sha256:a1ac944df0ea419e
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/programMapping:
+  digest: sha256:0570234a4327f86e
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/properties:
+  digest: sha256:bbf34572b8f89445
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/quoted:
+  digest: sha256:785ba4aa696f43ac
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/resourceEntry:
+  digest: sha256:8d52d71fc47aafdc
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/sequenceEntry:
+  digest: sha256:df4721c92489ebe7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/templateConfigEntry:
+  digest: sha256:004c35f5984bf5d5
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/templateField:
+  digest: sha256:8a22dab3ce5b0574
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/topEntry:
+  digest: sha256:27600ac64ccfaab7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/variableEntry:
+  digest: sha256:ce89b25527f29d23
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLParser.g4/grammarDefinition/YAMLParser/parserRule/yamlFile:
+  digest: sha256:103abf63dbc6e151
+  verdict: pending

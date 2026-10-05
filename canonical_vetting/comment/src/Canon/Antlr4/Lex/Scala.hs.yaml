@@ -1,8 +1,8 @@
 decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala:
   digest: sha256:5fe594100d3b8120
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/data/Pending:
-  digest: sha256:c8a687d0148de27e
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/data/Bracket:
+  digest: sha256:0fd7c50e44a5fd3b
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/data/Region:
   digest: sha256:f0b45b6ce22d956e
@@ -10,47 +10,41 @@ decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/dat
 decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/data/ScalaLayout:
   digest: sha256:e0d7c003789a1dd9
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/canEndStat:
-  digest: sha256:64e433bafd0eb91d
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/atLineStart:
+  digest: sha256:ae5e7804cc26bc48
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/canStartIndent:
-  digest: sha256:36a00d16af93947d
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/brackets:
+  digest: sha256:17ffce351145feed
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/canStartStat:
-  digest: sha256:140a8a28b2d4273b
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/cannotStart:
+  digest: sha256:710c43db5bd1c3fb
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/dedentTo:
-  digest: sha256:0685a6286d9d9b62
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/closes:
+  digest: sha256:bee5036f36e29cbe
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/docTypes:
   digest: sha256:416736e49242f9d7
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/drain:
-  digest: sha256:169c36294549c12a
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/endTags:
+  digest: sha256:9ab1225f1dfb9f59
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/drainInParens:
-  digest: sha256:083a001251dd98a1
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/ends:
+  digest: sha256:87c5cfe7c2064662
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/heldHidden:
-  digest: sha256:323b73d58f7ed32b
-  verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/indentLength:
-  digest: sha256:70158aa177b79efe
-  verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/isStatContinuation:
-  digest: sha256:332d81ef63c23f75
-  verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/onEmit:
-  digest: sha256:75ad70c154355557
-  verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/resolve:
-  digest: sha256:5318cb0ae092e273
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/onPredicate:
+  digest: sha256:0809e1bade54a11f
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/scalaLexerHooks:
   digest: sha256:07c8c088836d03d3
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/structural:
-  digest: sha256:f04c236373a8c69c
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/startsIndent:
+  digest: sha256:9018f0c76398b712
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/statementContinuations:
+  digest: sha256:9ee30a8a823514bd
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/step:
+  digest: sha256:7ffbb6ac45bfa321
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Scala.hs/module/Canon.Antlr4.Lex.Scala/function/virtual:
   digest: sha256:c91bf69b8e7b0ac0

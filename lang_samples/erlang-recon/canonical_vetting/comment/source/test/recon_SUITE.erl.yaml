@@ -1,0 +1,12 @@
+decision/erlang/source/test/recon_SUITE.erl:
+  digest: sha256:bcf31e64c6d3cb68
+  verdict: pending
+decision/erlang/source/test/recon_SUITE.erl/function/binary_memory/1:
+  digest: sha256:4e691457386ec9ee
+  verdict: pending
+decision/erlang/source/test/recon_SUITE.erl/function/node_stats_list/1:
+  digest: sha256:b0976556b5587608
+  verdict: pending
+decision/erlang/source/test/recon_SUITE.erl/function/scheduler_usage/1:
+  digest: sha256:5579af7580ff0617
+  verdict: pending

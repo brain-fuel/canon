@@ -1,0 +1,39 @@
+decision/erlang/source/src/recon_trace.erl:
+  digest: sha256:432bd6f97f472fcc
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/calls/2:
+  digest: sha256:1dbc6627c7133eb5
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/calls/3:
+  digest: sha256:2ae3a21b332c413e
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/clear/0:
+  digest: sha256:53855734657ddd1d
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/count_tracer/1:
+  digest: sha256:c210f7aa9689337c
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/format/1:
+  digest: sha256:4d842a1d116764af
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/format_trace_output/1:
+  digest: sha256:b2ba8d78478add25
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/formatter/5:
+  digest: sha256:ba6a6182429a1aa2
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/fun_to_ms/1:
+  digest: sha256:35b7e95274e5ba4e
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/rate_tracer/2:
+  digest: sha256:433d8d9e3d329dcd
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/setup/4:
+  digest: sha256:3bb60e4b39db3b80
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/trace_calls/4:
+  digest: sha256:b094e5bc1258feb5
+  verdict: pending
+decision/erlang/source/src/recon_trace.erl/function/validate_pid_specs/1:
+  digest: sha256:c6c29d48e33d68c3
+  verdict: pending

@@ -1,0 +1,129 @@
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer:
+  digest: sha256:c5df7fb3d867da78
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/BlockScalar/lexerRule/BLOCK_SCALAR_BREAK:
+  digest: sha256:ad9ad2924041b125
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/BlockScalar/lexerRule/BLOCK_SCALAR_TEXT:
+  digest: sha256:21014bf02bbc121e
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_LICENSE:
+  digest: sha256:0514a8ba60c25181
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_LINE_END:
+  digest: sha256:3e2720185dbdd109
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_PUNCT:
+  digest: sha256:60fe8e2314ffde10
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_REF:
+  digest: sha256:184879afc5dd5fb7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_WORD:
+  digest: sha256:71f9f252c7615af5
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/DocLine/lexerRule/DOC_WS:
+  digest: sha256:87cd5ac8b1cbd050
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/COMMA:
+  digest: sha256:4150fcfada9502a7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_ALIAS:
+  digest: sha256:ad7776e54664360d
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_ANCHOR:
+  digest: sha256:fadae9758f6c4c2c
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_COLON:
+  digest: sha256:7b031c7ba1ea2ef3
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_COMMENT:
+  digest: sha256:194034be42147bed
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_DOUBLE_QUOTED:
+  digest: sha256:dc8f010778f5ac8c
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_MAP_CLOSE:
+  digest: sha256:951ab7879f11b9c3
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_NESTED_MAP_OPEN:
+  digest: sha256:44c400496404dd78
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_NESTED_SEQ_OPEN:
+  digest: sha256:6e5639c96f970de7
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_PLAIN:
+  digest: sha256:d8a7a732d8634657
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_QUESTION:
+  digest: sha256:6ddbc6e2566b45c5
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_SEQ_CLOSE:
+  digest: sha256:43ca3b979b006ca0
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_SINGLE_QUOTED:
+  digest: sha256:72dbc723a7f3e9ae
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_TAG:
+  digest: sha256:d7f391f55fa66b1b
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerMode/Flow/lexerRule/FLOW_WS:
+  digest: sha256:918bfd3cdac0b826
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/ALIAS:
+  digest: sha256:b890632561f5edee
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/ANCHOR:
+  digest: sha256:778cd53a0c0d9c3f
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/BLOCK_SCALAR:
+  digest: sha256:f56eb3ee3a4e8293
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/COLON:
+  digest: sha256:aec829dbd0b623b1
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DASH:
+  digest: sha256:040550e0a696f13a
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DIRECTIVE:
+  digest: sha256:8aa8d0e64919a136
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DOCUMENT_END:
+  digest: sha256:6afa2a9796b34805
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DOCUMENT_START:
+  digest: sha256:3e7c92977d65e6b9
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DOC_OPEN:
+  digest: sha256:f67d316e8a377ab9
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/DOUBLE_QUOTED:
+  digest: sha256:826f2b2ac0fcfb45
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/FLOW_MAP_OPEN:
+  digest: sha256:103124679d0ec823
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/FLOW_SEQ_OPEN:
+  digest: sha256:da41cab9c6d5d35f
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/LINE_BREAK:
+  digest: sha256:0071942d45c0e5a2
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/PLAIN:
+  digest: sha256:e3501a16f2bf7f3c
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/PLAIN_CONTINUATION:
+  digest: sha256:e342646af71507ac
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/QUESTION:
+  digest: sha256:410f1a7e3dd54d45
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/SINGLE_QUOTED:
+  digest: sha256:64c7253ea09fd97a
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/TAG:
+  digest: sha256:691be020f9d4eede
+  verdict: pending
+decision/antlr4/grammars/yaml/canonically_commented/YAMLLexer.g4/grammarDefinition/YAMLLexer/lexerRule/WS:
+  digest: sha256:e159dac858014c61
+  verdict: pending

@@ -91,6 +91,9 @@ decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDef
 decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/DocOpen:
   digest: sha256:f5c2b058d8801d68
   verdict: pending
+decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/EMPTY_COMMENT:
+  digest: sha256:ce4ea8093f85acae
+  verdict: pending
 decision/antlr4/grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4/grammarDefinition/ANTLRv4Lexer/lexerRule/FINALLY:
   digest: sha256:cf481f5d49bc7715
   verdict: pending

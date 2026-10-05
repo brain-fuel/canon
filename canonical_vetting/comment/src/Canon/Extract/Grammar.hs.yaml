@@ -37,6 +37,12 @@ decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/funct
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/extractWithProfileText:
   digest: sha256:5269eb823dfc836c
   verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/hasHiddenTag:
+  digest: sha256:58b99bae65c6527b
+  verdict: pending
+decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/hideTagged:
+  digest: sha256:172ff46133e6d019
+  verdict: pending
 decision/haskell/src/Canon/Extract/Grammar.hs/module/Canon.Extract.Grammar/function/loadProfileInterpreter:
   digest: sha256:6a657817966424a3
   verdict: pending

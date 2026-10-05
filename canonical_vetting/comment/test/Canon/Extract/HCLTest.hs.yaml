@@ -1,0 +1,42 @@
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest:
+  digest: sha256:442352c30b46238a
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/extracted:
+  digest: sha256:231a3d6ddf6883ec
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_aCommentAboveAnObjectForExpressionsForIsANote:
+  digest: sha256:7aa9957629b9beb2
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_anHclCommentAnywhereInAFileParsesAndOnlyOneDirectlyAboveABlockBinds:
+  digest: sha256:f0312dd9cd0359e4
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclDialectBindsACommentOnlyToTheBlockDirectlyBelowIt:
+  digest: sha256:7dc7fe2ce76fd915
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclDialectNamesAliasedProvidersAndAddressedBlocksApart:
+  digest: sha256:63d45fc8fb6a9047
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclDialectNamesBlocksByTheirLabelsAndReadsDescriptionsAsTheirWhy:
+  digest: sha256:3e28ca2423975e8c
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclDialectReadsTerraformJsonWithTheNativeUnitNames:
+  digest: sha256:fdf19a8e9254517d
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclGrammarsParseTheKeyPairSampleIntoItsBlocks:
+  digest: sha256:8cd18f70ba5b236e
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclIdentifiersAreUnicodeAndHcl1QuotedNamesParse:
+  digest: sha256:2f2d88f4ab38d691
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclParseFailureIsReportedQuickly:
+  digest: sha256:b29a5de2e877b739
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/prop_hclTemplatesMustPairTheirDirectives:
+  digest: sha256:1cc52faa6aa72785
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/sampleProfile:
+  digest: sha256:87cef10315e79084
+  verdict: pending
+decision/haskell/test/Canon/Extract/HCLTest.hs/module/Canon.Extract.HCLTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

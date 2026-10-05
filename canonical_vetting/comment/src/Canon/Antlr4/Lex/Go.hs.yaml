@@ -13,6 +13,9 @@ decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/function/
 decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/function/goLexerHooks:
   digest: sha256:8f1e7088b5e7bb53
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/function/onEmit:
+  digest: sha256:911777bf7f14a3a3
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Go.hs/module/Canon.Antlr4.Lex.Go/function/onPredicate:
   digest: sha256:b1531abaca881c5f
   verdict: pending

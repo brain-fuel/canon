@@ -1,6 +1,9 @@
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer:
   digest: sha256:9e9e4ef8ca445f5f
   verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/fragmentRule/EXPONENT:
+  digest: sha256:af523bf68dde3d2b
+  verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerMode/DocBlock/lexerRule/DOC_BLOCK_CLOSE:
   digest: sha256:355e0f5ea0c504df
   verdict: pending
@@ -103,8 +106,14 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDe
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/CONID:
   digest: sha256:9971e5a86e81663e
   verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/CONSYM:
+  digest: sha256:e415df6ed43e4f96
+  verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/CPPCALL:
   digest: sha256:97f6530d7bf7e6a3
+  verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/CPP_DIRECTIVE:
+  digest: sha256:0aa7fc0dac79b8c0
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/CTYPE:
   digest: sha256:675f51929fde5fed
@@ -213,6 +222,9 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDe
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/Hash:
   digest: sha256:ad9129da5e081689
+  verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/HashOperatorInParens:
+  digest: sha256:318f2fbe3beaf308
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/IF:
   digest: sha256:c070b7ec2e027fcd
@@ -331,6 +343,9 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDe
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/PATTERN:
   digest: sha256:73e5cda0d2b16693
   verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/PRAGMA:
+  digest: sha256:f2df2f70141ce0a7
+  verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/Percent:
   digest: sha256:25902dd4e2df491f
   verdict: pending
@@ -340,8 +355,17 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDe
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/Plus:
   digest: sha256:35471a6bb6a7892d
   verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/QCONSYM:
+  digest: sha256:6ed8e3e4b0114e6b
+  verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/QUALIFIED:
   digest: sha256:176cff375b0276c1
+  verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/QUASIQUOTE:
+  digest: sha256:7ae9322977bfe623
+  verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/QVARSYM:
+  digest: sha256:0800c95de733e720
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/QuestionMark:
   digest: sha256:69bbf72953e10ed2
@@ -424,6 +448,9 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDe
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/TopenExpQuote:
   digest: sha256:f66f1c3f0499cedf
   verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/TopenExpQuoteE:
+  digest: sha256:40ed4f718aa9a5df
+  verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/TopenPatQuote:
   digest: sha256:68b79cf5b58794cb
   verdict: pending
@@ -444,6 +471,9 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDe
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/VARID:
   digest: sha256:ca2a1a3c344c7746
+  verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/VARSYM:
+  digest: sha256:1bce774ecd786ef5
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellLexer.g4/grammarDefinition/HaskellLexer/lexerRule/VCCURLY:
   digest: sha256:ee496d612dd2320c
