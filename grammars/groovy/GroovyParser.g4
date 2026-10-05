@@ -33,10 +33,12 @@
  */
 parser grammar GroovyParser;
 
+// canon: the superclass is named GroovyParserBase rather than upstream's AbstractParser, so the hook canon
+// selects by that name cannot be chosen by another grammar whose superclass has the generic name.
 options {
     tokenVocab = GroovyLexer;
     contextSuperClass = GroovyParserRuleContext;
-    superClass = AbstractParser;
+    superClass = GroovyParserBase;
 }
 
 @header {

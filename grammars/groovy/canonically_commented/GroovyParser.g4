@@ -40,10 +40,16 @@ parser grammar GroovyParser;
 // optional, which wins; a doc comment the grammar accepts but binds to nothing is an orphan. Every
 // change from the plain grammar is marked canon: and listed in grammars/groovy/README.md.
 
+// canon: the superclass is named GroovyParserBase rather than upstream's AbstractParser, so the hook canon
+// selects by that name cannot be chosen by another grammar whose superclass has the generic name.
+// canon: a Groovydoc comment may stand between any two tokens, as inside an expression or between
+// brackets; where the grammar does not accept one, canon reads the file without it and reports it as
+// an orphan, as the strayComment option says. ref:DEC-stray-comments
 options {
+    strayComment = canonicalComment;
     tokenVocab = GroovyLexer;
     contextSuperClass = GroovyParserRuleContext;
-    superClass = AbstractParser;
+    superClass = GroovyParserBase;
 }
 
 @header {
@@ -106,7 +112,7 @@ options {
 // starting point for parsing a groovy file
 // canon: a doc comment at the end of a file binds to nothing.
 compilationUnit
-    :   NL* (packageDeclaration sep?)? scriptStatements? (orphan = canonicalComment)* EOF
+    :   NL* (packageDeclaration sep?)? scriptStatements? (orphan = canonicalComment NL*)* EOF
     ;
 
 scriptStatements
@@ -120,16 +126,16 @@ scriptStatement
     |   { !SemanticPredicates.isInvalidMethodDeclaration(_input) }?
         methodDeclaration[3, 9]
     // canon: a doc comment before a statement binds to nothing.
-    |   (orphan = canonicalComment)* statement
+    |   (orphan = canonicalComment NL*)* statement
     ;
 
 // canon: a doc comment before a package or an import binds to nothing.
 packageDeclaration
-    :   (orphan = canonicalComment)* annotationsOpt PACKAGE qualifiedName
+    :   (orphan = canonicalComment NL*)* annotationsOpt PACKAGE qualifiedName
     ;
 
 importDeclaration
-    :   (orphan = canonicalComment)* annotationsOpt IMPORT
+    :   (orphan = canonicalComment NL*)* annotationsOpt IMPORT
         (   MODULE qualifiedName
         |   STATIC? qualifiedName (DOT MUL | AS alias=identifier)?
         )
@@ -145,7 +151,7 @@ typeDeclaration
 // canon: a doc comment among a declaration's modifiers and annotations, after the one that is its
 // Why, binds to nothing.
 modifier
-    :   orphan = canonicalComment
+    :   orphan = canonicalComment NL*
     |   classOrInterfaceModifier
     |   m=(   NATIVE
           |   SYNCHRONIZED
@@ -252,32 +258,32 @@ classDeclaration
 
 // canon: a class.
 normalClassDeclaration
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault modifiersOpt CLASS what = identifier classHeader NL* how = classBody[0] # class
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault modifiersOpt CLASS what = identifier classHeader NL* how = classBody[0] # class
     ;
 
 // canon: an interface.
 interfaceDeclaration
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault modifiersOpt INTERFACE what = identifier classHeader NL* how = classBody[1] # interface
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault modifiersOpt INTERFACE what = identifier classHeader NL* how = classBody[1] # interface
     ;
 
 // canon: an enum.
 enumDeclaration
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault modifiersOpt ENUM what = identifier classHeader NL* how = enumBody # enum
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault modifiersOpt ENUM what = identifier classHeader NL* how = enumBody # enum
     ;
 
 // canon: an annotation type.
 annotationTypeDeclaration
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault modifiersOpt AT INTERFACE what = identifier classHeader NL* how = classBody[3] # annotation
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault modifiersOpt AT INTERFACE what = identifier classHeader NL* how = classBody[3] # annotation
     ;
 
 // canon: a trait.
 traitDeclaration
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault modifiersOpt TRAIT what = identifier classHeader NL* how = classBody[4] # trait
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault modifiersOpt TRAIT what = identifier classHeader NL* how = classBody[4] # trait
     ;
 
 // canon: a record.
 recordDeclaration
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault modifiersOpt RECORD what = identifier classHeader NL* how = classBody[5] # record
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault modifiersOpt RECORD what = identifier classHeader NL* how = classBody[5] # record
     ;
 
 // canon: what upstream's classDeclaration read between the name and the body.
@@ -294,7 +300,7 @@ classHeader
 classBody[int t]
     :   LBRACE NL*
         (classBodyDeclaration[$t] (sep classBodyDeclaration[$t])* )?
-        sep? (orphan = canonicalComment)* RBRACE
+        sep? (orphan = canonicalComment NL*)* RBRACE
     ;
 
 // canon: the enum alternative of upstream's classBody.
@@ -311,7 +317,7 @@ enumBody
         |
             (classBodyDeclaration[2] (sep classBodyDeclaration[2])* )?
         )
-        sep? (orphan = canonicalComment)* RBRACE
+        sep? (orphan = canonicalComment NL*)* RBRACE
     ;
 
 enumConstants
@@ -319,12 +325,12 @@ enumConstants
     ;
 
 enumConstant
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault annotationsOpt what = identifier arguments? anonymousInnerClassDeclaration[1]? # constant
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault annotationsOpt what = identifier arguments? anonymousInnerClassDeclaration[1]? # constant
     ;
 
 // canon: a doc comment before an initializer block binds to nothing.
 classBodyDeclaration[int t]
-    :   (orphan = canonicalComment)* (STATIC NL*)? block
+    :   (orphan = canonicalComment NL*)* (STATIC NL*)? block
     |   memberDeclaration[$t]
     ;
 
@@ -340,7 +346,7 @@ memberDeclaration[int t]
 
 // canon: a constructor, named for the class whose body holds it, as isConstructorName decides.
 constructorDeclaration
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault modifiersOpt typeParameters? { isConstructorName() }? what = methodName formalParameters
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault modifiersOpt typeParameters? { isConstructorName() }? what = methodName formalParameters
         (NL* THROWS NL* qualifiedClassNameList)? NL* how = methodBody # constructor
     ;
 
@@ -352,7 +358,7 @@ constructorDeclaration
  *  ct  9: script, other see the comment of classDeclaration
  */
 methodDeclaration[int t, int ct]
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault modifiersOpt typeParameters? (returnType[$ct] NL*)?
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault modifiersOpt typeParameters? (returnType[$ct] NL*)?
         what = methodName formalParameters
         (   { $ct == 3 }? // GROOVY-11208: @interface only
             (DEFAULT NL* elementValue)
@@ -378,9 +384,44 @@ returnType[int ct]
     |   VOID
     ;
 
-// canon: a field is named by its first declarator, which variableDeclarator labels what.
+// canon: each name a field declaration declares is a field of its own, labeled declarator, and the
+// Groovydoc above the declaration documents every one, as it does a Java field's.
 fieldDeclaration
-    :   ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) required = publicByDefault variableDeclaration[1] # field
+    :   ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | (why = canonicalComment NL*)?) required = publicByDefault fieldVariables # field
+    ;
+
+// canon: upstream's variableDeclaration[1], a field's, whose declared names are labeled declarator.
+fieldVariables
+    :   modifiers NL*
+        (   type? fieldDeclarators
+        |   fieldNamePairs NL* ASSIGN NL* variableInitializer
+        )
+    |
+        type fieldDeclarators
+    ;
+
+// canon: upstream's variableDeclarators, in a field.
+fieldDeclarators
+    :   declarator = variableDeclarator (COMMA NL* declarator = variableDeclarator)*
+    ;
+
+// canon: upstream's typeNamePairs, in a field such as def (a, b) = [1, 2], each name a declarator.
+fieldNamePairs
+    :   LPAREN
+        (   declarator = fieldNamePair (COMMA declarator = fieldNamePair)*
+        |   declarator = fieldKeyedPair (COMMA declarator = fieldKeyedPair)*
+        )
+        RPAREN
+    ;
+
+// canon: upstream's typeNamePair, whose name is the field's What.
+fieldNamePair
+    :   (DEF | VAL | VAR | type)? MUL? what = variableDeclaratorId
+    ;
+
+// canon: upstream's keyedPair, whose name is the field's What.
+fieldKeyedPair
+    :   key=identifier COLON (DEF | VAL | VAR | type)? what = variableDeclaratorId
     ;
 
 variableDeclarators
@@ -566,9 +607,9 @@ lambdaBody
     ;
 
 // CLOSURE
-// canon: a doc comment at the end of a closure binds to nothing.
+// canon: a doc comment before a closure's parameters or at its end binds to nothing.
 closure
-    :   LBRACE (NL* (formalParameterList NL*)? ARROW)? sep? blockStatementsOpt (orphan = canonicalComment)* RBRACE
+    :   LBRACE ((orphan = canonicalComment NL*)* NL* (formalParameterList NL*)? ARROW)? sep? blockStatementsOpt (orphan = canonicalComment NL*)* RBRACE
     ;
 
 // GROOVY-8991: Difference in behaviour with closure and lambda
@@ -635,11 +676,11 @@ elementValueArrayInitializer
 
 // canon: a doc comment before a statement or at the end of a block binds to nothing.
 block
-    :   LBRACE sep? blockStatementsOpt (orphan = canonicalComment)* RBRACE
+    :   LBRACE sep? blockStatementsOpt (orphan = canonicalComment NL*)* RBRACE
     ;
 
 blockStatement
-    :   (orphan = canonicalComment)* statement
+    :   (orphan = canonicalComment NL*)* statement
     ;
 
 localVariableDeclaration
@@ -778,9 +819,10 @@ switchBlockStatementGroup
     :   switchLabel (NL* switchLabel)* NL* blockStatements
     ;
 
+// canon: a doc comment before a case label binds to nothing.
 switchLabel
-    :   CASE expression COLON
-    |   DEFAULT COLON
+    :   (orphan = canonicalComment NL*)* CASE expression COLON
+    |   (orphan = canonicalComment NL*)* DEFAULT COLON
     ;
 
 forControl
@@ -873,8 +915,9 @@ switchBlockStatementExpressionGroup
     :   (switchExpressionLabel NL*)+ blockStatements
     ;
 
+// canon: a doc comment before a case label binds to nothing.
 switchExpressionLabel
-    :   (   CASE expressionList[true]
+    :   (orphan = canonicalComment NL*)* (   CASE expressionList[true]
         |   DEFAULT
         ) ac=(ARROW | COLON)
     ;
@@ -1447,9 +1490,10 @@ publicByDefault
     ;
 
 // canon: a canonical comment, a Groovydoc comment, holding prose, reference citations, and license
-// citations, with the newlines after it, which upstream read as separators.
+// citations. Each use takes the newlines after it, which upstream read as separators, so a separator
+// never stands between a comment and its declaration, while the comment's span ends where it does.
 canonicalComment
-    :   DOC_BLOCK_OPEN docPart* DOC_BLOCK_CLOSE NL*
+    :   DOC_BLOCK_OPEN docPart* DOC_BLOCK_CLOSE
     ;
 
 // canon: one piece of a canonical comment.

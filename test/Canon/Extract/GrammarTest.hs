@@ -40,6 +40,7 @@ tests =
     , testProperty "the license header binds to the grammar unit" fileLevelLicense
     , testProperty "the dialect grammar's extraction rules are labeled alternatives" dialectPlans
     , testProperty "the java dialect marks public members required and misplaced comments orphan" javaDialect
+    , testProperty "a Javadoc comment inside an expression or between arguments is an orphan and the file still parses" aJavadocCommentInsideAnExpressionOrBetweenArgumentsIsAnOrphanAndTheFileStillParses
     , testProperty "the haskell dialect requires comments on exported units" haskellDialect
     , testProperty "bindings attach to the signature with their name and become its How" haskellBindingsBindByName
     , testProperty "a Haskell doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_aHaskellDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
@@ -248,6 +249,35 @@ javaDialect = withTests 1 $ property $ do
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["java/A.java/package/p/class/A/method/n", "java/A.java/package/p/class/A/method/u", "java/A.java/package/p/interface/I/method/k"]
   [renderUnitId u | TestWithoutRequirement u _ <- checkTests emptyRegistry model] === ["java/A.java/package/p/class/A/method/t"]
   [renderUnitId u | TestWithoutRequirement u _ <- checkTests (Registry (Map.singleton (ReferenceKey "REQ-1") (Reference Requirement "t" "here"))) model] === []
+
+-- | Javadoc may stand anywhere a comment may, and one inside an expression or between arguments
+-- documents nothing, so it must not stop a Java project's check: the file parses, each member keeps
+-- its own Javadoc, and each misplaced comment is reported as an orphan.
+-- ref:DEC-grammar-carries-extraction-rules ref:DEC-stray-comments
+aJavadocCommentInsideAnExpressionOrBetweenArgumentsIsAnOrphanAndTheFileStillParses :: Property
+aJavadocCommentInsideAnExpressionOrBetweenArgumentsIsAnOrphanAndTheFileStillParses = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter javaProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "package p;"
+          , "class A {"
+          , "  /** Sums. */"
+          , "  int sum(int a, int b) {"
+          , "    int c = foo(a, /** between arguments */ b) + /** between operands */ 3;"
+          , "    int[] l = { 1, /** in an initializer */ 2 };"
+          , "    Runnable r = () -> /** in a lambda */ run();"
+          , "    return (int) /** after a cast */ c;"
+          , "  }"
+          , "  /** Still documented. */"
+          , "  int f = 1 * /** in a field */ 2;"
+          , "}"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "java" javaProfile interpreter "A.java" "A.java" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- toList (decisionUnits d)]
+    === [("java/A.java/package/p/class/A/method/sum", "Sums."), ("java/A.java/package/p/class/A/field/f", "Still documented.")]
+  length [() | OrphanDocComment _ _ <- findings] === 6
 
 isAsserted :: Evidence -> Bool
 isAsserted ev = case ev of

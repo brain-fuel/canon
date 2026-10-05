@@ -139,6 +139,13 @@ and this project adheres to
 - `canon check` parses files concurrently, caches extractions under `.canon-cache/` keyed by content, grammar, profile, and git revision, and derives Who and When from one `git blame` per file; the Haskell sample check went from 26 seconds to 1.4 cold and 0.2 warm with identical findings
 
 ### Fixed
+- Kotlin, Groovy, and Java dialects: a doc comment inside an expression, between arguments, or between brackets no longer fails the parse; each dialect names `canonicalComment` in a `strayComment` option and reports such a comment as an orphan, and a comment before a Kotlin lambda's or a Groovy closure's parameters or before a Groovy case label is an orphan in the grammar
+- Kotlin: the members of a class declared inside a function body no longer take the requirement of the function around it
+- Groovy: each name a field declaration declares is a field unit of its own, a destructuring `def (a, b) = ...` included, through the new `declarator` element label, and the Groovydoc above is one decision binding them all
+- Groovy: a method named by a string, as a Spock feature method is, is named without its quotes, a slash in it a division slash, so its unit id has one segment for the name
+- Groovy: a Groovydoc decision's span ends where the comment ends rather than at the start of the next line
+- Groovy: the lexer reads `/$/`, `$/a$/$`, `$/a$//$`, `/a${b}$$/`, and a non-ASCII or supplementary character after a dollar in a slashy or dollar slashy string as Groovy 4.0.24 does
+- Groovy: the grammars' superclasses are named `GroovyLexerBase` and `GroovyParserBase`, so the generic `AbstractLexer` and `AbstractParser` no longer select Groovy's hooks
 - Haskell: a layout block closes at a comma of the brackets or record braces around it, at the `then` or `else` of an `if` around it, and a `let` in a function's guard at the equals sign that ends the guard, so a `case` in a tuple, a `let` in a comprehension, and a `case` between `then` and `else` on one line parse; an equals sign that is part of an operator such as `/=` closes nothing
 - Rust: `async`, `try`, and `dyn` are identifiers too, so a 2015 edition crate that uses them as names parses
 - Gleam: the tuple type `tuple(A, B)` of Gleam before v0.15 parses

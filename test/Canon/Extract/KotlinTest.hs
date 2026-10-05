@@ -35,6 +35,9 @@ tests =
     , testProperty "the Kotlin profile binds KDoc comments and recognises tests by annotation and source set" prop_theKotlinProfileBindsKDocCommentsAndRecognisesTestsByAnnotationAndSourceSet
     , testProperty "the Kotlin dialect parses every file of the Turbine sample with its KDoc comments" prop_theKotlinDialectParsesEveryFileOfTheTurbineSampleWithItsKDocComments
     , testProperty "the Kotlin dialect binds KDoc to declarations, requires it on public API, and reports misplaced KDoc" prop_theKotlinDialectBindsKDocToDeclarationsRequiresItOnPublicApiAndReportsMisplacedKDoc
+    , testProperty "a KDoc comment inside an expression is an orphan and the file still parses" prop_aKDocCommentInsideAnExpressionIsAnOrphanAndTheFileStillParses
+    , testProperty "the members of a local class need no KDoc" prop_theMembersOfALocalClassNeedNoKDoc
+    , testProperty "an unnamed companion object and secondary constructors are named by their keywords" prop_anUnnamedCompanionObjectAndSecondaryConstructorsAreNamedByTheirKeywords
     ]
 
 sampleDir :: FilePath
@@ -267,4 +270,94 @@ prop_theKotlinDialectBindsKDocToDeclarationsRequiresItOnPublicApiAndReportsMispl
         , "kotlin/Shapes.kt/function/legacy"
         , "kotlin/Shapes.kt/type/Area"
         , "kotlin/Shapes.kt/function/aCircleOfRadiusOneHasAreaPi"
+        ]
+
+-- | KDoc may stand anywhere a comment may, and one inside an expression documents nothing, so it must
+-- not stop a Kotlin project's check: the file parses, every declaration keeps its own KDoc, and each
+-- misplaced comment is reported as an orphan. ref:REQ-kotlin-support ref:DEC-kotlin-dialect
+-- ref:DEC-stray-comments
+prop_aKDocCommentInsideAnExpressionIsAnOrphanAndTheFileStillParses :: Property
+prop_aKDocCommentInsideAnExpressionIsAnOrphanAndTheFileStillParses = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "Odd.kt"
+      ( T.unlines
+          [ "package odd"
+          , ""
+          , "/** Sums with comments in odd places. */"
+          , "fun sum(a: Int, b: Int): Int {"
+          , "    val c = listOf(a, /** between arguments */ b) + /** between operands */ 3"
+          , "    val d = c.map { /** before a lambda's parameters */ it -> it + 1 }"
+          , "    return when (a) { 1 -> /** in a when branch */ 2 else -> d.size }"
+          , "}"
+          , ""
+          , "/** Still documented. */"
+          , "val answer: Int = 42 * /** in an initializer */ 1"
+          ]
+      )
+  whysOf model
+    === [ ("kotlin/Odd.kt/function/sum", "Sums with comments in odd places.")
+        , ("kotlin/Odd.kt/property/answer", "Still documented.")
+        ]
+  length [() | OrphanDocComment _ _ <- findings] === 5
+
+-- | A class declared inside a function body is local to it, so no caller outside the function sees
+-- its members, and KDoc on them is not API documentation; they must not take the requirement of the
+-- public function around them. ref:REQ-kotlin-support ref:DEC-kotlin-dialect
+prop_theMembersOfALocalClassNeedNoKDoc :: Property
+prop_theMembersOfALocalClassNeedNoKDoc = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractText
+      dialectProfile
+      "Local.kt"
+      ( T.unlines
+          [ "/** Counts with a local helper class. */"
+          , "fun count(): Int {"
+          , "    class Counter(val start: Int) {"
+          , "        fun next(): Int = start + 1"
+          , "        val twice: Int get() = start * 2"
+          , "    }"
+          , "    return Counter(1).next()"
+          , "}"
+          ]
+      )
+  [(k, n) | (k, n) <- unitsOf model] === [("function", "count"), ("property", "start"), ("function", "next"), ("property", "twice")]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
+
+-- | A unit is named by what its source writes, so a companion object written without a name is named
+-- by its companion keyword, not by the Companion Kotlin gives it, and secondary constructors by their
+-- constructor keyword, numbered after the first, so each has an id of its own. ref:REQ-kotlin-support
+-- ref:DEC-kotlin-dialect
+prop_anUnnamedCompanionObjectAndSecondaryConstructorsAreNamedByTheirKeywords :: Property
+prop_anUnnamedCompanionObjectAndSecondaryConstructorsAreNamedByTheirKeywords = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractText
+      dialectProfile
+      "Point.kt"
+      ( T.unlines
+          [ "/** A point. */"
+          , "class Point(val x: Int) {"
+          , "    /** From a string. */"
+          , "    constructor(s: String) : this(s.toInt())"
+          , "    /** From a double. */"
+          , "    constructor(d: Double) : this(d.toInt())"
+          , "    /** Factories. */"
+          , "    companion object {"
+          , "        /** The origin. */"
+          , "        fun origin(): Point = Point(0)"
+          , "    }"
+          , "    /** Named factories. */"
+          , "    companion object Named"
+          , "}"
+          ]
+      )
+  [renderUnitId (unitId u) | u <- drop 1 (modelAllUnits model)]
+    === [ "kotlin/Point.kt/class/Point"
+        , "kotlin/Point.kt/class/Point/property/x"
+        , "kotlin/Point.kt/class/Point/constructor/constructor"
+        , "kotlin/Point.kt/class/Point/constructor/constructor#2"
+        , "kotlin/Point.kt/class/Point/object/companion"
+        , "kotlin/Point.kt/class/Point/object/companion/function/origin"
+        , "kotlin/Point.kt/class/Point/object/Named"
         ]

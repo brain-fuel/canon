@@ -33,8 +33,10 @@
  */
 lexer grammar GroovyLexer;
 
+// canon: the superclass is named GroovyLexerBase rather than upstream's AbstractLexer, so the hook canon
+// selects by that name cannot be chosen by another grammar whose superclass has the generic name.
 options {
-    superClass = AbstractLexer;
+    superClass = GroovyLexerBase;
 }
 
 @header {
@@ -292,16 +294,18 @@ options {
 // canon: the predicates that looked ahead in the character stream are written as characters: a
 // slashy string's first character is not a star, one or two quotes before the closing quotes of a
 // triple-quoted string belong to it, a dollar before a slashy string's closing slash belongs to it,
-// and slashes before a dollar slashy string's closing /$ belong to it. isRegexAllowed is decided by
-// the Canon.Antlr4.Lex.Groovy hook.
+// and slashes before a dollar slashy string's closing /$ belong to it. A slashy string may hold only
+// dollars, as /$/ does, and a dollar slashy string may end in a dollar or a $/ escape before its
+// closing /$, as $/a$/$ and $/a$//$ do, since neither dollar starts a value. isRegexAllowed is
+// decided by the Canon.Antlr4.Lex.Groovy hook.
 StringLiteral
     :   GStringQuotationMark  DqStringCharacter*  GStringQuotationMark
     |   SqStringQuotationMark  SqStringCharacter*  SqStringQuotationMark
-    |   Slash { this.isRegexAllowed() }?  SlashyStringFirstCharacter SlashyStringCharacter* Dollar* Slash
+    |   Slash { this.isRegexAllowed() }?  (SlashyStringFirstCharacter SlashyStringCharacter* Dollar* | Dollar+) Slash
 
     |   TdqStringQuotationMark  TdqStringCharacter* GStringQuotationMark? GStringQuotationMark? TdqStringQuotationMark
     |   TsqStringQuotationMark  TsqStringCharacter* SqStringQuotationMark? SqStringQuotationMark? TsqStringQuotationMark
-    |   DollarSlashyGStringQuotationMarkBegin  DollarSlashyStringCharacter+ Slash* DollarSlashyGStringQuotationMarkEnd
+    |   DollarSlashyGStringQuotationMarkBegin  (DollarSlashyStringCharacter+ (DollarSlashEscape | Dollar+)? | DollarSlashEscape | Dollar+) Slash* DollarSlashyGStringQuotationMarkEnd
     ;
 
 GStringBegin
@@ -372,9 +376,13 @@ fragment SlashyStringFirstCharacter
     |   ~[/$*\u0000]
     ;
 
-// canon: a character after a dollar that does not make the dollar start a GString value.
+// canon: a character after a dollar that does not make the dollar start a GString value: an ASCII
+// character other than a letter, an underscore, or a brace, or a character beyond ASCII that cannot
+// start a Java identifier, as upstream's isFollowedByJavaLetterInGString decided; the hook reads
+// the character just matched, so a supplementary letter such as U+1D49C starts a value too.
 fragment NotGStringValueStart
-    :   ~[/$\u0000{a-zA-Z_\u0080-\uFFFF]
+    :   ~[/$\u0000{a-zA-Z_\u0080-\u{10FFFF}]
+    |   [\u0080-\u{10FFFF}] { !this.isJavaLetterInGString(_input.LA(-1)) }?
     ;
 
 // character in the dollar slashy string. e.g. $/a/$
@@ -984,8 +992,10 @@ TdqGStringCharacter
     ;
 
 mode SLASHY_GSTRING_MODE;
+// canon: every dollar before the closing slash belongs to the end, as $$/ does, since upstream read
+// each such dollar as a character of the string.
 SlashyGStringEnd
-    :   Dollar? Slash  -> type(GStringEnd), popMode
+    :   Dollar* Slash  -> type(GStringEnd), popMode
     ;
 // canon: a dollar that is not followed by a letter or a brace is a character of the string, and
 // SlashyStringCharacter takes it with the character after it, so a part is any run of dollars the
@@ -998,11 +1008,11 @@ SlashyGStringCharacter
     ;
 
 mode DOLLAR_SLASHY_GSTRING_MODE;
-// canon: slashes before the closing /$ belong to the string, and a dollar that the characters do
-// not take, which is one followed by a letter or a brace, is a part, which upstream decided by
-// looking ahead.
+// canon: slashes before the closing /$ belong to the string, and so does a $/ escape just before
+// them, as in $//$; a dollar that the characters do not take, which is one followed by a letter or
+// a brace, is a part, which upstream decided by looking ahead.
 DollarSlashyGStringEnd
-    :   Slash* DollarSlashyGStringQuotationMarkEnd      -> type(GStringEnd), popMode
+    :   DollarSlashEscape? Slash* DollarSlashyGStringQuotationMarkEnd      -> type(GStringEnd), popMode
     ;
 DollarSlashyGStringPart
     :   Dollar   -> type(GStringPart), pushMode(GSTRING_TYPE_SELECTOR_MODE)

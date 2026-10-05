@@ -30,7 +30,7 @@ predicateHookFor grammar =
     (Name "TypeScriptParserBase" : _) -> javaScriptPredicates
     (Name "GoParserBase" : _) -> goPredicates
     (Name "Python3ParserBase" : _) -> pythonPredicates
-    (Name "AbstractParser" : _) -> groovyPredicates
+    (Name "GroovyParserBase" : _) -> groovyPredicates
     _ -> \_ _ _ _ -> True
 
 -- | CSharpParserBase's predicates. IsRightArrow, IsRightShift, and IsRightShiftAssignment hold when

@@ -15,12 +15,15 @@ The grammar leans on Java: the lexer's superclass `AbstractLexer` and its
 `@members`, the parser's superclass `AbstractParser`, and the
 `SemanticPredicates` class. canon interprets the grammar and has no port of
 those classes, so the lexer's members are ported as the
-`Canon.Antlr4.Lex.Groovy` hook, selected by `superClass = AbstractLexer`, the
-parser's predicates as the `Canon.Antlr4.Predicate.Groovy` hook, selected by
-`superClass = AbstractParser`, and what neither can express is rewritten in
+`Canon.Antlr4.Lex.Groovy` hook, the parser's predicates as the
+`Canon.Antlr4.Predicate.Groovy` hook, and what neither can express is rewritten in
 the grammar. Every change is marked `// canon:` in the grammar and recorded as
 `DEC-groovy-grammar` in canon's `canonical_decisions.yaml`:
 
+- The superclasses are renamed `GroovyLexerBase` and `GroovyParserBase`, the
+  names that select the two hooks, since another grammar whose superclass has
+  the generic name `AbstractLexer` or `AbstractParser` would otherwise get
+  Groovy's hooks.
 - The lexer hook keeps the type of the last token on the default channel, so
   `isRegexAllowed` tells a slashy string from a division as upstream's
   `REGEX_CHECK_SET` does, and the stack of open brackets that `enterParen` and
@@ -36,8 +39,14 @@ the grammar. Every change is marked `// canon:` in the grammar and recorded as
   quotes or a dollar; a dollar in a slashy or dollar slashy string is a
   character when what follows it cannot start a GString value, read together
   with that character, so the `isFollowedByJavaLetterInGString` predicates
-  are dropped; a slashy string's first character is not a star; a slash in a
-  dollar slashy string is a character when anything but a dollar follows it.
+  are dropped; a character beyond ASCII after a dollar starts a value when it
+  may start a Java identifier, which the hook's `isJavaLetterInGString` decides
+  on the character matched; a slashy string's first character is not a star,
+  and one may hold only dollars, as `/$/` does; every dollar before a slashy
+  GString's closing slash belongs to its end; a slash in a dollar slashy
+  string is a character when anything but a dollar follows it, and a dollar or
+  a `$/` escape may stand just before its closing `/$`, as in `$/a$/$` and
+  `$/a$//$`. Each of these reads as Groovy 4.0.24's own lexer reads it.
   `DollarSlashDollarEscape` keeps its predicate, which looks behind.
 - `NOT_IN` takes the letters after `!in`, and the hook splits `!internal`
   back into `!` and an identifier, which upstream's `isFollowedBy` predicates
@@ -64,6 +73,8 @@ the grammar. Every change is marked `// canon:` in the grammar and recorded as
 - A constructor is `constructorDeclaration`, a member without a return type
   named for its class, which the `isConstructorName` predicate added for
   canon decides; upstream's AST builder told a constructor from a method.
+  `def Foo()` in class `Foo` is a constructor, since `def` is a modifier and
+  Groovy compiles it as one, while `Object Foo()` is a method.
 - An annotation is labeled `marker`, so a test is told by its annotation, and
   `private` is labeled `optional`, since Groovy declarations are public unless
   they say otherwise.
@@ -75,8 +86,25 @@ call; `isInvalidLocalVariableDeclaration` and `isAnnotatedLoopStatement`, so
 for annotation arguments; `static.` as a name; and
 `isFollowingArgumentsOrClosure`, which upstream read from the parse of the
 expression before a command's arguments and the hook reads from its tokens.
-The counters of switch expressions and async closures are not tracked, so
-`yield` and `defer` statements are admitted anywhere.
+
+Known limits of the port, none of which the spock-genesis sources meet:
+
+- canon's predicate hook sees tokens, not the partial parse, so
+  `isFollowingArgumentsOrClosure` judges the expression before a command's
+  arguments by its brackets and operators: an expression that ends in a
+  parenthesis or brace opened after its first token is taken as a path ending
+  in arguments or a closure, so a cast such as `(T) f(x) y` may be read as a
+  call where upstream reads a cast operand.
+- The counters of switch expressions and async closures, which upstream keeps
+  in parser actions, are not tracked, so `yield` and `defer` statements are
+  admitted anywhere.
+- canon's lexer cannot look ahead, so a dollar it cannot judge by the
+  character it reads with it can differ from Groovy where code follows a
+  dollar slashy string: in `$/a/$$/$` Groovy reads the string `$/a/$` and then
+  `$`, `/`, `$`, while canon opens a dollar slashy GString at the `$/` after it;
+  in `$/a$//$b/$` Groovy ends the string at the first `/$`, while canon reads
+  that `$` as the start of a value; both fail to lex. `$///$`, a dollar slashy
+  string holding one slash, lexes as `$` and a line comment.
 
 ## Canonically commented dialect
 
@@ -88,19 +116,34 @@ above with Groovydoc comments as canonical comments, recorded as
   mode, which tokenizes prose, punctuation, `ref:KEY`, and `license:KEY`, and
   drops the stars that decorate its lines. A plain comment may not start with
   two stars, so `/**/` and `/***` stay plain by the longest match.
-- `canonicalComment`, which takes the newlines after the comment, and
-  `docPart` are the comment rules.
+- `canonicalComment` and `docPart` are the comment rules. Each use of a
+  comment takes the newlines after it, which upstream read as separators, so a
+  separator never stands between a comment and its declaration, while the
+  comment's span, and so its decision's, ends where the comment ends.
 - Each type, constructor, method, field, and enum constant is a labeled unit
   alternative: `# class`, `# interface`, `# enum`, `# annotation`, `# trait`,
   `# record`, `# constructor`, `# method`, `# field`, and `# constant`. The
   Groovydoc above the annotations is the `why`, and of several in a row the
-  last binds. A field is named by its first declarator.
+  last binds.
+- A field declaration is read by `fieldVariables`, `fieldDeclarators`,
+  `fieldNamePairs`, `fieldNamePair`, and `fieldKeyedPair`, upstream's variable
+  rules with each declared name labeled `declarator`, so `int x, y` makes the
+  fields `x` and `y` and `def (a, b) = [1, 2]` the fields `a` and `b`, and the
+  Groovydoc above the declaration is one decision binding them all.
+- A method named by a string, as a Spock feature method is, is named by the
+  string's contents, a slash in it a division slash (∕).
 - Each unit holds the empty rule `publicByDefault`, labeled `required`, and
   `private` is labeled `optional`, which wins, so a declaration requires a
   comment unless it is private.
 - A Groovydoc comment the grammar accepts but binds to nothing is an
   `orphan`: after an annotation or a modifier, before a statement, a package,
-  an import, or an initializer block, and after the last member of a body, a
-  block, a closure, or a file.
-
-A Groovydoc comment inside an expression or between brackets fails the parse.
+  an import, an initializer block, a case label, or a closure's parameters,
+  and after the last member of a body, a block, a closure, or a file.
+- The option `strayComment = canonicalComment` lets a Groovydoc comment stand
+  anywhere else, as inside an expression or between brackets: where the parse
+  fails at such a comment or just after it, canon reads the file without it
+  and reports it as an orphan, under `DEC-stray-comments`. Where the grammar
+  accepts the comment in one reading, as before a statement, and the parse
+  then fails further on, as before a case label or a closure's parameters, the
+  grammar names the place instead; a place of that kind not yet named still
+  fails the parse.

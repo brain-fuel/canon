@@ -90,7 +90,7 @@ hooksForGrammarWith choice grammar =
     (Name "Python3LexerBase" : _) -> SomeHooks pythonHooks
     (Name "ScalaLexerBase" : _) -> SomeHooks scalaLexerHooks
     (Name "GoLexerBase" : _) -> SomeHooks goLexerHooks
-    (Name "AbstractLexer" : _) -> SomeHooks groovyLexerHooks
+    (Name "GroovyLexerBase" : _) -> SomeHooks groovyLexerHooks
     (Name "ErlangPreprocessor" : _) -> SomeHooks erlangPreprocessorHooks
     (Name "HCLLexerBase" : _) -> SomeHooks hclLexerHooks
     (Name "YAMLLexerBase" : _) -> SomeHooks yamlLexerHooks

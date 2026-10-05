@@ -16,7 +16,11 @@
 
 parser grammar KotlinParser;
 
+// canon: a KDoc comment may stand between any two tokens, as inside an expression; where the
+// grammar does not accept one, canon reads the file without it and reports it as an orphan, as the
+// strayComment option says. ref:DEC-stray-comments
 options {
+    strayComment = canonicalComment;
     tokenVocab = KotlinLexer;
 }
 
@@ -373,7 +377,7 @@ declaration
 
 // canon: a declaration inside a function body, which is not a unit.
 localDeclaration
-    : classDeclaration
+    : localClassDeclaration
     | objectDeclaration
     | functionDeclaration
     | propertyDeclaration
@@ -585,9 +589,10 @@ multiLineStringExpression
     : MultiLineStrExprStart NL* expression NL* '}'
     ;
 
+// canon: a KDoc comment before a lambda's parameters binds to nothing.
 lambdaLiteral // anonymous functions?
     : LCURL NL* statements NL* RCURL
-    | LCURL NL* lambdaParameters? NL* ARROW NL* statements NL* '}'
+    | LCURL NL* (orphan = canonicalComment NL*)* lambdaParameters? NL* ARROW NL* statements NL* '}'
     ;
 
 lambdaParameters
@@ -616,7 +621,16 @@ objectLiteral
     | 'object' NL* objectLiteralBody
     ;
 
-// canon: the body of an object expression.
+// canon: a class declared inside a function body, which is no unit; its members are local to the
+// function, so its body, like an object expression's, does not make them inherit a requirement.
+// Kotlin allows no local enum class, so the body is a class body.
+localClassDeclaration
+    : modifiers? ('class' | 'interface') NL* simpleIdentifier (NL* typeParameters)? (NL* primaryConstructor)? (
+        NL* ':' NL* delegationSpecifiers
+    )? (NL* typeConstraints)? (NL* objectLiteralBody)?
+    ;
+
+// canon: the body of an object expression or a local class.
 objectLiteralBody
     : '{' NL* classMemberDeclarations NL* '}'
     ;

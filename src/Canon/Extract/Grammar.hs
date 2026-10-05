@@ -42,7 +42,7 @@ import Data.List (group, sort, sortOn)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map.Strict as Map
-import Data.Maybe (isJust, isNothing, listToMaybe, mapMaybe)
+import Data.Maybe (fromMaybe, isJust, isNothing, listToMaybe, mapMaybe)
 import qualified Data.Set as Set
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -117,7 +117,7 @@ extractWithProfileText provider config language profile interpreter idPath path 
       tree <- either (Left . GrammarInterpretError) Right (interpretTextWith choice interpreter (profileStart profile) path source)
       (root, labeled, unbound, hiddenOwn) <- unitsFromTree language profile (alternativePlans (interpreterParser interpreter)) (exportLabelsDeclared (interpreterParser interpreter)) idPath path source tree
       let unread = if preprocessed then inactiveLinesWith choice source else Set.empty
-          (attached, orphans) = extractDecisionsFor (profileComments profile) unread path source root (Set.fromList (map decisionId labeled)) hiddenOwn comments
+          (attached, orphans) = extractDecisionsFor (profileComments profile) unread path source root (Set.fromList [decisionIdFor u | d <- labeled, u <- toList (decisionUnits d)]) hiddenOwn comments
       Right (unread, root, labeled ++ attached, unbound ++ map locatedSpan orphans)
     orphanIn sp (unread, _, _, spans) = Set.member (positionLine (spanStart sp)) unread || sp `elem` spans
     uniqueSpans = foldr (\sp acc -> sp : filter (/= sp) acc) []
@@ -259,6 +259,15 @@ exportRequires exports parent name = case exports of
 -- The first why element in a unit's node, outside the units nested in it, is the unit's Why wherever
 -- the grammar puts it, as the @moduledoc of an Elixir module sits among its statements; any other why
 -- element binds to nothing and is reported. ref:DEC-elixir-dialect
+--
+-- A unit alternative whose node holds elements labeled declarator, outside the units nested in it,
+-- is one unit per declarator, named by the what element inside it, of the alternative's kind and
+-- requirement; their Why is the alternative's, one decision that binds them all, as the Groovydoc
+-- above a field declaration documents each name it declares. ref:DEC-declarator-label
+--
+-- A name written as one string literal, as a Spock feature method's, is its contents without quotes
+-- or escapes, with each slash a division slash so it stays one segment of the unit id; tests are
+-- still told by the name as written. ref:DEC-groovy-dialect
 --
 -- A unit whose own alternative holds what elements is named by their texts joined with a dot, as
 -- Terraform addresses a resource by its type and name; otherwise by the first what element below it.
@@ -403,7 +412,21 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
     collect hiddenAbove parent chain parentRequired node = collectAll hiddenAbove parent chain parentRequired [node]
     collectAll hiddenAbove parent chain parentRequired nodes =
       let built = map (build hiddenAbove parent chain parentRequired) (uniqueNames (numberOrdinals (mergeClauses (attachBindings (concatMap (found []) nodes)))))
-       in ([u | (u, _, _) <- built], concat [d | (_, d, _) <- built], Set.unions [h | (_, _, h) <- built])
+       in ([u | (u, _, _) <- built], shareWhys (concat [d | (_, d, _) <- built]), Set.unions [h | (_, _, h) <- built])
+    -- The units the declarators of one declaration make share its Why, so the comment is one decision
+    -- that binds them all. ref:DEC-declarator-label
+    shareWhys ds = case ds of
+      [] -> []
+      (d : rest) ->
+        let same o = whereSpan (decisionWhere o) == whereSpan (decisionWhere d)
+         in d {decisionUnits = foldl (\acc o -> acc <> decisionUnits o) (decisionUnits d) (filter same rest)} : shareWhys (filter (not . same) rest)
+    -- A name written as one string literal, as Spock names a feature method def 'adds two numbers'(),
+    -- is its contents, without quotes or escapes, and a slash in it is a division slash, so the name
+    -- stays one segment of the unit id; a test is still told by the name as written.
+    -- ref:DEC-groovy-dialect
+    stringName t = case [inner | q <- ["'''", "\"\"\"", "'", "\""], T.length t >= 2 * T.length q, Just a <- [T.stripPrefix q t], Just inner <- [T.stripSuffix q a]] of
+      (inner : _) -> T.replace "/" "\x2215" (unescape inner)
+      [] -> t
     numberOrdinals candidates = go Map.empty candidates
       where
         go _ [] = []
@@ -457,7 +480,11 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
       Labeled "binding" inner -> [FoundBinding inner]
       Labeled _ inner -> found prefix inner
       RuleNode name alternative nodeChildren -> case planFor name alternative of
-        Just plan | Just (unitName, ordinal) <- planName prefix node -> [FoundUnit (Candidate (planKind plan) unitName (hiddenOr node (if planWhyRequired plan || (isJust (labeledSubtree "required" node) && not optional) then Required else Optional)) optional False ordinal (labeledSubtree "why" node) (labeledSubtree "how" node) (labeledSubtree "signature" node) [] node (mergeKey name plan node) [])]
+        Just plan | Just (unitName, ordinal) <- planName prefix node ->
+          let candidate = Candidate (planKind plan) unitName (hiddenOr node (if planWhyRequired plan || (isJust (labeledSubtree "required" node) && not optional) then Required else Optional)) optional False ordinal (labeledSubtree "why" node) (labeledSubtree "how" node) (labeledSubtree "signature" node) [] node (mergeKey name plan node) []
+           in case labeledSubtrees "declarator" node of
+                [] -> [FoundUnit candidate]
+                declarators -> [FoundUnit candidate {candidateName = fromMaybe (nameFromTokens d) (qualifiedName prefix d), candidateHow = Just d, candidateNode = d, candidateMerge = Nothing} | d <- declarators]
         _ -> case [(rule, unitName) | rule <- Map.findWithDefault [] name rulesByName, accepts rule node, Just unitName <- [nameOf rule node]] of
           ((rule, unitName) : _) -> [FoundUnit (Candidate (unitRuleKind rule) (withArity node unitName) (hiddenOr node (if (unitRuleRequired rule || isJust (labeledSubtree "required" node)) && not optional then Required else Optional)) optional False (unitRuleNameSource rule == NameFromOrdinal) (pythonDoc node) Nothing Nothing [] node (if unitRuleMergeClauses rule then Just (nameText (unitRuleName rule)) else Nothing) [])]
           [] -> concatMap (found (qualified prefix nodeChildren)) nodeChildren
@@ -571,9 +598,10 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
       where
         go _ [] = []
         go seen (c : rest) =
-          let key = (candidateKind c, candidateName c)
+          let named = stringName (candidateName c)
+              key = (candidateKind c, named)
               count = Map.findWithDefault (0 :: Int) key seen
-              segment = if count == 0 then candidateName c else T.concat [candidateName c, "#", T.pack (show (count + 1))]
+              segment = if count == 0 then named else T.concat [named, "#", T.pack (show (count + 1))]
            in (c, segment) : go (Map.insert key (count + 1) seen) rest
     build hiddenAbove parent chain parentRequired (c, segment) =
       let uid = UnitId (NonEmpty.fromList (NonEmpty.toList (unitIdSegments parent) ++ [candidateKind c, segment]))
@@ -597,7 +625,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
             ([], Nothing) -> maybe ownSpan (\w -> Span (spanEnd (treeSpan w)) (spanEnd ownSpan)) (candidateWhy c)
           hiddenSelf = candidateRequirement c == Hidden
           hidden = hiddenSelf || hiddenAbove
-          (nested, nestedDecisions, nestedHidden) = collectAll hidden uid (chain ++ [candidateName c]) required (concatMap childrenOf clauses)
+          (nested, nestedDecisions, nestedHidden) = collectAll hidden uid (chain ++ [stringName (candidateName c)]) required (concatMap childrenOf clauses)
           markers = [T.concat (T.words (tokensText m)) | clause <- clauses, m <- labeledSubtrees "marker" clause]
           test = isTestUnit language (candidateKind c) (candidateName c) idPath markers
           inherits = candidateInherits c && parentRequired && not (candidateOptional c)
@@ -621,7 +649,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
                   ]
        in ( CodeUnit
               { unitId = uid
-              , unitWhat = Answer (What (candidateName c) (UnitKind (candidateKind c)) (T.strip . slice . treeSpan <$> candidateSignature c)) evidence
+              , unitWhat = Answer (What (stringName (candidateName c)) (UnitKind (candidateKind c)) (T.strip . slice . treeSpan <$> candidateSignature c)) evidence
               , unitHow = Answer (HowText (T.strip (case candidateWhy c of
                     Just why | language == "python" -> slice (Span (spanStart ownSpan) (spanStart (treeSpan why))) <> slice (Span (spanEnd (treeSpan why)) (spanEnd ownSpan))
                     _ | null bindingSpans, hows@(_ : _ : _) <- labeledSubtrees "how" node -> T.intercalate "\n\n" (map (T.strip . slice . treeSpan) hows)

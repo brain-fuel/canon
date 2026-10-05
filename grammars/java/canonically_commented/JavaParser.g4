@@ -37,9 +37,13 @@ parser grammar JavaParser;
 
 // Insert here @header.
 
+// canon: a Javadoc comment may stand between any two tokens, as inside an expression or between
+// arguments; where the grammar does not accept one, canon reads the file without it and reports it
+// as an orphan, as the strayComment option says. ref:DEC-stray-comments
 options {
     tokenVocab = JavaLexer;
     superClass = JavaParserBase;
+    strayComment = canonicalComment;
 }
 
 /** A source file is an ordinary compilation unit, with an optional package, imports, and type declarations up to end of input, or a modular one holding a module declaration. In the dialect a canonical comment before the package declaration is the Why of the package unit, whose What is the package name, a comment before an import is an orphan, and a modular unit binds its comment to the module. ref:DEC-grammar-carries-extraction-rules */

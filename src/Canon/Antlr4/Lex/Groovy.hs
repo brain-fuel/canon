@@ -1,5 +1,5 @@
 -- | Apache Groovy's lexer grammar leaves to its Java superclass, AbstractLexer and the members of
--- GroovyLexer, whether a slash starts a slashy string, which brackets make newlines insignificant,
+-- GroovyLexer, which the vendored grammar names GroovyLexerBase so the name selects this hook alone, whether a slash starts a slashy string, which brackets make newlines insignificant,
 -- and which characters may start an identifier; this is that superclass as a hook. The predicates
 -- that looked ahead in the character stream are written as characters in the vendored grammar,
 -- since canon's lexer predicates see what has been matched, and NOT_IN, which upstream gated on the
@@ -26,7 +26,8 @@ data GroovyLexerState = GroovyLexerState
   }
   deriving (Eq, Show)
 
--- | The hooks for the AbstractLexer superclass of GroovyLexer.
+-- | The hooks for the superclass of GroovyLexer, upstream's AbstractLexer, named GroovyLexerBase in
+-- the vendored grammar. ref:DEC-groovy-grammar
 groovyLexerHooks :: LexerHooks GroovyLexerState
 groovyLexerHooks = LexerHooks (GroovyLexerState Nothing []) onAction onPredicate onEmit
 
@@ -59,10 +60,12 @@ onPredicate _ predicate matched _ s
   | calls predicate "isJavaIdentifierStartAndNotIdentifierIgnorable" = lastChar (\c -> javaIdentifierStart c && not (ignorable c) && casing c)
   | calls predicate "isJavaIdentifierPartAndNotIdentifierIgnorable" = lastChar (\c -> javaIdentifierPart c && not (ignorable c))
   | calls predicate "LA(-1) != '$'" = lastChar (/= '$')
+  | calls predicate "isJavaLetterInGString" = negatedIf (lastChar javaLetterInGString)
   | otherwise = True
   where
     raw = actionTextRaw predicate
     lastChar test = maybe False (test . snd) (T.unsnoc matched)
+    negatedIf value = if "!this.isJavaLetterInGString" `T.isInfixOf` raw then not value else value
     casing c
       | "!Character.isUpperCase" `T.isInfixOf` raw = not (isUpper c)
       | "Character.isUpperCase" `T.isInfixOf` raw = isUpper c
@@ -90,6 +93,14 @@ regexAllowed s = case groovyLastType s of
                 , "Identifier"
                 , "CapitalizedIdentifier"
                 ]
+
+-- | isFollowedByJavaLetterInGString, asked of the character after a dollar: an ASCII letter, an
+-- underscore, or a brace, or a character beyond ASCII that may start a Java identifier, which upstream
+-- read from the code point, so a supplementary letter counts.
+javaLetterInGString :: Char -> Bool
+javaLetterInGString c
+  | c < '\x80' = c == '_' || c == '{' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+  | otherwise = javaIdentifierStart c
 
 -- | Character.isJavaIdentifierStart: a letter, a letter number, a currency symbol, or a connector.
 javaIdentifierStart :: Char -> Bool

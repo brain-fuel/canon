@@ -16,6 +16,7 @@ import Canon.Model
 import Canon.Model.Check (checkModel, checkTests)
 import Canon.Model.Finding
 import Canon.Profile
+import Canon.Span (Position (..), Span (..))
 import Canon.Registry (Reference (..), ReferenceKind (..), Registry (..), emptyRegistry)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.Map.Strict as Map
@@ -37,6 +38,12 @@ tests =
     , testProperty "the Groovy profile binds Groovydoc above annotations, requires it on public declarations, and recognises tests" prop_theGroovyProfileBindsGroovydocAboveAnnotationsRequiresItOnPublicDeclarationsAndRecognisesTests
     , testProperty "the Groovy dialect parses the spock-genesis sample with its Groovydoc" prop_theGroovyDialectParsesTheSpockGenesisSampleWithItsGroovydoc
     , testProperty "the Groovy dialect binds Groovydoc to declarations and reports misplaced ones" prop_theGroovyDialectBindsGroovydocToDeclarationsAndReportsMisplacedOnes
+    , testProperty "a Groovydoc comment inside an expression or between brackets is an orphan and the file still parses" prop_aGroovydocCommentInsideAnExpressionOrBetweenBracketsIsAnOrphanAndTheFileStillParses
+    , testProperty "each name a Groovy field declares is a field that shares its Groovydoc" prop_eachNameAGroovyFieldDeclaresIsAFieldThatSharesItsGroovydoc
+    , testProperty "a Spock feature method is named by its string without quotes, its slashes made safe" prop_aSpockFeatureMethodIsNamedByItsStringWithoutQuotesItsSlashesMadeSafe
+    , testProperty "a Groovydoc decision ends where its comment ends" prop_aGroovydocDecisionEndsWhereItsCommentEnds
+    , testProperty "a member named for its class without a return type is a constructor, def included" prop_aMemberNamedForItsClassWithoutAReturnTypeIsAConstructorDefIncluded
+    , testProperty "the Groovy lexer reads dollars at the edges of slashy strings as Groovy does" prop_theGroovyLexerReadsDollarsAtTheEdgesOfSlashyStringsAsGroovyDoes
     ]
 
 sampleDir :: FilePath
@@ -244,7 +251,7 @@ prop_theGroovyProfileBindsGroovydocAboveAnnotationsRequiresItOnPublicDeclaration
         , ("trait", "Greets")
         , ("method", "greet")
         , ("class", "ShapeSpec")
-        , ("method", "'a square has the area of its side squared'")
+        , ("method", "a square has the area of its side squared")
         , ("method", "uncommentedJUnitTest")
         , ("method", "helperMethod")
         ]
@@ -255,7 +262,7 @@ prop_theGroovyProfileBindsGroovydocAboveAnnotationsRequiresItOnPublicDeclaration
   whyOf "helper" === []
   whyOf "RED" === ["The colour red."]
   length [() | OrphanDocComment _ _ <- findings] === 1
-  map testsOf ["'a square has the area of its side squared'", "uncommentedJUnitTest", "helperMethod", "greet"] === [[True], [True], [False], [False]]
+  map testsOf ["a square has the area of its side squared", "uncommentedJUnitTest", "helperMethod", "greet"] === [[True], [True], [False], [False]]
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
     === [ "groovy/src/test/groovy/ShapeSpec.groovy/class/Shape/constructor/Shape"
         , "groovy/src/test/groovy/ShapeSpec.groovy/class/Shape/method/reset"
@@ -345,3 +352,146 @@ prop_theGroovyDialectBindsGroovydocToDeclarationsAndReportsMisplacedOnes = withT
         , "groovy/Shapes.groovy/class/Square"
         , "groovy/Shapes.groovy/class/Square/method/area"
         ]
+
+-- | Groovydoc may stand anywhere a comment may, and one inside an expression or between brackets
+-- documents nothing, so it must not stop a Groovy project's check: the file parses, each declaration
+-- keeps its own Groovydoc, and each misplaced comment is reported as an orphan.
+-- ref:REQ-groovy-support ref:DEC-groovy-dialect ref:DEC-stray-comments
+prop_aGroovydocCommentInsideAnExpressionOrBetweenBracketsIsAnOrphanAndTheFileStillParses :: Property
+prop_aGroovydocCommentInsideAnExpressionOrBetweenBracketsIsAnOrphanAndTheFileStillParses = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractDialect
+      "Odd.groovy"
+      ( T.unlines
+          [ "class Odd {"
+          , "    /** Sums with comments in odd places. */"
+          , "    int sum(int a, int b) {"
+          , "        def c = foo(a, /** between arguments */ b) + /** between operands */ 3"
+          , "        def l = [1, /** in a list */ 2]"
+          , "        def m = [k: /** in a map */ 1]"
+          , "        l.each { /** before a closure's parameters */ it -> it + 1 }"
+          , "        switch (a) { case 1: break; /** before a case */ default: break }"
+          , "        return c"
+          , "    }"
+          , "}"
+          ]
+      )
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- toList' (decisionUnits d)]
+    === [("groovy/Odd.groovy/class/Odd/method/sum", "Sums with comments in odd places.")]
+  length [() | OrphanDocComment _ _ <- findings] === 6
+  where
+    toList' (u :| more) = u : more
+
+-- | A Groovy field declaration may declare several names, each a property of its class, and the
+-- Groovydoc above it documents every one, as Javadoc documents each name of a Java field; so each
+-- name is a field unit, a destructuring declaration's included, and the one comment is the Why of
+-- all of them. ref:REQ-groovy-support ref:DEC-groovy-dialect ref:DEC-declarator-label
+prop_eachNameAGroovyFieldDeclaresIsAFieldThatSharesItsGroovydoc :: Property
+prop_eachNameAGroovyFieldDeclaresIsAFieldThatSharesItsGroovydoc = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractDialect
+      "Point.groovy"
+      ( T.unlines
+          [ "/** A point. */"
+          , "class Point {"
+          , "    /** The coordinates. */"
+          , "    int x, y = 2"
+          , "    def (a, b) = [1, 2]"
+          , "    private int p, q"
+          , "}"
+          ]
+      )
+  [renderUnitId (unitId u) | u <- drop 1 (modelAllUnits model)]
+    === [ "groovy/Point.groovy/class/Point"
+        , "groovy/Point.groovy/class/Point/field/x"
+        , "groovy/Point.groovy/class/Point/field/y"
+        , "groovy/Point.groovy/class/Point/field/a"
+        , "groovy/Point.groovy/class/Point/field/b"
+        , "groovy/Point.groovy/class/Point/field/p"
+        , "groovy/Point.groovy/class/Point/field/q"
+        ]
+  [(map renderUnitId (unitList (decisionUnits d)), whyText (answerValue (decisionWhy d))) | d <- modelDecisions model]
+    === [ (["groovy/Point.groovy/class/Point"], "A point.")
+        , (["groovy/Point.groovy/class/Point/field/x", "groovy/Point.groovy/class/Point/field/y"], "The coordinates.")
+        ]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
+    === ["groovy/Point.groovy/class/Point/field/a", "groovy/Point.groovy/class/Point/field/b"]
+  where
+    unitList (u :| more) = u : more
+
+-- | Spock names a feature method by a string, and the unit's name is what a reader calls the feature,
+-- not its quotes, while a slash in it would split the unit id into more segments than the unit has;
+-- the method must still be recognised as a test. ref:REQ-groovy-support ref:DEC-groovy-dialect
+prop_aSpockFeatureMethodIsNamedByItsStringWithoutQuotesItsSlashesMadeSafe :: Property
+prop_aSpockFeatureMethodIsNamedByItsStringWithoutQuotesItsSlashesMadeSafe = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractDialect
+      "src/test/groovy/MathSpec.groovy"
+      ( T.unlines
+          [ "class MathSpec extends Specification {"
+          , "    /** Division is exact here. ref:REQ-1 */"
+          , "    def 'divides 4 / 2 into 2'() { expect: 4 / 2 == 2 }"
+          , "    def \"it's \\\"quoted\\\"\"() { expect: true }"
+          , "}"
+          ]
+      )
+  [(whatName (answerValue (unitWhat u)), unitTest u) | u <- drop 2 (modelAllUnits model)]
+    === [("divides 4 \x2215 2 into 2", True), ("it's \"quoted\"", True)]
+  [length (T.splitOn "/" (renderUnitId (unitId u))) | u <- drop 2 (modelAllUnits model)] === [9, 9]
+
+-- | A decision's span is where its comment is, so a reviewer is shown the comment and nothing after
+-- it; the newlines Groovy reads as separators after a Groovydoc comment are not part of it.
+-- ref:REQ-groovy-support ref:DEC-groovy-dialect
+prop_aGroovydocDecisionEndsWhereItsCommentEnds :: Property
+prop_aGroovydocDecisionEndsWhereItsCommentEnds = withTests 1 $ property $ do
+  Extraction model _ <- extractDialect "Tidy.groovy" (T.unlines ["/** Tidy. */", "", "class Tidy { }"])
+  [whereSpan (decisionWhere d) | d <- modelDecisions model] === [Span (Position 1 1) (Position 1 13)]
+
+-- | Groovy compiles a member without a return type named for its class as a constructor, def
+-- included, since def is a modifier, and a member with a return type as a method, as Groovy 4.0.24's
+-- reflection on such a class shows, so the units must say the same. ref:REQ-groovy-support
+-- ref:DEC-groovy-grammar
+prop_aMemberNamedForItsClassWithoutAReturnTypeIsAConstructorDefIncluded :: Property
+prop_aMemberNamedForItsClassWithoutAReturnTypeIsAConstructorDefIncluded = withTests 1 $ property $ do
+  Extraction model _ <-
+    extractDialect
+      "Foo.groovy"
+      (T.unlines ["class Foo {", "    def Foo() { }", "    Object Foo(int x) { x }", "    private Foo(String s) { }", "}"])
+  [renderUnitId (unitId u) | u <- drop 1 (modelAllUnits model)]
+    === [ "groovy/Foo.groovy/class/Foo"
+        , "groovy/Foo.groovy/class/Foo/constructor/Foo"
+        , "groovy/Foo.groovy/class/Foo/method/Foo"
+        , "groovy/Foo.groovy/class/Foo/constructor/Foo#2"
+        ]
+
+-- | Upstream's lexer decided with lookahead whether a dollar in a slashy or dollar slashy string
+-- starts a value; the characters the vendored grammar matches instead must read the edges the same
+-- way, each expectation here being the tokens Groovy 4.0.24's own lexer produces.
+-- ref:REQ-groovy-support ref:DEC-groovy-grammar
+prop_theGroovyLexerReadsDollarsAtTheEdgesOfSlashyStringsAsGroovyDoes :: Property
+prop_theGroovyLexerReadsDollarsAtTheEdgesOfSlashyStringsAsGroovyDoes = withTests 1 $ property $ do
+  plain <- interpreterOrFail
+  loaded <- evalIO (loadInterpreter "grammars/groovy/canonically_commented/GroovyLexer.g4" "grammars/groovy/canonically_commented/GroovyParser.g4")
+  dialect <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let typesOf interpreter source = case interpreterTokenize interpreter source of
+        Left err -> Left (renderLexError err)
+        Right toks -> Right [(nameText (tokenType t), tokenText t) | t <- toks, not (isEofToken t), tokenChannel t == defaultChannelName]
+      cases =
+        [ ("/$/", [("StringLiteral", "/$/")])
+        , ("/a$\x00b7b/", [("StringLiteral", "/a$\x00b7b/")])
+        , ("/a${b}$$/", [("GStringBegin", "/a$"), ("LBRACE", "{"), ("Identifier", "b"), ("RBRACE", "}"), ("GStringEnd", "$$/")])
+        , ("/a${b}$\x00b7c/", [("GStringBegin", "/a$"), ("LBRACE", "{"), ("Identifier", "b"), ("RBRACE", "}"), ("GStringEnd", "$\x00b7c/")])
+        , ("$/a$//$", [("StringLiteral", "$/a$//$")])
+        , ("$/a${b}$//$", [("GStringBegin", "$/a$"), ("LBRACE", "{"), ("Identifier", "b"), ("RBRACE", "}"), ("GStringEnd", "$//$")])
+        , ("$/$/$", [("StringLiteral", "$/$/$")])
+        , ("$/a$/$", [("StringLiteral", "$/a$/$")])
+        , ("$/a$$$/$", [("StringLiteral", "$/a$$$/$")])
+        , ("$/a$\x00b7/$", [("StringLiteral", "$/a$\x00b7/$")])
+        , ("/a$\x1D49C\&b/", [("GStringBegin", "/a$"), ("Identifier", "\x1D49C\&b"), ("GStringEnd", "/")])
+        , ("$/a$\x1D49C/$", [("GStringBegin", "$/a$"), ("Identifier", "\x1D49C"), ("GStringEnd", "/$")])
+        , ("a !in\x1D49C", [("Identifier", "a"), ("NOT", "!"), ("Identifier", "in\x1D49C")])
+        , ("a !in(b)", [("Identifier", "a"), ("NOT_IN", "!in"), ("LPAREN", "("), ("Identifier", "b"), ("RPAREN", ")")])
+        , ("a!in(b)", [("Identifier", "a"), ("NOT_IN", "!in"), ("LPAREN", "("), ("Identifier", "b"), ("RPAREN", ")")])
+        ]
+  [typesOf plain ("x = " <> source) | (source, _) <- cases] === [Right ([("Identifier", "x"), ("ASSIGN", "=")] ++ expected) | (_, expected) <- cases]
+  [typesOf dialect ("x = " <> source) | (source, _) <- cases] === [Right ([("Identifier", "x"), ("ASSIGN", "=")] ++ expected) | (_, expected) <- cases]

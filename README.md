@@ -193,7 +193,14 @@ alternative itself holds several, they are joined with a dot, as a Terraform
 resource is named `aws_vpc.main` by its type and name. An element labeled
 `qualifier` on a node that is no unit is the first part of the name of every
 unit below it, as the type of a resource in Terraform's JSON syntax is a key
-above the resource's own. A `why` element inside an optional or repeated block
+above the resource's own. An element labeled `declarator` makes a unit of its
+own of each name a declaration declares, named by the `what` element inside it,
+with the declaration's kind, requirement, and Why, one decision binding them
+all, as each name of a Groovy field is a field documented by the Groovydoc
+above the declaration. A name written as one string literal, as a Spock
+feature method's, is its contents without quotes or escapes, and a slash in it
+is a division slash (∕), so the name stays one segment of the unit id; a test
+is still told by the name as written. A `why` element inside an optional or repeated block
 is optional. A `why` element that is data rather than a comment, such as the
 `description` of a Terraform variable, is documentation written as data: its
 prose is the string without its quotes, heredoc delimiters, or block scalar
@@ -853,8 +860,9 @@ Groovy declarations are public unless they say otherwise, so every unit
 requires a comment by its rule, and the grammar labels `private` `optional`,
 which lifts the requirement, as Groovydoc documents what is not private. A
 field, which Groovy makes a property when it has no access modifier, is named
-by its first declarator. A Spock feature method is named by its string,
-quotes included, as `'is finite'`, and a constructor by its class.
+by its first declarator; the dialect makes each declarator a field. A Spock
+feature method is named by its string without quotes, as `is finite`, and a
+constructor by its class.
 
 The Scala sample is Iron 3.3.2, its constraint core, its `any` and `char`
 constraints, and two of its utest suites, vendored under `source/` with its
@@ -1391,7 +1399,8 @@ to the file.
 `grammars/groovy/` holds Apache Groovy's own ANTLR 4 grammar, which the Groovy
 compiler parses with, since grammars-v4 has none, and its dialect. Its lexer
 and parser lean on Java superclasses, `AbstractLexer` and `AbstractParser`,
-which canon ports as a lexer hook that decides whether a slash starts a
+renamed `GroovyLexerBase` and `GroovyParserBase` so the names select only
+Groovy's hooks, which canon ports as a lexer hook that decides whether a slash starts a
 slashy string and which brackets hide newlines, and as a parser hook that
 answers whether a line declares a method or a variable or calls one. The
 lexer predicates that looked ahead in the characters are written as the
@@ -1401,8 +1410,9 @@ own, with `private` labeled `optional` and each annotation `marker`. Under
 `canonically_commented/` the dialect sends `/**` into a `DocBlock` lexer mode,
 labels each type, constructor, method, field, and enum constant as a unit
 alternative that holds the empty rule `publicByDefault` labeled `required`,
-and takes a Groovydoc comment after an annotation or above a statement as an
-`orphan`. The Groovy sample keeps the profile above, and the test suite reads
+makes each name a field declaration declares a field labeled `declarator`,
+and takes a Groovydoc comment after an annotation, above a statement, or
+anywhere else no rule names, as inside an expression, as an `orphan`. The Groovy sample keeps the profile above, and the test suite reads
 its sources through the dialect too. Each change is marked `// canon:` in the
 grammar, listed in `grammars/groovy/README.md`, and recorded in the ledger.
 

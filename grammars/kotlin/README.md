@@ -57,8 +57,13 @@ as canonical comments, recorded as `DEC-kotlin-dialect`. Each change is marked
 - A KDoc comment above the package directive or the file annotations is the
   file's Why.
 - A KDoc comment after an annotation or a modifier, before a statement or an
-  import, on a plain parameter, on an accessor, before an initializer block, or
-  after the last member, statement, or declaration is an `orphan`.
+  import, on a plain parameter, on an accessor, before an initializer block or
+  a lambda's parameters, or after the last member, statement, or declaration is
+  an `orphan`.
+- The option `strayComment = canonicalComment` lets a KDoc comment stand
+  anywhere else, as between two operands or two arguments: where the parse
+  fails at such a comment or just after it, canon reads the file without it and
+  reports it as an orphan, under `DEC-stray-comments`.
 - A top-level declaration holds the empty rule `publicByDefault`, labeled
   `required`; class, interface, object, and enum bodies are labeled
   `inherited`; `private`, `internal`, `override`, and `actual` are labeled
@@ -67,10 +72,18 @@ as canonical comments, recorded as `DEC-kotlin-dialect`. Each change is marked
   nothing. The modifiers of an accessor and of a primary constructor are
   `innerModifiers`, which carry no labels, so a private setter does not make
   its property optional.
-- A companion object without a name is named `companion`, and a secondary
-  constructor `constructor`.
+- A class declared inside a function body is `localClassDeclaration`, no unit,
+  whose body is `objectLiteralBody` as an object expression's is, so its
+  members are units that inherit no requirement from the function around them.
+- A unit is named by what its source writes: a companion object without a
+  name by its `companion` keyword, though Kotlin calls it `Companion`, and a
+  secondary constructor by its `constructor` keyword, the second
+  `constructor#2`. canon reads names from the source text and has no way to
+  give a unit a name the source does not write.
 
-A KDoc comment anywhere else inside an expression fails the parse, as no rule
-can accept a token between any two tokens of an expression. A class declared
-inside a function body is no unit, so its members take their requirement from
-the function around it.
+The stray-comment recovery reads a comment as an orphan only when the parse
+fails at the comment or at the token right after it. Where the grammar accepts
+the comment in one reading, as an orphan before a statement, and the parse then
+fails further on, as it did before a lambda's parameters, the grammar names the
+place instead; a place of that kind not yet named still fails the parse. None
+of the Turbine sources has one.

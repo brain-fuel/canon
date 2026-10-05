@@ -1,4 +1,5 @@
--- | Apache Groovy's parser grammar asks its Java superclass, AbstractParser, and the
+-- | Apache Groovy's parser grammar asks its Java superclass, AbstractParser, which the vendored grammar
+-- names GroovyParserBase so the name selects this hook alone, and the
 -- SemanticPredicates class whether a line is a method declaration or a call, a local variable
 -- declaration or a command expression, and whether a command expression may take arguments after a
 -- call; this is that superclass as a predicate hook, with the one predicate canon adds,
