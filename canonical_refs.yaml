@@ -94,6 +94,10 @@ REQ-groovy-support:
   kind: requirement
   title: canon reads Groovy, parsing every Groovy source file with Apache Groovy's own grammar, taking classes, interfaces, traits, enums and their constants, annotation types, records, constructors, methods, and fields as units, binding /** Groovydoc to the declaration below its annotations, requiring a comment on every declaration that is not private, and recognising JUnit test methods by their annotation and Spock feature methods by their string names
   locator: README.md
+REQ-java-support:
+  kind: requirement
+  title: canon reads Java, parsing every Java source file of widely used projects through the grammars-v4 Java grammar and its canonically commented dialect, Java 21 to 25 syntax included, taking packages, modules, types, members, enum constants, and compact constructors as units and binding Javadoc to the declaration below it
+  locator: README.md
 swi-prolog-pldoc:
   kind: article
   title: SWI-Prolog, PlDoc, on structured comments, %! and %% line comments and /** block comments, before the clauses they document, and the <module> comment

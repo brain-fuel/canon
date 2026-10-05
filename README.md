@@ -527,7 +527,7 @@ repository holds.
 | `lang_samples/typescript-ky` | TypeScript | `grammars/typescript/TypeScriptLexer.g4` and `TypeScriptParser.g4` |
 | `lang_samples/python-itsdangerous` | Python | `grammars/python/Python3Lexer.g4` and `Python3Parser.g4` |
 | `lang_samples/go-uuid` | Go | `grammars/golang/GoLexer.g4` and `GoParser.g4` |
-| `lang_samples/kotlin-turbine` | Kotlin | `grammars/kotlin/KotlinLexer.g4`, `KotlinParser.g4`, and `UnicodeClasses.g4` |
+| `lang_samples/kotlin-turbine` | Kotlin | `grammars/kotlin/KotlinLexer.g4` and `KotlinParser.g4` |
 | `lang_samples/groovy-spock-genesis` | Groovy | `grammars/groovy/GroovyLexer.g4` and `GroovyParser.g4` |
 | `lang_samples/scala-iron` | Scala | `grammars/scala/ScalaLexer.g4` and `ScalaParser.g4` |
 | `lang_samples/hcl-terraform-aws-key-pair` | HCL | `grammars/hcl/canonically_commented/HCLLexer.g4` and `HCLParser.g4` |
@@ -1009,7 +1009,7 @@ chalk, ky, itsdangerous, google/uuid, and Turbine. Reading them needed four
 general additions to the interpreter and three base lexer ports. Character
 sets may name Unicode properties such as `\p{L}`, which Go and Kotlin use for
 identifiers. A grammar may `import` another, read from beside it, and its own
-rules win, which Kotlin's `UnicodeClasses` needs. A semantic predicate in a
+rules win. A semantic predicate in a
 lexer rule is decided where it sits, by the hooks, so a predicate inside one
 alternative of a block gates only that alternative; a grammar without hooks
 has every predicate hold, and a parser-side predicate holds unless a parser
@@ -1337,7 +1337,11 @@ initializer, before a local declaration, or one of two in a row, and reports
 it, and the `marker` label on annotations lets `canon` recognise tests. The plain Java grammar carries a canonical comment on every parser rule
 and non-fragment lexer rule and cites its BSD license in the header, the
 dialect carries the same comments extended where a rule gained unit labels,
-and both are checked at the root like the meta-grammar.
+and both are checked at the root like the meta-grammar. Both read Java 21 to 25:
+record patterns with `var` and `_`, annotated array creation, `import module`,
+and compact source files; `tools/corpus/java.sh` checks them against Spring,
+Guava, Elasticsearch, the JDK's `java.base`, and Commons Lang
+(`grammars/java/README.md`, `DEC-java-grammar`).
 
 `grammars/rust/` holds the Rust grammar from grammars-v4 and its dialect. canon has no port of its base classes, so the
 predicates that called into them are replaced in the grammar itself; outer
@@ -1399,7 +1403,10 @@ rule `publicByDefault`, labeled `required`, class bodies are `inherited`, and
 API that explicit API mode and Dokka document. A KDoc comment after an
 annotation, before a statement, on a parameter, or on an accessor is an
 `orphan`. What it reads is listed in `grammars/kotlin/README.md` and recorded
-in the ledger as `DEC-kotlin-dialect`.
+in the ledger as `DEC-kotlin-dialect`. Both read Kotlin through 2.4, the
+syntax since 1.4 added as `DEC-kotlin-grammar` records, and
+`tools/corpus/kotlin.sh` checks them against kotlinx.coroutines, ktor, OkHttp,
+Compose Multiplatform, and the standard library.
 
 `grammars/clojure/` holds the Clojure grammar from grammars-v4, which read a
 keyword as a colon and a symbol and so failed on `:1.8` and `:div#id`; a
@@ -1449,6 +1456,8 @@ and takes a Groovydoc comment after an annotation, above a statement, or
 anywhere else no rule names, as inside an expression, as an `orphan`. The Groovy sample keeps the profile above, and the test suite reads
 its sources through the dialect too. Each change is marked `// canon:` in the
 grammar, listed in `grammars/groovy/README.md`, and recorded in the ledger.
+`tools/corpus/groovy.sh` checks both against Groovy itself, Gradle, Spock,
+Grails, and Jenkins pipelines.
 
 `grammars/scala/` holds a Scala grammar written for canon under canon's MIT
 license, and its dialect: the parser follows the Scala 3 syntax summary's

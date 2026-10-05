@@ -3,7 +3,7 @@
 -- a Kotlin author means by a declaration and its KDoc. ref:DEC-kotlin-dialect ref:REQ-kotlin-support
 module Canon.Extract.KotlinTest (tests) where
 
-import Canon.Antlr4.Interpret (renderInterpretError)
+import Canon.Antlr4.Interpret (interpretText, loadInterpreter, renderInterpretError)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Config (Config (..), defaultConfig, readConfigFile, renderConfigError)
 import Canon.Decisions (emptyLedger)
@@ -38,6 +38,9 @@ tests =
     , testProperty "a KDoc comment inside an expression is an orphan and the file still parses" prop_aKDocCommentInsideAnExpressionIsAnOrphanAndTheFileStillParses
     , testProperty "the members of a local class need no KDoc" prop_theMembersOfALocalClassNeedNoKDoc
     , testProperty "an unnamed companion object and secondary constructors are named by their keywords" prop_anUnnamedCompanionObjectAndSecondaryConstructorsAreNamedByTheirKeywords
+    , testProperty "the Kotlin grammar and dialect read the Kotlin 1.4 to 2.4 syntax widely used projects write" prop_theKotlinGrammarAndDialectReadTheKotlin14To24SyntaxWidelyUsedProjectsWrite
+    , testProperty "a Kotlin script whose last statement ends the file without a newline parses" prop_aKotlinScriptWhoseLastStatementEndsTheFileWithoutANewlineParses
+    , testProperty "a comment nested in a KDoc comment does not close it" prop_aCommentNestedInAKDocCommentDoesNotCloseIt
     ]
 
 sampleDir :: FilePath
@@ -361,3 +364,118 @@ prop_anUnnamedCompanionObjectAndSecondaryConstructorsAreNamedByTheirKeywords = w
         , "kotlin/Point.kt/class/Point/object/companion/function/origin"
         , "kotlin/Point.kt/class/Point/object/Named"
         ]
+
+-- | kotlinx.coroutines, ktor, OkHttp, Compose Multiplatform, and the Kotlin standard library write
+-- fun interfaces, value classes, unsigned literals, the ..< range, definitely non-nullable types,
+-- multi-dollar strings, guards and trailing commas in when entries, trailing commas in function
+-- types, context parameters, destructuring by position and by name, companion blocks, and names in
+-- any script. The profile and the dialect must read each, and the dialect find the declarations
+-- among them. ref:REQ-kotlin-support ref:DEC-kotlin-grammar
+prop_theKotlinGrammarAndDialectReadTheKotlin14To24SyntaxWidelyUsedProjectsWrite :: Property
+prop_theKotlinGrammarAndDialectReadTheKotlin14To24SyntaxWidelyUsedProjectsWrite = withTests 1 $ property $ do
+  let source =
+        T.unlines
+          [ "package modern"
+          , ""
+          , "/** Runs. */"
+          , "fun interface Task { fun run() }"
+          , ""
+          , "/** Holds a result. */"
+          , "@JvmInline public value class Result<out T>(val value: Any?)"
+          , ""
+          , "/** Has a companion block. */"
+          , "interface Seq<out T> {"
+          , "    companion {"
+          , "        /** Makes an empty one. */"
+          , "        fun <T> empty(): Seq<T> = TODO()"
+          , "    }"
+          , "}"
+          , ""
+          , "/** Logs in a context. */"
+          , "context(logger: Logger) fun log(message: String) { logger.log(message) }"
+          , ""
+          , "/** Runs a block in a context. */"
+          , "fun <T, R> within(with: T, block: context(T) () -> R): R = block(with)"
+          , ""
+          , "/** Exercises the expressions. */"
+          , "fun <T> f(t: T & Any, v: Any?, data: List<Pair<Int, Int>>): Int {"
+          , "    val mask = 0xFFu + 1uL"
+          , "    for (i in 0..<10) {}"
+          , "    for ([a, b] in data) {}"
+          , "    (val first, val second = other) = data.first()"
+          , "    val [x, y] = data.first()"
+          , "    data.forEach { [index, _] -> index }"
+          , "    val handler: ((Int, String,) -> Unit)? = null"
+          , "    val π = 3.14"
+          , "    val s = $$\"runTest$default $${t}\" + \"${"
+          , "        v.hashCode()"
+          , "    }\""
+          , "    return when (v) {"
+          , "        null if t == null -> 1"
+          , "        is String if v.isEmpty() -> 2"
+          , "        1,"
+          , "        2,"
+          , "        -> 3"
+          , "        else -> 4"
+          , "    }"
+          , "}"
+          ]
+  profile <- sampleProfile
+  Extraction plainModel _ <- extractText profile "Modern.kt" source
+  map fst (unitsOf plainModel) === ["class", "function", "class", "class", "function", "function", "function", "function", "property", "property", "property", "property", "property"]
+  Extraction model findings <- extractText dialectProfile "Modern.kt" source
+  [renderUnitId (unitId u) | u <- drop 1 (modelAllUnits model)]
+    === [ "kotlin/Modern.kt/class/Task"
+        , "kotlin/Modern.kt/class/Task/function/run"
+        , "kotlin/Modern.kt/class/Result"
+        , "kotlin/Modern.kt/class/Result/property/value"
+        , "kotlin/Modern.kt/class/Seq"
+        , "kotlin/Modern.kt/class/Seq/object/companion"
+        , "kotlin/Modern.kt/class/Seq/object/companion/function/empty"
+        , "kotlin/Modern.kt/function/log"
+        , "kotlin/Modern.kt/function/within"
+        , "kotlin/Modern.kt/function/f"
+        ]
+  length [() | OrphanDocComment _ _ <- findings] === 0
+
+-- | A Gradle build script often ends without a newline after its last statement, and kotlinc reads
+-- it, so the script rule must too; a script's statements may declare an enum class, which the
+-- dialect reads as a local class. ref:REQ-kotlin-support ref:DEC-kotlin-grammar
+prop_aKotlinScriptWhoseLastStatementEndsTheFileWithoutANewlineParses :: Property
+prop_aKotlinScriptWhoseLastStatementEndsTheFileWithoutANewlineParses = withTests 1 $ property $ do
+  let parsed dir = do
+        loaded <- evalIO (loadInterpreter (dir </> "KotlinLexer.g4") (dir </> "KotlinParser.g4"))
+        interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+        pure [either (Left . T.unpack . renderInterpretError) (const (Right ())) (interpretText interpreter (Name "script") "build.gradle.kts" s) | s <- scripts]
+      scripts =
+        [ "include(\":publishing\")"
+        , "plugins {\n    java\n}\n\ntasks.jar.configure {\n}"
+        , "#!/usr/bin/env kotlin\nenum class Platform(val id: String) {\n    MACOS(\"macos\"),\n    LINUX(\"linux\"),\n}\n"
+        ]
+  plain <- parsed "grammars/kotlin"
+  dialect <- parsed "grammars/kotlin/canonically_commented"
+  plain === map (const (Right ())) scripts
+  dialect === map (const (Right ())) scripts
+
+-- | Kotlin's block comments nest, and kotlinx.coroutines writes a /* ... */ inside the code sample
+-- of a KDoc comment, so the dialect must not take the nested comment's end for the KDoc's, and
+-- must read the KDoc whole as the Why of the declaration below. ref:REQ-kotlin-support
+-- ref:DEC-kotlin-dialect
+prop_aCommentNestedInAKDocCommentDoesNotCloseIt :: Property
+prop_aCommentNestedInAKDocCommentDoesNotCloseIt = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "Nested.kt"
+      ( T.unlines
+          [ "/**"
+          , " * Sends without suspending:"
+          , " * ```"
+          , " * events.trySend(event).onClosed { /* already closed */ }"
+          , " * ```"
+          , " */"
+          , "fun send() {}"
+          ]
+      )
+  whysOf model === [("kotlin/Nested.kt/function/send", "Sends without suspending:\n```\nevents.trySend(event).onClosed { /* already closed */ }\n```")]
+  length [() | OrphanDocComment _ _ <- findings] === 0

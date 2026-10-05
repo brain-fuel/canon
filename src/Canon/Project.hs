@@ -231,7 +231,7 @@ profileBytes profile = do
         CombinedGrammarFile g -> [g]
         SplitGrammarFiles l r -> [l, r]
   -- Imported lexer fragments live beside their owner. Hash that directory's grammar
-  -- inputs too, so editing UnicodeClasses or another import cannot reuse stale extraction.
+  -- inputs too, so editing an imported grammar cannot reuse stale extraction.
   siblings <- fmap concat $ mapM grammarSiblings (nub (map takeDirectory named))
   sources <- mapM readOrEmpty (sort (nub (named ++ siblings)))
   pure (LBS.concat (LBS.fromStrict (encodeSorted profile) : sources))

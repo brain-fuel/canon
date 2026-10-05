@@ -44,6 +44,7 @@ tests =
     , testProperty "two ANTLR comments in a row where none binds are both orphans" prop_twoAntlrCommentsInARowWhereNoneBindsAreBothOrphans
     , testProperty "the java dialect marks public members required and misplaced comments orphan" javaDialect
     , testProperty "a Javadoc comment inside an expression or between arguments is an orphan and the file still parses" aJavadocCommentInsideAnExpressionOrBetweenArgumentsIsAnOrphanAndTheFileStillParses
+    , testProperty "the Java grammar and dialect read the Java 21 to 25 syntax widely used projects write" prop_theJavaGrammarAndDialectReadTheJava21To25SyntaxWidelyUsedProjectsWrite
     , testProperty "the haskell dialect requires comments on exported units" haskellDialect
     , testProperty "bindings attach to the signature with their name and become its How" haskellBindingsBindByName
     , testProperty "a Haskell doc comment anywhere in a file parses and one that documents nothing is an orphan" prop_aHaskellDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan
@@ -351,6 +352,41 @@ aJavadocCommentInsideAnExpressionOrBetweenArgumentsIsAnOrphanAndTheFileStillPars
   [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- toList (decisionUnits d)]
     === [("java/A.java/package/p/class/A/method/sum", "Sums."), ("java/A.java/package/p/class/A/field/f", "Still documented.")]
   length [() | OrphanDocComment _ _ <- findings] === 6
+
+-- | Widely used Java projects, the JDK, Guava, and Elasticsearch among them, write record patterns
+-- whose components are declared with var or are the unnamed pattern, type annotations on the type
+-- and dimensions an array creation makes, module imports, compact source files that declare methods
+-- and fields at the top level, and a module's Javadoc below its imports. The plain grammar and the
+-- dialect must read each, and the dialect bind the Javadoc of a top-level method and of a module
+-- declared after imports. ref:REQ-java-support ref:DEC-java-grammar
+prop_theJavaGrammarAndDialectReadTheJava21To25SyntaxWidelyUsedProjectsWrite :: Property
+prop_theJavaGrammarAndDialectReadTheJava21To25SyntaxWidelyUsedProjectsWrite = withTests 1 $ property $ do
+  let load lexer parser = do
+        loaded <- evalIO (loadInterpreter lexer parser)
+        either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+      parses interpreter source = either (Left . T.unpack . renderInterpretError) (const (Right ())) (interpretText interpreter (Name "compilationUnit") "A.java" source)
+      sources =
+        [ "class A { boolean f(Object o) { return o instanceof P(var x, _) && x != null; } }"
+        , "class A { int f(Object o) { return switch (o) { case P.N(final var c, P.M(var d)) when c > 0 -> 1; default -> 0; }; } }"
+        , "class A { void f() { Object[] a = new @Nullable Object[3]; int[] b = new @A int @B [2]; Object c = new p.@B C<D>(); } }"
+        , "import module java.base;\nclass A {}"
+        , "import module java.base;\nvoid main() { IO.println(greeting); }\nString greeting = \"hi\";"
+        , "import a.B;\n/** The server. */\nmodule org.example.server { requires java.logging; }"
+        ]
+  plain <- load "grammars/java/JavaLexer.g4" "grammars/java/JavaParser.g4"
+  dialect <- load "grammars/java/canonically_commented/JavaLexer.g4" "grammars/java/canonically_commented/JavaParser.g4"
+  map (parses plain) sources === map (const (Right ())) sources
+  map (parses dialect) sources === map (const (Right ())) sources
+  loaded <- evalIO (loadProfileInterpreter javaProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let whys path source = do
+        result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "java" javaProfile interpreter path path source)
+        Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+        pure ([(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- toList (decisionUnits d)], length [() | OrphanDocComment _ _ <- findings])
+  compact <- whys "Main.java" "import module java.base;\n\n/** Greets. */\nvoid main() { IO.println(\"hi\"); }\n"
+  compact === ([("java/Main.java/method/main", "Greets.")], 0)
+  modular <- whys "module-info.java" "/** Stray. */\nimport a.B;\n\n/** The server. */\nmodule org.example.server { requires java.logging; }\n"
+  modular === ([("java/module-info.java/module/org.example.server", "The server.")], 1)
 
 isAsserted :: Evidence -> Bool
 isAsserted ev = case ev of

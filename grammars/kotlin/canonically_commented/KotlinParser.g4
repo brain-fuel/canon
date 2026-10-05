@@ -49,8 +49,9 @@ packageDirective
     : 'package' identifier semi?
     ;
 
+// canon: the last statement may end the file without a newline.
 script
-    : shebangLine? NL* fileAnnotation* packageHeader importList (statement semi)* EOF
+    : shebangLine? NL* fileAnnotation* packageHeader importList (statement semi)* statement? EOF
     ;
 
 fileAnnotation
@@ -77,8 +78,9 @@ topLevelObject
     : declaration semis?
     ;
 
+// canon: a fun interface, Kotlin 1.4, is an interface.
 classDeclaration
-    : modifiers? ('class' | 'interface') NL* what = simpleIdentifier (NL* typeParameters)? (
+    : modifiers? ('class' | ('fun' NL*)? 'interface') NL* what = simpleIdentifier (NL* typeParameters)? (
         NL* primaryConstructor
     )? (NL* ':' NL* delegationSpecifiers)? (NL* typeConstraints)? (
         NL* how = classBody
@@ -213,6 +215,7 @@ objectDeclaration
     ;
 
 // canon: a companion object without a name is named by its companion keyword.
+// canon: a companion block, companion { ... }, Kotlin 2.4, is named by its companion keyword too.
 companionObject
     : modifiers? 'companion' NL* 'object' NL* what = simpleIdentifier (
         NL* ':' NL* delegationSpecifiers
@@ -220,6 +223,7 @@ companionObject
     | modifiers? what = 'companion' NL* 'object' (NL* ':' NL* delegationSpecifiers)? (
         NL* how = classBody
     )?
+    | modifiers? what = 'companion' NL* how = classBody
     ;
 
 // canon: the name a property declares is its What; a destructuring declaration, which only a
@@ -238,8 +242,21 @@ propertyDeclaration
     */
     ;
 
+// canon: a destructuring declaration may end with a trailing comma; its entries may be written
+// val a or val a = name, by name, and [a, b] destructures by position, as Kotlin 2.3 and later allow.
 multiVariableDeclaration
-    : '(' NL* variableDeclaration (NL* ',' NL* variableDeclaration)* NL* ')'
+    : '(' NL* destructuringEntry (NL* ',' NL* destructuringEntry)* (NL* ',')? NL* ')'
+    | '[' NL* variableDeclaration (NL* ',' NL* variableDeclaration)* (NL* ',')? NL* ']'
+    ;
+
+destructuringEntry
+    : (('val' | 'var') NL*)? variableDeclaration (NL* '=' NL* simpleIdentifier)?
+    ;
+
+// canon: a name-based destructuring declaration that names val or var in each entry,
+// (val a, val b) = pair, which needs no val before its parentheses.
+destructuringDeclaration
+    : multiVariableDeclaration NL* '=' NL* expression
     ;
 
 variableDeclaration
@@ -286,17 +303,25 @@ typeParameterModifier
     | annotation
     ;
 
+// canon: a definitely non-nullable type, T & Any, Kotlin 1.7.
 type_
-    : typeModifiers? (parenthesizedType | nullableType | typeReference | functionType)
+    : typeModifiers? (parenthesizedType | nullableType | typeReference | functionType | definitelyNonNullableType)
+    ;
+
+// canon: as Kotlin's grammar has it.
+definitelyNonNullableType
+    : typeModifiers? (userType | parenthesizedUserType) NL* '&' NL* typeModifiers? (userType | parenthesizedUserType)
     ;
 
 typeModifiers
     : typeModifier+
     ;
 
+// canon: a function type may take context parameters, context(T) () -> R.
 typeModifier
     : annotation
     | 'suspend' NL*
+    | contextModifier NL*
     ;
 
 parenthesizedType
@@ -333,8 +358,9 @@ simpleUserType
     : simpleIdentifier (NL* typeArguments)?
     ;
 
+// canon: the parameters may end with a trailing comma, as Kotlin 1.4 allows.
 functionTypeParameters
-    : '(' NL* (parameter | type_)? (NL* ',' NL* (parameter | type_))* NL* ')'
+    : '(' NL* (parameter | type_)? (NL* ',' NL* (parameter | type_))* (NL* ',')? NL* ')'
     ;
 
 typeConstraints
@@ -355,13 +381,15 @@ statements
     ;
 
 // canon: a KDoc comment before a statement or among its annotations binds to nothing, a local
-// declaration's included, since KDoc documents only what a file or a class declares.
+// declaration's included, since KDoc documents only what a file or a class declares. A statement
+// may be a name-based destructuring declaration.
 statement
     : (label | annotation | orphan = canonicalComment NL*)* (
         localDeclaration
         | assignment
         | loopStatement
         | expression
+        | destructuringDeclaration
     )
     ;
 
@@ -421,8 +449,9 @@ infixFunctionCall
     : rangeExpression (/* NO NL! */ simpleIdentifier NL* rangeExpression)*
     ;
 
+// canon: ..< is a range operator too, as Kotlin 1.8 allows.
 rangeExpression
-    : additiveExpression (/* NO NL! */ '..' NL* additiveExpression)*
+    : additiveExpression (/* NO NL! */ ('..' | '..<') NL* additiveExpression)*
     ;
 
 additiveExpression
@@ -554,6 +583,7 @@ literalConstant
     | RealLiteral
     | NullLiteral
     | LongLiteral
+    | UnsignedLiteral // canon: unsigned literals, Kotlin 1.5
     ;
 
 stringLiteral
@@ -575,8 +605,9 @@ lineStringContent
     | LineStrRef
     ;
 
+// canon: an expression in ${...} may span lines.
 lineStringExpression
-    : LineStrExprStart expression '}'
+    : LineStrExprStart NL* expression NL* '}'
     ;
 
 multiLineStringContent
@@ -623,11 +654,12 @@ objectLiteral
 
 // canon: a class declared inside a function body, which is no unit; its members are local to the
 // function, so its body, like an object expression's, does not make them inherit a requirement.
-// Kotlin allows no local enum class, so the body is a class body.
+// Kotlin allows no local enum class in a function, so the body is a class body, but a script's
+// statements may declare one, whose body is an enum class body.
 localClassDeclaration
-    : modifiers? ('class' | 'interface') NL* simpleIdentifier (NL* typeParameters)? (NL* primaryConstructor)? (
+    : modifiers? ('class' | ('fun' NL*)? 'interface') NL* simpleIdentifier (NL* typeParameters)? (NL* primaryConstructor)? (
         NL* ':' NL* delegationSpecifiers
-    )? (NL* typeConstraints)? (NL* objectLiteralBody)?
+    )? (NL* typeConstraints)? (NL* (objectLiteralBody | enumClassBody))?
     ;
 
 // canon: the body of an object expression or a local class.
@@ -666,9 +698,16 @@ whenSubject
     : '(' (annotation* NL* 'val' NL* variableDeclaration NL* '=' NL*)? expression ')'
     ;
 
+// canon: a condition may carry a guard, is T if cond ->, as Kotlin 2.2 allows, and the conditions
+// a trailing comma.
 whenEntry
-    : whenCondition (NL* ',' NL* whenCondition)* NL* '->' NL* controlStructureBody semi?
+    : whenCondition (NL* ',' NL* whenCondition)* (NL* ',')? (NL* whenEntryGuard)? NL* '->' NL* controlStructureBody semi?
     | 'else' NL* '->' NL* controlStructureBody semi?
+    ;
+
+// canon: the guard of a when entry.
+whenEntryGuard
+    : 'if' NL* expression
     ;
 
 whenCondition
@@ -823,15 +862,28 @@ modifier
         | inheritanceModifier
         | parameterModifier
         | platformModifier
+        | contextModifier
     ) NL*
     ;
 
+// canon: context parameters, context(logger: Logger), and the context receivers before them,
+// context(Logger), Kotlin 2.2, before a declaration or a function type.
+contextModifier
+    : 'context' NL* '(' NL* contextParameter (NL* ',' NL* contextParameter)* (NL* ',')? NL* ')'
+    ;
+
+contextParameter
+    : (simpleIdentifier NL* ':' NL*)? type_
+    ;
+
+// canon: value, as in value class, Kotlin 1.5.
 classModifier
     : 'enum'
     | 'sealed'
     | 'annotation'
     | 'data'
     | 'inner'
+    | 'value'
     ;
 
 // canon: an override is documented by the declaration it overrides, so it is labeled optional.
@@ -967,6 +1019,8 @@ simpleIdentifier
     | 'actual'
     | 'const'
     | 'suspend'
+    | 'value' // canon: a soft keyword since Kotlin 1.5
+    | 'context' // canon: a soft keyword since Kotlin 2.2
     ;
 
 identifier

@@ -42,9 +42,10 @@ options {
     superClass = JavaParserBase;
 }
 
-/** A source file is an ordinary compilation unit, with an optional package, imports, and type declarations up to end of input, or a modular one holding a module declaration. */
+// canon: a compact source file (Java 25) declares methods and fields at the top level, in a class the compiler declares.
+/** A source file is an ordinary compilation unit, with an optional package, imports, and type declarations up to end of input, or a modular one holding a module declaration. A compact source file declares methods and fields at the top level too. */
 compilationUnit
-    : packageDeclaration? (importDeclaration | ';')* (typeDeclaration | ';')* EOF
+    : packageDeclaration? (importDeclaration | ';')* (typeDeclaration | classBodyDeclaration | ';')* EOF
     | modularCompulationUnit EOF
     ;
 
@@ -58,9 +59,11 @@ packageDeclaration
     : annotation* PACKAGE qualifiedName ';'
     ;
 
-/** Brings a type, a static member, or with a star every member of a package or type into scope. */
+// canon: a module import, import module java.base; (Java 25).
+/** Brings a type, a static member, or with a star every member of a package or type into scope, or every package a module exports. */
 importDeclaration
     : IMPORT STATIC? qualifiedName ('.' '*')? ';'
+    | IMPORT MODULE qualifiedName ';'
     ;
 
 /** A top-level class, enum, interface, annotation type, or record, with the modifiers that apply to types. */
@@ -791,9 +794,13 @@ componentPatternList :
     componentPattern ( ',' componentPattern )*
     ;
 
-/** One nested pattern inside a record pattern. */
+// canon: a nested pattern may declare its variable with var, as Java 21 allows, case P(var x), or be
+// the unnamed pattern _ of Java 22, read as a name.
+/** One nested pattern inside a record pattern, a variable declared with var whose type the record component gives, or the unnamed pattern _, which the lexer reads as an identifier. */
 componentPattern :
     pattern
+    | variableModifier* VAR identifier
+    | identifier
     ;
 
 /** A lambda: parameters, an arrow, and a body. */
@@ -868,10 +875,11 @@ creator
     | createdName arrayCreatorRest
     ;
 
-/** The type being created: a dotted name with type arguments or a diamond at each level, or a primitive type for arrays. */
+// canon: a type annotation may stand before the created type and each of its names, new @Nullable Object[n].
+/** The type being created: a dotted name with type arguments or a diamond at each level, or a primitive type for arrays, each name annotated as a type use may be. */
 createdName
-    : identifier typeArgumentsOrDiamond? ('.' identifier typeArgumentsOrDiamond?)*
-    | primitiveType
+    : annotation* identifier typeArgumentsOrDiamond? ('.' annotation* identifier typeArgumentsOrDiamond?)*
+    | annotation* primitiveType
     ;
 
 /** Creation of an inner class instance qualified by an outer instance. */
@@ -879,10 +887,11 @@ innerCreator
     : identifier nonWildcardTypeArgumentsOrDiamond? classCreatorRest
     ;
 
-/** After the element type of a new array: dimensions with an initializer, or sized dimensions followed by unsized ones. */
+// canon: each dimension may carry type annotations, new int @A [n].
+/** After the element type of a new array: dimensions with an initializer, or sized dimensions followed by unsized ones, each dimension annotated as a type use may be. */
 arrayCreatorRest
-    : ('[' ']')+ arrayInitializer
-    | ('[' expression ']')+ ('[' ']')*
+    : (annotation* '[' ']')+ arrayInitializer
+    | (annotation* '[' expression ']')+ (annotation* '[' ']')*
     ;
 
 /** After the type of a new instance: constructor arguments and an optional anonymous class body. */

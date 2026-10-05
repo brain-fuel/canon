@@ -17,7 +17,10 @@
 
 lexer grammar KotlinLexer;
 
-import UnicodeClasses;
+// canon: letters and digits are Unicode general categories, [\p{Ll}] and the like, rather than the
+// ranges of UnicodeClasses.g4, which canon's lexer tried as tokens at every character and matched
+// range by range, several times slower; the categories are the current Unicode version's, as
+// Kotlin's own lexer reads them through Java's Character class.
 
 ShebangLine: '#!' ~[\r\n]*;
 
@@ -50,6 +53,8 @@ SUB              : '-';
 INCR             : '++';
 DECR             : '--';
 CONJ             : '&&';
+// canon: & joins a definitely non-nullable type, T & Any, Kotlin 1.7.
+AMP              : '&';
 DISJ             : '||';
 EXCL_WS          : '!' Hidden;
 EXCL_NO_WS       : '!';
@@ -64,6 +69,8 @@ MOD_ASSIGNMENT   : '%=';
 ARROW            : '->';
 DOUBLE_ARROW     : '=>';
 RANGE            : '..';
+// canon: the half-open range ..< of Kotlin 1.8.
+RANGE_UNTIL      : '..<';
 COLONCOLON       : '::';
 DOUBLE_SEMICOLON : ';;';
 HASH             : '#';
@@ -172,8 +179,17 @@ REIFIED     : 'reified';
 EXPECT : 'expect';
 ACTUAL : 'actual';
 
-QUOTE_OPEN        : '"'   -> pushMode(LineString);
-TRIPLE_QUOTE_OPEN : '"""' -> pushMode(MultiLineString);
+// canon: value, the modifier of a value class (Kotlin 1.5), is a soft keyword, a name elsewhere.
+VALUE : 'value';
+
+// canon: context, which opens context parameters (Kotlin 2.2), is a soft keyword too.
+CONTEXT : 'context';
+
+// canon: a string may open with two or more dollars, $$"...", Kotlin 2.2's multi-dollar
+// interpolation; its content is lexed as a plain string's, so $$name reads as a dollar and a
+// reference and $${...} as a dollar and an expression.
+QUOTE_OPEN        : ('$' '$'+)? '"'   -> pushMode(LineString);
+TRIPLE_QUOTE_OPEN : ('$' '$'+)? '"""' -> pushMode(MultiLineString);
 
 RealLiteral: FloatLiteral | DoubleLiteral;
 
@@ -187,12 +203,15 @@ DoubleLiteral: DecDigits? '.' DecDigits DoubleExponent? | DecDigits DoubleExpone
 
 LongLiteral: (IntegerLiteral | HexLiteral | BinLiteral) 'L';
 
+// canon: an unsigned literal, 1u, 0xFFu, or 1uL (Kotlin 1.5).
+UnsignedLiteral: (IntegerLiteral | HexLiteral | BinLiteral) [uU] 'L'?;
+
 IntegerLiteral:
     DecDigitNoZero DecDigitOrSeparator* DecDigit
     | DecDigit // including '0'
 ;
 
-fragment UnicodeDigit: UNICODE_CLASS_ND;
+fragment UnicodeDigit: [\p{Nd}];
 
 fragment DecDigit: '0' ..'9';
 
@@ -258,6 +277,8 @@ fragment IdentifierOrSoftKey:
     | WHERE
     | EXPECT
     | ACTUAL
+    | VALUE // canon: a soft keyword since Kotlin 1.5
+    | CONTEXT // canon: a soft keyword since Kotlin 2.2
     //strong keywords
     | CONST
     | SUSPEND
@@ -275,14 +296,7 @@ fragment UniCharacterLiteral: '\\' 'u' HexDigit HexDigit HexDigit HexDigit;
 
 fragment EscapedIdentifier: '\\' ('t' | 'b' | 'r' | 'n' | '\'' | '"' | '\\' | '$');
 
-fragment Letter:
-    UNICODE_CLASS_LL
-    | UNICODE_CLASS_LM
-    | UNICODE_CLASS_LO
-    | UNICODE_CLASS_LT
-    | UNICODE_CLASS_LU
-    | UNICODE_CLASS_NL
-;
+fragment Letter: [\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nl}];
 
 ErrorCharacter: .;
 
@@ -305,6 +319,7 @@ Inside_SUB              : SUB               -> type(SUB);
 Inside_INCR             : INCR              -> type(INCR);
 Inside_DECR             : DECR              -> type(DECR);
 Inside_CONJ             : CONJ              -> type(CONJ);
+Inside_AMP              : AMP               -> type(AMP); // canon: as AMP
 Inside_DISJ             : DISJ              -> type(DISJ);
 Inside_EXCL_WS          : '!' (Hidden | NL) -> type(EXCL_WS);
 Inside_EXCL_NO_WS       : EXCL_NO_WS        -> type(EXCL_NO_WS);
@@ -319,6 +334,7 @@ Inside_MOD_ASSIGNMENT   : MOD_ASSIGNMENT    -> type(MOD_ASSIGNMENT);
 Inside_ARROW            : ARROW             -> type(ARROW);
 Inside_DOUBLE_ARROW     : DOUBLE_ARROW      -> type(DOUBLE_ARROW);
 Inside_RANGE            : RANGE             -> type(RANGE);
+Inside_RANGE_UNTIL      : RANGE_UNTIL       -> type(RANGE_UNTIL); // canon: as RANGE_UNTIL
 Inside_RESERVED         : RESERVED          -> type(RESERVED);
 Inside_COLONCOLON       : COLONCOLON        -> type(COLONCOLON);
 Inside_DOUBLE_SEMICOLON : DOUBLE_SEMICOLON  -> type(DOUBLE_SEMICOLON);
@@ -405,6 +421,8 @@ Inside_CROSSINLINE : CROSSINLINE -> type(CROSSINLINE);
 Inside_REIFIED     : REIFIED     -> type(REIFIED);
 Inside_EXPECT      : EXPECT      -> type(EXPECT);
 Inside_ACTUAL      : ACTUAL      -> type(ACTUAL);
+Inside_VALUE       : VALUE       -> type(VALUE); // canon: as VALUE
+Inside_CONTEXT     : CONTEXT     -> type(CONTEXT); // canon: as CONTEXT
 
 Inside_BooleanLiteral   : BooleanLiteral   -> type(BooleanLiteral);
 Inside_IntegerLiteral   : IntegerLiteral   -> type(IntegerLiteral);
@@ -414,6 +432,7 @@ Inside_CharacterLiteral : CharacterLiteral -> type(CharacterLiteral);
 Inside_RealLiteral      : RealLiteral      -> type(RealLiteral);
 Inside_NullLiteral      : NullLiteral      -> type(NullLiteral);
 Inside_LongLiteral      : LongLiteral      -> type(LongLiteral);
+Inside_UnsignedLiteral  : UnsignedLiteral  -> type(UnsignedLiteral); // canon: as UnsignedLiteral
 
 Inside_Identifier   : Identifier                       -> type(Identifier);
 Inside_IdentifierAt : IdentifierAt                     -> type(IdentifierAt);

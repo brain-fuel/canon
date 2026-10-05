@@ -147,3 +147,52 @@ above with Groovydoc comments as canonical comments, recorded as
   then fails further on, as before a case label or a closure's parameters, the
   grammar names the place instead; a place of that kind not yet named still
   fails the parse.
+
+## Corpus
+
+`tools/corpus/groovy.sh` checks the grammar against widely used Groovy code.
+It clones each repository below over https, shallow, blob-filtered, and sparse
+where a subdirectory sample is named, pinned to the commit given, into
+`/tmp/corpus/groovy` or the directory given as its first argument, and parses
+every `.groovy`, `.gvy`, `.gy`, `.gsh`, and `.gradle` file and every
+`Jenkinsfile` with the plain grammar and then the dialect, one canon process
+per file on one capability, with a limit of 20 seconds of CPU time each. It
+prints per repository the files parsed, the deliberate exclusions, the
+failures with canon's message, and the slowest files, then the files the plain
+grammar parses and the dialect does not, and the distribution of times. Run it
+from the repository after `stack build`:
+
+```sh
+tools/corpus/groovy.sh                # or: JOBS=8 TIMEOUT=20 tools/corpus/groovy.sh /tmp/corpus/groovy
+```
+
+| Repository | Commit | Sampled |
+|------------|--------|---------|
+| [apache/groovy](https://github.com/apache/groovy) | `84b0d5072e2d8d02d10720b8a337493af1bda9fe` | `src/main`, `src/spec`, `src/test`, and the `groovy-json`, `groovy-xml`, `groovy-sql`, `groovy-templates`, `groovy-console`, `groovy-swing`, `groovy-contracts`, `groovy-ginq`, `groovy-macro`, and `groovy-typecheckers` subprojects |
+| [gradle/gradle](https://github.com/gradle/gradle) | `81c85f2d52959d1bb34e523e4309de16ede8fc0c` | `subprojects/core`, `platforms/core-configuration` |
+| [spockframework/spock](https://github.com/spockframework/spock) | `61e6461703d572a1cca0f5b4112b521919f6b84a` | whole |
+| [apache/grails-core](https://github.com/apache/grails-core) | `232bb340064ff0aead5a435fb2d8a4056d7c59d3` | `grails-core`, `grails-gsp`, `grails-datamapping-core`, `grails-web-url-mappings`, `grails-async`, `grails-events`, `grails-fields` |
+| [jenkinsci/pipeline-examples](https://github.com/jenkinsci/pipeline-examples) | `fb9575a8182b51614f5f0df912b46b37d95fbb8d` | whole |
+| [fabric8io/fabric8-pipeline-library](https://github.com/fabric8io/fabric8-pipeline-library) | `8f3562d748d0fde2dfcb8b4d9600cfdce6d81e21` | whole, a Jenkins shared library |
+| `lang_samples/groovy-spock-genesis` | vendored | whole |
+
+| Repository | Files | Parsed | Excluded | Failed | Dialect parsed | CPU time, plain / dialect | Slowest file |
+|------------|------:|-------:|---------:|-------:|---------------:|--------------------------:|-------------:|
+| groovy | 2,241 | 2,241 | 0 | 0 | 2,241 | 150 s / 165 s | 4.8 s |
+| gradle | 1,364 | 1,364 | 0 | 0 | 1,364 | 105 s / 121 s | 0.8 s |
+| spock | 635 | 606 | 29 | 0 | 606 | 36 s / 43 s | 0.5 s |
+| grails-core | 1,075 | 1,075 | 0 | 0 | 1,075 | 75 s / 88 s | 0.6 s |
+| pipeline-examples | 53 | 53 | 0 | 0 | 53 | 2 s / 3 s | 0.1 s |
+| fabric8-pipeline-library | 87 | 87 | 0 | 0 | 87 | 5 s / 6 s | 0.3 s |
+| groovy-spock-genesis | 8 | 8 | 0 | 0 | 8 | under 1 s | 0.1 s |
+
+Every file parses, 5,434 of 5,463, but the 29 excluded: Spock's
+`spock-specs/src/test/resources/snapshots/`, renderings of the ASTs Spock's
+transformations produce and of the compiler errors they report, which its
+tests compare against and groovyc rejects. The dialect parses every file the
+plain grammar parses. 5,449 files take under half a second of CPU time and all
+but two under one; the slowest is Groovy's `ParserPositiveSyntaxTest.groovy`,
+4.8 seconds, and the slowest failure, a snapshot, 0.06 seconds. The grammar
+needed no change. The profile lists `.groovy`, `.gvy`, `.gy`, and `.gsh`; a
+project that wants its `.gradle` files or `Jenkinsfile` read adds them to its
+profile's extensions, which the grammar reads as it reads any script.
