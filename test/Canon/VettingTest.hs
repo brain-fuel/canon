@@ -210,7 +210,7 @@ isAsserted ev = case ev of
 -- | A pending row records no judgement, so once its material is renamed or removed it is dropped
 -- rather than reported for ever; a row with a verdict is a signed record that only a human may
 -- retire, and a row in a file whose source could not be read is unknown rather than gone.
--- ref:DEC-comment-vetting ref:DEC-human-sign-off
+-- ref:REQ-human-vetting ref:DEC-comment-vetting ref:DEC-human-sign-off
 prop_aPendingRowOfVanishedMaterialIsDroppedAndASignedOneNeverIs :: Property
 prop_aPendingRowOfVanishedMaterialIsDroppedAndASignedOneNeverIs = property $ do
   vetting <- forAll genVetting

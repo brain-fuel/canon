@@ -15,6 +15,7 @@ import Canon.Antlr4.Syntax (Grammar, Name (..), nameText)
 import Canon.Antlr4.Token
 import Canon.Span (Span)
 import Control.Exception (evaluate)
+import GHC.Conc (getAllocationCounter, setAllocationCounter)
 import Data.Either (isLeft)
 import System.Timeout (timeout)
 import Data.Text (Text)
@@ -54,6 +55,9 @@ tests =
     , testProperty "a loop of statements that can each end two ways parses in polynomial time" loopsArePolynomial
     , testProperty "a lexer loop whose alternatives match the same characters stays linear" prop_aLexerLoopWhoseAlternativesMatchTheSameCharactersStaysLinear
     , testProperty "a stray comment where the grammar takes none is an orphan and a syntax error is still reported where it is" prop_aStrayCommentWhereTheGrammarTakesNoneIsAnOrphanAndASyntaxErrorIsStillReportedWhereItIs
+    , testProperty "many stray comments are recovered in one parse whose cost grows with the file, not with the comments times the file" prop_manyStrayCommentsAreRecoveredInOneParseWhoseCostGrowsWithTheFileNotWithTheCommentsTimesTheFile
+    , testProperty "a long generated file parses in work linear in its length" prop_aLongGeneratedFileParsesInWorkLinearInItsLength
+    , testProperty "a lexer fragment of one-character alternatives and longer ones lexes as written" prop_aLexerFragmentOfOneCharacterAlternativesAndLongerOnesLexesAsWritten
     ]
 
 grammarOrFail :: Text -> PropertyT IO (Grammar Span)
@@ -488,3 +492,85 @@ prop_aLexerLoopWhoseAlternativesMatchTheSameCharactersStaysLinear = withTests 1 
   g <- grammarOrFail (T.unlines ["lexer grammar Overlap;", "ID : [a-z] ([a-z_] | '_' | [_a-z])* ;", "WS : [ ]+ -> skip ;"])
   toks <- lexOrFail g ("a" <> T.replicate 60 "_" <> "b c")
   map tokenText (filter (not . isEofToken) toks) === ["a" <> T.replicate 60 "_" <> "b", "c"]
+
+-- | The bytes the current thread allocates while a value is forced.
+allocationOf :: a -> IO Int
+allocationOf value = do
+  setAllocationCounter 0
+  _ <- evaluate value
+  negate . fromIntegral <$> getAllocationCounter
+
+-- | A file may hold a doc comment inside an expression on every few lines, and each one costs the
+-- dialect a round of recovery; a round that read the whole file again made the cost the comments
+-- times the file, and a TypeScript checker of 53,000 lines with 40 such comments took three
+-- minutes. A round reads only what the dropped comment changed, so twice the statements, each with a
+-- stray comment, costs about twice the work, every comment is an orphan in order, and a syntax error
+-- after them is reported where it is. ref:REQ-javascript-support ref:REQ-typescript-support
+-- ref:DEC-stray-comments
+prop_manyStrayCommentsAreRecoveredInOneParseWhoseCostGrowsWithTheFileNotWithTheCommentsTimesTheFile :: Property
+prop_manyStrayCommentsAreRecoveredInOneParseWhoseCostGrowsWithTheFileNotWithTheCommentsTimesTheFile = withTests 1 $ property $ do
+  g <- grammarOrFail (strayGrammar True)
+  let word i = T.pack (map (\d -> toEnum (fromEnum d + 49)) (show i))
+      source k = T.concat ["x = y [[ c" <> word i <> " ]] + z ; " | i <- [1 .. k :: Int]]
+      parse text = case tokenize g text of
+        Left err -> Left (renderLexError err)
+        Right toks -> either (Left . renderParseError) Right (parseWithStrayComments (\_ _ _ _ -> True) g (Name "start") toks)
+      orphanTexts tree = case tree of
+        RuleNode _ _ children -> concatMap orphanTexts children
+        Labeled "orphan" inner -> [T.unwords (map tokenText (treeTokens inner))]
+        Labeled _ inner -> orphanTexts inner
+        TokenNode _ -> []
+  fmap orphanTexts (parse (source 300)) === Right ["[[ c" <> word i <> " ]]" | i <- [1 .. 300 :: Int]]
+  let column = T.pack (show (T.length (source 300) + 9))
+  parse (source 300 <> "x = y + ;") === Left ("1:" <> column <> ": no parse at token SEMI@1:" <> column <> " \";\"")
+  small <- evalIO (allocationOf (fmap (length . orphanTexts) (parse (source 200))))
+  large <- evalIO (allocationOf (fmap (length . orphanTexts) (parse (source 400))))
+  annotate ("allocated " ++ show small ++ " and " ++ show large ++ " bytes")
+  assert (large < 3 * small)
+
+-- | A generated C# file of 31,000 lines took 58 seconds and 10 GB when every memo entry held its
+-- trees; the recognizer keeps ends only and the tree is built along the one parse returned, so the
+-- work of a file of simple statements grows with its length. Twice the statements cost about twice
+-- the allocation, and each statement stays within a bound the old parser exceeded tenfold.
+-- ref:REQ-csharp-support ref:DEC-parser-memory
+prop_aLongGeneratedFileParsesInWorkLinearInItsLength :: Property
+prop_aLongGeneratedFileParsesInWorkLinearInItsLength = withTests 1 $ property $ do
+  loaded <- evalIO (loadInterpreter "grammars/csharp/CSharpLexer.g4" "grammars/csharp/CSharpParser.g4")
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source k =
+        T.unlines $
+          ["class C {", "  void M() {"]
+            ++ [T.pack ("    Requests[" ++ show i ++ "].Request.Method = HttpMethods.GetCanonicalizedValue(\"PUT\");") | i <- [1 .. k :: Int]]
+            ++ ["  }", "}"]
+      statements tree = length (treeRuleNodes (Name "statement") tree)
+      parse k = either (const 0) statements (interpretText interpreter (Name "compilation_unit") "Generated.cs" (source k))
+  small <- evalIO (allocationOf (parse 1000))
+  large <- evalIO (allocationOf (parse 2000))
+  parse 2000 === 2000
+  annotate ("allocated " ++ show small ++ " and " ++ show large ++ " bytes")
+  assert (large < 3 * small)
+  assert (large < 2000 * 4000000)
+
+-- | The grammars-v4 lexers spell a character class as a fragment of alternatives, some one character
+-- and some longer, as JavaScript's identifier start is a letter, a dollar, or a backslash escape. The
+-- one-character alternatives are read as one test, which must give the tokens the fragment as written
+-- gives. ref:REQ-javascript-support ref:DEC-lexer-performance
+prop_aLexerFragmentOfOneCharacterAlternativesAndLongerOnesLexesAsWritten :: Property
+prop_aLexerFragmentOfOneCharacterAlternativesAndLongerOnesLexesAsWritten = withTests 1 $ property $ do
+  g <-
+    grammarOrFail $
+      T.unlines
+        [ "grammar L;"
+        , "start : (ID | NUM)* EOF ;"
+        , "ID : Start Part* ;"
+        , "NUM : Digit+ ;"
+        , "WS : (' ' | Newline)+ -> skip ;"
+        , "fragment Start : [a-z] | '$' | '\\\\' 'u' Digit Digit | Upper ;"
+        , "fragment Part : Start | Digit | '_' ;"
+        , "fragment Upper : 'A' | 'B' | 'C' ;"
+        , "fragment Digit : '0' | '1' | '2' | [3-9] ;"
+        , "fragment Newline : '\\r\\n' | '\\n' | '\\r' ;"
+        ]
+  toks <- lexOrFail g "ab_1 $C2 \\u12x\r\n42 B\nzz9"
+  [(nameText (tokenType t), tokenText t) | t <- toks, not (isEofToken t)]
+    === [("ID", "ab_1"), ("ID", "$C2"), ("ID", "\\u12x"), ("NUM", "42"), ("ID", "B"), ("ID", "zz9")]

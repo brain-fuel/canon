@@ -362,3 +362,7 @@ REQ-haskell-support:
   kind: requirement
   title: canon reads Haskell, parsing every module GHC accepts under the layout rule, including the blocks its parse-error rule closes, taking the declarations of a module as units, binding -- | and {-| to the declaration below, requiring a comment on what the export list exports, and reporting a Haddock comment that documents nothing
   locator: README.md
+REQ-human-vetting:
+  kind: requirement
+  title: canon records every piece of canonical material for a human verdict, keeps each verdict as a signed record, reports material whose verdict is missing, stale, or overdue, and keeps its records in step with the material as it is renamed or removed
+  locator: README.md

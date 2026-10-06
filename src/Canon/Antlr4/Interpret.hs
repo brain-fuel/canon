@@ -26,6 +26,7 @@ import Canon.Preprocessor (Choice)
 import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.List.NonEmpty as NonEmpty
+import qualified Data.Map.Lazy as Map
 import qualified Data.Set as Set
 import System.FilePath (takeDirectory, (</>))
 import qualified Data.ByteString as BS
@@ -143,28 +144,37 @@ strayReach = 256
 -- it, which is where the first parse stopped when no stray comment comes shortly before it. A
 -- grammar that names no strayComment rule parses as before. ref:DEC-stray-comments
 parseWithStrayComments :: PredicateHook -> Grammar ann -> Name -> [Token] -> Either ParseError ParseTree
-parseWithStrayComments hook grammar start toks = case parseVisibleTokensWith hook grammar start visible of
-  Left (ParseNoParse failure) | not (null strays) -> recover (length visible) visible [] failure
-  other -> other
+parseWithStrayComments hook grammar start toks = case runPrepared prepared Nothing initial of
+  (Left (ParseNoParse failure), table) | not (null strays) -> recover (length visible) initial [] failure table
+  (other, _) -> other
   where
     strays = strayCommentRules grammar
     visible = filter ((== defaultChannelName) . tokenChannel) toks
     plain = fmap (const ()) grammar
     openers = Set.fromList [t | r <- strays, Just rule <- [lookupRule r plain], t <- Set.toList (tokenReferences rule)]
+    -- The grammar is compiled once for the file's tokens, and each round's tokens are the file's
+    -- with comments removed.
+    prepared = prepareParser hook grammar start visible
+    initial = case preparedTokens prepared visible of
+      Just tokens -> tokens
+      Nothing -> error "canon: a token list has a token its own preparation did not classify"
     -- Each round drops one comment, so a file is parsed at most once more than it holds stray
-    -- comments, and a syntax error with none at it costs one parse beyond the first.
+    -- comments, and a syntax error with none at it costs one parse beyond the first. A round takes
+    -- over the recognizer's table of the round before, whose entries that end short of the comment
+    -- hold, since the tokens before it are unchanged, so a round costs the rules around the comment
+    -- and the rest of the file rather than the whole file.
     -- A round that drops a comment must not move the failure back, or the comment was not what
     -- stopped the parse and the failure is reported where it is; it may leave the failure at the
     -- same token, as when two stray comments stand side by side before it.
-    recover budget current found failure@(ParseFailure f _) = case strayAt current f of
+    recover budget current found failure@(ParseFailure f _) table = case strayAt current f of
       Just (k, e, comment) | budget > 0 -> do
-        let rest = take k current ++ drop e current
-        case parseVisibleTokensWith hook grammar start rest of
-          Right tree -> Right (withOrphans (comment : found) tree)
-          Left (ParseNoParse next)
-            | reached next >= reached failure -> recover (budget - 1) rest (comment : found) next
+        let rest = removeTokens k e current
+        case runPrepared prepared (Just (table, k)) rest of
+          (Right tree, _) -> Right (withOrphans (comment : found) tree)
+          (Left (ParseNoParse next), table')
+            | reached next >= reached failure -> recover (budget - 1) rest (comment : found) next table'
             | otherwise -> Left (ParseNoParse failure)
-          Left other -> Left other
+          (Left other, _) -> Left other
       _ -> Left (ParseNoParse failure)
     reached (ParseFailure _ tok) = maybe maxBound tokenStart tok
     withOrphans found tree = case tree of
@@ -173,30 +183,37 @@ parseWithStrayComments hook grammar start toks = case parseVisibleTokensWith hoo
     -- The stray comment that starts at the failure or ends at most strayWindow tokens before it,
     -- nearest first: a grammar whose units take an optional comment may read one as a unit's Why and
     -- fail a token or two later, at the name of what it cannot document there.
-    strayAt current f = go [k | (k, tok) <- reverse (zip [0 .. f] current), Set.member (tokenType tok) openers]
+    strayAt current f = go [k | k <- [min f (tokenCount current - 1), min f (tokenCount current - 1) - 1 .. 0], Just tok <- [tokenAt current k], Set.member (tokenType tok) openers]
       where
         go ks = case ks of
           [] -> Nothing
-          (k : more) -> case [(c, length (treeTokens c)) | r <- strays, Just c <- [strayWithin r (takeWhile (not . isEofToken) (drop k current))]] of
+          (k : more) -> case [(c, length (treeTokens c)) | r <- strays, Just c <- [strayWithin r current k]] of
             ((comment, size) : _)
               | size > 0 && (k == f || (k + size <= f && k + size >= f - strayWindow)) -> Just (k, k + size, comment)
               -- Comments do not overlap, so once one ends before the window every earlier one does.
               | size > 0 && k + size < f - strayWindow -> Nothing
             _ -> go more
-    -- The comment is read from the next strayReach tokens, which hold any comment but a long one,
-    -- so a candidate costs a short parse rather than one over the rest of the file; a comment that
-    -- runs to the end of that span is read again from the whole rest.
-    strayWithin r rest =
-      let (near, far) = splitAt strayReach rest
-       in case strayFrom r near of
-            Just comment | null far || length (treeTokens comment) < strayReach -> Just comment
-            _ | null far -> Nothing
-            _ -> strayFrom r rest
+    -- The comment is read from the next strayReach tokens before the end of the file, which hold any
+    -- comment but a long one, so a candidate costs a short parse rather than one over the rest of
+    -- the file; a comment that runs to the end of that span is read again from the whole rest.
+    strayWithin r current k =
+      let upTo m = length (takeWhile (maybe False (not . isEofToken) . tokenAt current) [k .. k + m - 1])
+          short = upTo (strayReach + 1) <= strayReach
+       in case strayFrom r (sliceTokens k (upTo strayReach) current) of
+            Just comment | short || length (treeTokens comment) < strayReach -> Just comment
+            _ | short -> Nothing
+            _ -> strayFrom r (sliceTokens k (upTo (tokenCount current)) current)
     -- The longest match of the comment rule at the start of the tokens, read by a rule that takes
-    -- the comment and then any tokens.
-    strayFrom r rest = case parseVisibleTokensWith hook (withStrayRule r) (Name "canonStrayComment") rest of
-      Right (RuleNode _ _ (comment : _)) -> Just comment
-      _ -> Nothing
+    -- the comment and then any tokens, compiled once for each comment rule.
+    strayFrom r slice =
+      let result = case preparedTokens (strayParser r) (tokensList slice) of
+            Just tokens -> fst (runPrepared (strayParser r) Nothing tokens)
+            Nothing -> parseVisibleTokensWith hook (withStrayRule r) (Name "canonStrayComment") (tokensList slice)
+       in case result of
+            Right (RuleNode _ _ (comment : _)) -> Just comment
+            _ -> Nothing
+    strayParsers = Map.fromList [(r, prepareParser hook (withStrayRule r) (Name "canonStrayComment") visible) | r <- strays]
+    strayParser r = strayParsers Map.! r
     withStrayRule r = plain {grammarRules = grammarRules plain ++ [RuleParser (strayRule r)]}
     strayRule r =
       ParserRule

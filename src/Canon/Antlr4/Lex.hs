@@ -92,6 +92,7 @@ data LexerTable = LexerTable
   { tableModes :: Map Name [Int]
   , tableRules :: BV.Vector CompiledRule
   , tableCaseInsensitive :: Bool
+  , tableStarters :: Map Name (BV.Vector [CompiledRule])
   }
 
 data CompiledAtom
@@ -140,10 +141,10 @@ buildLexerTable grammar = do
       ci = caseInsensitiveOption (grammarOptions stripped)
   if null recursive then Right () else Left (LexLeftRecursive recursive)
   mapM_ validateRule allLexerRules
-  let compiled = BV.fromList (map (compileRule ci indexOf) allLexerRules)
+  let compiled = foldCharClasses ci (BV.fromList (map (compileRule ci indexOf) allLexerRules))
       withStart = BV.imap (\i r -> r {compiledCanStart = startPredicate compiled i}) compiled
       modes = Map.fromList [(m, [indexOf Map.! lexerRuleName l | l <- rs]) | (m, rs) <- modeGroups]
-  Right (LexerTable modes withStart ci)
+  Right (LexerTable modes withStart ci (Map.map (starters withStart) modes))
   where
     validateRule l = mapM_ (validateElement (lexerRuleName l)) (lexerRuleElements l)
     validateElement rule e = case e of
@@ -194,6 +195,85 @@ compileRule ci indexOf rule =
     insensitive predicate c
       | ci = predicate c || predicate (toLower c) || predicate (toUpper c)
       | otherwise = predicate c
+
+-- | Folds every element that matches one character into one character test: a one-character
+-- literal, a range or set, a negated set of such, a block of alternatives that are each one, and a
+-- reference to a rule whose alternatives are each one. The grammars-v4 lexers spell Unicode classes
+-- as fragments of hundreds of ranges, which the matcher read as hundreds of alternatives for every
+-- character of every identifier; generated C# of 31,000 lines spent four fifths of its time there.
+-- A folded test answers ASCII from a table. Only duplicate ends of the same length are lost, which
+-- neither the longest match nor the rule it comes from depends on. ref:DEC-lexer-performance
+foldCharClasses :: Bool -> BV.Vector CompiledRule -> BV.Vector CompiledRule
+foldCharClasses ci rules = folded
+  where
+    folded = BV.map foldRule rules
+    -- A fragment's alternatives that each match one character become one, tried first: a fragment
+    -- is matched only by reference, where the order of its alternatives changes no token, as
+    -- JavaScript's IdentifierPart, a Unicode class or an escape, is.
+    foldRule r
+      | compiledFragment r = case mergeClasses (map compiledElements (compiledAlternatives r)) of
+          Just merged -> r {compiledAlternatives = [CompiledAlternative (map foldElement es) [] [] | es <- merged]}
+          Nothing -> r {compiledAlternatives = map foldAlternative (compiledAlternatives r)}
+      | otherwise = r {compiledAlternatives = map foldAlternative (compiledAlternatives r)}
+    mergeClasses alts = case [(t, es) | es <- alts, Just t <- [classOfElements IntSet.empty es]] of
+      tests@(_ : _ : _) -> Just ([CompiledAtomElement (CompiledChar (asciiTable (anyOf (map fst tests)))) Nothing] : [es | es <- alts, Nothing <- [classOfElements IntSet.empty es]])
+      _ -> Nothing
+    -- Each rule's class, from the folded rules, so a fragment of fragments folds; a reference cycle
+    -- is cut by the visited set and stays a reference.
+    classes = BV.generate (BV.length rules) (classOfRule IntSet.empty)
+    classOfRule visited i
+      | IntSet.member i visited = Nothing
+      | otherwise = do
+          tests <- mapM (classOfElements (IntSet.insert i visited) . compiledElements) (compiledAlternatives (rules BV.! i))
+          if null tests then Nothing else Just (anyOf tests)
+    classOfElements visited es = case es of
+      [e] -> classOfElement visited e
+      _ -> Nothing
+    classOfElement visited e = case e of
+      CompiledAtomElement atom Nothing -> classOfAtom visited atom
+      CompiledBlock alts Nothing -> do
+        tests <- mapM (classOfElements visited) alts
+        if null tests then Nothing else Just (anyOf tests)
+      _ -> Nothing
+    classOfAtom visited atom = case atom of
+      CompiledLiteral text | V.length text == 1 -> let x = V.head text in Just (if ci then \c -> c == x || toLower c == toLower x else (== x))
+      CompiledChar test -> Just test
+      CompiledRef i -> classOfRule visited i
+      CompiledNotSet elements -> do
+        tests <- mapM (either Just (classOfRule visited)) elements
+        Just (\c -> not (any ($ c) tests))
+      _ -> Nothing
+    anyOf tests = case tests of
+      [t] -> t
+      _ -> \c -> any ($ c) tests
+    foldAlternative alt = alt {compiledElements = map foldElement (compiledElements alt)}
+    foldElement e = case e of
+      CompiledAtomElement atom suffix -> case foldAtom atom of
+        Just test -> CompiledAtomElement (CompiledChar test) suffix
+        Nothing -> e
+      CompiledBlock alts suffix -> case mapM (classOfElements IntSet.empty) alts of
+        Just tests@(_ : _) -> CompiledAtomElement (CompiledChar (asciiTable (anyOf tests))) suffix
+        _ -> CompiledBlock (map (map foldElement) (fromMaybe alts (mergeClasses alts))) suffix
+      _ -> e
+    foldAtom atom = case atom of
+      CompiledRef i -> asciiTable <$> classes BV.! i
+      CompiledNotSet _ -> asciiTable <$> classOfAtom IntSet.empty atom
+      CompiledChar test -> Just (asciiTable test)
+      _ -> Nothing
+
+-- | A character test that answers ASCII from a table made once.
+asciiTable :: (Char -> Bool) -> Char -> Bool
+asciiTable test = \c -> if c < '\128' then V.unsafeIndex table (fromEnum c) else test c
+  where
+    table = V.generate 128 (test . toEnum)
+
+-- | The rules of a mode that can start at each ASCII character, in rule order, made once, so a token
+-- is not tried against every rule of its mode: the TypeScript lexer spent a sixth of a parse
+-- asking each of its rules whether it could start. ref:DEC-lexer-performance
+starters :: BV.Vector CompiledRule -> [Int] -> BV.Vector [CompiledRule]
+starters rules indices = BV.generate 128 (\c -> [rule | rule <- ruleList, compiledCanStart rule (toEnum c)])
+  where
+    ruleList = [rule | i <- indices, let rule = rules BV.! i, not (compiledFragment rule)]
 
 decodedText :: StringLiteral -> Text
 decodedText = either (const T.empty) id . decodeStringLiteral
@@ -268,42 +348,50 @@ propertyMatches name c = case name of
   where
     cat = generalCategory c
 
+-- | Whether a rule can start at a character: by the first characters of its literals and the tests
+-- of its character classes, so that a rule starting with a class, as an identifier does, is not
+-- tried at every character. ref:DEC-lexer-performance
 startPredicate :: BV.Vector CompiledRule -> Int -> Char -> Bool
 startPredicate rules index = case startOfRule Set.empty index of
   Nothing -> const True
-  Just (chars, nullable) -> if nullable then const True else \c -> Set.member c chars || Set.member (toLower c) chars || Set.member (toUpper c) chars
+  Just (Start chars tests nullable)
+    | nullable -> const True
+    | otherwise -> asciiTable (\c -> Set.member c chars || Set.member (toLower c) chars || Set.member (toUpper c) chars || any ($ c) tests)
   where
     startOfRule visited i
       | Set.member i visited = Nothing
       | otherwise = unionAlternatives (map (startOfElements (Set.insert i visited) . compiledElements) (compiledAlternatives (rules BV.! i)))
-    unionAlternatives = foldr combine (Just (Set.empty, False))
+    unionAlternatives = foldr combine (Just (Start Set.empty [] False))
     combine a b = case (a, b) of
-      (Just (x, nx), Just (y, ny)) -> Just (Set.union x y, nx || ny)
+      (Just (Start x tx nx), Just (Start y ty ny)) -> Just (Start (Set.union x y) (tx ++ ty) (nx || ny))
       _ -> Nothing
     startOfElements visited elements = case elements of
-      [] -> Just (Set.empty, True)
+      [] -> Just (Start Set.empty [] True)
       (e : rest) -> case startOfElement visited e of
         Nothing -> Nothing
-        Just (chars, nullable)
-          | nullable || suffixNullable e -> combine (Just (chars, False)) (startOfElements visited rest)
-          | otherwise -> Just (chars, False)
+        Just (Start chars tests nullable)
+          | nullable || suffixNullable e -> combine (Just (Start chars tests False)) (startOfElements visited rest)
+          | otherwise -> Just (Start chars tests False)
     suffixNullable e = case e of
       CompiledAtomElement _ (Just (EbnfSuffix q _)) -> q /= OneOrMore
       CompiledBlock _ (Just (EbnfSuffix q _)) -> q /= OneOrMore
       _ -> False
     startOfElement visited e = case e of
-      CompiledAction -> Just (Set.empty, True)
-      CompiledPredicate _ -> Just (Set.empty, True)
+      CompiledAction -> Just (Start Set.empty [] True)
+      CompiledPredicate _ -> Just (Start Set.empty [] True)
       CompiledBlock alts _ -> unionAlternatives (map (startOfElements visited) alts)
       CompiledAtomElement atom _ -> case atom of
         CompiledLiteral t -> case V.toList (V.take 1 t) of
-          (c : _) -> Just (Set.fromList [c, toLower c, toUpper c], False)
-          [] -> Just (Set.empty, True)
+          (c : _) -> Just (Start (Set.fromList [c, toLower c, toUpper c]) [] False)
+          [] -> Just (Start Set.empty [] True)
         CompiledRef i -> startOfRule visited i
-        CompiledEof -> Just (Set.empty, True)
-        CompiledChar _ -> Nothing
+        CompiledEof -> Just (Start Set.empty [] True)
+        CompiledChar test -> Just (Start Set.empty [test] False)
         CompiledNotSet _ -> Nothing
-        CompiledFail -> Just (Set.empty, False)
+        CompiledFail -> Just (Start Set.empty [] False)
+
+-- | The characters and character tests a rule may start with, and whether it may match nothing.
+data Start = Start (Set.Set Char) [Char -> Bool] Bool
 
 -- | A semantic predicate is decided where it sits in the rule, by the position reached, so a
 -- predicate inside one alternative of a block gates only that alternative, as in ANTLR.
@@ -327,6 +415,10 @@ matchElements env elements p k = case elements of
 
 matchElement :: Env -> CompiledElement -> Match
 matchElement env e = case e of
+  CompiledAtomElement (CompiledChar test) (Just (EbnfSuffix ZeroOrMore Greedy)) -> \p k -> concatMap k [p .. classRun env test p]
+  CompiledAtomElement (CompiledChar test) (Just (EbnfSuffix OneOrMore Greedy)) -> \p k -> case charAt env p of
+    Just c | test c -> concatMap k [p + 1 .. classRun env test (p + 1)]
+    _ -> []
   CompiledAtomElement atom suffix -> withSuffix suffix (matchAtom env atom)
   CompiledBlock alts suffix -> withSuffix suffix (\p k -> concatMatches [matchElements env a p k | a <- alts])
   CompiledAction -> \p k -> k p
@@ -360,6 +452,17 @@ withSuffix suffix m = case suffix of
     firstNonEmpty xs ys = case xs of
       [] -> ys
       _ -> xs
+
+-- | Where a run of characters passing a test ends. A greedy loop over one character test reaches
+-- every position of the run and no other, which is what the general loop finds a position at a time.
+-- ref:DEC-lexer-performance
+classRun :: Env -> (Char -> Bool) -> Int -> Int
+classRun env test = go
+  where
+    input = envInput env
+    go q
+      | q < V.length input && test (V.unsafeIndex input q) = go (q + 1)
+      | otherwise = q
 
 charAt :: Env -> Int -> Maybe Char
 charAt env p = envInput env V.!? p
@@ -447,14 +550,10 @@ tokenizeWith hooks table source = go (LexState 0 [defaultMode] Nothing (hooksIni
           rules <- maybe (Left (LexUnknownMode (positionAt lines' (stateOffset st)) mode)) Right (Map.lookup mode (tableModes table))
           let p = stateOffset st
               current = input V.! p
-              candidates =
-                [ (e, i, rule)
-                | index <- rules
-                , let rule = tableRules table BV.! index
-                , not (compiledFragment rule)
-                , compiledCanStart rule current
-                , (e, i) <- matchRuleAlternatives (envFor st rule p) rule p
-                ]
+              startable = case Map.lookup mode (tableStarters table) of
+                Just byChar | current < '\128' -> byChar BV.! fromEnum current
+                _ -> [rule | index <- rules, let rule = tableRules table BV.! index, not (compiledFragment rule), compiledCanStart rule current]
+              candidates = [(e, i, rule) | rule <- startable, (e, i) <- matchRuleAlternatives (envFor st rule p) rule p]
           case longest candidates of
             Nothing -> Left (LexNoMatch (positionAt lines' p) mode)
             Just (e, altIndex, rule) -> emit st rule altIndex e

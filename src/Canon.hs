@@ -13,7 +13,7 @@ module Canon
   ) where
 
 import Canon.Antlr4.Interpret
-import Canon.Antlr4.Parse (renderParseTree)
+import Canon.Antlr4.Parse (hPutParseTree)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Decisions
 import Canon.Extract.Grammar (Extraction (..))
@@ -44,7 +44,7 @@ import System.Environment (getArgs)
 import System.Exit (ExitCode (..), exitWith)
 import System.Directory (createDirectoryIfMissing, doesFileExist, getCurrentDirectory)
 import System.FilePath (takeDirectory, takeFileName, (</>))
-import System.IO (stderr)
+import System.IO (stderr, stdout)
 
 -- | One constructor per subcommand so that parsing arguments and running them are separate steps
 -- that tests can exercise without a process.
@@ -308,7 +308,7 @@ runParse start path loaded = case loaded of
     result <- interpretFile interpreter (Name start) path
     case result of
       Left err -> report (renderInterpretError err) >> pure (ExitFailure 1)
-      Right tree -> TIO.putStrLn (renderParseTree tree) >> pure ExitSuccess
+      Right tree -> hPutParseTree stdout tree >> pure ExitSuccess
 
 withProject :: (Project -> IO ExitCode) -> IO ExitCode
 withProject continue = do
