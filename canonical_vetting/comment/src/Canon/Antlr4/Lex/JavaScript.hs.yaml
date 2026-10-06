@@ -7,6 +7,9 @@ decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.Java
 decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/javaScriptHooks:
   digest: sha256:1904bb50c7d32b90
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/jsxPossible:
+  digest: sha256:6074482d9e613970
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/onEmit:
   digest: sha256:93b73f7470268a0f
   verdict: pending
@@ -16,6 +19,12 @@ decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.Java
 decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/regexPossible:
   digest: sha256:69436356ad93ea37
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/splitTypeParameters:
+  digest: sha256:499dfadea6229b89
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/typeScriptHooks:
   digest: sha256:ca8987f995ea2b4a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/JavaScript.hs/module/Canon.Antlr4.Lex.JavaScript/function/typeScriptJsxHooks:
+  digest: sha256:f2368d92095d0f08
   verdict: pending

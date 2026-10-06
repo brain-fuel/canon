@@ -1,14 +1,14 @@
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse:
   digest: sha256:5bf7a52e34ba4e07
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/CompiledAlternative:
+  digest: sha256:cd77397bfed6a3e3
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/Entry:
   digest: sha256:7e43b025684dfe4a
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/Found:
-  digest: sha256:044465f3a88860bb
-  verdict: pending
-decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/MemoTable:
-  digest: sha256:c865e50f4334a586
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/Memo:
+  digest: sha256:63cc39629d0c6581
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/ParseError:
   digest: sha256:dab05f72c3cb9023
@@ -19,8 +19,32 @@ decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/ParseF
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/ParseTree:
   digest: sha256:44b4a3d727a5afa6
   verdict: pending
-decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/manyStep:
-  digest: sha256:7ca678ad85060398
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/Prepared:
+  digest: sha256:fc1624dea6d5a9d7
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/data/Tokens:
+  digest: sha256:73e30042039d1141
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/appendEnds:
+  digest: sha256:904a06eac767c85c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/compiledFirstSets:
+  digest: sha256:c97f8564ed573388
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/hPutParseTree:
+  digest: sha256:0c529e0eb68a831d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/inProgress:
+  digest: sha256:6d678963820004ff
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/loopParents:
+  digest: sha256:632b6b97b816f5dc
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/manyB:
+  digest: sha256:53de450c71d14806
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/manyR:
+  digest: sha256:01a1ed709bd905b3
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/memoised:
   digest: sha256:07746c7c547b19b5
@@ -33,6 +57,9 @@ decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/no
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/node:
   digest: sha256:7c05c3822cac6a1f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/nubEnds:
+  digest: sha256:5b41e40cc02efc67
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/numberLoops:
   digest: sha256:790ab65f5db1501d
@@ -49,14 +76,53 @@ decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/pa
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/parseVisibleTokensWith:
   digest: sha256:dcc92c5b2885901e
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/pick:
+  digest: sha256:0e6b541e0596d3da
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/predicateReach:
+  digest: sha256:ae3719d51c238349
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/prepareParser:
+  digest: sha256:007cc33ab55f5612
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/preparedTokens:
+  digest: sha256:b27497e438f258db
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/removeTokens:
+  digest: sha256:62a0d5e6cd80ee2f
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/renderParseError:
   digest: sha256:a3c3f2ca8a3fa752
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/renderParseTree:
   digest: sha256:50345f0044c651a4
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/renderParseTreeLazy:
+  digest: sha256:5e83d3797e1fed40
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/rowSlot:
+  digest: sha256:2479de0f740de3fa
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/ruleLoops:
   digest: sha256:69eaa8b0cd19b432
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/runPrepared:
+  digest: sha256:d587a20684ffe322
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/seededMemo:
+  digest: sha256:c1c36d0bfc3ff0bf
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/sliceTokens:
+  digest: sha256:8d1d02687253e93f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/tokenAt:
+  digest: sha256:e2beb5a7e429ed52
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/tokenCount:
+  digest: sha256:bf30ed922f892097
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/tokensList:
+  digest: sha256:ace33a9cbe1491ef
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/treeRuleNodes:
   digest: sha256:a5f93f6e546fdf0a
@@ -64,6 +130,15 @@ decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/tr
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/function/treeTokens:
   digest: sha256:7f3ae18366420bbb
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/newtype/Recognized:
+  digest: sha256:0b40a64703808f92
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/type/Build:
+  digest: sha256:15f1d103258a9e9e
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/type/PredicateHook:
   digest: sha256:9d800490195bc6b8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Parse.hs/module/Canon.Antlr4.Parse/type/Step:
+  digest: sha256:be54eb1371a9b8f3
   verdict: pending

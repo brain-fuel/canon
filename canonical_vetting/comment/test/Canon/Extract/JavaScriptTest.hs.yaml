@@ -16,11 +16,17 @@ decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaS
 decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_aLineBreakBetweenTwoTokensEndsAStatementWhereJavaScriptInsertsASemicolon:
   digest: sha256:db7f5a644345f0b9
   verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theDialectDocumentsAComponentWrittenWithJsx:
+  digest: sha256:982effdd7848d514
+  verdict: pending
 decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theFirstJsDocCommentBelowAHashbangLineCanBeTheFilesWhy:
   digest: sha256:2fc2927bc1b2c3d6
   verdict: pending
 decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theFirstJsDocCommentOfAFileIsTheFilesWhyOnlyWhenItSaysSo:
   digest: sha256:c315cbd624cac2e1
+  verdict: pending
+decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theGrammarReadsJsxWhereAnExpressionMayStartAndLessThanElsewhere:
+  digest: sha256:bb20f968734bf6a8
   verdict: pending
 decision/haskell/test/Canon/Extract/JavaScriptTest.hs/module/Canon.Extract.JavaScriptTest/function/prop_theGrammarReadsTheSyntaxNodeThreeJsAndExpressWrite:
   digest: sha256:3317bb67f57316eb

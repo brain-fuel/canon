@@ -19,11 +19,23 @@ decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/LexerTable
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/SomeHooks:
   digest: sha256:dc0e986e588bee71
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/data/Start:
+  digest: sha256:d89c9ffd7327faea
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/asciiTable:
+  digest: sha256:5c6666839867d212
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/buildLexerTable:
   digest: sha256:b7ee0a793681e98b
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/classRun:
+  digest: sha256:59b15045e858ae9c
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/concatMatches:
   digest: sha256:fec212af2e16001d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/foldCharClasses:
+  digest: sha256:60e9e52703760f4d
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/noHooks:
   digest: sha256:95a9ebea08e73d66
@@ -33,6 +45,12 @@ decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/proper
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/renderLexError:
   digest: sha256:ff0a15d9c09c255b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/startPredicate:
+  digest: sha256:9f782bafdff4b90b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/starters:
+  digest: sha256:674b8f818e04faae
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex.hs/module/Canon.Antlr4.Lex/function/tokenize:
   digest: sha256:df34b90b04bc5225

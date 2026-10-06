@@ -151,6 +151,9 @@ ledger/DEC-java-grammar-comments:
 ledger/DEC-javascript-dialect:
   digest: sha256:13a14c155c47b728
   verdict: pending
+ledger/DEC-javascript-jsx:
+  digest: sha256:5210358ac839ee33
+  verdict: pending
 ledger/DEC-kotlin-dialect:
   digest: sha256:e5324d70fc6ea26f
   verdict: pending

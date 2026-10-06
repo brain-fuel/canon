@@ -43,6 +43,9 @@ registry/REQ-haskell-support:
 registry/REQ-hcl-support:
   digest: sha256:1716591cf43c94ac
   verdict: pending
+registry/REQ-human-vetting:
+  digest: sha256:34169c3bfec472a6
+  verdict: pending
 registry/REQ-java-support:
   digest: sha256:3f0fe1db07fc8aaa
   verdict: pending

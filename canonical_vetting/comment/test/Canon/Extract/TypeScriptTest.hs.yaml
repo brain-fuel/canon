@@ -25,6 +25,12 @@ decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeS
 decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theMembersOfEveryObjectTypeOnTheRightOfAnExportedAliasInheritItsRequirement:
   digest: sha256:2ec5f92f0020b0b4
   verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theTsxLexerReadsJsxAndTellsTypeParametersFromTagsAsTypeScriptDoes:
+  digest: sha256:45112c4e1307cdf0
+  verdict: pending
+decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theTsxPairReadsFlowsTypesAsReactWritesThem:
+  digest: sha256:359a0293f0d5a2c2
+  verdict: pending
 decision/haskell/test/Canon/Extract/TypeScriptTest.hs/module/Canon.Extract.TypeScriptTest/function/prop_theTypeScriptDialectBindsTsDocToDeclarationsAndMembersAndReportsMisplacedOnes:
   digest: sha256:3fc367699b410a67
   verdict: pending
