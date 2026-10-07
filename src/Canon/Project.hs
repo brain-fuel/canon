@@ -7,6 +7,11 @@ module Canon.Project
   , loadProject
   , projectFiles
   , checkProject
+  , Survey (..)
+  , surveyProject
+  , surveyReport
+  , exemptFinding
+  , lockstepFindings
   , extractFile
   , extractAll
   , projectAssessments
@@ -40,7 +45,7 @@ import System.FilePath (takeDirectory)
 import Canon.Ignore (defaultIgnorePatterns, parseIgnorePatterns)
 import Canon.Model.Check (checkAll, requirementsCitedByTests)
 import Canon.Model
-import Canon.Model.Finding (Finding (..), renderFinding)
+import Canon.Model.Finding (Finding (..), findingKey, renderFinding)
 import qualified Data.Set as Set
 import Canon.Model.Yaml (encodeSorted)
 import Canon.Extract.Folio (blockDefinitionFindings, duplicateIdFindings, frontMatterFindings, pageExtraction, relocate)
@@ -158,13 +163,29 @@ projectFiles project target = do
 
 -- | Checks a project, with project-wide findings decided after every file has been seen.
 checkProject :: Project -> Maybe FilePath -> IO [Finding]
-checkProject project target = do
+checkProject project target = surveyReport project <$> surveyProject project target
+
+-- | One reading of a project: the files walked, each extraction with signatures linked, the
+-- assessors from blame, the materials, and every finding before and after exemptions. check,
+-- vet, and ingest are each a view of it, and a tool built on canon reads the same value, so a
+-- row it shows as pending is one the check counts. ref:DEC-canon-lockstep
+data Survey = Survey
+  { surveyWalked :: Walked
+  , surveyExtracted :: [(FilePath, Either Text Extraction)]
+  , surveyAssessments :: Map.Map VettingKey (Answer Assessment Evidence)
+  , surveyMaterials :: [Material]
+  , surveyFindings :: [(Finding, Finding)]
+  }
+
+-- | Reads a project once, in full or under a target. ref:DEC-canon-lockstep
+surveyProject :: Project -> Maybe FilePath -> IO Survey
+surveyProject project target = do
   walked <- projectFiles project target
   assessments <- projectAssessments project
   extracted <- linkSignatures (configLanguages (projectConfig project)) <$> extractAll project walked
   let checked = map (checkExtraction project assessments) extracted
       citedSomewhere = Set.unions [c | (_, c, _, _) <- checked]
-      seen = Set.unions [s | (_, _, s, _) <- checked]
+      seen = Set.unions [v | (_, _, v, _) <- checked]
       tested = Set.unions [t | (_, _, _, t) <- checked]
       own =
         [ f
@@ -179,12 +200,39 @@ checkProject project target = do
       signOff = case projectVetting project of
         Nothing -> []
         Just vetting -> materialFindings (configVersion (projectConfig project)) vetting assessments (projectLedger project) (projectRegistry project) ++ kindFindings (configKinds (projectConfig project)) vetting assessments ++ orphanVerdictFindings vetting live
-  pure (applyExemptions project (nub own ++ signOff) ++ exemptionFindings (configVersion (projectConfig project)) (projectExemptions project))
+      decisions = concat [modelDecisions (extractionModel e) | (_, Right e) <- extracted]
+  pure
+    Survey
+      { surveyWalked = walked
+      , surveyExtracted = extracted
+      , surveyAssessments = assessments
+      , surveyMaterials = projectMaterials project decisions
+      , surveyFindings = [(f, exemptFinding project f) | f <- nub own ++ signOff]
+      }
+
+-- | What the check reports of a survey: every finding as exemptions leave it, each exemption past
+-- its revisit, and a canon version other than the one canon.yaml names. ref:DEC-canon-lockstep
+surveyReport :: Project -> Survey -> [Finding]
+surveyReport project survey = map snd (surveyFindings survey) ++ exemptionFindings (configVersion config) (projectExemptions project) ++ lockstepFindings config
+  where
+    config = projectConfig project
+
+-- | A project whose canon.yaml names a canon version other than this one was written with other
+-- ids and digests, so reading it with this canon would show every row as changed or vanished.
+-- ref:DEC-canon-lockstep
+lockstepFindings :: Config -> [Finding]
+lockstepFindings config = case configCanon config of
+  Just declared | T.strip declared /= T.pack canonVersion -> [CanonVersionMismatch (T.strip declared) (T.pack canonVersion)]
+  _ -> []
 
 -- | A finding that a debt is unpaid becomes an exempt finding while an exemption covers its
 -- subject for its kind, so the debt is counted and not yet due. ref:DEC-exemptions
 applyExemptions :: Project -> [Finding] -> [Finding]
-applyExemptions project = map exempt
+applyExemptions project = map (exemptFinding project)
+
+-- | One finding as the project's exemptions leave it. ref:DEC-exemptions
+exemptFinding :: Project -> Finding -> Finding
+exemptFinding project = exempt
   where
     exemptions = projectExemptions project
     vetting = maybe emptyVetting id (projectVetting project)
@@ -353,13 +401,12 @@ folioExtractions project interpreters grammarBytes projectParts = case folioProf
 -- ref:DEC-vetting-layout
 ingestProject :: Project -> IO (FilePath, Int, Int, [VettingKey], [VettingKey], [Text])
 ingestProject project = do
-  walked <- projectFiles project Nothing
-  extracted <- extractAll project walked
-  let decisions = concat [modelDecisions (extractionModel e) | (_, Right e) <- extracted]
+  survey <- surveyProject project Nothing
+  let extracted = surveyExtracted survey
       unread = [failed | (failed, Left _) <- extracted]
       failures = [T.concat [T.pack failed, ": ", message] | (failed, Left message) <- extracted]
       existing = maybe emptyVetting id (projectVetting project)
-      items = projectMaterials project decisions
+      items = surveyMaterials survey
       (added, fresh) = ingest existing items
       unreadFiles = Set.fromList (concat [[commentFile f, docFile f] | f <- unread])
       (updated, dropped) = pruneVanished (`Set.notMember` unreadFiles) (Set.fromList (map materialKey items)) added
@@ -372,34 +419,9 @@ ingestProject project = do
 -- | The canonical material that needs a human verdict, each finding with the text to read.
 vetProject :: Project -> IO [(Finding, Maybe Text)]
 vetProject project = do
-  walked <- projectFiles project Nothing
-  assessments <- projectAssessments project
-  extracted <- linkSignatures (configLanguages (projectConfig project)) <$> extractAll project walked
-  let decisions = concat [modelDecisions (extractionModel e) | (_, Right e) <- extracted]
-      texts = Map.fromList [(materialKey m, materialText m) | m <- projectMaterials project decisions]
-      signOff = case projectVetting project of
-        Nothing -> []
-        Just vetting ->
-          materialFindings (configVersion (projectConfig project)) vetting assessments (projectLedger project) (projectRegistry project)
-            ++ kindFindings (configKinds (projectConfig project)) vetting assessments
-            ++ orphanVerdictFindings vetting (Map.keysSet texts)
-      findings = applyExemptions project (concat [fs | (fs, _, _, _) <- map (checkExtraction project assessments) extracted] ++ signOff)
-  pure [(f, keyOf f >>= (`Map.lookup` texts)) | f <- findings, attention f]
-  where
-    keyOf f = case f of
-      CommentPending d _ -> Just (CommentKey d)
-      CommentStale d _ -> Just (CommentKey d)
-      CommentDeferredPastRevisit d _ _ _ -> Just (CommentKey d)
-      VerdictWithoutRevisit d _ -> Just (CommentKey d)
-      VerdictOrphan k -> Just k
-      MaterialPending k -> Just k
-      MaterialStale k -> Just k
-      MaterialDeferredPastRevisit k _ _ -> Just k
-      MaterialWithoutRevisit k -> Just k
-      KindPending k -> Just k
-      KindUndeclared k -> Just k
-      VerdictUnknown k _ -> Just k
-      _ -> Nothing
+  survey <- surveyProject project Nothing
+  let texts = Map.fromList [(materialKey m, materialText m) | m <- surveyMaterials survey]
+  pure [(f, findingKey f >>= (`Map.lookup` texts)) | (_, f) <- surveyFindings survey, attention f]
 
 idPathOf :: Project -> FilePath -> FilePath
 idPathOf project path = makeRelative (normalise (projectDirectory project)) (normalise path)

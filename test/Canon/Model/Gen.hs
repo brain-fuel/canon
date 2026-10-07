@@ -249,6 +249,7 @@ genConfig =
     <*> genPath
     <*> genPath
     <*> Gen.maybe (Runtime <$> genIdSegment <*> genPath <*> genPath <*> genPath <*> Gen.maybe genPlainText)
+    <*> Gen.maybe (renderVersion <$> genVersion)
 
 -- | A kind or verdict word: lower-case letters, digits, and hyphens, never one of canon's prefixes.
 genKindWord :: Gen Text
@@ -336,6 +337,7 @@ genFinding =
     , DocQuadrantMismatch <$> genPath <*> genIdSegment
     , DocIdInvalid <$> genPath <*> genIdSegment
     , DocIdDuplicate <$> genIdSegment <*> genPath <*> genPath
+    , CanonVersionMismatch <$> (renderVersion <$> genVersion) <*> (renderVersion <$> genVersion)
     , VideoKeyNotVideo <$> genPath <*> genReferenceKey
     , CommentPending <$> genDecisionId <*> genWhere
     , CommentStale <$> genDecisionId <*> genWhere

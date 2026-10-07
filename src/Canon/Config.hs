@@ -31,7 +31,9 @@ import qualified Data.Yaml as Yaml
 import System.Directory (doesFileExist)
 
 -- | The configuration: version, the registry and ledger files, the vetting directory, ignore
--- patterns, root, language profiles, and the kinds of vetting rows other tools raise.
+-- patterns, root, language profiles, the kinds of vetting rows other tools raise, and the canon
+-- version the project's vetting files were written with, since ids and digests are only
+-- comparable within one. ref:DEC-canon-lockstep
 data Config = Config
   { configVersion :: Maybe Text
   , configRegistry :: FilePath
@@ -44,6 +46,7 @@ data Config = Config
   , configExemptions :: FilePath
   , configRuns :: FilePath
   , configRuntime :: Maybe Runtime
+  , configCanon :: Maybe Text
   }
   deriving (Eq, Show)
 
@@ -112,7 +115,7 @@ defaultVettingDirectory = "canonical_vetting"
 
 -- | The configuration of a directory without canon.yaml.
 defaultConfig :: Config
-defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName defaultVettingDirectory [] "." Map.empty builtinKinds defaultExemptionsFileName defaultRunsFileName Nothing
+defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName defaultVettingDirectory [] "." Map.empty builtinKinds defaultExemptionsFileName defaultRunsFileName Nothing Nothing
 
 -- | The kinds every project has without declaring them: name, the What queue of Rice's Tax, with
 -- canon's four words. canon raises no row of it and judges none; knowing the kind only means an
@@ -137,9 +140,10 @@ renderConfigError :: ConfigError -> Text
 renderConfigError (ConfigUnreadable path message) = T.concat [T.pack path, ": ", message]
 
 instance ToJSON Config where
-  toJSON (Config version registry decisions vetting ignore root languages kinds exemptions runs runtime) =
+  toJSON (Config version registry decisions vetting ignore root languages kinds exemptions runs runtime canon) =
     object
-      [ "decisions" .= decisions
+      [ "canon" .= canon
+      , "decisions" .= decisions
       , "exemptions" .= exemptions
       , "vetting" .= vetting
       , "ignore" .= ignore
@@ -178,3 +182,5 @@ instance FromJSON Config where
       <*> (fromMaybe defaultExemptionsFileName <$> o .:? "exemptions")
       <*> (fromMaybe defaultRunsFileName <$> o .:? "runs")
       <*> o .:? "runtime"
+      <*> o .:? "canon"
+

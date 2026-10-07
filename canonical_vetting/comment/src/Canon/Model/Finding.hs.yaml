@@ -7,6 +7,12 @@ decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/data/Find
 decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/data/Severity:
   digest: sha256:bc8de0f7dcdafbb8
   verdict: pending
+decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/function/findingKey:
+  digest: sha256:46b706f0d35cfabc
+  verdict: pending
+decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/function/findingPending:
+  digest: sha256:1bdb0a1659f816c0
+  verdict: pending
 decision/haskell/src/Canon/Model/Finding.hs/module/Canon.Model.Finding/function/findingSeverity:
   digest: sha256:f331cfc3f8f2ac20
   verdict: pending

@@ -92,7 +92,9 @@ instance ToJSON Version where
 instance FromJSON Version where
   parseJSON = withText "Version" $ \t -> maybe (fail ("not a semantic version: " ++ T.unpack t)) pure (parseVersion t)
 
--- | canon's own version, part of every cache key so a new canon never reads an old extraction.
--- ref:DEC-extraction-cache
+-- | canon's own version, part of every cache key so a new canon never reads an old extraction,
+-- and the version a project's canon.yaml names under canon, so a tool built on canon and the
+-- project it reads agree on ids, digests, and vetting files; it changes whenever any of them do.
+-- ref:DEC-extraction-cache ref:DEC-canon-lockstep
 canonVersion :: String
-canonVersion = "0.1.0"
+canonVersion = "0.2.0"

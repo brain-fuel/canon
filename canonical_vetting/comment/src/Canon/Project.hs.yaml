@@ -7,11 +7,17 @@ decision/haskell/src/Canon/Project.hs/module/Canon.Project/data/Project:
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/data/ProjectError:
   digest: sha256:245c04c7efc23fa6
   verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/data/Survey:
+  digest: sha256:a9ab85f01fff4822
+  verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/applyExemptions:
   digest: sha256:d5dc44248dfc276c
   verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/checkProject:
   digest: sha256:ad633e695d339871
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/exemptFinding:
+  digest: sha256:c993e2111712b52b
   verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/extractAll:
   digest: sha256:a64255c66e8f16b9
@@ -31,6 +37,9 @@ decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/ingestProjec
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/loadProject:
   digest: sha256:c75b093ce2d7dfb0
   verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/lockstepFindings:
+  digest: sha256:131cf8abf3b69c7a
+  verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/projectAssessments:
   digest: sha256:046d4332f1330bf9
   verdict: pending
@@ -48,6 +57,12 @@ decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/renderProjec
   verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/resolvePath:
   digest: sha256:6896b8d501ed8650
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/surveyProject:
+  digest: sha256:8fefae97de3ead6f
+  verdict: pending
+decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/surveyReport:
+  digest: sha256:1d6b2b2192a8a9e1
   verdict: pending
 decision/haskell/src/Canon/Project.hs/module/Canon.Project/function/tangleProject:
   digest: sha256:9cd3325d7a138566

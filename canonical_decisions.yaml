@@ -876,3 +876,12 @@ DEC-lexer-performance:
   opened: 0.1.0
   decided: 0.1.0
   refs: [REQ-javascript-support]
+
+DEC-canon-lockstep:
+  status: decided
+  question: Rice's Tax is built on canon as a library and reads the same vetting files as canon check, and a project such as LawSpec checks itself with a canon binary built from a checkout. Between two canon commits the ingest API, the parser, and so possibly the ids and digests of a project's rows can change, while canon called itself 0.1.0 throughout. How do canon, the tools built on it, and a project stay in lockstep, so a row one shows as pending is the row the other counts?
+  answer: |
+    canon's version is the identity of its ids, digests, and vetting files: it changes whenever any of them does, and such a change ships together with a release of every tool built on canon. canon.yaml may name under canon the canon version the project's rows were written with; canon check fails with a canonVersionMismatch finding when that is not the running canon's version, and a tool refuses to read the project. The canon of the parser rewrite, which also drops pending rows of vanished material on ingest, is 0.2.0. Check, vet, and ingest are views of one survey of the project, surveyProject, which reads every file once with signatures linked and keeps each finding before and after exemptions; the survey, findingPending, which the check counts, and findingKey, which names the row a finding is about, are exported, so a tool shows and counts exactly what the check does instead of computing it again. Ingest now reads the linked extraction as check does. The version in canon's own canon.yaml, which open decisions and exemptions are revisited by, is the owner's to raise at release.
+  opened: 0.1.0
+  decided: 0.1.0
+  refs: [rices-tax, REQ-human-vetting]

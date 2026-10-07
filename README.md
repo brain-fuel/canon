@@ -309,6 +309,17 @@ counts until a human has read it. The flow is:
    word the declaration does not know. Raising the rows, keeping their
    digests fresh, and retiring the ones whose material is gone belong to the
    tool that owns the kind.
+
+   `canon.yaml` may also name, under `canon`, the canon version the
+   project's vetting files were written with. Ids and digests are only
+   comparable within one canon version, so `canon check` fails when the
+   version it names is not the running canon's, and a tool built on canon,
+   such as Rice's Tax, refuses to read the project. canon's version changes
+   whenever an id, a digest, or the layout of the vetting files does, and
+   such a change ships together with a release of every tool built on it.
+   `Canon.Project.surveyProject` is the one reading of a project that check,
+   vet, and ingest are views of, so such a tool shows and counts exactly
+   what the check does.
 2. `canon vet` lists every comment that needs a verdict, with its location
    and its text, so a reviewer can work through them. It also lists verdicts
    that have gone stale because the comment changed, deferrals past their

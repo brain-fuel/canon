@@ -13,6 +13,9 @@ ledger/DEC-canon-comment-standard:
 ledger/DEC-canon-is-the-format:
   digest: sha256:a249ad4c946db819
   verdict: pending
+ledger/DEC-canon-lockstep:
+  digest: sha256:4ccf8fa5bac7e5f8
+  verdict: pending
 ledger/DEC-canon-self-folio:
   digest: sha256:acb521ecac6b3432
   verdict: pending

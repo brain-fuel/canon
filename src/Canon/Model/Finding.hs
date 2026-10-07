@@ -5,6 +5,8 @@ module Canon.Model.Finding
   , Severity (..)
   , findingSeverity
   , renderFinding
+  , findingPending
+  , findingKey
   ) where
 
 import Canon.Git.Provider (GitError, renderGitError)
@@ -52,6 +54,7 @@ data Finding
   | VerdictUnknown VettingKey Text
   | Exempt Text Text Text Text
   | ExemptionExpired Text Text Text
+  | CanonVersionMismatch Text Text
   | BlockUndeclared FilePath Int
   | BlockDoesNotDefine FilePath Int Text
   | BlockCarriesComment FilePath Int
@@ -128,6 +131,7 @@ renderFinding f = case f of
   VerdictUnknown k w -> T.concat [materialName k, " carries the verdict word ", w, ", which its kind does not declare"]
   Exempt what pat revisit reason -> T.concat [what, " is exempt under ", pat, " until ", revisit, ": ", reason]
   ExemptionExpired pat revisit current -> T.concat ["exemption ", pat, " is past its revisit version ", revisit, " at version ", current]
+  CanonVersionMismatch declared running -> T.concat ["canon.yaml says this project was assessed with canon ", declared, ", but this is canon ", running, "; ids, digests, and vetting files are only comparable within one canon version, so check with canon ", declared, " or re-ingest and set canon: ", running]
   BlockUndeclared path line -> atLine path line "block declares no def= or part=; every block says what it defines"
   BlockDoesNotDefine path line name -> atLine path line ("block declares def=" <> name <> " but defines no unit of that name")
   BlockCarriesComment path line -> atLine path line "comment in a block; prose belongs in the page, and a fact written twice is one fact and one future lie"
@@ -187,6 +191,7 @@ instance ToJSON Finding where
     VerdictUnknown k w -> object ["key" .= k, "kind" .= ("verdictUnknown" :: Text), "word" .= w]
     Exempt what pat revisit reason -> object ["kind" .= ("exempt" :: Text), "pattern" .= pat, "reason" .= reason, "revisit" .= revisit, "what" .= what]
     ExemptionExpired pat revisit current -> object ["current" .= current, "kind" .= ("exemptionExpired" :: Text), "pattern" .= pat, "revisit" .= revisit]
+    CanonVersionMismatch declared running -> object ["declared" .= declared, "kind" .= ("canonVersionMismatch" :: Text), "running" .= running]
     BlockUndeclared path line -> object ["kind" .= ("blockUndeclared" :: Text), "line" .= line, "path" .= path]
     BlockDoesNotDefine path line name -> object ["kind" .= ("blockDoesNotDefine" :: Text), "line" .= line, "name" .= name, "path" .= path]
     BlockCarriesComment path line -> object ["kind" .= ("blockCarriesComment" :: Text), "line" .= line, "path" .= path]
@@ -215,6 +220,7 @@ instance FromJSON Finding where
       "verdictUnknown" -> VerdictUnknown <$> o .: "key" <*> o .: "word"
       "exempt" -> Exempt <$> o .: "what" <*> o .: "pattern" <*> o .: "revisit" <*> o .: "reason"
       "exemptionExpired" -> ExemptionExpired <$> o .: "pattern" <*> o .: "revisit" <*> o .: "current"
+      "canonVersionMismatch" -> CanonVersionMismatch <$> o .: "declared" <*> o .: "running"
       "blockUndeclared" -> BlockUndeclared <$> o .: "path" <*> o .: "line"
       "blockDoesNotDefine" -> BlockDoesNotDefine <$> o .: "path" <*> o .: "line" <*> o .: "name"
       "blockCarriesComment" -> BlockCarriesComment <$> o .: "path" <*> o .: "line"
@@ -250,3 +256,38 @@ instance FromJSON Finding where
       "testWithoutRequirement" -> TestWithoutRequirement <$> o .: "unit" <*> o .: "where"
       "requirementUntested" -> RequirementUntested <$> o .: "key"
       _ -> fail ("unknown finding kind: " ++ T.unpack kind)
+
+-- | Whether a finding is material still owed a verdict, which is what the check counts when it
+-- calls the report invalid; a tool built on canon counts with this, so its count is canon's.
+-- ref:DEC-canon-lockstep
+findingPending :: Finding -> Bool
+findingPending f = case f of
+  CommentPending {} -> True
+  CommentStale {} -> True
+  MaterialPending _ -> True
+  MaterialStale _ -> True
+  KindPending _ -> True
+  _ -> False
+
+-- | The vetting row a finding is about, if it is about one, so a tool can show each row with the
+-- finding canon raised on it. ref:DEC-canon-lockstep
+findingKey :: Finding -> Maybe VettingKey
+findingKey f = case f of
+  CommentPending d _ -> Just (CommentKey d)
+  CommentStale d _ -> Just (CommentKey d)
+  CommentBad d _ _ -> Just (CommentKey d)
+  CommentDeferred d _ _ -> Just (CommentKey d)
+  CommentDeferredPastRevisit d _ _ _ -> Just (CommentKey d)
+  VerdictWithoutRevisit d _ -> Just (CommentKey d)
+  VerdictOrphan k -> Just k
+  VerdictUncommitted k -> Just k
+  MaterialPending k -> Just k
+  MaterialStale k -> Just k
+  MaterialBad k _ -> Just k
+  MaterialDeferred k _ -> Just k
+  MaterialDeferredPastRevisit k _ _ -> Just k
+  MaterialWithoutRevisit k -> Just k
+  KindPending k -> Just k
+  KindUndeclared k -> Just k
+  VerdictUnknown k _ -> Just k
+  _ -> Nothing

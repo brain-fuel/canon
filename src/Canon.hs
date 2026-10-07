@@ -21,7 +21,7 @@ import Canon.Config (Config (..))
 import Canon.Git.Commit (CommitHash (..), Person (..))
 import Canon.Model
 import Canon.Vetting (applyAssessments, materialFindings)
-import Canon.Model.Finding (Finding (..), Severity (..), findingSeverity, renderFinding)
+import Canon.Model.Finding (Finding (..), Severity (..), findingPending, findingSeverity, renderFinding)
 import Canon.Model.Yaml (encodeModel)
 import Canon.Project
 import Canon.Folio (Block (..), Document (..))
@@ -139,7 +139,7 @@ runCommand command = case command of
   CommandCheck target -> withProject $ \project -> do
     findings <- checkProject project target
     mapM_ (TIO.putStrLn . renderWithSeverity) findings
-    let pending = length [() | f <- findings, isPending f]
+    let pending = length [() | f <- findings, findingPending f]
     if pending > 0 then TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " pieces of canonical material pending sign-off"]) else pure ()
     pure (if any ((== Failing) . findingSeverity) findings then ExitFailure 1 else ExitSuccess)
   CommandIngest -> withProject $ \project -> do
@@ -241,15 +241,6 @@ writeTangled project check t = do
           TIO.writeFile path (tangledText t)
           putStrLn ("  written    " ++ tangledPath t)
           pure False
-
-isPending :: Finding -> Bool
-isPending f = case f of
-  CommentPending {} -> True
-  CommentStale {} -> True
-  MaterialPending _ -> True
-  MaterialStale _ -> True
-  KindPending _ -> True
-  _ -> False
 
 materialState :: Finding -> Maybe (ReferenceKey, Text)
 materialState f = case f of

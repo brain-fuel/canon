@@ -10,7 +10,7 @@ import Canon.Extract.Grammar
 import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider (GitError (..), GitProvider (..), staticGitProvider)
 import Canon.Model
-import Canon.Model.Finding (Finding (..))
+import Canon.Model.Finding (Finding (..), Severity (..), findingKey, findingPending, findingSeverity)
 import Canon.Model.Gen (genFinding, genModel, genProfile)
 import Canon.Cache
 import Canon.Model.Yaml (decodeSorted, encodeSorted)
@@ -18,6 +18,8 @@ import Canon.Profile
 import Canon.Project
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.Scratch (withScratch)
+import Canon.Version (canonVersion)
+import Canon.Vetting (Material (..), VettingEntry (..), vettingEntries)
 import Canon.Walk (Walked (..))
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.ByteString.Lazy as LBS
@@ -47,6 +49,8 @@ tests =
     , testProperty "an extraction stored in the cache is found again by its key" cacheRoundTrip
     , testProperty "a requirement cited by a test in any file of the project is tested" requirementAcrossFiles
     , testProperty "ledger and registry entries are pending sign-off once a vetting file exists" materialPending
+    , testProperty "a canon.yaml naming another canon version fails the check, and naming this one does not" prop_aCanonYamlNamingAnotherCanonVersionFailsTheCheck
+    , testProperty "every row the check counts as pending is a material of the survey that ingest records under the same key and digest" prop_everyPendingRowIsASurveyMaterialIngestRecords
     ]
 
 profileRoundTrip :: Property
@@ -192,3 +196,56 @@ materialPending = withTests 1 $ property $ do
   Set.fromList pending === Set.fromList [LedgerKey (ReferenceKey "DEC-x"), RegistryKey (ReferenceKey "paper-1")]
   signedPending === []
   Set.fromList uncommitted === Set.fromList [LedgerKey (ReferenceKey "DEC-x"), RegistryKey (ReferenceKey "paper-1")]
+
+-- | Ids and digests are only comparable within one canon version, so a project that names the
+-- version its rows were written with fails the check under any other, and passes the lockstep
+-- under its own or when it names none. ref:REQ-human-vetting ref:DEC-canon-lockstep
+prop_aCanonYamlNamingAnotherCanonVersionFailsTheCheck :: Property
+prop_aCanonYamlNamingAnotherCanonVersionFailsTheCheck = withTests 1 $ property $ do
+  found <- evalIO $ withScratch "lockstep" $ \root -> do
+    let checkWith yaml = do
+          writeFile (root </> "canon.yaml") yaml
+          loaded <- loadProject root
+          either (const (pure [])) (\p -> checkProject p Nothing) loaded
+    other <- checkWith "version: 0.1.0\ncanon: 0.0.1\n"
+    same <- checkWith ("version: 0.1.0\ncanon: " ++ canonVersion ++ "\n")
+    none <- checkWith "version: 0.1.0\n"
+    pure (other, same, none)
+  let (other, same, none) = found
+      mismatches fs = [(d, r) | CanonVersionMismatch d r <- fs]
+  mismatches other === [("0.0.1", T.pack canonVersion)]
+  map findingSeverity [f | f@CanonVersionMismatch {} <- other] === [Failing]
+  mismatches same === []
+  mismatches none === []
+
+-- | A tool built on canon shows the survey's materials and counts with findingPending, so every
+-- pending finding of the check must name a material of the survey by the key ingest writes, with
+-- the digest ingest records. ref:REQ-human-vetting ref:DEC-canon-lockstep
+prop_everyPendingRowIsASurveyMaterialIngestRecords :: Property
+prop_everyPendingRowIsASurveyMaterialIngestRecords = withTests 1 $ property $ do
+  here <- evalIO getCurrentDirectory
+  let grammar name = here </> "grammars/java/canonically_commented" </> name
+  found <- evalIO $ withScratch "survey" $ \root -> do
+    createDirectoryIfMissing True (root </> "src")
+    writeFile (root </> "canon.yaml") (unlines ["version: 0.1.0", "languages:", "  java:", "    extensions: [.java]", "    lexer: " ++ grammar "JavaLexer.g4", "    parser: " ++ grammar "JavaParser.g4", "    start: compilationUnit"])
+    writeFile (root </> "canonical_refs.yaml") (unlines ["paper-1:", "  kind: paper", "  title: A paper", "  locator: here"])
+    writeFile (root </> "canonical_decisions.yaml") (unlines ["DEC-x:", "  status: decided", "  question: Why?", "  answer: Because.", "  opened: 0.1.0", "  decided: 0.1.0", "  refs: [paper-1]"])
+    writeFile (root </> "src/A.java") (unlines ["package p;", "/** A holds one thing. ref:DEC-x */", "public class A {", "  /** The thing, for callers. ref:paper-1 */", "  public int a() { return 1; }", "}"])
+    _ <- loadProject root >>= either (const (pure ("", 0, 0, [], [], []))) ingestProject
+    loaded <- loadProject root
+    case loaded of
+      Left _ -> pure ([], [], [])
+      Right project -> do
+        survey <- surveyProject project Nothing
+        let rows = maybe [] (Map.toList . vettingEntries) (projectVetting project)
+        pure (surveyMaterials survey, [f | f <- checkProjectOf project survey, findingPending f], rows)
+  let (materials', pending, rows) = found
+      byKey = Map.fromList [(materialKey m, materialDigest m) | m <- materials']
+  annotate (show pending)
+  assert (not (null pending))
+  [k | Just k <- map findingKey pending, not (Map.member k byKey)] === []
+  length [() | f <- pending, findingKey f == Nothing] === 0
+  Set.fromList (map fst rows) === Map.keysSet byKey
+  [k | (k, e) <- rows, Map.lookup k byKey /= Just (entryDigest e)] === []
+  where
+    checkProjectOf project survey = surveyReport project survey
