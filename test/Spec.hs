@@ -39,6 +39,7 @@ import qualified Canon.Extract.ErlangTest
 import qualified Canon.Extract.HCLTest
 import qualified Canon.Extract.PulumiTest
 import qualified Canon.Model.CheckTest
+import qualified Canon.Model.IdTest
 import qualified Canon.Git.ParseTest
 import qualified Canon.Model.YamlTest
 import qualified Canon.RegistryTest
@@ -67,7 +68,7 @@ main =
             , Canon.Git.ParseTest.tests
             , Canon.CanonicalCommentTest.tests
             , Canon.AttachTest.tests
-            , Canon.Model.CheckTest.tests
+            , Canon.Model.CheckTest.tests, Canon.Model.IdTest.tests
             , Canon.Antlr4.InterpretTest.tests
             , Canon.DecisionsTest.tests
             , Canon.IgnoreTest.tests

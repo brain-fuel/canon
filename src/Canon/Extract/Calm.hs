@@ -23,7 +23,6 @@ import Data.Maybe (mapMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as TE
-import System.FilePath (splitDirectories)
 
 -- | Validates the ingestion boundary and builds review units. It is not full CALM JSON Schema
 -- validation: interfaces, controls, decorators, and external references remain in the body.
@@ -54,7 +53,7 @@ calmUnits idPath path _ tree = do
   pure (root, concatMap snd built, [])
   where
     evidence = DerivedFromParse path
-    fileId = UnitId ("calm" :| map T.pack (filter (/= ".") (splitDirectories idPath)))
+    fileId = UnitId ("calm" :| pathIdSegments idPath)
     unit uid name kind node required chain nested value = CodeUnit
       uid (Answer (What name (UnitKind kind) Nothing) evidence)
       (Answer (HowText (TE.decodeUtf8 (LBS.toStrict (encode value)))) evidence)

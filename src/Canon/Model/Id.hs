@@ -13,6 +13,7 @@ module Canon.Model.Id
   , parseDecisionId
   , isKindWord
   , isIdSegment
+  , pathIdSegments
   , isReferenceKey
   ) where
 
@@ -30,6 +31,10 @@ import Data.List.NonEmpty (NonEmpty)
 import qualified Data.List.NonEmpty as NonEmpty
 import Data.Text (Text)
 import qualified Data.Text as T
+import qualified Data.Text.Encoding as TE
+import qualified Data.ByteString as BS
+import Numeric (showHex)
+import System.FilePath (splitDirectories)
 
 -- | A unit id: language, file path segments, then kind and name at each nesting level.
 newtype UnitId = UnitId {unitIdSegments :: NonEmpty Text}
@@ -57,6 +62,18 @@ parseUnitId t =
 -- valid names.
 isIdSegment :: Text -> Bool
 isIdSegment s = not (T.null s) && not (T.any (\c -> c == '/' || isSpace c) s)
+
+-- | The id segments of a file path, one per directory and the file name, the path's own "."
+-- dropped. A segment holds no whitespace, so each whitespace character of a name, as in a Swift
+-- package's "Parsable Types" directory, is percent-encoded as its UTF-8 bytes, %20 for a space; no
+-- other character is touched, so the id of a path without whitespace is the path itself, as it
+-- always was. ref:DEC-path-id-segments
+pathIdSegments :: FilePath -> [Text]
+pathIdSegments path = [encode (T.pack d) | d <- splitDirectories path, d /= "."]
+  where
+    encode = T.concatMap (\c -> if isSpace c then percent c else T.singleton c)
+    percent c = T.concat ["%" <> hex b | b <- BS.unpack (TE.encodeUtf8 (T.singleton c))]
+    hex b = T.toUpper (T.pack (if b < 16 then '0' : showHex b "" else showHex b ""))
 
 -- | The decision id of a unit.
 decisionIdFor :: UnitId -> DecisionId

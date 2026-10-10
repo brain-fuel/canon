@@ -274,6 +274,10 @@ docc:
   kind: article
   title: DocC, Writing Symbol Documentation in Your Source Files, on /// and /** comments above a declaration and the symbols DocC documents
   locator: https://www.swift.org/documentation/docc/writing-symbol-documentation-in-your-source-files
+REQ-path-ids:
+  kind: requirement
+  title: canon gives every file a unit id that its vetting files can be read back with, a path holding whitespace included, without changing the id of any path that holds none
+  locator: README.md
 REQ-swift-support:
   kind: requirement
   title: canon reads Swift 6, parsing Swift source files by the line breaks that end their statements and the #if branches each build compiles, taking structs, classes, actors, enums and their cases, protocols and their requirements, extensions, functions, initializers, deinitializers, subscripts, variables, constants, type aliases, associated types, macros, operators, and precedence groups as units, binding /// and /** to the declaration below its attributes and modifiers, requiring a comment on what is public or open, hiding what is private, fileprivate, or @_spi, and recognising Swift Testing tests by @Test and @Suite and XCTest tests by their test* names in test targets

@@ -48,7 +48,6 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Vector as BV
 import qualified Data.Vector.Unboxed as V
-import System.FilePath (splitDirectories)
 
 -- | Extraction fails when the interpreter fails or when two units share an id.
 data GrammarExtractError
@@ -292,7 +291,7 @@ unitsFromTree language profile plans exportsDeclared idPath path source tree
     evidence = DerivedFromParse path
     chars = V.fromList (T.unpack source)
     table = lineTable source
-    fileSegments = [T.pack d | d <- splitDirectories idPath, d /= "."]
+    fileSegments = pathIdSegments idPath
     fileId = UnitId (language :| fileSegments)
     rulesByName = Map.fromListWith (flip (++)) [(unitRuleName r, [r]) | r <- profileUnits profile]
     syntax = profileComments profile

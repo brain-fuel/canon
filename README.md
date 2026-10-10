@@ -478,7 +478,10 @@ signature file to the extension of the implementation it declares, as F#'s
 of the implementation needs no comment, and a unit of the signature needs one
 when the unit it declares would. Unit ids are the language, the file path, and then
 kind and name at each level of nesting; a repeated name in one scope gets an
-ordinal suffix.
+ordinal suffix. A path's whitespace, which an id
+cannot hold, is percent-encoded, `%20` for a space, so a file under a
+directory such as `Parsable Types` has an id like any other; no other
+character of a path changes.
 
 A language named `calm` is read differently: its grammar is any JSON grammar,
 and a CALM 1.2 architecture description parsed with it becomes a unit per
@@ -938,8 +941,8 @@ over 23 of the most used Scala projects recorded in `grammars/scala/README.md`.
 The Swift sample is Swift Argument Parser at commit `efd239f`, eight of its
 public API sources, two of its utilities, and two of its Swift Testing suites,
 vendored under `source/` with its Apache-2.0 license and its Runtime Library
-Exception, the spaces taken out of the names of its `Parsable Properties` and
-`Parsable Types` directories, since a unit id holds no space. DocC documents a declaration with a `///` or `/**` comment above
+Exception, under its own paths, whose `Parsable Properties` and `Parsable Types`
+directories hold a space, which a unit id writes as `%20`. DocC documents a declaration with a `///` or `/**` comment above
 its attributes and modifiers. Its `canon.yaml` holds the Swift profile a Swift
 package can copy:
 

@@ -123,7 +123,7 @@ relocate t (Extraction model findings) = Extraction model {modelUnits = relocate
 -- | The id of a page's own unit: the language, the page's path, and the kind doc with the page's
 -- id.
 pageUnitId :: FilePath -> Text -> UnitId
-pageUnitId path pageId = UnitId ("folio" :| [T.pack d | d <- splitDirectories path, d /= "."] ++ ["doc", pageId])
+pageUnitId path pageId = UnitId ("folio" :| pathIdSegments path ++ ["doc", pageId])
 
 -- | Whether a unit id is a page's.
 isDocUnitId :: UnitId -> Bool

@@ -54,14 +54,14 @@ sampleDir = "lang_samples/swift-argument-parser"
 -- | The sample's files below source/, which the grammar must each parse whole.
 sampleFiles :: [FilePath]
 sampleFiles =
-  [ "Sources/ArgumentParser/ParsableProperties/ArgumentHelp.swift"
-  , "Sources/ArgumentParser/ParsableProperties/ArgumentVisibility.swift"
-  , "Sources/ArgumentParser/ParsableProperties/Flag.swift"
-  , "Sources/ArgumentParser/ParsableProperties/NameSpecification.swift"
-  , "Sources/ArgumentParser/ParsableTypes/EnumerableFlag.swift"
-  , "Sources/ArgumentParser/ParsableTypes/ExpressibleByArgument.swift"
-  , "Sources/ArgumentParser/ParsableTypes/ParsableArguments.swift"
-  , "Sources/ArgumentParser/ParsableTypes/ParsableCommand.swift"
+  [ "Sources/ArgumentParser/Parsable Properties/ArgumentHelp.swift"
+  , "Sources/ArgumentParser/Parsable Properties/ArgumentVisibility.swift"
+  , "Sources/ArgumentParser/Parsable Properties/Flag.swift"
+  , "Sources/ArgumentParser/Parsable Properties/NameSpecification.swift"
+  , "Sources/ArgumentParser/Parsable Types/EnumerableFlag.swift"
+  , "Sources/ArgumentParser/Parsable Types/ExpressibleByArgument.swift"
+  , "Sources/ArgumentParser/Parsable Types/ParsableArguments.swift"
+  , "Sources/ArgumentParser/Parsable Types/ParsableCommand.swift"
   , "Sources/ArgumentParser/Utilities/Platform.swift"
   , "Sources/ArgumentParser/Utilities/StringExtensions.swift"
   , "Tests/ArgumentParserUnitTests/NameSpecificationTests.swift"
@@ -189,9 +189,9 @@ prop_theSwiftGrammarParsesEveryFileOfTheArgumentParserSampleIntoItsDeclarations 
       unitRules = ["structDeclaration", "enumDeclaration", "enumCaseDeclaration", "protocolDeclaration", "extensionDeclaration", "functionDeclaration", "initializerDeclaration", "variableDeclaration", "constantDeclaration", "typealiasDeclaration", "expressionStatement"]
       byFile = Map.fromList (zip sampleFiles (map counts trees))
       at file = Map.findWithDefault [] file byFile
-  at "Sources/ArgumentParser/ParsableProperties/ArgumentVisibility.swift"
+  at "Sources/ArgumentParser/Parsable Properties/ArgumentVisibility.swift"
     === [("structDeclaration", 1), ("enumDeclaration", 1), ("enumCaseDeclaration", 3), ("extensionDeclaration", 4), ("functionDeclaration", 3), ("variableDeclaration", 2), ("constantDeclaration", 3)]
-  at "Sources/ArgumentParser/ParsableTypes/ParsableCommand.swift"
+  at "Sources/ArgumentParser/Parsable Types/ParsableCommand.swift"
     === [("protocolDeclaration", 1), ("extensionDeclaration", 3), ("functionDeclaration", 12), ("variableDeclaration", 7)]
   at "Tests/ArgumentParserUnitTests/SequenceExtensionTests.swift" === [("structDeclaration", 1), ("functionDeclaration", 2)]
 
@@ -493,7 +493,7 @@ prop_theSwiftDialectParsesTheArgumentParserSampleWithItsDocCommentsAsTheProfileR
     annotate file
     -- the profile also binds the file's licence header to the file, a plain comment the dialect hides
     let missing model = [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model]
-        unitDecisions model = [renderDecisionId (decisionId d) | d <- modelDecisions model, renderDecisionId (decisionId d) /= T.pack ("decision/swift/" <> file)]
+        unitDecisions model = [renderDecisionId (decisionId d) | d <- modelDecisions model, renderDecisionId (decisionId d) /= "decision/swift/" <> T.intercalate "/" (pathIdSegments file)]
         hidden model = [renderDecisionId (decisionIdFor (unitId u)) | u <- modelAllUnits model, unitRequirement u == Hidden]
         orphans fs = length [() | OrphanDocComment _ _ <- fs]
     missing dialect === missing profiled
