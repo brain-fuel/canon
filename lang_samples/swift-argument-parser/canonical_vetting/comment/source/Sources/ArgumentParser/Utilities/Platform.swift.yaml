@@ -1,0 +1,39 @@
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift:
+  digest: sha256:e2c117d9abbf111b
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/CommandLine/let/_staticArguments:
+  digest: sha256:1c1f884b5e8a4bb9
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform/enum/Environment/struct/Key/let/shellName:
+  digest: sha256:8eb260f9a149c9a2
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform/enum/Environment/struct/Key/let/shellVersion:
+  digest: sha256:3ccaf61bfdfa4079
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform#2/var/shellName:
+  digest: sha256:c64361ebdbfd8ca5
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform#3/var/exitCodeFailure:
+  digest: sha256:d548d12b3954f298
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform#3/var/exitCodeSuccess:
+  digest: sha256:ecdb85f04051786a
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform#3/var/exitCodeValidationFailure:
+  digest: sha256:a84ca0ee9c47db95
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform#4/func/exit:
+  digest: sha256:add9e1cbe5f08383
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform#5/struct/StandardError:
+  digest: sha256:2701225949016db9
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform#5/var/standardError:
+  digest: sha256:c07192127264ed2c
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform#6/func/terminalSize:
+  digest: sha256:2f6399e0373bd308
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/Platform.swift/extension/Platform#6/var/terminalWidth:
+  digest: sha256:cdc63318a296d6ae
+  verdict: pending

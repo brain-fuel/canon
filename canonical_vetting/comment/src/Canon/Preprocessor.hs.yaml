@@ -7,14 +7,23 @@ decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/data/Condit
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/data/Directive:
   digest: sha256:396cad2723140b34
   verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/data/DirectiveSyntax:
+  digest: sha256:b9d9fa587a4b27bf
+  verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/assignments:
   digest: sha256:89e9b68273221c01
   verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/builds:
   digest: sha256:3f18492bca1a1a9d
   verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/buildsIn:
+  digest: sha256:8d3022c47c5a41bd
+  verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/conditionTokens:
   digest: sha256:2b84fb72cf088827
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/directiveIn:
+  digest: sha256:7c113e3ae0883b88
   verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/directiveOf:
   digest: sha256:ddeee9c494c25b7f
@@ -24,6 +33,9 @@ decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/ev
   verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/inactiveLines:
   digest: sha256:04395c247ad03eb4
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/inactiveLinesIn:
+  digest: sha256:5f03c621f155e0f3
   verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/inactiveLinesWith:
   digest: sha256:f2370b49e10dcba0
@@ -42,6 +54,12 @@ decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/st
   verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/stepBranchesWith:
   digest: sha256:28edf84533215181
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/swiftConditionTokens:
+  digest: sha256:3234261bbedc1c7f
+  verdict: pending
+decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/swiftDirectiveOf:
+  digest: sha256:7b79c899ef469c13
   verdict: pending
 decision/haskell/src/Canon/Preprocessor.hs/module/Canon.Preprocessor/function/symbolsOf:
   digest: sha256:ae5113402049763e

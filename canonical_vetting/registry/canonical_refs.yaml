@@ -61,6 +61,9 @@ registry/REQ-lawspec-parity:
 registry/REQ-make-support:
   digest: sha256:b823767b7df1543c
   verdict: pending
+registry/REQ-path-ids:
+  digest: sha256:c244969e4d36e3c1
+  verdict: pending
 registry/REQ-prolog-support:
   digest: sha256:b46fd8ae18794413
   verdict: pending
@@ -75,6 +78,9 @@ registry/REQ-rust-support:
   verdict: pending
 registry/REQ-scala-support:
   digest: sha256:7f9601143fe39cdb
+  verdict: pending
+registry/REQ-swift-support:
+  digest: sha256:006f65efa3418ed4
   verdict: pending
 registry/REQ-typescript-support:
   digest: sha256:d7be84846d477430
@@ -114,6 +120,9 @@ registry/csharp-xml-documentation:
   verdict: pending
 registry/diataxis:
   digest: sha256:10ca97f8ffe93ea6
+  verdict: pending
+registry/docc:
+  digest: sha256:d76d6e33cde65666
   verdict: pending
 registry/edoc-user-guide:
   digest: sha256:614a5f13001abf26
@@ -180,6 +189,9 @@ registry/grammars-v4-scala-license:
   verdict: pending
 registry/grammars-v4-scala-page:
   digest: sha256:4ce17825431549fe
+  verdict: pending
+registry/grammars-v4-swift-license:
+  digest: sha256:34a1e61e4304f44e
   verdict: pending
 registry/grammars-v4-terraform:
   digest: sha256:dd5e580d70876af7
@@ -255,6 +267,27 @@ registry/semver-2:
   verdict: pending
 registry/swi-prolog-pldoc:
   digest: sha256:9a33a93087bac054
+  verdict: pending
+registry/swift-access-control:
+  digest: sha256:5ae8bfa522fa2fa0
+  verdict: pending
+registry/swift-compiler-control:
+  digest: sha256:8876b973120356f2
+  verdict: pending
+registry/swift-grammar-summary:
+  digest: sha256:8e538e81a12f0193
+  verdict: pending
+registry/swift-lexical-structure:
+  digest: sha256:11730e9d5a7aebb2
+  verdict: pending
+registry/swift-regex-literals:
+  digest: sha256:252be0d86e90b1d5
+  verdict: pending
+registry/swift-statements:
+  digest: sha256:b0ff586905bb00f9
+  verdict: pending
+registry/swift-syntax-parser:
+  digest: sha256:a8b6febe71b31f30
   verdict: pending
 registry/terraform-language-docs:
   digest: sha256:eea7c1910858d560

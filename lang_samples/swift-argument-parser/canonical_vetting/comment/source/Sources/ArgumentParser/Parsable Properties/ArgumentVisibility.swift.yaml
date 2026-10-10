@@ -1,0 +1,27 @@
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentVisibility.swift":
+  digest: sha256:e2c117d9abbf111b
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentVisibility.swift/extension/ArgumentVisibility#2/func/isAtLeastAsVisible":
+  digest: sha256:ec3c9cacbe0d8f52
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentVisibility.swift/extension/ArgumentVisibility#2/func/reduce":
+  digest: sha256:409f0a4bd6ed3459
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentVisibility.swift/extension/ArgumentVisibility.Representation/var/_comparableLevel":
+  digest: sha256:20cc3abce9d393f9
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentVisibility.swift/struct/ArgumentVisibility":
+  digest: sha256:36a67ac86c5a8e81
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentVisibility.swift/struct/ArgumentVisibility/enum/Representation":
+  digest: sha256:77158586f7fb471d
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentVisibility.swift/struct/ArgumentVisibility/let/`default`":
+  digest: sha256:1b8f2b963c26febb
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentVisibility.swift/struct/ArgumentVisibility/let/`private`":
+  digest: sha256:67056f220f706bbc
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentVisibility.swift/struct/ArgumentVisibility/let/hidden":
+  digest: sha256:94ad6b75ea48b776
+  verdict: pending

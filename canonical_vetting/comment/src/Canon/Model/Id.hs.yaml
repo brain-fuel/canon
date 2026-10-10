@@ -25,6 +25,9 @@ decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/parseUnitI
 decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/parseVettingKey:
   digest: sha256:84b40542e59d92df
   verdict: pending
+decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/pathIdSegments:
+  digest: sha256:d0589998e4e1b3e7
+  verdict: pending
 decision/haskell/src/Canon/Model/Id.hs/module/Canon.Model.Id/function/renderDecisionId:
   digest: sha256:2116062065081b80
   verdict: pending

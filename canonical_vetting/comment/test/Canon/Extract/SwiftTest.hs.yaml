@@ -1,0 +1,54 @@
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest:
+  digest: sha256:af1a0f007abd5676
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/dialectProfile:
+  digest: sha256:26124ba99a912286
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/extractAt:
+  digest: sha256:01456450cf798a2a
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/extractDialect:
+  digest: sha256:17cbd67b349b1dc9
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/prop_theSwiftDialectBindsDocCommentsToDeclarationsAndReportsMisplacedComments:
+  digest: sha256:d64a72b5ead0c667
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/prop_theSwiftDialectParsesTheArgumentParserSampleWithItsDocCommentsAsTheProfileReadsIt:
+  digest: sha256:472da35d34157ac0
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/prop_theSwiftGrammarParsesEveryFileOfTheArgumentParserSampleIntoItsDeclarations:
+  digest: sha256:6d325bf8ff1b055f
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/prop_theSwiftLexerHookEndsStatementsWhereTheCompilerDoes:
+  digest: sha256:349ac6bf807b375b
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/prop_theSwiftLexerHookReadsTheBranchesOfIfABuildCompiles:
+  digest: sha256:0b02bdf8208272c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/prop_theSwiftLexerReadsStringsRegexLiteralsAndCommentsWhole:
+  digest: sha256:ed718183587e9b7d
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/prop_theSwiftProfileReadsSwift6ConstructsIntoTheirDeclarations:
+  digest: sha256:c3b21c66ce745d95
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/prop_theSwiftProfileRequiresPublicApiHidesPrivateAndRecognisesTests:
+  digest: sha256:02081ecc18f3b94b
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/sampleFiles:
+  digest: sha256:1a261ae4bb814d5d
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/sampleProfile:
+  digest: sha256:ae04d7da522c8e4b
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/typesWith:
+  digest: sha256:c465fa9620845a9e
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/unitsOf:
+  digest: sha256:691b8d7e5abbed0b
+  verdict: pending
+decision/haskell/test/Canon/Extract/SwiftTest.hs/module/Canon.Extract.SwiftTest/function/whysOf:
+  digest: sha256:ea34157c468c11a6
+  verdict: pending

@@ -1,0 +1,21 @@
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ExpressibleByArgument.swift":
+  digest: sha256:e2c117d9abbf111b
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ExpressibleByArgument.swift/protocol/ExpressibleByArgument":
+  digest: sha256:c2688af104989df3
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ExpressibleByArgument.swift/protocol/ExpressibleByArgument/init/init":
+  digest: sha256:7b827bdfe0d0ae01
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ExpressibleByArgument.swift/protocol/ExpressibleByArgument/var/allValueDescriptions":
+  digest: sha256:191dc85bc30fc080
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ExpressibleByArgument.swift/protocol/ExpressibleByArgument/var/allValueStrings":
+  digest: sha256:24c40f70f7885d53
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ExpressibleByArgument.swift/protocol/ExpressibleByArgument/var/defaultCompletionKind":
+  digest: sha256:29aa97f37780ce22
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ExpressibleByArgument.swift/protocol/ExpressibleByArgument/var/defaultValueDescription":
+  digest: sha256:f50d7b39947a2665
+  verdict: pending

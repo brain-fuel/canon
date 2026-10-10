@@ -1,0 +1,72 @@
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift":
+  digest: sha256:e2c117d9abbf111b
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments/var/_errorPrefix":
+  digest: sha256:0f496f7f6974da6c
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments/var/asCommand":
+  digest: sha256:af3e75479424bcef
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/_dumpHelp":
+  digest: sha256:2d21cdf89054747b
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/completionScript":
+  digest: sha256:da8744fbc45c1598
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/exit":
+  digest: sha256:939209736d3c39e2
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/exitCode":
+  digest: sha256:8e03ff71212db7f3
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/fullMessage#2":
+  digest: sha256:b7064f05bd6e7fe5
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/helpMessage":
+  digest: sha256:5dfb931f60507801
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/helpMessage#2":
+  digest: sha256:c989da1288993776
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/message":
+  digest: sha256:9b4bdd779de85a0c
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/parse":
+  digest: sha256:20a9e642b70be9d3
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/parseOrExit":
+  digest: sha256:d302019dcf719dea
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/extension/ParsableArguments#2/func/usageString":
+  digest: sha256:5848a84502021499
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/func/configurationFailure":
+  digest: sha256:26823e4989c2d147
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/func/nilOrValue":
+  digest: sha256:ffdcf2b816d11f08
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/let/directlyInitializedError":
+  digest: sha256:d24668b7349a434e
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/protocol/ArgumentSetProvider":
+  digest: sha256:99cc919b3ad30f4f
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/protocol/ParsableArguments":
+  digest: sha256:8a6a8a99b1070c1f
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/protocol/ParsableArguments/func/validate":
+  digest: sha256:3c0fae9ea715622f
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/protocol/ParsableArguments/init/init":
+  digest: sha256:ba0f4b36053ffb79
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/protocol/ParsableArguments/var/_errorLabel":
+  digest: sha256:5bcf07a85a03132f
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/protocol/ParsableArguments/var/_errorPrefix":
+  digest: sha256:0f496f7f6974da6c
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Types/ParsableArguments.swift/struct/_WrappedParsableCommand":
+  digest: sha256:bf2d1b139d25c846
+  verdict: pending

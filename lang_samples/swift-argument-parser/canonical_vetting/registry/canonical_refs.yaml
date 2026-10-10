@@ -1,0 +1,6 @@
+registry/Apache-2.0-WITH-Swift-exception:
+  digest: sha256:5bc47988b1aeb689
+  verdict: pending
+registry/swift-argument-parser-upstream:
+  digest: sha256:f2fe7efeaf38e325
+  verdict: pending

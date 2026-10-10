@@ -1,0 +1,12 @@
+decision/haskell/test/Canon/Model/IdTest.hs/module/Canon.Model.IdTest:
+  digest: sha256:007f841ca684b555
+  verdict: pending
+decision/haskell/test/Canon/Model/IdTest.hs/module/Canon.Model.IdTest/function/prop_aPathWithWhitespaceGivesAnIdThatReadsBack:
+  digest: sha256:6d906f1f2a4d532a
+  verdict: pending
+decision/haskell/test/Canon/Model/IdTest.hs/module/Canon.Model.IdTest/function/prop_aPathWithoutWhitespaceIsItsOwnIdSegments:
+  digest: sha256:846845da37ef5e63
+  verdict: pending
+decision/haskell/test/Canon/Model/IdTest.hs/module/Canon.Model.IdTest/function/tests:
+  digest: sha256:1b696bdd90d4f5c2
+  verdict: pending

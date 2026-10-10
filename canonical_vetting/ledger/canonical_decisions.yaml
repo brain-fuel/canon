@@ -208,6 +208,9 @@ ledger/DEC-parser-memory:
 ledger/DEC-parser-predicates:
   digest: sha256:a10025ad2075e5a0
   verdict: pending
+ledger/DEC-path-id-segments:
+  digest: sha256:24c42b3c2f137a9a
+  verdict: pending
 ledger/DEC-precedence-climbing:
   digest: sha256:0a49bcdd56ffadc0
   verdict: pending
@@ -267,6 +270,12 @@ ledger/DEC-source-encoding:
   verdict: pending
 ledger/DEC-stray-comments:
   digest: sha256:8f8cefd41a6fd544
+  verdict: pending
+ledger/DEC-swift-dialect:
+  digest: sha256:345e7ee9f60f0a38
+  verdict: pending
+ledger/DEC-swift-grammar:
+  digest: sha256:b9fd20dbcd4dff93
   verdict: pending
 ledger/DEC-tangle-in-canon:
   digest: sha256:c4e34a7da4e59d58

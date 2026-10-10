@@ -1,0 +1,48 @@
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift":
+  digest: sha256:e2c117d9abbf111b
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/extension/FlagInversion/func/enableDisableNamePair":
+  digest: sha256:177c35a124e51179
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/extension/NameSpecification#3/func/customLong":
+  digest: sha256:ecbe7cdd4c32187c
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/extension/NameSpecification#3/func/customShort":
+  digest: sha256:fec81d5d055ad20d
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/extension/NameSpecification#3/var/long":
+  digest: sha256:c1326762855de568
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/extension/NameSpecification#3/var/short":
+  digest: sha256:4c5903783fbde52a
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/extension/NameSpecification#3/var/shortAndLong":
+  digest: sha256:780a8f9f323cd44a
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/extension/NameSpecification#4/func/makeNames":
+  digest: sha256:1726b17007df5906
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/extension/NameSpecification.Element#2/func/name":
+  digest: sha256:820fecb8e2582987
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/struct/NameSpecification":
+  digest: sha256:cf3c9ee1cb648b38
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/struct/NameSpecification/struct/Element":
+  digest: sha256:9a28b0731f118e31
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/struct/NameSpecification/struct/Element/func/customLong":
+  digest: sha256:ecbe7cdd4c32187c
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/struct/NameSpecification/struct/Element/func/customShort":
+  digest: sha256:fec81d5d055ad20d
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/struct/NameSpecification/struct/Element/func/invalidLiteral":
+  digest: sha256:0251197d0cf14563
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/struct/NameSpecification/struct/Element/var/long":
+  digest: sha256:74a4c5b6764c5f96
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/NameSpecification.swift/struct/NameSpecification/struct/Element/var/short":
+  digest: sha256:4c5903783fbde52a
+  verdict: pending

@@ -7,6 +7,9 @@ decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor
 decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/antlrLexerHooks:
   digest: sha256:b91d4ee164f008f0
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/directiveSyntax:
+  digest: sha256:eff123bab45c0b36
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Adaptor.hs/module/Canon.Antlr4.Lex.Adaptor/function/hooksForGrammar:
   digest: sha256:9495dd6e3e588181
   verdict: pending

@@ -1,0 +1,60 @@
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift:
+  digest: sha256:cb4cc8cd3693ecfc
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/data/SwiftLexerState:
+  digest: sha256:6ec1a9f5e8069ae0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/cannotEndTypes:
+  digest: sha256:25637b7e912e406e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/cannotEndWords:
+  digest: sha256:53cc1487ba56ae3c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/cannotStartTypes:
+  digest: sha256:a06c2c3acbdd244a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/cannotStartWords:
+  digest: sha256:82a3a9b5068322fa
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/closeDoc:
+  digest: sha256:a1d59d4a411add70
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/code:
+  digest: sha256:2f75f27e041013c8
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/docTypes:
+  digest: sha256:ca941e981a25d2f0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/endPosition:
+  digest: sha256:bee7a95ec8053f1c
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/introducers:
+  digest: sha256:de6131e7e90e170d
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/isOperator:
+  digest: sha256:b3b19fc7545c22a3
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/keywordTypes:
+  digest: sha256:5e464427e6e43f76
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/onEmit:
+  digest: sha256:e8d043e54423f3db
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/onPredicate:
+  digest: sha256:1474444c9885d0d0
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/regexKeywords:
+  digest: sha256:77981ab44a42d193
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/signatureContinues:
+  digest: sha256:da5fc1714485cc96
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/step:
+  digest: sha256:624d30adda47245b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/swiftLexerHooks:
+  digest: sha256:69411ce6d9fc3d3a
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Swift.hs/module/Canon.Antlr4.Lex.Swift/function/virtual:
+  digest: sha256:916e5961cbc7033e
+  verdict: pending

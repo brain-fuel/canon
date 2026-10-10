@@ -1,0 +1,18 @@
+decision/swift/source/Sources/ArgumentParser/Utilities/StringExtensions.swift:
+  digest: sha256:e2c117d9abbf111b
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/StringExtensions.swift/extension/Character/var/isValidForName:
+  digest: sha256:f7534f5cc5f4757d
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/StringExtensions.swift/extension/StringProtocol/func/addingIntercappedPrefix:
+  digest: sha256:362b24e9238ca7c8
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/StringExtensions.swift/extension/StringProtocol/func/addingPrefixWithAutodetectedStyle:
+  digest: sha256:0c29e46c9bbf2c1d
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/StringExtensions.swift/extension/StringProtocol/func/convertedToSnakeCase:
+  digest: sha256:4cb24b9095cd32e4
+  verdict: pending
+decision/swift/source/Sources/ArgumentParser/Utilities/StringExtensions.swift/extension/StringProtocol/func/editDistance:
+  digest: sha256:266460a030f7d4c2
+  verdict: pending

@@ -1,0 +1,36 @@
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift":
+  digest: sha256:e2c117d9abbf111b
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp":
+  digest: sha256:07b62e21c4a99482
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/init/init":
+  digest: sha256:d5216dfd8fe677a7
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/init/init#2":
+  digest: sha256:d5216dfd8fe677a7
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/var/`private`":
+  digest: sha256:cdf0c66ec0a3890e
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/var/abstract":
+  digest: sha256:9a7eaa42fa66cf7a
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/var/argumentType":
+  digest: sha256:4c2319649ff79084
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/var/discussion":
+  digest: sha256:685af76ddb96a1a9
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/var/hidden":
+  digest: sha256:02413cc4bec3341a
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/var/shouldDisplay":
+  digest: sha256:632b949bf1fbc349
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/var/valueName":
+  digest: sha256:b07c84947410f061
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/ArgumentHelp.swift/struct/ArgumentHelp/var/visibility":
+  digest: sha256:df6996f343f49062
+  verdict: pending

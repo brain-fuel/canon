@@ -1,0 +1,69 @@
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift":
+  digest: sha256:e2c117d9abbf111b
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#4/init/init":
+  digest: sha256:508ec85a05ed2ac4
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#4/init/init#2":
+  digest: sha256:7b04aaac07e01b62
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#4/init/init#3":
+  digest: sha256:5d2bbed45549b0ac
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#5/init/init#2":
+  digest: sha256:530553561524a6ac
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#5/init/init#4":
+  digest: sha256:4d2301855751587f
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#5/init/init#5":
+  digest: sha256:1ba447efdd824b69
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#6/init/init":
+  digest: sha256:e418cdd07a0c1bad
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#7/init/init#2":
+  digest: sha256:b6698121c1ccf5fb
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#7/init/init#3":
+  digest: sha256:5cd12a088dc1d60d
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#8/init/init":
+  digest: sha256:6b1b420d0cb1ce79
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#8/init/init#3":
+  digest: sha256:58e62efa26c84bfa
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/extension/Flag#8/init/init#4":
+  digest: sha256:d7c92b1c442ac5ce
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/Flag":
+  digest: sha256:2054c353e75ac72a
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/Flag/init/init#3":
+  digest: sha256:ec07825cd4173634
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/Flag/var/wrappedValue":
+  digest: sha256:34ce1406fed6c6e6
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/FlagExclusivity":
+  digest: sha256:4ed2e50f933b9538
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/FlagExclusivity/var/chooseFirst":
+  digest: sha256:02d0d4f4159ef6c7
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/FlagExclusivity/var/chooseLast":
+  digest: sha256:4e43ad653b345311
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/FlagExclusivity/var/exclusive":
+  digest: sha256:952fa624e1146d8f
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/FlagInversion":
+  digest: sha256:7297ab77a890f9d3
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/FlagInversion/var/prefixedEnableDisable":
+  digest: sha256:06cf2f00076fc1ab
+  verdict: pending
+"decision/swift/source/Sources/ArgumentParser/Parsable%20Properties/Flag.swift/struct/FlagInversion/var/prefixedNo":
+  digest: sha256:c3bc0a74268c6c22
+  verdict: pending
