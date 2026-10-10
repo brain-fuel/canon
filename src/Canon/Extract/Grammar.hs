@@ -32,7 +32,7 @@ import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider
 import Canon.Model
 import Canon.Model.Finding (Finding (..))
-import Canon.Preprocessor (builds, inactiveLinesWith)
+import Canon.Preprocessor (buildsIn, inactiveLinesIn)
 import Canon.Profile
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.Testing (isTestUnit)
@@ -110,12 +110,12 @@ extractWithProfileText provider config language profile interpreter idPath path 
       pure (Right (Extraction model (map (OrphanDocComment path) orphaned ++ gitFindings)))
   where
     preprocessed = interpreterPreprocesses interpreter
-    choices = if preprocessed then builds source else [Nothing]
+    choices = if preprocessed then buildsIn (interpreterDirectives interpreter) source else [Nothing]
     comments = scanCommentsWith (profileComments profile) source
     readBuild choice = do
       tree <- either (Left . GrammarInterpretError) Right (interpretTextWith choice interpreter (profileStart profile) path source)
       (root, labeled, unbound, hiddenOwn) <- unitsFromTree language profile (alternativePlans (interpreterParser interpreter)) (exportLabelsDeclared (interpreterParser interpreter)) idPath path source tree
-      let unread = if preprocessed then inactiveLinesWith choice source else Set.empty
+      let unread = if preprocessed then inactiveLinesIn (interpreterDirectives interpreter) choice source else Set.empty
           (attached, orphans) = extractDecisionsFor (profileComments profile) unread path source root (Set.fromList [decisionIdFor u | d <- labeled, u <- toList (decisionUnits d)]) hiddenOwn comments
       Right (unread, root, labeled ++ attached, unbound ++ map locatedSpan orphans)
     orphanIn sp (unread, _, _, spans) = Set.member (positionLine (spanStart sp)) unread || sp `elem` spans

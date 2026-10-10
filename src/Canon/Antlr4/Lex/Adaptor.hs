@@ -6,6 +6,7 @@ module Canon.Antlr4.Lex.Adaptor
   , hooksForGrammar
   , hooksForGrammarWith
   , preprocesses
+  , directiveSyntax
   ) where
 
 import Canon.Antlr4.Lex (HookEffect (..), LexerHooks (..), SomeHooks (..), noHooks)
@@ -21,10 +22,11 @@ import Canon.Antlr4.Lex.JavaScript (javaScriptHooks, typeScriptHooks, typeScript
 import Canon.Antlr4.Lex.Python (pythonHooks)
 import Canon.Antlr4.Lex.Rust (rustLexerHooks)
 import Canon.Antlr4.Lex.Scala (scalaLexerHooks)
+import Canon.Antlr4.Lex.Swift (swiftLexerHooks)
 import Canon.Antlr4.Query (grammarOptions)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token (..))
-import Canon.Preprocessor (Choice)
+import Canon.Preprocessor (Choice, DirectiveSyntax (..))
 import Data.Char (isUpper)
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Text as T
@@ -93,6 +95,7 @@ hooksForGrammarWith choice grammar =
     (Name "TypeScriptJsxLexerBase" : _) -> SomeHooks typeScriptJsxHooks
     (Name "Python3LexerBase" : _) -> SomeHooks pythonHooks
     (Name "ScalaLexerBase" : _) -> SomeHooks scalaLexerHooks
+    (Name "SwiftLexerBase" : _) -> SomeHooks (swiftLexerHooks choice)
     (Name "GoLexerBase" : _) -> SomeHooks goLexerHooks
     (Name "GroovyLexerBase" : _) -> SomeHooks groovyLexerHooks
     (Name "ErlangPreprocessor" : _) -> SomeHooks erlangPreprocessorHooks
@@ -107,7 +110,15 @@ preprocesses grammar = case superClassOf grammar of
   (Name "CSharpLexerBase" : _) -> True
   (Name "HaskellBaseLexer" : _) -> True
   (Name "FSharpLexerBase" : _) -> True
+  (Name "SwiftLexerBase" : _) -> True
   _ -> False
+
+-- | How the conditional directives of the language a grammar reads are written: as Swift writes
+-- them for the Swift grammar, and as the C preprocessor does for the others. ref:DEC-swift-grammar
+directiveSyntax :: Grammar ann -> DirectiveSyntax
+directiveSyntax grammar = case superClassOf grammar of
+  (Name "SwiftLexerBase" : _) -> SwiftDirectives
+  _ -> CDirectives
 
 superClassOf :: Grammar ann -> [Name]
 superClassOf grammar = [NonEmpty.last v | Option (Name "superClass") (OptionValueName (QualifiedName v)) <- grammarOptions grammar]

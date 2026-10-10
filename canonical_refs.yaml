@@ -238,6 +238,46 @@ REQ-scala-support:
   kind: requirement
   title: canon reads Scala 3, parsing Scala source files by their optional braces and significant indentation, taking objects, package objects, classes, case classes, traits, enums and their cases, defs, vals, vars, givens, extensions, and type aliases as units, binding /** to the definition below its annotations and modifiers, requiring a comment on what is neither private, protected, nor an override, and recognising JUnit tests by their annotation and munit, ScalaTest, and utest suites by their file
   locator: README.md
+grammars-v4-swift-license:
+  kind: article
+  title: The grammars-v4 Swift 5 grammar at commit 89fd364, whose files, readme, and build files state no licence, while grammars-v4's house rules leave each grammar to state its own, so canon may not vendor it; its files were opened only to look for a licence
+  locator: https://github.com/antlr/grammars-v4/tree/89fd36482e8cb68a4e55df021a8adbc7541b52f2/swift/swift5
+swift-grammar-summary:
+  kind: article
+  title: The Swift Programming Language, Summary of the Grammar, whose productions canon's Swift grammar follows rule by rule
+  locator: https://docs.swift.org/swift-book/documentation/the-swift-programming-language/summaryofthegrammar/
+swift-lexical-structure:
+  kind: article
+  title: The Swift Programming Language, Lexical Structure, on comments, identifiers, keywords, literals with their interpolations and raw delimiters, and operators and the whitespace that makes one prefix, postfix, or binary
+  locator: https://docs.swift.org/swift-book/documentation/the-swift-programming-language/lexicalstructure/
+swift-statements:
+  kind: article
+  title: The Swift Programming Language, Statements, on statements separated by line breaks or semicolons
+  locator: https://docs.swift.org/swift-book/documentation/the-swift-programming-language/statements/
+swift-compiler-control:
+  kind: article
+  title: The Swift Programming Language, Compiler Control Statements, on #if, #elseif, #else, and #endif and their compilation conditions
+  locator: https://docs.swift.org/swift-book/documentation/the-swift-programming-language/statements/#Compiler-Control-Statements
+swift-access-control:
+  kind: article
+  title: The Swift Programming Language, Access Control, on open, public, package, internal, fileprivate, and private, internal as the default, and the access of enum cases, protocol requirements, and extension members
+  locator: https://docs.swift.org/swift-book/documentation/the-swift-programming-language/accesscontrol/
+swift-regex-literals:
+  kind: article
+  title: Swift Evolution SE-0354, Regex Literals, on the bare /.../ and extended #/.../# forms and where a slash starts one
+  locator: https://github.com/swiftlang/swift-evolution/blob/main/proposals/0354-regex-literals.md
+swift-syntax-parser:
+  kind: package
+  title: The Swift compiler's parser and lexer, swift-syntax's SwiftParser, Apache-2.0 with the Runtime Library Exception, the authority canon's Swift grammar follows where the grammar summary and the compiler differ
+  locator: https://github.com/swiftlang/swift-syntax/tree/09b1d91451c5a0277600cee849fd968d5302460b/Sources/SwiftParser
+docc:
+  kind: article
+  title: DocC, Writing Symbol Documentation in Your Source Files, on /// and /** comments above a declaration and the symbols DocC documents
+  locator: https://www.swift.org/documentation/docc/writing-symbol-documentation-in-your-source-files
+REQ-swift-support:
+  kind: requirement
+  title: canon reads Swift 6, parsing Swift source files by the line breaks that end their statements and the #if branches each build compiles, taking structs, classes, actors, enums and their cases, protocols and their requirements, extensions, functions, initializers, deinitializers, subscripts, variables, constants, type aliases, associated types, macros, operators, and precedence groups as units, binding /// and /** to the declaration below its attributes and modifiers, requiring a comment on what is public or open, hiding what is private, fileprivate, or @_spi, and recognising Swift Testing tests by @Test and @Suite and XCTest tests by their test* names in test targets
+  locator: README.md
 rices-tax:
   kind: discussion
   title: Rice's Tax, the review tool over canon's vetting and wavelet's mutation review

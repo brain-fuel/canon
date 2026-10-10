@@ -1,0 +1,8 @@
+swift-argument-parser-upstream:
+  kind: package
+  title: Swift Argument Parser at commit efd239f0055b3d6b6cc122a786c46a0ea8d0235b, eight of its public API sources, two of its utilities, and two of its Swift Testing suites, vendored under source/ with the spaces taken out of the names of its Parsable Properties and Parsable Types directories, since a canon unit id holds no space
+  locator: https://github.com/apple/swift-argument-parser/tree/efd239f0055b3d6b6cc122a786c46a0ea8d0235b
+Apache-2.0-WITH-Swift-exception:
+  kind: license
+  title: Apache License 2.0 with the Swift Runtime Library Exception
+  locator: https://spdx.org/licenses/Swift-exception.html

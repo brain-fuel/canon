@@ -18,6 +18,7 @@ ignore:
   - grammars/typescript/canonically_commented/
   - grammars/golang/canonically_commented/
   - grammars/python/canonically_commented/
+  - grammars/swift/canonically_commented/
   - "!grammars/folio/*.g4"
   - "!grammars/make/canonically_commented/*.g4"
   - "*.md"
@@ -51,5 +52,5 @@ languages:
     parser: grammars/antlr4/canonically_commented/ANTLRv4Parser.g4
     start: grammarSpec
 parity:
-  current: [python, javascript, typescript, go, java, kotlin, rust, haskell]
-  planned: [erlang, elixir, gleam, csharp, fsharp, scala, groovy, clojure, prolog, hcl, yaml, antlr4, make, folio]
+  current: [python, javascript, typescript, go, java, kotlin, rust, haskell, erlang, elixir, gleam]
+  planned: [scala, groovy, clojure, fsharp, csharp, swift, prolog, hcl, yaml, antlr4, make, folio]

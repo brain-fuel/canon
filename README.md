@@ -212,14 +212,14 @@ expression differently, so a parser grammar names its comment rules in
 within three tokens after one ends, `canon` reads the file again without that
 comment and reports it as an orphan, for as long as each round moves the
 failure forward; a failure no such comment explains is reported where the
-parse stopped. The Rust, C#, F#, Elixir, Gleam, Erlang, and Haskell dialects
-name their comment rules, so a doc comment never fails their parse.
+parse stopped. The Rust, C#, F#, Elixir, Gleam, Erlang, Haskell, and Swift
+dialects name their comment rules, so a doc comment never fails their parse.
 Alternative labels without a `why`, such as the Java grammar's own expression
 labels, are inert. `canon` generates the extraction parser from that grammar,
 so nothing about a language's comment placement is written in Haskell. The
 ANTLR meta-grammar, Java, Haskell, Rust, C#, F#, Groovy, JavaScript,
-TypeScript, Go, Python, Kotlin, Clojure, Prolog, Scala, Elixir, Gleam, Erlang,
-HCL, Pulumi YAML, and the Folio have dialects.
+TypeScript, Go, Python, Kotlin, Clojure, Prolog, Scala, Swift, Elixir, Gleam,
+Erlang, HCL, Pulumi YAML, and the Folio have dialects.
 
 ### Tests
 
@@ -248,6 +248,7 @@ whatever its visibility.
 | `kotlin` | a function marked `@Test`, `@kotlin.test.Test`, `@org.junit.Test`, or `@org.junit.jupiter.api.Test`, or any function under a `src/test` or `src/*Test` source set, since Kotlin test names are often backticked sentences |
 | `groovy` | a method marked with one of the JUnit or jqwik annotations `java` lists, or a method named `test*` under a `src/test` directory (JUnit 3), as for `java`; or a method named by a string, as Spock writes a feature method such as `def 'adds two numbers'()`, under a `src/test` directory or in a `*Spec.groovy` file |
 | `scala` | a method marked `@Test`, `@org.junit.Test`, `@org.junit.jupiter.api.Test`, `@ParameterizedTest`, `@RepeatedTest`, `@TestFactory`, or `@TestTemplate` (JUnit 4 and 5), with or without arguments; or any unit under a `src/test` or `test` directory or in a `*Suite.scala`, `*Spec.scala`, or `*Test.scala` file, since a munit, ScalaTest, or utest test is a `test("...")` call rather than a declaration |
+| `swift` | a `func` marked `@Test` or `@Testing.Test`, or a struct, class, actor, enum, or extension marked `@Suite` or `@Testing.Suite` (Swift Testing), with or without arguments; or a `func` named `test*` under a `Tests` directory or in a `*Tests.swift` or `*Test.swift` file (XCTest) |
 | `hcl` | a `run` block of a Terraform test file (`terraform test`) |
 
 Two findings fail `canon check`: a commented test whose comment cites no
@@ -443,7 +444,7 @@ unit: with outer openers given, lines held by a plain comment that starts its
 line; lines opening with one of `directives`, such as C#'s and F#'s `#`; and,
 with `directives` given, the lines of an `#if` branch canon does not read,
 where a comment binds to nothing and is no orphan. A file whose lexer reads
-`#if`, as the C# and F# lexers do, is read once per build of a few that
+`#if`, as the C#, F#, and Swift lexers do, is read once per build of a few that
 together read every branch some build compiles: a build is an assignment of the
 symbols the file's conditions name, and what each build reads is merged, units
 and decisions by id, the first build's winning. A language that writes
@@ -497,7 +498,7 @@ git submodule, sets `root` to that directory.
 
 `lang_samples/` holds real projects in other languages, each a nested project
 whose sources are a submodule under `source` (vendored, for the small Rust,
-C#, F#, Elixir, Gleam, Groovy, Scala, HCL, and Pulumi YAML samples) and whose canon files sit
+C#, F#, Elixir, Gleam, Groovy, Scala, Swift, HCL, and Pulumi YAML samples) and whose canon files sit
 beside it. Their grammars are vendored under `grammars/<lang>/` from
 grammars-v4 or written for canon, each with a `canonically_commented/`
 dialect. `canon check` at the repository root checks
@@ -543,6 +544,7 @@ repository holds.
 | `lang_samples/kotlin-turbine` | Kotlin | `grammars/kotlin/KotlinLexer.g4` and `KotlinParser.g4` |
 | `lang_samples/groovy-spock-genesis` | Groovy | `grammars/groovy/GroovyLexer.g4` and `GroovyParser.g4` |
 | `lang_samples/scala-iron` | Scala | `grammars/scala/ScalaLexer.g4` and `ScalaParser.g4` |
+| `lang_samples/swift-argument-parser` | Swift | `grammars/swift/SwiftLexer.g4` and `SwiftParser.g4` |
 | `lang_samples/hcl-terraform-aws-key-pair` | HCL | `grammars/hcl/canonically_commented/HCLLexer.g4` and `HCLParser.g4` |
 | `lang_samples/pulumi-yaml-examples` | Pulumi YAML | `grammars/yaml/canonically_commented/YAMLLexer.g4` and `YAMLParser.g4` |
 
@@ -933,6 +935,79 @@ the grammar's `superClass` that inserts indent, outdent, and newline tokens
 where the compiler's scanner does. `tools/corpus/scala.sh` reproduces the run
 over 23 of the most used Scala projects recorded in `grammars/scala/README.md`.
 
+The Swift sample is Swift Argument Parser at commit `efd239f`, eight of its
+public API sources, two of its utilities, and two of its Swift Testing suites,
+vendored under `source/` with its Apache-2.0 license and its Runtime Library
+Exception, the spaces taken out of the names of its `Parsable Properties` and
+`Parsable Types` directories, since a unit id holds no space. DocC documents a declaration with a `///` or `/**` comment above
+its attributes and modifiers. Its `canon.yaml` holds the Swift profile a Swift
+package can copy:
+
+```yaml
+languages:
+  swift:
+    extensions: [.swift]
+    lexer: ../../grammars/swift/SwiftLexer.g4
+    parser: ../../grammars/swift/SwiftParser.g4
+    start: topLevel
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["///", "/**"]
+      directives: ["#"]
+      strings: ["\"\"\"", "\""]
+      interpolation: ["\\(", ")"]
+    units:
+      - {rule: structDeclaration, kind: struct, name: {rule: declarationName}, required: false}
+      - {rule: classDeclaration, kind: class, name: {rule: declarationName}, required: false}
+      - {rule: actorDeclaration, kind: actor, name: {rule: declarationName}, required: false}
+      - {rule: enumDeclaration, kind: enum, name: {rule: declarationName}, required: false}
+      - {rule: enumCaseDeclaration, kind: case, name: {rule: declarationName}, required: false}
+      - {rule: protocolDeclaration, kind: protocol, name: {rule: declarationName}, required: false}
+      - {rule: extensionDeclaration, kind: extension, name: {rule: extendedType}, required: false}
+      - {rule: functionDeclaration, kind: func, name: {rule: functionName}, required: false}
+      - {rule: initializerDeclaration, kind: init, name: {token: INIT, index: 1}, required: false}
+      - {rule: deinitializerDeclaration, kind: deinit, name: {token: DEINIT, index: 1}, required: false}
+      - {rule: subscriptDeclaration, kind: subscript, name: {token: SUBSCRIPT, index: 1}, required: false}
+      - {rule: variableDeclaration, kind: var, name: {rule: variableName}, required: false}
+      - {rule: constantDeclaration, kind: let, name: {rule: variableName}, required: false}
+      - {rule: typealiasDeclaration, kind: typealias, name: {rule: declarationName}, required: false}
+      - {rule: associatedtypeDeclaration, kind: associatedtype, name: {rule: declarationName}, required: false}
+      - {rule: macroDeclaration, kind: macro, name: {rule: declarationName}, required: false}
+      - {rule: operatorDeclaration, kind: operator, name: {rule: operatorName}, required: false}
+      - {rule: precedenceGroupDeclaration, kind: precedencegroup, name: {rule: declarationName}, required: false}
+```
+
+A Swift declaration is internal unless it says otherwise, and internal is the
+default access of a module, so no unit requires a comment by its rule: the
+grammar labels `public` and `open` `required`, which makes a declaration API
+that needs a comment, `internal`, `package`, and `override` `optional`, since
+an override inherits the documentation of what it overrides, and `private`,
+`fileprivate`, and `@_spi(...)` `hidden`, since DocC leaves them out of a
+module's documentation, with every member of a hidden type. A setter's access,
+as in `public private(set) var`, says nothing of the declaration's. An enum's
+cases, a protocol's requirements, and the members of an extension are
+`inherited`, as Swift gives them the access of the declaration around them, so
+the members of a `public extension` and the requirements of a public protocol
+need a comment unless they say otherwise. Declarations inside a function or a
+closure are not units. An initializer is named `init`, a subscript
+`subscript`, an operator function by its operator, and an extension by the
+type it extends, qualified as written. Under `DEC-hidden-label` a doc comment
+above a hidden declaration binds to nothing in the profile, which reports it
+as an orphan, as it does the doc comments of the private initializers of
+`Flag.swift`; the dialect keeps it as the declaration's Why. Each file is read
+once per build of the few that together read every branch of its `#if`s. The
+grammar is canon's own, written under canon's MIT license from the grammar
+summary of The Swift Programming Language, production by production under its
+names, with the Swift compiler's parser as the authority where the two differ,
+because the grammars-v4 Swift 5 grammar states no license. It reads
+declarations and leaves bodies and expressions as runs of tokens; line breaks
+come from `Canon.Antlr4.Lex.Swift`, a lexer hook selected by the grammar's
+`superClass` that emits a newline token where a line break ends a Swift
+statement and reads `#if`. `tools/corpus/swift.sh` reproduces the run over 17
+of the most used Swift projects recorded in `grammars/swift/README.md`.
+
 The HCL sample is terraform-aws-key-pair 3.0.1, its root module, complete
 example, and wrappers, vendored under `source/` with its Apache-2.0 license.
 It is checked through the HCL dialect, which needs no `units` or `comments`,
@@ -1224,7 +1299,7 @@ canon/
 │   ├── Canon/Git/Fill.hs  # Who and When from one git blame per file
 │   ├── Canon/Profile.hs   # language profiles declared in canon.yaml
 │   ├── Canon/CommentScan.hs  # comments by a profile's syntax
-│   ├── Canon/Preprocessor.hs  # the builds a file is read under and the #if branches each reads, for C# and F#
+│   ├── Canon/Preprocessor.hs  # the builds a file is read under and the #if branches each reads, for C#, F#, and Swift
 │   ├── Canon/Signature.hs # ties a signature file's comments to its implementation, for F#
 │   ├── Canon/Extract/Grammar.hs  # builds the model of any file through its language profile
 │   ├── Canon/Extract/Folio.hs    # relocates the units of tangled files into the Folio pages
@@ -1502,6 +1577,31 @@ the empty rule `publicByDefault` labeled `required`, enum cases are
 `inherited`, and a Scaladoc comment after an annotation or above a statement is
 an `orphan`. What it reads and what it leaves out is listed in
 `grammars/scala/README.md` and recorded in the ledger.
+
+`grammars/swift/` holds a Swift grammar written for canon under canon's MIT
+license, and its dialect: the parser follows the grammar summary of The Swift
+Programming Language under its production names, `topLevel`, `declaration`,
+`functionDeclaration`, `enumCaseDeclaration`, `extensionDeclaration`,
+`declarationModifier`, `accessLevelModifier`, and the rest, and the Swift
+compiler's parser where the two differ, and the lexer reads Swift 6: nested
+comments, strings with nested interpolations, multi-line and raw strings, bare
+and extended regex literals, Unicode operators, and backquoted names. canon
+does not vendor the grammars-v4 Swift 5 grammar, because it states no license.
+It parses the declarations that carry documentation, imports, constants,
+variables, type aliases, associated types, functions, enums and their cases,
+structs, classes, actors, protocols, initializers, deinitializers,
+extensions, subscripts, macros, operators, and precedence groups with their
+attributes and modifiers, and reads bodies and expressions as runs of tokens.
+The grammar's `superClass` selects a lexer hook that emits `NEWLINE` where a
+line break ends a statement and hides the `#if` branches a build does not
+read. Each attribute is labeled `marker`, `public` and `open` `required`,
+`internal`, `package`, and `override` `optional`, and `private`,
+`fileprivate`, and `@_spi` `hidden`. Under `canonically_commented/` the
+dialect sends `///` and `/**` into lexer modes of their own, the hook holds a
+doc comment's tokens until the next code token, each declaration is a unit
+alternative, and a doc comment after an attribute or above a statement is an
+`orphan`. What it reads and what it leaves out is listed in
+`grammars/swift/README.md` and recorded in the ledger.
 
 `grammars/elixir/` and `grammars/gleam/` hold grammars written for canon, each
 with a canonically commented dialect. The grammars-v4 Elixir grammar parsed

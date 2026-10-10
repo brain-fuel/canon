@@ -26,7 +26,7 @@ data TestRule = TestRule
 
 -- | The languages the table covers.
 knownLanguages :: [Text]
-knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "tsx", "python", "go", "kotlin", "groovy", "scala", "hcl"]
+knownLanguages = ["java", "erlang", "clojure", "prolog", "haskell", "rust", "csharp", "fsharp", "elixir", "gleam", "javascript", "typescript", "tsx", "python", "go", "kotlin", "groovy", "scala", "swift", "hcl"]
 
 -- | The rules of a language. Rust's, C#'s, and F#'s rules are attributes, which their grammars label
 -- marker on every item. An F# test list bound with Expecto's [<Tests>] is the test, because the
@@ -80,6 +80,13 @@ testRules language = case language of
   "scala" ->
     [TestRule (Just "def") (Just marker) Nothing Nothing | marker <- junitMarkers]
       ++ [TestRule Nothing Nothing Nothing (Just path) | path <- ["**/src/test/**", "**/test/**", "**/*Suite.scala", "**/*Spec.scala", "**/*Test.scala"]]
+  -- A Swift Testing test is a func marked @Test and a suite a type or extension marked @Suite, which
+  -- the grammar labels marker; an XCTest test is a func named test* in a test target, under Tests/
+  -- or in a *Tests.swift file, as XCTest runs every such method of an XCTestCase. ref:DEC-swift-grammar
+  "swift" ->
+    [TestRule (Just "func") (Just marker) Nothing Nothing | marker <- ["@Test", "@Testing.Test"]]
+      ++ [TestRule (Just kind) (Just marker) Nothing Nothing | kind <- ["struct", "class", "actor", "enum", "extension"], marker <- ["@Suite", "@Testing.Suite"]]
+      ++ [TestRule (Just "func") Nothing (Just "test*") (Just path) | path <- ["**/Tests/**", "**/*Tests.swift", "**/*Test.swift"]]
   "hcl" -> [TestRule (Just "run") Nothing Nothing Nothing]
   _ -> []
   where

@@ -15,14 +15,14 @@ module Canon.Antlr4.Interpret
   ) where
 
 import Canon.Antlr4.Lex
-import Canon.Antlr4.Lex.Adaptor (hooksForGrammarWith, preprocesses)
+import Canon.Antlr4.Lex.Adaptor (directiveSyntax, hooksForGrammarWith, preprocesses)
 import Canon.Antlr4.Parse
 import Canon.Antlr4.Predicate (predicateHookFor)
 import Canon.Antlr4.Read (ReadError (..), readGrammarFile, readResultGrammar, renderReadError)
 import Canon.Antlr4.Query (grammarOptions, lookupRule, tokenReferences)
 import Canon.Antlr4.Syntax
 import Canon.Antlr4.Token (Token (..), defaultChannelName, isEofToken)
-import Canon.Preprocessor (Choice)
+import Canon.Preprocessor (Choice, DirectiveSyntax)
 import Data.Foldable (toList)
 import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.List.NonEmpty as NonEmpty
@@ -43,6 +43,7 @@ data Interpreter = Interpreter
   , interpreterTokenize :: Text -> Either LexError [Token]
   , interpreterTokenizeWith :: Choice -> Text -> Either LexError [Token]
   , interpreterPreprocesses :: Bool
+  , interpreterDirectives :: DirectiveSyntax
   }
 
 -- | Reading, lexing, and parsing can each fail, and a user needs to know which stage did.
@@ -109,7 +110,7 @@ build lexerPath lexerGrammar parserGrammar = do
   table <- either (Left . InterpretLexError lexerPath) Right (buildLexerTable lexerGrammar)
   let tokenizer choice = case hooksForGrammarWith choice lexerGrammar of
         SomeHooks hooks -> tokenizeWith hooks table
-  Right (Interpreter lexerGrammar parserGrammar table (tokenizer Nothing) tokenizer (preprocesses lexerGrammar))
+  Right (Interpreter lexerGrammar parserGrammar table (tokenizer Nothing) tokenizer (preprocesses lexerGrammar) (directiveSyntax lexerGrammar))
 
 -- | Parses text with a start rule and returns the tree, taking the path only for messages.
 interpretText :: Interpreter -> Name -> FilePath -> Text -> Either InterpretError ParseTree

@@ -1,0 +1,35 @@
+version: 0.1.0
+root: source
+languages:
+  swift:
+    extensions: [.swift]
+    lexer: ../../grammars/swift/SwiftLexer.g4
+    parser: ../../grammars/swift/SwiftParser.g4
+    start: topLevel
+    comments:
+      line: "//"
+      blockOpen: "/*"
+      blockClose: "*/"
+      outerDoc: ["///", "/**"]
+      directives: ["#"]
+      strings: ["\"\"\"", "\""]
+      interpolation: ["\\(", ")"]
+    units:
+      - {rule: structDeclaration, kind: struct, name: {rule: declarationName}, required: false}
+      - {rule: classDeclaration, kind: class, name: {rule: declarationName}, required: false}
+      - {rule: actorDeclaration, kind: actor, name: {rule: declarationName}, required: false}
+      - {rule: enumDeclaration, kind: enum, name: {rule: declarationName}, required: false}
+      - {rule: enumCaseDeclaration, kind: case, name: {rule: declarationName}, required: false}
+      - {rule: protocolDeclaration, kind: protocol, name: {rule: declarationName}, required: false}
+      - {rule: extensionDeclaration, kind: extension, name: {rule: extendedType}, required: false}
+      - {rule: functionDeclaration, kind: func, name: {rule: functionName}, required: false}
+      - {rule: initializerDeclaration, kind: init, name: {token: INIT, index: 1}, required: false}
+      - {rule: deinitializerDeclaration, kind: deinit, name: {token: DEINIT, index: 1}, required: false}
+      - {rule: subscriptDeclaration, kind: subscript, name: {token: SUBSCRIPT, index: 1}, required: false}
+      - {rule: variableDeclaration, kind: var, name: {rule: variableName}, required: false}
+      - {rule: constantDeclaration, kind: let, name: {rule: variableName}, required: false}
+      - {rule: typealiasDeclaration, kind: typealias, name: {rule: declarationName}, required: false}
+      - {rule: associatedtypeDeclaration, kind: associatedtype, name: {rule: declarationName}, required: false}
+      - {rule: macroDeclaration, kind: macro, name: {rule: declarationName}, required: false}
+      - {rule: operatorDeclaration, kind: operator, name: {rule: operatorName}, required: false}
+      - {rule: precedenceGroupDeclaration, kind: precedencegroup, name: {rule: declarationName}, required: false}

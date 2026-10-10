@@ -8,6 +8,7 @@
 module Canon.Preprocessor
   ( Condition (..)
   , Directive (..)
+  , DirectiveSyntax (..)
   , Branches
   , Choice
   , parseCondition
@@ -17,9 +18,14 @@ module Canon.Preprocessor
   , stepBranchesWith
   , reading
   , directiveOf
+  , directiveIn
+  , swiftDirectiveOf
+  , swiftConditionTokens
   , inactiveLines
   , inactiveLinesWith
+  , inactiveLinesIn
   , builds
+  , buildsIn
   ) where
 
 import Canon.Antlr4.Syntax (Name (..))
@@ -41,6 +47,12 @@ data Condition
   | CondOr Condition Condition
   | CondEq Condition Condition
   | CondNe Condition Condition
+  deriving (Eq, Show)
+
+-- | How a language writes its conditional directives: as the C preprocessor does, which C#, F#, and
+-- Haskell's CPP follow, or as Swift does, with #elseif and compilation conditions such as
+-- os(Linux), canImport(Darwin), and swift(>=5.9). ref:DEC-swift-grammar
+data DirectiveSyntax = CDirectives | SwiftDirectives
   deriving (Eq, Show)
 
 -- | A conditional directive.
@@ -203,6 +215,56 @@ directiveOf line = case T.stripPrefix "#" (T.stripStart line) of
       Just after | T.null after || not (isAlphaNum (T.head after) || T.head after == '_') -> Just after
       _ -> Nothing
 
+-- | The conditional directive a line holds, written in a language's directive syntax.
+directiveIn :: DirectiveSyntax -> Text -> Maybe Directive
+directiveIn syntax = case syntax of
+  CDirectives -> directiveOf
+  SwiftDirectives -> swiftDirectiveOf
+
+-- | The Swift conditional compilation directive a line holds, if any: #if, #elseif, #else, or
+-- #endif, its condition read to the end of the line or to a comment. ref:DEC-swift-grammar
+swiftDirectiveOf :: Text -> Maybe Directive
+swiftDirectiveOf line = case T.stripPrefix "#" (T.stripStart line) of
+  Just rest
+    | Just c <- keyword "if" rest -> Just (DirectiveIf (parseCondition (swiftConditionTokens c)))
+    | Just c <- keyword "elseif" rest -> Just (DirectiveElif (parseCondition (swiftConditionTokens c)))
+    | Just _ <- keyword "else" rest -> Just DirectiveElse
+    | Just _ <- keyword "endif" rest -> Just DirectiveEndif
+  _ -> Nothing
+  where
+    keyword word rest = case T.stripPrefix word rest of
+      Just after | T.null after || not (isAlphaNum (T.head after) || T.head after == '_') -> Just after
+      _ -> Nothing
+
+-- | The tokens of a Swift compilation condition, named as the C# lexer names them so one parser
+-- reads conditions from every language. A platform condition, such as os(Linux), canImport(Darwin),
+-- or swift(>=5.9), is one symbol written without its spaces, so each is decided as a whole, and so is
+-- a name such as DEBUG or $Macros; true and false are constants. ref:DEC-swift-grammar
+swiftConditionTokens :: Text -> [Token]
+swiftConditionTokens text = go (T.stripStart text)
+  where
+    go t
+      | T.null t = []
+      | "//" `T.isPrefixOf` t || "/*" `T.isPrefixOf` t = []
+      | Just rest <- T.stripPrefix "&&" t = tok "OP_AND" "&&" rest
+      | Just rest <- T.stripPrefix "||" t = tok "OP_OR" "||" rest
+      | Just rest <- T.stripPrefix "!" t = tok "BANG" "!" rest
+      | Just rest <- T.stripPrefix "(" t = tok "OPEN_PARENS" "(" rest
+      | Just rest <- T.stripPrefix ")" t = tok "CLOSE_PARENS" ")" rest
+      | otherwise =
+          let (word, rest) = T.span (\c -> isAlphaNum c || c == '_' || c == '$') t
+           in if T.null word
+                then go (T.stripStart (T.drop 1 t))
+                else case T.stripPrefix "(" (T.stripStart rest) of
+                  Just inside | word `notElem` ["true", "false"] ->
+                    let (arguments, after) = T.breakOn ")" inside
+                     in tok "CONDITIONAL_SYMBOL" (T.concat [word, "(", T.filter (not . isSpace) arguments, ")"]) (T.drop 1 after)
+                  _
+                    | word == "true" -> tok "TRUE" word rest
+                    | word == "false" -> tok "FALSE" word rest
+                    | otherwise -> tok "CONDITIONAL_SYMBOL" word rest
+    tok kind text' rest = Token (Name kind) text' 0 0 defaultChannelName (Position 1 1) : go (T.dropWhile isSpace rest)
+
 -- | The lines of a source that lie in a branch the default choice does not read.
 inactiveLines :: Text -> Set.Set Int
 inactiveLines = inactiveLinesWith Nothing
@@ -210,17 +272,22 @@ inactiveLines = inactiveLinesWith Nothing
 -- | The lines of a source that lie in a branch a choice does not read, by the policy the lexer hooks
 -- apply, with the symbols the file defines and undefines known from the line they are set on.
 inactiveLinesWith :: Choice -> Text -> Set.Set Int
-inactiveLinesWith choice source = fst (walkBranches choice source)
+inactiveLinesWith = inactiveLinesIn CDirectives
+
+-- | The lines of a source that lie in a branch a choice does not read, its directives written in a
+-- language's directive syntax. ref:DEC-swift-grammar
+inactiveLinesIn :: DirectiveSyntax -> Choice -> Text -> Set.Set Int
+inactiveLinesIn syntax choice source = fst (walkBranches syntax choice source)
 
 -- | The inactive lines under a choice, and the lines of the directives that open a branch it reads.
-walkBranches :: Choice -> Text -> (Set.Set Int, Set.Set Int)
-walkBranches choice source = go (zip [1 ..] (T.lines source)) [] Map.empty Set.empty Set.empty
+walkBranches :: DirectiveSyntax -> Choice -> Text -> (Set.Set Int, Set.Set Int)
+walkBranches syntax choice source = go (zip [1 ..] (T.lines source)) [] Map.empty Set.empty Set.empty
   where
     go numbered branches known acc opened = case numbered of
       [] -> (acc, opened)
       ((n, line) : rest) ->
         let acc' = if reading branches then acc else Set.insert n acc
-         in case directiveOf line of
+         in case directiveIn syntax line of
               Just d ->
                 let branches' = stepBranchesWith choice known d branches
                     opens = d /= DirectiveEndif && reading branches'
@@ -239,18 +306,23 @@ walkBranches choice source = go (zip [1 ..] (T.lines source)) [] Map.empty Set.e
 -- assignment reads, such as #if false, is never read. Beyond twelve symbols the default choice is
 -- the only build, since enumerating the assignments would not end in useful time.
 builds :: Text -> [Choice]
-builds source
+builds = buildsIn CDirectives
+
+-- | The builds a file is read under, its directives written in a language's directive syntax.
+-- ref:DEC-swift-grammar
+buildsIn :: DirectiveSyntax -> Text -> [Choice]
+buildsIn syntax source
   | null conditions = [Nothing]
   | length free > 12 = [Nothing]
   | otherwise = cover Set.empty candidates
   where
-    conditions = [c | line <- T.lines source, Just d <- [directiveOf line], c <- conditionOf d]
+    conditions = [c | line <- T.lines source, Just d <- [directiveIn syntax line], c <- conditionOf d]
     conditionOf d = case d of
       DirectiveIf c -> [c]
       DirectiveElif c -> [c]
       _ -> []
     free = nub (concatMap symbolsOf conditions)
-    candidates = [(Just (Map.fromList (zip free bs)), snd (walkBranches (Just (Map.fromList (zip free bs))) source)) | bs <- assignments (length free)]
+    candidates = [(Just (Map.fromList (zip free bs)), snd (walkBranches syntax (Just (Map.fromList (zip free bs))) source)) | bs <- assignments (length free)]
     cover covered remaining =
       case [(Set.size (Set.difference opened covered), choice, opened) | (choice, opened) <- remaining] of
         [] -> []

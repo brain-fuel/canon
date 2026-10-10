@@ -1,0 +1,6 @@
+DEC-sample-scope:
+  status: open
+  question: Swift Argument Parser documents its public property wrappers, protocols, and their requirements, but also documents private initializers that DocC leaves out and leaves internal helpers and its Swift Testing suites without doc comments; the Swift profile requires a comment on what is public or open and hides what is private, fileprivate, or @_spi, so is a doc comment on a private declaration a Why canon should keep, or the orphan DEC-hidden-label makes it?
+  opened: 0.1.0
+  revisit: 0.2.0
+  refs: [swift-argument-parser-upstream]
