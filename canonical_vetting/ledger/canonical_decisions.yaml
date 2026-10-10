@@ -298,6 +298,9 @@ ledger/DEC-units-by-tangled-path:
 ledger/DEC-version-duplication:
   digest: sha256:7b46ef3c04180933
   verdict: pending
+ledger/DEC-vetting-deferred:
+  digest: sha256:2e78ea94ebc80f95
+  verdict: pending
 ledger/DEC-vetting-kinds:
   digest: sha256:56f8cbf8f0bf8bf8
   verdict: pending

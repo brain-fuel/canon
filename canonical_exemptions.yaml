@@ -1,0 +1,36 @@
+/src/:
+  kinds: [comment]
+  reason: "the owner defers vetting until 1.0, once 1.0 feature parity is reached"
+  revisit: 1.0.0
+/app/:
+  kinds: [comment]
+  reason: "the owner defers vetting until 1.0, once 1.0 feature parity is reached"
+  revisit: 1.0.0
+/test/:
+  kinds: [comment]
+  reason: "the owner defers vetting until 1.0, once 1.0 feature parity is reached"
+  revisit: 1.0.0
+/grammars/:
+  kinds: [comment]
+  reason: "the owner defers vetting until 1.0, once 1.0 feature parity is reached"
+  revisit: 1.0.0
+/Makefile:
+  kinds: [comment]
+  reason: "the owner defers vetting until 1.0, once 1.0 feature parity is reached"
+  revisit: 1.0.0
+/Setup.hs:
+  kinds: [comment]
+  reason: "the owner defers vetting until 1.0, once 1.0 feature parity is reached"
+  revisit: 1.0.0
+/docs/:
+  kinds: [doc]
+  reason: "the owner defers vetting until 1.0, once 1.0 feature parity is reached"
+  revisit: 1.0.0
+ledger/*:
+  kinds: [ledger]
+  reason: "the owner defers vetting until 1.0, once 1.0 feature parity is reached"
+  revisit: 1.0.0
+registry/*:
+  kinds: [registry]
+  reason: "the owner defers vetting until 1.0, once 1.0 feature parity is reached"
+  revisit: 1.0.0

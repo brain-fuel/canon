@@ -42,29 +42,29 @@ DEC-precedence-climbing:
 
 DEC-comment-attachment:
   status: open
-  question: The extractor binds a doc comment to the rule on the line directly below it, while the canonical dialect grammar binds it to the next rule regardless of blank lines because whitespace is off channel. Which notion is canonical, and does the same rule hold for Haskell and other languages?
+  question: The extractor binds a doc comment to the rule on the line directly below it, while the canonical dialect grammar binds it to the next rule regardless of blank lines because whitespace is off channel. Which notion is canonical, and does the same rule hold for Haskell and other languages? The owner deferred this question, with the vetting of canonical material, to 1.0, once 1.0 feature parity is reached.
   opened: 0.1.0
-  revisit: 0.2.0
+  revisit: 1.0.0
   refs: [canon-provisional-syntax]
 
 DEC-version-duplication:
   status: open
-  question: canon.yaml carries the project version that package.yaml also carries, and only canon.yaml can carry a semantic versioning pre-release label. Should canon read the numbers from package.yaml, or check the two agree?
+  question: canon.yaml carries the project version that package.yaml also carries, and only canon.yaml can carry a semantic versioning pre-release label. Should canon read the numbers from package.yaml, or check the two agree? The owner deferred this question, with the vetting of canonical material, to 1.0, once 1.0 feature parity is reached.
   opened: 0.1.0
-  revisit: 0.2.0
+  revisit: 1.0.0
   refs: [semver-2]
 
 DEC-cabal-file:
   status: open
-  question: canon.cabal is ignored and regenerated from package.yaml by stack. Should it be committed so plain cabal users can build without hpack?
+  question: canon.cabal is ignored and regenerated from package.yaml by stack. Should it be committed so plain cabal users can build without hpack? The owner deferred this question, with the vetting of canonical material, to 1.0, once 1.0 feature parity is reached.
   opened: 0.1.0
-  revisit: 0.2.0
+  revisit: 1.0.0
 
 DEC-sample-project-readme:
   status: open
-  question: Rule 2 treats each directory under sample_projects as its own project with its own README.md. That reading was an assumption, not an instruction. Is it right?
+  question: Rule 2 treats each directory under sample_projects as its own project with its own README.md. That reading was an assumption, not an instruction. Is it right? The owner deferred this question, with the vetting of canonical material, to 1.0, once 1.0 feature parity is reached.
   opened: 0.1.0
-  revisit: 0.2.0
+  revisit: 1.0.0
 
 DEC-nested-root-check:
   status: decided
@@ -76,9 +76,9 @@ DEC-nested-root-check:
 
 DEC-grammar-coverage-findings:
   status: open
-  question: Files that an upstream grammar cannot lex or parse are reported as failed extractions alongside missing comments. Should grammar coverage gaps be a separate, informational finding so that canonical-comment findings stay clean?
+  question: Files that an upstream grammar cannot lex or parse are reported as failed extractions alongside missing comments. Should grammar coverage gaps be a separate, informational finding so that canonical-comment findings stay clean? The owner deferred this question, with the vetting of canonical material, to 1.0, once 1.0 feature parity is reached.
   opened: 0.1.0
-  revisit: 0.2.0
+  revisit: 1.0.0
   refs: [grammars-v4]
 
 DEC-one-tree-per-span:
@@ -912,3 +912,12 @@ DEC-canon-lockstep:
   opened: 0.1.0
   decided: 0.1.0
   refs: [rices-tax, REQ-human-vetting]
+
+DEC-vetting-deferred:
+  status: decided
+  question: canon ingest records every comment, page, decision and reference of canon as pending, and canon check fails while anything is pending, so canon's own check cannot pass at a release until every row is signed. How does canon release before its material is vetted?
+  answer: |
+    The owner defers vetting until 1.0, as LawSpec does: rough 1.0 feature parity comes first, then the rewrite, the clean-up and the sign-off. canonical_exemptions.yaml, named in canon.yaml, exempts every kind of pending material at the root, the comments under the source directories, the pages under docs/, the ledger and the registry, until 1.0.0, so releases carry the debt counted without signing it off. The open decisions whose revisit had come are deferred with it to 1.0.0. Only the root project is exempt; each sample keeps its own state. Decided by the owner for 0.2.0.
+  opened: 0.2.0
+  decided: 0.2.0
+  refs: [REQ-human-vetting]

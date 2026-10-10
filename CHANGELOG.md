@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [Unreleased]
+
+## [0.2.0] - 2026-10-10
 
 ### Added
 - Lockstep with the tools built on canon (`DEC-canon-lockstep`): canon is 0.2.0, the version of the ids, digests, and vetting files of the parser rewrite; `canon.yaml` may name the canon version a project's rows were written with under `canon`, and `canon check` fails with a `canonVersionMismatch` finding under any other; `Canon.Project.surveyProject` reads a project once and is what check, vet, and ingest report, with each finding before and after exemptions, and `findingPending` and `findingKey` are exported so a tool counts and shows exactly what the check does
@@ -152,6 +154,7 @@ and this project adheres to
 - The ANTLR dialect parses a rule without a canonical comment and reports the comment missing through the empty rule `documentedRule` labeled `required`, binds the last of several comments in a row and reports the others as orphans, reads `/**/` as a plain comment, and names `canonicalComment` in a `strayComment` option
 - The Makefile dialect is the only Makefile grammar and reads every makefile itself; `export X = 1` is a variable unit
 - Corpus scripts `tools/corpus/erlang.sh`, `elixir.sh`, and `gleam.sh` clone popular projects at pinned commits and parse every file with the plain grammar and the dialect: Erlang/OTP, RabbitMQ, ejabberd, and recon; Elixir, Phoenix, Ecto, Plug, and Jason; and the Gleam stdlib, compiler, and 23 packages, each at 100% of its files or a documented exclusion, as each grammar's README records
+- canon's own vetting is deferred until 1.0 (`DEC-vetting-deferred`): `canonical_exemptions.yaml`, named in `canon.yaml`, exempts the root's comments, pages, ledger, and registry until 1.0.0, and the open decisions `DEC-cabal-file`, `DEC-comment-attachment`, `DEC-grammar-coverage-findings`, `DEC-sample-project-readme`, and `DEC-version-duplication` are revisited in 1.0.0, so `canon check` at the root passes with the debt counted; the samples keep their own state
 
 ### Fixed
 - Each test takes a scratch directory of its own, created atomically, so suites of several checkouts running at once no longer delete or overwrite each other's files; sixteen suites run together now pass, where eight together failed three to six tests each
