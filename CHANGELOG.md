@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-10-11
+
+### Fixed
+- A Haddock comment before a constructor documents it (`DEC-haskell-constructor-haddock`): the Haskell dialect binds a `-- |` or `{-|` comment above a constructor's bar or equals sign, as in `-- | doc` above `| C`, or after it on its line, as ormolu writes `| -- | doc` above `C`, or above a GADT constructor that declares one name, to that constructor, which is then a unit of kind `constructor` named by its constructor (prefix, infix, backticked, record, existential, or strict) whose Why is the comment; canon 0.2.1 reported each as an orphan that no exemption covers. An undocumented constructor is no unit and a constructor never requires a comment, so no other unit's id, digest, or requirement changes; a record field's comment stays an orphan. The plain grammar skips comments and already read every placement; a profile that makes its `constr` rule a unit binds the comment above a constructor. Over the Haskell corpus, 1,538 constructor comments in 126 files that 0.2.1 reported as orphans bind, and every other file's model is unchanged; a file whose last stray comment was such a comment now reports its file unit's span and the git Who and When of the units after it from the parse rather than from where the stray-comment recovery left the tree, and a data type's How includes a first constructor's comment written above its equals sign, as it did the comments after its bars
+- Kotlin scripts parse (`DEC-kotlin-script`): `kotlinFile` reads a file that is not a Kotlin file as a script, whose top level holds statements, as a Gradle Kotlin DSL build script's `plugins { }`, calls, assignments, and task blocks do, and imports after a statement, as Gradle reads them after a plugins block; so a profile that names `kotlinFile` for `.kt` and `.kts` files reads both, and every Kotlin file that read before reads the same tree. In the dialect a script's top-level declarations are units that require no comment, a KDoc comment above the first statement after the imports documents the script, as a precompiled Gradle script plugin's does, and one above any other statement is an orphan
+- `tools/corpus/kotlin.sh` reads `.kts` files from `kotlinFile`, as a profile does, and adds the Kotlin scripts of Gradle, ktor's whole repository, and Spring Boot, checked out alone by a `*.kts` pattern that `tools/corpus/jvm-common.sh` now passes to a non-cone sparse checkout: 2,694 scripts, all of which parse but two templates Gradle's tests fill in, excluded with their reasons; `tools/corpus/haskell.sh` counts the files of each repository that document a constructor with a Haddock comment and how many the dialect reads
+
 ## [0.2.1] - 2026-10-10
 
 ### Changed
