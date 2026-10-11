@@ -20,13 +20,20 @@ options {
     tokenVocab = KotlinLexer;
 }
 
+// canon: a Kotlin script, a .kts file such as a Gradle build script, holds statements at its top
+// level, which a Kotlin file does not; a file that is not a Kotlin file is read as a script, so a
+// profile reads .kt and .kts files with the one start rule, and a Kotlin file reads as before.
+// ref:DEC-kotlin-script
 kotlinFile
     : shebangLine? NL* fileAnnotation* packageHeader importList topLevelObject* EOF
+    | script
     ;
 
-// canon: the last statement may end the file without a newline.
+// canon: the last statement may end the file without a newline. An import may follow a statement,
+// as Gradle reads a build script whose imports follow its plugins block, which it compiles apart
+// from the rest. ref:DEC-kotlin-script
 script
-    : shebangLine? NL* fileAnnotation* packageHeader importList (statement semi)* statement? EOF
+    : shebangLine? NL* fileAnnotation* packageHeader importList (statement semi | importHeader)* statement? EOF
     ;
 
 fileAnnotation

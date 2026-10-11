@@ -82,9 +82,17 @@ grammar.
 - Leading semicolons in statement and declaration lists, a view pattern as a
   record field's pattern, and `\cases`.
 
-The dialect adds, beyond the plain grammar: a Haddock comment in an export
-list or on a record field is read where it stands as an orphan, since neither
-is a unit; and the hook ends each held doc comment with an empty `DOC_END`
+The dialect adds, beyond the plain grammar: a Haddock comment before a
+constructor documents it (`DEC-haskell-constructor-haddock`, canon 0.2.2),
+whether it stands above the constructor's bar or equals sign, as in
+`-- | doc` above `| C`, or after it on its line, as ormolu writes
+`| -- | doc` above `C`, or above a GADT constructor that declares one name; the
+documented constructor is a unit of kind `constructor`, named by its
+constructor, prefix, infix (`:+`), backticked, record, existential, or strict,
+whose Why is the comment, and an undocumented constructor is no unit, so no
+other unit's id changes; a Haddock comment in an export list or on a record
+field is read where it stands as an orphan, since neither is a unit; and the
+hook ends each held doc comment with an empty `DOC_END`
 token, declared in the dialect lexer's `tokens` block, so a comment has one
 end rather than one per word, which the parser tried at every word of every
 comment and which made a heavily documented module ten times slower to parse
@@ -159,6 +167,18 @@ canon's own `src/` is the last repository. The figures are canon 0.2.1's.
 LawSpec is pinned to the commit before it reshaped valid Haskell canon could
 not read (its `DEC-haskell-grammar-workarounds`); ghc's compiler writes the same
 forms, with explicit braces and leading semicolons, throughout.
+
+From canon 0.2.2 the script also counts, per repository, the files outside
+the exclusions whose lines show a constructor's Haddock comment, directly
+above its bar or equals sign or after it on its line, and how many of them the
+dialect reads, which must be all: ghc's compiler 100, servant 11, megaparsec
+5, ghcide 2, bytestring 1, and stack 1, all read. containers and text document
+their constructors with `-- ^` after them, a plain comment to canon, and hold
+none. The count matches lines, so 3 of its 120 files are a guard below a
+comment or an example inside a block comment. Read through the dialect, 126
+files bind 1,538 constructor comments, GADT constructors' among them, that
+canon 0.2.1 reported as orphans, and the model of every other file is
+unchanged.
 
 The excluded files, each a file GHC itself does not compile as it stands:
 

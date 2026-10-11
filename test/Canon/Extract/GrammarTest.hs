@@ -68,6 +68,8 @@ tests =
     , testProperty "Haskell declarations and expressions GHC accepts parse" prop_haskellDeclarationsAndExpressionsGhcAcceptsParse
     , testProperty "a Haddock comment in an export list or on a record field is an orphan read in place" prop_aHaddockCommentInAnExportListOrOnARecordFieldIsAnOrphanReadInPlace
     , testProperty "a Haskell syntax error after doc comments is reported where it is" prop_aHaskellSyntaxErrorAfterDocCommentsIsReportedWhereItIs
+    , testProperty "a Haddock comment before a constructor documents it, wherever Haddock reads it" prop_aHaddockCommentBeforeAConstructorDocumentsItWhereverHaddockReadsIt
+    , testProperty "constructor Haddock parses through the plain grammar and binds through a profile's constructor rule" prop_constructorHaddockParsesThroughThePlainGrammarAndBindsThroughAProfilesConstructorRule
     , testProperty "the make dialect requires a comment on every plain rule" makeDialect
     , testProperty "a Makefile reference keeps its colons, commas, spaces, and hashes inside one name" prop_aMakefileReferenceKeepsItsColonsCommasSpacesAndHashesInsideOneName
     , testProperty "a Makefile directive word is a name after the first word of a line" prop_aMakefileDirectiveWordIsANameAfterTheFirstWordOfALine
@@ -1296,3 +1298,127 @@ prop_aHaskellSyntaxErrorAfterDocCommentsIsReportedWhereItIs = withTests 1 $ prop
     Left err -> assert ("Broken.hs:8:13" `T.isInfixOf` renderInterpretError err)
     Right _ -> failure
 
+
+-- | Haddock documents a constructor with a comment above it, standing above the bar or equals sign,
+-- as LawSpec's DotNet code writes -- | doc above | C, or after it, as ormolu writes | -- | doc above
+-- C, and above a GADT constructor; canon 0.2.1 reported each as an orphan that could not be exempted.
+-- The dialect binds the comment to the constructor, a unit of kind constructor named by its
+-- constructor, prefix, infix, backticked, record, existential, or strict; an undocumented
+-- constructor is no unit, so no other unit's id, Why, or requirement changes, and a constructor
+-- needs no comment, documented ones always holding theirs. A record field's comment is still an
+-- orphan read in place. ref:DEC-haskell-constructor-haddock ref:REQ-haskell-support
+prop_aHaddockCommentBeforeAConstructorDocumentsItWhereverHaddockReadsIt :: Property
+prop_aHaddockCommentBeforeAConstructorDocumentsItWhereverHaddockReadsIt = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter haskellProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "{-# LANGUAGE GADTs, ExistentialQuantification #-}"
+          , "module Ctors (Expr (..), Op (..), G (..), N (..)) where"
+          , ""
+          , "-- | An expression."
+          , "data Expr"
+          , "  = Var String"
+          , "  | Call String [Expr]"
+          , "  -- | A constructor applied to a tuple of arguments, as both"
+          , "  -- languages write it."
+          , "  | Ctor String [Expr]"
+          , "  | Let String Expr Expr"
+          , "  -- | Unit-valued effects, then a value."
+          , "  | Do [Expr] Expr"
+          , "  deriving (Eq, Show)"
+          , ""
+          , "-- | Operators, as ormolu lays them out."
+          , "data Op"
+          , "  -- | Before the equals sign."
+          , "  = Plus Int Int"
+          , "  | -- | After the bar."
+          , "    Int :+ Int"
+          , "  | -- | Backticked."
+          , "    Int `Minus` Int"
+          , "  | -- | A record."
+          , "    Rec"
+          , "      { -- | A field, an orphan."
+          , "        field :: Int"
+          , "      }"
+          , "  | -- | Existential."
+          , "    forall a. Show a => Some a"
+          , "  | -- | Strict."
+          , "    Strict !Int {-# UNPACK #-} !Int"
+          , "  | Plain"
+          , ""
+          , "-- | A GADT."
+          , "data G a where"
+          , "  -- | An int."
+          , "  GInt :: Int -> G Int"
+          , "  GBool :: Bool -> G Bool"
+          , ""
+          , "-- | A newtype."
+          , "newtype N = -- | The wrapper."
+          , "  N Int"
+          ]
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "haskell" haskellProfile interpreter "Ctors.hs" "Ctors.hs" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- toList (decisionUnits d), "/constructor/" `T.isInfixOf` renderUnitId u]
+    === [ ("haskell/Ctors.hs/module/Ctors/data/Expr/constructor/Ctor", "A constructor applied to a tuple of arguments, as both\nlanguages write it.")
+        , ("haskell/Ctors.hs/module/Ctors/data/Expr/constructor/Do", "Unit-valued effects, then a value.")
+        , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Plus", "Before the equals sign.")
+        , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/:+", "After the bar.")
+        , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Minus", "Backticked.")
+        , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Rec", "A record.")
+        , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Some", "Existential.")
+        , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Strict", "Strict.")
+        , ("haskell/Ctors.hs/module/Ctors/data/G/constructor/GInt", "An int.")
+        , ("haskell/Ctors.hs/module/Ctors/newtype/N/constructor/N", "The wrapper.")
+        ]
+  let units = modelAllUnits model
+  [whatName (answerValue (unitWhat u)) | u <- units, kindOf u /= "file", kindOf u /= "constructor"] === ["Ctors", "Expr", "Op", "G", "N"]
+  [howText | u <- units, whatName (answerValue (unitWhat u)) == "Ctor", HowText howText <- [answerValue (unitHow u)]] === ["Ctor String [Expr]"]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [26]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
+
+-- | The plain grammar skips comments, so it reads every placement of a constructor's Haddock, and a
+-- profile that makes the grammar's constr rule a unit binds the comment above a constructor to it,
+-- as Haddock does; one above a GADT constructor binds where the profile makes gadt_constr a unit,
+-- and is an orphan here. ref:DEC-haskell-constructor-haddock ref:REQ-haskell-support
+prop_constructorHaddockParsesThroughThePlainGrammarAndBindsThroughAProfilesConstructorRule :: Property
+prop_constructorHaddockParsesThroughThePlainGrammarAndBindsThroughAProfilesConstructorRule = withTests 1 $ property $ do
+  let source =
+        T.unlines
+          [ "module Plain where"
+          , ""
+          , "-- | An expression."
+          , "data Expr"
+          , "  = Var String"
+          , "  -- | Unit-valued effects, then a value."
+          , "  | Do [Expr] Expr"
+          , "  | -- | After the bar."
+          , "    Lit Int"
+          , ""
+          , "-- | A GADT."
+          , "data G a where"
+          , "  -- | An int."
+          , "  GInt :: Int -> G Int"
+          ]
+      syntax = defaultCommentSyntax {commentLine = Just "--", commentBlockOpen = Just "{-", commentBlockClose = Just "-}", commentOuterDoc = ["-- |"]}
+      profile =
+        Profile
+          [".hs"]
+          (SplitGrammarFiles "grammars/haskell/HaskellLexer.g4" "grammars/haskell/HaskellParser.g4")
+          (Name "module")
+          [ UnitRule (Name "ty_decl") "data" (NameFromToken (Name "CONID") 0) True Nothing False
+          , UnitRule (Name "constr") "constructor" (NameFromToken (Name "CONID") 0) False Nothing False
+          ]
+          syntax
+          Map.empty
+          Map.empty
+          Map.empty
+          []
+  parsesThroughBothHaskellGrammars source
+  loaded <- evalIO (loadProfileInterpreter profile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "haskell" profile interpreter "Plain.hs" "Plain.hs" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- toList (decisionUnits d), "/constructor/" `T.isInfixOf` renderUnitId u]
+    === [("haskell/Plain.hs/data/Expr/constructor/Do", "Unit-valued effects, then a value."), ("haskell/Plain.hs/data/Expr/constructor/Lit", "After the bar.")]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [13]

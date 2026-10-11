@@ -1419,9 +1419,11 @@ stack, xmonad, and LawSpec before it reshaped code for canon with it
 `canonically_commented/` the dialect sends `-- |` and `{-|` into `DocLine`
 and `DocBlock` lexer modes, keeps the line break that ends a doc line as a
 `NEWLINE` carrying the layout action, inlines each unit-bearing top-level
-form as a labeled alternative, labels export-list entries `export`, and
-absorbs a doc comment on a local binding, instance method, or constructor as
-an `orphan`. A doc comment anywhere else the grammar takes none, as inside
+form as a labeled alternative, labels export-list entries `export`, makes a
+constructor with a Haddock comment above its bar or equals sign, after it, or
+above a GADT constructor a unit of kind `constructor` whose Why is that
+comment (`DEC-haskell-constructor-haddock`), and absorbs a doc comment on a
+local binding, instance method, or record field as an `orphan`. A doc comment anywhere else the grammar takes none, as inside
 an expression, is read out of the file and reported as an `orphan`, since the
 parser's `strayComment` option names `canonicalComment`. Two `-- |` comments
 on consecutive lines merge, as Haddock also reads them.
@@ -1505,10 +1507,14 @@ rule `publicByDefault`, labeled `required`, class bodies are `inherited`, and
 API that explicit API mode and Dokka document. A KDoc comment after an
 annotation, before a statement, on a parameter, or on an accessor is an
 `orphan`. What it reads is listed in `grammars/kotlin/README.md` and recorded
-in the ledger as `DEC-kotlin-dialect`. Both read Kotlin through 2.4, the
-syntax since 1.4 added as `DEC-kotlin-grammar` records, and
+in the ledger as `DEC-kotlin-dialect`. `kotlinFile` reads a Kotlin script, a
+`.kts` file such as a Gradle build script, whose top level holds statements,
+so one start rule reads `.kt` and `.kts` files; a script's declarations are
+units that require no comment (`DEC-kotlin-script`). Both read Kotlin through
+2.4, the syntax since 1.4 added as `DEC-kotlin-grammar` records, and
 `tools/corpus/kotlin.sh` checks them against kotlinx.coroutines, ktor, OkHttp,
-Compose Multiplatform, and the standard library.
+Compose Multiplatform, the standard library, and the Kotlin scripts of Gradle,
+ktor, and Spring Boot.
 
 `grammars/clojure/` holds the Clojure grammar from grammars-v4, which read a
 keyword as a colon and a symbol and so failed on `:1.8` and `:div#id`; a

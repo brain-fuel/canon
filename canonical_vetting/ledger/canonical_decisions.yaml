@@ -121,6 +121,9 @@ ledger/DEC-groovy-dialect:
 ledger/DEC-groovy-grammar:
   digest: sha256:0b2e4288574fa4f6
   verdict: pending
+ledger/DEC-haskell-constructor-haddock:
+  digest: sha256:55fd915fcc9092d7
+  verdict: pending
 ledger/DEC-haskell-dialect:
   digest: sha256:134905b7a23ddf33
   verdict: pending
@@ -165,6 +168,9 @@ ledger/DEC-kotlin-dialect:
   verdict: pending
 ledger/DEC-kotlin-grammar:
   digest: sha256:56db4864cb4f2ad2
+  verdict: pending
+ledger/DEC-kotlin-script:
+  digest: sha256:8bea8b93ee973e5e
   verdict: pending
 ledger/DEC-lawspec-parity:
   digest: sha256:b6a0624944fd611b

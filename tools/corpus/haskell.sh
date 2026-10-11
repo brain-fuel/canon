@@ -61,6 +61,25 @@ files_of() { # files_of DIR: the files of the language under DIR
   find "$1" -type f -name '*.hs' -not -path '*/.git/*' | LC_ALL=C sort
 }
 
+# ctor_haddock FILE...: the files that document a constructor with a Haddock comment, as ghc's
+# compiler, megaparsec, and servant do (containers and text write -- ^ after a constructor, a plain
+# comment to canon): a -- | or {-| comment directly above a line that starts with the bar or equals
+# sign of a constructor, or one that follows that bar or equals sign on its line, as ormolu writes
+# it. The dialect binds each to its constructor (DEC-haskell-constructor-haddock), so these files
+# must read through it.
+ctor_haddock() {
+  awk '
+    FNR == 1 { doc = 0; block = 0 }
+    block { if ($0 ~ /-}/) { block = 0; doc = 1 }; next }
+    /^[ \t]*[|=][ \t]*(-- *\||\{-\|)/ { print FILENAME; nextfile }
+    /^[ \t]*-- *\|/ { doc = 1; next }
+    /^[ \t]*\{-\|/ { if ($0 !~ /-}/) block = 1; else doc = 1; next }
+    doc && /^[ \t]*--/ { next }
+    doc && /^[ \t]+[|=]([^|=>]|$)/ { print FILENAME; nextfile }
+    { doc = 0 }' "$@"
+}
+export -f ctor_haddock
+
 # ---- common driver (the same in every tools/corpus script of this set) ----
 
 clone() { # clone NAME URL SHA [PATH...]: fetch one commit, shallow and blob-filtered; PATHs make it sparse
@@ -148,6 +167,12 @@ main() {
     local dok
     dok=$(awk -F'\t' '$1 == "ok"' "$results/$name.dialect" | wc -l | tr -d ' ')
     printf '   dialect: %s / %s of the plain-parsed files\n' "$dok" "$ok"
+    local ch chok
+    ch=$(tr '\n' '\0' < "$results/$name.all" | xargs -0 bash -c 'ctor_haddock "$@"' _ \
+      | grep -vxF -f <(awk -F'\t' -v b="$base/" '{ print b $1 }' "$results/$name.excluded"; echo /) \
+      | LC_ALL=C sort -u | tee "$results/$name.ctor" | grep -c . || true)
+    chok=$(awk -F'\t' '$1 == "ok" { print $3 }' "$results/$name.dialect" | LC_ALL=C sort | LC_ALL=C comm -12 - "$results/$name.ctor" | grep -c . || true)
+    printf '   constructor Haddock: %s files not excluded hold it, %s read by the dialect\n' "$ch" "$chok"
     awk -F'\t' -v b="$base/" '$1 != "ok" { sub(b, "", $3); printf "   DIALECT FAIL %-7s %6.2fs %s: %s\n", $1, $2, $3, $4 }' "$results/$name.dialect"
   done
   [ -n "${CORPUS_CLONE_ONLY:-}" ] && return 0

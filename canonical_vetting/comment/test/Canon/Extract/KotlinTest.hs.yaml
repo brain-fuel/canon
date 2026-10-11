@@ -13,6 +13,9 @@ decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTes
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_aCommentNestedInAKDocCommentDoesNotCloseIt:
   digest: sha256:74c4f0fac8e16a6c
   verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_aGradleKotlinDslScriptParsesFromKotlinFileThroughTheGrammarAndTheDialect:
+  digest: sha256:f643d447861830a1
+  verdict: pending
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_aKDocCommentInsideAnExpressionIsAnOrphanAndTheFileStillParses:
   digest: sha256:bc681e835cba707b
   verdict: pending
@@ -21,6 +24,9 @@ decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTes
   verdict: pending
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_anUnnamedCompanionObjectAndSecondaryConstructorsAreNamedByTheirKeywords:
   digest: sha256:317c5a2d1684f763
+  verdict: pending
+decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theDialectBindsAScriptsKDocToItsDeclarationsAndToTheScriptAndRequiresNone:
+  digest: sha256:37e28dcae73ac557
   verdict: pending
 decision/haskell/test/Canon/Extract/KotlinTest.hs/module/Canon.Extract.KotlinTest/function/prop_theKotlinDialectBindsKDocToDeclarationsRequiresItOnPublicApiAndReportsMisplacedKDoc:
   digest: sha256:7317049ecb269cd2

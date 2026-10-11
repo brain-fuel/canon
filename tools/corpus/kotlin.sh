@@ -28,6 +28,10 @@ REPOS=(
   "okhttp https://github.com/square/okhttp ac3d46c892ef486eca5bd84259dfb9bc8778d909"
   "compose-multiplatform https://github.com/JetBrains/compose-multiplatform 6b7b6ad83bfc87ca554e00409fa25c6707513280"
   "kotlin-stdlib https://github.com/JetBrains/kotlin e5b61f33dedf8f0cd170ed316d321ac837478ffc libraries/stdlib"
+  # Kotlin scripts, Gradle's Kotlin DSL above all, checked out alone where * names them.
+  "gradle https://github.com/gradle/gradle 63a4a7121bc1de66bfd40ae0ae7ab77eacefa4c3 *.kts"
+  "ktor-scripts https://github.com/ktorio/ktor 1d177d32df5de4df0dfee67cee159e01e226419f *.kts"
+  "spring-boot https://github.com/spring-projects/spring-boot 535d133bdaa0ed46bbfb7ce578c14261806f39ac *.kts"
 )
 
 # Files left out deliberately, as "repository path reason": files kotlinc rejects, invalid-code
@@ -42,13 +46,15 @@ compose-multiplatform compose/integrations/compose-with-ktx-serialization/build.
 compose-multiplatform gradle-plugins/compose/src/test/test-projects/application/aot/build.gradle.kts template with a %JAVA_VERSION% placeholder its test fills in
 compose-multiplatform gradle-plugins/compose/src/test/test-projects/misc/hugeResources/expected/String0.commonMain.kt generated, the expected output of the resource generator for a stress test, 0.9 MB, beyond the time limit
 compose-multiplatform gradle-plugins/compose/src/test/test-projects/misc/hugeResources/expected/String100.commonMain.kt generated, as above
+gradle testing/performance/src/templates/kts-empty/build.gradle.kts Groovy template, <% if ... %> around Kotlin, which the performance test generator expands
+gradle testing/smoke-test/src/smokeTest/resources/org/gradle/smoketests/kotlin-multiplatform-js-jvm-example/build.gradle.kts template with $enableCssSupportOld and $enableCssSupportNew placeholders its smoke test fills in
 EOF
 )
 
 mkdir -p "$CORPUS/results"
 for entry in "${REPOS[@]}"; do
   # shellcheck disable=SC2086
-  set -- $entry
+  set -f; set -- $entry; set +f
   echo "cloning $1 at $3${4:+ (sampled: ${*:4})}" >&2
   corpus_clone "$CORPUS/$1" "$2" "$3" "${@:4}"
 done
@@ -61,15 +67,16 @@ run_all() {
   echo "== $kind grammar"
   for entry in "${REPOS[@]}" "${SAMPLES[@]}"; do
     # shellcheck disable=SC2086
-    set -- $entry
+    set -f; set -- $entry; set +f
     name=$1
     local dir=$CORPUS/$name
     [ -d "$dir" ] || dir=$ROOT/lang_samples/$name/source
     ex=$CORPUS/results/$name.excludes
     printf '%s\n' "$EXCLUDES" | awk -v n="$name" '$1 == n {print $2}' >"$ex"
     corpus_run "$name" "$dir" "$lexer" "$parser" kotlinFile "$CORPUS/results/$name.$kind" "$ex" -name '*.kt'
-    # A script is read from the rule script, which takes statements at the top level.
-    corpus_run "$name (.kts)" "$dir" "$lexer" "$parser" script "$CORPUS/results/$name.kts.$kind" "$ex" -name '*.kts'
+    # A script is read from kotlinFile, as a profile reads it, which reads a file that is not a
+    # Kotlin file as a script, whose top level takes statements. ref:DEC-kotlin-script
+    corpus_run "$name (.kts)" "$dir" "$lexer" "$parser" kotlinFile "$CORPUS/results/$name.kts.$kind" "$ex" -name '*.kts'
   done
 }
 
@@ -79,7 +86,7 @@ run_all dialect "$DIALECT_LEXER" "$DIALECT_PARSER"
 echo "== files the plain grammar parses and the dialect does not"
 for entry in "${REPOS[@]}" "${SAMPLES[@]}"; do
   # shellcheck disable=SC2086
-  set -- $entry
+  set -f; set -- $entry; set +f
   dir=$CORPUS/$1
   [ -d "$dir" ] || dir=$ROOT/lang_samples/$1/source
   corpus_compare "$CORPUS/results/$1.plain" "$CORPUS/results/$1.dialect" "$dir" "$CORPUS/results/$1.excludes"

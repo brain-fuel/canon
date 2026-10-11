@@ -127,9 +127,6 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarD
 decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/constrs:
   digest: sha256:61dc0d15ddea5a0b
   verdict: pending
-decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/constrs1:
-  digest: sha256:a28777a386432e56
-  verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/consym:
   digest: sha256:e563f33de6afac97
   verdict: pending
@@ -211,6 +208,9 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarD
 decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/docPart:
   digest: sha256:bb6b6c5e8cb9923b
   verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/documented_constr:
+  digest: sha256:8d41f9f9de140458
+  verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/exp:
   digest: sha256:867f8415fb70d39f
   verdict: pending
@@ -264,6 +264,9 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarD
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/fielddecls:
   digest: sha256:f31432ac0ff38965
+  verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/first_constr:
+  digest: sha256:e57bd40a04a68876
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/fixity:
   digest: sha256:355ddcf7881062a5
@@ -408,6 +411,9 @@ decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarD
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/namelist:
   digest: sha256:3b8d840f93fa53ff
+  verdict: pending
+decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/next_constr:
+  digest: sha256:9a5bd06bbe99c561
   verdict: pending
 decision/antlr4/grammars/haskell/canonically_commented/HaskellParser.g4/grammarDefinition/HaskellParser/parserRule/ntgtycon:
   digest: sha256:1bd6037bab424bf1

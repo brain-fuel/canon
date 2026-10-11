@@ -4,12 +4,15 @@
 # Sourced, not run. Each caller sets CANON, JOBS, and TIMEOUT before calling these functions.
 
 # corpus_clone DIR URL COMMIT [SUBDIR...]: a depth-1 clone of COMMIT into DIR, with only the
-# SUBDIRs checked out when any are given. A clone already at COMMIT is reused.
+# SUBDIRs checked out when any are given, or, when one holds a *, only the files matching the
+# SUBDIRs as gitignore patterns, as *.kts checks out a repository's scripts. A clone already at
+# COMMIT is reused.
 corpus_clone() {
-  local dir=$1 url=$2 commit=$3
+  local dir=$1 url=$2 commit=$3 mode=--cone
   shift 3
+  case "$*" in *'*'*) mode=--no-cone ;; esac
   if [ -d "$dir/.git" ] && [ "$(git -C "$dir" rev-parse HEAD 2>/dev/null)" = "$commit" ]; then
-    if [ $# -gt 0 ]; then git -C "$dir" sparse-checkout set "$@" >/dev/null; fi
+    if [ $# -gt 0 ]; then git -C "$dir" sparse-checkout set "$mode" "$@" >/dev/null; fi
     return 0
   fi
   rm -rf "$dir"
@@ -18,7 +21,7 @@ corpus_clone() {
   git -C "$dir" remote add origin "$url"
   git -C "$dir" fetch -q --depth 1 --filter=blob:none origin "$commit"
   if [ $# -gt 0 ]; then
-    git -C "$dir" sparse-checkout set "$@" >/dev/null
+    git -C "$dir" sparse-checkout set "$mode" "$@" >/dev/null
   fi
   git -C "$dir" -c advice.detachedHead=false checkout -q FETCH_HEAD
 }

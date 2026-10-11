@@ -41,6 +41,8 @@ tests =
     , testProperty "the Kotlin grammar and dialect read the Kotlin 1.4 to 2.4 syntax widely used projects write" prop_theKotlinGrammarAndDialectReadTheKotlin14To24SyntaxWidelyUsedProjectsWrite
     , testProperty "a Kotlin script whose last statement ends the file without a newline parses" prop_aKotlinScriptWhoseLastStatementEndsTheFileWithoutANewlineParses
     , testProperty "a comment nested in a KDoc comment does not close it" prop_aCommentNestedInAKDocCommentDoesNotCloseIt
+    , testProperty "a Gradle Kotlin DSL script parses from kotlinFile through the grammar and the dialect" prop_aGradleKotlinDslScriptParsesFromKotlinFileThroughTheGrammarAndTheDialect
+    , testProperty "the dialect binds a script's KDoc to its declarations and to the script, and requires none" prop_theDialectBindsAScriptsKDocToItsDeclarationsAndToTheScriptAndRequiresNone
     ]
 
 sampleDir :: FilePath
@@ -479,3 +481,102 @@ prop_aCommentNestedInAKDocCommentDoesNotCloseIt = withTests 1 $ property $ do
       )
   whysOf model === [("kotlin/Nested.kt/function/send", "Sends without suspending:\n```\nevents.trySend(event).onClosed { /* already closed */ }\n```")]
   length [() | OrphanDocComment _ _ <- findings] === 0
+
+-- | A Kotlin script, as a Gradle build script, holds statements at its top level: a plugins block, a
+-- call, an assignment, a task configured by a lambda, and an import after the plugins block, which
+-- Gradle reads because it compiles that block apart. A profile names one start rule for .kt and .kts
+-- files, kotlinFile, so kotlinFile reads a file that is not a Kotlin file as a script, through the
+-- plain grammar and the dialect, and a Kotlin file as before. The first script is LawSpec's Kafka
+-- benchmark build, which canon 0.2.1 could not read. ref:DEC-kotlin-script ref:REQ-kotlin-support
+prop_aGradleKotlinDslScriptParsesFromKotlinFileThroughTheGrammarAndTheDialect :: Property
+prop_aGradleKotlinDslScriptParsesFromKotlinFileThroughTheGrammarAndTheDialect = withTests 1 $ property $ do
+  let parsed dir = do
+        loaded <- evalIO (loadInterpreter (dir </> "KotlinLexer.g4") (dir </> "KotlinParser.g4"))
+        interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+        pure [either (Left . T.unpack . renderInterpretError) (const (Right ())) (interpretText interpreter (Name start) "build.gradle.kts" s) | start <- ["kotlinFile", "script"], s <- scripts]
+      scripts =
+        [ T.unlines
+            [ "plugins {"
+            , "    kotlin(\"jvm\") version \"2.3.21\""
+            , "}"
+            , ""
+            , "repositories {"
+            , "    mavenCentral()"
+            , "}"
+            , ""
+            , "kotlin {"
+            , "    jvmToolchain(25)"
+            , "}"
+            , ""
+            , "dependencies {"
+            , "    implementation(\"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0\")"
+            , "    testImplementation(\"io.kotest:kotest-runner-junit5:5.9.1\")"
+            , "}"
+            , ""
+            , "tasks.test {"
+            , "    useJUnitPlatform()"
+            , "}"
+            , ""
+            , "// The benchmark driver runs on the main classpath, printed for the harness."
+            , "tasks.register(\"benchClasspath\") {"
+            , "    dependsOn(\"classes\")"
+            , "    doLast {"
+            , "        println(sourceSets[\"main\"].runtimeClasspath.asPath)"
+            , "    }"
+            , "}"
+            ]
+        , "rootProject.name = \"bench\"\ninclude(\":core\", \":app\")\n"
+        , "plugins {\n    id(\"java\")\n}\n\nimport org.gradle.api.Plugin\n\nclass Greeting : Plugin<Project> {\n    override fun apply(project: Project) {}\n}\n\napply<Greeting>()\n"
+        , "import java.io.File\n\nval generated: File by extra\nfun helper(x: Int) = x + 1\nprintln(helper(1))"
+        ]
+  plain <- parsed "grammars/kotlin"
+  dialect <- parsed "grammars/kotlin/canonically_commented"
+  plain === [Right () | _ <- [1 .. 2 * length scripts :: Int]]
+  dialect === [Right () | _ <- [1 .. 2 * length scripts :: Int]]
+
+-- | In a script read from kotlinFile, a KDoc comment above a top-level declaration is that
+-- declaration's Why, as in a Kotlin file, and one above the first statement after the imports
+-- documents the script, as a precompiled Gradle script plugin documents itself; a declaration of a
+-- script requires no comment, since a script is a program rather than an API, and a KDoc comment
+-- above any other statement is an orphan. A Kotlin file still reads its declarations as required
+-- units. ref:DEC-kotlin-script
+prop_theDialectBindsAScriptsKDocToItsDeclarationsAndToTheScriptAndRequiresNone :: Property
+prop_theDialectBindsAScriptsKDocToItsDeclarationsAndToTheScriptAndRequiresNone = withTests 1 $ property $ do
+  Extraction model findings <-
+    extractText
+      dialectProfile
+      "build.gradle.kts"
+      ( T.unlines
+          [ "import org.gradle.api.Project"
+          , ""
+          , "/**"
+          , " * Applies the conventions of the build."
+          , " */"
+          , "plugins {"
+          , "    java"
+          , "}"
+          , ""
+          , "/** Bumps a version. */"
+          , "fun bump(x: Int): Int = x + 1"
+          , ""
+          , "val undocumented = 1"
+          , ""
+          , "/** A task type. */"
+          , "abstract class Greet {"
+          , "    fun run() {}"
+          , "}"
+          , ""
+          , "/** Above a call, so an orphan. */"
+          , "tasks.register(\"greet\")"
+          ]
+      )
+  whysOf model
+    === [ ("kotlin/build.gradle.kts", "Applies the conventions of the build.")
+        , ("kotlin/build.gradle.kts/function/bump", "Bumps a version.")
+        , ("kotlin/build.gradle.kts/class/Greet", "A task type.")
+        ]
+  unitsOf model === [("function", "bump"), ("property", "undocumented"), ("class", "Greet"), ("function", "run")]
+  length [() | OrphanDocComment _ _ <- findings] === 1
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
+  Extraction kotlinModel _ <- extractText dialectProfile "Lib.kt" "fun bump(x: Int): Int = x + 1\n"
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger kotlinModel] === ["kotlin/Lib.kt/function/bump"]

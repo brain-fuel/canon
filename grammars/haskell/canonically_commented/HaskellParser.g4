@@ -1011,9 +1011,12 @@ gadt_constrs
 //      D { x,y :: a } :: T a
 //      forall a. Eq a => D { x,y :: a } :: T a
 
-/** A GADT constructor where documentation may appear. */
+// canon: a Haddock comment before a GADT constructor documents it, as one before a constructor of
+// an ordinary data declaration does. ref:DEC-haskell-constructor-haddock
+/** A GADT constructor where documentation may appear. A canonical comment before a constructor that declares one name documents it, which is then a unit whose Why is the comment and whose What is the name. ref:DEC-haskell-constructor-haddock */
 gadt_constr_with_doc
-    : gadt_constr
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) what = con '::' sigtypedoc # constructor
+    | gadt_constr # plainConstructor
     ;
 
 /** A GADT constructor: its names and its signature. */
@@ -1039,14 +1042,35 @@ gadt_constr
 //     constr ('|' constr)*
 //     ;
 
-/** The equals sign and constructors of a data or newtype declaration. */
+// canon: a Haddock comment before a constructor documents it, as Haddock reads it, whether it
+// stands above the equals sign or bar, as in -- | doc above | C, or after it, as in | -- | doc
+// above C; the documented constructor is a unit of kind constructor named by its constructor, and
+// an undocumented one is no unit, so no other unit's id changes. Of several comments the last
+// binds and the others are orphans; a constructor whose name the dialect cannot read leaves its
+// comment an orphan, as before. ref:DEC-haskell-constructor-haddock
+/** The equals sign and constructors of a data or newtype declaration. ref:DEC-haskell-constructor-haddock */
 constrs
-    : '=' constrs1
+    : first_constr next_constr*
     ;
 
-/** One or more bar-separated constructors. Constructors are not units in this pass, so a canonical comment on one is an orphan. */
-constrs1
-    : (orphan = canonicalComment)* constr ('|' (orphan = canonicalComment)* constr)*
+/** The equals sign and the first constructor. A canonical comment before the equals sign or after it documents the constructor, which is then a unit whose Why is the comment and whose What is the constructor's name. ref:DEC-haskell-constructor-haddock */
+first_constr
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) '=' (orphan = canonicalComment)* how = documented_constr # constructor
+    | (orphan = canonicalComment)* '=' ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) how = documented_constr # constructor
+    | (orphan = canonicalComment)* '=' (orphan = canonicalComment)* constr # plainConstructor
+    ;
+
+/** A bar and the constructor after it. A canonical comment before the bar or after it documents the constructor, which is then a unit whose Why is the comment and whose What is the constructor's name. ref:DEC-haskell-constructor-haddock */
+next_constr
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) '|' (orphan = canonicalComment)* how = documented_constr # constructor
+    | (orphan = canonicalComment)* '|' ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) how = documented_constr # constructor
+    | (orphan = canonicalComment)* '|' (orphan = canonicalComment)* constr # plainConstructor
+    ;
+
+/** A documented constructor, read as constr reads it with its name labeled what: the operator or backticked name of an infix constructor, or else the name a prefix or record constructor starts with. ref:DEC-haskell-constructor-haddock */
+documented_constr
+    : forall? (constr_context '=>')? constr_tyapp+ (what = consym | '`' what = conid '`') constr_tyapp+
+    | forall? (constr_context '=>')? what = con constr_tyapp*
     ;
 
 // {- Note [Constr variations of non-terminals]

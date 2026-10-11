@@ -56,6 +56,14 @@ said otherwise:
   lines.
 - A script may end with a statement and no newline, as a Gradle build script
   often does.
+- `kotlinFile` reads a file that is not a Kotlin file as a Kotlin script, a
+  `.kts` file such as a Gradle Kotlin DSL build script, whose top level holds
+  statements: its second alternative is `script`, which a Kotlin file reaches
+  only when its first reading fails, so a profile names one start rule for
+  `.kt` and `.kts` files and every Kotlin file reads the tree it read before.
+  An import may follow a statement in a script, as Gradle reads a build script
+  whose imports follow its `plugins { }` block, which it compiles apart from
+  the rest. Recorded as `DEC-kotlin-script`, canon 0.2.2.
 
 ## Canonically commented dialect
 
@@ -97,6 +105,19 @@ above with KDoc comments as canonical comments, recorded as
   nothing. The modifiers of an accessor and of a primary constructor are
   `innerModifiers`, which carry no labels, so a private setter does not make
   its property optional.
+- A Kotlin script, read by `script` and by `kotlinFile`'s second alternative,
+  takes the file's Why as a Kotlin file does, above the package directive or
+  the file annotations, and also from the KDoc comment above the first
+  statement after the imports that is no declaration, as a precompiled Gradle
+  script plugin documents itself; of two, the first binds. A declaration at a
+  script's top level is a `scriptDeclaration`, the same unit alternatives as
+  `declaration` without `publicByDefault`, so it takes its KDoc comment and
+  requires none, since a script is a program rather than an API. A statement
+  at a script's top level is a `scriptStatement`, which takes no KDoc comment,
+  so one above it is recovered as a stray comment, an orphan; a Kotlin file
+  that falls back to the script reading thus reaches no further past a KDoc
+  comment than its first reading did, and a stray comment it needed recovered
+  is recovered still (`DEC-kotlin-script`).
 - A class declared inside a function body is `localClassDeclaration`, no unit,
   whose body is `objectLiteralBody` as an object expression's is, so its
   members are units that inherit no requirement from the function around them.
@@ -122,7 +143,7 @@ of the Turbine sources has one.
 clones each repository below over https, shallow, blob-filtered, and sparse
 where a subdirectory sample is named, pinned to the commit given, into
 `/tmp/corpus/kotlin` or the directory given as its first argument, and parses
-every `.kt` file from `kotlinFile` and every `.kts` file from `script`, with the
+every `.kt` and `.kts` file from `kotlinFile`, as a profile reads them, with the
 plain grammar and then the dialect, one canon process per file on one
 capability, with a limit of 20 seconds of CPU time each. It prints per
 repository the files parsed, the deliberate exclusions, the failures with
@@ -141,47 +162,69 @@ tools/corpus/kotlin.sh                # or: JOBS=8 TIMEOUT=20 tools/corpus/kotli
 | [square/okhttp](https://github.com/square/okhttp) | `ac3d46c892ef486eca5bd84259dfb9bc8778d909` | whole |
 | [JetBrains/compose-multiplatform](https://github.com/JetBrains/compose-multiplatform) | `6b7b6ad83bfc87ca554e00409fa25c6707513280` | whole |
 | [JetBrains/kotlin](https://github.com/JetBrains/kotlin), the standard library | `e5b61f33dedf8f0cd170ed316d321ac837478ffc` | `libraries/stdlib` |
+| [gradle/gradle](https://github.com/gradle/gradle) | `63a4a7121bc1de66bfd40ae0ae7ab77eacefa4c3` | `*.kts` |
+| [ktorio/ktor](https://github.com/ktorio/ktor), as `ktor-scripts` | `1d177d32df5de4df0dfee67cee159e01e226419f` | `*.kts` |
+| [spring-projects/spring-boot](https://github.com/spring-projects/spring-boot) | `535d133bdaa0ed46bbfb7ce578c14261806f39ac` | `*.kts` |
 | `lang_samples/kotlin-turbine` | vendored | whole |
+
+A sample named `*.kts` checks out only a repository's Kotlin scripts, by a
+non-cone sparse checkout: Gradle's build logic, its subprojects' builds, and
+the thousands of tested snippets of its user manual; ktor's builds and build
+logic across the whole repository; and Spring Boot's builds and the examples
+of its Gradle plugin's documentation.
 
 | Repository | Files | Parsed | Excluded | Failed | Dialect parsed | CPU time, plain / dialect | Slowest file |
 |------------|------:|-------:|---------:|-------:|---------------:|--------------------------:|-------------:|
-| kotlinx.coroutines | 1,039 | 1,039 | 0 | 0 | 1,039 | 82 s / 92 s | 1.2 s |
-| kotlinx.coroutines `.kts` | 43 | 43 | 0 | 0 | 43 | 3 s / 3 s | 0.1 s |
-| ktor | 882 | 882 | 0 | 0 | 882 | 64 s / 74 s | 0.5 s |
+| kotlinx.coroutines | 1,039 | 1,039 | 0 | 0 | 1,039 | 42 s / 72 s | 0.3 s |
+| kotlinx.coroutines `.kts` | 43 | 43 | 0 | 0 | 43 | 2 s / 3 s | 0.1 s |
+| ktor | 882 | 882 | 0 | 0 | 882 | 48 s / 63 s | 0.2 s |
 | ktor `.kts` | 21 | 21 | 0 | 0 | 21 | 1 s / 1 s | 0.1 s |
-| okhttp | 573 | 573 | 0 | 0 | 573 | 65 s / 77 s | 1.8 s |
-| okhttp `.kts` | 44 | 44 | 0 | 0 | 44 | 3 s / 3 s | 0.2 s |
-| compose-multiplatform | 1,388 | 1,381 | 7 | 0 | 1,381 | 152 s / 170 s | 20 s, excluded |
-| compose-multiplatform `.kts` | 230 | 228 | 2 | 0 | 228 | 14 s / 17 s | 0.3 s |
-| kotlin-stdlib | 1,318 | 1,318 | 0 | 0 | 1,318 | 145 s / 167 s | 6.2 s |
-| kotlin-stdlib `.kts` | 7 | 7 | 0 | 0 | 7 | 2 s / 2 s | 0.7 s |
-| kotlin-turbine | 18 | 18 | 0 | 0 | 18 | 2 s / 2 s | 0.3 s |
+| okhttp | 573 | 573 | 0 | 0 | 573 | 40 s / 51 s | 0.8 s |
+| okhttp `.kts` | 44 | 44 | 0 | 0 | 44 | 2 s / 2 s | 0.1 s |
+| compose-multiplatform | 1,388 | 1,388 | 0 | 0 | 1,388 | 92 s / 112 s | 4.9 s |
+| compose-multiplatform `.kts` | 230 | 228 | 2 | 0 | 228 | 10 s / 11 s | 0.1 s |
+| kotlin-stdlib | 1,318 | 1,318 | 0 | 0 | 1,318 | 93 s / 107 s | 3.0 s |
+| kotlin-stdlib `.kts` | 7 | 7 | 0 | 0 | 7 | 1 s / 1 s | 0.2 s |
+| gradle `.kts` | 2,470 | 2,468 | 2 | 0 | 2,468 | 105 s / 116 s | 0.1 s |
+| ktor-scripts `.kts` | 170 | 170 | 0 | 0 | 170 | 7 s / 8 s | 0.1 s |
+| spring-boot `.kts` | 54 | 54 | 0 | 0 | 54 | 2 s / 2 s | 0.04 s |
+| kotlin-turbine | 18 | 18 | 0 | 0 | 18 | 1 s / 1 s | 0.1 s |
 
-Every file parses, 5,554 of 5,563, with the plain grammar and with the dialect,
-but nine of Compose Multiplatform's, excluded with their reasons in the script:
+At canon 0.2.2 every file parses, 8,253 of 8,257, with the plain grammar and
+with the dialect, but four scripts that are not Kotlin as they stand, excluded
+with their reasons in the script:
 
-- five test cases under `html/compose-compiler-integration/testcases/passing/`,
-  each several modules in one file that its harness splits at `// @Module:`
-  markers, so imports follow declarations, which kotlinc rejects in one file;
 - `compose/integrations/compose-with-ktx-serialization/build.gradle.kts`, which
   is written in the Groovy DSL, `group "com.example"`, and kotlinc rejects;
 - `gradle-plugins/compose/src/test/test-projects/application/aot/build.gradle.kts`,
   a template whose `%JAVA_VERSION%` placeholder its test fills in;
-- `String0.commonMain.kt` and `String100.commonMain.kt` under
-  `gradle-plugins/compose/src/test/test-projects/misc/hugeResources/expected/`,
-  generated, 0.9 MB each, the expected output of the resource generator for a
-  stress test, which canon reads in about 20 seconds of CPU time and 1.8 GB
-  of memory, at the limit, so they time out on one run and not the next.
+- Gradle's `testing/performance/src/templates/kts-empty/build.gradle.kts`, a
+  Groovy template whose `<% if ... %>` the performance test generator expands;
+- Gradle's `kotlin-multiplatform-js-jvm-example/build.gradle.kts` under
+  `testing/smoke-test/src/smokeTest/resources/`, a template whose
+  `$enableCssSupportOld` and `$enableCssSupportNew` placeholders its smoke test
+  fills in.
 
-5,505 files take under half a second of CPU time and all but 16 under one; the
-slowest file that is not excluded is the standard library's generated
-`_Arrays.kt`, 6.2 seconds for 28,000 lines, 7.4 with the dialect, and the
-slowest failure 0.05 seconds. canon's parser climbs the grammar's fourteen
-levels of expression rules for every operand, so Kotlin reads slower than
-Java, and a file of a megabyte is beyond the limit. The parser is
+The script still lists seven of Compose Multiplatform's `.kt` files it
+excluded before 0.2.2, which now parse: five test cases under
+`html/compose-compiler-integration/testcases/passing/`, each several modules
+in one file that its harness splits at `// @Module:` markers, so imports follow
+declarations, which kotlinc rejects in one file and canon now reads as a
+script; and `String0.commonMain.kt` and `String100.commonMain.kt` under
+`gradle-plugins/compose/src/test/test-projects/misc/hugeResources/expected/`,
+generated, 0.9 MB each, which canon reads in about 5 seconds of CPU time on the
+machine of this run and near the limit on a slower one. Before 0.2.2 the corpus
+read `.kts` files from `script`, and Gradle, ktor's scripts, and Spring Boot
+were not in it; every Kotlin file canon 0.2.1 read, `.kt` and `.kts`, yields
+the same model through the dialect at 0.2.2.
+
+All but 14 of the 8,257 files take under half a second of CPU time; the
+slowest are Compose Multiplatform's two generated `hugeResources` files and
+the standard library's generated `_Arrays.kt`, 3.0 seconds for 28,000 lines.
+canon's parser climbs the grammar's fourteen levels of expression rules for
+every operand, so Kotlin reads slower than Java. The parser is
 `Canon.Antlr4.Parse`, which the corpus work leaves unchanged.
 
 The Turbine profile maps `.kts` to `kotlinFile`, as a profile has one start
-rule, so a build script's top-level statements parse there only where they are
-declarations; the corpus reads `.kts` files from `script`, the rule Kotlin's
-grammar gives scripts.
+rule; from canon 0.2.2 `kotlinFile` reads a build script's top-level
+statements as a script's, so the profile reads every `.kts` file.

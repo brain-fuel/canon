@@ -33,7 +33,9 @@ options {
 // Every change from the plain grammar is marked canon: and listed in grammars/kotlin/README.md.
 
 // canon: a KDoc comment above the package directive or the file annotations is the file's Why; one
-// before an import or after the last declaration binds to nothing.
+// before an import or after the last declaration binds to nothing. A file that is not a Kotlin file
+// is read as a Kotlin script, as script reads it, so a profile reads .kt and .kts files with the one
+// start rule; a Kotlin file reads as before. ref:DEC-kotlin-script
 kotlinFile
     : shebangLine? NL* (
         ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment NL*) (
@@ -42,6 +44,18 @@ kotlinFile
         )
         | fileAnnotation* packageHeader
     ) importList topLevelObject* (orphan = canonicalComment NL*)* EOF
+    | shebangLine? NL* (
+        ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment NL*) (
+            fileAnnotation+ packageHeader
+            | packageDirective
+        )
+        | fileAnnotation* packageHeader
+    ) importList (
+        ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment NL*) scriptStatement (
+            semi (scriptDeclaration semis? | scriptStatement semi | importHeader)* scriptStatement?
+        )?
+        | (scriptDeclaration semis? | scriptStatement semi | importHeader)* scriptStatement?
+    ) (orphan = canonicalComment NL*)* EOF
     ;
 
 // canon: a package directive that is present, which a file's Why may stand above.
@@ -49,9 +63,48 @@ packageDirective
     : 'package' identifier semi?
     ;
 
-// canon: the last statement may end the file without a newline.
+// canon: a Kotlin script, a .kts file such as a Gradle build script, holds statements at its top
+// level, which a Kotlin file does not. A KDoc comment above the package directive or the file
+// annotations is the file's Why, as in a Kotlin file, and so is one above the first statement after
+// the imports that is no declaration, as a precompiled Gradle script plugin documents itself; of
+// two, the first binds. A declaration at the top level of a script is a unit whose Why is the KDoc
+// comment above it, and requires none, since a script is a program rather than an API; a KDoc
+// comment above any other statement binds to nothing, read out of the file as a stray comment, so
+// a Kotlin file that is read as a script only after its first reading fails reaches no further
+// past a KDoc comment than its first reading did, and a stray comment that file needed recovered
+// is recovered still. The last statement may end the file without a newline. An import may follow
+// a statement, as Gradle reads a build script whose imports follow its plugins block, which it
+// compiles apart from the rest. kotlinFile reads a script the same way. ref:DEC-kotlin-script
 script
-    : shebangLine? NL* fileAnnotation* packageHeader importList (statement semi)* statement? EOF
+    : shebangLine? NL* (
+        ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment NL*) (
+            fileAnnotation+ packageHeader
+            | packageDirective
+        )
+        | fileAnnotation* packageHeader
+    ) importList (
+        ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment NL*) scriptStatement (
+            semi (scriptDeclaration semis? | scriptStatement semi | importHeader)* scriptStatement?
+        )?
+        | (scriptDeclaration semis? | scriptStatement semi | importHeader)* scriptStatement?
+    ) (orphan = canonicalComment NL*)* EOF
+    ;
+
+// canon: a declaration at the top level of a script, a unit alternative as a declaration of a
+// Kotlin file is, without publicByDefault. ref:DEC-kotlin-script
+scriptDeclaration
+    : ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) classDeclaration # class
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) objectDeclaration # object
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) functionDeclaration # function
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) propertyDeclaration # property
+    | ((orphan = canonicalComment NL*)+ why = canonicalComment NL* | why = canonicalComment? NL*) typeAlias # type
+    ;
+
+// canon: a statement at the top level of a script that is no declaration, whose KDoc comment
+// documents the script when it is the first after the imports; it takes no KDoc comment itself.
+// ref:DEC-kotlin-script
+scriptStatement
+    : (label | annotation)* (assignment | loopStatement | expression | destructuringDeclaration)
     ;
 
 fileAnnotation

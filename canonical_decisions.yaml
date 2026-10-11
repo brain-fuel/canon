@@ -943,3 +943,25 @@ DEC-canon-patch-compatibility:
   opened: 0.2.1
   decided: 0.2.1
   refs: [rices-tax, DEC-canon-lockstep]
+
+DEC-haskell-constructor-haddock:
+  status: decided
+  question: Haddock documents a data constructor with a comment above it, written above the constructor's bar or equals sign, as LawSpec's .NET code writes -- | doc above | C, or after it on its line, as ormolu writes | -- | doc above C, and above a GADT constructor; the Haskell dialect read each as an orphan (DEC-haskell-dialect), which no exemption covers, so valid, documented Haskell failed canon check. How does canon read it, and what may a patch change to do so?
+  answer: |
+    The dialect binds the comment to its constructor. constrs reads the first constructor with its equals sign and each later one with its bar, and a Haddock comment before that equals sign or bar, or after it, makes the constructor a unit alternative of kind constructor, whose Why is the comment, whose What is the constructor's name, read by documented_constr as the operator or backticked name of an infix constructor or the name a prefix, record, existential, or strict constructor starts with, and whose How is the constructor; a GADT constructor that declares one name is read the same way. Of several comments the last binds and the others are orphans, and a constructor whose name the dialect cannot read leaves its comment an orphan, as before. An undocumented constructor is no unit, so no other unit's id, Why, or requirement changes, and a constructor never requires a comment, the units the dialect makes always holding theirs. A record field's comment stays an orphan read in place. The plain grammar skips comments and so reads every placement already; a profile that makes its constr rule a unit binds the comment above a constructor to it.
+
+    This ships as a patch (DEC-canon-patch-compatibility): it fixes findings, each comment that canon 0.2.1 reported as an orphan becoming the Why of a new constructor unit, and adds nothing else and changes no id or digest. Because those comments are now read in place rather than recovered as stray comments, a file whose last recovered stray comment was such a comment also reports its file unit's span, and the git Who and When of the units after it, from what the parse reads rather than from where the recovery left the tree (DEC-stray-comments), and a data type whose first constructor's comment stands above its equals sign has that comment in its How, as the comments after its bars already were. Over the Haskell corpus, 1,538 constructor comments in 126 files bind; every other file's model is unchanged.
+  opened: 0.2.2
+  decided: 0.2.2
+  refs: [REQ-haskell-support, DEC-haskell-dialect, DEC-stray-comments, DEC-canon-patch-compatibility]
+
+DEC-kotlin-script:
+  status: decided
+  question: A Kotlin script, a .kts file such as a Gradle build script, holds statements at its top level, which a Kotlin file does not, and a profile names one start rule for the .kt and .kts files of a language, kotlinFile, so canon could not read LawSpec's Kafka benchmark build or any other build script that is not all declarations. How does canon read a script, and how does the dialect document one?
+  answer: |
+    kotlinFile reads a file that is not a Kotlin file as a script: its second alternative is the script rule's body, which a Kotlin file reaches only when its first reading fails, so every Kotlin file that read before reads the same tree. A script's top level holds declarations, statements, and imports after statements, as Gradle reads a build script whose imports follow its plugins block, which it compiles apart from the rest. In the dialect a declaration at a script's top level is a unit, as a Kotlin file's is, whose Why is the KDoc comment above it, and requires no comment, since a script is a program rather than an API; a KDoc comment above the package directive or the file annotations is the file's Why, and so is one above the first statement after the imports that is no declaration, as a precompiled Gradle script plugin documents itself, the first of two binding; a KDoc comment above any other statement is no part of the script's grammar and is recovered as a stray comment, an orphan (DEC-stray-comments), so a Kotlin file that falls back to the script reading reaches no further past a KDoc comment than its first reading did and a stray comment it needed recovered is recovered still.
+
+    tools/corpus/kotlin.sh reads .kts files from kotlinFile, as a profile does, and adds the Kotlin scripts of Gradle, of ktor's whole repository, and of Spring Boot, its Gradle plugin's documentation samples among them: 2,694 scripts, of which all but two templates Gradle's tests fill in parse. Every file canon 0.2.1 read yields the same model, so this ships as a patch (DEC-canon-patch-compatibility).
+  opened: 0.2.2
+  decided: 0.2.2
+  refs: [REQ-kotlin-support, DEC-kotlin-grammar, DEC-kotlin-dialect, DEC-stray-comments, DEC-canon-patch-compatibility]
