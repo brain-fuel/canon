@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-10
+
+### Changed
+- A canon patch never changes ids, digests, or vetting files (`DEC-canon-patch-compatibility`), so the lockstep accepts any patch of the running canon's minor: `canon check` passes when `canon.yaml` names under `canon` any `0.2.x` version, earlier or later, or the line `0.2.x` itself, and fails with `canonVersionMismatch` only on another minor; `Canon.Version.patchCompatible` is exported so a tool built on canon accepts the same versions. canon 0.2.1 reads a project written with 0.2.0 unchanged
+
+### Fixed
+- The Haskell grammar and its dialect read the valid Haskell LawSpec had to reshape (`DEC-layout-bars-commas-and-of`): a `case` inside a list comprehension, a `let` in a guard followed by a comma or ended by the guard's own `=` or `->` on a later line, a `do` block as a `case`'s scrutinee, a guard following a `do` block, and a `let` with explicit braces before its `in`. The layout hook carries GHC's parse-error rule to bars, commas, equals signs and arrows after a body, to `of`, to an infix operator that starts a line after a `do` block, and to `deriving` after a GADT's constructors, while a multi-way if's guards, a binding's guard commas, a signature naming several bindings, and a guarded alternative's next guard keep the block open; explicit braces, a layout keyword's or a record's, suspend the layout around them as the Haskell report says; a line-leading `do`, `mdo`, `rec`, or `\case` starts an item; a line-leading pragma such as `SCC` sets the line's indentation. The grammars read leading semicolons in statement and declaration lists, a view pattern as a record field's pattern, and `\cases`
+- `tools/corpus/haskell.sh` adds ghc's whole `compiler/`, containers, text, bytestring, megaparsec, servant, haskell-language-server's ghcide, and LawSpec at its commit before it reshaped code for canon: 3,634 files, of which all but three excluded ones parse through the plain grammar and the dialect, the new exclusion being a ghc module whose body is an `#include` of a generated file
+
 ## [0.2.0] - 2026-10-10
 
 ### Added

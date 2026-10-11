@@ -930,7 +930,16 @@ DEC-layout-bars-commas-and-of:
 
     Explicit braces, a layout keyword's or a record's, now suspend the layout of the implicit blocks around them as the Haskell report says: inside one, indentation neither closes those blocks nor inserts semicolons, an implicit block opens at any indentation, and its closing brace closes the blocks opened inside it; a let whose braces have closed leaves its in nothing to close. A do, mdo, rec, or \case that starts a line level with a block starts an item there; a pragma that starts a line, as an SCC before a statement, sets the line's indentation; and a record's brace that starts a line is that line's first token. The grammars read leading semicolons in statement and declaration lists, a view pattern as a record field's pattern, and \cases.
 
-    Every original form of LawSpec's reshaped modules parses, at LawSpec's commit before 0.20.1 and before the integration-0.22 reshaping, and tools/corpus/haskell.sh adds ghc's whole compiler, containers, text, bytestring, megaparsec, servant, haskell-language-server's ghcide, and LawSpec before 0.20.1, all read but one file excluded for an #include of a file the build generates. The parse tree of a file that read before is unchanged in what canon extracts, so every id and digest is unchanged.
+    Every original form of LawSpec's reshaped modules parses, at LawSpec's commit before 0.20.1 and before the integration-0.22 reshaping, and tools/corpus/haskell.sh adds ghc's whole compiler, containers, text, bytestring, megaparsec, servant, haskell-language-server's ghcide, and LawSpec before 0.20.1, all read but one file excluded for an #include of a file the build generates. The parse tree of a file that read before is unchanged in what canon extracts, so every id and digest is unchanged and this ships as a patch (DEC-canon-patch-compatibility).
   opened: 0.2.1
   decided: 0.2.1
   refs: [REQ-haskell-support, DEC-layout-parse-error-rule, DEC-haskell-grammar-fixes]
+
+DEC-canon-patch-compatibility:
+  status: decided
+  question: canon's version is the identity of its ids, digests, and vetting files (DEC-canon-lockstep), and a project or a tool naming one version refused every other, so a grammar fix that reads more files would force every project and Rice's Tax to re-ingest and release in lockstep even when no row changed. What may a canon patch change, and what do the version checks accept?
+  answer: |
+    A canon patch, a release that raises only the patch number, never changes an id, a digest, a vetting file, or what a file that already read extracts; it may read files canon could not read before, fix findings, and add tests and corpus projects. Anything that changes ids, digests, or vetting files raises the minor (or, from 1.0, the major). So the version checks accept any patch of the same minor: canon check passes the lockstep when canon.yaml names under canon any version of the running canon's major.minor, earlier or later, or the line written as major.minor.x, and fails with canonVersionMismatch on another minor; Canon.Version.patchCompatible is exported so a tool built on canon, as Rice's Tax's requiredCanon check, accepts the same set. canon 0.2.1 reads a project written with 0.2.0 and the reverse, and every vetting file is unchanged by the patch.
+  opened: 0.2.1
+  decided: 0.2.1
+  refs: [rices-tax, DEC-canon-lockstep]

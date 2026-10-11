@@ -7,6 +7,7 @@ module Canon.Version
   , renderVersion
   , precedence
   , canonVersion
+  , patchCompatible
   ) where
 
 import Data.Aeson (FromJSON (..), ToJSON (..), withText)
@@ -97,4 +98,19 @@ instance FromJSON Version where
 -- project it reads agree on ids, digests, and vetting files; it changes whenever any of them do.
 -- ref:DEC-extraction-cache ref:DEC-canon-lockstep
 canonVersion :: String
-canonVersion = "0.2.0"
+canonVersion = "0.2.1"
+
+-- | Whether a canon version a project or a tool names reads with another: any patch of the same
+-- minor, since a canon patch never changes ids, digests, or vetting files, written as a version or as
+-- major.minor.x for the whole line. ref:DEC-canon-patch-compatibility
+patchCompatible :: Text -> Text -> Bool
+patchCompatible named running = case (line named, line running) of
+  (Just a, Just b) -> a == b
+  _ -> False
+  where
+    line t = case T.splitOn "." (T.strip t) of
+      [major, minor, "x"] -> (,) <$> numeric major <*> numeric minor
+      _ -> (\v -> (versionMajor v, versionMinor v)) <$> parseVersion t
+    numeric t = case TR.decimal t of
+      Right (n, rest) | T.null rest -> Just (n :: Integer)
+      _ -> Nothing

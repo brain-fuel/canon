@@ -16,6 +16,9 @@ ledger/DEC-canon-is-the-format:
 ledger/DEC-canon-lockstep:
   digest: sha256:4ccf8fa5bac7e5f8
   verdict: pending
+ledger/DEC-canon-patch-compatibility:
+  digest: sha256:d71de1b919f749ac
+  verdict: pending
 ledger/DEC-canon-self-folio:
   digest: sha256:acb521ecac6b3432
   verdict: pending
@@ -165,6 +168,9 @@ ledger/DEC-kotlin-grammar:
   verdict: pending
 ledger/DEC-lawspec-parity:
   digest: sha256:b6a0624944fd611b
+  verdict: pending
+ledger/DEC-layout-bars-commas-and-of:
+  digest: sha256:a85f203fbf97df3d
   verdict: pending
 ledger/DEC-layout-parse-error-rule:
   digest: sha256:21214caf6e23009f

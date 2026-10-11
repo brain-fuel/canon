@@ -13,6 +13,9 @@ decision/haskell/src/Canon/Version.hs/module/Canon.Version/function/canonVersion
 decision/haskell/src/Canon/Version.hs/module/Canon.Version/function/parseVersion:
   digest: sha256:f5ee3fab8ce06899
   verdict: pending
+decision/haskell/src/Canon/Version.hs/module/Canon.Version/function/patchCompatible:
+  digest: sha256:0f0f9c8e25aad0f2
+  verdict: pending
 decision/haskell/src/Canon/Version.hs/module/Canon.Version/function/precedence:
   digest: sha256:518c02ad86ecacf5
   verdict: pending

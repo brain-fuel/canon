@@ -18,7 +18,7 @@ import Canon.Profile
 import Canon.Project
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.Scratch (withScratch)
-import Canon.Version (canonVersion)
+import Canon.Version (Version (..), canonVersion, parseVersion, patchCompatible)
 import Canon.Vetting (Material (..), VettingEntry (..), vettingEntries)
 import Canon.Walk (Walked (..))
 import Data.List.NonEmpty (NonEmpty (..))
@@ -50,6 +50,7 @@ tests =
     , testProperty "a requirement cited by a test in any file of the project is tested" requirementAcrossFiles
     , testProperty "ledger and registry entries are pending sign-off once a vetting file exists" materialPending
     , testProperty "a canon.yaml naming another canon version fails the check, and naming this one does not" prop_aCanonYamlNamingAnotherCanonVersionFailsTheCheck
+    , testProperty "a canon.yaml naming any patch of this canon's minor passes the lockstep, and another minor fails it" prop_aCanonYamlNamingAnyPatchOfThisMinorPassesTheLockstep
     , testProperty "every row the check counts as pending is a material of the survey that ingest records under the same key and digest" prop_everyPendingRowIsASurveyMaterialIngestRecords
     ]
 
@@ -217,6 +218,32 @@ prop_aCanonYamlNamingAnotherCanonVersionFailsTheCheck = withTests 1 $ property $
   map findingSeverity [f | f@CanonVersionMismatch {} <- other] === [Failing]
   mismatches same === []
   mismatches none === []
+
+-- | A canon patch never changes ids, digests, or vetting files, so a project naming any patch of the
+-- running canon's minor, earlier or later, or the line as major.minor.x, passes the lockstep, while a
+-- project naming another minor or major fails it. ref:REQ-human-vetting ref:DEC-canon-lockstep
+-- ref:DEC-canon-patch-compatibility
+prop_aCanonYamlNamingAnyPatchOfThisMinorPassesTheLockstep :: Property
+prop_aCanonYamlNamingAnyPatchOfThisMinorPassesTheLockstep = withTests 1 $ property $ do
+  running <- maybe failure pure (parseVersion (T.pack canonVersion))
+  let render major minor patch = T.intercalate "." (map (T.pack . show) [major, minor, patch])
+      sameMinor = [render (versionMajor running) (versionMinor running) p | p <- [0, versionPatch running, versionPatch running + 1, 41]]
+      line = [T.pack (show (versionMajor running)) <> "." <> T.pack (show (versionMinor running)) <> ".x"]
+      otherMinors = [render (versionMajor running) (versionMinor running + 1) 0, render (versionMajor running + 1) (versionMinor running) (versionPatch running), "0.0.1", "not a version"]
+  found <- evalIO $ withScratch "patch" $ \root -> do
+    let mismatchesWith named = do
+          writeFile (root </> "canon.yaml") ("version: 0.1.0\ncanon: " ++ T.unpack named ++ "\n")
+          loaded <- loadProject root
+          fs <- either (const (pure [])) (\p -> checkProject p Nothing) loaded
+          pure [d | CanonVersionMismatch d _ <- fs]
+    accepted <- mapM mismatchesWith (sameMinor ++ line)
+    refused <- mapM mismatchesWith otherMinors
+    pure (accepted, refused)
+  let (accepted, refused) = found
+  concat accepted === []
+  refused === map (: []) otherMinors
+  map (`patchCompatible` T.pack canonVersion) (sameMinor ++ line) === map (const True) (sameMinor ++ line)
+  map (`patchCompatible` T.pack canonVersion) otherMinors === map (const False) otherMinors
 
 -- | A tool built on canon shows the survey's materials and counts with findingPending, so every
 -- pending finding of the check must name a material of the survey by the key ingest writes, with

@@ -4,6 +4,9 @@ decision/haskell/test/Canon/ProjectTest.hs/module/Canon.ProjectTest:
 decision/haskell/test/Canon/ProjectTest.hs/module/Canon.ProjectTest/function/prop_aCanonYamlNamingAnotherCanonVersionFailsTheCheck:
   digest: sha256:41fde4bbcef082ec
   verdict: pending
+decision/haskell/test/Canon/ProjectTest.hs/module/Canon.ProjectTest/function/prop_aCanonYamlNamingAnyPatchOfThisMinorPassesTheLockstep:
+  digest: sha256:d30328c05deaafa7
+  verdict: pending
 decision/haskell/test/Canon/ProjectTest.hs/module/Canon.ProjectTest/function/prop_anEmptyFileIsNotBlamedAndRaisesNoGitFinding:
   digest: sha256:9d37f9ae6a43782f
   verdict: pending

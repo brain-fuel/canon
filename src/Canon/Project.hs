@@ -31,7 +31,7 @@ import Canon.Cache
 import Canon.Config
 import Canon.Decisions
 import Canon.Exemptions
-import Canon.Version (canonVersion, renderVersion)
+import Canon.Version (canonVersion, patchCompatible, renderVersion)
 import Canon.Extract.Grammar
 import Canon.Git.Shell (runGit, shellGitProvider)
 import Control.Concurrent (getNumCapabilities)
@@ -217,12 +217,13 @@ surveyReport project survey = map snd (surveyFindings survey) ++ exemptionFindin
   where
     config = projectConfig project
 
--- | A project whose canon.yaml names a canon version other than this one was written with other
--- ids and digests, so reading it with this canon would show every row as changed or vanished.
--- ref:DEC-canon-lockstep
+-- | A project whose canon.yaml names a canon version of another minor than this one was written with
+-- other ids and digests, so reading it with this canon would show every row as changed or vanished;
+-- any patch of this minor, or the line written as major.minor.x, reads alike.
+-- ref:DEC-canon-lockstep ref:DEC-canon-patch-compatibility
 lockstepFindings :: Config -> [Finding]
 lockstepFindings config = case configCanon config of
-  Just declared | T.strip declared /= T.pack canonVersion -> [CanonVersionMismatch (T.strip declared) (T.pack canonVersion)]
+  Just declared | not (patchCompatible declared (T.pack canonVersion)) -> [CanonVersionMismatch (T.strip declared) (T.pack canonVersion)]
   _ -> []
 
 -- | A finding that a debt is unpaid becomes an exempt finding while an exemption covers its
