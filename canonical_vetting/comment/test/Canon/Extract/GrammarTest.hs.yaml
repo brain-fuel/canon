@@ -13,8 +13,20 @@ decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarT
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/parsesThroughBothHaskellGrammars:
   digest: sha256:f92d681b39a53a5c
   verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aBarOrCommaABlockCanHoldLeavesTheBlockOpen:
+  digest: sha256:627f2b2d8017779c
+  verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aCanonicalCommentAMakefileCannotBindIsAnOrphanAndTheFileStillParses:
   digest: sha256:f470e4fe82dfcf22
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aCaseAlternativesBodyWithNoGuardEndsAtAComprehensionsBar:
+  digest: sha256:95bcdc2b77fc135d
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aDoBlockEndsAtTheGuardThatFollowsIt:
+  digest: sha256:b345ad3ac234c3f5
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aDoBlockThatIsACasesScrutineeEndsAtTheOf:
+  digest: sha256:b8f63dc80f6ad7e5
   verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaddockCommentInAnExportListOrOnARecordFieldIsAnOrphanReadInPlace:
   digest: sha256:48858aef7cdb4010
@@ -40,6 +52,15 @@ decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarT
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaskellSyntaxErrorAfterDocCommentsIsReportedWhereItIs:
   digest: sha256:68a6401db75462f7
   verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aLetInAGuardEndsAtTheGuardsNextComma:
+  digest: sha256:249a9ed0f1868019
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aLetInAGuardEndsAtTheGuardsOwnEqualsSignOrArrowOnALaterLine:
+  digest: sha256:2bcab4e0601d7e08
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aLetWithExplicitBracesLeavesItsInNothingToClose:
+  digest: sha256:a6fc34991fc52307
+  verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aMakefileDirectiveWordIsANameAfterTheFirstWordOfALine:
   digest: sha256:681d8687bacbf001
   verdict: pending
@@ -54,6 +75,12 @@ decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarT
   verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_anAntlrRuleWithoutACanonicalCommentParsesAndIsReportedAndACommentThatBindsToNothingIsAnOrphan:
   digest: sha256:0c002b38f457c849
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_anOperatorDerivingClauseOrPragmaThatStartsALineIsReadAsGhcReadsIt:
+  digest: sha256:afa2e2ecc6df7760
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_explicitBracesSuspendTheLayoutAroundThemAsGhcsCompilerWritesThem:
+  digest: sha256:e3cec138c28f2c2d
   verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_haskellDeclarationsAndExpressionsGhcAcceptsParse:
   digest: sha256:7ce4eeb19d84c5c0

@@ -200,7 +200,9 @@ INCOHERENT   : 'INCOHERENT';
 COMPLETE     : 'COMPLETE';
 
 /** A lambda-case: a backslash followed by case, possibly across whitespace, which opens a layout block like case does. */
-LCASE: '\\' (NEWLINE | WS)* 'case';
+// canon: \cases, GHC 9.4's lambda of several arguments, opens alternatives as \case does.
+// ref:DEC-layout-bars-commas-and-of
+LCASE: '\\' (NEWLINE | WS)* 'case' 's'?;
 
 fragment SYMBOL    : [!#$%&*+./<=>?@\\^|~:\-\p{S}];
 /** The context arrow. */

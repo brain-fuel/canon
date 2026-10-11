@@ -1412,8 +1412,10 @@ canonical comment on every rule and the fixes the ledger cites in
 escapes, contextual keywords and pragma names accepted as identifiers, hidden
 pragmas and C preprocessor directives with each `#if` read by build as for C#,
 operators by maximal munch, and the layout cases above. `tools/corpus/haskell.sh`
-reads GHC's base library, pandoc, aeson, lens, stack, and xmonad with it
-(`grammars/haskell/README.md`). Under
+reads GHC's base library and compiler, containers, text, bytestring,
+megaparsec, servant, haskell-language-server's ghcide, pandoc, aeson, lens,
+stack, xmonad, and LawSpec before it reshaped code for canon with it
+(`grammars/haskell/README.md`, `DEC-layout-bars-commas-and-of`). Under
 `canonically_commented/` the dialect sends `-- |` and `{-|` into `DocLine`
 and `DocBlock` lexer modes, keeps the line break that ends a doc line as a
 `NEWLINE` carrying the layout action, inlines each unit-bearing top-level

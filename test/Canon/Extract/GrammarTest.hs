@@ -56,6 +56,15 @@ tests =
     , testProperty "Haskell literals take underscores, binary digits, magic hashes, and many escapes" prop_haskellLiteralsTakeUnderscoresBinaryDigitsMagicHashesAndManyEscapes
     , testProperty "a Haskell quasi-quotation is one token only where QuasiQuotes is enabled" prop_aHaskellQuasiQuotationIsOneTokenOnlyWhereQuasiQuotesIsEnabled
     , testProperty "the Haskell layout closes blocks where GHC's parse-error rule does" prop_theHaskellLayoutClosesBlocksWhereGhcsParseErrorRuleDoes
+    , testProperty "a case alternative's body with no guard ends at a comprehension's bar" prop_aCaseAlternativesBodyWithNoGuardEndsAtAComprehensionsBar
+    , testProperty "a let in a guard ends at the guard's next comma" prop_aLetInAGuardEndsAtTheGuardsNextComma
+    , testProperty "a do block that is a case's scrutinee ends at the of" prop_aDoBlockThatIsACasesScrutineeEndsAtTheOf
+    , testProperty "a do block ends at the guard that follows it" prop_aDoBlockEndsAtTheGuardThatFollowsIt
+    , testProperty "a let with explicit braces leaves its in nothing to close" prop_aLetWithExplicitBracesLeavesItsInNothingToClose
+    , testProperty "a bar or comma a block can hold leaves the block open" prop_aBarOrCommaABlockCanHoldLeavesTheBlockOpen
+    , testProperty "explicit braces suspend the layout around them, as ghc's compiler writes them" prop_explicitBracesSuspendTheLayoutAroundThemAsGhcsCompilerWritesThem
+    , testProperty "a let in a guard ends at the guard's own equals sign or arrow on a later line" prop_aLetInAGuardEndsAtTheGuardsOwnEqualsSignOrArrowOnALaterLine
+    , testProperty "an operator, a deriving clause, or a pragma that starts a line is read as GHC reads it" prop_anOperatorDerivingClauseOrPragmaThatStartsALineIsReadAsGhcReadsIt
     , testProperty "Haskell declarations and expressions GHC accepts parse" prop_haskellDeclarationsAndExpressionsGhcAcceptsParse
     , testProperty "a Haddock comment in an export list or on a record field is an orphan read in place" prop_aHaddockCommentInAnExportListOrOnARecordFieldIsAnOrphanReadInPlace
     , testProperty "a Haskell syntax error after doc comments is reported where it is" prop_aHaskellSyntaxErrorAfterDocCommentsIsReportedWhereItIs
@@ -962,6 +971,258 @@ prop_theHaskellLayoutClosesBlocksWhereGhcsParseErrorRuleDoes = withTests 1 $ pro
       , "  |]"
       , ""
       , "lookupField rec obj key = rec"
+      ]
+
+-- | GHC closes a case alternative's block at a bar that follows the alternative's body when the
+-- alternative has no guard, so a case written inside a list comprehension compiles; LawSpec had to
+-- parenthesise such cases in Core, Core.Types, Indexed, Model, Refinement, DomainModel and its typed
+-- emitters until canon read them. ref:REQ-haskell-support ref:DEC-layout-parse-error-rule
+-- ref:DEC-layout-bars-commas-and-of
+prop_aCaseAlternativesBodyWithNoGuardEndsAtAComprehensionsBar :: Property
+prop_aCaseAlternativesBodyWithNoGuardEndsAtAComprehensionsBar = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "module Comprehension where"
+      , "substituteIn table t = case t of"
+      , "  TypeVariable v -> fromMaybe t (lookup v table)"
+      , "  Constructor n as -> Constructor n [case a of TypeArgument x -> TypeArgument (substituteIn table x); o -> o | a <- as]"
+      , "  other -> other"
+      , "typeNames (RefinementApp _ args) = concat [case a of TypeArgument t -> typeNames t; ValueArgument e -> exprVars e | a <- args]"
+      , "substituteIndices substitution ty = case ty of"
+      , "  Constructor n args -> Constructor n"
+      , "    [case a of ValueArgument e -> ValueArgument (replaceExprVars substitution e)"
+      , "               TypeArgument t -> TypeArgument (substituteIndices substitution t) | a <- args]"
+      , "  other -> other"
+      , "outputs infos = [\\case Application \"Either\" [_, n] -> n; r -> r | (_, r) <- infos]"
+      , "guarded x | isJust x = case x of Just y -> y | otherwise = 0"
+      ]
+
+-- | GHC closes a let opened in a guard at the comma that follows its bindings, where the guard's
+-- next condition begins; LawSpec's Testing had to bind by a pattern guard instead.
+-- ref:REQ-haskell-support ref:DEC-layout-parse-error-rule ref:DEC-layout-bars-commas-and-of
+prop_aLetInAGuardEndsAtTheGuardsNextComma :: Property
+prop_aLetInAGuardEndsAtTheGuardsNextComma = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "module Guards where"
+      , "finiteScalars bits limit name"
+      , "  | Just (lo,hi) <- integerBounds bits name, hi-lo+1 <= fromIntegral limit ="
+      , "      Just [ScalarValue (SInteger name x) | x <- [lo..hi]]"
+      , "  | name `elem` [\"Bool\", \"Unit\"],"
+      , "      let values = map ScalarValue (scalarBoundaries bits name), length values <= limit = Just values"
+      , "  | otherwise = Nothing"
+      , "pick x = case x of"
+      , "  Just y | let z = y + 1, z > 0 -> z"
+      , "  _ -> 0"
+      ]
+
+-- | GHC closes the blocks opened since a case at its of, so a do block may be the case's
+-- scrutinee; LawSpec's Core.Eval had to name the do block in a let instead.
+-- ref:REQ-haskell-support ref:DEC-layout-parse-error-rule ref:DEC-layout-bars-commas-and-of
+prop_aDoBlockThatIsACasesScrutineeEndsAtTheOf :: Property
+prop_aDoBlockThatIsACasesScrutineeEndsAtTheOf = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "module Scrutinee where"
+      , "every index (item:rest) = do"
+      , "  accepted <- case do"
+      , "    checked <- validate item"
+      , "    run checked >>= valueBoolean of"
+      , "      Left message -> Left (show index ++ message)"
+      , "      Right result -> Right result"
+      , "  if accepted then every (index + 1) rest else Right False"
+      , "inline m = case do { x <- m; pure x } of Just y -> y; Nothing -> 0"
+      ]
+
+-- | GHC closes a do block at a bar that continues its last statement, since no statement holds a
+-- bar, so a binding's second guard may follow a do block in its first; LawSpec's RustEmit had to
+-- reorder its guards. A multi-way if's bars stay in the block. ref:REQ-haskell-support
+-- ref:DEC-layout-parse-error-rule ref:DEC-layout-bars-commas-and-of
+prop_aDoBlockEndsAtTheGuardThatFollowsIt :: Property
+prop_aDoBlockEndsAtTheGuardThatFollowsIt = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "{-# LANGUAGE MultiWayIf #-}"
+      , "module Bars where"
+      , "callbacks entries = forM entries $ \\(index, contract) -> do"
+      , "    let reference ty = do"
+      , "          ref <- typeReference ty"
+      , "          pure ref"
+      , "        key ty | variable ty = do"
+      , "          ref <- typeReference ty"
+      , "          pure (text \"&\" <> ref)"
+      , "               | otherwise = pure (text (typeName ty))"
+      , "    key index"
+      , "choose x = do"
+      , "  y <- if | x > 0 -> pure 1"
+      , "          | otherwise -> pure 2"
+      , "  pure y"
+      ]
+
+-- | A let with explicit braces is closed by its own brace, so the in after it closes no block
+-- around it; LawSpec's runtime had to write such lets with layout.
+-- ref:REQ-haskell-support ref:DEC-layout-parse-error-rule ref:DEC-layout-bars-commas-and-of
+prop_aLetWithExplicitBracesLeavesItsInNothingToClose :: Property
+prop_aLetWithExplicitBracesLeavesItsInNothingToClose = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "module Braces where"
+      , "helper n args bits = case (n,args) of"
+      , "  (\"round\",[a,b]) ->"
+      , "    let { x = either error id (exactValue a)"
+      , "        ; scale = either error numerator (exactValue (convert \"Int32\" b bits))"
+      , "        ; factor = if scale >= 0 then 10^scale % 1 else 1 % 10^(-scale)"
+      , "        }"
+      , "    in either error id (decimal (fromInteger (round (x*factor)) / factor))"
+      , "  _ -> error \"unknown helper or wrong arity\""
+      , "sample t = do"
+      , "  let { n = case t of Just m -> m; Nothing -> 0 }"
+      , "  pure n"
+      ]
+
+-- | The bars and commas a block can hold leave it open: a guarded alternative's next guard, a
+-- multi-way if's guards and their commas, a binding's guard commas, and a let's signature naming
+-- several bindings. ref:REQ-haskell-support ref:DEC-layout-parse-error-rule
+-- ref:DEC-layout-bars-commas-and-of
+prop_aBarOrCommaABlockCanHoldLeavesTheBlockOpen :: Property
+prop_aBarOrCommaABlockCanHoldLeavesTheBlockOpen = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "{-# LANGUAGE MultiWayIf #-}"
+      , "module Open where"
+      , "sign x = case x of n | n > 0 -> 1 | n < 0, odd n -> -1 | otherwise -> 0"
+      , "signs x = [case x of n | n > 0 -> 1 | otherwise -> 0, 2]"
+      , "grade x = do"
+      , "  if | x > 90, even x -> pure 'A' | otherwise -> pure 'B'"
+      , "pair = let a, b :: Int"
+      , "           a = 1"
+      , "           b = 2 in (a, b)"
+      , "small = let f x | x > 0, x < 10 = True"
+      , "                | otherwise = False in f 3"
+      , "class Convert a b | a -> b where"
+      , "  convert :: a -> b"
+      , "data Shape = Circle | Square"
+      ]
+
+-- | Inside an explicit brace, a layout keyword's or a record's, the Haskell report suspends the
+-- layout of the blocks around it, and ghc's compiler relies on it: statement and declaration lists
+-- that begin with semicolons, a case's explicit alternatives whose last opens a do block at the
+-- enclosing statements' indentation, a closing brace that starts a line below the blocks it is
+-- inside, and a record whose fields stand level with the let that binds it.
+-- ref:REQ-haskell-support ref:DEC-layout-bars-commas-and-of
+prop_explicitBracesSuspendTheLayoutAroundThemAsGhcsCompilerWritesThem :: Property
+prop_explicitBracesSuspendTheLayoutAroundThemAsGhcsCompilerWritesThem = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "module Braces where"
+      , "derive x ="
+      , "    do  {"
+      , "        -- the deriving stuff"
+      , "        ; traceTc \"rnd\" x"
+      , "        ; let  { ; !rules = update x"
+      , "               ; other = 2 }"
+      , "        ; rec { a <- g b"
+      , "              ; b <- h a }"
+      , "        ; return a }"
+      , "ticks pos = do"
+      , "  tickish <- getEnv"
+      , "  case tickish of { ProfNotes | inline -> return pos; _ -> do"
+      , ""
+      , "  selTicks <- recSelTick pos"
+      , "  return selTicks }"
+      , "check r = do { case r of Stale reason -> return reason ; _ -> do {"
+      , "       ; when oneShot $ do {"
+      , "          ; update 1"
+      , "       }"
+      , "       ; recomp <- check r"
+      , "       ; return recomp } }"
+      , "summary = do"
+      , "    let ms = ModSummary {"
+      , "        ms_mod = m,"
+      , "        ms_parsed = Just (Parsed {"
+      , "                hpm_module = 1"
+      , "            }),"
+      , "        ms_file = \"\""
+      , "        }"
+      , "    return ms"
+      ]
+
+-- | A let in a guard ends at the guard's own equals sign, or a case alternative's arrow, even on a
+-- later line or after a record pattern spread over lines, while a let's signature and a pattern
+-- binding with a signature and guards keep their arrows and bars. ref:REQ-haskell-support
+-- ref:DEC-layout-bars-commas-and-of
+prop_aLetInAGuardEndsAtTheGuardsOwnEqualsSignOrArrowOnALaterLine :: Property
+prop_aLetInAGuardEndsAtTheGuardsOwnEqualsSignOrArrowOnALaterLine = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "module GuardLets where"
+      , "isSrc (TyCon { tyConDetails = details })"
+      , "  | AlgTyCon { algTcRhs = rhs } <- details"
+      , "  , let isSrcParent = isNoParent parent"
+      , "              = case rhs of"
+      , "                   DataTyCon {}  -> isSrcParent"
+      , "                   _             -> False"
+      , "  | otherwise = False"
+      , "update range mb"
+      , "  | Just prev <- mb"
+      , "  , let Edits"
+      , "          { insertEdit = prevInsert"
+      , "          , deleteEdit = prevDelete } = prev"
+      , "  , let start = prevInsert"
+      , "  = start"
+      , "  | otherwise = range"
+      , "annotate w = case w of"
+      , "  Wrapper value | let serialized = toSerialized value ->"
+      , "      serialized"
+      , "  _ -> \\x -> x"
+      , "frame = do"
+      , "     let apply :: [Fit] -> ([Fit] -> M [Fit]) -> M [Fit]"
+      , "         apply fits f = f fits"
+      , "         header :: Int"
+      , "           | tupleFrame = 3"
+      , "           | otherwise = 1"
+      , "     return header"
+      ]
+
+-- | No statement starts with an infix operator, so one that starts a line level with a do block
+-- applies to the block; a deriving clause ends a GADT's constructors; a pragma that starts a line, as
+-- an SCC before a statement, is the line's first lexeme; a record field's pattern may be a view
+-- pattern; and \cases opens alternatives of several patterns. ghc's compiler and ghcide write each.
+-- ref:REQ-haskell-support ref:DEC-layout-bars-commas-and-of
+prop_anOperatorDerivingClauseOrPragmaThatStartsALineIsReadAsGhcReadsIt :: Property
+prop_anOperatorDerivingClauseOrPragmaThatStartsALineIsReadAsGhcReadsIt = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "{-# LANGUAGE LambdaCase, GADTs, ViewPatterns, TypeFamilies #-}"
+      , "module Lines where"
+      , "data Message where"
+      , "  Unknown :: Int -> Message"
+      , "  {- | Too many."
+      , "  -}"
+      , "  TooMany :: Message"
+      , "  deriving Generic"
+      , "instance Family Int where"
+      , "  data Key Int where"
+      , "    IntKey :: Key Int"
+      , "    deriving Show"
+      , "  size = 1"
+      , "lookupBoth env name = do"
+      , "  lookupNameEnv (home env) name"
+      , "  <|> lookupNameEnv (external env) name"
+      , "output config = do"
+      , "  let platform = config"
+      , "  {-# SCC \"seqString\" #-} evaluate platform"
+      , "  return ()"
+      , "kind (FamDecl { fam ="
+      , "  FamilyDecl { name     = unLoc -> n"
+      , "             , tyVars   = vs } }) = n"
+      , "mkRange = \\cases"
+      , "  (Just x) (Just y) | x > y -> Nothing"
+      , "  x y -> Just (x, y)"
+      , "run = do"
+      , "  setup"
+      , "  do"
+      , "    serve"
       ]
 
 -- | GHC accepts constructors on a data instance, a type application between arguments, a record

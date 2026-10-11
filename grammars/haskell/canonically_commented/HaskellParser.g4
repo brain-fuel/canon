@@ -508,7 +508,7 @@ decl_cls
 
 /** The declarations of a class body. */
 decls_cls
-    : decl_cls (semi+ decl_cls)* semi*
+    : semi* decl_cls (semi+ decl_cls)* semi*
     ;
 
 /** The layout block of a class body. */
@@ -533,7 +533,7 @@ decl_inst
 
 /** The declarations of an instance body. A canonical comment on an instance method binding is an orphan. */
 decls_inst
-    : (orphan = canonicalComment)* decl_inst (semi+ (orphan = canonicalComment)* decl_inst)* semi*
+    : semi* (orphan = canonicalComment)* decl_inst (semi+ (orphan = canonicalComment)* decl_inst)* semi*
     ;
 
 /** The layout block of an instance body. */
@@ -550,9 +550,11 @@ where_inst
 
 // Declarations in binding groups other than classes and instances
 //
+// canon: a declaration list may begin with semicolons, as ghc's compiler writes let { ; x = 1 }.
+// ref:DEC-layout-bars-commas-and-of
 /** The declarations of a binding group. A canonical comment on a local binding is an orphan. */
 decls
-    : (orphan = canonicalComment)* decl (semi+ (orphan = canonicalComment)* decl)* semi*
+    : semi* (orphan = canonicalComment)* decl (semi+ (orphan = canonicalComment)* decl)* semi*
     ;
 
 /** The layout block of a binding group. */
@@ -1550,9 +1552,11 @@ stmtlist
     : open_ stmts? close
     ;
 
+// canon: a statement list may begin with semicolons, as ghc's compiler writes do { ; x ; y }.
+// ref:DEC-layout-bars-commas-and-of
 /** One or more statements. */
 stmts
-    : stmt (semi+ stmt)* semi*
+    : semi* stmt (semi+ stmt)* semi*
     ;
 
 /** A statement: a qualifier or a recursive block. */
@@ -1588,8 +1592,10 @@ fbinds
 // 2) In the punning case, use a place-holder
 // The renamer fills in the final value
 /** One field binding, possibly punned. */
+// canon: as in GHC, a field's pattern may be a view pattern, as in R { x = unLoc -> s }.
+// ref:DEC-layout-bars-commas-and-of
 fbind
-    : (qvar '=' exp)
+    : (qvar '=' texp)
     | qvar
     ;
 

@@ -7,6 +7,24 @@ decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/data/HaskellLayout:
   digest: sha256:c063a4732d392618
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/data/Rhs:
+  digest: sha256:be9e35424d527b3b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/atBlockLevel:
+  digest: sha256:27346bf496604a64
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/blockDepth:
+  digest: sha256:b198897527bc73ab
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/bodyBlock:
+  digest: sha256:cdd47f0818632014
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/braceFloor:
+  digest: sha256:5f3cb2923815c43f
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/bracketLayouts:
+  digest: sha256:c83c241ac2205286
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/closeDelimited:
   digest: sha256:3a88c9274b0cd8f5
   verdict: pending
@@ -22,8 +40,17 @@ decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/closeToIndent:
   digest: sha256:b32ed2fa8b9fb2ce
   verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/closeWhile:
+  digest: sha256:0c1a3ecb392a9f0b
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/doBlock:
+  digest: sha256:ac8b6c217cead04c
+  verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/haskellLayoutHooks:
   digest: sha256:fbe26fb2fdc28d26
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/layoutBrace:
+  digest: sha256:ea74691f18fdea06
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/layoutKeywords:
   digest: sha256:7b741aa742248442
@@ -39,4 +66,16 @@ decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell
   verdict: pending
 decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/operatorToken:
   digest: sha256:39b2684d3df029da
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/pushed:
+  digest: sha256:8c4f660a39b7a894
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/rhsState:
+  digest: sha256:2a1471bd4f910d7e
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/setRhs:
+  digest: sha256:7566593e654509a4
+  verdict: pending
+decision/haskell/src/Canon/Antlr4/Lex/Haskell.hs/module/Canon.Antlr4.Lex.Haskell/function/typedRhs:
+  digest: sha256:e8748022af4b342a
   verdict: pending

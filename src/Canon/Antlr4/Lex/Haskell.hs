@@ -51,16 +51,34 @@ data HaskellLayout = HaskellLayout
   , lineStart :: Int
   , quasiQuotes :: Bool
   , recursiveDo :: Bool
+  , rhsStates :: [(Int, Rhs)]
+  , caseLayouts :: [Int]
+  , lastType :: Text
+  , explicitLetClosed :: Bool
+  , lambdaDepths :: [Int]
+  , dataHead :: Maybe Int
+  , pendingGadt :: Bool
+  , gadtBlocks :: [Int]
+  , pragmaIndent :: Bool
   }
+  deriving (Eq, Show)
+
+-- | Where the current alternative, binding, or statement of a block stands, read from the tokens at
+-- the block's own level: before any bar or arrow, in a guard, in the body after a guard, in a body
+-- with no guard, in a body after its type annotation, guarded or not, in a type signature, or in a
+-- multi-way if's guards. A bar after a body with no guard, or a comma, an equals sign, or an arrow after any body,
+-- cannot continue the block, so the parse-error rule closes it there.
+-- ref:DEC-layout-parse-error-rule ref:DEC-layout-bars-commas-and-of
+data Rhs = Lhs | Signature | Guarded | GuardedRhs | Unguarded | TypedRhs Bool | MultiIf
   deriving (Eq, Show)
 
 -- | The bracket that opened a delimited span: a parenthesis or list bracket, or the brace of a
 -- record, which no layout keyword opened.
-data Delimiter = Bracket | RecordBrace
+data Delimiter = Bracket | RecordBrace | LayoutBrace Text
   deriving (Eq, Show)
 
 initialLayout :: Choice -> HaskellLayout
-initialLayout choice = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 [] [] [] [] Nothing Nothing Nothing Nothing Nothing [] Map.empty choice 0 False False
+initialLayout choice = HaskellLayout True 0 [] Nothing "" False False False False False False (-1) 0 [] [] [] [] Nothing Nothing Nothing Nothing Nothing [] Map.empty choice 0 False False [] [] "" False [] Nothing False [] False
 
 -- | The hooks for the Haskell grammar, reading the conditional branches a build selects.
 -- ref:DEC-preprocessor-builds
@@ -85,9 +103,9 @@ hidden = EffectChannel hiddenChannelName
 
 onAction :: Name -> ActionText -> Text -> Text -> HaskellLayout -> (HaskellLayout, [HookEffect])
 onAction _ action matched _ s
-  | calls "processNEWLINEToken" = (s {indentCount = 0, initialIndent = Nothing}, [hidden | pendingDent s])
-  | calls "processTABToken" = (s {indentCount = if pendingDent s then indentCount s + 8 * T.length matched else indentCount s}, [hidden])
-  | calls "processWSToken" = (s {indentCount = if pendingDent s then indentCount s + T.length matched else indentCount s}, [hidden])
+  | calls "processNEWLINEToken" = (s {indentCount = 0, initialIndent = Nothing, pragmaIndent = False}, [hidden | pendingDent s])
+  | calls "processTABToken" = (s {indentCount = if pendingDent s && not (pragmaIndent s) then indentCount s + 8 * T.length matched else indentCount s}, [hidden])
+  | calls "processWSToken" = (s {indentCount = if pendingDent s && not (pragmaIndent s) then indentCount s + T.length matched else indentCount s}, [hidden])
   | calls "SetHidden" = (s, [hidden])
   | otherwise = (s, [])
   where
@@ -107,8 +125,11 @@ onEmit :: Token -> HaskellLayout -> ([Token], HaskellLayout)
 onEmit next s0
   | ty == "CPP_DIRECTIVE" = ([next], s {cppBranches = branches', cppKnown = known'})
   | not (reading (cppBranches s)) && ty /= "EOF" = ([next {tokenChannel = hiddenChannelName}], s)
+  -- A pragma that starts a line, as an SCC before a statement, is a lexeme as GHC reads it, so the
+  -- line is indented to the pragma rather than to the token after it.
+  -- ref:DEC-layout-bars-commas-and-of
   | tokenChannel next == hiddenChannelName && ty `notElem` ["NEWLINE", "WS", "TAB"] =
-      ([next], s {quasiQuotes = quasiQuotes s || enables "QuasiQuotes", recursiveDo = recursiveDo s || enables "RecursiveDo" || enables "Arrows"})
+      ([next], s {pragmaIndent = pragmaIndent s || (ty == "PRAGMA" && pendingDent s && indentCount s == column next), quasiQuotes = quasiQuotes s || enables "QuasiQuotes", recursiveDo = recursiveDo s || enables "RecursiveDo" || enables "Arrows"})
   | otherwise = runState (step next) s
   where
     ty = nameText (tokenType next)
@@ -174,7 +195,7 @@ closeToIndent :: Token -> Layout ()
 closeToIndent next = do
   s <- get
   case indentStack s of
-    (_ : rest) | indentCount s < savedIndent s -> do
+    (_ : rest) | indentCount s < savedIndent s && blockDepth s > braceFloor s -> do
       put s {indentStack = rest, nestedLevel = max 0 (nestedLevel s - 1)}
       closeWith next
       closeToIndent next
@@ -238,10 +259,13 @@ stepCode before ty next = do
   early <- startOfFile ty
   case early of
     Just tokens -> do
+      when (ty `elem` ["DATA", "NEWTYPE"]) $ modify (\x -> x {dataHead = Just (blockDepth x)})
       held <- takeHeld
       pure (before ++ withHeld (closeDocs held) tokens)
     Nothing -> do
       afterKeyword <- gets prevWasKeyWord
+      afterExplicitLet <- gets explicitLetClosed
+      previousType <- gets lastType
       -- An equals sign or arrow that touches another operator character is part of an operator, as
       -- the equals sign of /= or ==, and neither ends a guard nor a binding; the lexer reads such an
       -- operator as several tokens, so the hook looks at the token before and undoes what the token
@@ -252,7 +276,7 @@ stepCode before ty next = do
         Just (end, (g, o, l)) | end == tokenStart next && operatorToken next -> modify (\x -> x {guardBlock = g, openGuard = o, guardLet = l})
         _ -> pure ()
       when (tokenChannel next /= hiddenChannelName && ty /= "NEWLINE") $
-        modify (\x -> x {undoEquals = Nothing, lastCode = Just (tokenEnd next, operatorToken next)})
+        modify (\x -> x {undoEquals = Nothing, lastCode = Just (tokenEnd next, operatorToken next), lastType = ty, explicitLetClosed = False})
       snapshot <- gets (\x -> (guardBlock x, openGuard x, guardLet x))
       let equalsSign = ty `elem` ["Arrow", "Eq"] && not touchesOperator
       when equalsSign $ modify (\x -> x {undoEquals = Just (tokenEnd next, snapshot)})
@@ -265,22 +289,27 @@ stepCode before ty next = do
         modify (\x -> x {ignoreIndent = True, prevWasEndl = False})
       s1 <- get
       when (prevWasKeyWord s1 && not (prevWasEndl s1) && not (moduleStartIndent s1) && ty `notElem` ["WS", "NEWLINE", "TAB", "OCURLY"]) $ do
-        put s1 {prevWasKeyWord = False, indentStack = (lastKeyWord s1, column next) : indentStack s1}
+        put (pushed s1 {prevWasKeyWord = False, indentStack = (lastKeyWord s1, column next) : indentStack s1})
         enqueue =<< createToken "VOCURLY" next
       s2 <- get
       when (ignoreIndent s2 && ty `elem` ("CCURLY" : layoutKeywords)) $ modify (\x -> x {ignoreIndent = False})
       s3 <- get
-      when (pendingDent s3 && prevWasKeyWord s3 && not (ignoreIndent s3) && indentCount s3 <= savedIndent s3 && ty `notElem` ["NEWLINE", "WS"]) $ do
+      when (pendingDent s3 && prevWasKeyWord s3 && not (ignoreIndent s3) && indentCount s3 <= savedIndent s3 && blockDepth s3 > braceFloor s3 && ty `notElem` ["NEWLINE", "WS"]) $ do
         enqueue =<< createToken "VOCURLY" next
         modify (\x -> x {prevWasKeyWord = False, prevWasEndl = True})
       s3b <- get
       -- A closing brace that starts a line closes the implicit blocks above it only when it closes
       -- an explicit layout block; a record's closing brace, written level with the statements of
       -- the do around it, closes nothing. ref:DEC-haskell-grammar-fixes
-      let recordBrace = case delimiterLayouts s3b of
+      let recordBrace = case bracketLayouts s3b of
             (RecordBrace, _) : _ -> True
             _ -> False
-      when (pendingDent s3b && prevWasEndl s3b && (ty == "WHERE" || (ty == "CCURLY" && not recordBrace)) && indentCount s3b <= savedIndent s3b && nestedLevel s3b > 0) $ do
+          -- A brace closing a layout keyword's explicit brace closes only the blocks opened inside
+          -- it, which its own rule below does. ref:DEC-layout-bars-commas-and-of
+          layoutClose = case delimiterLayouts s3b of
+            (LayoutBrace _, _) : _ -> True
+            _ -> False
+      when (pendingDent s3b && prevWasEndl s3b && (ty == "WHERE" || (ty == "CCURLY" && not recordBrace && not layoutClose)) && indentCount s3b <= savedIndent s3b && nestedLevel s3b > 0) $ do
         closeNested next
         closeToIndentInclusive next
         modify (\x -> x {prevWasEndl = False})
@@ -290,30 +319,103 @@ stepCode before ty next = do
       -- after a do in its first. ref:DEC-haskell-grammar-fixes ref:DEC-layout-parse-error-rule
       sBar <- get
       when (ty == "Pipe" && pendingDent sBar && prevWasEndl sBar && not (ignoreIndent sBar)) $ closeLevel next
+      -- No statement starts with an infix operator, so one that starts a line level with a do
+      -- block ends the block and applies to it, as in a do block's last statement followed by <|>
+      -- and another. ref:DEC-layout-bars-commas-and-of
+      sOp <- get
+      when (ty `elem` ["VARSYM", "CONSYM"] && tokenText next `notElem` ["-", "!", "~", "$", "$$"] && pendingDent sOp && prevWasEndl sOp && not (ignoreIndent sOp) && indentCount sOp == savedIndent sOp && blockDepth sOp > braceFloor sOp) $
+        case indentStack sOp of
+          ((kw, _) : rest) | doBlock kw -> do
+            put sOp {indentStack = rest, nestedLevel = max 0 (nestedLevel sOp - 1)}
+            closeWith next
+          _ -> pure ()
+      -- A deriving clause cannot stand among a GADT's constructors, so it closes their block and
+      -- derives for the data type. ref:DEC-layout-bars-commas-and-of
+      when (ty == "DERIVING") $ do
+        sDer <- get
+        when (take 1 (gadtBlocks sDer) == [blockDepth sDer] && atBlockLevel sDer) $ do
+          put sDer {indentStack = drop 1 (indentStack sDer), nestedLevel = max 0 (nestedLevel sDer - 1)}
+          closeWith next
       s4 <- get
       when
         ( pendingDent s4
             && prevWasEndl s4
             && not (ignoreIndent s4)
             && indentCount s4 <= savedIndent s4
-            && ty `notElem` ["NEWLINE", "WS", "WHERE", "IN", "DO", "MDO", "OF", "LCASE", "REC", "CCURLY", "EOF"]
+            && not (prevWasKeyWord s4 && blockDepth s4 <= braceFloor s4)
+            -- A do, mdo, rec, or \\case that starts a line level with a block starts a statement or
+            -- binding there, as any expression does. ref:DEC-layout-bars-commas-and-of
+            && ty `notElem` ["NEWLINE", "WS", "WHERE", "IN", "OF", "CCURLY", "EOF"]
         )
         $ do
           closeNested next
           closeToIndent next
           s5 <- get
-          when (indentCount s5 == savedIndent s5) $ enqueue =<< createToken "SEMI" next
+          when (indentCount s5 == savedIndent s5 && blockDepth s5 > braceFloor s5) $ do
+            enqueue =<< createToken "SEMI" next
+            modify (\x -> (setRhs Lhs x) {dataHead = Nothing})
           modify (\x -> x {prevWasEndl = False})
           s6 <- get
           when (indentCount s6 == startIndent s6) $ modify (\x -> x {pendingDent = False})
       s7 <- get
-      when (pendingDent s7 && prevWasKeyWord s7 && not (moduleStartIndent s7) && not (ignoreIndent s7) && indentCount s7 > savedIndent s7 && ty `notElem` ["NEWLINE", "WS", "EOF"]) $ do
+      when (pendingDent s7 && prevWasKeyWord s7 && not (moduleStartIndent s7) && not (ignoreIndent s7) && (indentCount s7 > savedIndent s7 || blockDepth s7 <= braceFloor s7) && ty `notElem` ["NEWLINE", "WS", "EOF"]) $ do
         modify (\x -> x {prevWasKeyWord = False})
         s8 <- get
-        when (prevWasEndl s8) $ put s8 {indentStack = (lastKeyWord s8, indentCount s8) : indentStack s8, prevWasEndl = False}
+        when (prevWasEndl s8) $ put (pushed s8 {indentStack = (lastKeyWord s8, indentCount s8) : indentStack s8, prevWasEndl = False})
         enqueue =<< createToken "VOCURLY" next
       s9 <- get
       when (pendingDent s9 && initialIndent s9 == Nothing && ty /= "NEWLINE") $ modify (\x -> x {initialIndent = Just next})
+      -- The parse-error rule of the layout algorithm at a bar, a comma, and an of: a bar after a
+      -- body with no guard, or in a do block, ends the block, as a case alternative's body before a
+      -- comprehension's bar, or a do block before the guard after it; outside brackets, a comma after
+      -- a body ends the block, as a let in a guard before the guard's next condition; and an of ends
+      -- the blocks opened since its case, as a do block that is a case's scrutinee. A bar right
+      -- after if starts a multi-way if's guards, which hold bars and commas of their own.
+      -- ref:DEC-layout-parse-error-rule ref:DEC-layout-bars-commas-and-of
+      when (ty == "Pipe" && not touchesOperator) $
+        if previousType == "IF"
+          then modify (\x -> if atBlockLevel x then setRhs MultiIf x else x)
+          else closeWhile next (\kw r -> (doBlock kw && r /= MultiIf) || (bodyBlock kw && r `elem` [Unguarded, TypedRhs False]))
+      when (ty == "Comma") $ do
+        outside <- gets (null . bracketLayouts)
+        when outside $ do
+          before' <- gets blockDepth
+          closeWhile next (\kw r -> (doBlock kw && r /= MultiIf) || (bodyBlock kw && (r `elem` [Unguarded, GuardedRhs] || typedRhs r)))
+          after' <- gets blockDepth
+          when (after' < before') $ modify (\x -> x {guardLet = Nothing})
+      when (ty == "OF") $ do
+        saved <- gets caseLayouts
+        case saved of
+          depth : rest -> do
+            closeDelimited next depth
+            modify (\x -> x {caseLayouts = rest})
+          [] -> pure ()
+      when (ty == "CASE") $ modify (\x -> x {caseLayouts = blockDepth x : caseLayouts x})
+      -- An equals sign, or an arrow other than a lambda's, after the body of a let's binding or a
+      -- case's alternative ends the block, as a let in a guard ends at the guard's own equals sign
+      -- or arrow. ref:DEC-layout-bars-commas-and-of
+      lambdaArrow <- gets (\x -> ty == "Arrow" && atBlockLevel x && take 1 (lambdaDepths x) == [blockDepth x])
+      when lambdaArrow $ modify (\x -> x {lambdaDepths = drop 1 (lambdaDepths x)})
+      when (equalsSign && not lambdaArrow) $ do
+        before' <- gets blockDepth
+        closeWhile next (\kw r -> bodyBlock kw && (r `elem` [Unguarded, GuardedRhs] || (ty == "Eq" && typedRhs r)))
+        after' <- gets blockDepth
+        when (after' < before') $ modify (\x -> x {guardLet = case guardLet x of Just (d, _) | d > after' -> Nothing; other -> other})
+      sRhs <- get
+      when (atBlockLevel sRhs && tokenChannel next /= hiddenChannelName) $
+        case ty of
+          "Pipe" | not touchesOperator, rhsState sRhs `elem` [Lhs, Signature, GuardedRhs, TypedRhs True] -> put (setRhs Guarded sRhs)
+          "Semi" -> put ((setRhs Lhs sRhs) {dataHead = Nothing})
+          "ReverseSlash" -> put sRhs {lambdaDepths = blockDepth sRhs : filter (< blockDepth sRhs) (lambdaDepths sRhs)}
+          "DoubleColon" | rhsState sRhs == Lhs -> put (setRhs Signature sRhs)
+                        | rhsState sRhs == Unguarded -> put (setRhs (TypedRhs False) sRhs)
+                        | rhsState sRhs == GuardedRhs -> put (setRhs (TypedRhs True) sRhs)
+          _ | ty `elem` ["DATA", "NEWTYPE"] -> put sRhs {dataHead = Just (blockDepth sRhs)}
+            | ty == "WHERE" -> put sRhs {pendingGadt = dataHead sRhs == Just (blockDepth sRhs), dataHead = Nothing}
+            | equalsSign && not lambdaArrow, rhsState sRhs == Lhs -> put (setRhs Unguarded sRhs)
+            | ty == "Eq", rhsState sRhs == Signature -> put (setRhs Unguarded sRhs)
+            | equalsSign && not lambdaArrow, rhsState sRhs == Guarded -> put (setRhs GuardedRhs sRhs)
+          _ -> pure ()
       when (ty == "NEWLINE") $ modify (\x -> x {prevWasEndl = True})
       when (ty `elem` layoutKeywords) $ do
         modify (\x -> x {nestedLevel = nestedLevel x + 1, prevWasKeyWord = True, prevWasEndl = False, lastKeyWord = tokenText next})
@@ -323,7 +425,7 @@ stepCode before ty next = do
       when (ty == "OCURLY") $ do
         -- A brace no layout keyword opened is a record's, whose fields a comma parts.
         s11 <- get
-        when (not afterKeyword) $ put s11 {delimiterLayouts = (RecordBrace, length (indentStack s11)) : delimiterLayouts s11}
+        put s11 {delimiterLayouts = (if afterKeyword then LayoutBrace (lastKeyWord s11) else RecordBrace, length (indentStack s11)) : delimiterLayouts s11, pendingGadt = pendingGadt s11 && not afterKeyword}
         modify (\x -> x {prevWasKeyWord = False})
       -- An unboxed tuple's brackets and a quotation's are brackets too. ref:DEC-haskell-grammar-fixes
       when (ty `elem` openingBrackets) $
@@ -337,10 +439,17 @@ stepCode before ty next = do
           [] -> pure ()
       when (ty == "CCURLY") $ do
         saved <- gets delimiterLayouts
+        -- An explicit brace of a layout keyword closes the implicit blocks opened inside it, and
+        -- one of a let leaves the in after it nothing to close. ref:DEC-layout-parse-error-rule
         case saved of
           (RecordBrace, depth) : rest -> do
             closeDelimited next depth
-            modify (\x -> x {delimiterLayouts = rest})
+            -- A record's brace that starts a line is that line's first token, so the token after it
+            -- continues the line rather than starting an item. ref:DEC-layout-bars-commas-and-of
+            modify (\x -> x {delimiterLayouts = rest, prevWasEndl = False})
+          (LayoutBrace kw, depth) : rest -> do
+            closeDelimited next depth
+            modify (\x -> x {delimiterLayouts = rest, explicitLetClosed = kw == "let", prevWasEndl = False})
           _ -> pure ()
       -- The parse-error rule of the layout algorithm closes an implicit block at a token the block
       -- cannot hold. Two such tokens are known here: a comma of the brackets around the block, as
@@ -349,7 +458,7 @@ stepCode before ty next = do
       -- sign. ref:DEC-haskell-grammar-fixes ref:DEC-layout-parse-error-rule
       when (ty == "Pipe") $ do
         s12 <- get
-        case delimiterLayouts s12 of
+        case bracketLayouts s12 of
           (_, depth) : _ | length (indentStack s12) > depth -> put s12 {guardBlock = Just (length (indentStack s12))}
           _ -> pure ()
       -- Only the guard's own arrow or equals sign ends it, not one of a let inside the guard, so a
@@ -357,14 +466,14 @@ stepCode before ty next = do
       when equalsSign $ modify (\x -> if maybe True (>= length (indentStack x)) (guardBlock x) then x {guardBlock = Nothing} else x)
       when (ty == "Comma") $ do
         s13 <- get
-        case delimiterLayouts s13 of
+        case bracketLayouts s13 of
           (_, depth) : _ | guardBlock s13 /= Just (length (indentStack s13)) -> closeDelimited next depth
           _ -> pure ()
       -- A let in a guard is closed by the equals sign that ends the guard, the second one at the
       -- level of its bindings since the binding began. ref:DEC-layout-parse-error-rule
       -- A bar directly inside brackets is a comprehension's, not a guard's.
-      when (ty == "Pipe") $ modify (\x -> case delimiterLayouts x of
-        (_, depth) : _ | depth == length (indentStack x) -> x
+      when (ty == "Pipe") $ modify (\x -> case bracketLayouts x of
+        (kind, depth) : _ | not (layoutBrace kind), depth == length (indentStack x) -> x
         _ -> x {openGuard = Just (length (indentStack x))})
       when (ty == "LET") $ do
         s14 <- get
@@ -375,8 +484,8 @@ stepCode before ty next = do
         let n = length (indentStack s15)
             endGuard = modify (\x -> x {openGuard = if maybe False (>= n) (openGuard x) then Nothing else openGuard x, guardLet = case guardLet x of Just (d, _) | n < d -> Nothing; other -> other})
         case guardLet s15 of
-          Just (d, False) | n == d, ty == "Eq" -> put s15 {guardLet = Just (d, True)}
-          Just (d, True) | n == d, ty == "Eq" -> do
+          Just (d, False) | n == d, ty == "Eq", atBlockLevel s15 -> put s15 {guardLet = Just (d, True)}
+          Just (d, True) | n == d, ty == "Eq", atBlockLevel s15 -> do
             closeDelimited next (d - 1)
             modify (\x -> x {guardLet = Nothing, openGuard = Nothing})
           _ -> endGuard
@@ -391,7 +500,7 @@ stepCode before ty next = do
       if tokenChannel next == hiddenChannelName || ty == "NEWLINE"
         then pure (before ++ [next])
         else do
-          when (ty == "IN") $ processIn next
+          when (ty == "IN" && not afterExplicitLet) $ processIn next
           when (ty == "EOF") $ processEof next
           modify (\x -> x {pendingDent = True})
           queued <- takeQueue
@@ -426,6 +535,79 @@ stepCode before ty next = do
                 else pure Nothing
         else pure Nothing
 
+-- | How many implicit blocks are open.
+blockDepth :: HaskellLayout -> Int
+blockDepth = length . indentStack
+
+-- | The open brackets and record braces, without the explicit braces of layout keywords, which
+-- the rules for commas, bars, and closing braces written before them do not see.
+bracketLayouts :: HaskellLayout -> [(Delimiter, Int)]
+bracketLayouts = filter (not . layoutBrace . fst) . delimiterLayouts
+
+-- | How many implicit blocks were open when the innermost explicit brace opened, a layout
+-- keyword's or a record's: inside the brace, indentation neither closes those blocks nor parts their
+-- items, as the layout algorithm suspends them there. ref:DEC-layout-bars-commas-and-of
+braceFloor :: HaskellLayout -> Int
+braceFloor s = case [d | (kind, d) <- delimiterLayouts s, kind /= Bracket] of
+  d : _ -> d
+  [] -> -1
+
+-- | Whether a token stands at the level of the innermost implicit block, inside no bracket or
+-- explicit brace opened in it.
+atBlockLevel :: HaskellLayout -> Bool
+atBlockLevel s = case delimiterLayouts s of
+  (_, depth) : _ -> depth < blockDepth s
+  [] -> True
+
+-- | Where the innermost block's current alternative, binding, or statement stands.
+rhsState :: HaskellLayout -> Rhs
+rhsState s = maybe Lhs id (lookup (blockDepth s) (rhsStates s))
+
+-- | Sets where the innermost block's current alternative stands, forgetting the blocks closed.
+setRhs :: Rhs -> HaskellLayout -> HaskellLayout
+setRhs r s = s {rhsStates = (n, r) : filter ((< n) . fst) (rhsStates s)}
+  where
+    n = blockDepth s
+
+-- | Whether a body has had its type annotated.
+typedRhs :: Rhs -> Bool
+typedRhs r = case r of
+  TypedRhs _ -> True
+  _ -> False
+
+-- | A block just opened: its first alternative stands before any bar or arrow, and it holds a GADT's
+-- constructors when a data declaration's where opened it.
+pushed :: HaskellLayout -> HaskellLayout
+pushed s = (setRhs Lhs s) {gadtBlocks = [n | pendingGadt s] ++ filter (< n) (gadtBlocks s), pendingGadt = False}
+  where
+    n = blockDepth s
+
+-- | A do block, whose statements hold no bar or comma of their own.
+doBlock :: Text -> Bool
+doBlock kw = kw `elem` ["do", "mdo", "rec"]
+
+-- | A block of alternatives or bindings, whose bodies hold no bar or comma of their own.
+bodyBlock :: Text -> Bool
+bodyBlock kw = kw `elem` ["of", "let"] || "\\" `T.isPrefixOf` kw
+
+-- | An explicit brace of a layout keyword.
+layoutBrace :: Delimiter -> Bool
+layoutBrace d = case d of
+  LayoutBrace _ -> True
+  _ -> False
+
+-- | Closes the innermost implicit block while the token stands at its level and the block, by its
+-- keyword and where its current alternative stands, cannot hold the token.
+closeWhile :: Token -> (Text -> Rhs -> Bool) -> Layout ()
+closeWhile next cannotHold = do
+  s <- get
+  case indentStack s of
+    ((kw, _) : rest) | atBlockLevel s && cannotHold kw (rhsState s) -> do
+      put s {indentStack = rest, nestedLevel = max 0 (nestedLevel s - 1)}
+      closeWith next
+      closeWhile next cannotHold
+    _ -> pure ()
+
 -- | Tells a token made of operator characters, which may be part of a longer operator.
 operatorToken :: Token -> Bool
 operatorToken t = not (T.null (tokenText t)) && T.all (`elem` ("!#$%&*+./<=>?@\\^|-~:" :: String)) (tokenText t)
@@ -446,7 +628,7 @@ closeLevel :: Token -> Layout ()
 closeLevel next = do
   s <- get
   case indentStack s of
-    ((_, i) : rest) | indentCount s == i -> do
+    ((_, i) : rest) | indentCount s == i && blockDepth s > braceFloor s -> do
       put s {indentStack = rest, nestedLevel = max 0 (nestedLevel s - 1)}
       closeWith next
       closeLevel next

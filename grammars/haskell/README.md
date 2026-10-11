@@ -64,6 +64,23 @@ grammar.
   brackets are brackets; `[d|` opens a layout block as GHC's does; an empty
   module body closes at the end of the file; `rec` and `mdo` open a block only
   where `RecursiveDo` or `Arrows` is on.
+- Layout, in the hook, from canon 0.2.1 (`DEC-layout-bars-commas-and-of`):
+  the hook tracks where each block's current alternative, binding, or
+  statement stands at the block's own level, so a bar after a body with no
+  guard ends a `case`'s or `let`'s block (a `case` inside a comprehension), a
+  bar ends a `do` block (a guard after a `do`), a comma after a body outside
+  brackets ends the block (a `let` in a guard before the next condition), and
+  an equals sign or a non-lambda arrow after a body ends a `let`'s or `case`'s
+  block (a guard's `let` ended by the guard's `=` or an alternative's `->`,
+  across lines); `of` ends the blocks opened since its `case` (a `do` block as
+  scrutinee); a line-leading infix operator ends a `do` block; `deriving`
+  ends a GADT's constructors. Explicit braces, a layout keyword's or a
+  record's, suspend the layout around them as the report says, and the brace
+  closing them closes the blocks opened inside, so a `let { ... }` leaves its
+  `in` nothing to close. A line-leading `do`, `mdo`, `rec`, or `\case`
+  starts an item; a line-leading pragma sets the line's indentation.
+- Leading semicolons in statement and declaration lists, a view pattern as a
+  record field's pattern, and `\cases`.
 
 The dialect adds, beyond the plain grammar: a Haddock comment in an export
 list or on a record field is read where it stands as an orphan, since neither
@@ -98,8 +115,8 @@ as syntax, such as lens's `KVS(k1 k2)`, does not parse.
   `LANGUAGE` pragmas, not in a cabal file's `default-extensions`.
 - The parse-error rule of the layout algorithm is approximated for the
   tokens real code puts where a block cannot hold them (see
-  `DEC-haskell-grammar-fixes`); a let in a guard of a case alternative, closed
-  by the alternative's arrow, and other tokens stay out of reach.
+  `DEC-haskell-grammar-fixes` and `DEC-layout-bars-commas-and-of`); a token
+  no rule names stays out of reach.
 - `UnicodeSyntax` arrows and colons (`→`, `∷`, `⇒`, `∀`) lex as operators, not
   as the reserved symbols they stand for.
 - The grammar is more permissive than GHC: it accepts `...` as an operator in
@@ -119,20 +136,35 @@ out of the files, the failures, the exclusions with their reasons, and the
 slowest files, then parses every file the plain grammar accepted with the
 dialect, which must accept it too. Times are CPU seconds, which do not grow
 with the load of the machine. The script exits non-zero if any file fails.
-canon's own `src/` is the last repository.
+canon's own `src/` is the last repository. The figures are canon 0.2.1's.
 
 | Repository | Commit | Sampled | Files | Parsed | Excluded | Failing | Plain CPU | Dialect CPU |
 |------------|--------|---------|------:|-------:|---------:|--------:|----------:|------------:|
-| [ghc](https://github.com/ghc/ghc) | `575c4bc6cb70` | `libraries/base/` | 520 | 520 | 0 | 0 | 57.5 s | 65.5 s |
-| [jgm/pandoc](https://github.com/jgm/pandoc) | `cbc9cca43735` | whole | 366 | 366 | 0 | 0 | 106.4 s | 129.1 s |
-| [haskell/aeson](https://github.com/haskell/aeson) | `8e0be2d5aecb` | whole | 126 | 126 | 0 | 0 | 23.2 s | 27.2 s |
-| [ekmett/lens](https://github.com/ekmett/lens) | `b931919c4164` | whole | 120 | 119 | 1 | 0 | 24.9 s | 31.8 s |
-| [commercialhaskell/stack](https://github.com/commercialhaskell/stack) | `d5effcd3f32e` | whole | 691 | 690 | 1 | 0 | 92.2 s | 100.6 s |
-| [xmonad/xmonad](https://github.com/xmonad/xmonad) | `284dd52c9c95` | whole | 30 | 30 | 0 | 0 | 5.3 s | 5.7 s |
-| canon `src/` | this tree | `src/` | 68 | 68 | 0 | 0 | 16.4 s | 17.4 s |
+| [ghc](https://github.com/ghc/ghc) | `575c4bc6cb70` | `libraries/base/` | 520 | 520 | 0 | 0 | 26.2 s | 30.6 s |
+| [ghc](https://github.com/ghc/ghc) | `575c4bc6cb70` | `compiler/` | 862 | 861 | 1 | 0 | 86.6 s | 103.6 s |
+| [haskell/containers](https://github.com/haskell/containers) | `953428ad079d` | whole | 79 | 79 | 0 | 0 | 9.1 s | 10.1 s |
+| [haskell/text](https://github.com/haskell/text) | `ba2c00651f90` | whole | 106 | 106 | 0 | 0 | 7.9 s | 8.6 s |
+| [haskell/bytestring](https://github.com/haskell/bytestring) | `05142995e2d6` | whole | 57 | 57 | 0 | 0 | 4.8 s | 5.5 s |
+| [mrkkrp/megaparsec](https://github.com/mrkkrp/megaparsec) | `1ccb703fbc22` | whole | 44 | 44 | 0 | 0 | 3.6 s | 4.4 s |
+| [haskell-servant/servant](https://github.com/haskell-servant/servant) | `c12cc3702a62` | whole | 233 | 233 | 0 | 0 | 14.3 s | 15.6 s |
+| [haskell/haskell-language-server](https://github.com/haskell/haskell-language-server) | `f9e99b35ec4d` | `ghcide/` | 85 | 85 | 0 | 0 | 6.6 s | 7.3 s |
+| [brain-fuel/lawspec](https://github.com/brain-fuel/lawspec) | `4b897c6ae2d7` | whole | 245 | 245 | 0 | 0 | 24.6 s | 26.3 s |
+| [jgm/pandoc](https://github.com/jgm/pandoc) | `cbc9cca43735` | whole | 366 | 366 | 0 | 0 | 34.8 s | 37.8 s |
+| [haskell/aeson](https://github.com/haskell/aeson) | `8e0be2d5aecb` | whole | 126 | 126 | 0 | 0 | 9.1 s | 9.9 s |
+| [ekmett/lens](https://github.com/ekmett/lens) | `b931919c4164` | whole | 120 | 119 | 1 | 0 | 9.1 s | 10.9 s |
+| [commercialhaskell/stack](https://github.com/commercialhaskell/stack) | `d5effcd3f32e` | whole | 691 | 690 | 1 | 0 | 40.3 s | 46.3 s |
+| [xmonad/xmonad](https://github.com/xmonad/xmonad) | `284dd52c9c95` | whole | 30 | 30 | 0 | 0 | 2.2 s | 2.3 s |
+| canon `src/` | this tree | `src/` | 70 | 70 | 0 | 0 | 5.8 s | 6.7 s |
+
+LawSpec is pinned to the commit before it reshaped valid Haskell canon could
+not read (its `DEC-haskell-grammar-workarounds`); ghc's compiler writes the same
+forms, with explicit braces and leading semicolons, throughout.
 
 The excluded files, each a file GHC itself does not compile as it stands:
 
+- `ghc-compiler/compiler/GHC/Builtin/PrimOps.hs` takes `allThePrimOps` from
+  `#include "primop-list.hs-incl"`, a file ghc's build generates; canon reads
+  conditionals but includes no files.
 - `lens/tests/properties.hs` uses `KVS(k1 k2)`, a function-like macro from
   `include/lens-common.h`; canon reads conditionals but expands no macros.
 - `stack/tests/integration/tests/2781-shadow-bug/files/myPackageB/src/MyPackageB.hs`
@@ -149,4 +181,7 @@ are `lens/src/Control/Lens/Tuple.hs` (2.4 s),
 dialect the slowest is `pandoc/src/Text/Pandoc/Writers/Powerpoint/Presentation.hs`
 (3.9 s). A syntax error fails within a second: the 3067-line
 `Powerpoint/Output.hs` with an error at line 101 fails in 0.4 CPU seconds
-through either grammar.
+through either grammar. At canon 0.2.1, all but 16 of the 3,631 files parsed take
+under half a CPU second and none more than two; the slowest are LawSpec's
+`runtime/LawSpecRuntime.hs` (1.1 s) and ghc's
+`compiler/GHC/CmmToAsm/X86/CodeGen.hs` (1.1 s, 1.2 s through the dialect).

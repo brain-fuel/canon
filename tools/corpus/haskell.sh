@@ -23,9 +23,21 @@ PLAIN=("$G/HaskellLexer.g4" "$G/HaskellParser.g4" module)
 DIALECT=("$G/canonically_commented/HaskellLexer.g4" "$G/canonically_commented/HaskellParser.g4" module)
 
 # Repositories: name, URL, pinned commit, and the sparse paths (none means the whole tree).
-# ghc is sampled to libraries/base, the base library every Haskell program links.
+# ghc is sampled to libraries/base, the base library every Haskell program links, and to compiler,
+# which writes case, let, and do inside comprehensions, guards, and scrutinees, and explicit braces
+# with leading semicolons, throughout; haskell-language-server is sampled to ghcide, its core.
+# lawspec is pinned to the commit before it reshaped valid Haskell canon could not read
+# (DEC-layout-bars-commas-and-of).
 REPOS='
 ghc-base https://github.com/ghc/ghc 575c4bc6cb701a3b26982bf36998aad1cf6fa347 /libraries/base/
+ghc-compiler https://github.com/ghc/ghc 575c4bc6cb701a3b26982bf36998aad1cf6fa347 /compiler/
+containers https://github.com/haskell/containers 953428ad079d5708df696442f9bdeaccd1acfc6c
+text https://github.com/haskell/text ba2c00651f9059e0825f301328e5454dfcdeb530
+bytestring https://github.com/haskell/bytestring 05142995e2d6894bc170fdcbf9bd5e384498957d
+megaparsec https://github.com/mrkkrp/megaparsec 1ccb703fbc227f5bdbd3d4575a576af07ddf3a7e
+servant https://github.com/haskell-servant/servant c12cc3702a62df609b5b4fb859bc3e75d4e09747
+hls-ghcide https://github.com/haskell/haskell-language-server f9e99b35ec4d00a5f0b85a2da09baf92812cbfe1 /ghcide/
+lawspec https://github.com/brain-fuel/lawspec 4b897c6ae2d78f15811d51406ee4f14c6b75b76f
 pandoc https://github.com/jgm/pandoc cbc9cca437351718e89aac73ffc2cb142bb17eb4
 aeson https://github.com/haskell/aeson 8e0be2d5aecb60abdbe93d84d9a82702fd9800d9
 lens https://github.com/ekmett/lens b931919c41644b6de51f6d30e3ab255544415fdd
@@ -41,6 +53,7 @@ SLOW='
 # Files listed here are deliberate exclusions, each with its reason; they are counted, not parsed.
 EXCLUDE='
 lens/tests/properties.hs uses KVS(...), a function-like CPP macro from include/lens-common.h; canon reads conditionals but expands no macros
+ghc-compiler/compiler/GHC/Builtin/PrimOps.hs takes allThePrimOps from #include "primop-list.hs-incl", a file the build generates; canon reads conditionals but includes no files
 stack/tests/integration/tests/2781-shadow-bug/files/myPackageB/src/MyPackageB.hs is the text "To be replaced.", not Haskell; the integration test writes the module before building
 '
 
