@@ -53,5 +53,5 @@ languages:
     parser: grammars/antlr4/canonically_commented/ANTLRv4Parser.g4
     start: grammarSpec
 parity:
-  current: [python, javascript, typescript, go, java, kotlin, rust, haskell, erlang, elixir, gleam]
-  planned: [scala, groovy, clojure, fsharp, csharp, swift, prolog, hcl, yaml, antlr4, make, folio]
+  current: [python, javascript, typescript, go, java, kotlin, rust, haskell, erlang, elixir, gleam, scala, groovy, clojure, fsharp, csharp, swift, prolog, hcl, yaml, antlr4, make]
+  planned: [folio]
