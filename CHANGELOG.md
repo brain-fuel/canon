@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-10-21
+
+### Fixed
+- A Haddock comment before a record field documents it (`DEC-haskell-field-haddock`): the Haskell dialect binds a `-- |` or `{-|` comment after a record's opening brace, above a field's comma, as in `-- | doc` above `, f :: T`, or after that comma, as ormolu and fourmolu write `, -- | doc` above `f :: T`, on one line or several, to that field, which is then a unit of kind `field` named by its first name whose Why is the comment; canon 0.2.2 reported each as an orphan that no exemption covers, so Ironframe ignored its `Manifest/Types.hs`. Of several comments the last binds, one after the last field stays an orphan, and `-- ^` after a field stays a plain comment. An undocumented field is no unit and a field never requires a comment, so no other unit's id, digest, or requirement changes: canon 0.2.2 and 0.2.3 run over canon itself, LawSpec, Ironframe, and Rice's Tax report the same findings and models and leave every vetting file unchanged. The plain grammar skips comments and already read every placement
+- `tools/corpus/haskell.sh` adds ormolu, formatted by itself and sampled to its sources, and Ironframe, and counts the files of each repository that document a record field with a Haddock comment and how many the dialect reads: all 53, and all 3,753 files outside the three exclusions parse through the plain grammar and the dialect
+
 ## [0.2.2] - 2026-10-11
 
 ### Fixed

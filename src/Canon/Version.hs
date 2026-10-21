@@ -98,7 +98,7 @@ instance FromJSON Version where
 -- project it reads agree on ids, digests, and vetting files; it changes whenever any of them do.
 -- ref:DEC-extraction-cache ref:DEC-canon-lockstep
 canonVersion :: String
-canonVersion = "0.2.2"
+canonVersion = "0.2.3"
 
 -- | Whether a canon version a project or a tool names reads with another: any patch of the same
 -- minor, since a canon patch never changes ids, digests, or vetting files, written as a version or as
