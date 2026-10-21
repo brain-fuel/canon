@@ -28,6 +28,8 @@ DIALECT=("$G/canonically_commented/HaskellLexer.g4" "$G/canonically_commented/Ha
 # with leading semicolons, throughout; haskell-language-server is sampled to ghcide, its core.
 # lawspec is pinned to the commit before it reshaped valid Haskell canon could not read
 # (DEC-layout-bars-commas-and-of).
+# ormolu is formatted by itself, so it writes a record field's Haddock after the field's comma
+# throughout, as ironframe, which canon 0.2.2 could not check, does (DEC-haskell-field-haddock).
 REPOS='
 ghc-base https://github.com/ghc/ghc 575c4bc6cb701a3b26982bf36998aad1cf6fa347 /libraries/base/
 ghc-compiler https://github.com/ghc/ghc 575c4bc6cb701a3b26982bf36998aad1cf6fa347 /compiler/
@@ -43,6 +45,8 @@ aeson https://github.com/haskell/aeson 8e0be2d5aecb60abdbe93d84d9a82702fd9800d9
 lens https://github.com/ekmett/lens b931919c41644b6de51f6d30e3ab255544415fdd
 stack https://github.com/commercialhaskell/stack d5effcd3f32e1dc3e6fc352c65938310f3acd675
 xmonad https://github.com/xmonad/xmonad 284dd52c9c957cab6b6e5cc7580f2a63dafa00a7
+ormolu https://github.com/tweag/ormolu 56fd8afc3ca03d9b32fa33785cffc673d27d7e1f
+ironframe https://github.com/brain-fuel/ironframe b178230f99625c5b2dc43f548e8d87dadf70a325
 canon-src local:src 0
 '
 
@@ -79,6 +83,28 @@ ctor_haddock() {
     { doc = 0 }' "$@"
 }
 export -f ctor_haddock
+
+# field_haddock FILE...: the files that document a record field with a Haddock comment, as pandoc,
+# ormolu, and ironframe do (containers and text write -- ^ after a field, a plain comment to canon):
+# a -- | or {-| comment after a line's opening brace or comma, as ormolu writes it, or directly
+# above a line that starts with a brace or comma, then a field's names and its ::, and the line
+# after the comment declaring the field. The dialect binds each to its field
+# (DEC-haskell-field-haddock), so these files must read through it.
+field_haddock() {
+  awk '
+    FNR == 1 { doc = 0; block = 0; after = 0 }
+    block { if ($0 ~ /-}/) block = 0; next }
+    after && /^[ \t]*--/ { next }
+    after && /^[ \t]*[a-z_][A-Za-z0-9_'"'"']*([ \t]*,[ \t]*[a-z_][A-Za-z0-9_'"'"']*)*[ \t]*::/ { print FILENAME; nextfile }
+    { after = 0 }
+    /^[ \t]*[{,][ \t]*(-- *\||\{-\|)/ { after = 1; doc = 0; if ($0 ~ /\{-\|/ && $0 !~ /-}/) block = 1; next }
+    /^[ \t]*-- *\|/ { doc = 1; next }
+    /^[ \t]*\{-\|/ { if ($0 !~ /-}/) block = 1; doc = 1; next }
+    doc && /^[ \t]*--/ { next }
+    doc && /^[ \t]*[{,][ \t]*[a-z_][A-Za-z0-9_'"'"']*([ \t]*,[ \t]*[a-z_][A-Za-z0-9_'"'"']*)*[ \t]*::/ { print FILENAME; nextfile }
+    { doc = 0 }' "$@"
+}
+export -f field_haddock
 
 # ---- common driver (the same in every tools/corpus script of this set) ----
 
@@ -173,6 +199,12 @@ main() {
       | LC_ALL=C sort -u | tee "$results/$name.ctor" | grep -c . || true)
     chok=$(awk -F'\t' '$1 == "ok" { print $3 }' "$results/$name.dialect" | LC_ALL=C sort | LC_ALL=C comm -12 - "$results/$name.ctor" | grep -c . || true)
     printf '   constructor Haddock: %s files not excluded hold it, %s read by the dialect\n' "$ch" "$chok"
+    local fh fhok
+    fh=$(tr '\n' '\0' < "$results/$name.all" | xargs -0 bash -c 'field_haddock "$@"' _ \
+      | grep -vxF -f <(awk -F'\t' -v b="$base/" '{ print b $1 }' "$results/$name.excluded"; echo /) \
+      | LC_ALL=C sort -u | tee "$results/$name.field" | grep -c . || true)
+    fhok=$(awk -F'\t' '$1 == "ok" { print $3 }' "$results/$name.dialect" | LC_ALL=C sort | LC_ALL=C comm -12 - "$results/$name.field" | grep -c . || true)
+    printf '   field Haddock: %s files not excluded hold it, %s read by the dialect\n' "$fh" "$fhok"
     awk -F'\t' -v b="$base/" '$1 != "ok" { sub(b, "", $3); printf "   DIALECT FAIL %-7s %6.2fs %s: %s\n", $1, $2, $3, $4 }' "$results/$name.dialect"
   done
   [ -n "${CORPUS_CLONE_ONLY:-}" ] && return 0

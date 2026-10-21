@@ -31,8 +31,11 @@ decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarT
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaddockCommentBeforeAConstructorDocumentsItWhereverHaddockReadsIt:
   digest: sha256:77c5123b19e3a67b
   verdict: pending
-decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaddockCommentInAnExportListOrOnARecordFieldIsAnOrphanReadInPlace:
-  digest: sha256:48858aef7cdb4010
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaddockCommentBeforeARecordFieldDocumentsItWhereverHaddockReadsIt:
+  digest: sha256:f25df67095d2e553
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaddockCommentInAnExportListIsAnOrphanReadInPlace:
+  digest: sha256:3b9486b77b55846c
   verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_aHaskellDocCommentAnywhereInAFileParsesAndOneThatDocumentsNothingIsAnOrphan:
   digest: sha256:bdb01341857968b1
@@ -96,6 +99,9 @@ decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarT
   verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_haskellLiteralsTakeUnderscoresBinaryDigitsMagicHashesAndManyEscapes:
   digest: sha256:6a847ea9e7746cba
+  verdict: pending
+decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_recordFieldHaddockParsesThroughThePlainGrammar:
+  digest: sha256:e9fc50254e5795b6
   verdict: pending
 decision/haskell/test/Canon/Extract/GrammarTest.hs/module/Canon.Extract.GrammarTest/function/prop_theHaskellLayoutClosesBlocksWhereGhcsParseErrorRuleDoes:
   digest: sha256:1170092b603175f5

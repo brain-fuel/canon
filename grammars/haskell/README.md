@@ -90,8 +90,15 @@ whether it stands above the constructor's bar or equals sign, as in
 documented constructor is a unit of kind `constructor`, named by its
 constructor, prefix, infix (`:+`), backticked, record, existential, or strict,
 whose Why is the comment, and an undocumented constructor is no unit, so no
-other unit's id changes; a Haddock comment in an export list or on a record
-field is read where it stands as an orphan, since neither is a unit; and the
+other unit's id changes; a Haddock comment before a record field documents it
+(`DEC-haskell-field-haddock`, canon 0.2.3), whether it stands after the
+record's brace, above the field's comma, as in `-- | doc` above `, f :: T`, or
+after that comma, as ormolu and fourmolu write `, -- | doc` above `f :: T`, on
+one line or several; the documented field is a unit of kind `field`, named by
+its first name, whose Why is the comment, an undocumented field is no unit, a
+`-- ^` comment after a field is a plain comment, and a Haddock comment after
+the last field is an orphan; a Haddock comment in an export list is read where
+it stands as an orphan, since a section is no unit; and the
 hook ends each held doc comment with an empty `DOC_END`
 token, declared in the dialect lexer's `tokens` block, so a comment has one
 end rather than one per word, which the parser tried at every word of every

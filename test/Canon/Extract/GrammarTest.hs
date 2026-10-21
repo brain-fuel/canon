@@ -66,10 +66,12 @@ tests =
     , testProperty "a let in a guard ends at the guard's own equals sign or arrow on a later line" prop_aLetInAGuardEndsAtTheGuardsOwnEqualsSignOrArrowOnALaterLine
     , testProperty "an operator, a deriving clause, or a pragma that starts a line is read as GHC reads it" prop_anOperatorDerivingClauseOrPragmaThatStartsALineIsReadAsGhcReadsIt
     , testProperty "Haskell declarations and expressions GHC accepts parse" prop_haskellDeclarationsAndExpressionsGhcAcceptsParse
-    , testProperty "a Haddock comment in an export list or on a record field is an orphan read in place" prop_aHaddockCommentInAnExportListOrOnARecordFieldIsAnOrphanReadInPlace
+    , testProperty "a Haddock comment in an export list is an orphan read in place" prop_aHaddockCommentInAnExportListIsAnOrphanReadInPlace
     , testProperty "a Haskell syntax error after doc comments is reported where it is" prop_aHaskellSyntaxErrorAfterDocCommentsIsReportedWhereItIs
     , testProperty "a Haddock comment before a constructor documents it, wherever Haddock reads it" prop_aHaddockCommentBeforeAConstructorDocumentsItWhereverHaddockReadsIt
     , testProperty "constructor Haddock parses through the plain grammar and binds through a profile's constructor rule" prop_constructorHaddockParsesThroughThePlainGrammarAndBindsThroughAProfilesConstructorRule
+    , testProperty "a Haddock comment before a record field documents it, wherever Haddock reads it" prop_aHaddockCommentBeforeARecordFieldDocumentsItWhereverHaddockReadsIt
+    , testProperty "record field Haddock parses through the plain grammar" prop_recordFieldHaddockParsesThroughThePlainGrammar
     , testProperty "the make dialect requires a comment on every plain rule" makeDialect
     , testProperty "a Makefile reference keeps its colons, commas, spaces, and hashes inside one name" prop_aMakefileReferenceKeepsItsColonsCommasSpacesAndHashesInsideOneName
     , testProperty "a Makefile directive word is a name after the first word of a line" prop_aMakefileDirectiveWordIsANameAfterTheFirstWordOfALine
@@ -1247,12 +1249,13 @@ prop_haskellDeclarationsAndExpressionsGhcAcceptsParse = withTests 1 $ property $
       , "done = ()"
       ]
 
--- | Haddock documents a section of the export list and a record field with a comment in place, and
--- pandoc and ghc's base do both throughout; canon reads such a comment where it stands as an orphan,
--- since neither is a unit, so a module with many of them parses once rather than once per comment.
--- ref:REQ-haskell-support ref:DEC-haskell-dialect ref:DEC-stray-comments
-prop_aHaddockCommentInAnExportListOrOnARecordFieldIsAnOrphanReadInPlace :: Property
-prop_aHaddockCommentInAnExportListOrOnARecordFieldIsAnOrphanReadInPlace = withTests 1 $ property $ do
+-- | Haddock documents a section of the export list with a comment in place, and pandoc and ghc's
+-- base do so throughout; canon reads such a comment where it stands as an orphan, since a section is
+-- no unit, so a module with many of them parses once rather than once per comment. A record field's
+-- comment, read in place as an orphan before canon 0.2.3, documents its field.
+-- ref:REQ-haskell-support ref:DEC-haskell-dialect ref:DEC-stray-comments ref:DEC-haskell-field-haddock
+prop_aHaddockCommentInAnExportListIsAnOrphanReadInPlace :: Property
+prop_aHaddockCommentInAnExportListIsAnOrphanReadInPlace = withTests 1 $ property $ do
   loaded <- evalIO (loadProfileInterpreter haskellProfile)
   interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
   let source =
@@ -1278,8 +1281,13 @@ prop_aHaddockCommentInAnExportListOrOnARecordFieldIsAnOrphanReadInPlace = withTe
           ]
   result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "haskell" haskellProfile interpreter "Sections.hs" "Sections.hs" source)
   Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
-  [renderUnitId u | d <- modelDecisions model, u <- toList (decisionUnits d)] === ["haskell/Sections.hs/module/Sections/data/State", "haskell/Sections.hs/module/Sections/function/f"]
-  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [2, 4, 10, 12]
+  [renderUnitId u | d <- modelDecisions model, u <- toList (decisionUnits d)]
+    === [ "haskell/Sections.hs/module/Sections/data/State"
+        , "haskell/Sections.hs/module/Sections/data/State/field/styles"
+        , "haskell/Sections.hs/module/Sections/data/State/field/depth"
+        , "haskell/Sections.hs/module/Sections/function/f"
+        ]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [2, 4]
 
 -- | A syntax error must fail fast and point at itself, and the dialect looks for a stray comment near
 -- it, reading each comment within reach of the failure from at most the tokens up to the failure, so
@@ -1305,8 +1313,8 @@ prop_aHaskellSyntaxErrorAfterDocCommentsIsReportedWhereItIs = withTests 1 $ prop
 -- The dialect binds the comment to the constructor, a unit of kind constructor named by its
 -- constructor, prefix, infix, backticked, record, existential, or strict; an undocumented
 -- constructor is no unit, so no other unit's id, Why, or requirement changes, and a constructor
--- needs no comment, documented ones always holding theirs. A record field's comment is still an
--- orphan read in place. ref:DEC-haskell-constructor-haddock ref:REQ-haskell-support
+-- needs no comment, documented ones always holding theirs. A record field's comment documents its
+-- field. ref:DEC-haskell-constructor-haddock ref:DEC-haskell-field-haddock ref:REQ-haskell-support
 prop_aHaddockCommentBeforeAConstructorDocumentsItWhereverHaddockReadsIt :: Property
 prop_aHaddockCommentBeforeAConstructorDocumentsItWhereverHaddockReadsIt = withTests 1 $ property $ do
   loaded <- evalIO (loadProfileInterpreter haskellProfile)
@@ -1338,7 +1346,7 @@ prop_aHaddockCommentBeforeAConstructorDocumentsItWhereverHaddockReadsIt = withTe
           , "    Int `Minus` Int"
           , "  | -- | A record."
           , "    Rec"
-          , "      { -- | A field, an orphan."
+          , "      { -- | A field."
           , "        field :: Int"
           , "      }"
           , "  | -- | Existential."
@@ -1366,15 +1374,17 @@ prop_aHaddockCommentBeforeAConstructorDocumentsItWhereverHaddockReadsIt = withTe
         , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/:+", "After the bar.")
         , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Minus", "Backticked.")
         , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Rec", "A record.")
+        , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Rec/field/field", "A field.")
         , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Some", "Existential.")
         , ("haskell/Ctors.hs/module/Ctors/data/Op/constructor/Strict", "Strict.")
         , ("haskell/Ctors.hs/module/Ctors/data/G/constructor/GInt", "An int.")
         , ("haskell/Ctors.hs/module/Ctors/newtype/N/constructor/N", "The wrapper.")
         ]
   let units = modelAllUnits model
-  [whatName (answerValue (unitWhat u)) | u <- units, kindOf u /= "file", kindOf u /= "constructor"] === ["Ctors", "Expr", "Op", "G", "N"]
+  [whatName (answerValue (unitWhat u)) | u <- units, kindOf u /= "file", kindOf u /= "constructor", kindOf u /= "field"] === ["Ctors", "Expr", "Op", "G", "N"]
+  [whatName (answerValue (unitWhat u)) | u <- units, kindOf u == "field"] === ["field"]
   [howText | u <- units, whatName (answerValue (unitWhat u)) == "Ctor", HowText howText <- [answerValue (unitHow u)]] === ["Ctor String [Expr]"]
-  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [26]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === []
   [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
 
 -- | The plain grammar skips comments, so it reads every placement of a constructor's Haddock, and a
@@ -1422,3 +1432,98 @@ prop_constructorHaddockParsesThroughThePlainGrammarAndBindsThroughAProfilesConst
   [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- toList (decisionUnits d), "/constructor/" `T.isInfixOf` renderUnitId u]
     === [("haskell/Plain.hs/data/Expr/constructor/Do", "Unit-valued effects, then a value."), ("haskell/Plain.hs/data/Expr/constructor/Lit", "After the bar.")]
   sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [13]
+
+-- | Haddock documents a record field with a comment before it, standing after the opening brace, above
+-- the field's comma, or after that comma as ormolu and fourmolu write it, one line or several, and
+-- with -- ^ after it, which canon reads as a plain comment; canon 0.2.2 reported each comment before
+-- a field as an orphan that could not be exempted, so Ironframe's Manifest/Types.hs failed canon
+-- check. The dialect binds the comment to the field, a unit of kind field named by its first name;
+-- an undocumented field is no unit, so no other unit's id, Why, or requirement changes, and a field
+-- needs no comment. Of two comments the last binds, and one after the last field is an orphan read in
+-- place. ref:DEC-haskell-field-haddock ref:REQ-haskell-support
+prop_aHaddockCommentBeforeARecordFieldDocumentsItWhereverHaddockReadsIt :: Property
+prop_aHaddockCommentBeforeARecordFieldDocumentsItWhereverHaddockReadsIt = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter haskellProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "module Fields (Twin (..), Pair (..), Plain (..)) where"
+          , ""
+          , "-- | A twin, as Ironframe's manifest declares it."
+          , "data Twin = Twin"
+          , "  { -- | After the brace."
+          , "    twinName :: Text"
+          , "  , twinPorts :: [Integer]"
+          , "  , -- | The conformance report named by @conformance.report@, read when the"
+          , "    -- manifest was loaded; never serialised."
+          , "    twinReport :: Maybe Report"
+          , "  -- | Above the comma."
+          , "  , twinSeed :: Maybe Integer"
+          , "  , twinEnv :: Map Text Text -- ^ After the field, a plain comment."
+          , "  , -- | Several names."
+          , "    twinLow, twinHigh :: !Int"
+          , "  , {-| A block comment"
+          , "      over two lines. -}"
+          , "    twinBlock :: Int"
+          , "  -- | Not this one."
+          , "  , -- | This one."
+          , "    twinLast :: Int"
+          , "  -- | After the last field."
+          , "  }"
+          , ""
+          , "-- | Fields documented with -- ^ alone."
+          , "data Pair = Pair"
+          , "  { first :: Int"
+          , "  -- ^ The first."
+          , "  , second :: Int"
+          , "  -- ^ The second."
+          , "  }"
+          , ""
+          , "-- | No field documented."
+          , "data Plain = Plain {plainA :: Int, plainB, plainC :: Bool}"
+          , ""
+          , "-- | A newtype's field."
+          , "newtype N = N"
+          , "  { -- | The wrapped value."
+          , "    unN :: Int"
+          , "  }"
+          ]
+  parsesThroughBothHaskellGrammars source
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "haskell" haskellProfile interpreter "Fields.hs" "Fields.hs" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- toList (decisionUnits d), "/field/" `T.isInfixOf` renderUnitId u]
+    === [ ("haskell/Fields.hs/module/Fields/data/Twin/field/twinName", "After the brace.")
+        , ("haskell/Fields.hs/module/Fields/data/Twin/field/twinReport", "The conformance report named by @conformance.report@, read when the\nmanifest was loaded; never serialised.")
+        , ("haskell/Fields.hs/module/Fields/data/Twin/field/twinSeed", "Above the comma.")
+        , ("haskell/Fields.hs/module/Fields/data/Twin/field/twinLow", "Several names.")
+        , ("haskell/Fields.hs/module/Fields/data/Twin/field/twinBlock", "A block comment\nover two lines.")
+        , ("haskell/Fields.hs/module/Fields/data/Twin/field/twinLast", "This one.")
+        , ("haskell/Fields.hs/module/Fields/newtype/N/field/unN", "The wrapped value.")
+        ]
+  let units = modelAllUnits model
+  [whatName (answerValue (unitWhat u)) | u <- units, kindOf u /= "file", kindOf u /= "field"] === ["Fields", "Twin", "Pair", "Plain", "N"]
+  [howText | u <- units, whatName (answerValue (unitWhat u)) == "twinLow", HowText howText <- [answerValue (unitHow u)]] === ["twinLow, twinHigh :: !Int"]
+  sort [positionLine (spanStart sp) | OrphanDocComment _ sp <- findings] === [19, 22]
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === []
+
+-- | The plain grammar skips comments, so it reads every placement of a record field's Haddock, and so
+-- does the Haskell corpus's plain reading of every file that documents a field.
+-- ref:DEC-haskell-field-haddock ref:REQ-haskell-support
+prop_recordFieldHaddockParsesThroughThePlainGrammar :: Property
+prop_recordFieldHaddockParsesThroughThePlainGrammar = withTests 1 $ property $ do
+  parsesThroughBothHaskellGrammars $
+    T.unlines
+      [ "module Plain where"
+      , ""
+      , "data R = R"
+      , "  { -- | After the brace."
+      , "    a :: Int"
+      , "  , -- | After the comma,"
+      , "    -- over two lines."
+      , "    b :: Int"
+      , "  -- | Above the comma."
+      , "  , c :: Int"
+      , "  , d :: Int -- ^ After the field."
+      , "  -- ^ Below it."
+      , "  }"
+      ]

@@ -1147,12 +1147,34 @@ constr_stuff
     : constr_tyapps
     ;
 
-// canon: a Haddock comment on a record field is read in place as an orphan, since fields are not
-// units in this pass, rather than recovered as a stray comment with a parse of the whole file for
-// each. ref:DEC-haskell-dialect
-/** The field declarations of a record. A canonical comment before or after a field is an orphan, since fields are not units in this pass. ref:DEC-haskell-dialect */
+// canon: a Haddock comment before a record field documents it, as Haddock reads it, whether it
+// stands above the field's comma, as in -- | doc above , f :: T, or after it, as ormolu writes
+// , -- | doc above f :: T, or after the opening brace; the documented field is a unit of kind field
+// named by its first name, and an undocumented one is no unit, so no other unit's id changes. Of
+// several comments the last binds and the others are orphans, and one after the last field is an
+// orphan read in place, as every field comment was before canon 0.2.3.
+// ref:DEC-haskell-field-haddock ref:DEC-haskell-dialect
+/** The field declarations of a record: the first field and each later one with its comma, and the comments after the last, which are orphans. ref:DEC-haskell-field-haddock */
 fielddecls
-    : (orphan = canonicalComment)* fielddecl (orphan = canonicalComment)* (',' (orphan = canonicalComment)* fielddecl (orphan = canonicalComment)*)*
+    : first_field next_field* (orphan = canonicalComment)*
+    ;
+
+/** The first field of a record. A canonical comment before it documents it, which is then a unit whose Why is the comment and whose What is the field's first name. ref:DEC-haskell-field-haddock */
+first_field
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) how = documented_fielddecl # field
+    | (orphan = canonicalComment)* fielddecl # plainField
+    ;
+
+/** A comma and the field after it. A canonical comment before the comma or after it documents the field, which is then a unit whose Why is the comment and whose What is the field's first name. ref:DEC-haskell-field-haddock */
+next_field
+    : ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) ',' how = documented_fielddecl # field
+    | (orphan = canonicalComment)* ',' ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment) how = documented_fielddecl # field
+    | (orphan = canonicalComment)* ',' (orphan = canonicalComment)* fielddecl # plainField
+    ;
+
+/** A documented field declaration, read as fielddecl reads it with its first name labeled what. ref:DEC-haskell-field-haddock */
+documented_fielddecl
+    : what = var_ (',' var_)* '::' ctype
     ;
 
 /** One record field declaration: names and type. */

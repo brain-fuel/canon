@@ -127,6 +127,9 @@ ledger/DEC-haskell-constructor-haddock:
 ledger/DEC-haskell-dialect:
   digest: sha256:134905b7a23ddf33
   verdict: pending
+ledger/DEC-haskell-field-haddock:
+  digest: sha256:886259e77635a3ba
+  verdict: pending
 ledger/DEC-haskell-grammar-comments:
   digest: sha256:82fa5b48eeb405b9
   verdict: pending

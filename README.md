@@ -1422,8 +1422,11 @@ and `DocBlock` lexer modes, keeps the line break that ends a doc line as a
 form as a labeled alternative, labels export-list entries `export`, makes a
 constructor with a Haddock comment above its bar or equals sign, after it, or
 above a GADT constructor a unit of kind `constructor` whose Why is that
-comment (`DEC-haskell-constructor-haddock`), and absorbs a doc comment on a
-local binding, instance method, or record field as an `orphan`. A doc comment anywhere else the grammar takes none, as inside
+comment (`DEC-haskell-constructor-haddock`), makes a record field with a
+Haddock comment after the record's brace, above its comma, or after that comma
+a unit of kind `field` whose Why is that comment
+(`DEC-haskell-field-haddock`), and absorbs a doc comment on a local binding or
+instance method as an `orphan`. A doc comment anywhere else the grammar takes none, as inside
 an expression, is read out of the file and reported as an `orphan`, since the
 parser's `strayComment` option names `canonicalComment`. Two `-- |` comments
 on consecutive lines merge, as Haddock also reads them.
