@@ -151,7 +151,8 @@ out of the files, the failures, the exclusions with their reasons, and the
 slowest files, then parses every file the plain grammar accepted with the
 dialect, which must accept it too. Times are CPU seconds, which do not grow
 with the load of the machine. The script exits non-zero if any file fails.
-canon's own `src/` is the last repository. The figures are canon 0.2.1's.
+canon's own `src/` is the last repository. The figures are canon 0.2.1's, but
+ormolu's and Ironframe's, which are canon 0.2.3's.
 
 | Repository | Commit | Sampled | Files | Parsed | Excluded | Failing | Plain CPU | Dialect CPU |
 |------------|--------|---------|------:|-------:|---------:|--------:|----------:|------------:|
@@ -169,6 +170,8 @@ canon's own `src/` is the last repository. The figures are canon 0.2.1's.
 | [ekmett/lens](https://github.com/ekmett/lens) | `b931919c4164` | whole | 120 | 119 | 1 | 0 | 9.1 s | 10.9 s |
 | [commercialhaskell/stack](https://github.com/commercialhaskell/stack) | `d5effcd3f32e` | whole | 691 | 690 | 1 | 0 | 40.3 s | 46.3 s |
 | [xmonad/xmonad](https://github.com/xmonad/xmonad) | `284dd52c9c95` | whole | 30 | 30 | 0 | 0 | 2.2 s | 2.3 s |
+| [tweag/ormolu](https://github.com/tweag/ormolu) | `56fd8afc3ca0` | `src/`, `app/`, `tests/`, `extract-hackage-info/` | 72 | 72 | 0 | 0 | 4.6 s | 5.7 s |
+| [brain-fuel/ironframe](https://github.com/brain-fuel/ironframe) | `b178230f9962` | whole | 50 | 50 | 0 | 0 | 4.4 s | 5.0 s |
 | canon `src/` | this tree | `src/` | 70 | 70 | 0 | 0 | 5.8 s | 6.7 s |
 
 LawSpec is pinned to the commit before it reshaped valid Haskell canon could
@@ -186,6 +189,23 @@ comment or an example inside a block comment. Read through the dialect, 126
 files bind 1,538 constructor comments, GADT constructors' among them, that
 canon 0.2.1 reported as orphans, and the model of every other file is
 unchanged.
+
+From canon 0.2.3 the script also counts, per repository, the files outside
+the exclusions that document a record field with a Haddock comment, after the
+record's brace or a comma on the line before the field's names and `::`, as
+ormolu writes it, or directly above a line that starts with a brace or comma
+and declares a field, and how many of them the dialect reads, which must be
+all: ghc's compiler 25, ormolu 10, ghcide 7, megaparsec 3, pandoc 3, and ghc's
+base, text, stack, LawSpec, and Ironframe 1 each, 53 files, all read. ormolu,
+formatted by itself, and Ironframe, whose `Manifest/Types.hs` canon 0.2.2
+could not check, join the corpus for this form; ormolu is sampled to its
+formatter, executable, tests, and Hackage extractor, since its `data/` holds
+the formatter's inputs, many in extensions canon does not read (LinearTypes,
+`type data`, UnicodeSyntax, RequiredTypeArguments) or deliberate parse
+failures, and `ormolu-live`, its browser front end, writes OverloadedLabels.
+At canon 0.2.3 every one of the 3,753 files parsed, all but the three
+excluded, parses through the plain grammar and the dialect, all but six in
+under half a CPU second.
 
 The excluded files, each a file GHC itself does not compile as it stands:
 

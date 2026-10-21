@@ -29,7 +29,11 @@ DIALECT=("$G/canonically_commented/HaskellLexer.g4" "$G/canonically_commented/Ha
 # lawspec is pinned to the commit before it reshaped valid Haskell canon could not read
 # (DEC-layout-bars-commas-and-of).
 # ormolu is formatted by itself, so it writes a record field's Haddock after the field's comma
-# throughout, as ironframe, which canon 0.2.2 could not check, does (DEC-haskell-field-haddock).
+# throughout, as ironframe, which canon 0.2.2 could not check, does (DEC-haskell-field-haddock);
+# it is sampled to the formatter, its executable, its tests, and its Hackage extractor, leaving out
+# data/, the formatter's inputs, many of them extensions canon does not read (LinearTypes, type
+# data, UnicodeSyntax, RequiredTypeArguments) or deliberate parse failures, and ormolu-live, its
+# browser front end, which writes OverloadedLabels.
 REPOS='
 ghc-base https://github.com/ghc/ghc 575c4bc6cb701a3b26982bf36998aad1cf6fa347 /libraries/base/
 ghc-compiler https://github.com/ghc/ghc 575c4bc6cb701a3b26982bf36998aad1cf6fa347 /compiler/
@@ -45,7 +49,7 @@ aeson https://github.com/haskell/aeson 8e0be2d5aecb60abdbe93d84d9a82702fd9800d9
 lens https://github.com/ekmett/lens b931919c41644b6de51f6d30e3ab255544415fdd
 stack https://github.com/commercialhaskell/stack d5effcd3f32e1dc3e6fc352c65938310f3acd675
 xmonad https://github.com/xmonad/xmonad 284dd52c9c957cab6b6e5cc7580f2a63dafa00a7
-ormolu https://github.com/tweag/ormolu 56fd8afc3ca03d9b32fa33785cffc673d27d7e1f
+ormolu https://github.com/tweag/ormolu 56fd8afc3ca03d9b32fa33785cffc673d27d7e1f /src/ /app/ /tests/ /extract-hackage-info/
 ironframe https://github.com/brain-fuel/ironframe b178230f99625c5b2dc43f548e8d87dadf70a325
 canon-src local:src 0
 '
