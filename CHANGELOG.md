@@ -8,6 +8,9 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+- The walk skips `.mut/` by default. A mutation run keeps a copy of the project's sources for each mutant under `.mut/runs/`, and a copy without its own `canon.yaml` was walked and extracted as project source, so a project with a few retained runs was read many times over. Rice's Tax reads a run's report through `runtime.artefacts`, which does not use the walk. A project that keeps sources under a directory named `.mut` can restore it with `!.mut/` under `ignore`
+
 ## [0.2.5] - 2026-11-20
 
 ### Changed

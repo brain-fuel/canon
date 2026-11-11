@@ -85,6 +85,8 @@ defaultsCoverVendors = withTests 1 $ property $ do
   ignored ".terraform/modules/vpc/main.tf" === True
   ignored "a/vendor/y.g4" === True
   ignored ".stack-work/dist/y.g4" === True
+  -- A mutation run keeps a copy of the sources for each mutant.
+  ignored ".mut/runs/run-1/mutant-1/src/y.g4" === True
   ignored "grammars/antlr4/x.g4" === False
 
 walkTree :: Property

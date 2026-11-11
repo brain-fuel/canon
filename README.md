@@ -1759,7 +1759,8 @@ skipped by default: version control metadata, `node_modules`,
 `bower_components`, `vendor`, `third_party`, Terraform's `.terraform` cache of
 downloaded modules and providers, build outputs such as
 `.stack-work`, `dist`, `dist-newstyle`, `target`, `build`, and `out`, Python
-environments, and editor folders. So is every path git ignores and does not
+environments, editor folders, and `.mut`, where a mutation run keeps a copy of
+the sources for each mutant. So is every path git ignores and does not
 track: canon asks git, so nested `.gitignore` files, `.git/info/exclude` and
 your global excludes count as they do for git, and a file tracked despite a
 pattern is still checked. Outside a repository only canon's own patterns

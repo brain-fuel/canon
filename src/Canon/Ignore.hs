@@ -64,6 +64,7 @@ defaultIgnorePatterns =
   parseIgnorePatterns
     [ ".git/"
     , ".canon-cache/"
+    , ".mut/"
     , ".hg/"
     , ".svn/"
     , "node_modules/"
