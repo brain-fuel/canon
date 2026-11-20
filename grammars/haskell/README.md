@@ -84,8 +84,10 @@ grammar.
   a variable spelled from `case`, such as `\cases'`, stays a lambda.
 - The `capi` calling convention of a foreign import.
 
-The dialect adds, beyond the plain grammar: a Haddock comment before a
-constructor documents it (`DEC-haskell-constructor-haddock`, canon 0.2.2),
+The dialect adds, beyond the plain grammar: a foreign import is a unit of
+kind `function`, named by the variable it binds, whose Why is the Haddock
+comment before it, and an undocumented one is owed a comment as a signature is
+(canon 0.2.4); a Haddock comment before a constructor documents it (`DEC-haskell-constructor-haddock`, canon 0.2.2),
 whether it stands above the constructor's bar or equals sign, as in
 `-- | doc` above `| C`, or after it on its line, as ormolu writes
 `| -- | doc` above `C`, or above a GADT constructor that declares one name; the

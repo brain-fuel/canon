@@ -216,6 +216,9 @@ topdecl
     | standalone_deriving # deriving
     | role_annot # role
     | ('default' '(' comma_types? ')') # defaultDeclaration
+    // canon: a foreign import binds a function, so its Haddock comment documents it, as Haddock
+    // reads it. ref:DEC-haskell-grammar-fixes
+    | ((orphan = canonicalComment)+ why = canonicalComment | why = canonicalComment?) (semi | NEWLINE)* 'foreign' 'import' callconv safety? pstring? what = var_ '::' signature = sigtypedoc # function
     | ('foreign' fdecl) # foreign
     | ('{-#' 'DEPRECATED' deprecations? '#-}') # deprecated
     | ('{-#' 'WARNING' warnings? '#-}') # warning

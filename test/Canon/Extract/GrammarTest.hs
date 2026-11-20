@@ -72,6 +72,7 @@ tests =
     , testProperty "constructor Haddock parses through the plain grammar and binds through a profile's constructor rule" prop_constructorHaddockParsesThroughThePlainGrammarAndBindsThroughAProfilesConstructorRule
     , testProperty "a Haddock comment before a record field documents it, wherever Haddock reads it" prop_aHaddockCommentBeforeARecordFieldDocumentsItWhereverHaddockReadsIt
     , testProperty "record field Haddock parses through the plain grammar" prop_recordFieldHaddockParsesThroughThePlainGrammar
+    , testProperty "a foreign import is a function its Haddock comment documents" prop_aForeignImportIsAFunctionItsHaddockCommentDocuments
     , testProperty "the make dialect requires a comment on every plain rule" makeDialect
     , testProperty "a Makefile reference keeps its colons, commas, spaces, and hashes inside one name" prop_aMakefileReferenceKeepsItsColonsCommasSpacesAndHashesInsideOneName
     , testProperty "a Makefile directive word is a name after the first word of a line" prop_aMakefileDirectiveWordIsANameAfterTheFirstWordOfALine
@@ -1532,3 +1533,37 @@ prop_recordFieldHaddockParsesThroughThePlainGrammar = withTests 1 $ property $ d
       , "  -- ^ Below it."
       , "  }"
       ]
+
+-- | A foreign import binds a function as a signature does, so Haddock documents it with the comment
+-- before it; canon 0.2.3 parsed no capi import and called the comment on any import an orphan, so
+-- LawSpec's native host failed canon check. An undocumented import is owed a comment, as an
+-- undocumented signature is. ref:DEC-haskell-grammar-fixes ref:REQ-haskell-support
+prop_aForeignImportIsAFunctionItsHaddockCommentDocuments :: Property
+prop_aForeignImportIsAFunctionItsHaddockCommentDocuments = withTests 1 $ property $ do
+  loaded <- evalIO (loadProfileInterpreter haskellProfile)
+  interpreter <- either (\e -> annotate (T.unpack (renderInterpretError e)) >> failure) pure loaded
+  let source =
+        T.unlines
+          [ "-- | Native calls."
+          , "module Foreign where"
+          , ""
+          , "-- | realpath(3) with a null buffer."
+          , "foreign import ccall unsafe \"stdlib.h realpath\""
+          , "  c_realpath :: CString -> CString -> IO CString"
+          , ""
+          , "-- | ioctl is variadic, so it goes through capi."
+          , "foreign import capi unsafe \"sys/ioctl.h ioctl\""
+          , "  c_ioctl :: CInt -> CULong -> Ptr () -> IO CInt"
+          , ""
+          , "foreign import capi \"sys/ioctl.h value TIOCGWINSZ\""
+          , "  tiocgwinsz :: CULong"
+          ]
+  parsesThroughBothHaskellGrammars source
+  result <- evalIO (extractWithProfileText (staticGitProvider []) defaultConfig "haskell" haskellProfile interpreter "Foreign.hs" "Foreign.hs" source)
+  Extraction model findings <- either (\e -> annotate (T.unpack (renderGrammarExtractError e)) >> failure) pure result
+  [(renderUnitId u, whyText (answerValue (decisionWhy d))) | d <- modelDecisions model, u <- toList (decisionUnits d), "/function/" `T.isInfixOf` renderUnitId u]
+    === [ ("haskell/Foreign.hs/module/Foreign/function/c_realpath", "realpath(3) with a null buffer.")
+        , ("haskell/Foreign.hs/module/Foreign/function/c_ioctl", "ioctl is variadic, so it goes through capi.")
+        ]
+  [() | OrphanDocComment {} <- findings] === []
+  [renderUnitId u | MissingCanonicalComment u _ <- checkModel emptyRegistry emptyLedger model] === ["haskell/Foreign.hs/module/Foreign/function/tiocgwinsz"]
