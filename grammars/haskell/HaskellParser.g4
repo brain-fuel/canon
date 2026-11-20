@@ -648,6 +648,7 @@ fdecl
 /** A foreign calling convention. */
 callconv
     : 'ccall'
+    | 'capi'
     | 'stdcall'
     | 'cplusplus'
     | 'javascript'

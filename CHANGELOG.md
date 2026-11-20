@@ -22,6 +22,8 @@ and this project adheres to
 - The Haskell grammar read a lambda whose first argument is a variable
   spelled from `case`, such as `\cases' -> length cases'`, as `\cases`, and
   failed to parse the file.
+- The Haskell grammar accepts the `capi` calling convention of a foreign
+  import.
 
 ## [0.2.3] - 2026-10-21
 

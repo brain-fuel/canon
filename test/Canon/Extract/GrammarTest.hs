@@ -1233,8 +1233,8 @@ prop_anOperatorDerivingClauseOrPragmaThatStartsALineIsReadAsGhcReadsIt = withTes
       ]
 
 -- | GHC accepts constructors on a data instance, a type application between arguments, a record
--- wildcard after named fields, a type annotation in a pattern guard, and nested block comments, and
--- ghc's base and aeson use each. ref:REQ-haskell-support ref:DEC-haskell-grammar-fixes
+-- wildcard after named fields, a type annotation in a pattern guard, nested block comments, and the
+-- capi calling convention, and ghc's base and aeson use each. ref:REQ-haskell-support ref:DEC-haskell-grammar-fixes
 prop_haskellDeclarationsAndExpressionsGhcAcceptsParse :: Property
 prop_haskellDeclarationsAndExpressionsGhcAcceptsParse = withTests 1 $ property $ do
   parsesThroughBothHaskellGrammars $
@@ -1250,6 +1250,8 @@ prop_haskellDeclarationsAndExpressionsGhcAcceptsParse = withTests 1 $ property $
       , "{- an outer comment {- with an inner one -}"
       , "   and {-# INLINE inside #-} -}"
       , "done = ()"
+      , "foreign import capi unsafe \"sys/ioctl.h ioctl\""
+      , "  c_ioctl :: CInt -> CULong -> Ptr () -> IO CInt"
       ]
 
 -- | Haddock documents a section of the export list with a comment in place, and pandoc and ghc's

@@ -82,6 +82,7 @@ grammar.
 - Leading semicolons in statement and declaration lists, a view pattern as a
   record field's pattern, and `\cases`; a lambda whose first argument is
   a variable spelled from `case`, such as `\cases'`, stays a lambda.
+- The `capi` calling convention of a foreign import.
 
 The dialect adds, beyond the plain grammar: a Haddock comment before a
 constructor documents it (`DEC-haskell-constructor-haddock`, canon 0.2.2),
