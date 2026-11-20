@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.2.5] - 2026-11-20
+
 ### Changed
 
 - The walk skips every path git ignores and does not track, as git reads its
