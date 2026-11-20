@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-11-20
+
 ### Added
 
 - The registry accepts the reference kinds `code` (source code cited by its
@@ -24,6 +26,9 @@ and this project adheres to
   failed to parse the file.
 - The Haskell grammar accepts the `capi` calling convention of a foreign
   import.
+- A Haskell foreign import is a function unit, so the Haddock comment before
+  it documents it instead of being reported as an orphan, and an undocumented
+  one is owed a comment as a signature is.
 
 ## [0.2.3] - 2026-10-21
 
