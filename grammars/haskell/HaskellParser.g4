@@ -1262,6 +1262,7 @@ aexp
     | ('\\' apats '->' exp)
     | ('let' decllist 'in' exp)
     | (LCASE alts)
+    | (LCASEVAR apats? '->' exp)
     | ('if' exp semi? 'then' exp semi? 'else' exp)
     | ('if' ifgdpats)
     | ('case' exp 'of' alts)

@@ -1191,7 +1191,8 @@ prop_aLetInAGuardEndsAtTheGuardsOwnEqualsSignOrArrowOnALaterLine = withTests 1 $
 -- | No statement starts with an infix operator, so one that starts a line level with a do block
 -- applies to the block; a deriving clause ends a GADT's constructors; a pragma that starts a line, as
 -- an SCC before a statement, is the line's first lexeme; a record field's pattern may be a view
--- pattern; and \cases opens alternatives of several patterns. ghc's compiler and ghcide write each.
+-- pattern; and \cases opens alternatives of several patterns, while a lambda of a variable spelled
+-- from case, as \cases', does not. ghc's compiler and ghcide write each, and LawSpec the last.
 -- ref:REQ-haskell-support ref:DEC-layout-bars-commas-and-of
 prop_anOperatorDerivingClauseOrPragmaThatStartsALineIsReadAsGhcReadsIt :: Property
 prop_anOperatorDerivingClauseOrPragmaThatStartsALineIsReadAsGhcReadsIt = withTests 1 $ property $ do
@@ -1223,6 +1224,8 @@ prop_anOperatorDerivingClauseOrPragmaThatStartsALineIsReadAsGhcReadsIt = withTes
       , "mkRange = \\cases"
       , "  (Just x) (Just y) | x > y -> Nothing"
       , "  x y -> Just (x, y)"
+      , "plural = \\cases' -> length cases' > 1"
+      , "describe' = \\caseName x -> caseName <> x"
       , "run = do"
       , "  setup"
       , "  do"

@@ -17,6 +17,12 @@ and this project adheres to
   sign-off tax: material pending sign-off is counted on one line and listed by
   `canon vet`, but no longer fails `canon check`. Other findings still fail.
 
+### Fixed
+
+- The Haskell grammar read a lambda whose first argument is a variable
+  spelled from `case`, such as `\cases' -> length cases'`, as `\cases`, and
+  failed to parse the file.
+
 ## [0.2.3] - 2026-10-21
 
 ### Fixed

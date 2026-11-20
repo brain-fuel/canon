@@ -209,6 +209,10 @@ COMPLETE     : 'COMPLETE';
 // canon: \cases, GHC 9.4's lambda of several arguments, opens alternatives as \case does.
 // ref:DEC-layout-bars-commas-and-of
 LCASE: '\\' (NEWLINE | WS)* 'case' 's'?;
+// canon: a lambda whose first argument is a variable spelled from case, such as \cases' or
+// \caseName, is not \case: by the longest match the whole lambda head is one token, which the parser
+// reads as a lambda. ref:DEC-haskell-grammar-fixes
+LCASEVAR: '\\' (NEWLINE | WS)* 'case' 's'? (SMALL | LARGE | DIGIT | '\'')+ '#'*;
 
 fragment SYMBOL    : [!#$%&*+./<=>?@\\^|~:\-\p{S}];
 /** The context arrow. */

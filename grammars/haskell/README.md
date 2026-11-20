@@ -80,7 +80,8 @@ grammar.
   `in` nothing to close. A line-leading `do`, `mdo`, `rec`, or `\case`
   starts an item; a line-leading pragma sets the line's indentation.
 - Leading semicolons in statement and declaration lists, a view pattern as a
-  record field's pattern, and `\cases`.
+  record field's pattern, and `\cases`; a lambda whose first argument is
+  a variable spelled from `case`, such as `\cases'`, stays a lambda.
 
 The dialect adds, beyond the plain grammar: a Haddock comment before a
 constructor documents it (`DEC-haskell-constructor-haddock`, canon 0.2.2),
