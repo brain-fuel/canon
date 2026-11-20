@@ -560,6 +560,15 @@ DEC-vetting-layout:
   decided: 0.1.0
   refs: [rices-tax]
 
+DEC-tax-opt-out:
+  status: decided
+  question: A project adopting canon may hold hundreds of pieces of material pending sign-off, and the check fails until a person vets every one, so the rest of the check cannot gate its builds meanwhile. Must every project pay the sign-off tax from the start?
+  answer: |
+    No. Taxes are paid by default and a project may opt out of one in canon.yaml, under taxes, with sign-off set to opted-out. Material pending sign-off is then counted on one line and listed by canon vet, but does not fail the check; every other finding still does. The opt-out is a committed line, so git records who opted out and when, and deleting the line opts back in. A per-key and partial opt-in, and Rice's Tax's own commands for it, come with the relation queue. Decided with the owner on 2026-11-20.
+  opened: 0.2.4
+  decided: 0.2.4
+  refs: [rices-tax]
+
 DEC-vetting-kinds:
   status: decided
   question: Rice's Tax asks a person to judge surviving mutants and to see coverage gaps as work, with wavelet's verdict words. canon's vetting knew four words and three kinds of key. Does canon learn other kinds, or does Rice's Tax keep its own files?

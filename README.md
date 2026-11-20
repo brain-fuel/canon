@@ -340,6 +340,18 @@ counts until a human has read it. The flow is:
    a deferral within its window informationally, and ends with `report
    invalid: N pieces of canonical material pending sign-off` while any are
    pending.
+5. A project may opt out of the sign-off tax while it vets a backlog:
+
+   ```yaml
+   taxes:
+     sign-off: opted-out
+   ```
+
+   Pending and stale material then no longer fails `canon check`. The check
+   prints one line counting it instead of a line per item, `canon vet` still
+   lists it, and every other finding fails as before. The setting is a
+   committed line, so git records who opted out and when; deleting it, or
+   writing `paid`, opts back in.
 
 A `bad` comment is a liar's comment: the fix is to rewrite it, which changes
 its digest and makes it pending, so the rewrite is vetted in turn. Once the

@@ -17,7 +17,7 @@ import Canon.Antlr4.Parse (hPutParseTree)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Decisions
 import Canon.Extract.Grammar (Extraction (..))
-import Canon.Config (Config (..))
+import Canon.Config (Config (..), Tax (..), Taxes (..))
 import Canon.Git.Commit (CommitHash (..), Person (..))
 import Canon.Model
 import Canon.Vetting (applyAssessments, materialFindings)
@@ -138,10 +138,16 @@ runCommand command = case command of
         pure ExitSuccess
   CommandCheck target -> withProject $ \project -> do
     findings <- checkProject project target
-    mapM_ (TIO.putStrLn . renderWithSeverity) findings
-    let pending = length [() | f <- findings, findingPending f]
-    if pending > 0 then TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " pieces of canonical material pending sign-off"]) else pure ()
-    pure (if any ((== Failing) . findingSeverity) findings then ExitFailure 1 else ExitSuccess)
+    let optedOut = taxSignOff (configTaxes (projectConfig project)) == TaxOptedOut
+        pending = length [() | f <- findings, findingPending f]
+    mapM_ (TIO.putStrLn . renderWithSeverity) [f | f <- findings, not (optedOut && findingPending f)]
+    if pending == 0
+      then pure ()
+      else
+        if optedOut
+          then TIO.putStrLn (T.concat ["info: ", T.pack (show pending), " pieces of canonical material pending sign-off; canon.yaml opts out of the sign-off tax, so they do not fail the check (canon vet lists them)"])
+          else TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " pieces of canonical material pending sign-off"])
+    pure (if any (findingFails (projectConfig project)) findings then ExitFailure 1 else ExitSuccess)
   CommandIngest -> withProject $ \project -> do
     (path, total, files, fresh, dropped, failures) <- ingestProject project
     putStrLn (path ++ ": " ++ show (length fresh) ++ " pieces of canonical material recorded as pending, " ++ show (length dropped) ++ " pending rows of material that no longer exists dropped, " ++ show total ++ " entries in " ++ show files ++ " files")

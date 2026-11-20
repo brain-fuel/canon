@@ -3,6 +3,9 @@
 module Canon.Config
   ( Config (..)
   , Runtime (..)
+  , Taxes (..)
+  , Tax (..)
+  , defaultTaxes
   , Disposition (..)
   , defaultExemptionsFileName
   , defaultRunsFileName
@@ -47,8 +50,24 @@ data Config = Config
   , configRuns :: FilePath
   , configRuntime :: Maybe Runtime
   , configCanon :: Maybe Text
+  , configTaxes :: Taxes
   }
   deriving (Eq, Show)
+
+-- | Whether a project pays each tax: whether material still owed a human verdict fails the
+-- check. A project opts out to adopt canon before its backlog is vetted; the opt-out is a line
+-- of canon.yaml, so git records who made it and when, and deleting the line opts back in.
+-- ref:DEC-tax-opt-out
+newtype Taxes = Taxes {taxSignOff :: Tax}
+  deriving (Eq, Show)
+
+-- | A tax is paid, so what it owes fails the check, or opted out, so it is only counted.
+data Tax = TaxPaid | TaxOptedOut
+  deriving (Eq, Ord, Show, Enum, Bounded)
+
+-- | Every tax is paid unless canon.yaml opts out of it.
+defaultTaxes :: Taxes
+defaultTaxes = Taxes TaxPaid
 
 -- | The test and mutation runtime whose artefacts the tax tools read: its name, where its
 -- artefacts are, the package directory whose sources its report names, and the tests directory
@@ -115,7 +134,7 @@ defaultVettingDirectory = "canonical_vetting"
 
 -- | The configuration of a directory without canon.yaml.
 defaultConfig :: Config
-defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName defaultVettingDirectory [] "." Map.empty builtinKinds defaultExemptionsFileName defaultRunsFileName Nothing Nothing
+defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName defaultVettingDirectory [] "." Map.empty builtinKinds defaultExemptionsFileName defaultRunsFileName Nothing Nothing defaultTaxes
 
 -- | The kinds every project has without declaring them: name, the What queue of Rice's Tax, with
 -- canon's four words. canon raises no row of it and judges none; knowing the kind only means an
@@ -140,7 +159,7 @@ renderConfigError :: ConfigError -> Text
 renderConfigError (ConfigUnreadable path message) = T.concat [T.pack path, ": ", message]
 
 instance ToJSON Config where
-  toJSON (Config version registry decisions vetting ignore root languages kinds exemptions runs runtime canon) =
+  toJSON (Config version registry decisions vetting ignore root languages kinds exemptions runs runtime canon taxes) =
     object
       [ "canon" .= canon
       , "decisions" .= decisions
@@ -153,8 +172,24 @@ instance ToJSON Config where
       , "root" .= root
       , "runs" .= runs
       , "runtime" .= runtime
+      , "taxes" .= taxes
       , "version" .= version
       ]
+
+instance ToJSON Taxes where
+  toJSON (Taxes signOff) = object ["sign-off" .= signOff]
+
+instance FromJSON Taxes where
+  parseJSON = withObject "Taxes" $ \o -> Taxes . fromMaybe TaxPaid <$> o .:? "sign-off"
+
+instance ToJSON Tax where
+  toJSON t = toJSON (case t of TaxPaid -> "paid" :: Text; TaxOptedOut -> "opted-out")
+
+instance FromJSON Tax where
+  parseJSON = Yaml.withText "Tax" $ \t -> case t of
+    "paid" -> pure TaxPaid
+    "opted-out" -> pure TaxOptedOut
+    _ -> fail ("unknown tax setting: " ++ T.unpack t ++ " (paid or opted-out)")
 
 instance ToJSON Runtime where
   toJSON (Runtime name artefacts package tests command) = object (["artefacts" .= artefacts, "name" .= name, "package" .= package, "tests" .= tests] ++ maybe [] (\c -> ["command" .= c]) command)
@@ -183,4 +218,5 @@ instance FromJSON Config where
       <*> (fromMaybe defaultRunsFileName <$> o .:? "runs")
       <*> o .:? "runtime"
       <*> o .:? "canon"
+      <*> (fromMaybe defaultTaxes <$> o .:? "taxes")
 

@@ -5,7 +5,7 @@ import Canon.Antlr4.Comment (Comment (..), CommentKind (..))
 import Canon.Antlr4.Interpret (loadCombinedInterpreter)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.CommentScan (scanCommentsWith)
-import Canon.Config (defaultConfig)
+import Canon.Config (Config (..), Tax (..), Taxes (..), defaultConfig)
 import Canon.Extract.Grammar
 import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider (GitError (..), GitProvider (..), staticGitProvider)
@@ -40,7 +40,8 @@ tests :: TestTree
 tests =
   testGroup
     "project"
-    [ testProperty "profile yaml round trip" profileRoundTrip
+    [ testProperty "an opted-out sign-off tax fails nothing pending and everything else" taxOptOut
+    , testProperty "profile yaml round trip" profileRoundTrip
     , testProperty "an empty file is not blamed and raises no git finding" prop_anEmptyFileIsNotBlamedAndRaisesNoGitFinding
     , testProperty "comment scanning follows the profile's syntax" commentScanning
     , testProperty "a profile turns a parse tree into units and decisions" profileExtraction
@@ -276,3 +277,13 @@ prop_everyPendingRowIsASurveyMaterialIngestRecords = withTests 1 $ property $ do
   [k | (k, e) <- rows, Map.lookup k byKey /= Just (entryDigest e)] === []
   where
     checkProjectOf project survey = surveyReport project survey
+
+-- Opting out of the sign-off tax leaves pending material counted but not failing, and changes
+-- nothing else; paying it fails pending material as before. ref:DEC-tax-opt-out
+taxOptOut :: Property
+taxOptOut = property $ do
+  f <- forAll genFinding
+  let failing = findingSeverity f == Failing
+      with tax = defaultConfig {configTaxes = Taxes tax}
+  findingFails (with TaxPaid) f === (findingPending f || failing)
+  findingFails (with TaxOptedOut) f === (not (findingPending f) && failing)

@@ -13,6 +13,9 @@ and this project adheres to
 - The registry accepts the reference kinds `code` (source code cited by its
   location, such as a file or definition in another repository) and
   `documentation` (a manual or reference page). Projects already cite both.
+- `taxes: {sign-off: opted-out}` in `canon.yaml` opts a project out of the
+  sign-off tax: material pending sign-off is counted on one line and listed by
+  `canon vet`, but no longer fails `canon check`. Other findings still fail.
 
 ## [0.2.3] - 2026-10-21
 

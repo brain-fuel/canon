@@ -7,6 +7,7 @@ module Canon.Project
   , loadProject
   , projectFiles
   , checkProject
+  , findingFails
   , Survey (..)
   , surveyProject
   , surveyReport
@@ -45,7 +46,7 @@ import System.FilePath (takeDirectory)
 import Canon.Ignore (defaultIgnorePatterns, parseIgnorePatterns)
 import Canon.Model.Check (checkAll, requirementsCitedByTests)
 import Canon.Model
-import Canon.Model.Finding (Finding (..), findingKey, renderFinding)
+import Canon.Model.Finding (Finding (..), Severity (..), findingKey, findingPending, findingSeverity, renderFinding)
 import qualified Data.Set as Set
 import Canon.Model.Yaml (encodeSorted)
 import Canon.Extract.Folio (blockDefinitionFindings, duplicateIdFindings, frontMatterFindings, pageExtraction, relocate)
@@ -552,3 +553,11 @@ tangleProject project only = case folioProfiles project of
       , not ("{-#" `T.isPrefixOf` after)
       , not (T.take 2 after == "--" && column > 1 && T.index text (column - 2) `elem` ("!#$%&*+./<=>?@\\^|~-" :: String))
       ]
+
+-- | Whether a finding fails the check under the project's taxes: material owed a verdict fails
+-- only while the sign-off tax is paid; every other failing finding fails regardless.
+-- ref:DEC-tax-opt-out
+findingFails :: Config -> Finding -> Bool
+findingFails config f
+  | findingPending f = taxSignOff (configTaxes config) == TaxPaid
+  | otherwise = findingSeverity f == Failing

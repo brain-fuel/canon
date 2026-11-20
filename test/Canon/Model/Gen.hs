@@ -36,7 +36,7 @@ module Canon.Model.Gen
   , genVettingKey
   ) where
 
-import Canon.Config (Config (..), Runtime (..), builtinKinds)
+import Canon.Config (Config (..), Runtime (..), Taxes (..), builtinKinds)
 import Canon.Decisions (DecisionEntry (..), DecisionStatus (..), Ledger (..))
 import Canon.Profile
 import Canon.Model.Finding (Finding (..))
@@ -250,6 +250,7 @@ genConfig =
     <*> genPath
     <*> Gen.maybe (Runtime <$> genIdSegment <*> genPath <*> genPath <*> genPath <*> Gen.maybe genPlainText)
     <*> Gen.maybe (renderVersion <$> genVersion)
+    <*> (Taxes <$> Gen.enumBounded)
 
 -- | A kind or verdict word: lower-case letters, digits, and hyphens, never one of canon's prefixes.
 genKindWord :: Gen Text
