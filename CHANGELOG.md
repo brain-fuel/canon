@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- The registry accepts the reference kinds `code` (source code cited by its
+  location, such as a file or definition in another repository) and
+  `documentation` (a manual or reference page). Projects already cite both.
+
 ## [0.2.3] - 2026-10-21
 
 ### Fixed

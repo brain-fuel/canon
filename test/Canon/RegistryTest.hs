@@ -18,6 +18,7 @@ tests =
     "registry and config"
     [ testProperty "registry yaml round trip" registryRoundTrip
     , testProperty "config yaml round trip" configRoundTrip
+    , testProperty "every reference kind reads from its text" kindsRead
     , testProperty "the repository registry loads" repositoryRegistryLoads
     , testProperty "the repository config loads" repositoryConfigLoads
     ]
@@ -31,6 +32,14 @@ configRoundTrip :: Property
 configRoundTrip = property $ do
   c <- forAll genConfig
   decodeSorted (encodeSorted c) === Right c
+
+-- Projects cite code and documentation as well as papers and articles.
+kindsRead :: Property
+kindsRead = withTests 1 $ property $ do
+  let words' = ["article", "paper", "ticket", "requirement", "package", "discussion", "license", "video", "code", "documentation"]
+      entry w = "k:\n  kind: " <> w <> "\n  locator: l\n  title: t\n"
+      kindOf w = fmap (fmap referenceKind . lookupReference (ReferenceKey "k")) (decodeSorted (entry w) :: Either String Registry)
+  fmap kindOf words' === fmap (Right . Just) [minBound .. maxBound]
 
 repositoryRegistryLoads :: Property
 repositoryRegistryLoads = withTests 1 $ property $ do

@@ -55,8 +55,9 @@ itself.
    `canon.yaml` is canon's configuration: the project version, the paths of
    the registry, the ledger, and the vetting directory, the languages, and
    the kinds of vetting rows other tools raise. `canonical_refs.yaml` is the reference registry, the single
-   canonical source for every article, paper, ticket, requirement, package, or
-   discussion that a comment cites. Each entry maps a key to a kind, a title,
+   canonical source for every article, paper, ticket, requirement, package,
+   discussion, license, video, piece of code, or piece of documentation that
+   a comment cites. Each entry maps a key to a kind, a title,
    and a locator. Comments cite keys only. Neither file carries comments.
 6. **Decisions live in `canonical_decisions.yaml` at the project root.** Every
    decision, open or closed, is an entry keyed like a reference, so a comment
