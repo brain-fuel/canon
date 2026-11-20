@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- The walk skips every path git ignores and does not track, as git reads its
+  `.gitignore` files and excludes, so generated files need not be listed again
+  under `ignore` in `canon.yaml`. A file tracked despite a pattern is still
+  checked, and outside a repository only canon's own patterns apply.
+
 ## [0.2.4] - 2026-11-20
 
 ### Added

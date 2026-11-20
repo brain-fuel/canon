@@ -560,6 +560,14 @@ DEC-vetting-layout:
   decided: 0.1.0
   refs: [rices-tax]
 
+DEC-honour-gitignore:
+  status: decided
+  question: A project's generated files are listed in its .gitignore, and canon checked them unless canon.yaml listed them again, so the two lists drifted. Should canon read .gitignore?
+  answer: |
+    Yes. The walk skips every path git ignores and does not track, asking git itself through the one git runner, so nested .gitignore files, the repository's exclude file and the user's excludes count exactly as they do for git, and a file forced into git despite a pattern is still checked. canon.yaml's ignore list still adds patterns of its own, but cannot re-include what git ignores. Outside a repository, or where git cannot run, the walk falls back to canon's patterns alone, which can only add findings, never hide them. Decided with the owner on 2026-11-20.
+  opened: 0.2.5
+  decided: 0.2.5
+
 DEC-tax-opt-out:
   status: decided
   question: A project adopting canon may hold hundreds of pieces of material pending sign-off, and the check fails until a person vets every one, so the rest of the check cannot gate its builds meanwhile. Must every project pay the sign-off tax from the start?

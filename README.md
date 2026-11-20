@@ -1759,12 +1759,16 @@ skipped by default: version control metadata, `node_modules`,
 `bower_components`, `vendor`, `third_party`, Terraform's `.terraform` cache of
 downloaded modules and providers, build outputs such as
 `.stack-work`, `dist`, `dist-newstyle`, `target`, `build`, and `out`, Python
-environments, and editor folders. `canon.yaml` adds patterns under `ignore`
+environments, and editor folders. So is every path git ignores and does not
+track: canon asks git, so nested `.gitignore` files, `.git/info/exclude` and
+your global excludes count as they do for git, and a file tracked despite a
+pattern is still checked. Outside a repository only canon's own patterns
+apply. `canon.yaml` adds patterns under `ignore`
 in gitignore syntax: a bare name matches at any depth, a pattern containing a
 slash is anchored at the project root, a trailing slash matches directories
 only, `*` stays within one path segment, `**` spans segments, `?` and `[...]`
 match single characters, and a later `!` pattern re-includes what an earlier
-pattern excluded, unless a parent directory is excluded. This repository
+pattern excluded, unless a parent directory is excluded or git ignores it. This repository
 ignores `grammars/*/*.g4` except the ANTLR meta-grammar and the Java and
 Haskell grammars, and the Rust, C#, and F# dialects, so that only grammars
 carrying canonical comments are checked.

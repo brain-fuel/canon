@@ -4,6 +4,7 @@
 module Canon.Git.Shell
   ( shellGitProvider
   , runGit
+  , gitIgnoredPaths
   , GitRunner
   , setGitRunner
   ) where
@@ -14,6 +15,8 @@ import Canon.Git.Provider
 import Canon.Span (Position (..), Span (..))
 import Control.Exception (IOException, try)
 import Data.IORef (IORef, newIORef, readIORef, writeIORef)
+import Data.Set (Set)
+import qualified Data.Set as Set
 import System.IO.Unsafe (unsafePerformIO)
 import qualified Data.ByteString.Lazy as LBS
 import Data.Text (Text)
@@ -43,6 +46,22 @@ runGit :: FilePath -> [String] -> IO (Either GitError Text)
 runGit directory arguments = do
   runner <- readIORef gitRunner
   runner directory arguments
+
+-- | The paths under a directory that git ignores and does not track, as segments from that
+-- directory, a wholly ignored directory as one entry. Git answers from every .gitignore, the
+-- repository's exclude file, and the user's excludes, so canon reads gitignore as git does. Outside
+-- a repository, or with no git, nothing is ignored this way. ref:DEC-honour-gitignore
+gitIgnoredPaths :: FilePath -> IO (Set [Text])
+gitIgnoredPaths directory = do
+  result <- runGit directory ["ls-files", "--others", "--ignored", "--exclude-standard", "--directory", "-z"]
+  pure $ case result of
+    Left _ -> Set.empty
+    Right out ->
+      Set.fromList
+        [ filter (not . T.null) (T.splitOn "/" path)
+        | path <- T.splitOn "\0" out
+        , not (T.null path)
+        ]
 
 processRunner :: GitRunner
 processRunner directory arguments = do

@@ -9,6 +9,7 @@ import Canon.Config (Config (..), Tax (..), Taxes (..), defaultConfig)
 import Canon.Extract.Grammar
 import Canon.Git.Fill (fillGitFromBlame)
 import Canon.Git.Provider (GitError (..), GitProvider (..), staticGitProvider)
+import Canon.Git.Shell (runGit)
 import Canon.Model
 import Canon.Model.Finding (Finding (..), Severity (..), findingKey, findingPending, findingSeverity)
 import Canon.Model.Gen (genFinding, genModel, genProfile)
@@ -46,6 +47,7 @@ tests =
     , testProperty "comment scanning follows the profile's syntax" commentScanning
     , testProperty "a profile turns a parse tree into units and decisions" profileExtraction
     , testProperty "the walk stops at nested projects and the root is honoured" nestedProjects
+    , testProperty "the walk skips what git ignores but not what it tracks" gitIgnoreHonoured
     , testProperty "findings survive a yaml round trip" findingRoundTrip
     , testProperty "an extraction stored in the cache is found again by its key" cacheRoundTrip
     , testProperty "a requirement cited by a test in any file of the project is tested" requirementAcrossFiles
@@ -138,6 +140,28 @@ nestedProjects = withTests 1 $ property $ do
         pure (map (drop (length root + 1)) (sort files), map (drop (length root + 1)) projects, map (drop (length root + 1)) innerFiles)
       _ -> pure ([], [], [])
   found === (["a/x.g4"], ["inner"], ["inner/source/deep/z.g4"])
+
+-- | Paths git ignores are skipped wherever the .gitignore that ignores them sits, while an ignored
+-- file git tracks is still the project's own. ref:DEC-honour-gitignore
+gitIgnoreHonoured :: Property
+gitIgnoreHonoured = withTests 1 $ property $ do
+  found <- evalIO $ withScratch "gitignore" $ \root -> do
+    mapM_ (\d -> createDirectoryIfMissing True (root </> d)) ["generated", "src/out", "src/kept"]
+    writeFile (root </> "canon.yaml") "ignore: []\n"
+    writeFile (root </> ".gitignore") "generated/\n*.gen.g4\n"
+    writeFile (root </> "src/.gitignore") "out/\n"
+    mapM_
+      (\f -> writeFile (root </> f) "grammar G;\n")
+      ["a.g4", "b.gen.g4", "forced.gen.g4", "generated/c.g4", "src/d.g4", "src/out/e.g4", "src/kept/f.gen.g4"]
+    initialised <- runGit root ["init", "--quiet"]
+    added <- runGit root ["add", "--force", "forced.gen.g4"]
+    project <- loadProject root
+    case (initialised, added, project) of
+      (Right _, Right _, Right p) -> do
+        Walked files _ <- projectFiles p Nothing
+        pure (Just (sort (map (drop (length root + 1)) files)))
+      _ -> pure Nothing
+  found === Just ["a.g4", "forced.gen.g4", "src/d.g4"]
 
 findingRoundTrip :: Property
 findingRoundTrip = property $ do

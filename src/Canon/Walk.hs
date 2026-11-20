@@ -4,10 +4,14 @@ module Canon.Walk
   ( Walked (..)
   , findSupportedFiles
   , walkProject
+  , walkProjectExcluding
   , grammarExtension
   ) where
 
 import Canon.Ignore (IgnorePattern, isIgnored)
+import Data.Set (Set)
+import qualified Data.Set as Set
+import Data.Text (Text)
 import qualified Data.Text as T
 import System.Directory (doesDirectoryExist, doesFileExist, listDirectory)
 import Data.List (sort)
@@ -31,7 +35,13 @@ findSupportedFiles patterns root = walkedFiles <$> walkProject patterns ((== gra
 -- | Walks a project root, keeping the files the predicate accepts by name and stopping at
 -- directories that hold their own configuration.
 walkProject :: [IgnorePattern] -> (FilePath -> Bool) -> FilePath -> FilePath -> IO Walked
-walkProject patterns supported marker root = go []
+walkProject = walkProjectExcluding Set.empty
+
+-- | Walks a project root as walkProject does, also skipping the paths given, as segments from the
+-- root: those git ignores, so a project's generated files need not be listed twice.
+-- ref:DEC-honour-gitignore
+walkProjectExcluding :: Set [Text] -> [IgnorePattern] -> (FilePath -> Bool) -> FilePath -> FilePath -> IO Walked
+walkProjectExcluding excluded patterns supported marker root = go []
   where
     go relative = do
       let directory = joined relative
@@ -45,7 +55,7 @@ walkProject patterns supported marker root = go []
       isDirectory <- doesDirectoryExist path
       if isDirectory
         then
-          if isIgnored patterns True segments
+          if isIgnored patterns True segments || Set.member segments excluded
             then pure (Walked [] [])
             else do
               nested <- doesFileExist (path </> marker)
@@ -56,6 +66,7 @@ walkProject patterns supported marker root = go []
                 [ path
                 | supported entry
                 , not (isIgnored patterns False segments)
+                , not (Set.member segments excluded)
                 ]
                 []
             )

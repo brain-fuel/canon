@@ -34,7 +34,7 @@ import Canon.Decisions
 import Canon.Exemptions
 import Canon.Version (canonVersion, patchCompatible, renderVersion)
 import Canon.Extract.Grammar
-import Canon.Git.Shell (runGit, shellGitProvider)
+import Canon.Git.Shell (gitIgnoredPaths, runGit, shellGitProvider)
 import Control.Concurrent (getNumCapabilities)
 import Control.Concurrent.Async (mapConcurrently)
 import Control.Concurrent.QSem (newQSem, signalQSem, waitQSem)
@@ -150,7 +150,8 @@ loadOptional path isDefault empty reader wrap = do
     then pure (Right empty)
     else either (Left . wrap) Right <$> reader path
 
--- | The files a check visits, honouring ignore patterns and stopping at nested projects.
+-- | The files a check visits, honouring git's ignores and canon's own patterns, and stopping at
+-- nested projects. ref:DEC-honour-gitignore
 projectFiles :: Project -> Maybe FilePath -> IO Walked
 projectFiles project target = do
   let config = projectConfig project
@@ -159,7 +160,9 @@ projectFiles project target = do
       root = resolvePath project (maybe (configRoot config) id target)
   isDirectory <- doesDirectoryExist root
   if isDirectory
-    then walkProject patterns supported configFileName root
+    then do
+      gitIgnored <- gitIgnoredPaths root
+      walkProjectExcluding gitIgnored patterns supported configFileName root
     else pure (Walked [root] [])
 
 -- | Checks a project, with project-wide findings decided after every file has been seen.
