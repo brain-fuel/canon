@@ -7,6 +7,7 @@ module Canon.Model.Finding
   , renderFinding
   , findingPending
   , findingKey
+  , findingLocation
   ) where
 
 import Canon.Git.Provider (GitError, renderGitError)
@@ -24,6 +25,8 @@ data Finding
   | MissingCanonicalComment UnitId Where
   | OrphanDocComment FilePath Span
   | GitUnavailable FilePath GitError
+  | UncommittedFile FilePath
+  | UncommittedLines FilePath Int
   | DecisionPastRevisit ReferenceKey Text Text
   | DecisionUncited ReferenceKey
   | DecisionSuccessorNotDecided ReferenceKey ReferenceKey
@@ -81,6 +84,8 @@ findingSeverity f = case f of
   CommentDeferred {} -> Informational
   MaterialDeferred {} -> Informational
   VerdictUncommitted _ -> Informational
+  UncommittedFile _ -> Informational
+  UncommittedLines _ _ -> Informational
   Exempt {} -> Informational
   _ -> Failing
 
@@ -95,6 +100,8 @@ renderFinding f = case f of
     at (wherePath w) (whereSpan w) ("missing canonical comment on " <> renderUnitId u)
   OrphanDocComment path sp -> at path sp "doc comment is not attached to any unit"
   GitUnavailable path err -> T.concat [T.pack path, ": ", renderGitError err]
+  UncommittedFile path -> T.concat [T.pack path, ": not committed, so its material has no author or date yet"]
+  UncommittedLines path n -> T.concat [T.pack path, ": ", T.pack (show n), if n == 1 then " line is not committed, so it adds" else " lines are not committed, so they add", " no author or date yet"]
   DecisionPastRevisit k revisit current ->
     T.concat ["decision ", referenceKeyText k, " is open past its revisit version ", revisit, " at version ", current]
   DecisionUncited k -> T.concat ["decision ", referenceKeyText k, " is decided but no canonical comment cites it"]
@@ -161,6 +168,8 @@ instance ToJSON Finding where
     MissingCanonicalComment u w -> object ["kind" .= ("missingCanonicalComment" :: Text), "unit" .= u, "where" .= w]
     OrphanDocComment path sp -> object ["kind" .= ("orphanDocComment" :: Text), "path" .= path, "span" .= sp]
     GitUnavailable path err -> object ["error" .= err, "kind" .= ("gitUnavailable" :: Text), "path" .= path]
+    UncommittedFile path -> object ["kind" .= ("uncommittedFile" :: Text), "path" .= path]
+    UncommittedLines path n -> object ["count" .= n, "kind" .= ("uncommittedLines" :: Text), "path" .= path]
     DecisionPastRevisit k revisit current -> object ["current" .= current, "key" .= k, "kind" .= ("decisionPastRevisit" :: Text), "revisit" .= revisit]
     DecisionUncited k -> object ["key" .= k, "kind" .= ("decisionUncited" :: Text)]
     DecisionSuccessorNotDecided k by -> object ["by" .= by, "key" .= k, "kind" .= ("decisionSuccessorNotDecided" :: Text)]
@@ -213,6 +222,8 @@ instance FromJSON Finding where
       "missingCanonicalComment" -> MissingCanonicalComment <$> o .: "unit" <*> o .: "where"
       "orphanDocComment" -> OrphanDocComment <$> o .: "path" <*> o .: "span"
       "gitUnavailable" -> GitUnavailable <$> o .: "path" <*> o .: "error"
+      "uncommittedFile" -> UncommittedFile <$> o .: "path"
+      "uncommittedLines" -> UncommittedLines <$> o .: "path" <*> o .: "count"
       "decisionPastRevisit" -> DecisionPastRevisit <$> o .: "key" <*> o .: "revisit" <*> o .: "current"
       "decisionUncited" -> DecisionUncited <$> o .: "key"
       "kindPending" -> KindPending <$> o .: "key"
@@ -291,3 +302,43 @@ findingKey f = case f of
   KindUndeclared k -> Just k
   VerdictUnknown k _ -> Just k
   _ -> Nothing
+
+-- | The file a finding is about and the lines it covers, when it is about one: the lines are
+-- absent for a finding about a whole file. A finding about the project, a ledger or a registry
+-- entry, or a verdict row has no location. A diff scopes findings by it. ref:DEC-check-diff-scope
+findingLocation :: Finding -> Maybe (FilePath, Maybe (Int, Int))
+findingLocation f = case f of
+  UnresolvedReference _ w _ -> at w
+  DanglingDecision _ w _ -> at w
+  MissingCanonicalComment _ w -> at w
+  OrphanDocComment path sp -> Just (path, Just (spanLines sp))
+  GitUnavailable path _ -> file path
+  UncommittedFile path -> file path
+  UncommittedLines path _ -> file path
+  DecisionCitedWhileOpen _ w _ -> at w
+  ExtractionFailed path _ -> file path
+  LicenseKeyNotLicense _ w _ -> at w
+  LicenseTextWithoutKey _ w -> at w
+  CommentPending _ w -> at w
+  CommentStale _ w -> at w
+  CommentBad _ w _ -> at w
+  CommentDeferred _ w _ -> at w
+  CommentDeferredPastRevisit _ w _ _ -> at w
+  VerdictWithoutRevisit _ w -> at w
+  TestWithoutRequirement _ w -> at w
+  BlockUndeclared path line -> Just (path, Just (line, line))
+  BlockDoesNotDefine path line _ -> Just (path, Just (line, line))
+  BlockCarriesComment path line -> Just (path, Just (line, line))
+  BlockLanguageUnknown path line _ -> Just (path, Just (line, line))
+  TangledStale path -> file path
+  FrontMatterMissing path -> file path
+  DocKindInvalid path _ -> file path
+  DocQuadrantMismatch path _ -> file path
+  DocIdInvalid path _ -> file path
+  DocIdDuplicate _ path _ -> file path
+  VideoKeyNotVideo path _ -> file path
+  _ -> Nothing
+  where
+    at w = Just (wherePath w, Just (spanLines (whereSpan w)))
+    file path = Just (path, Nothing)
+    spanLines (Span (Position from _) (Position to _)) = (from, max from to)

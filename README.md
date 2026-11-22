@@ -1774,6 +1774,35 @@ ignores `grammars/*/*.g4` except the ANTLR meta-grammar and the Java and
 Haskell grammars, and the Rust, C#, and F# dialects, so that only grammars
 carrying canonical comments are checked.
 
+Who and When are told as git holds them. A file git does not hold yet,
+untracked or only staged, has no author or date, and `canon check` says so
+once, informationally, rather than failing. A line not yet committed is never
+an author: a unit takes Who and When from its committed lines alone, and the
+file is reported once with the count of uncommitted lines.
+
+`canon check --base <side>` reports only the findings on what changed from that
+side to the working tree, or to the side `--head` names. A side is a revision,
+`:index`, or `:worktree`; `--staged` compares HEAD with the index, and
+`--unstaged` the index with the working tree:
+
+```sh
+canon check --base main              # this branch's changes, committed or not
+canon check --base v0.2.5 --head HEAD
+canon check --staged                 # what the next commit would carry
+canon check --unstaged
+canon vet --base main                # the changed material that needs a verdict
+```
+
+Both sides are read in full, the index and commits from a snapshot canon
+writes to a temporary directory with `git restore`, which never touches the
+index, HEAD, or the working tree. A finding is kept when it lies in a file
+added or renamed, touches a changed line or a unit holding one, or is about
+material whose text or verdict changed; a finding with no file, such as a
+verdict a deleted file leaves orphaned, is kept when the earlier side did not
+have it; and a changed `canon.yaml` keeps everything. The last line says how
+many findings were left outside the diff, and the exit code follows the kept
+findings alone.
+
 `canon check` parses files concurrently, and caches each file's extraction
 under `.canon-cache/` in the project directory, keyed by the file's content,
 the grammar and profile it was parsed with, the git revision, the file's

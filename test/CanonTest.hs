@@ -1,7 +1,8 @@
 -- | The command line must parse and print as documented.
 module CanonTest (tests) where
 
-import Canon (Command (..), dispatch, parseCommand, usage, version)
+import Canon (Command (..), Scope (..), dispatch, parseCommand, usage, version)
+import Canon.Snapshot (SideSpec (..))
 import Hedgehog (property, withTests, (===))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
@@ -25,4 +26,15 @@ tests =
           parseCommand ["parse", "g.g4", "start", "f"] === CommandParseCombined "g.g4" "start" "f"
           parseCommand ["decisions"] === CommandDecisions
           parseCommand ["version"] === CommandVersion
+    , testProperty "check and vet take the two sides of a diff" $
+        withTests 1 $ property $ do
+          parseCommand ["check", "--base", "main"] === CommandCheckScoped (Scope (SpecRevision "main") SpecWorkTree) Nothing
+          parseCommand ["check", "--base", "v1", "--head", "HEAD", "src"] === CommandCheckScoped (Scope (SpecRevision "v1") (SpecRevision "HEAD")) (Just "src")
+          parseCommand ["check", "--staged"] === CommandCheckScoped (Scope (SpecRevision "HEAD") SpecIndex) Nothing
+          parseCommand ["check", "--unstaged", "src"] === CommandCheckScoped (Scope SpecIndex SpecWorkTree) (Just "src")
+          parseCommand ["check", "--base", ":index", "--head", ":worktree"] === CommandCheckScoped (Scope SpecIndex SpecWorkTree) Nothing
+          parseCommand ["vet", "--base", "main"] === CommandVetScoped (Scope (SpecRevision "main") SpecWorkTree)
+          parseCommand ["vet"] === CommandVet
+          parseCommand ["check", "--head", "HEAD"] === CommandUsage
+          parseCommand ["check", "--bogus"] === CommandUsage
     ]

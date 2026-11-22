@@ -5,15 +5,23 @@ module Canon.Git.Commit
   , Person (..)
   , Commit (..)
   , BlameLine (..)
+  , uncommittedHash
   ) where
 
 import Data.Aeson (FromJSON (..), ToJSON (..), object, withObject, (.:), (.=))
 import Data.Text (Text)
+import qualified Data.Text as T
 import Data.Time (UTCTime)
 
 -- | A commit hash as text.
 newtype CommitHash = CommitHash {commitHashText :: Text}
   deriving (Eq, Ord, Show)
+
+-- | Whether a hash is git's placeholder for a line no commit holds: blame gives a staged, unstaged
+-- or --contents line the all-zero hash and the author "Not Committed Yet", which is no person and
+-- no change. ref:DEC-uncommitted-provenance
+uncommittedHash :: CommitHash -> Bool
+uncommittedHash (CommitHash hash) = not (T.null hash) && T.all (== '0') hash
 
 -- | A name and email, the identity git records.
 data Person = Person

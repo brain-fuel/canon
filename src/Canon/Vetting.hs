@@ -42,7 +42,7 @@ module Canon.Vetting
 
 import Canon.Config (Disposition (..))
 import Canon.Decisions (DecisionEntry (entryQuestion), Ledger (..))
-import Canon.Git.Commit (BlameLine (..), CommitHash (..))
+import Canon.Git.Commit (BlameLine (..), uncommittedHash)
 import Canon.Git.Parse (trailerPersons)
 import Canon.Git.Provider
 import Canon.Model
@@ -324,7 +324,7 @@ assess provider dir sources (Vetting files) = do
           (DerivedFromGit GitBlame)
       _ -> Answer (Assessment (entryVerdict e) Nothing Nothing Nothing []) (Asserted (Assertion path (lineSpan (maybe 1 id line))))
     lineSpan n = Span (Position n 1) (Position n 1)
-    unsigned l = T.all (== '0') (commitHashText (blameHash l))
+    unsigned l = uncommittedHash (blameHash l)
 
 -- | Puts assessments on the decisions of a model.
 applyAssessments :: Map VettingKey (Answer Assessment Evidence) -> Model Evidence -> Model Evidence

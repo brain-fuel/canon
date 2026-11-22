@@ -13,6 +13,7 @@ import qualified Canon.CanonicalCommentTest
 import qualified Canon.DecisionsTest
 import qualified Canon.ExemptionsTest
 import qualified Canon.IgnoreTest
+import qualified Canon.DiffTest
 import qualified Canon.ProjectTest
 import qualified Canon.ParityTest
 import qualified Canon.TangleTest
@@ -73,6 +74,7 @@ main =
             , Canon.DecisionsTest.tests
             , Canon.IgnoreTest.tests
             , Canon.ProjectTest.tests
+            , Canon.DiffTest.tests
             , Canon.ParityTest.tests
             , Canon.TangleTest.tests
             , Canon.HighlightTest.tests

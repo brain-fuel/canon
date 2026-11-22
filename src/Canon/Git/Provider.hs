@@ -25,10 +25,13 @@ data GitError
   | GitUnparsable GitParseError
   deriving (Eq, Show)
 
--- | The questions canon asks git: history, blame, tags, the described version, and a commit's
--- message. ref:DEC-human-sign-off
+-- | The questions canon asks git: history, blame, tags, the described version, a commit's
+-- message, and whether a file is in the commit its lines are blamed against. A file that is not,
+-- such as an untracked or newly staged one, has no committed line, so it is not blamed.
+-- ref:DEC-human-sign-off ref:DEC-uncommitted-provenance
 data GitProvider = GitProvider
   { historyOf :: FilePath -> Span -> IO (Either GitError [Commit])
+  , committedIn :: FilePath -> IO (Either GitError Bool)
   , blameOf :: FilePath -> Span -> IO (Either GitError [BlameLine])
   , tagsContaining :: CommitHash -> IO (Either GitError [Text])
   , describeVersion :: IO (Either GitError (Maybe Text))
@@ -52,6 +55,7 @@ staticGitProviderWith :: StaticGit -> GitProvider
 staticGitProviderWith static =
   GitProvider
     { historyOf = \_ _ -> pure (Right (staticCommits static))
+    , committedIn = \_ -> pure (Right True)
     , blameOf = \_ (Span (Position from _) (Position to _)) ->
         pure (Right [blameLine line c | (line, c) <- zip [from .. max from to] (cycle' (staticCommits static))])
     , tagsContaining = \hash -> pure (Right (Map.findWithDefault [] hash (staticTags static)))

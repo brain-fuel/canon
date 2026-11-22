@@ -2,6 +2,7 @@
 -- here and nowhere else. ref:DEC-decision-ledger ref:DEC-comment-vetting
 module Canon
   ( Command (..)
+  , Scope (..)
   , parseCommand
   , runCommand
   , runCanon
@@ -16,12 +17,14 @@ import Canon.Antlr4.Interpret
 import Canon.Antlr4.Parse (hPutParseTree)
 import Canon.Antlr4.Syntax (Name (..))
 import Canon.Decisions
+import Canon.Diff (Scoped (..), scopedSurvey)
+import Canon.Snapshot (SideSpec (..), parseSide, renderSide, resolveSide)
 import Canon.Extract.Grammar (Extraction (..))
 import Canon.Config (Config (..), Tax (..), Taxes (..))
 import Canon.Git.Commit (CommitHash (..), Person (..))
 import Canon.Model
-import Canon.Vetting (applyAssessments, materialFindings)
-import Canon.Model.Finding (Finding (..), Severity (..), findingPending, findingSeverity, renderFinding)
+import Canon.Vetting (applyAssessments, attention, materialFindings)
+import Canon.Model.Finding (Finding (..), Severity (..), findingKey, findingPending, findingSeverity, renderFinding)
 import Canon.Model.Yaml (encodeModel)
 import Canon.Project
 import Canon.Folio (Block (..), Document (..))
@@ -52,15 +55,21 @@ data Command
   = CommandVersion
   | CommandModel FilePath
   | CommandCheck (Maybe FilePath)
+  | CommandCheckScoped Scope (Maybe FilePath)
   | CommandFiles (Maybe FilePath)
   | CommandParse FilePath FilePath Text FilePath
   | CommandParseCombined FilePath Text FilePath
   | CommandDecisions
   | CommandIngest
   | CommandVet
+  | CommandVetScoped Scope
   | CommandTangle Bool Bool [FilePath]
   | CommandSite FilePath
   | CommandUsage
+  deriving (Eq, Show)
+
+-- | The two sides a check or vet is scoped to: the earlier and the later. ref:DEC-check-diff-scope
+data Scope = Scope SideSpec SideSpec
   deriving (Eq, Show)
 
 -- | The version string a user sees, derived from the one source of the version so it cannot drift.
@@ -73,21 +82,36 @@ parseCommand :: [String] -> Command
 parseCommand arguments = case arguments of
   ["version"] -> CommandVersion
   ["model", path] -> CommandModel path
-  ["check"] -> CommandCheck Nothing
-  ["check", path] -> CommandCheck (Just path)
+  ("check" : rest) | Just (scope, paths) <- scoped rest, length paths <= 1 ->
+    maybe CommandCheck CommandCheckScoped scope (case paths of { [path] -> Just path; _ -> Nothing })
   ["files"] -> CommandFiles Nothing
   ["files", path] -> CommandFiles (Just path)
   ["parse", lexer, parser, start, path] -> CommandParse lexer parser (T.pack start) path
   ["parse", grammar, start, path] -> CommandParseCombined grammar (T.pack start) path
   ["decisions"] -> CommandDecisions
   ["ingest"] -> CommandIngest
-  ["vet"] -> CommandVet
+  ("vet" : rest) | Just (scope, []) <- scoped rest -> maybe CommandVet CommandVetScoped scope
   ("tangle" : rest) | all known (filter isFlag rest) -> CommandTangle ("--check" `elem` rest) ("--manifest" `elem` rest) (filter (not . isFlag) rest)
   ["site", out] -> CommandSite out
   _ -> CommandUsage
   where
     isFlag = ("--" `isPrefixOf`)
     known f = f `elem` ["--check", "--manifest"]
+    -- --base and --head name the sides; --staged and --unstaged are the two everyday ones. A
+    -- later side without an earlier one is refused, since there is nothing to compare it with.
+    scoped = go Nothing Nothing []
+      where
+        go base later paths arguments' = case arguments' of
+          [] -> case (base, later) of
+            (Nothing, Nothing) -> Just (Nothing, reverse paths)
+            (Just b, h) -> Just (Just (Scope b (maybe SpecWorkTree id h)), reverse paths)
+            (Nothing, Just _) -> Nothing
+          ("--base" : side : more) -> go (Just (parseSide (T.pack side))) later paths more
+          ("--head" : side : more) -> go base (Just (parseSide (T.pack side))) paths more
+          ("--staged" : more) -> go (Just (SpecRevision "HEAD")) (Just SpecIndex) paths more
+          ("--unstaged" : more) -> go (Just SpecIndex) (Just SpecWorkTree) paths more
+          (flag : _) | isFlag flag -> Nothing
+          (path : more) -> go base later (path : paths) more
 
 -- | The pure part of running a command, kept for the tests that check usage text without side
 -- effects.
@@ -107,12 +131,14 @@ usage =
     , "  canon version"
     , "  canon model <file>                                    emit the canonical model of a file as YAML"
     , "  canon check [<file or directory>]                     report findings for the file, or every supported file under the directory or the current one, and fail if any is failing"
+    , "  canon check --base <side> [--head <side>] [<path>]   report only the findings on what changed from one side to the other; a side is a revision, :index or :worktree (the default --head)"
+    , "  canon check --staged | --unstaged [<path>]            the same from HEAD to the index, or from the index to the working tree"
     , "  canon files [<directory>]                             list the supported files check would visit"
     , "  canon parse <lexer.g4> <parser.g4> <rule> <file>      parse a file with an interpreted grammar pair"
     , "  canon parse <grammar.g4> <rule> <file>                parse a file with an interpreted combined grammar"
     , "  canon decisions                                       list the decision ledger, open decisions first"
     , "  canon ingest                                          record every canonical comment of the project as pending in the vetting file"
-    , "  canon vet                                             list the canonical comments that need a human verdict, with their text"
+    , "  canon vet [--base <side> [--head <side>] | --staged | --unstaged]   list the canonical comments that need a human verdict, with their text, or only those on what changed"
     , "  canon tangle [--check] [--manifest] [<page>...]       write every source the project's Folio pages tangle to, or with --check report the stale ones; --manifest lists the blocks"
     , "  canon site <directory>                                render the project's Folio pages under docs/ to a static site in the directory"
     ]
@@ -138,21 +164,21 @@ runCommand command = case command of
         pure ExitSuccess
   CommandCheck target -> withProject $ \project -> do
     findings <- checkProject project target
-    let optedOut = taxSignOff (configTaxes (projectConfig project)) == TaxOptedOut
-        pending = length [() | f <- findings, findingPending f]
-    mapM_ (TIO.putStrLn . renderWithSeverity) [f | f <- findings, not (optedOut && findingPending f)]
-    if pending == 0
-      then pure ()
-      else
-        if optedOut
-          then TIO.putStrLn (T.concat ["info: ", T.pack (show pending), " pieces of canonical material pending sign-off; canon.yaml opts out of the sign-off tax, so they do not fail the check (canon vet lists them)"])
-          else TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " pieces of canonical material pending sign-off"])
-    pure (if any (findingFails (projectConfig project)) findings then ExitFailure 1 else ExitSuccess)
+    reportFindings project findings
+  CommandCheckScoped scope target -> withScope scope target $ \project scoped -> do
+    exit <- reportFindings project (scopedFindings scoped)
+    TIO.putStrLn (T.concat ["info: ", T.pack (show (scopedOutside scoped)), " findings outside the diff and ", T.pack (show (scopedResolved scoped)), " resolved by it; canon check without --base reports every finding"])
+    pure exit
   CommandIngest -> withProject $ \project -> do
     (path, total, files, fresh, dropped, failures) <- ingestProject project
     putStrLn (path ++ ": " ++ show (length fresh) ++ " pieces of canonical material recorded as pending, " ++ show (length dropped) ++ " pending rows of material that no longer exists dropped, " ++ show total ++ " entries in " ++ show files ++ " files")
     mapM_ (report . ("not read, so its comments are not recorded: " <>)) failures
     pure (if null failures then ExitSuccess else ExitFailure 1)
+  CommandVetScoped scope -> withScope scope Nothing $ \_ scoped -> do
+    let items = [(f, findingKey f >>= (`Map.lookup` scopedTexts scoped)) | f <- scopedFindings scoped, attention f]
+    mapM_ (TIO.putStr . renderAttention) items
+    TIO.putStrLn (T.pack (show (length items)) <> " pieces of changed canonical material need a verdict")
+    pure (if null items then ExitSuccess else ExitFailure 1)
   CommandVet -> withProject $ \project -> do
     items <- vetProject project
     mapM_ (TIO.putStr . renderAttention) items
@@ -306,6 +332,37 @@ runParse start path loaded = case loaded of
     case result of
       Left err -> report (renderInterpretError err) >> pure (ExitFailure 1)
       Right tree -> hPutParseTree stdout tree >> pure ExitSuccess
+
+-- | Prints a check's findings, with the sign-off count, and gives its exit code: failing when any
+-- finding fails under the project's taxes. ref:DEC-tax-opt-out
+reportFindings :: Project -> [Finding] -> IO ExitCode
+reportFindings project findings = do
+  let optedOut = taxSignOff (configTaxes (projectConfig project)) == TaxOptedOut
+      pending = length [() | f <- findings, findingPending f]
+  mapM_ (TIO.putStrLn . renderWithSeverity) [f | f <- findings, not (optedOut && findingPending f)]
+  if pending == 0
+    then pure ()
+    else
+      if optedOut
+        then TIO.putStrLn (T.concat ["info: ", T.pack (show pending), " pieces of canonical material pending sign-off; canon.yaml opts out of the sign-off tax, so they do not fail the check (canon vet lists them)"])
+        else TIO.putStrLn (T.concat ["report invalid: ", T.pack (show pending), " pieces of canonical material pending sign-off"])
+  pure (if any (findingFails (projectConfig project)) findings then ExitFailure 1 else ExitSuccess)
+
+-- | Resolves a scope's two sides and reads the diff between them, with the working tree's project
+-- for its configuration. ref:DEC-check-diff-scope
+withScope :: Scope -> Maybe FilePath -> (Project -> Scoped -> IO ExitCode) -> IO ExitCode
+withScope (Scope baseSpec headSpec) target continue = withProject $ \project -> do
+  base <- resolveSide "." baseSpec
+  later <- resolveSide "." headSpec
+  case (base, later) of
+    (Left err, _) -> report err >> pure (ExitFailure 1)
+    (_, Left err) -> report err >> pure (ExitFailure 1)
+    (Right b, Right h) -> do
+      TIO.putStrLn (T.concat ["info: findings on what changed from ", renderSide b, " to ", renderSide h])
+      scoped <- scopedSurvey "." b h target
+      case scoped of
+        Left err -> report err >> pure (ExitFailure 1)
+        Right s -> continue project s
 
 withProject :: (Project -> IO ExitCode) -> IO ExitCode
 withProject continue = do

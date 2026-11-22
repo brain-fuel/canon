@@ -3,6 +3,8 @@
 -- ref:DEC-git-runner
 module Canon.Git.Shell
   ( shellGitProvider
+  , GitSide (..)
+  , sideGitProvider
   , runGit
   , gitIgnoredPaths
   , GitRunner
@@ -24,7 +26,7 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as TE
 import Data.Text.Encoding.Error (lenientDecode)
 import System.Exit (ExitCode (..))
-import System.FilePath (takeDirectory, takeFileName)
+import System.FilePath (makeRelative, takeDirectory, takeFileName)
 import System.Process.Typed (proc, readProcess)
 
 -- | What runs a git command: a directory and arguments in, the output or an error out.
@@ -79,29 +81,69 @@ lineRange (Span start end) =
       final = max first (positionLine end)
    in show first ++ "," ++ show final
 
--- | The provider over the git executable.
+-- | Which state of a repository a provider answers for. The working tree is read where it lies;
+-- the index and a commit are read from a snapshot canon writes outside the repository, so each
+-- names the repository's top level and the snapshot's, and a path in the snapshot is asked of git
+-- as the same path in the repository. ref:DEC-check-sides
+data GitSide
+  = WorkTreeSide
+  | IndexSide FilePath FilePath
+  | CommitSide Text FilePath FilePath
+  deriving (Eq, Show)
+
+-- | The provider over the git executable, for the working tree.
 shellGitProvider :: GitProvider
-shellGitProvider =
+shellGitProvider = sideGitProvider WorkTreeSide
+
+-- | The provider for one side. A line is blamed against the commit the side grows from: HEAD for
+-- the working tree and the index, the commit itself for a commit. The index's content is given to
+-- blame with --contents, so a staged line is not committed even if the working tree has moved on.
+-- A file that commit does not hold is not blamed at all: none of its lines is committed.
+-- ref:DEC-uncommitted-provenance ref:DEC-check-sides
+sideGitProvider :: GitSide -> GitProvider
+sideGitProvider side =
   GitProvider
     { historyOf = \path sp ->
         fmap (>>= parseWith parseGitLog) $
           runGit
             (takeDirectory path)
             ["log", "--format=" ++ T.unpack logFormat, "-L", lineRange sp ++ ":" ++ takeFileName path]
+    , committedIn = \path -> do
+        let (directory, name, commit) = case side of
+              WorkTreeSide -> (takeDirectory path, takeFileName path, "HEAD")
+              IndexSide top snapshot -> (top, makeRelative snapshot path, "HEAD")
+              CommitSide hash top snapshot -> (top, makeRelative snapshot path, T.unpack hash)
+        result <- runGit directory ["ls-tree", "--name-only", commit, "--", name]
+        pure $ case result of
+          Right out -> Right (not (T.null (T.strip out)))
+          -- A repository with no commit yet holds no file.
+          Left (GitFailed _ message) | "Not a valid object name" `T.isInfixOf` message -> Right False
+          Left err -> Left err
     , blameOf = \path sp ->
-        fmap (>>= parseWith parseBlamePorcelain) $
-          runGit (takeDirectory path) ["blame", "--line-porcelain", "-L", lineRange sp, "--", takeFileName path]
+        fmap (>>= parseWith parseBlamePorcelain) $ case side of
+          WorkTreeSide ->
+            runGit (takeDirectory path) ["blame", "--line-porcelain", "-L", lineRange sp, "--", takeFileName path]
+          IndexSide top snapshot ->
+            runGit top ["blame", "--line-porcelain", "-L", lineRange sp, "--contents", path, "--", makeRelative snapshot path]
+          CommitSide hash top snapshot ->
+            runGit top ["blame", "--line-porcelain", "-L", lineRange sp, T.unpack hash, "--", makeRelative snapshot path]
     , tagsContaining = \(CommitHash hash) ->
         fmap (fmap (filter (not . T.null) . map T.strip . T.lines)) $
-          runGit "." ["tag", "--contains", T.unpack hash, "--sort=v:refname"]
+          runGit (repository ".") ["tag", "--contains", T.unpack hash, "--sort=v:refname"]
     , describeVersion = do
-        result <- runGit "." ["describe", "--tags", "--always", "--dirty"]
+        result <- case side of
+          CommitSide hash top _ -> runGit top ["describe", "--tags", "--always", T.unpack hash]
+          _ -> runGit (repository ".") ["describe", "--tags", "--always", "--dirty"]
         pure $ case result of
           Right out -> Right (nonEmptyText (T.strip out))
           Left GitNotFound -> Left GitNotFound
           Left _ -> Right Nothing
-    , messageOf = \(CommitHash hash) -> runGit "." ["log", "-1", "--format=%B", T.unpack hash]
+    , messageOf = \(CommitHash hash) -> runGit (repository ".") ["log", "-1", "--format=%B", T.unpack hash]
     }
   where
     parseWith parser = either (Left . GitUnparsable) Right . parser
     nonEmptyText t = if T.null t then Nothing else Just t
+    repository here = case side of
+      WorkTreeSide -> here
+      IndexSide top _ -> top
+      CommitSide _ top _ -> top

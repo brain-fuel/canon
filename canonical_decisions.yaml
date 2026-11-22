@@ -93,7 +93,7 @@ DEC-extraction-cache:
   status: decided
   question: How does canon check avoid re-parsing files that have not changed?
   answer: |
-    Each file's extraction is cached under .canon-cache/ in the project directory as YAML, keyed by a SHA-256 of the file content, the grammar sources and profile it was parsed with, the git revision, the file's dirty state, the project's git describe output and full tag list, the version in canon.yaml, and canon's own version, and the path. Every input that reaches the model is in the key, so a cache hit is exact; the tag list is included because a tag added on an older commit changes the version a unit was introduced in without changing HEAD or describe. The directory is ignored by the walk and by git and can be deleted at any time; a miss simply parses.
+    Each file's extraction is cached under .canon-cache/ in the project directory as YAML, keyed by a SHA-256 of the file content, the grammar sources and profile it was parsed with, the git revision, the file's dirty state, the project's git describe output and full tag list, the version in canon.yaml, and canon's own version, and the path. Every input that reaches the model is in the key, so a cache hit is exact; the tag list is included because a tag added on an older commit changes the version a unit was introduced in without changing HEAD or describe. The directory is ignored by the walk and by git and can be deleted at any time; a miss simply parses. A snapshot of the index or a commit has its own cache inside the snapshot, removed with it, so a check of one side never reads or writes another's entries.
   opened: 0.1.0
   decided: 0.1.0
 
@@ -993,3 +993,27 @@ DEC-haskell-field-haddock:
   opened: 0.2.3
   decided: 0.2.3
   refs: [REQ-haskell-support, DEC-haskell-dialect, DEC-haskell-constructor-haddock, DEC-canon-patch-compatibility]
+
+DEC-uncommitted-provenance:
+  status: decided
+  question: "Who and When come from git blame. A file git does not hold, or a line not yet committed, has no commit: blame refuses the first with \"no such path in HEAD\", and answers the second with the all-zero hash and the author \"Not Committed Yet\". What does canon say about such material?"
+  answer: |
+    That it is not committed, and nothing more. Before blaming a file, canon asks whether the side being read holds it, with git ls-tree against HEAD or the side's commit; a file it does not hold, untracked or only staged, is not blamed, has no Who or When, and is reported once as an informational uncommitted file. A blame line with the all-zero hash is no commit: it never enters Who, When, or the tag a unit was introduced in, so a unit of only such lines has neither, a unit mixing them takes both from its committed lines, and the file is reported once with the count of uncommitted lines, informationally. The vetting check's test for an unsigned verdict row is the same predicate. A genuine git failure is still a failure. The precedent is git blame's own Not Committed Yet pseudo-commit, which marks the state rather than inventing an author. Asked for by the owner on 2026-11-22, after a LawSpec branch with new files failed its canon check.
+  opened: 0.2.6
+  decided: 0.2.6
+
+DEC-check-sides:
+  status: decided
+  question: "A check or vet can be about the working tree, the index, or a commit. How does canon read a side that is not the working tree, without touching the user's index, HEAD, or files?"
+  answer: |
+    From a snapshot. canon resolves a commit once to its full hash, then writes the side into a fresh temporary directory with git --work-tree=<snapshot> restore --worktree, with --source=<hash> for a commit, which writes files only. Every path git ignores in the working tree is linked into the snapshot, so a grammar checkout or other environment canon.yaml names is found, and the walk is given the working tree's ignored set, so it skips the same paths; canon's cache is not linked. The project is loaded from the snapshot with a git provider bound to that side: blame of the commit itself, or blame with --contents of the snapshot's file for the index, and tag and describe lookups against the side's commit. The snapshot is removed when the check ends. Findings name the project's paths, not the snapshot's. Every git call goes through the one runner. The precedents are git checkout-index --prefix, and pre-commit's checking of staged content, without its stash of what is unstaged. Asked for by the owner on 2026-11-22.
+  opened: 0.2.6
+  decided: 0.2.6
+
+DEC-check-diff-scope:
+  status: decided
+  question: "canon check --base <side> [--head <side>], with --staged for HEAD to the index and --unstaged for the index to the working tree, reports what changed between two sides, including files added, deleted, and renamed. Which findings does it keep?"
+  answer: |
+    Both sides are read in full and the later side's findings are kept when the diff bears on them. git diff --name-status -M --relative names the changed paths, with renames; files git neither tracks nor ignores are added or deleted when one side is the working tree; and git diff -U0 gives the lines that changed on the later side, widened to every unit they touch, and a hunk that only removes lines counts the line it follows. A finding about a file that was added or renamed is kept whole, one about a modified file is kept when it touches a changed line or a changed unit, and one about material whose text or verdict differs between the sides is kept wherever it lies. A finding with no file, such as a verdict left orphaned by a deleted file, is kept when the earlier side did not have it. A changed canon.yaml keeps every finding, since its profiles and exemptions bear on all of them. The output closes with how many findings were left outside the diff and how many the earlier side had that the later one does not, and the exit code follows the kept findings alone; vet --base lists the changed material needing a verdict. The precedents are git diff --name-status -M and review tools that report on changed lines only. Asked for by the owner on 2026-11-22.
+  opened: 0.2.6
+  decided: 0.2.6

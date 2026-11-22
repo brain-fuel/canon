@@ -8,7 +8,31 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- `canon check --base <side> [--head <side>] [<path>]` reports only the
+  findings on what changed from one side of the repository to the other. A side
+  is a revision, `:index`, or `:worktree`, which is the default `--head`.
+  `--staged` compares HEAD with the index and `--unstaged` the index with the
+  working tree. Files added, deleted, and renamed are in scope; a finding with
+  no file, such as a verdict orphaned by a deleted file, is kept when the
+  earlier side did not have it; and a changed `canon.yaml` keeps everything.
+  The output ends with how many findings were outside the diff and how many it
+  resolved, and the exit code follows the findings it kept. `canon vet` takes
+  the same flags. The index and commits are read from a snapshot in a
+  temporary directory, written with `git restore`, which never touches the
+  index, HEAD, or the working tree.
+
 ### Fixed
+
+- A file git does not hold, untracked or only staged, failed the check as git
+  being unavailable ("no such path in HEAD"). It is now reported, informationally,
+  as not committed, and its material has no author or date.
+- A line not yet committed was credited to "Not Committed Yet" as an author and
+  change. It is now left out of Who and When, and the file is reported,
+  informationally, with the count of uncommitted lines.
+- Exemptions are matched against paths relative to the project rather than the
+  current directory.
 - The walk skips `.mut/` by default. A mutation run keeps a copy of the project's sources for each mutant under `.mut/runs/`, and a copy without its own `canon.yaml` was walked and extracted as project source, so a project with a few retained runs was read many times over. Rice's Tax reads a run's report through `runtime.artefacts`, which does not use the walk. A project that keeps sources under a directory named `.mut` can restore it with `!.mut/` under `ignore`
 
 ## [0.2.5] - 2026-11-20

@@ -348,6 +348,8 @@ genFinding =
     , VerdictWithoutRevisit <$> genDecisionId <*> genWhere
     , VerdictOrphan <$> genVettingKey
     , VerdictUncommitted <$> genVettingKey
+    , UncommittedFile <$> genPath
+    , UncommittedLines <$> genPath <*> Gen.int (Range.linear 1 500)
     , MaterialPending <$> genVettingKey
     , MaterialStale <$> genVettingKey
     , MaterialBad <$> genVettingKey <*> Gen.maybe genPlainText

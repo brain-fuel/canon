@@ -5,6 +5,7 @@ module Canon.Project
   ( Project (..)
   , ProjectError (..)
   , loadProject
+  , loadProjectWith
   , projectFiles
   , checkProject
   , findingFails
@@ -34,6 +35,7 @@ import Canon.Decisions
 import Canon.Exemptions
 import Canon.Version (canonVersion, patchCompatible, renderVersion)
 import Canon.Extract.Grammar
+import Canon.Git.Provider (GitProvider)
 import Canon.Git.Shell (gitIgnoredPaths, runGit, shellGitProvider)
 import Control.Concurrent (getNumCapabilities)
 import Control.Concurrent.Async (mapConcurrently)
@@ -67,7 +69,10 @@ import qualified Data.Text as T
 import System.Directory (doesDirectoryExist, doesFileExist, listDirectory, removeFile)
 import System.FilePath (makeRelative, normalise, takeExtension, takeFileName, (</>))
 
--- | A project with its three canonical files and its vetting directory loaded.
+-- | A project with its three canonical files and its vetting directory loaded, the git provider
+-- that answers for the side of the repository it was read from, and, for a snapshot of the index
+-- or a commit, the paths the working tree's git ignores, which the snapshot does not hold.
+-- ref:DEC-check-sides
 data Project = Project
   { projectDirectory :: FilePath
   , projectConfig :: Config
@@ -75,6 +80,8 @@ data Project = Project
   , projectLedger :: Ledger
   , projectVetting :: Maybe Vetting
   , projectExemptions :: Exemptions
+  , projectGit :: GitProvider
+  , projectIgnored :: Maybe (Set.Set [Text])
   }
 
 -- | Any of the canonical files can be unreadable.
@@ -101,7 +108,12 @@ resolvePath project path = normalise (projectDirectory project </> path)
 
 -- | Loads a project from a directory, defaulting each absent file when it has the default name.
 loadProject :: FilePath -> IO (Either ProjectError Project)
-loadProject directory = do
+loadProject = loadProjectWith shellGitProvider Nothing
+
+-- | Loads a project read through a provider for one side of its repository, with the paths to skip
+-- in place of asking git what it ignores. ref:DEC-check-sides
+loadProjectWith :: GitProvider -> Maybe (Set.Set [Text]) -> FilePath -> IO (Either ProjectError Project)
+loadProjectWith git ignored directory = do
   let configPath = directory </> configFileName
   present <- doesFileExist configPath
   configResult <- if present then readConfigFile configPath else pure (Right defaultConfig)
@@ -112,7 +124,7 @@ loadProject directory = do
       ledger <- loadOptional (directory </> configDecisions config) (configDecisions config == defaultDecisionsFileName) emptyLedger readLedgerFile ProjectLedgerError
       vetting <- loadVetting (directory </> configVetting config) (configVetting config == defaultVettingDirectory)
       exemptions <- loadOptional (directory </> configExemptions config) (configExemptions config == defaultExemptionsFileName) emptyExemptions readExemptionsFile ProjectExemptionsError
-      pure (Project directory config <$> registry <*> ledger <*> vetting <*> exemptions)
+      pure ((\r l v e -> Project directory config r l v e git ignored) <$> registry <*> ledger <*> vetting <*> exemptions)
 
 loadVetting :: FilePath -> Bool -> IO (Either ProjectError (Maybe Vetting))
 loadVetting path isDefault = do
@@ -134,7 +146,7 @@ projectAssessments project = case projectVetting project of
   Just vetting -> do
     let dir = resolvePath project (configVetting (projectConfig project))
     sources <- Map.traverseWithKey (\p _ -> TIO.readFile (dir </> p)) (vettingFiles vetting)
-    assess shellGitProvider dir sources vetting
+    assess (projectGit project) dir sources vetting
 
 -- | The file each material's verdict belongs in, named after the project's ledger and registry.
 projectMaterials :: Project -> [Decision Evidence] -> [Material]
@@ -161,7 +173,7 @@ projectFiles project target = do
   isDirectory <- doesDirectoryExist root
   if isDirectory
     then do
-      gitIgnored <- gitIgnoredPaths root
+      gitIgnored <- maybe (gitIgnoredPaths root) pure (projectIgnored project)
       walkProjectExcluding gitIgnored patterns supported configFileName root
     else pure (Walked [root] [])
 
@@ -241,7 +253,7 @@ exemptFinding project = exempt
   where
     exemptions = projectExemptions project
     vetting = maybe emptyVetting id (projectVetting project)
-    relative w = T.pack (makeRelative "." (normalise (wherePath w)))
+    relative w = T.pack (makeRelative (normalise (projectDirectory project)) (normalise (wherePath w)))
     subjectOfKind k = case fileOf vetting k of
       Just shard -> T.pack (maybe shard id (stripSuffix ".yaml" (dropKind shard)))
       Nothing -> renderVettingKey k
@@ -250,7 +262,7 @@ exemptFinding project = exempt
     isSuffixOf' suffix s = reverse suffix == take (length suffix) (reverse s)
     -- A page is exempted by its path, like a comment; the other materials by their key.
     subjectOfMaterial k = case k of
-      DocKey path -> T.pack (makeRelative "." (normalise path))
+      DocKey path -> T.pack (makeRelative (normalise (projectDirectory project)) (normalise path))
       _ -> renderVettingKey k
     kindOfKey k = case k of
       CommentKey _ -> "comment"
@@ -392,7 +404,7 @@ folioExtractions project interpreters grammarBytes projectParts = case folioProf
         Nothing -> do
           made <- case (embedded, Map.lookup lang (configLanguages config), Map.lookup lang interpreters) of
             (Just _, Just profile, Just (Right interpreter)) ->
-              either (Left . renderGrammarExtractError) (Right . relocate t) <$> extractWithProfileText shellGitProvider config lang profile interpreter path path (tangledText t)
+              either (Left . renderGrammarExtractError) (Right . relocate t) <$> extractWithProfileText (projectGit project) config lang profile interpreter path path (tangledText t)
             (_, _, Just (Left err)) -> pure (Left (renderInterpretError err))
             _ -> pure (Left ("no language profile embeds " <> language))
           storeCached (projectDirectory project) key made
@@ -448,7 +460,7 @@ extractFile project path = do
       loaded <- loadProfileInterpreter (resolveProfile project profile)
       case loaded of
         Left err -> pure (Left (renderInterpretError err))
-        Right interpreter -> either (Left . renderGrammarExtractError) Right <$> extractWithProfile shellGitProvider config lang profile interpreter (idPathOf project path) path
+        Right interpreter -> either (Left . renderGrammarExtractError) Right <$> extractWithProfile (projectGit project) config lang profile interpreter (idPathOf project path) path
 
 extractCached :: Project -> Map.Map Text (Either InterpretError Interpreter) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> FilePath -> IO (Either Text Extraction)
 extractCached project interpreters grammarBytes projectParts path = do
@@ -475,7 +487,7 @@ extractCached project interpreters grammarBytes projectParts path = do
         Just (lang, profile) -> case Map.lookup lang interpreters of
           Just (Right interpreter) ->
             either (Left . renderGrammarExtractError) Right
-              <$> extractWithProfile shellGitProvider config lang profile interpreter (idPathOf project path) path
+              <$> extractWithProfile (projectGit project) config lang profile interpreter (idPathOf project path) path
           Just (Left err) -> pure (Left (renderInterpretError err))
           Nothing -> pure (Left "no interpreter for language")
         Nothing -> pure (Left "no language profile matches this path")

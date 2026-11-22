@@ -10,25 +10,35 @@ import Canon.Git.Provider
 import Canon.Model
 import Canon.Model.Finding (Finding (..))
 import Canon.Span (Position (..), Span (..))
-import Data.List (nubBy)
+import Data.List (nubBy, partition)
 import qualified Data.Map.Strict as Map
 import Data.Maybe (listToMaybe)
 
 -- | Fills Who and When on every unit from one blame of the file, reporting once when git is
 -- unavailable. A file with no text, such as an empty Python __init__.py, has no line git can
--- blame, so it is left as it is rather than reported. ref:DEC-git-runner
+-- blame, so it is left as it is rather than reported. A file the side's commit does not hold, and
+-- every line blame marks as not committed, has no author and no date: such a line is left out of
+-- Who and When rather than credited to "Not Committed Yet", and the file is reported once,
+-- informationally, so the state is visible without failing the check.
+-- ref:DEC-git-runner ref:DEC-uncommitted-provenance
 fillGitFromBlame :: GitProvider -> FilePath -> CodeUnit Evidence -> IO (CodeUnit Evidence, [Finding])
 fillGitFromBlame provider path root = do
   let rootSpan = whereSpan (answerValue (unitWhere root))
-  blamed <- if spanStart rootSpan == spanEnd rootSpan then pure (Right []) else blameOf provider path rootSpan
-  case blamed of
-    Left err -> pure (root, [GitUnavailable path err])
-    Right entries -> do
-      let byLine = Map.fromList [(blameFinalLine l, l) | l <- entries]
+  if spanStart rootSpan == spanEnd rootSpan
+    then filled []
+    else do
+      held <- committedIn provider path
+      case held of
+        Left err -> pure (root, [GitUnavailable path err])
+        Right False -> pure (root, [UncommittedFile path])
+        Right True -> either (\err -> pure (root, [GitUnavailable path err])) filled =<< blameOf provider path rootSpan
+  where
+    filled entries = do
+      let (uncommitted, committed) = partition (uncommittedHash . blameHash) entries
+          byLine = Map.fromList [(blameFinalLine l, l) | l <- committed]
           firstCommits = nubBy (\a b -> commitHashText a == commitHashText b) [changeCommit (whenFirst w) | u <- allUnits root, Just w <- [whenOf byLine u]]
       tagMap <- Map.fromList <$> mapM (\h -> (,) (commitHashText h) . either (const []) id <$> tagsContaining provider h) firstCommits
-      pure (fill byLine tagMap root, [])
-  where
+      pure (fill byLine tagMap root, [UncommittedLines path (length uncommitted) | not (null uncommitted)])
     linesOf unit =
       let Span (Position from _) (Position to _) = whereSpan (answerValue (unitWhere unit))
        in [from .. max from to]
