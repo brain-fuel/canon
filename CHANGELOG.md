@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.2.6] - 2026-11-22
+
 ### Added
 
 - `canon check --base <side> [--head <side>] [<path>]` reports only the
