@@ -41,6 +41,7 @@ import qualified Canon.Extract.HCLTest
 import qualified Canon.Extract.PulumiTest
 import qualified Canon.Model.CheckTest
 import qualified Canon.Model.IdTest
+import qualified Canon.Git.FactsTest
 import qualified Canon.Git.ParseTest
 import qualified Canon.Model.YamlTest
 import qualified Canon.RegistryTest
@@ -67,6 +68,7 @@ main =
             , Canon.ExemptionsTest.tests
             , Canon.RegistryTest.tests, Canon.VettingTest.tests, Canon.TestingTest.tests
             , Canon.Git.ParseTest.tests
+            , Canon.Git.FactsTest.tests
             , Canon.CanonicalCommentTest.tests
             , Canon.AttachTest.tests
             , Canon.Model.CheckTest.tests, Canon.Model.IdTest.tests

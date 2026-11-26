@@ -93,7 +93,7 @@ DEC-extraction-cache:
   status: decided
   question: How does canon check avoid re-parsing files that have not changed?
   answer: |
-    Each file's extraction is cached under .canon-cache/ in the project directory as YAML, keyed by a SHA-256 of the file content, the grammar sources and profile it was parsed with, the git revision, the file's dirty state, the project's git describe output and full tag list, the version in canon.yaml, and canon's own version, and the path. Every input that reaches the model is in the key, so a cache hit is exact; the tag list is included because a tag added on an older commit changes the version a unit was introduced in without changing HEAD or describe. The directory is ignored by the walk and by git and can be deleted at any time; a miss simply parses. A snapshot of the index or a commit has its own cache inside the snapshot, removed with it, so a check of one side never reads or writes another's entries.
+    Each file's extraction is cached under .canon-cache/ in the project directory as JSON, keyed by a SHA-256 of what the extraction depends on and nothing else: the file content, the grammar sources and the profile as canon.yaml writes it, canon's own version, the path from the project root, whether git holds the file, and the commit that last changed it. Every input that reaches the cached value is in the key, so a hit is exact. Since 0.3.0 the cached value holds nothing project- or repository-wide: the version canon.yaml names, the described version, and the release each unit was introduced in are stamped on after the cache, the last two from facts read once per run (DEC-repository-facts), so a release, a commit, or a tag no longer empties the cache, and a hit runs no git process. An entry names its file from `./`, so every side of the repository shares one cache: a check against a commit reads the entries the working tree's check wrote, and on LawSpec a base never read before costs about 20 seconds rather than 80. Blame and commit messages are cached the same way, keyed by what they depend on. Entries are written to a name of their own and renamed into place, so concurrent checks never read a partial one. The directory is ignored by the walk and by git and can be deleted at any time; a miss simply parses. A commit's snapshot is kept for the next check against that commit, and only the newest few are kept.
   opened: 0.1.0
   decided: 0.1.0
 
@@ -751,10 +751,12 @@ DEC-site-renderer:
   refs: [rices-tax]
 
 DEC-canon-self-folio:
-  status: open
+  status: decided
   question: Rice's Tax's sources become Folio pages. Do canon's?
+  answer: |
+    Yes. canon's sources become Folio pages as Rice's Tax's did, so canon is documented the way it asks projects to be. The conversion is work to follow 0.3.0; until it lands the sources stay plain Haskell and canon check reads them as before. Decided by the owner on 2026-11-23, when 0.3.0 reached the revisit version.
   opened: 0.1.0
-  revisit: 0.3.0
+  decided: 0.3.0
 
 DEC-make-dialect:
   status: decided
@@ -1014,6 +1016,30 @@ DEC-check-diff-scope:
   status: decided
   question: "canon check --base <side> [--head <side>], with --staged for HEAD to the index and --unstaged for the index to the working tree, reports what changed between two sides, including files added, deleted, and renamed. Which findings does it keep?"
   answer: |
-    Both sides are read in full and the later side's findings are kept when the diff bears on them. git diff --name-status -M --relative names the changed paths, with renames; files git neither tracks nor ignores are added or deleted when one side is the working tree; and git diff -U0 gives the lines that changed on the later side, widened to every unit they touch, and a hunk that only removes lines counts the line it follows. A finding about a file that was added or renamed is kept whole, one about a modified file is kept when it touches a changed line or a changed unit, and one about material whose text or verdict differs between the sides is kept wherever it lies. A finding with no file, such as a verdict left orphaned by a deleted file, is kept when the earlier side did not have it. A changed canon.yaml keeps every finding, since its profiles and exemptions bear on all of them. The output closes with how many findings were left outside the diff and how many the earlier side had that the later one does not, and the exit code follows the kept findings alone; vet --base lists the changed material needing a verdict. The precedents are git diff --name-status -M and review tools that report on changed lines only. Asked for by the owner on 2026-11-22.
+    Both sides are read in full and the later side's findings are kept when the diff bears on them. git diff --name-status -M --relative names the changed paths, with renames; files git neither tracks nor ignores are added or deleted when one side is the working tree; and git diff -U0 gives the lines that changed on the later side, widened to every unit they touch, and a hunk that only removes lines counts the line it follows. A finding about a file that was added or renamed is kept whole, one about a modified file is kept when it touches a changed line or a changed unit, and one about material whose text or verdict differs between the sides is kept wherever it lies. A finding the earlier side did not have is kept wherever it lies, which covers a finding with no file, such as a verdict left orphaned by a deleted file. Since 0.3.0 a changed canon.yaml no longer keeps every finding: the findings it causes are new and kept, those it resolves are counted, and a release's version bump reports nothing by itself. The two sides are read at once. The output closes with how many findings were left outside the diff and how many the earlier side had that the later one does not, and the exit code follows the kept findings alone; vet --base lists the changed material needing a verdict. The precedents are git diff --name-status -M and review tools that report on changed lines only. Asked for by the owner on 2026-11-22.
   opened: 0.2.6
   decided: 0.2.6
+
+DEC-ghc-9-14:
+  status: decided
+  question: Which GHC builds canon natively, now that the parallel repository tests wedged the runtime on GHC 9.10.3?
+  answer: |
+    GHC 9.14.1, over the same LTS 24.58 snapshot, with the boot packages 9.14 needs newer as extra-deps: Cabal and Cabal-syntax 3.16.0.0 (cabal-doctest 1.0.12 does not build against 3.18), directory 1.3.11.0, and process 1.6.30.0 with its os-string flag. On 9.10.3 the git-backed diff tests, run at once at -N18, hung about one run in six: the debug runtime showed every test thread blocked on a black hole, the shared TMPDIR string getTemporaryDirectory returns, that no running thread owned. That is the lost wakeup of GHC #26324, fixed in 9.14.1, where 40 runs in a row did not hang. The WebAssembly build already uses wasm32-wasi-ghc 9.14.1. Asked for by the owner on 2026-11-22, with LawSpec and Rice's Tax moving in the same release.
+  opened: 0.3.0
+  decided: 0.3.0
+
+DEC-repository-facts:
+  status: decided
+  question: How does canon learn what git knows about a whole repository (which files it holds, the commit that last changed each, the release each commit first shipped in, the described version) without starting git once per file?
+  answer: |
+    Once per run, from a few batched commands: ls-tree -r for the held paths, one log --name-only pass for the last change of every path, for-each-ref over the tags with their peeled objects, rev-list --parents --tags for the commit graph, and describe. On LawSpec that is under a second and eight processes, where 0.2.6 started one rev-parse and one status per file on every cached run and one tag --contains per introducing commit. The release of every commit comes from one pass: the graph is laid out as compressed sparse rows of parent ordinals, and the tags are taken oldest first in version order, each marking the ancestors no earlier tag marked and stopping at those it did, so each commit is visited once and gets the first tag whose history holds it, the answer tag --contains --sort=v:refname gives first; git's commit-graph generation numbers and name-rev are the precedent. The facts are plain immutable maps and unboxed vectors built per run; the marks are an ST vector local to the pass, so no state is shared and no linear or flow typing is needed. Per-file work then runs concurrently, with the grammar interpreters built once at first use. Properties check the readers against a direct reading of reachability and of the newest commit naming a path.
+  opened: 0.3.0
+  decided: 0.3.0
+
+DEC-check-since-release:
+  status: decided
+  question: What does canon check report when given no sides, and how is the whole repository asked for?
+  answer: |
+    What changed since the last release: the newest tag matching canon.yaml's releases pattern, v* by default, that HEAD holds, as git describe --abbrev=0 --match finds it, against the working tree. canon check --all reads every file, as canon check did before 0.3.0, and vet --all lists all material owing a verdict. :release names that side for --base and --head. With no such tag the check fails and says to pass --base or --all rather than guess a base. The output names the release it compared against. CI and release preparation check the diff, since a project releases incrementally and what was released was checked when it was. Lint baselines and SonarQube's new-code period, which report what is new since a reference point, are the precedent. Asked for by the owner on 2026-11-22.
+  opened: 0.3.0
+  decided: 0.3.0

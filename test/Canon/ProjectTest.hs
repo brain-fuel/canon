@@ -26,7 +26,7 @@ import Data.List.NonEmpty (NonEmpty (..))
 import qualified Data.ByteString.Lazy as LBS
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
-import Data.List (sort)
+import Data.List (isInfixOf, sort)
 import qualified Data.Map.Strict as Map
 import qualified Data.Set as Set
 import qualified Data.Text as T
@@ -50,6 +50,7 @@ tests =
     , testProperty "the walk skips what git ignores but not what it tracks" gitIgnoreHonoured
     , testProperty "findings survive a yaml round trip" findingRoundTrip
     , testProperty "an extraction stored in the cache is found again by its key" cacheRoundTrip
+    , testProperty "a cache entry is shared by every side, with each side's paths" cacheSharedAcrossSides
     , testProperty "a requirement cited by a test in any file of the project is tested" requirementAcrossFiles
     , testProperty "ledger and registry entries are pending sign-off once a vetting file exists" materialPending
     , testProperty "a canon.yaml naming another canon version fails the check, and naming this one does not" prop_aCanonYamlNamingAnotherCanonVersionFailsTheCheck
@@ -176,11 +177,27 @@ cacheRoundTrip = property $ do
   let extraction = Extraction model findings
       key = cacheKey (map LBS.fromStrict parts)
   found <- evalIO $ withScratch "cache" $ \root -> do
-    storeCached root key (Right extraction)
-    lookupCached root key
+    storeCached "." root key (Right extraction)
+    lookupCached "." root key
   found === Just (Right extraction)
   other <- forAll (Gen.bytes (Range.linear 21 30))
   assert (cacheKey [LBS.fromStrict other] /= key)
+
+-- | An entry written while reading one side is read by another with that side's paths, so a
+-- snapshot of a commit shares the working tree's entries.
+cacheSharedAcrossSides :: Property
+cacheSharedAcrossSides = withTests 1 $ property $ do
+  -- Paths in the model itself are generated relative, never from a root.
+  model <- forAll (Gen.filter (not . ("\"./" `isInfixOf`) . show) genModel)
+  let at root = Extraction model [UncommittedFile (root </> "src/A.java"), UncommittedLines (root </> "src/B.java") 3]
+      key = cacheKey ["shared"]
+  found <- evalIO $ withScratch "cache-shared" $ \cache -> do
+    storeCached "/snapshots/one" cache key (Right (at "/snapshots/one"))
+    fromSnapshot <- lookupCached "/snapshots/two" cache key
+    fromHere <- lookupCached "." cache key
+    pure (fromSnapshot, fromHere)
+  found === (Just (Right (at "/snapshots/two")), Just (Right (at ".")))
+  sharedPath "/snapshots/one" "/snapshots/one/src/A.java" === sharedPath "." "./src/A.java"
 
 requirementAcrossFiles :: Property
 requirementAcrossFiles = withTests 1 $ property $ do

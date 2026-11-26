@@ -65,3 +65,28 @@ instance ToJSON Person where
 
 instance FromJSON Person where
   parseJSON = withObject "Person" $ \o -> Person <$> o .: "name" <*> o .: "email"
+
+instance ToJSON BlameLine where
+  toJSON l =
+    object
+      [ "author" .= blameAuthor l
+      , "authorTime" .= blameAuthorTime l
+      , "committer" .= blameCommitter l
+      , "committerTime" .= blameCommitterTime l
+      , "content" .= blameContent l
+      , "hash" .= blameHash l
+      , "line" .= blameFinalLine l
+      , "summary" .= blameSummary l
+      ]
+
+instance FromJSON BlameLine where
+  parseJSON = withObject "BlameLine" $ \o ->
+    BlameLine
+      <$> o .: "hash"
+      <*> o .: "line"
+      <*> o .: "author"
+      <*> o .: "authorTime"
+      <*> o .: "committer"
+      <*> o .: "committerTime"
+      <*> o .: "summary"
+      <*> o .: "content"

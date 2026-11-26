@@ -69,7 +69,7 @@ data Finding
   | DocIdInvalid FilePath Text
   | DocIdDuplicate Text FilePath FilePath
   | VideoKeyNotVideo FilePath ReferenceKey
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 -- | Failing findings fail the check; informational ones do not.
 data Severity = Failing | Informational

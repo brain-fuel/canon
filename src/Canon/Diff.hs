@@ -3,9 +3,11 @@
 -- working tree. git says which paths changed, with renames, and which lines changed on the later
 -- side; canon reads both sides in full and keeps a finding when it lies in a changed unit of a
 -- changed file, when it is about material whose text or verdict changed, or when the earlier side
--- did not have it. Files added, deleted and renamed are in scope whole. A changed canon.yaml puts
--- everything in scope, since its profiles and exemptions bear on every finding. The precedent is
--- `git diff --name-status -M` and review tools that report only on changed lines.
+-- did not have it, wherever it lies. Files added and renamed are in scope whole. So a change to
+-- canon.yaml, the exemptions, the registry, the ledger or a grammar reports the findings it causes
+-- in files it did not touch, and a release's version bump reports nothing by itself. The precedents
+-- are `git diff --name-status -M`, review tools that report only on changed lines, and lint
+-- baselines and SonarQube's new-code period, which report what is new since a reference point.
 -- ref:DEC-check-diff-scope ref:DEC-check-sides
 module Canon.Diff
   ( PathStatus (..)
@@ -17,6 +19,7 @@ module Canon.Diff
   , parseNameStatus
   , parseHunks
   , scopeFindings
+  , relocate
   ) where
 
 import Canon.Extract.Grammar (Extraction (..))
@@ -28,6 +31,7 @@ import Canon.Project
 import Canon.Snapshot
 import Canon.Span (Position (..), Span (..))
 import Canon.Vetting (Material (..))
+import Control.Concurrent.Async (concurrently)
 import Data.Aeson (Result (..), Value (..), fromJSON, toJSON)
 import qualified Data.Aeson.KeyMap as KeyMap
 import Data.Char (isDigit)
@@ -49,13 +53,19 @@ data Diff = Diff
   }
   deriving (Eq, Show)
 
--- | The findings a diff keeps, how many it leaves out, and how many the earlier side had that the
--- later one does not.
+-- | The findings a diff keeps, how many it leaves out, how many the earlier side had that the
+-- later one does not, and the material the diff bears on: the material whose text or verdict
+-- changed or is new, the material a kept finding is about, and the material of files added or
+-- renamed. A tool built on canon scopes its own view of the material by that, and by the paths that
+-- changed, relative to the project and not deleted.
+-- ref:DEC-check-since-release
 data Scoped = Scoped
   { scopedFindings :: [Finding]
   , scopedOutside :: Int
   , scopedResolved :: Int
   , scopedTexts :: Map.Map VettingKey Text
+  , scopedMaterial :: Set.Set VettingKey
+  , scopedPaths :: Set.Set FilePath
   }
   deriving (Eq, Show)
 
@@ -141,6 +151,7 @@ data Reading = Reading
   , readingTexts :: Map.Map VettingKey Text
   , readingVerdicts :: Map.Map VettingKey Text
   , readingUnits :: Map.Map FilePath [(Int, Int)]
+  , readingFiles :: Map.Map VettingKey FilePath
   }
 
 readSide :: FilePath -> Side -> Maybe FilePath -> IO (Either Text Reading)
@@ -161,6 +172,7 @@ readSide directory side target = withSideProject directory side $ \root project 
       , readingTexts = Map.fromList [(materialKey m, materialText m) | m <- surveyMaterials survey]
       , readingVerdicts = Map.map (T.pack . show . assessmentVerdict . answerValue) (surveyAssessments survey)
       , readingUnits = units
+      , readingFiles = Map.fromList [(materialKey m, relative root (materialFile m)) | m <- surveyMaterials survey]
       }
   where
     spanLines (Span (Position from _) (Position to _)) = (from, max from to)
@@ -172,8 +184,9 @@ scopedSurvey directory base headSide target = do
   case diffed of
     Left err -> pure (Left err)
     Right diff -> do
-      before <- readSide directory base target
-      after <- readSide directory headSide target
+      -- The sides share nothing but the cache, which is written whole or not at all, so they are
+      -- read at once.
+      (before, after) <- concurrently (readSide directory base target) (readSide directory headSide target)
       pure (scopeFindings diff <$> before <*> after)
 
 -- | The findings of the later side a diff bears on. Pure, so the rule is tested without git.
@@ -184,10 +197,14 @@ scopeFindings diff before after =
     , scopedOutside = length (readingFindings after) - length kept
     , scopedResolved = length [f | f <- readingFindings before, renderFinding f `Set.notMember` afterSet]
     , scopedTexts = readingTexts after
+    , scopedMaterial =
+        changedKeys
+          `Set.union` Set.fromList [k | f <- kept, Just k <- [findingKey f]]
+          `Set.union` Set.fromList [k | (k, file) <- Map.toList (readingFiles after), wholeChange (normalise file)]
+    , scopedPaths = Set.fromList [normalise p | (p, status) <- Map.toList paths, status /= Deleted]
     }
   where
     paths = diffPaths diff
-    configChanged = any (\p -> normalise p == "canon.yaml") (Map.keys paths)
     beforeSet = Set.fromList (map renderFinding (readingFindings before))
     afterSet = Set.fromList (map renderFinding (readingFindings after))
     keys m = Set.fromList (Map.keys m)
@@ -208,17 +225,22 @@ scopeFindings diff before after =
           units = Map.findWithDefault [] path (readingUnits after)
        in hunks ++ [u | u <- units, any (overlaps u) hunks, not (wholeFile u)]
     wholeFile (from, _) = from <= 1
+    wholeChange file = case Map.lookup file paths of
+      Just Added -> True
+      Just (Renamed _) -> True
+      _ -> False
     overlaps (a, b) (c, d) = a <= d && c <= b
     kept = filter inScope (readingFindings after)
+    new f = renderFinding f `Set.notMember` beforeSet
     inScope f
-      | configChanged = True
       | maybe False (`Set.member` changedKeys) (findingKey f) = True
+      | new f = True
       | otherwise = case findingLocation f of
           Just (path, lines') -> case Map.lookup (normalise path) paths of
             Just Modified -> maybe True (\r -> any (overlaps r) (touched (normalise path))) lines'
             Just _ -> True
             Nothing -> False
-          Nothing -> renderFinding f `Set.notMember` beforeSet
+          Nothing -> False
 
 -- | A finding read from a snapshot names the snapshot's paths; it is given the project's, so the
 -- two sides' findings compare and print alike.

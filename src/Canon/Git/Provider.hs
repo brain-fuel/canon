@@ -23,7 +23,7 @@ data GitError
   = GitNotFound
   | GitFailed Int Text
   | GitUnparsable GitParseError
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 -- | The questions canon asks git: history, blame, tags, the described version, a commit's
 -- message, and whether a file is in the commit its lines are blamed against. A file that is not,

@@ -251,6 +251,7 @@ genConfig =
     <*> Gen.maybe (Runtime <$> genIdSegment <*> genPath <*> genPath <*> genPath <*> Gen.maybe genPlainText)
     <*> Gen.maybe (renderVersion <$> genVersion)
     <*> (Taxes <$> Gen.enumBounded)
+    <*> Gen.element ["v*", "release-*", "hosts/go/v*"]
 
 -- | A kind or verdict word: lower-case letters, digits, and hyphens, never one of canon's prefixes.
 genKindWord :: Gen Text

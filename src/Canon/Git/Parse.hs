@@ -20,7 +20,7 @@ import Data.Time.Format.ISO8601 (iso8601ParseM)
 
 -- | Malformed git output is an error with the offending text.
 newtype GitParseError = GitParseError Text
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 recordSeparator :: Text
 recordSeparator = "\x1e"

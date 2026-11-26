@@ -19,8 +19,8 @@ tests =
     , testProperty "model and check take a path" $
         withTests 1 $ property $ do
           parseCommand ["model", "x.g4"] === CommandModel "x.g4"
-          parseCommand ["check", "x.g4"] === CommandCheck (Just "x.g4")
-          parseCommand ["check"] === CommandCheck Nothing
+          parseCommand ["check", "--all", "x.g4"] === CommandCheck (Just "x.g4")
+          parseCommand ["check", "--all"] === CommandCheck Nothing
           parseCommand ["files", "src"] === CommandFiles (Just "src")
           parseCommand ["parse", "l.g4", "p.g4", "start", "f"] === CommandParse "l.g4" "p.g4" "start" "f"
           parseCommand ["parse", "g.g4", "start", "f"] === CommandParseCombined "g.g4" "start" "f"
@@ -34,7 +34,13 @@ tests =
           parseCommand ["check", "--unstaged", "src"] === CommandCheckScoped (Scope SpecIndex SpecWorkTree) (Just "src")
           parseCommand ["check", "--base", ":index", "--head", ":worktree"] === CommandCheckScoped (Scope SpecIndex SpecWorkTree) Nothing
           parseCommand ["vet", "--base", "main"] === CommandVetScoped (Scope (SpecRevision "main") SpecWorkTree)
-          parseCommand ["vet"] === CommandVet
-          parseCommand ["check", "--head", "HEAD"] === CommandUsage
+          -- With no --base, the earlier side is the last release.
+          parseCommand ["check"] === CommandCheckScoped (Scope SpecRelease SpecWorkTree) Nothing
+          parseCommand ["check", "x.g4"] === CommandCheckScoped (Scope SpecRelease SpecWorkTree) (Just "x.g4")
+          parseCommand ["check", "--head", "HEAD"] === CommandCheckScoped (Scope SpecRelease (SpecRevision "HEAD")) Nothing
+          parseCommand ["check", "--base", ":release"] === CommandCheckScoped (Scope SpecRelease SpecWorkTree) Nothing
+          parseCommand ["vet"] === CommandVetScoped (Scope SpecRelease SpecWorkTree)
+          parseCommand ["vet", "--all"] === CommandVet
+          parseCommand ["check", "--all", "--base", "main"] === CommandUsage
           parseCommand ["check", "--bogus"] === CommandUsage
     ]

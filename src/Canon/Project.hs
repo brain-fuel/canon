@@ -35,18 +35,20 @@ import Canon.Decisions
 import Canon.Exemptions
 import Canon.Version (canonVersion, patchCompatible, renderVersion)
 import Canon.Extract.Grammar
+import Canon.Git.Facts (Facts, bareProvider, factsProvider, factsStamp, repositoryFacts, stampExtraction)
 import Canon.Git.Provider (GitProvider)
-import Canon.Git.Shell (gitIgnoredPaths, runGit, shellGitProvider)
+import Canon.Git.Shell (GitSide (..), gitIgnoredPaths, sideGitProvider)
 import Control.Concurrent (getNumCapabilities)
 import Control.Concurrent.Async (mapConcurrently)
 import Control.Concurrent.QSem (newQSem, signalQSem, waitQSem)
+import Control.Concurrent.MVar (modifyMVar, newMVar)
 import Control.Exception (bracket_)
 import Control.Monad (forM_)
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.Text.Encoding as TE
 import System.FilePath (takeDirectory)
 import Canon.Ignore (defaultIgnorePatterns, parseIgnorePatterns)
-import Canon.Model.Check (checkAll, requirementsCitedByTests)
+import Canon.Model.Check (checkFile, checkProjectWide, requirementsCitedByTests)
 import Canon.Model
 import Canon.Model.Finding (Finding (..), Severity (..), findingKey, findingPending, findingSeverity, renderFinding)
 import qualified Data.Set as Set
@@ -62,6 +64,7 @@ import qualified Data.Text.IO as TIO
 import Canon.Span (Located (..), Position (..), Span (..))
 import Canon.CommentScan (scanCommentsWith)
 import Canon.Walk
+import Control.Exception (evaluate)
 import Data.List (nub, sort)
 import qualified Data.Map.Strict as Map
 import Data.Text (Text)
@@ -71,8 +74,10 @@ import System.FilePath (makeRelative, normalise, takeExtension, takeFileName, (<
 
 -- | A project with its three canonical files and its vetting directory loaded, the git provider
 -- that answers for the side of the repository it was read from, and, for a snapshot of the index
--- or a commit, the paths the working tree's git ignores, which the snapshot does not hold.
--- ref:DEC-check-sides
+-- or a commit, the paths the working tree's git ignores, which the snapshot does not hold. The
+-- cache is the working project's for every side: an entry's key holds all it depends on, the
+-- side's own facts included, so the sides share every entry they agree on. ref:DEC-check-sides
+-- ref:DEC-extraction-cache
 data Project = Project
   { projectDirectory :: FilePath
   , projectConfig :: Config
@@ -81,7 +86,9 @@ data Project = Project
   , projectVetting :: Maybe Vetting
   , projectExemptions :: Exemptions
   , projectGit :: GitProvider
+  , projectSide :: GitSide
   , projectIgnored :: Maybe (Set.Set [Text])
+  , projectCache :: FilePath
   }
 
 -- | Any of the canonical files can be unreadable.
@@ -108,12 +115,12 @@ resolvePath project path = normalise (projectDirectory project </> path)
 
 -- | Loads a project from a directory, defaulting each absent file when it has the default name.
 loadProject :: FilePath -> IO (Either ProjectError Project)
-loadProject = loadProjectWith shellGitProvider Nothing
+loadProject = loadProjectWith WorkTreeSide Nothing
 
--- | Loads a project read through a provider for one side of its repository, with the paths to skip
--- in place of asking git what it ignores. ref:DEC-check-sides
-loadProjectWith :: GitProvider -> Maybe (Set.Set [Text]) -> FilePath -> IO (Either ProjectError Project)
-loadProjectWith git ignored directory = do
+-- | Loads a project as one side of its repository holds it, with the paths to skip in place of
+-- asking git what it ignores. ref:DEC-check-sides
+loadProjectWith :: GitSide -> Maybe (Set.Set [Text]) -> FilePath -> IO (Either ProjectError Project)
+loadProjectWith side ignored directory = do
   let configPath = directory </> configFileName
   present <- doesFileExist configPath
   configResult <- if present then readConfigFile configPath else pure (Right defaultConfig)
@@ -124,7 +131,7 @@ loadProjectWith git ignored directory = do
       ledger <- loadOptional (directory </> configDecisions config) (configDecisions config == defaultDecisionsFileName) emptyLedger readLedgerFile ProjectLedgerError
       vetting <- loadVetting (directory </> configVetting config) (configVetting config == defaultVettingDirectory)
       exemptions <- loadOptional (directory </> configExemptions config) (configExemptions config == defaultExemptionsFileName) emptyExemptions readExemptionsFile ProjectExemptionsError
-      pure ((\r l v e -> Project directory config r l v e git ignored) <$> registry <*> ledger <*> vetting <*> exemptions)
+      pure ((\r l v e -> Project directory config r l v e (sideGitProvider side) side ignored directory) <$> registry <*> ledger <*> vetting <*> exemptions)
 
 loadVetting :: FilePath -> Bool -> IO (Either ProjectError (Maybe Vetting))
 loadVetting path isDefault = do
@@ -195,23 +202,22 @@ data Survey = Survey
 
 -- | Reads a project once, in full or under a target. ref:DEC-canon-lockstep
 surveyProject :: Project -> Maybe FilePath -> IO Survey
-surveyProject project target = do
+surveyProject unread target = do
+  (project, facts) <- withFacts unread
   walked <- projectFiles project target
   assessments <- projectAssessments project
-  extracted <- linkSignatures (configLanguages (projectConfig project)) <$> extractAll project walked
-  let checked = map (checkExtraction project assessments) extracted
+  extracted <- linkSignatures (configLanguages (projectConfig project)) <$> extractAllWith facts project walked
+  -- Each file is checked on its own, so the files are checked at once, each result forced where
+  -- it is made rather than where it is read.
+  checked <- mapConcurrently (forced . checkExtraction project assessments) extracted
+  let config = projectConfig project
       citedSomewhere = Set.unions [c | (_, c, _, _) <- checked]
       seen = Set.unions [v | (_, _, v, _) <- checked]
       tested = Set.unions [t | (_, _, _, t) <- checked]
-      own =
-        [ f
-        | (fs, _, _, _) <- checked
-        , f <- fs
-        , case f of
-            DecisionUncited k -> not (Set.member k citedSomewhere)
-            RequirementUntested k -> not (Set.member k tested)
-            _ -> True
-        ]
+      known = Set.fromList [unitId u | (_, Right e) <- extracted, u <- modelAllUnits (extractionModel e)]
+      -- Each file's own findings, then the project's, which are answered once from what every
+      -- file cites, tests, and defines. ref:DEC-decision-ledger
+      own = distinct (concat [fs | (fs, _, _, _) <- checked]) ++ checkProjectWide (configVersion config) (projectRegistry project) (projectLedger project) citedSomewhere tested known
       live = Set.unions [seen, Set.map LedgerKey (Map.keysSet (ledgerEntries (projectLedger project))), Set.map RegistryKey (Map.keysSet (registryEntries (projectRegistry project)))]
       signOff = case projectVetting project of
         Nothing -> []
@@ -223,8 +229,25 @@ surveyProject project target = do
       , surveyExtracted = extracted
       , surveyAssessments = assessments
       , surveyMaterials = projectMaterials project decisions
-      , surveyFindings = [(f, exemptFinding project f) | f <- nub own ++ signOff]
+      , surveyFindings = [(f, exemptFinding project f) | f <- own ++ signOff]
       }
+
+-- | A file's check with its findings and key sets evaluated.
+forced :: ([Finding], Set.Set ReferenceKey, Set.Set VettingKey, Set.Set ReferenceKey) -> IO ([Finding], Set.Set ReferenceKey, Set.Set VettingKey, Set.Set ReferenceKey)
+forced result@(findings, cited, seen, tested) = do
+  _ <- evaluate (Set.size (Set.fromList findings))
+  _ <- evaluate (Set.size cited + Set.size seen + Set.size tested)
+  pure result
+
+-- | The findings in their first order with repeats dropped, in one pass over a set, where `nub`
+-- compared every finding with every earlier one.
+distinct :: [Finding] -> [Finding]
+distinct = go Set.empty
+  where
+    go _ [] = []
+    go seen (f : rest)
+      | Set.member f seen = go seen rest
+      | otherwise = f : go (Set.insert f seen) rest
 
 -- | What the check reports of a survey: every finding as exemptions leave it, each exemption past
 -- its revisit, and a canon version other than the one canon.yaml names. ref:DEC-canon-lockstep
@@ -291,16 +314,20 @@ resolveProfile project profile =
         SplitGrammarFiles lexer parser -> SplitGrammarFiles (resolvePath project lexer) (resolvePath project parser)
     }
 
-profileBytes :: Profile -> IO LBS.ByteString
-profileBytes profile = do
-  let named = case profileGrammar profile of
+-- | What a profile contributes to a cache key: the profile as canon.yaml writes it, and the
+-- grammar sources it resolves to. The resolved paths are left out, since a snapshot resolves a
+-- project's own grammar under its own root and its entries are shared. ref:DEC-extraction-cache
+profileBytes :: Project -> Profile -> IO LBS.ByteString
+profileBytes project written = do
+  let profile = resolveProfile project written
+      named = case profileGrammar profile of
         CombinedGrammarFile g -> [g]
         SplitGrammarFiles l r -> [l, r]
   -- Imported lexer fragments live beside their owner. Hash that directory's grammar
   -- inputs too, so editing an imported grammar cannot reuse stale extraction.
   siblings <- fmap concat $ mapM grammarSiblings (nub (map takeDirectory named))
   sources <- mapM readOrEmpty (sort (nub (named ++ siblings)))
-  pure (LBS.concat (LBS.fromStrict (encodeSorted profile) : sources))
+  pure (LBS.concat (LBS.fromStrict (encodeSorted written) : sources))
   where
     grammarSiblings dir = do
       present <- doesDirectoryExist dir
@@ -309,45 +336,70 @@ profileBytes profile = do
       present <- doesFileExist path
       if present then LBS.readFile path else pure LBS.empty
 
-projectCacheParts :: Project -> IO [LBS.ByteString]
-projectCacheParts project = do
-  let root = resolvePath project (configRoot (projectConfig project))
-  described <- either (const "") id <$> runGit root ["describe", "--tags", "--always", "--dirty"]
-  tags <- either (const "") id <$> runGit root ["tag", "--list"]
-  pure
-    ( map
-        (LBS.fromStrict . TE.encodeUtf8)
-        [ T.pack canonVersion
-        , maybe "" id (configVersion (projectConfig project))
-        , described
-        , tags
-        ]
-    )
+-- | What every cache key of a project holds: the canon that read it. Nothing project- or
+-- repository-wide is in it: the version canon.yaml names, the described version, and the
+-- releases are stamped on after the cache, so a release, a commit, or a tag elsewhere leaves an
+-- entry valid, and every side of the repository shares it. ref:DEC-extraction-cache
+-- ref:DEC-repository-facts
+projectCacheParts :: [LBS.ByteString]
+projectCacheParts = [LBS.fromStrict (TE.encodeUtf8 (T.pack canonVersion))]
+
+-- | The project with its side's repository facts read once, and a provider that answers from them
+-- and keeps blames and messages in the cache. Outside a repository, or with no git, there are no
+-- facts and the provider is the side's own, which reports git as unavailable per file as before.
+-- ref:DEC-repository-facts
+withFacts :: Project -> IO (Project, Maybe Facts)
+withFacts project = do
+  read' <- repositoryFacts (projectDirectory project) (projectSide project)
+  pure $ case read' of
+    Right facts -> (project {projectGit = factsProvider (projectCache project) facts (projectGit project)}, Just facts)
+    Left _ -> (project, Nothing)
+
+-- | A file's extraction under a key, and its model as the side stands now: extracted without the
+-- repository-wide answers, cached, and stamped with them and with the project's version, which a
+-- release changes in canon.yaml without changing the file. ref:DEC-extraction-cache
+throughCache :: Project -> Maybe Facts -> CacheKey -> (GitProvider -> IO (Either Text Extraction)) -> IO (Either Text Extraction)
+throughCache project facts key extract = do
+  cached <- lookupCached (projectDirectory project) (projectCache project) key
+  fresh <- case cached of
+    Just hit -> pure hit
+    Nothing -> do
+      made <- extract (bareProvider (projectGit project))
+      storeCached (projectDirectory project) (projectCache project) key made
+      pure made
+  let version = configVersion (projectConfig project)
+      versioned (Extraction model findings) = Extraction model {modelVersion = version} findings
+  pure (maybe id (fmap . stampExtraction) facts (versioned <$> fresh))
 
 -- | Extracts every walked file through the cache, so a review tool over the project sees the same
 -- model the check does. ref:DEC-extraction-cache
 extractAll :: Project -> Walked -> IO [(FilePath, Either Text Extraction)]
-extractAll project walked = do
+extractAll unread walked = do
+  (project, facts) <- withFacts unread
+  extractAllWith facts project walked
+
+extractAllWith :: Maybe Facts -> Project -> Walked -> IO [(FilePath, Either Text Extraction)]
+extractAllWith facts project walked = do
   let config = projectConfig project
-  interpreters <- Map.toList <$> projectInterpreters project
-  grammarBytes <- Map.fromList <$> mapM (\(lang, profile) -> (,) lang <$> profileBytes (resolveProfile project profile)) (Map.toList (configLanguages config))
-  projectParts <- projectCacheParts project
-  (folio, consumed) <- folioExtractions project (Map.fromList interpreters) grammarBytes projectParts
+  interpreters <- lazyInterpreters project
+  grammarBytes <- Map.fromList <$> mapM (\(lang, profile) -> (,) lang <$> profileBytes project profile) (Map.toList (configLanguages config))
+  let projectParts = projectCacheParts
+  (folio, consumed) <- folioExtractions facts project walked interpreters grammarBytes projectParts
   let rest = [p | p <- walkedFiles walked, not (Set.member (idPathOf project p) consumed)]
   workers <- getNumCapabilities
   slots <- newQSem (max 1 workers)
-  others <- mapConcurrently (\path -> (,) path <$> bracket_ (waitQSem slots) (signalQSem slots) (extractCached project (Map.fromList interpreters) grammarBytes projectParts path)) rest
+  others <- mapConcurrently (\path -> (,) path <$> bracket_ (waitQSem slots) (signalQSem slots) (extractCached facts project interpreters grammarBytes projectParts path)) rest
   pure (folio ++ others)
 
 -- | The extractions the Folio pages produce: one per page, its unit of kind doc with its findings,
 -- and one per tangled file, parsed with the embedded language and relocated into the pages, so a
 -- tangled file on disk is never extracted on its own. Returns the paths those extractions stand
 -- for, pages and tangled files both. ref:DEC-units-by-tangled-path
-folioExtractions :: Project -> Map.Map Text (Either InterpretError Interpreter) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> IO ([(FilePath, Either Text Extraction)], Set.Set FilePath)
-folioExtractions project interpreters grammarBytes projectParts = case folioProfiles project of
+folioExtractions :: Maybe Facts -> Project -> Walked -> Map.Map Text (IO (Either InterpretError Interpreter)) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> IO ([(FilePath, Either Text Extraction)], Set.Set FilePath)
+folioExtractions facts project walked interpreters grammarBytes projectParts = case folioProfiles project of
   [] -> pure ([], Set.empty)
   profiles -> do
-    result <- tangleProject project []
+    result <- tangleWith project (Just walked) (\lang profile -> Map.findWithDefault (loadProfileInterpreter (resolveProfile project profile)) lang interpreters) []
     case result of
       Left err -> pure ([("folio", Left err)], Set.empty)
       Right (docs, tangled, findings) -> do
@@ -394,21 +446,18 @@ folioExtractions project interpreters grammarBytes projectParts = case folioProf
           embedded = Map.lookup language embeds
           lang = maybe "" embeddingLanguage embedded
           grammar = Map.findWithDefault LBS.empty lang grammarBytes
-          key = cacheKey (projectParts ++ [LBS.fromStrict (TE.encodeUtf8 (tangledText t)), contributing, folioGrammar, grammar, LBS.fromStrict (TE.encodeUtf8 (T.pack path))])
       onDisk <- doesFileExist (resolvePath project path)
       current <- if onDisk then Just <$> TIO.readFile (resolvePath project path) else pure Nothing
-      let stale = [TangledStale path | current /= Just (tangledText t)]
-      cached <- lookupCached (projectDirectory project) key
-      fresh <- case cached of
-        Just hit -> pure hit
-        Nothing -> do
-          made <- case (embedded, Map.lookup lang (configLanguages config), Map.lookup lang interpreters) of
-            (Just _, Just profile, Just (Right interpreter)) ->
-              either (Left . renderGrammarExtractError) (Right . relocate t) <$> extractWithProfileText (projectGit project) config lang profile interpreter path path (tangledText t)
-            (_, _, Just (Left err)) -> pure (Left (renderInterpretError err))
-            _ -> pure (Left ("no language profile embeds " <> language))
-          storeCached (projectDirectory project) key made
-          pure made
+      history <- if onDisk then maybe (pure LBS.empty) (`factsStamp` resolvePath project path) facts else pure LBS.empty
+      let key = cacheKey (projectParts ++ [LBS.fromStrict (TE.encodeUtf8 (tangledText t)), contributing, folioGrammar, grammar, LBS.fromStrict (TE.encodeUtf8 (T.pack path)), history])
+          stale = [TangledStale path | current /= Just (tangledText t)]
+      fresh <- throughCache project facts key $ \provider -> do
+        loaded <- maybe (pure Nothing) (fmap Just) (Map.lookup lang interpreters)
+        case (embedded, Map.lookup lang (configLanguages config), loaded) of
+          (Just _, Just profile, Just (Right interpreter)) ->
+            either (Left . renderGrammarExtractError) (Right . relocate t) <$> extractWithProfileText provider config lang profile interpreter path path (tangledText t)
+          (_, _, Just (Left err)) -> pure (Left (renderInterpretError err))
+          _ -> pure (Left ("no language profile embeds " <> language))
       pure (path, fmap (\(Extraction m fs) -> Extraction m (fs ++ stale)) fresh, t)
 
 -- | Records every piece of canonical material without a verdict as pending, each in the file of
@@ -462,44 +511,40 @@ extractFile project path = do
         Left err -> pure (Left (renderInterpretError err))
         Right interpreter -> either (Left . renderGrammarExtractError) Right <$> extractWithProfile (projectGit project) config lang profile interpreter (idPathOf project path) path
 
-extractCached :: Project -> Map.Map Text (Either InterpretError Interpreter) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> FilePath -> IO (Either Text Extraction)
-extractCached project interpreters grammarBytes projectParts path = do
+-- | One file through the cache. Its key is what reaches its model: the file's bytes and path, its
+-- grammar, and the history its blame reads, which is whether the side's commit holds the file and
+-- the commit that last changed it there; no git process runs for it on a hit. ref:DEC-extraction-cache
+-- ref:DEC-repository-facts
+extractCached :: Maybe Facts -> Project -> Map.Map Text (IO (Either InterpretError Interpreter)) -> Map.Map Text LBS.ByteString -> [LBS.ByteString] -> FilePath -> IO (Either Text Extraction)
+extractCached facts project interpreters grammarBytes projectParts path = do
   let config = projectConfig project
       profileFor = profileForPath (configLanguages config) path
   content <- LBS.readFile path
-  revision <- either (const "") id <$> runGit (takeDirectory path) ["rev-parse", "HEAD"]
-  dirty <- either (const "") id <$> runGit (takeDirectory path) ["status", "--porcelain", "--", path]
+  history <- maybe (pure LBS.empty) (`factsStamp` path) facts
   let key =
         cacheKey
           ( projectParts
               ++ [ content
-                 , LBS.fromStrict (TE.encodeUtf8 revision)
-                 , LBS.fromStrict (TE.encodeUtf8 dirty)
+                 , history
                  , maybe LBS.empty (\(lang, _) -> Map.findWithDefault LBS.empty lang grammarBytes) profileFor
-                 , LBS.fromStrict (TE.encodeUtf8 (T.pack path))
+                 , LBS.fromStrict (TE.encodeUtf8 (T.pack (sharedPath (projectDirectory project) path)))
                  ]
           )
-  cached <- lookupCached (projectDirectory project) key
-  case cached of
-    Just hit -> pure hit
-    Nothing -> do
-      fresh <- case profileFor of
-        Just (lang, profile) -> case Map.lookup lang interpreters of
-          Just (Right interpreter) ->
-            either (Left . renderGrammarExtractError) Right
-              <$> extractWithProfile (projectGit project) config lang profile interpreter (idPathOf project path) path
-          Just (Left err) -> pure (Left (renderInterpretError err))
-          Nothing -> pure (Left "no interpreter for language")
-        Nothing -> pure (Left "no language profile matches this path")
-      storeCached (projectDirectory project) key fresh
-      pure fresh
+  throughCache project facts key $ \provider -> case profileFor of
+    Just (lang, profile) -> sequence (Map.lookup lang interpreters) >>= \loaded -> case loaded of
+      Just (Right interpreter) ->
+        either (Left . renderGrammarExtractError) Right
+          <$> extractWithProfile provider config lang profile interpreter (idPathOf project path) path
+      Just (Left err) -> pure (Left (renderInterpretError err))
+      Nothing -> pure (Left "no interpreter for language")
+    Nothing -> pure (Left "no language profile matches this path")
 
 checkExtraction :: Project -> Map.Map VettingKey (Answer Assessment Evidence) -> (FilePath, Either Text Extraction) -> ([Finding], Set.Set ReferenceKey, Set.Set VettingKey, Set.Set ReferenceKey)
 checkExtraction project assessments (path, extraction) = case extraction of
   Left message -> ([ExtractionFailed path message], Set.empty, Set.empty, Set.empty)
   Right (Extraction model findings) ->
     ( findings
-        ++ checkAll (configVersion config) (projectRegistry project) (projectLedger project) model
+        ++ checkFile (projectRegistry project) (projectLedger project) model
         ++ maybe [] (\v -> vettingFindings (configVersion config) v assessments model) (projectVetting project)
     , Set.fromList (concatMap (whyReferences . answerValue . decisionWhy) (modelDecisions model))
     , Set.fromList (map decisionKey (modelDecisions model))
@@ -513,6 +558,23 @@ checkExtraction project assessments (path, extraction) = case extraction of
 projectInterpreters :: Project -> IO (Map.Map Text (Either InterpretError Interpreter))
 projectInterpreters project = Map.fromList <$> mapM (\(lang, profile) -> (,) lang <$> loadProfileInterpreter (resolveProfile project profile)) (Map.toList (configLanguages (projectConfig project)))
 
+-- | One interpreter per language, each built the first time a file of the language misses the
+-- cache, so a check whose every file is cached builds none. Each is a write-once cell: the first
+-- caller builds it and every other waits for and shares that one, the only state the extraction
+-- threads share. ref:DEC-extraction-cache
+lazyInterpreters :: Project -> IO (Map.Map Text (IO (Either InterpretError Interpreter)))
+lazyInterpreters project = Map.fromList <$> mapM (\(lang, profile) -> (,) lang <$> once (loadProfileInterpreter (resolveProfile project profile))) (Map.toList (configLanguages (projectConfig project)))
+
+-- | An action run at most once, its result kept for every later call.
+once :: IO a -> IO (IO a)
+once action = do
+  cell <- newMVar Nothing
+  pure $ modifyMVar cell $ \held -> case held of
+    Just value -> pure (held, value)
+    Nothing -> do
+      value <- action
+      pure (Just value, value)
+
 -- | The languages of the project that embed another: the Folio pages. ref:DEC-folio-language
 folioProfiles :: Project -> [(Text, Profile)]
 folioProfiles project = [(lang, p) | (lang, p) <- Map.toList (configLanguages (projectConfig project)), lang == "folio" || not (Map.null (profileEmbeds p))]
@@ -522,10 +584,15 @@ folioProfiles project = [(lang, p) | (lang, p) <- Map.toList (configLanguages (p
 -- its body, or a language the page's profile does not embed. What a block defines is checked
 -- where units are known. ref:DEC-tangle-in-canon
 tangleProject :: Project -> [FilePath] -> IO (Either Text ([Document], [Tangled], [Finding]))
-tangleProject project only = case folioProfiles project of
+tangleProject project = tangleWith project Nothing (\_ profile -> loadProfileInterpreter (resolveProfile project profile))
+
+-- | Tangles with the walk and the interpreters a check already has, so a check walks the project
+-- and builds each grammar once; the pages are scanned at once.
+tangleWith :: Project -> Maybe Walked -> (Text -> Profile -> IO (Either InterpretError Interpreter)) -> [FilePath] -> IO (Either Text ([Document], [Tangled], [Finding]))
+tangleWith project known interpreterFor only = case folioProfiles project of
   [] -> pure (Left "no language in canon.yaml embeds another, so there is nothing to tangle")
   profiles -> do
-    walked <- projectFiles project Nothing
+    walked <- maybe (projectFiles project Nothing) pure known
     let wanted = map (idPathOf project) only
     results <- mapM (scanLanguage walked wanted) profiles
     case sequence results of
@@ -541,13 +608,13 @@ tangleProject project only = case folioProfiles project of
             own = concat [blockFindings e b | b <- blocks, Just e <- [Map.lookup (blockLanguage b) embeds]]
          in pure (Right (docs, tangled, findings ++ unknown ++ own))
   where
-    scanLanguage walked wanted (_, profile) = do
-      loaded <- loadProfileInterpreter (resolveProfile project profile)
+    scanLanguage walked wanted (lang, profile) = do
+      loaded <- interpreterFor lang profile
       case loaded of
         Left err -> pure (Left (renderInterpretError err))
         Right interpreter -> do
           let mine = [p | p <- walkedFiles walked, any (`T.isSuffixOf` T.pack (takeFileName p)) (profileExtensions profile), null wanted || idPathOf project p `elem` wanted]
-          scanned <- mapM (scanOne interpreter profile) mine
+          scanned <- mapConcurrently (scanOne interpreter profile) mine
           pure (Right ([d | Right d <- scanned], [f | Left f <- scanned]))
     scanOne interpreter profile path = do
       source <- readSourceFile path

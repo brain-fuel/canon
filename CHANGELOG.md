@@ -8,6 +8,48 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-22
+
+### Changed
+
+- `canon check` reports what changed since the last release: the newest tag
+  HEAD holds that matches `releases` in `canon.yaml`, `v*` by default. With no
+  such tag it fails and says to pass `--base` or `--all`. `canon check --all`
+  is the whole-project check `canon check` was, and `canon vet` and
+  `canon vet --all` follow suit. `:release` names that side for `--base` and
+  `--head`. `CommandCheck` and `CommandVet` keep their meaning for library
+  callers; the command line maps bare `check` and `vet` to the scoped forms.
+- A diff-scoped check keeps every finding the earlier side did not have,
+  wherever it lies, and a changed `canon.yaml` no longer keeps everything: the
+  findings it causes are kept and those it resolves are counted, so a
+  release's version bump reports nothing by itself.
+- canon is built with GHC 9.14.1. On 9.10.3 the parallel repository tests
+  wedged the runtime about one run in six, a lost wakeup on a black hole
+  (GHC #26324) fixed in 9.14.1; the diff tests run in parallel again.
+- A decision naming a unit no file has is reported once for the project,
+  rather than by each file.
+
+### Performance
+
+- What git knows about the whole repository is read once per run: the held
+  files, the last change of every path, the tags, the commit graph, and the
+  described version, eight processes in all. The release a commit first
+  shipped in comes from one pass over the graph rather than a
+  `git tag --contains` per commit.
+- The extraction cache is keyed by what an extraction depends on alone, and
+  the project's version, `git describe`, and releases are put on after it, so
+  a commit, a tag, or a release no longer empties it. Entries name files from
+  the project root, so the working tree, the index, and every commit share one
+  cache. Blames and commit messages are cached too. Entries are JSON, written
+  whole and renamed into place. Existing caches are read again once.
+- Files are checked concurrently, the vetting files are read and blamed
+  concurrently, the grammars are interpreted once at first use, and the two
+  sides of a diff are read at once. A commit's snapshot is kept for the next
+  check against it.
+- On LawSpec, about 2,400 files: a warm `canon check --all` went from 137 s
+  and 5,781 git processes to about 6 s and 8, with the same findings; a check
+  against a base never read before from about 80 s to about 20 s.
+
 ## [0.2.6] - 2026-11-22
 
 ### Added

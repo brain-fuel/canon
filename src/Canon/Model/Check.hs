@@ -5,6 +5,8 @@ module Canon.Model.Check
   , checkLedger
   , checkTests
   , checkAll
+  , checkFile
+  , checkProjectWide
   , requirementsCitedByTests
   ) where
 
@@ -20,9 +22,27 @@ import Data.Maybe (isNothing)
 import qualified Data.Set as Set
 import Data.Text (Text)
 
--- | Runs every per-model check.
+-- | Runs every check over one model as if it were the whole project, as `canon model` reports a
+-- single file.
 checkAll :: Maybe Text -> Registry -> Ledger -> Model ev -> [Finding]
 checkAll version registry ledger m = checkModel registry ledger m ++ checkLedger version registry ledger m ++ checkTests registry m
+
+-- | The checks whose answer depends on one file alone. A project runs them per file and
+-- `checkProjectWide` once, so the ledger and the registry are walked once rather than once per
+-- file. ref:DEC-decision-ledger ref:DEC-test-requirement-check
+checkFile :: Registry -> Ledger -> Model ev -> [Finding]
+checkFile registry ledger m = checkModel registry ledger m ++ citedWhileOpen ledger m ++ testsWithoutRequirement registry m
+
+-- | The checks whose answer depends on every file: the ledger's own consistency, the decided
+-- decisions no file cites, the requirements no test cites, and the units an entry names that no
+-- file has, each answered from the union of what the files cite, test, and define.
+-- ref:DEC-decision-ledger ref:DEC-test-requirement-check
+checkProjectWide :: Maybe Text -> Registry -> Ledger -> Set.Set ReferenceKey -> Set.Set ReferenceKey -> Set.Set UnitId -> [Finding]
+checkProjectWide version registry ledger cited tested known =
+  ledgerConsistency version registry ledger
+    ++ [DecisionUncited k | (k, e) <- Map.toList (ledgerEntries ledger), entryStatus e == Decided, not (Set.member k cited)]
+    ++ [DecisionUnitMissing k u | not (Set.null known), (k, e) <- Map.toList (ledgerEntries ledger), u <- entryUnits e, not (Set.member u known)]
+    ++ [RequirementUntested k | (k, r) <- Map.toList (registryEntries registry), referenceKind r == Requirement, not (Set.member k tested)]
 
 -- | The requirement keys the file's tests cite, which the project unions to decide untested
 -- requirements.
@@ -30,9 +50,10 @@ requirementsCitedByTests :: Registry -> Model ev -> Set.Set ReferenceKey
 requirementsCitedByTests registry m =
   Set.fromList
     [ key
-    | u <- modelAllUnits m
+    | let byUnit = decisionsByUnit m
+    , u <- modelAllUnits m
     , unitTest u
-    , d <- decisionsFor (unitId u) m
+    , d <- Map.findWithDefault [] (unitId u) byUnit
     , key <- whyReferences (answerValue (decisionWhy d))
     , fmap referenceKind (lookupReference key registry) == Just Requirement
     ]
@@ -40,17 +61,9 @@ requirementsCitedByTests registry m =
 -- | A commented test must cite a requirement, and a requirement must be cited by a test.
 -- ref:DEC-test-requirement-check
 checkTests :: Registry -> Model ev -> [Finding]
-checkTests registry m = withoutRequirement ++ untested
+checkTests registry m = testsWithoutRequirement registry m ++ untested
   where
     cited = requirementsCitedByTests registry m
-    withoutRequirement =
-      [ TestWithoutRequirement (unitId u) (answerValue (unitWhere u))
-      | u <- modelAllUnits m
-      , unitTest u
-      , let ds = decisionsFor (unitId u) m
-      , not (null ds)
-      , not (any (\d -> any (\k -> fmap referenceKind (lookupReference k registry) == Just Requirement) (whyReferences (answerValue (decisionWhy d)))) ds)
-      ]
     untested =
       [ RequirementUntested k
       | (k, r) <- Map.toList (registryEntries registry)
@@ -92,23 +105,44 @@ checkModel registry ledger m = unresolved ++ licenseKinds ++ licenseText ++ dang
       , u <- NonEmpty.toList (decisionUnits d)
       , not (Set.member u knownIds)
       ]
+    -- Every unit some decision binds, once, so a unit is looked up rather than searched for.
+    bound = Set.fromList [u | d <- modelDecisions m, u <- NonEmpty.toList (decisionUnits d)]
     missing =
       [ MissingCanonicalComment (unitId u) (answerValue (unitWhere u))
       | u <- units
       , unitRequirement u == Required
-      , null (decisionsFor (unitId u) m)
+      , not (Set.member (unitId u) bound)
       ]
 
 -- | The ledger checks: revisit versions, citations, successors, collisions, and named units.
 -- ref:DEC-decision-ledger
 checkLedger :: Maybe Text -> Registry -> Ledger -> Model ev -> [Finding]
 checkLedger version registry ledger m =
-  collisions ++ pastRevisit ++ uncited ++ successors ++ citedWhileOpen ++ missingUnits
+  collisions ++ pastRevisit ++ uncited ++ successors ++ citedWhileOpen ledger m ++ missingUnits
   where
     entries = Map.toList (ledgerEntries ledger)
     knownIds = Set.fromList (map unitId (modelAllUnits m))
-    current = version >>= parseVersion
     citations = Set.fromList (concatMap (whyReferences . answerValue . decisionWhy) (modelDecisions m))
+    consistency = ledgerConsistency version registry ledger
+    collisions = [f | f@DecisionKeyCollision {} <- consistency]
+    pastRevisit = [f | f@DecisionPastRevisit {} <- consistency]
+    successors = [f | f@DecisionSuccessorNotDecided {} <- consistency]
+    uncited = [DecisionUncited k | (k, e) <- entries, entryStatus e == Decided, not (Set.member k citations)]
+    missingUnits =
+      [ DecisionUnitMissing k u
+      | (k, e) <- entries
+      , u <- entryUnits e
+      , not (null knownIds)
+      , not (Set.member u knownIds)
+      ]
+
+-- | What the ledger says of itself: a key that is also a registry key, an open decision past its
+-- revisit version, and a superseded decision whose successor is not decided.
+ledgerConsistency :: Maybe Text -> Registry -> Ledger -> [Finding]
+ledgerConsistency version registry ledger = collisions ++ pastRevisit ++ successors
+  where
+    entries = Map.toList (ledgerEntries ledger)
+    current = version >>= parseVersion
     collisions = [DecisionKeyCollision k | (k, _) <- entries, Map.member k (registryEntries registry)]
     pastRevisit =
       [ DecisionPastRevisit k (renderVersion revisit) (renderVersion now)
@@ -118,7 +152,6 @@ checkLedger version registry ledger m =
       , Just now <- [current]
       , revisit <= now
       ]
-    uncited = [DecisionUncited k | (k, e) <- entries, entryStatus e == Decided, not (Set.member k citations)]
     successors =
       [ DecisionSuccessorNotDecided k by
       | (k, e) <- entries
@@ -126,16 +159,29 @@ checkLedger version registry ledger m =
       , Just by <- [entryBy e]
       , fmap entryStatus (lookupDecision by ledger) /= Just Decided
       ]
-    citedWhileOpen =
-      [ DecisionCitedWhileOpen (decisionId d) (decisionWhere d) key
-      | d <- modelDecisions m
-      , key <- whyReferences (answerValue (decisionWhy d))
-      , fmap entryStatus (lookupDecision key ledger) == Just Open
-      ]
-    missingUnits =
-      [ DecisionUnitMissing k u
-      | (k, e) <- entries
-      , u <- entryUnits e
-      , not (null knownIds)
-      , not (Set.member u knownIds)
-      ]
+
+-- | A comment that cites a decision still open.
+citedWhileOpen :: Ledger -> Model ev -> [Finding]
+citedWhileOpen ledger m =
+  [ DecisionCitedWhileOpen (decisionId d) (decisionWhere d) key
+  | d <- modelDecisions m
+  , key <- whyReferences (answerValue (decisionWhy d))
+  , fmap entryStatus (lookupDecision key ledger) == Just Open
+  ]
+
+-- | A commented test whose comment cites no requirement.
+testsWithoutRequirement :: Registry -> Model ev -> [Finding]
+testsWithoutRequirement registry m =
+  [ TestWithoutRequirement (unitId u) (answerValue (unitWhere u))
+  | u <- modelAllUnits m
+  , unitTest u
+  , let ds = Map.findWithDefault [] (unitId u) byUnit
+  , not (null ds)
+  , not (any (\d -> any (\k -> fmap referenceKind (lookupReference k registry) == Just Requirement) (whyReferences (answerValue (decisionWhy d)))) ds)
+  ]
+  where
+    byUnit = decisionsByUnit m
+
+-- | The decisions bound to each unit, in the model's order, built once per model.
+decisionsByUnit :: Model ev -> Map.Map UnitId [Decision ev]
+decisionsByUnit m = Map.fromListWith (flip (++)) [(u, [d]) | d <- modelDecisions m, u <- NonEmpty.toList (decisionUnits d)]

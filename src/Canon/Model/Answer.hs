@@ -61,7 +61,7 @@ data Where = Where
   , whereChain :: [Text]
   , whereIndex :: Maybe Int
   }
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 -- | Prose with the references and licenses it cites.
 data Why = Why

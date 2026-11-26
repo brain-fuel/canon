@@ -13,6 +13,7 @@ module Canon.Config
   , parseDisposition
   , ConfigError (..)
   , defaultConfig
+  , defaultReleases
   , builtinKinds
   , configFileName
   , defaultRegistryFileName
@@ -51,6 +52,7 @@ data Config = Config
   , configRuntime :: Maybe Runtime
   , configCanon :: Maybe Text
   , configTaxes :: Taxes
+  , configReleases :: Text
   }
   deriving (Eq, Show)
 
@@ -134,7 +136,12 @@ defaultVettingDirectory = "canonical_vetting"
 
 -- | The configuration of a directory without canon.yaml.
 defaultConfig :: Config
-defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName defaultVettingDirectory [] "." Map.empty builtinKinds defaultExemptionsFileName defaultRunsFileName Nothing Nothing defaultTaxes
+defaultConfig = Config Nothing defaultRegistryFileName defaultDecisionsFileName defaultVettingDirectory [] "." Map.empty builtinKinds defaultExemptionsFileName defaultRunsFileName Nothing Nothing defaultTaxes defaultReleases
+
+-- | The tags a project's releases carry, as a git glob: a check with no --base is scoped to what
+-- changed since the newest one HEAD holds. ref:DEC-check-since-release
+defaultReleases :: Text
+defaultReleases = "v*"
 
 -- | The kinds every project has without declaring them: name, the What queue of Rice's Tax, with
 -- canon's four words. canon raises no row of it and judges none; knowing the kind only means an
@@ -159,7 +166,7 @@ renderConfigError :: ConfigError -> Text
 renderConfigError (ConfigUnreadable path message) = T.concat [T.pack path, ": ", message]
 
 instance ToJSON Config where
-  toJSON (Config version registry decisions vetting ignore root languages kinds exemptions runs runtime canon taxes) =
+  toJSON (Config version registry decisions vetting ignore root languages kinds exemptions runs runtime canon taxes releases) =
     object
       [ "canon" .= canon
       , "decisions" .= decisions
@@ -169,6 +176,7 @@ instance ToJSON Config where
       , "kinds" .= kinds
       , "languages" .= languages
       , "registry" .= registry
+      , "releases" .= releases
       , "root" .= root
       , "runs" .= runs
       , "runtime" .= runtime
@@ -219,4 +227,5 @@ instance FromJSON Config where
       <*> o .:? "runtime"
       <*> o .:? "canon"
       <*> (fromMaybe defaultTaxes <$> o .:? "taxes")
+      <*> (fromMaybe defaultReleases <$> o .:? "releases")
 

@@ -51,6 +51,10 @@ import Canon.Model.Yaml (encodeSorted)
 import Canon.Registry (Reference (..), Registry (..))
 import Canon.Span (Position (..), Span (..))
 import Canon.Version (Version, parseVersion, renderVersion)
+import Control.Concurrent (getNumCapabilities)
+import Control.Concurrent.Async (forConcurrently)
+import Control.Concurrent.QSem (newQSem, signalQSem, waitQSem)
+import Control.Exception (bracket_)
 import Control.Monad (forM, forM_)
 import Crypto.Hash.SHA256 (hash)
 import Data.Aeson (FromJSON (..), ToJSON (..), encode, object, withObject, (.:), (.:?), (.=))
@@ -129,11 +133,16 @@ renderVettingError e = case e of
   VettingUnreadable path message -> T.concat [T.pack path, ": ", message]
   VettingIsFile path -> T.concat [T.pack path, ": the vetting ledger is a directory with a file per kind and subject; delete this file and run canon ingest"]
 
--- | Reads every YAML file under the vetting directory, each keyed by its path within it.
+-- | Reads every YAML file under the vetting directory, each keyed by its path within it. The files
+-- are read and parsed at once, as many at a time as there are cores.
 readVettingDirectory :: FilePath -> IO (Either VettingError Vetting)
 readVettingDirectory dir = do
   paths <- yamlFilesUnder dir ""
-  results <- forM paths $ \p -> fmap ((,) p) <$> readVettingFile (dir </> p)
+  workers <- getNumCapabilities
+  slots <- newQSem (max 1 workers)
+  results <- forConcurrently paths $ \p -> bracket_ (waitQSem slots) (signalQSem slots) $ do
+    read' <- fmap ((,) p) <$> readVettingFile (dir </> p)
+    either (const (pure read')) (\(_, v) -> Map.size v `seq` pure read') read'
   pure (Vetting . Map.fromList <$> sequence results)
 
 yamlFilesUnder :: FilePath -> FilePath -> IO [FilePath]
@@ -299,9 +308,13 @@ verdictLines source = go Nothing (zip [1 ..] (T.lines source))
 
 -- | The signer of each verdict from a blame of its file, with the co-authors of the signing
 -- commit fetched once however many files name it, or an assertion when the line is uncommitted.
+-- The files are blamed at once, as many at a time as there are cores.
 assess :: GitProvider -> FilePath -> Map FilePath Text -> Vetting -> IO (Map VettingKey (Answer Assessment Evidence))
 assess provider dir sources (Vetting files) = do
-  blamedFiles <- forM (Map.toList files) $ \(p, entries) -> do
+  workers <- getNumCapabilities
+  slots <- newQSem (max 1 workers)
+  let bounded action = bracket_ (waitQSem slots) (signalQSem slots) action
+  blamedFiles <- forConcurrently (Map.toList files) $ \(p, entries) -> bounded $ do
     let source = Map.findWithDefault "" p sources
         path = dir </> p
         count = max 1 (length (T.lines source))
@@ -309,7 +322,7 @@ assess provider dir sources (Vetting files) = do
     let byLine = either (const Map.empty) (\ls -> Map.fromList [(blameFinalLine l, l) | l <- ls]) blamed
     pure (path, entries, verdictLines source, byLine)
   let signing = Map.fromList [(blameHash l, ()) | (_, _, _, byLine) <- blamedFiles, l <- Map.elems byLine, not (unsigned l)]
-  coAuthors <- Map.traverseWithKey (\h _ -> either (const []) trailerPersons <$> messageOf provider h) signing
+  coAuthors <- Map.fromList <$> forConcurrently (Map.keys signing) (\h -> bounded ((,) h . either (const []) trailerPersons <$> messageOf provider h))
   pure
     ( Map.unions
         [ Map.fromList [(k, answer path e (Map.lookup k lineOf) byLine coAuthors) | (k, e) <- Map.toList entries]

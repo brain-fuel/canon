@@ -1733,7 +1733,8 @@ stack test
 stack test --ta '-p property'
 stack exec canon -- version
 stack exec canon -- model grammars/antlr4/ANTLRv4Parser.g4
-stack exec canon -- check grammars/antlr4/ANTLRv4Parser.g4
+stack exec canon -- check
+stack exec canon -- check --all grammars/antlr4/ANTLRv4Parser.g4
 stack exec canon -- parse grammars/antlr4/canonically_commented/ANTLRv4Lexer.g4 grammars/antlr4/canonically_commented/ANTLRv4Parser.g4 grammarSpec grammars/antlr4/canonically_commented/ANTLRv4Parser.g4
 stack exec --cwd lang_samples/java-gson canon -- ingest
 stack exec --cwd lang_samples/java-gson canon -- vet
@@ -1744,15 +1745,16 @@ stack exec canon -- site _site
 `canon` is a command line tool. Running it with no arguments prints usage.
 `canon model` writes the model of a file to standard output as YAML
 and any extraction findings to standard error, using the language profile
-that owns the file's extension and the project's vetting verdicts. `canon check` prints every
-finding, one per line, and exits with status 1 if there are any. Both read
+that owns the file's extension and the project's vetting verdicts. `canon check` prints the
+findings on what changed since the last release, one per line, and exits with status 1 if any
+fails; `canon check --all` prints every finding of the project. Both read
 `canon.yaml` from the current directory when it exists. Who and When come from
 `git` on the path; without a repository the model is still emitted, with those
 answers empty and one finding saying so. `canon parse` interprets a lexer and
 parser grammar pair, or one combined grammar, and prints the parse tree of a
 file or the position where parsing fails.
 
-Run with no path, or with a directory, `canon check` walks the tree and checks
+Run with no path, or with a directory, `canon check --all` walks the tree and checks
 every file of a supported type it finds, and `canon files` lists what that
 walk would visit. Directories that never hold a project's own sources are
 skipped by default: version control metadata, `node_modules`,
@@ -1780,37 +1782,55 @@ once, informationally, rather than failing. A line not yet committed is never
 an author: a unit takes Who and When from its committed lines alone, and the
 file is reported once with the count of uncommitted lines.
 
-`canon check --base <side>` reports only the findings on what changed from that
+`canon check` reports the findings on what changed since the last release:
+the newest tag that HEAD holds and that matches `releases` in `canon.yaml`,
+`v*` by default. A project releases incrementally, and what it released was
+checked when it was, so this is the check CI and release preparation run.
+With no such tag the check fails and says to pass `--base` or `--all`; it
+never guesses a base. `canon check --all` reads every file, as `canon check`
+did before 0.3.0, and `canon vet --all` lists all the material owing a
+verdict.
+
+`canon check --base <side>` reports the findings on what changed from that
 side to the working tree, or to the side `--head` names. A side is a revision,
-`:index`, or `:worktree`; `--staged` compares HEAD with the index, and
-`--unstaged` the index with the working tree:
+`:release` (the default `--base`), `:index`, or `:worktree` (the default
+`--head`); `--staged` compares HEAD with the index, and `--unstaged` the index
+with the working tree:
 
 ```sh
+canon check                          # what changed since the last release
+canon check --all                    # every finding in the project
 canon check --base main              # this branch's changes, committed or not
 canon check --base v0.2.5 --head HEAD
 canon check --staged                 # what the next commit would carry
 canon check --unstaged
-canon vet --base main                # the changed material that needs a verdict
+canon vet                            # the changed material that needs a verdict
 ```
 
-Both sides are read in full, the index and commits from a snapshot canon
-writes to a temporary directory with `git restore`, which never touches the
-index, HEAD, or the working tree. A finding is kept when it lies in a file
+Both sides are read in full and at once, the index and commits from a
+snapshot canon writes to a temporary directory with `git restore`, which never
+touches the index, HEAD, or the working tree. A commit's snapshot is kept for
+the next check against it, the newest few per repository. A finding is kept when it lies in a file
 added or renamed, touches a changed line or a unit holding one, or is about
-material whose text or verdict changed; a finding with no file, such as a
-verdict a deleted file leaves orphaned, is kept when the earlier side did not
-have it; and a changed `canon.yaml` keeps everything. The last line says how
+material whose text or verdict changed; and a finding the earlier side did
+not have is kept wherever it lies, which covers a verdict a deleted file
+leaves orphaned and whatever a change to `canon.yaml`, the registry, or the
+ledger causes elsewhere. A release's version bump reports nothing by itself. The last line says how
 many findings were left outside the diff, and the exit code follows the kept
 findings alone.
 
-`canon check` parses files concurrently, and caches each file's extraction
-under `.canon-cache/` in the project directory, keyed by the file's content,
-the grammar and profile it was parsed with, the git revision, the file's
-own dirty state, the project's `git describe` output and tag list, the
-version in `canon.yaml`, and canon's own version, so a second run re-reads
-only what changed and nothing that reaches the model is left out of the key. The directory is ignored by the walk and by
-git, and can be deleted at any time. Who and When come from one `git blame`
-per file rather than one `git log` per unit.
+`canon check` reads and checks files concurrently, and caches each file's
+extraction under `.canon-cache/` in the project directory, keyed by what it
+depends on: the file's content, the grammar and profile it was parsed with,
+its path, whether git holds it, the commit that last changed it, and canon's
+own version. The project's version, `git describe`, and the release each unit
+first shipped in are put on after the cache from what git says once per run,
+so a commit, a tag, or a release elsewhere leaves an entry valid, and every
+side of the repository shares the one cache. Who and When come from one
+`git blame` per file, cached the same way. The directory is ignored by the
+walk and by git, and can be deleted at any time. On LawSpec, about 2,400
+files, a warm `canon check --all` takes about 6 seconds where 0.2.6 took
+over 2 minutes, and starts 8 git processes rather than about 5,800.
 
 `canon.yaml` names the registry under `registry` and the decision ledger
 under `decisions`, both defaulting to the files at the project root. It may
