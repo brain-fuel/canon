@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Built with `-fno-float-in` for every package, dependencies included
+  (`stack.yaml` `$everything`, `package.yaml`). GHC 9.14.1's Float inwards
+  pass can build ill-typed Core that computes wrong results at -O1; it
+  miscompiled code in LawSpec. (DEC-ghc-9-14)
+
 ## [0.3.0] - 2026-11-22
 
 ### Changed

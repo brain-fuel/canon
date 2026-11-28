@@ -22,3 +22,9 @@ allow-newer: true
 flags:
   process:
     os-string: true
+
+# GHC 9.14.1's Float inwards pass can capture an exit join point and build ill-typed
+# Core that computes wrong results at -O1, so it is off for every package, dependencies
+# included, until a fixed GHC ships. ref:DEC-ghc-9-14
+ghc-options:
+  "$everything": -fno-float-in
